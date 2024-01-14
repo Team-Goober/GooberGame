@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sprint.Commands
 {
-    internal class KeyOneAction
+    public class KeyOneAction
     {
     }
 }

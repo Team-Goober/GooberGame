@@ -2,6 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using Sprint.Commands;
+using Sprint.Controllers;
+using Sprint.Interfaces;
+
 namespace Sprint
 {
     public class Game1 : Game
@@ -32,10 +36,10 @@ namespace Sprint
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             // TODO: Add your update logic here
+            GameState game = new GameState(this);
+            IController keyboard = new KeyboardC(Keyboard.GetState(), game);
+            keyboard.UpdateInput();
 
             base.Update(gameTime);
         }
