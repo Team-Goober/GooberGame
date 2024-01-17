@@ -15,16 +15,16 @@ namespace Sprint.Commands
      */
     public class Quit : ICommand
     {
-        GameState game;
+        Game1 game;
 
-        public Quit(GameState newGame)
+        public Quit(Game1 newGame)
         {
             this.game = newGame;
         }
 
         public void Execute()
         {
-            this.game.Quit();
+            this.game.Exit();
         }
     }
 }

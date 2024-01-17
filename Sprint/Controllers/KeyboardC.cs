@@ -1,9 +1,14 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 using Sprint.Commands;
 using Sprint.Interfaces;
+using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,15 +20,18 @@ namespace Sprint.Controllers
     public class KeyboardC : IController
     {
         private KeyboardState oldState;
+        private ISprite sprite;
         private Dictionary<Keys, ICommand> keyActions;
 
-        public KeyboardC(KeyboardState newState, GameState game) 
+        public KeyboardC(Game1 game, ISprite sprite) 
         { 
-            this.oldState = newState;
+            this.oldState = Keyboard.GetState();
+
 
             keyActions = new Dictionary<Keys, ICommand>() 
             {
-                {Keys.D0, new Quit(game)}
+                {Keys.D0, new Quit(game)},
+                {Keys.D1, new Frozen(sprite)}
             };
         }
 
@@ -34,8 +42,13 @@ namespace Sprint.Controllers
             //Maybe Change
             foreach (Keys key in keys)
             {
-                keyActions[key].Execute();
+                if (keyActions.ContainsKey(key))
+                {
+                    keyActions[key].Execute();
+                }
             }
+
+            this.oldState = Keyboard.GetState();
         }
     }
 }
