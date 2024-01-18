@@ -10,7 +10,9 @@ namespace Sprint.Interfaces
 {
     public interface ISprite
     { 
-        void Update();
-        void DrawFrozen(Vector2 location);
+        void Update(GameTime gameTime);
+        void Draw(SpriteBatch spriteBatch, Vector2 location, string animation);
+        void DrawFrozen(SpriteBatch spriteBatch, Vector2 location);
+        void DrawRunning(SpriteBatch spriteBatch, Vector2 location);
     }
 }

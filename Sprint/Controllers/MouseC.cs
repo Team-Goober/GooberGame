@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Sprint.Commands;
 using Sprint.Interfaces;
 using System;
@@ -21,7 +22,7 @@ namespace Sprint.Controllers
             this.game = newGame;
         }
 
-        public void UpdateInput()
+        public void UpdateInput(GameTime gameTime)
         {
             if(oldState.RightButton == ButtonState.Pressed)
             {

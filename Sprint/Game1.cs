@@ -6,6 +6,7 @@ using Sprint.Controllers;
 using Sprint.Interfaces;
 using System.Collections;
 using Sprint.Sprite;
+using System.Diagnostics;
 
 namespace Sprint
 {
@@ -15,6 +16,7 @@ namespace Sprint
         private SpriteBatch _spriteBatch;
         //////////////////////////////////////////
         private Lugi lugi;
+        private string animation;
         //////////////////////////////////////////
         private ArrayList controllerList;
 
@@ -29,13 +31,10 @@ namespace Sprint
         {
             // TODO: Add your initialization logic here
             controllerList = new ArrayList(); 
-            
-            Texture2D texture = Content.Load<Texture2D>("lugi_left");
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            Lugi lugiInput = new Lugi(texture, _spriteBatch, 1, 4);
-
-            controllerList.Add(new KeyboardC(this, lugiInput));
+            controllerList.Add(new KeyboardC(this));
             controllerList.Add(new MouseC(this));
+
+            animation = "frozen";
 
             base.Initialize();
         }
@@ -46,9 +45,9 @@ namespace Sprint
 
             //////////////////////////////////////////
             Texture2D texture = Content.Load<Texture2D>("lugi_left");
-            lugi = new Lugi(texture, _spriteBatch, 1, 4);
+            lugi = new Lugi(texture, 1, 4);
             //////////////////////////////////////////
-            
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -58,12 +57,12 @@ namespace Sprint
 
             foreach (IController controller in controllerList)
             {
-                controller.UpdateInput();
+                controller.UpdateInput(gameTime);
             }
 
 
             //////////////////////////////////////////
-            lugi.Update();
+            lugi.Update(gameTime);
             //////////////////////////////////////////
             base.Update(gameTime);
         }
@@ -73,10 +72,16 @@ namespace Sprint
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
-            lugi.DrawFrozen(new Vector2(300, 200));
+            _spriteBatch.Begin();
+            lugi.Draw(_spriteBatch, new Vector2(300, 200), animation);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void SetAnimation(string newAnimation)
+        {
+            this.animation = newAnimation;
         }
     }
 }

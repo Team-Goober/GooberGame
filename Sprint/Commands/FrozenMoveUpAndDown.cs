@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,16 @@ namespace Sprint.Commands
 {
     public class FrozenMoveUpAndDown : ICommand
     {
+        Game1 game;
+
+        public FrozenMoveUpAndDown(Game1 newGame)
+        {
+            this.game = newGame;
+        }
         public void Execute()
         {
-            throw new NotImplementedException();
+            Debug.WriteLine("Key 3 is Executed");
+            this.game.SetAnimation("frozenUpDown");
         }
     }
 }
