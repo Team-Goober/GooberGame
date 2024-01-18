@@ -18,6 +18,9 @@ namespace Sprint
         private Lugi lugi;
         private string animation;
         //////////////////////////////////////////
+
+        private SpriteFont font;
+
         private ArrayList controllerList;
 
         public Game1()
@@ -30,6 +33,7 @@ namespace Sprint
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
             controllerList = new ArrayList(); 
             controllerList.Add(new KeyboardC(this));
             controllerList.Add(new MouseC(this));
@@ -44,9 +48,12 @@ namespace Sprint
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //////////////////////////////////////////
-            Texture2D texture = Content.Load<Texture2D>("lugi_left");
-            lugi = new Lugi(texture, 1, 4);
+            Texture2D texture = Content.Load<Texture2D>("lugi_left2");
+            Texture2D textureRight = Content.Load<Texture2D>("lugi_right");
+            lugi = new Lugi(texture, textureRight, 1, 4);
             //////////////////////////////////////////
+
+            font = Content.Load<SpriteFont>("Font");
 
             // TODO: use this.Content to load your game content here
         }
@@ -74,6 +81,9 @@ namespace Sprint
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             lugi.Draw(_spriteBatch, new Vector2(300, 200), animation);
+            _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
+            _spriteBatch.DrawString(font, "Program Made By: Bill Yang", new Vector2(10, 330), Color.Black);
+            _spriteBatch.DrawString(font, "Sprites from: www.mariomayhem.com/downloads/sprites/super_mario_bros_sprites.php", new Vector2(10, 360), Color.Black);
             _spriteBatch.End();
 
             base.Draw(gameTime);

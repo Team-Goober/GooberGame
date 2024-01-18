@@ -9,6 +9,7 @@ namespace Sprint.Sprite
     public class Lugi : ISprite
     {
         public Texture2D Texture;
+        public Texture2D TextureRight;
         public int Rows;
         public int Columns;
         public int currentFrame;
@@ -21,9 +22,10 @@ namespace Sprint.Sprite
         public bool reverseX;
         public bool reverseY;
 
-        public Lugi(Texture2D texture, int rows, int columns)
+        public Lugi(Texture2D texture, Texture2D textureRight, int rows, int columns)
         {
             this.Texture = texture;
+            this.TextureRight = textureRight;
             this.Rows = rows;
             this.Columns = columns;
             this.currentFrame = 0;
@@ -71,7 +73,13 @@ namespace Sprint.Sprite
 
             if(animation == "runningLeftRight")
             {
-                DrawRunningLeftAndRight(spriteBatch, location);
+                if(!reverseX)
+                {
+                    DrawRunningLeft(spriteBatch, location);
+                } else
+                {
+                    DrawRunningRight(spriteBatch, location);
+                }
             }
         }
 
@@ -140,7 +148,27 @@ namespace Sprint.Sprite
             spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
         }
 
-        public void DrawRunningLeftAndRight(SpriteBatch spriteBatch, Vector2 location)
+        public void DrawRunningLeft(SpriteBatch spriteBatch, Vector2 location)
+        {
+            int width = Texture.Width / Columns;
+            int height = Texture.Height / Rows;
+            int row = currentFrame / Columns;
+            int column = 3 - currentFrame % Columns;
+
+            posX -= 2;
+
+            Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+            Rectangle destinationRectangle = new Rectangle(posX, (int)location.Y, 100, 100);
+
+            spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+
+            if (posX < 0)
+            {
+                reverseX = true;
+            }
+        }
+
+        public void DrawRunningRight(SpriteBatch spriteBatch, Vector2 location)
         {
             int width = Texture.Width / Columns;
             int height = Texture.Height / Rows;
@@ -148,30 +176,18 @@ namespace Sprint.Sprite
             int column = 3 - currentFrame % Columns;
 
             int screenWidth = 720;
-
-            if (!reverseX)
-            {
-                posX += 2;
-            }
-            else
-            {
-                posX -= 2;
-            }
-
-            if (screenWidth == posX)
-            {
-                reverseX = true;
-            }
-            else if (-2 == posX)
-            {
-                reverseX = false;
-            }
+            
+            posX += 2;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
             Rectangle destinationRectangle = new Rectangle(posX, (int)location.Y, 100, 100);
 
+            spriteBatch.Draw(TextureRight, destinationRectangle, sourceRectangle, Color.White);
 
-            spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+            if (posX > screenWidth)
+            {
+                reverseX = false;
+            }
         }
     }
 }

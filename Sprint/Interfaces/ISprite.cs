@@ -13,6 +13,9 @@ namespace Sprint.Interfaces
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, Vector2 location, string animation);
         void DrawFrozen(SpriteBatch spriteBatch, Vector2 location);
+        void DrawFrozenMoveUpAndDown(SpriteBatch spriteBatch, Vector2 location);
         void DrawRunning(SpriteBatch spriteBatch, Vector2 location);
+        void DrawRunningLeft(SpriteBatch spriteBatch, Vector2 location);
+        void DrawRunningRight(SpriteBatch spriteBatch, Vector2 location);
     }
 }
