@@ -21,7 +21,6 @@ namespace Sprint.Controllers
     public class KeyboardC : IController
     {
         private KeyboardState oldState;
-        private ISprite sprite;
         private Dictionary<Keys, ICommand> keyActions;
 
         public KeyboardC(Game1 game) 

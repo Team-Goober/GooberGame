@@ -14,7 +14,6 @@ namespace Sprint.Controllers
     {
         private MouseState oldState;
         private Game1 game;
-        private Dictionary<Keys, ICommand> mouseActions;
         private int mousePosX;
         private int mousePosY;
 
