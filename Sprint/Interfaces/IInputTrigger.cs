@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Sprint.Interfaces
 {
-    internal interface IInput
+    internal interface IInputTrigger
     {
         
         // Update internal vars based on controllers

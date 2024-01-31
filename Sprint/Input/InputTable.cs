@@ -8,15 +8,15 @@ namespace Sprint.Input
     internal class InputTable : IInputMap
     {
 
-        private Dictionary<IInput, ICommand> inputMapping;
+        private Dictionary<IInputTrigger, ICommand> inputMapping;
 
         public InputTable()
         {
             // Create input map table
-            inputMapping = new Dictionary<IInput, ICommand>();
+            inputMapping = new Dictionary<IInputTrigger, ICommand>();
         }
 
-        public void RegisterMapping(IInput input, ICommand command)
+        public void RegisterMapping(IInputTrigger input, ICommand command)
         {
             // Add input to command pairing to table
             inputMapping[input] = command;
@@ -28,7 +28,7 @@ namespace Sprint.Input
             MouseState mouseState = Mouse.GetState();
 
             // Check all input triggers
-            foreach ((IInput input, ICommand command) in inputMapping)
+            foreach ((IInputTrigger input, ICommand command) in inputMapping)
             {
                 // Update state for input trigger
                 input.UpdateInput(gameTime, keyState, mouseState);
