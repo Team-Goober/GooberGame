@@ -29,7 +29,7 @@ namespace Sprint.Controllers
 
             keyActions = new Dictionary<Keys, ICommand>() 
             {
-                { Keys.D0, new Quit(game) },
+                { Keys.D0, new QuitCommand(game) },
                 { Keys.D1, new Frozen(game) },
                 { Keys.D2, new RunningInPlace(game) },
                 { Keys.D3, new  FrozenMoveUpAndDown(game) },

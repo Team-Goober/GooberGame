@@ -34,7 +34,7 @@ namespace Sprint.Controllers
         {
             if(oldState.RightButton == ButtonState.Pressed)
             {
-                ICommand quit = new Quit(game);
+                ICommand quit = new QuitCommand(game);
                 quit.Execute();
             }
 
