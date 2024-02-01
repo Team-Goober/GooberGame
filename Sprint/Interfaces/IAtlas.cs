@@ -10,6 +10,12 @@ namespace Sprint.Interfaces
         // Set number of frames displayed per second
         void SetFramerate(int fps);
 
+        // Position within rectangle to treat as center for drawing
+        public Vector2 CurrentCenterPoint();
+
+        // Multiplier for amount of time to linger on this frame
+        public float CurrentDuration();
+
         // Get bounds of current frame on spritesheet
         Rectangle CurrentFrame();
 
