@@ -189,5 +189,25 @@ namespace Sprint.Sprite
                 reverseX = false;
             }
         }
+
+        public void RegisterAnimation(string label, IAtlas atlas)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetAnimation(string label)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetScale(float scale)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

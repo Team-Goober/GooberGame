@@ -6,6 +6,9 @@ namespace Sprint.Interfaces
     public interface ISprite
     {
 
+        // Set scale multiplier for drawing
+        void SetScale(float scale);
+
         // Register atlas for animation under label
         void RegisterAnimation(string label, IAtlas atlas);
 
