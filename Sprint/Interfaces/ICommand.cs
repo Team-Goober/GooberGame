@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sprint.Interfaces
+﻿namespace Sprint.Interfaces
 {
     public interface ICommand
     {
+
+        // Run the command
         void Execute();
     }
 }

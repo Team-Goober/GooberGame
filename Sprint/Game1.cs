@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using Sprint.Controllers;
+using Sprint.Input;
 using Sprint.Interfaces;
 using System.Collections;
 using Sprint.Sprite;
@@ -18,10 +18,9 @@ namespace Sprint
         private Lugi lugi;
         private string animation;
         //////////////////////////////////////////
+        private IInputMap inputTable;
 
         private SpriteFont font;
-
-        private ArrayList controllerList;
 
         public Game1()
         {
@@ -32,13 +31,10 @@ namespace Sprint
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
-            controllerList = new ArrayList(); 
-            controllerList.Add(new KeyboardC(this));
-            controllerList.Add(new MouseC(this));
 
             animation = "frozen";
+
+            inputTable = new InputTable();
 
             base.Initialize();
         }
@@ -54,23 +50,15 @@ namespace Sprint
             //////////////////////////////////////////
 
             font = Content.Load<SpriteFont>("Font");
-
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
-
-            foreach (IController controller in controllerList)
-            {
-                controller.UpdateInput(gameTime);
-            }
-
 
             //////////////////////////////////////////
             lugi.Update(gameTime);
             //////////////////////////////////////////
+            inputTable.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -78,7 +66,6 @@ namespace Sprint
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
             _spriteBatch.Begin();
             lugi.Draw(_spriteBatch, new Vector2(300, 200), animation);
             _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);

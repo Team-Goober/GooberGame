@@ -85,7 +85,6 @@ namespace Sprint.Sprite
 
         public void DrawFrozen(SpriteBatch spriteBatch, Vector2 location)
         {
-            Debug.WriteLine("Key 1 is Pressed!");
 
             int width = Texture.Width / Columns;
             int height = Texture.Height / Rows;
@@ -100,7 +99,6 @@ namespace Sprint.Sprite
 
         public void DrawRunning(SpriteBatch spriteBatch, Vector2 location)
         {
-            Debug.WriteLine("Key 2 is Pressed!");
 
             int width = Texture.Width / Columns;
             int height = Texture.Height / Rows;
