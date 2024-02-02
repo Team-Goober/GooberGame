@@ -1,21 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sprint.Interfaces
 {
     public interface ISprite
-    { 
-        void Update(GameTime gameTime);
-        void Draw(SpriteBatch spriteBatch, Vector2 location, string animation);
-        void DrawFrozen(SpriteBatch spriteBatch, Vector2 location);
-        void DrawFrozenMoveUpAndDown(SpriteBatch spriteBatch, Vector2 location);
-        void DrawRunning(SpriteBatch spriteBatch, Vector2 location);
-        void DrawRunningLeft(SpriteBatch spriteBatch, Vector2 location);
-        void DrawRunningRight(SpriteBatch spriteBatch, Vector2 location);
+    {
+
+        // Set scale multiplier for drawing
+        void SetScale(float scale);
+
+        // Register atlas for animation under label
+        void RegisterAnimation(string label, IAtlas atlas);
+
+        // Set currently playing animation using label
+        void SetAnimation(string label);
+
+        // Draw Sprite to given sprite batch at location
+        void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime);
     }
 }
