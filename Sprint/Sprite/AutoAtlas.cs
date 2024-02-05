@@ -52,7 +52,7 @@ namespace Sprint.Sprite
             looping = loop;
         }
 
-        public void SetFramerate(int fps)
+        public void SetFramerate(float fps)
         {
             this.fps = fps;
         }

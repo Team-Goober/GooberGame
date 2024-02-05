@@ -8,7 +8,7 @@ namespace Sprint.Interfaces
         void SetLooping(bool loop);
 
         // Set number of frames displayed per second
-        void SetFramerate(int fps);
+        void SetFramerate(float fps);
 
         // Position within rectangle to treat as center for drawing
         public Vector2 CurrentCenterPoint();
