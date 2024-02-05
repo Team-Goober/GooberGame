@@ -75,7 +75,7 @@ namespace Sprint.Testing
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             // draw sprite
             sprite.Draw(_spriteBatch, new Vector2(300, 200), gameTime);
             _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
