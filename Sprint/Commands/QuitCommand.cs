@@ -1,13 +1,14 @@
-﻿using Sprint.Interfaces;
+﻿using Microsoft.Xna.Framework;
+using Sprint.Interfaces;
 
 namespace Sprint.Commands
 {
 
     public class QuitCommand : ICommand
     {
-        private Game1 receiver;
+        private Game receiver;
 
-        public QuitCommand(Game1 game)
+        public QuitCommand(Game game)
         {
             receiver = game;
         }

@@ -4,14 +4,14 @@ using Sprint.Interfaces;
 
 namespace Sprint.Input
 {
-    internal class SingleKeyPressTrigger : IInputTrigger
+    internal class SingleKeyReleaseTrigger : IInputTrigger
     {
 
         private Keys key; // Key to check for press
         private bool heldPreviously; // Whether last cycle was pressed
         private bool triggered; // Whether all requirements have been satisfied this cycle
 
-        public SingleKeyPressTrigger(Keys key)
+        public SingleKeyReleaseTrigger(Keys key)
         {
             this.key = key;
             this.heldPreviously = false;
@@ -28,8 +28,8 @@ namespace Sprint.Input
 
             bool pressed = keys.IsKeyDown(key);
 
-            // Trigger only when press is begun
-            triggered = pressed && !heldPreviously;
+            // Trigger only when press is ended
+            triggered = !pressed && heldPreviously;
 
             heldPreviously = pressed;
         }
