@@ -16,6 +16,7 @@ namespace Sprint.Testing
 
         public void Execute()
         {
+            // Set the sprite's current animation
             receiver.SetAnimation(anim);
         }
     }

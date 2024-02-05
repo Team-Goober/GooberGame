@@ -59,14 +59,14 @@ namespace Sprint.Testing
             sprite.RegisterAnimation("fall", stillAnim);
 
             // animation based on calculated grid atlas on spritesheet
-            IAtlas gridAnim = new AutoAtlas(new Rectangle(239, 0, 77, 16), 1, 3, 13, true, 10);
+            IAtlas gridAnim = new AutoAtlas(new Rectangle(239, 0, 77, 16), 1, 3, 13, true, 8);
             sprite.RegisterAnimation("walk", gridAnim);
 
             // animation set by individually defining frames
-            Rectangle[] rects = { new Rectangle(330, 0, 16, 16), new Rectangle(270, 30, 16, 16), new Rectangle(359, 0, 17, 17), new Rectangle(270, 30, 16, 16), };
-            Vector2[] centers = { new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0)};
-            float[] durs = { 2.0f, 1.0f, 2.0f, 1.0f };
-            IAtlas definedAnim = new ManualAtlas(rects, centers, durs, true, 10);
+            Rectangle[] rects = { new Rectangle(270, 30, 16, 16), new Rectangle(359, 0, 17, 17), new Rectangle(270, 30, 16, 16), new Rectangle(330, 0, 16, 16) };
+            Vector2[] centers = { new Vector2(0, 0), new Vector2(0, 2), new Vector2(0, 0), new Vector2(0, 0) };
+            float[] durs = { 1.0f, 3.0f, 1.0f, 2.0f };
+            IAtlas definedAnim = new ManualAtlas(rects, centers, durs, true, 12);
             sprite.RegisterAnimation("punch", definedAnim);
 
             // set defaults for sprite
@@ -78,6 +78,13 @@ namespace Sprint.Testing
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ChangeAnimCommand(sprite, "walk"));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ChangeAnimCommand(sprite, "punch"));
 
+            // commands to make luigi stop running when backspace held
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Back), new ChangeLoopingCommand(gridAnim, false));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.Back), new ChangeLoopingCommand(gridAnim, true));
+
+            // command to make luigi start punch over when backspace pressed
+            definedAnim.SetLooping(false);
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Back), new ResetAnimCommand(definedAnim));
 
             font = Content.Load<SpriteFont>("Font");
         }
