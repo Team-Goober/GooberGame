@@ -15,9 +15,6 @@ namespace Sprint.Input
         {
             // Create input map table
             inputMapping = new Dictionary<IInputTrigger, ICommand>();
-
-            //TODO: load from file instead of hardcoded mappings
-            RegisterMapping(new SingleKeyPressTrigger(Keys.P), new DebugPrintCommand("Wow."));
         }
 
         public void RegisterMapping(IInputTrigger input, ICommand command)

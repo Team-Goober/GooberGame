@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using Microsoft.Xna.Framework.Input;
+using Sprint.Commands;
 using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Sprite;
@@ -27,6 +28,9 @@ namespace Sprint.Testing
         {
             // create input mapping object
             inputTable = new InputTable();
+
+            // register quit command
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new QuitCommand(this));
 
             base.Initialize();
         }
@@ -55,7 +59,7 @@ namespace Sprint.Testing
             sprite.RegisterAnimation("punch", definedAnim);
 
             sprite.SetAnimation("fall");
-
+            sprite.SetScale(4.0f);
 
             font = Content.Load<SpriteFont>("Font");
         }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprint.Sprite
 {
@@ -9,7 +10,7 @@ namespace Sprint.Sprite
     {
 
         private Texture2D texture;
-        private float scale;
+        private float scale = 1.0f;
         private Dictionary<string, IAtlas> animations;
         private IAtlas currentAnimation;
 
