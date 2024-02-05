@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Interfaces;
+
 namespace Sprint.Input
 {
     internal class SingleKeyPressTrigger : IInputTrigger
