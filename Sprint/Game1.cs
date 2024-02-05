@@ -7,6 +7,7 @@ using Sprint.Interfaces;
 using System.Collections;
 using Sprint.Sprite;
 using System.Diagnostics;
+using Sprint.Commands;
 
 namespace Sprint
 {
@@ -14,11 +15,10 @@ namespace Sprint
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        //////////////////////////////////////////
-        private Lugi lugi;
-        private string animation;
-        //////////////////////////////////////////
+
         private IInputMap inputTable;
+
+        private CycleItem items;
 
         private SpriteFont font;
 
@@ -32,7 +32,6 @@ namespace Sprint
         protected override void Initialize()
         {
 
-            animation = "frozen";
 
             inputTable = new InputTable();
 
@@ -43,11 +42,10 @@ namespace Sprint
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //////////////////////////////////////////
-            Texture2D texture = Content.Load<Texture2D>("lugi_left2");
-            Texture2D textureRight = Content.Load<Texture2D>("lugi_right");
-            lugi = new Lugi(texture, textureRight, 1, 4);
-            //////////////////////////////////////////
+            items = new CycleItem(this);
+
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
 
             font = Content.Load<SpriteFont>("Font");
         }
@@ -55,19 +53,17 @@ namespace Sprint
         protected override void Update(GameTime gameTime)
         {
 
-            //////////////////////////////////////////
-            lugi.Update(gameTime);
-            //////////////////////////////////////////
+
             inputTable.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Aquamarine);
 
             _spriteBatch.Begin();
-            lugi.Draw(_spriteBatch, new Vector2(300, 200), animation);
+            items.Draw(_spriteBatch, gameTime);
             _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
             _spriteBatch.DrawString(font, "Program Made By: Bill Yang", new Vector2(10, 330), Color.Black);
             _spriteBatch.DrawString(font, "Sprites from: www.mariomayhem.com/downloads/sprites/super_mario_bros_sprites.php", new Vector2(10, 360), Color.Black);
@@ -76,9 +72,5 @@ namespace Sprint
             base.Draw(gameTime);
         }
 
-        public void SetAnimation(string newAnimation)
-        {
-            this.animation = newAnimation;
-        }
     }
 }
