@@ -48,7 +48,7 @@ namespace Sprint.Sprite
             this.fps = fps;
         }
 
-        public void Update(GameTime gameTime)
+        public void PassTime(GameTime gameTime)
         {
             // Switch frames if needed and based on framerate
             if (CurrentDuration() > 0 && fps > 0

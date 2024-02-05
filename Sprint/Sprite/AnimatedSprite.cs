@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Sprint.Sprite
 {
-    internal class Sprite : ISprite
+    internal class AnimatedSprite : ISprite
     {
 
         private Texture2D texture;
@@ -13,7 +13,7 @@ namespace Sprint.Sprite
         private Dictionary<string, IAtlas> animations;
         private IAtlas currentAnimation;
 
-        public Sprite(Texture2D texture)
+        public AnimatedSprite(Texture2D texture)
         {
             this.texture = texture;
             animations = new Dictionary<string, IAtlas>();
@@ -36,6 +36,13 @@ namespace Sprint.Sprite
 
         public void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime)
         {
+            // No animation set, so don't draw
+            if (currentAnimation == null) {
+                return;
+            }
+
+            currentAnimation.PassTime(gameTime);
+
             // Get spritesheet bounds of current frame from atlas
             Rectangle sourceRectangle = currentAnimation.CurrentFrame();
             // Calculate game position to draw sprite at

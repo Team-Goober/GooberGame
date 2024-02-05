@@ -20,7 +20,7 @@ namespace Sprint.Interfaces
         Rectangle CurrentFrame();
 
         // Check whether frame should be changed each update cycle
-        void Update(GameTime gameTime);
+        void PassTime(GameTime gameTime);
 
         // Return animation to first frame
         void Reset();

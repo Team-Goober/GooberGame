@@ -46,7 +46,7 @@ namespace Sprint.Sprite
             // Looping is not relevant
         }
 
-        public void Update(GameTime gameTime)
+        public void PassTime(GameTime gameTime)
         {
             // No need to update
         }
