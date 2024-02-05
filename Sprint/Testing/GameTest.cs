@@ -10,6 +10,12 @@ namespace Sprint.Testing
 {
     public class GameTest : Game
     {
+
+        /*
+         *  This game is for testing and demonstrating systems
+         *  Run it by adding "test" as a command line argument
+         */
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private ISprite sprite;
@@ -31,6 +37,11 @@ namespace Sprint.Testing
 
             // register quit command
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new QuitCommand(this));
+
+            // register print commands
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Space), new DebugPrintCommand("Press"));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Space), new DebugPrintCommand("Hold"));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.Space), new DebugPrintCommand("Release"));
 
             base.Initialize();
         }
@@ -58,8 +69,15 @@ namespace Sprint.Testing
             IAtlas definedAnim = new ManualAtlas(rects, centers, durs, true, 10);
             sprite.RegisterAnimation("punch", definedAnim);
 
+            // set defaults for sprite
             sprite.SetAnimation("fall");
             sprite.SetScale(4.0f);
+
+            // register sprite commands
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ChangeAnimCommand(sprite, "fall"));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ChangeAnimCommand(sprite, "walk"));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ChangeAnimCommand(sprite, "punch"));
+
 
             font = Content.Load<SpriteFont>("Font");
         }
