@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Sprint": {
+      "commandName": "Project",
+      "commandLineArgs": "test"
+    }
+  }
+}
