@@ -20,7 +20,7 @@ namespace Sprint
         private IInputMap inputTable;
 
         private CycleItem items;
-
+        private EnemyManager enemyManager;
         private SpriteFont font;
 
         public Game1()
@@ -43,6 +43,7 @@ namespace Sprint
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             items = new CycleItem(this);
+            enemyManager = new EnemyManager(this);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -55,6 +56,10 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.D), new MoveRight(moveSystems));
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.W), new MoveUp(moveSystems));
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.S), new MoveDown(moveSystems));
+
+            //Enemy cycling
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemyManager));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemyManager));
 
 
         }
@@ -74,6 +79,7 @@ namespace Sprint
 
             _spriteBatch.Begin();
             moveSystems.Draw(_spriteBatch, gameTime);
+            enemyManager.Draw(_spriteBatch, new Vector2(500, 300), gameTime);
             items.Draw(_spriteBatch, gameTime);
             _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
             _spriteBatch.DrawString(font, "Program Made By: Bill Yang", new Vector2(10, 330), Color.Black);
