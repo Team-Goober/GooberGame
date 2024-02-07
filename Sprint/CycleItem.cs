@@ -15,7 +15,7 @@ namespace Sprint
         private List<ISprite> sprites = new List<ISprite>();
         private int position;
 
-        public CycleItem(Game1 game) 
+        public CycleItem(Game1 game)
         {
             position = 0;
 
