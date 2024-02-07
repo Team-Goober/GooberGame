@@ -1,5 +1,6 @@
 ﻿using Sprint.Interfaces;
 
+
 namespace Sprint.Commands
 {
     internal class MoveUp : ICommand
