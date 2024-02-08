@@ -23,7 +23,7 @@ namespace Sprint.Projectile
         { 
             // Start of projectile with correct initial position and velocity
             Vector2 velocity = Vector2.Normalize(direction) * speed;
-            IEntity proj = new SimpleProjectile(projSprite, position + velocity * 10, velocity);
+            IEntity proj = new SimpleProjectile(projSprite, position, velocity);
 
             // Add projectile to game's entity manager
             entityManager.AddEntity(proj);

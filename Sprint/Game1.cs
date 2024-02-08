@@ -8,6 +8,7 @@ using System.Collections;
 using Sprint.Sprite;
 using System.Diagnostics;
 using Sprint.Commands;
+using Sprint.Projectile;
 
 namespace Sprint
 {
@@ -66,6 +67,16 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemyManager));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemyManager));
 
+
+            // Shooting projectile
+            Texture2D itemSheet = Content.Load<Texture2D>("zelda_items");
+            ISprite projSprite = new AnimatedSprite(itemSheet);
+            IAtlas projAtlas = new SingleAtlas(new Rectangle(5, 0, 5, 16), new Vector2(3, 8));
+            projSprite.RegisterAnimation("def", projAtlas);
+            projSprite.SetAnimation("def");
+            projSprite.SetScale(4);
+            IProjectileFactory projFactory = new SimpleProjectileFactory(entityManager, projSprite, 100, new Vector2(300, 300));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootCommand(projFactory));
 
         }
 

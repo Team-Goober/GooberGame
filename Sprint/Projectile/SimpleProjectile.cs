@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
+using System.Diagnostics;
 
 namespace Sprint.Projectile
 {
@@ -26,7 +27,7 @@ namespace Sprint.Projectile
         public void Update(GameTime gameTime)
         {
             // Move linearly
-            position += velocity * (float)(gameTime.ElapsedGameTime.TotalMilliseconds);
+            position += velocity * (float)(gameTime.ElapsedGameTime.TotalSeconds);
         }
     }
 }
