@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 
 namespace Sprint.Projectile
@@ -10,6 +11,7 @@ namespace Sprint.Projectile
         float speed;
         Vector2 position;
         EntityManager entityManager;
+        private Vector2 direction;
 
         public SimpleProjectileFactory(EntityManager entityManager, ISprite projSprite, float speed, Vector2 position)
         {
@@ -19,10 +21,15 @@ namespace Sprint.Projectile
             this.entityManager = entityManager;
         }
 
-        public void Create(Vector2 direction)
+        public void SetDirection(Vector2 newDirection)
+        {
+            this.direction = newDirection;
+        }
+
+        public void Create()
         { 
             // Start of projectile with correct initial position and velocity
-            Vector2 velocity = Vector2.Normalize(direction) * speed;
+            Vector2 velocity = Vector2.Normalize(this.direction) * speed;
             IEntity proj = new SimpleProjectile(projSprite, position, velocity);
 
             // Add projectile to game's entity manager

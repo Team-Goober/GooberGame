@@ -18,11 +18,8 @@ namespace Sprint
         //gets position of the sprite
         public MoveSystems(Game1 game, Vector2 posChar)
         {
-
             this.spriteLocation = posChar;
-
         }
-
 
         public void MoveLeft()
         {
@@ -47,10 +44,6 @@ namespace Sprint
             //Moves the sprite down
             this.spriteLocation.Y += 5;
         }
-
-
-
-
     }
 }
 

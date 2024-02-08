@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Sprint.Interfaces;
 using Sprint.Sprite;
-using System;
 
 
 namespace Sprint
@@ -25,15 +23,12 @@ namespace Sprint
         private IAtlas currentAnimation;
         private int position;
         private ISprite currAnimation;
+        private Vector2 updateSpriteLocation;
         
-
-
 
         //declares the move systems for the main character sprite
         public MainCharacter(Game1 game)
         {
-
-
             //loads the sprite animation from content
             Texture2D leftZelda = game.Content.Load<Texture2D>("Sprite/ZeldaSpriteLinkLeft");
             ISprite spriteZelda = new AnimatedSprite(leftZelda);
@@ -50,18 +45,10 @@ namespace Sprint
             //keyAnimations.Add("leftWalk", spriteZelda);
 
             sprites.Add(spriteZelda);
-
-
-
         }
-
-
-
-
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 spriteLocation)
         {
-
             //Draws sprite animation using AnimationSprite class
             sprites[position].Draw(spriteBatch, spriteLocation, gameTime);
         }
