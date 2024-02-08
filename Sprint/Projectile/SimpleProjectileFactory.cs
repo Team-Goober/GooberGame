@@ -1,5 +1,5 @@
-﻿using Sprint.Interfaces;
-using System.Numerics;
+﻿using Microsoft.Xna.Framework;
+using Sprint.Interfaces;
 
 namespace Sprint.Projectile
 {
@@ -9,18 +9,24 @@ namespace Sprint.Projectile
         ISprite projSprite;
         float speed;
         Vector2 position;
+        EntityManager entityManager;
 
-        public SimpleProjectileFactory(ISprite projSprite, float speed, Vector2 position)
+        public SimpleProjectileFactory(EntityManager entityManager, ISprite projSprite, float speed, Vector2 position)
         {
             this.projSprite = projSprite;
             this.speed = speed;
             this.position = position;
+            this.entityManager = entityManager;
         }
 
         public void Create(Vector2 direction)
-        {
+        { 
+            // Start of projectile with correct initial position and velocity
             Vector2 velocity = Vector2.Normalize(direction) * speed;
-            IProjectile proj = new SimpleProjectile(projSprite, position + velocity * 10, velocity);
+            IEntity proj = new SimpleProjectile(projSprite, position + velocity * 10, velocity);
+
+            // Add projectile to game's entity manager
+            entityManager.AddEntity(proj);
         }
 
         public void SetStartPosition(Vector2 pos)

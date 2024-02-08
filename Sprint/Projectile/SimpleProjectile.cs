@@ -4,7 +4,7 @@ using Sprint.Interfaces;
 
 namespace Sprint.Projectile
 {
-    internal class SimpleProjectile : IProjectile
+    internal class SimpleProjectile : IEntity
     {
 
         ISprite sprite;
