@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
+using System;
 using System.Diagnostics;
 
 namespace Sprint.Projectile
@@ -21,7 +22,8 @@ namespace Sprint.Projectile
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            sprite.Draw(spriteBatch, position, gameTime);
+            float rotation = (float)Math.Atan2(velocity.Y, velocity.X);
+            sprite.Draw(spriteBatch, position, gameTime, rotation);
         }
 
         public void Update(GameTime gameTime)

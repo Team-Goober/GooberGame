@@ -71,7 +71,7 @@ namespace Sprint
             // Shooting projectile
             Texture2D itemSheet = Content.Load<Texture2D>("zelda_items");
             ISprite projSprite = new AnimatedSprite(itemSheet);
-            IAtlas projAtlas = new SingleAtlas(new Rectangle(5, 0, 5, 16), new Vector2(3, 8));
+            IAtlas projAtlas = new SingleAtlas(new Rectangle(0, 45, 16, 5), new Vector2(3, 8));
             projSprite.RegisterAnimation("def", projAtlas);
             projSprite.SetAnimation("def");
             projSprite.SetScale(4);
