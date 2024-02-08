@@ -63,6 +63,11 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.W), new MoveUp(moveSystems));
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.S), new MoveDown(moveSystems));
 
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Left), new MoveLeft(moveSystems));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Right), new MoveRight(moveSystems));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Up), new MoveUp(moveSystems));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Down), new MoveDown(moveSystems));
+
             //Enemy cycling
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemyManager));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemyManager));
