@@ -35,7 +35,7 @@ namespace Sprint.Sprite
             currentAnimation = animations[label];
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime, float rotation = 0f)
         {
             // No animation set, so don't draw
             if (currentAnimation == null) {
@@ -47,10 +47,11 @@ namespace Sprint.Sprite
             // Get spritesheet bounds of current frame from atlas
             Rectangle sourceRectangle = currentAnimation.CurrentFrame();
             // Calculate game position to draw sprite at
-            Vector2 drawPos = location - currentAnimation.CurrentCenterPoint() * scale;
+            Vector2 center = currentAnimation.CurrentCenterPoint();
+            Vector2 drawPos = location -  center * scale;
             Rectangle destinationRectangle = new Rectangle((int)(drawPos.X), (int)(drawPos.Y), (int)(scale * sourceRectangle.Width), (int)(scale * sourceRectangle.Height));
 
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White, rotation, center * scale, SpriteEffects.None, 0f);
         }
 
     }

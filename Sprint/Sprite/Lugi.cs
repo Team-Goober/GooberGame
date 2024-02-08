@@ -198,7 +198,7 @@ namespace Sprint.Sprite
             throw new System.NotImplementedException();
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime, float rotation = 0)
         {
             throw new System.NotImplementedException();
         }

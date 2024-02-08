@@ -8,6 +8,7 @@ using System.Collections;
 using Sprint.Sprite;
 using System.Diagnostics;
 using Sprint.Commands;
+using Sprint.Projectile;
 
 namespace Sprint
 {
@@ -25,6 +26,8 @@ namespace Sprint
         private SpriteFont font;
         private Vector2 characterLoc = new Vector2(100, 100);
 
+        private EntityManager entityManager;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -35,7 +38,7 @@ namespace Sprint
         protected override void Initialize()
         {
 
-
+            entityManager = new EntityManager();
             inputTable = new InputTable();
             base.Initialize();
         }
@@ -65,6 +68,16 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemyManager));
 
 
+            // Shooting projectile
+            Texture2D itemSheet = Content.Load<Texture2D>("zelda_items");
+            ISprite projSprite = new AnimatedSprite(itemSheet);
+            IAtlas projAtlas = new SingleAtlas(new Rectangle(0, 45, 16, 5), new Vector2(3, 8));
+            projSprite.RegisterAnimation("def", projAtlas);
+            projSprite.SetAnimation("def");
+            projSprite.SetScale(4);
+            IProjectileFactory projFactory = new SimpleProjectileFactory(entityManager, projSprite, 100, new Vector2(300, 300));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootCommand(projFactory));
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -73,6 +86,7 @@ namespace Sprint
 
 
             inputTable.Update(gameTime);
+            entityManager.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -86,6 +100,9 @@ namespace Sprint
             mainCharacter.Draw(_spriteBatch, gameTime, moveSystems.spriteLocation);
             enemyManager.Draw(_spriteBatch, new Vector2(500, 300), gameTime);
             items.Draw(_spriteBatch, gameTime);
+
+            entityManager.Draw(_spriteBatch, gameTime);
+
             _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
             _spriteBatch.DrawString(font, "Program Made By: Bill Yang", new Vector2(10, 330), Color.Black);
             _spriteBatch.DrawString(font, "Sprites from: www.mariomayhem.com/downloads/sprites/super_mario_bros_sprites.php", new Vector2(10, 360), Color.Black);
