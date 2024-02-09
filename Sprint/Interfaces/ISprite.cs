@@ -16,6 +16,6 @@ namespace Sprint.Interfaces
         void SetAnimation(string label);
 
         // Draw Sprite to given sprite batch at location
-        void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime);
+        void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime, float rotation = 0);
     }
 }
