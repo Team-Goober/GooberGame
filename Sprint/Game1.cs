@@ -27,8 +27,12 @@ namespace Sprint
         private SpriteFont font;
         private Vector2 characterLoc = new Vector2(100, 100);
 
+
+        private ProjectileSystem ps;
+
         //list for directions of sprites. directionList[0] is for main character
         private List<string> directionList = new List<string>() {"still" };
+
 
 
 
@@ -45,7 +49,6 @@ namespace Sprint
 
         protected override void Initialize()
         {
-
             entityManager = new EntityManager();
             inputTable = new InputTable();
            
@@ -59,6 +62,7 @@ namespace Sprint
 
             items = new CycleItem(this);
             enemyManager = new EnemyManager(this);
+
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -84,14 +88,7 @@ namespace Sprint
 
 
             // Shooting projectile
-            Texture2D itemSheet = Content.Load<Texture2D>("zelda_items");
-            ISprite projSprite = new AnimatedSprite(itemSheet);
-            IAtlas projAtlas = new SingleAtlas(new Rectangle(0, 45, 16, 5), new Vector2(3, 8));
-            projSprite.RegisterAnimation("def", projAtlas);
-            projSprite.SetAnimation("def");
-            projSprite.SetScale(4);
-            IProjectileFactory projFactory = new SimpleProjectileFactory(entityManager, projSprite, 100, new Vector2(300, 300));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootCommand(projFactory));
+            ps = new ProjectileSystem(Content, entityManager, inputTable, moveSystems);
 
         }
 
@@ -102,6 +99,7 @@ namespace Sprint
 
             inputTable.Update(gameTime);
             entityManager.Update(gameTime);
+            ps.UpdatePostion();
             base.Update(gameTime);
         }
 

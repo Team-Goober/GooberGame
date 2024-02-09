@@ -16,7 +16,7 @@ namespace Sprint.Commands
 
         public void Execute()
         {
-            factory.Create(new Vector2(1, 1));
+            factory.Create();
         }
     }
 }

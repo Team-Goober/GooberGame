@@ -19,13 +19,12 @@ namespace Sprint
         //gets position of the sprite
         public MoveSystems(Game1 game, Vector2 posChar, List<string> directionList)
         {
-
             this.spriteLocation = posChar;
+
             this.directionList = directionList;
             
 
         }
-
 
         public void MoveLeft()
         {
@@ -60,10 +59,6 @@ namespace Sprint
             this.directionList[0] = "down";
 
         }
-
-
-
-
     }
 }
 
