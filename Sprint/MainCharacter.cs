@@ -17,13 +17,9 @@ namespace Sprint
         private float scale = 1.0f;
 
         //Dictionary to store the sprite animations
-        //!!FIXME Im not sure if it will be better to use a list or a dictionary
-        //private Dictionary<string, ISprite> keyAnimations = new Dictionary<string, ISprite>();
+        private Dictionary<string, ISprite> charAnimations = new Dictionary<string, ISprite>();
 
-        //FIXME!! Might have to change this to dictionary in the future
-        private List<ISprite> sprites = new List<ISprite>();
         private IAtlas currentAnimation;
-        private int position;
         private ISprite currAnimation;
         
 
@@ -34,24 +30,65 @@ namespace Sprint
         {
 
 
-            //loads the sprite animation from content
-            Texture2D leftZelda = game.Content.Load<Texture2D>("Sprite/ZeldaSpriteLinkLeft");
-            ISprite spriteZelda = new AnimatedSprite(leftZelda);
+            //Loads sprite sheet for link
+            Texture2D zeldaSheet = game.Content.Load<Texture2D>("zelda_links");
+            ISprite zeldaSprite = new AnimatedSprite(zeldaSheet);
 
-            //Implements the animation of sprite walking left
-            //FIXME!! I will have to change this to a walking animation using AutoAtlas
-            IAtlas leftZeldaAni = new SingleAtlas(new Rectangle(0, 0, 8, 16), new Vector2(8, 8));
-            spriteZelda.RegisterAnimation("leftZelda", leftZeldaAni);
+            //declares autoatlas on the location of animation down
+            //0, 0, 16, 47 is the coordinates of the x, y for down animation in sprite sheet
+            //Important: the second part 16, 47 is the width and height of sprite. For instance is the sprite size is 
+            //22x47, then you have to state that in the second part of the rectangle
+            //the next 2, 1 is the rows and cols of the sprites
+            //the next 2 is the padding between sprites
+            //true (boolean) is whether animation should loop
+            //5 is the speed 
+            IAtlas downAtlas = new AutoAtlas(new Rectangle(0,0,22,47), 2, 1, 2, true, 5);
+            zeldaSprite.RegisterAnimation("down", downAtlas);
 
-            spriteZelda.SetAnimation("leftZelda");
-            spriteZelda.SetScale(3);
+            zeldaSprite.SetAnimation("down");
+            zeldaSprite.SetScale(3);
 
-            //Adds the sprite animation to the dictionary
-            //keyAnimations.Add("leftWalk", spriteZelda);
-
-            sprites.Add(spriteZelda);
+            charAnimations.Add("down", zeldaSprite);
 
 
+
+            //creates animation of link moving left
+            ISprite leftSprite = new AnimatedSprite(zeldaSheet);
+
+            IAtlas leftAtlas = new AutoAtlas(new Rectangle(23,0,22,48), 2, 1, 2, true, 5);
+            leftSprite.RegisterAnimation("left", leftAtlas);
+            leftSprite.SetAnimation("left");
+            leftSprite.SetScale(3);
+
+            charAnimations.Add("left", leftSprite);
+
+            //creates animation of link moving right
+            ISprite rightSprite = new AnimatedSprite(zeldaSheet);
+
+            IAtlas rightAtlas = new AutoAtlas(new Rectangle(88, 0, 22, 47), 2, 1, 2, true,5);
+            rightSprite.RegisterAnimation("right", rightAtlas);
+            rightSprite.SetAnimation("right");
+            rightSprite.SetScale(3);
+
+            charAnimations.Add("right", rightSprite);
+
+            
+            //creates animations of link moving up
+            ISprite upSprite = new AnimatedSprite(zeldaSheet);
+
+            IAtlas upAtlas = new AutoAtlas(new Rectangle(55, 0,22,47), 2, 1, 2, true, 5);
+            upSprite.RegisterAnimation("up", upAtlas);
+            upSprite.SetAnimation("up");
+            upSprite.SetScale(3);
+            charAnimations.Add("up", upSprite);
+
+            //creates still link 
+            ISprite stillSprite = new AnimatedSprite(zeldaSheet);
+            IAtlas stillAtlas = new SingleAtlas(new Rectangle(0, 0, 22, 22), new Vector2(20, 20));  
+            stillSprite.RegisterAnimation("still", stillAtlas);
+            stillSprite.SetAnimation("still");
+            stillSprite.SetScale(3);
+            charAnimations.Add("still", stillSprite);
 
         }
 
@@ -59,11 +96,12 @@ namespace Sprint
 
 
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 spriteLocation)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 spriteLocation, string direction)
         {
 
             //Draws sprite animation using AnimationSprite class
-            sprites[position].Draw(spriteBatch, spriteLocation, gameTime);
+            charAnimations[direction].Draw(spriteBatch, spriteLocation, gameTime);
+            
         }
 
     }
