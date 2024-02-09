@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System.Collections.Generic;
+using System;
 using Sprint.Input;
 using Sprint.Interfaces;
 using System.Collections;
@@ -19,11 +20,17 @@ namespace Sprint
         private MainCharacter mainCharacter;
         private Texture2D texture;
         private IInputMap inputTable;
-
+        private Player player;
         private CycleItem items;
         private EnemyManager enemyManager;
         private SpriteFont font;
         private Vector2 characterLoc = new Vector2(100, 100);
+
+        //list for directions of sprites. directionList[0] is for main character
+        private List<string> directionList = new List<string>() {"still" };
+
+
+
 
         public Game1()
         {
@@ -37,6 +44,8 @@ namespace Sprint
 
 
             inputTable = new InputTable();
+           
+            
             base.Initialize();
         }
 
@@ -53,7 +62,7 @@ namespace Sprint
             font = Content.Load<SpriteFont>("Font");
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
-            moveSystems = new MoveSystems(this, characterLoc);
+            moveSystems = new MoveSystems(this, characterLoc, directionList);
             mainCharacter= new MainCharacter(this);
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.A), new MoveLeft(moveSystems));
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.D), new MoveRight(moveSystems));
@@ -81,9 +90,9 @@ namespace Sprint
             GraphicsDevice.Clear(Color.Aquamarine);
 
             _spriteBatch.Begin();
-
+            mainCharacter.Draw(_spriteBatch, gameTime, moveSystems.spriteLocation, directionList[0]);
             //Gets the vector coordinates (spriteLocation) from MoveSystems.cs and draws main character sprite
-            mainCharacter.Draw(_spriteBatch, gameTime, moveSystems.spriteLocation);
+            
             enemyManager.Draw(_spriteBatch, new Vector2(500, 300), gameTime);
             items.Draw(_spriteBatch, gameTime);
             _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);

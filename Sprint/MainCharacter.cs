@@ -17,13 +17,11 @@ namespace Sprint
         private float scale = 1.0f;
 
         //Dictionary to store the sprite animations
-        //!!FIXME Im not sure if it will be better to use a list or a dictionary
         private Dictionary<string, ISprite> charAnimations = new Dictionary<string, ISprite>();
 
         private IAtlas currentAnimation;
-        private int position;
         private ISprite currAnimation;
-
+        
 
 
 
@@ -84,17 +82,25 @@ namespace Sprint
             upSprite.SetScale(3);
             charAnimations.Add("up", upSprite);
 
+            //creates still link 
+            ISprite stillSprite = new AnimatedSprite(zeldaSheet);
+            IAtlas stillAtlas = new SingleAtlas(new Rectangle(0, 0, 22, 22), new Vector2(20, 20));  
+            stillSprite.RegisterAnimation("still", stillAtlas);
+            stillSprite.SetAnimation("still");
+            stillSprite.SetScale(3);
+            charAnimations.Add("still", stillSprite);
+
         }
 
 
 
 
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 spriteLocation)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, Vector2 spriteLocation, string direction)
         {
 
             //Draws sprite animation using AnimationSprite class
-            charAnimations["left"].Draw(spriteBatch, spriteLocation, gameTime);
+            charAnimations[direction].Draw(spriteBatch, spriteLocation, gameTime);
             
         }
 
