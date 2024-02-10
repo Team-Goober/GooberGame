@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
+using System.Diagnostics;
 
 namespace Sprint.Projectile
 {
@@ -10,30 +10,39 @@ namespace Sprint.Projectile
         ISprite projSprite;
         float speed;
         Vector2 position;
-        EntityManager entityManager;
-        private Vector2 direction;
+        GameObjectManager objectManager;
+        Vector2 direction;
 
-        public SimpleProjectileFactory(EntityManager entityManager, ISprite projSprite, float speed, Vector2 position)
+        public SimpleProjectileFactory(GameObjectManager entityManager, ISprite projSprite, float speed, Vector2 position)
         {
             this.projSprite = projSprite;
             this.speed = speed;
             this.position = position;
-            this.entityManager = entityManager;
-        }
-
-        public void SetDirection(Vector2 newDirection)
-        {
-            this.direction = newDirection;
+            this.objectManager = entityManager;
         }
 
         public void Create()
-        { 
+        {
             // Start of projectile with correct initial position and velocity
-            Vector2 velocity = Vector2.Normalize(this.direction) * speed;
-            IEntity proj = new SimpleProjectile(projSprite, position, velocity);
+            Vector2 velocity;
+            if (direction.Length() == 0)
+            {
+                velocity = Vector2.Zero;
+            }
+            else
+            {
+                velocity = Vector2.Normalize(direction) * speed;
+            }
+            Debug.WriteLine(velocity);
+            IProjectile proj = new SimpleProjectile(projSprite, position, velocity);
 
             // Add projectile to game's entity manager
-            entityManager.AddEntity(proj);
+            objectManager.Add(proj);
+        }
+
+        public void SetDirection(Vector2 direction)
+        {
+            this.direction = direction;
         }
 
         public void SetStartPosition(Vector2 pos)

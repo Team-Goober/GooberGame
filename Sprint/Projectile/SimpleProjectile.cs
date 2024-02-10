@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Sprint.Projectile
 {
-    internal class SimpleProjectile : IEntity
+    internal class SimpleProjectile : IProjectile
     {
 
         ISprite sprite;

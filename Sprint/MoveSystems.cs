@@ -17,11 +17,12 @@ namespace Sprint
         public List<string> directionList;
 
         //gets position of the sprite
-        public MoveSystems(Game1 game, Vector2 posChar, List<string> directionList)
+        public MoveSystems(Game1 game, Vector2 posChar)
         {
             this.spriteLocation = posChar;
 
-            this.directionList = directionList;
+            this.directionList = new List<string>();
+            this.directionList.Add("still");
             
 
         }

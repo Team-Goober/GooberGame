@@ -20,7 +20,7 @@ namespace Sprint.Projectile
         private Vector2 oldLocation;
         private Vector2 newLocation;
 
-        public ProjectileSystem(ContentManager content, EntityManager entityManager, IInputMap inputTable, MoveSystems character)
+        public ProjectileSystem(ContentManager content, GameObjectManager entityManager, IInputMap inputTable, MoveSystems character)
         {
             this.link = character;
             oldLocation = link.spriteLocation;

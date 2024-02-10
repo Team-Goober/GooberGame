@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using System;
+
 using Sprint.Input;
 using Sprint.Interfaces;
 using System.Collections;
@@ -10,6 +9,7 @@ using Sprint.Sprite;
 using System.Diagnostics;
 using Sprint.Commands;
 using Sprint.Projectile;
+using System.Collections.Generic;
 
 namespace Sprint
 {
@@ -21,24 +21,13 @@ namespace Sprint
         private MainCharacter mainCharacter;
         private Texture2D texture;
         private IInputMap inputTable;
-        private Player player;
+
         private CycleItem items;
         private EnemyManager enemyManager;
         private SpriteFont font;
         private Vector2 characterLoc = new Vector2(100, 100);
 
-
-        private ProjectileSystem ps;
-
-        //list for directions of sprites. directionList[0] is for main character
-        private List<string> directionList = new List<string>() {"still" };
-
-
-
-
-
-        private EntityManager entityManager;
-
+        private GameObjectManager objectManager;
 
         public Game1()
         {
@@ -49,10 +38,9 @@ namespace Sprint
 
         protected override void Initialize()
         {
-            entityManager = new EntityManager();
+
+            objectManager = new GameObjectManager();
             inputTable = new InputTable();
-           
-            
             base.Initialize();
         }
 
@@ -63,14 +51,13 @@ namespace Sprint
             items = new CycleItem(this);
             enemyManager = new EnemyManager(this);
 
-
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
 
             font = Content.Load<SpriteFont>("Font");
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
-            moveSystems = new MoveSystems(this, characterLoc, directionList);
+            moveSystems = new MoveSystems(this, characterLoc);
             mainCharacter= new MainCharacter(this);
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.A), new MoveLeft(moveSystems));
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.D), new MoveRight(moveSystems));
@@ -88,7 +75,14 @@ namespace Sprint
 
 
             // Shooting projectile
-            ps = new ProjectileSystem(Content, entityManager, inputTable, moveSystems);
+            Texture2D itemSheet = Content.Load<Texture2D>("zelda_items");
+            ISprite projSprite = new AnimatedSprite(itemSheet);
+            IAtlas projAtlas = new SingleAtlas(new Rectangle(0, 45, 16, 5), new Vector2(3, 8));
+            projSprite.RegisterAnimation("def", projAtlas);
+            projSprite.SetAnimation("def");
+            projSprite.SetScale(4);
+            IProjectileFactory projFactory = new SimpleProjectileFactory(objectManager, projSprite, 100, new Vector2(300, 300));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootCommand(projFactory));
 
         }
 
@@ -98,8 +92,7 @@ namespace Sprint
 
 
             inputTable.Update(gameTime);
-            entityManager.Update(gameTime);
-            ps.UpdatePostion();
+            objectManager.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -108,13 +101,13 @@ namespace Sprint
             GraphicsDevice.Clear(Color.Aquamarine);
 
             _spriteBatch.Begin();
-            mainCharacter.Draw(_spriteBatch, gameTime, moveSystems.spriteLocation, directionList[0]);
+
             //Gets the vector coordinates (spriteLocation) from MoveSystems.cs and draws main character sprite
-            
+            mainCharacter.Draw(_spriteBatch, gameTime, moveSystems.spriteLocation, moveSystems.directionList[0]);
             enemyManager.Draw(_spriteBatch, new Vector2(500, 300), gameTime);
             items.Draw(_spriteBatch, gameTime);
 
-            entityManager.Draw(_spriteBatch, gameTime);
+            objectManager.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
             _spriteBatch.DrawString(font, "Program Made By: Bill Yang", new Vector2(10, 330), Color.Black);
