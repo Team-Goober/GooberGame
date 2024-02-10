@@ -16,11 +16,11 @@ namespace Sprint.Projectile
         private IProjectileFactory bombFactory;
         private IProjectileFactory boomarangFactory;
 
-        private MoveSystems link;
+        private Physics link;
         private Vector2 oldLocation;
         private Vector2 newLocation;
 
-        public ProjectileSystem(ContentManager content, GameObjectManager entityManager, IInputMap inputTable, MoveSystems character)
+        public ProjectileSystem(ContentManager content, GameObjectManager entityManager, IInputMap inputTable, Physics character)
         {
             this.link = character;
             oldLocation = link.spriteLocation;

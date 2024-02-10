@@ -17,9 +17,7 @@ namespace Sprint
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private MoveSystems moveSystems;
-        private MainCharacter mainCharacter;
-        private Texture2D texture;
+        private Player player;
         private IInputMap inputTable;
 
         private CycleItem items;
@@ -57,17 +55,16 @@ namespace Sprint
             font = Content.Load<SpriteFont>("Font");
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
-            moveSystems = new MoveSystems(this, characterLoc);
-            mainCharacter= new MainCharacter(this);
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.A), new MoveLeft(moveSystems));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.D), new MoveRight(moveSystems));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.W), new MoveUp(moveSystems));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.S), new MoveDown(moveSystems));
+            player = new Player(this, characterLoc);
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.A), new MoveLeft(player));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.D), new MoveRight(player));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.W), new MoveUp(player));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.S), new MoveDown(player));
 
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Left), new MoveLeft(moveSystems));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Right), new MoveRight(moveSystems));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Up), new MoveUp(moveSystems));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Down), new MoveDown(moveSystems));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Left), new MoveLeft(player));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Right), new MoveRight(player));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Up), new MoveUp(player));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Down), new MoveDown(player));
 
             //Enemy cycling
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemies));
@@ -107,7 +104,7 @@ namespace Sprint
             _spriteBatch.Begin();
 
             //Gets the vector coordinates (spriteLocation) from MoveSystems.cs and draws main character sprite
-            mainCharacter.Draw(_spriteBatch, gameTime, moveSystems.spriteLocation, moveSystems.directionList[0]);
+            player.Draw(_spriteBatch, gameTime);
             enemies.Draw(_spriteBatch, new Vector2(500, 300), gameTime);
             items.Draw(_spriteBatch, gameTime);
 
