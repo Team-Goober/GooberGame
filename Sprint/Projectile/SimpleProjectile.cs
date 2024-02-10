@@ -30,6 +30,8 @@ namespace Sprint.Projectile
         {
             // Move linearly
             position += velocity * (float)(gameTime.ElapsedGameTime.TotalSeconds);
+
+            sprite.Update(gameTime);
         }
     }
 }

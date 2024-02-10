@@ -93,6 +93,10 @@ namespace Sprint
 
             inputTable.Update(gameTime);
             objectManager.Update(gameTime);
+
+            enemies.Update(gameTime);
+            items.Update(gameTime);
+
             base.Update(gameTime);
         }
 

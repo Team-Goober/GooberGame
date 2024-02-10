@@ -89,6 +89,11 @@ namespace Sprint
             }
         }
 
+        public void Update(GameTime gameTime)
+        {
+            sprites[position].Update(gameTime);
+        }
+
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprites[position].Draw(spriteBatch, new Vector2(500, 100), gameTime);

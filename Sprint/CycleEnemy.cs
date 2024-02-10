@@ -44,6 +44,11 @@ namespace Sprint
             currentEnemyIndex = (currentEnemyIndex - 1 + enemies.Count) % enemies.Count;
         }
 
+        public void Update(GameTime gameTime)
+        {
+            enemies[currentEnemyIndex].Update(gameTime);
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)
         {
             enemies[currentEnemyIndex].Draw(spriteBatch, position, gameTime);
