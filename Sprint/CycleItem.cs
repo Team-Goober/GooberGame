@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
+using System.Runtime.InteropServices;
 
 
 
@@ -12,12 +13,13 @@ namespace Sprint
 {
     internal class CycleItem
     {
-        private List<ISprite> sprites = new List<ISprite>();
-        private int position;
+        private List<IGameObject> items = new List<IGameObject>();
+        private int currentItem;
+        private Vector2 position;
 
-        public CycleItem(Game1 game)
+        public CycleItem(Game1 game, Vector2 position)
         {
-            position = 0;
+            this.position = position;
 
             Texture2D rupyT = game.Content.Load<Texture2D>("Items/ZeldaSprite5Rupies");
             ISprite rupyS = new AnimatedSprite(rupyT);
@@ -27,7 +29,9 @@ namespace Sprint
 
             rupyS.SetAnimation("rupy");
             rupyS.SetScale(4);
-            sprites.Add(rupyS);
+
+            Item rupy = new Item(game, rupyS, this.position);
+            items.Add(rupy);
 
             Texture2D arrowT = game.Content.Load<Texture2D>("Items/ZeldaSpriteArrow");
             ISprite arrowS = new AnimatedSprite(arrowT);
@@ -37,7 +41,9 @@ namespace Sprint
 
             arrowS.SetAnimation("arrow");
             arrowS.SetScale(4);
-            sprites.Add(arrowS);
+
+            Item arrow = new Item(game, arrowS, this.position);
+            items.Add(arrow);
 
             Texture2D heartConT = game.Content.Load<Texture2D>("Items/ZeldaSpriteHeartContainer");
             ISprite heartConS = new AnimatedSprite(heartConT);
@@ -47,7 +53,9 @@ namespace Sprint
 
             heartConS.SetAnimation("heartCon");
             heartConS.SetScale(4);
-            sprites.Add(heartConS);
+
+            Item heart = new Item(game, heartConS, this.position);
+            items.Add(heart);
 
             Texture2D magicalShieldT = game.Content.Load<Texture2D>("Items/ZeldaSpriteMagicalShield");
             ISprite magicalShieldS = new AnimatedSprite(magicalShieldT);
@@ -57,7 +65,9 @@ namespace Sprint
 
             magicalShieldS.SetAnimation("magicalShield");
             magicalShieldS.SetScale(4);
-            sprites.Add(magicalShieldS);
+
+            Item shield = new Item(game, magicalShieldS, this.position);
+            items.Add(shield);
 
             Texture2D triforceT = game.Content.Load<Texture2D>("Items/Triforce");
             ISprite triforceS = new AnimatedSprite(triforceT);
@@ -67,36 +77,38 @@ namespace Sprint
 
             triforceS.SetAnimation("triforce");
             triforceS.SetScale(4);
-            sprites.Add(triforceS);
+
+            Item triforce = new Item(game, triforceS, this.position);
+            items.Add(triforce);
         }
 
         public void Next()
         {
-            position++;
+            currentItem++;
 
-            if(position == sprites.Count)
+            if(currentItem == items.Count)
             {
-                position = 0;
+                currentItem = 0;
             }
         }
 
         public void Back()
         {
-            position--;
-            if(position == -1)
+            currentItem--;
+            if(currentItem == -1)
             {
-                position = sprites.Count - 1;
+                currentItem = items.Count - 1;
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            sprites[position].Update(gameTime);
+            items[currentItem].Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            sprites[position].Draw(spriteBatch, new Vector2(500, 100), gameTime);
+            items[currentItem].Draw(spriteBatch, gameTime);
         }
     }
 }
