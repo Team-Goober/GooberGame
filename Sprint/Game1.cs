@@ -23,7 +23,7 @@ namespace Sprint
         private IInputMap inputTable;
 
         private CycleItem items;
-        private EnemyManager enemyManager;
+        private CycleEnemy enemies;
         private SpriteFont font;
         private Vector2 characterLoc = new Vector2(100, 100);
 
@@ -49,7 +49,7 @@ namespace Sprint
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             items = new CycleItem(this);
-            enemyManager = new EnemyManager(this);
+            enemies = new CycleEnemy(this);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -70,8 +70,8 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Down), new MoveDown(moveSystems));
 
             //Enemy cycling
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemyManager));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemyManager));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemies));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemies));
 
 
             // Shooting projectile
@@ -104,7 +104,7 @@ namespace Sprint
 
             //Gets the vector coordinates (spriteLocation) from MoveSystems.cs and draws main character sprite
             mainCharacter.Draw(_spriteBatch, gameTime, moveSystems.spriteLocation, moveSystems.directionList[0]);
-            enemyManager.Draw(_spriteBatch, new Vector2(500, 300), gameTime);
+            enemies.Draw(_spriteBatch, new Vector2(500, 300), gameTime);
             items.Draw(_spriteBatch, gameTime);
 
             objectManager.Draw(_spriteBatch, gameTime);

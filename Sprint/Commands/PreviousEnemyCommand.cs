@@ -7,17 +7,17 @@ namespace Sprint.Commands
 {
 	internal class PreviousEnemyCommand : ICommand
 	{
-		private EnemyManager enemyManager;
+		private CycleEnemy enemies;
 
-		public PreviousEnemyCommand(EnemyManager enemyManager)
+		public PreviousEnemyCommand(CycleEnemy enemies)
 		{
-			this.enemyManager = enemyManager;
+			this.enemies = enemies;
 		}
 
 		public void Execute()
 		{
 			
-			enemyManager.PreviousEnemy();
+			enemies.PreviousEnemy();
 		}
 	}
 }

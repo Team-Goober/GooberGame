@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 namespace Sprint
 {
-    internal class EnemyManager
+    internal class CycleEnemy
     {
         private List<ISprite> enemies = new List<ISprite>();
         private int currentEnemyIndex = 0;
 
-        public EnemyManager(Game1 game)
+        public CycleEnemy(Game1 game)
         {
             // Load textures and set up animations for enemies
             // Add enemies to the 'enemies' list
