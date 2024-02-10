@@ -97,6 +97,7 @@ namespace Sprint
 
         public void Update(GameTime gameTime)
         {
+            physics.Update(gameTime);
             sprite.Update(gameTime);
         }
 

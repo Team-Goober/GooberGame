@@ -47,7 +47,7 @@ namespace Sprint
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             items = new CycleItem(this);
-            enemies = new CycleEnemy(this);
+            enemies = new CycleEnemy(this, new Vector2(500, 300));
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -105,7 +105,7 @@ namespace Sprint
 
             //Gets the vector coordinates (spriteLocation) from MoveSystems.cs and draws main character sprite
             player.Draw(_spriteBatch, gameTime);
-            enemies.Draw(_spriteBatch, new Vector2(500, 300), gameTime);
+            enemies.Draw(_spriteBatch, gameTime);
             items.Draw(_spriteBatch, gameTime);
 
             objectManager.Draw(_spriteBatch, gameTime);

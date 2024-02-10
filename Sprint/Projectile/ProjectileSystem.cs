@@ -23,7 +23,7 @@ namespace Sprint.Projectile
         public ProjectileSystem(ContentManager content, GameObjectManager entityManager, IInputMap inputTable, Physics character)
         {
             this.link = character;
-            oldLocation = link.spriteLocation;
+            // oldLocation = link.spriteLocation;
 
             Texture2D itemSheet = content.Load<Texture2D>("zelda_items");
 
@@ -70,7 +70,7 @@ namespace Sprint.Projectile
 
         public void UpdateDirection()
         {
-            newLocation = link.spriteLocation;
+            //newLocation = link.spriteLocation;
 
             //Left
             arrowFactory.SetDirection(new Vector2(1, 0));
@@ -80,16 +80,16 @@ namespace Sprint.Projectile
 
         public void UpdatePostion()
         {
-            Vector2 location = link.spriteLocation;
+            //Vector2 location = link.spriteLocation;
 
             //Corrections.
             /*This could be better. But alot of other code file would need to be added to.*/
-            float y = location.Y - 35;
+           // float y = location.Y - 35;
 
-            arrowFactory.SetStartPosition(new Vector2(location.X, y));
-            blueArrowFactory.SetStartPosition(new Vector2(location.X, y));
-            bombFactory.SetStartPosition(new Vector2(location.X, y));
-            boomarangFactory.SetStartPosition(new Vector2(location.X, y));
+            //arrowFactory.SetStartPosition(new Vector2(location.X, y));
+            //blueArrowFactory.SetStartPosition(new Vector2(location.X, y));
+            //bombFactory.SetStartPosition(new Vector2(location.X, y));
+            //boomarangFactory.SetStartPosition(new Vector2(location.X, y));
         }
     }
 }

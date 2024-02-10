@@ -13,15 +13,13 @@ namespace Sprint
     public class Physics
     {
 
-        public Vector2 spriteLocation;
         public List<string> directionList;
 
         public Vector2 Position { get; private set; }
 
         //gets position of the sprite
         public Physics(Game1 game, Vector2 posChar)
-        {
-            this.spriteLocation = posChar;
+        { 
 
             Position = posChar;
 
@@ -29,6 +27,11 @@ namespace Sprint
         
         public void Move(Vector2 diff) {
             Position += diff;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            
         }
 
     }

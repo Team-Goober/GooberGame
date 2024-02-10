@@ -8,11 +8,14 @@ namespace Sprint
 {
     internal class CycleEnemy
     {
-        private List<ISprite> enemies = new List<ISprite>();
+        private List<IGameObject> enemies = new List<IGameObject>();
         private int currentEnemyIndex = 0;
+        private Vector2 position;
 
-        public CycleEnemy(Game1 game)
+        public CycleEnemy(Game1 game, Vector2 pos)
         {
+            this.position = pos;
+            
             // Load textures and set up animations for enemies
             // Add enemies to the 'enemies' list
 
@@ -31,7 +34,10 @@ namespace Sprint
             enemySprite.RegisterAnimation("default", enemyAtlas);
             enemySprite.SetAnimation("default");
             enemySprite.SetScale(scale);
-            enemies.Add(enemySprite);
+
+            Enemy enemy = new Enemy(game, enemySprite, position);
+
+            enemies.Add(enemy);
         }
 
         public void NextEnemy()
@@ -49,9 +55,9 @@ namespace Sprint
             enemies[currentEnemyIndex].Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            enemies[currentEnemyIndex].Draw(spriteBatch, position, gameTime);
+            enemies[currentEnemyIndex].Draw(spriteBatch, gameTime);
         }
     }
 
