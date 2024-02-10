@@ -101,7 +101,7 @@ namespace Sprint
         {
             GraphicsDevice.Clear(Color.Aquamarine);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             //Gets the vector coordinates (spriteLocation) from MoveSystems.cs and draws main character sprite
             player.Draw(_spriteBatch, gameTime);
