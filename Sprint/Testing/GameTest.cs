@@ -93,6 +93,7 @@ namespace Sprint.Testing
         {
             // must update input map to test for inputs
             inputTable.Update(gameTime);
+            sprite.Update(gameTime);
             base.Update(gameTime);
         }
 

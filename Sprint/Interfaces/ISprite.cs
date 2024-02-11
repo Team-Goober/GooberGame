@@ -15,6 +15,9 @@ namespace Sprint.Interfaces
         // Set currently playing animation using label
         void SetAnimation(string label);
 
+        // Update current animation
+        void Update(GameTime gameTime);
+
         // Draw Sprite to given sprite batch at location
         void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime, float rotation = 0);
     }

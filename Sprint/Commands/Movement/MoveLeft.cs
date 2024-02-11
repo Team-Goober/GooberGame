@@ -5,16 +5,16 @@ namespace Sprint.Commands
 {
     internal class MoveLeft : ICommand
     {
-        private MoveSystems moveSystems;
+        private Player player;
 
-        public MoveLeft(MoveSystems moveSystems)
+        public MoveLeft(Player player)
         {
-            this.moveSystems = moveSystems;
+            this.player = player;
         }
 
         public void Execute()
         {
-            this.moveSystems.MoveLeft();
+            this.player.MoveLeft();
         }
     }
 }
