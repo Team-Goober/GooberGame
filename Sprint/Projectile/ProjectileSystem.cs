@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
-using Sprint.Sprite;
+using Sprint;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -11,85 +11,69 @@ namespace Sprint.Projectile
 {
     internal class ProjectileSystem
     {
-        private IProjectileFactory arrowFactory;
-        private IProjectileFactory blueArrowFactory;
-        private IProjectileFactory bombFactory;
-        private IProjectileFactory boomarangFactory;
+        private SimpleProjectileFactory itemFactory;
 
         private Physics link;
-        private Vector2 oldLocation;
-        private Vector2 newLocation;
 
-        public ProjectileSystem(ContentManager content, GameObjectManager entityManager, IInputMap inputTable, Physics character)
+        public ProjectileSystem(SimpleProjectileFactory factory, IInputMap inputTable, Physics character)
         {
             this.link = character;
             // oldLocation = link.spriteLocation;
 
-            Texture2D itemSheet = content.Load<Texture2D>("zelda_items");
+            this.itemFactory = factory;
+            itemFactory.SetDirection(new Vector2(90, 0));
+            itemFactory.SetStartPosition(link.Position);
 
             //Arrow
-            ISprite arrowSprite = new AnimatedSprite(itemSheet);
-            IAtlas arrowAtlas = new SingleAtlas(new Rectangle(0, 45, 16, 5), new Vector2(0, 0));
-            arrowSprite.RegisterAnimation("arrow", arrowAtlas);
-            arrowSprite.SetAnimation("arrow");
-            arrowSprite.SetScale(4);
-            arrowFactory = new SimpleProjectileFactory(entityManager, arrowSprite, 200, new Vector2(300, 300));
-            arrowFactory.SetDirection(new Vector2(1, 0));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootCommand(arrowFactory));
+            ISprite arrowSprite = itemFactory.CreateArrow();
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootCommand(itemFactory, arrowSprite, 200));
+            
 
             //Blue Arrow
-            ISprite blueArrowSprite = new AnimatedSprite(itemSheet);
-            IAtlas blueArrowAtlas = new SingleAtlas(new Rectangle(0, 125, 16, 5), new Vector2(0, 0));
-            blueArrowSprite.RegisterAnimation("blueArrow", blueArrowAtlas);
-            blueArrowSprite.SetAnimation("blueArrow");
-            blueArrowSprite.SetScale(4);
-            blueArrowFactory = new SimpleProjectileFactory(entityManager, blueArrowSprite, 200, new Vector2(0, 0));
-            blueArrowFactory.SetDirection(new Vector2(1, 0));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootCommand(blueArrowFactory));
+            ISprite blueArrowSprite = itemFactory.CreateBlueArrow();
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootCommand(itemFactory, blueArrowSprite, 200));
 
             //Bomb
-            ISprite bombSprite = new AnimatedSprite(itemSheet);
-            IAtlas bombAtlas = new SingleAtlas(new Rectangle(204, 1, 9, 14), new Vector2(0, 0));
-            bombSprite.RegisterAnimation("bomb", bombAtlas);
-            bombSprite.SetAnimation("bomb");
-            bombSprite.SetScale(4);
-            bombFactory = new SimpleProjectileFactory(entityManager, bombSprite, 0, new Vector2(0, 0));
-            bombFactory.SetDirection(new Vector2(1, 0));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootCommand(bombFactory));
+            ISprite bombSprite = itemFactory.CreateBomb();
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootCommand(itemFactory, bombSprite, 0));
+
 
             //FireBomb
-            ISprite boomarangSprite = new AnimatedSprite(itemSheet);
-            IAtlas boomarangAtlas = new SingleAtlas(new Rectangle(285, 4, 5, 8), new Vector2(0, 0));
-            boomarangSprite.RegisterAnimation("boomarang", boomarangAtlas);
-            boomarangSprite.SetAnimation("boomarang");
-            boomarangSprite.SetScale(4);
-            boomarangFactory = new SimpleProjectileFactory(entityManager, boomarangSprite, 200, new Vector2(0, 0));
-            boomarangFactory.SetDirection(new Vector2(1, 0));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootCommand(boomarangFactory));
+            ISprite boomarangSprite = itemFactory.CreateBoomarang();
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootCommand(itemFactory, boomarangSprite, 200));
+
         }
 
         public void UpdateDirection()
         {
-            //newLocation = link.spriteLocation;
+            string direction = link.Direction;
 
-            //Left
-            arrowFactory.SetDirection(new Vector2(1, 0));
-
-            oldLocation = newLocation;
+            switch(direction)
+            {
+                case "left":
+                    itemFactory.SetDirection(new Vector2(-1, 0));
+                    break;
+                case "right":
+                    itemFactory.SetDirection(new Vector2(1, 0));
+                    break;
+                case "up":
+                    itemFactory.SetDirection(new Vector2(1, -90));
+                    break;
+                case "down":
+                    itemFactory.SetDirection(new Vector2(1, 90));
+                    break;
+                default: break;
+            }
         }
 
         public void UpdatePostion()
         {
-            //Vector2 location = link.spriteLocation;
+            Vector2 location = link.Position;
 
-            //Corrections.
-            /*This could be better. But alot of other code file would need to be added to.*/
-           // float y = location.Y - 35;
+            float x = link.Position.X + 52;
+            float y = link.Position.Y + 20;
 
-            //arrowFactory.SetStartPosition(new Vector2(location.X, y));
-            //blueArrowFactory.SetStartPosition(new Vector2(location.X, y));
-            //bombFactory.SetStartPosition(new Vector2(location.X, y));
-            //boomarangFactory.SetStartPosition(new Vector2(location.X, y));
+            itemFactory.SetStartPosition(new Vector2(x, link.Position.Y));
         }
     }
 }

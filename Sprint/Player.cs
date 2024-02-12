@@ -65,9 +65,6 @@ namespace Sprint
             //Moves the sprite to the left
             physics.Move(new Vector2(-5, 0));
             sprite.SetAnimation("left");
-
-
-
         }
 
         public void MoveRight()
@@ -75,7 +72,6 @@ namespace Sprint
             //Moves the sprite to the right
             physics.Move(new Vector2(5, 0));
             sprite.SetAnimation("right");
-
         }
 
         public void MoveUp()
@@ -83,7 +79,6 @@ namespace Sprint
             //Moves the sprite up
             physics.Move(new Vector2(0, -5));
             sprite.SetAnimation("up");
-
         }
 
         public void MoveDown()
@@ -91,7 +86,11 @@ namespace Sprint
             //Moves the sprite down
             physics.Move(new Vector2(0, 5));
             sprite.SetAnimation("down");
+        }
 
+        public Physics GetPhysic()
+        {
+            return physics;
         }
 
 

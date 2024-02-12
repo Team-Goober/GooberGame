@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sprint.Commands.Projectile
+namespace Sprint.Projectile
 {
-    internal class Num3Projectile
+    internal class ArrowSprite
     {
     }
 }
