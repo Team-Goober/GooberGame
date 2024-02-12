@@ -26,9 +26,6 @@ namespace Sprint
         private SpriteFont font;
         private Vector2 characterLoc = new Vector2(500, 200);
 
-        private ProjectileSystem projectileSystem;
-        private SimpleProjectileFactory simpleProjectileFactory;
-
         private GameObjectManager objectManager;
 
         public Game1()
@@ -43,8 +40,6 @@ namespace Sprint
 
             objectManager = new GameObjectManager();
             inputTable = new InputTable();
-            simpleProjectileFactory = new SimpleProjectileFactory(objectManager);
-            simpleProjectileFactory.LoadAllTextures(Content);
             
             base.Initialize();
         }
@@ -62,7 +57,7 @@ namespace Sprint
             font = Content.Load<SpriteFont>("Font");
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
-            player = new Player(this, characterLoc);
+            player = new Player(this, characterLoc, inputTable, objectManager);
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.A), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.D), new MoveRight(player));
             inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.W), new MoveUp(player));
@@ -76,8 +71,6 @@ namespace Sprint
             //Enemy cycling
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemies));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemies));
-
-            projectileSystem = new ProjectileSystem(simpleProjectileFactory, inputTable, player.GetPhysic());
         }
 
         protected override void Update(GameTime gameTime)
@@ -91,8 +84,6 @@ namespace Sprint
             enemies.Update(gameTime);
             items.Update(gameTime);
             player.Update(gameTime);
-            projectileSystem.UpdatePostion();
-            projectileSystem.UpdateDirection();
             
             base.Update(gameTime);
         }

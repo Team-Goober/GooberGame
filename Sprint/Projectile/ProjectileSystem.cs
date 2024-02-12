@@ -13,67 +13,59 @@ namespace Sprint.Projectile
     {
         private SimpleProjectileFactory itemFactory;
 
-        private Physics link;
-
-        public ProjectileSystem(SimpleProjectileFactory factory, IInputMap inputTable, Physics character)
+        public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager, ContentManager contManager)
         {
-            this.link = character;
             // oldLocation = link.spriteLocation;
 
-            this.itemFactory = factory;
+            this.itemFactory = new SimpleProjectileFactory();
+            itemFactory.LoadAllTextures(contManager);
             itemFactory.SetDirection(new Vector2(90, 0));
-            itemFactory.SetStartPosition(link.Position);
+            itemFactory.SetStartPosition(startPos);
 
             //Arrow
-            ISprite arrowSprite = itemFactory.CreateArrow();
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootCommand(itemFactory, arrowSprite, 200));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootArrowCommand(itemFactory, objManager));
             
 
-            //Blue Arrow
+            /*//Blue Arrow
             ISprite blueArrowSprite = itemFactory.CreateBlueArrow();
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootCommand(itemFactory, blueArrowSprite, 200));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootArrowCommand(itemFactory, blueArrowSprite, 200));
 
             //Bomb
             ISprite bombSprite = itemFactory.CreateBomb();
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootCommand(itemFactory, bombSprite, 0));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootArrowCommand(itemFactory, bombSprite, 0));
 
 
             //FireBomb
             ISprite boomarangSprite = itemFactory.CreateBoomarang();
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootCommand(itemFactory, boomarangSprite, 200));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootArrowCommand(itemFactory, boomarangSprite, 200));
+            */
 
         }
 
-        public void UpdateDirection()
+        public void UpdateDirection(Character.Directions dir)
         {
-            string direction = link.Direction;
 
-            switch(direction)
+            switch(dir)
             {
-                case "left":
+                case Character.Directions.LEFT:
                     itemFactory.SetDirection(new Vector2(-1, 0));
                     break;
-                case "right":
+                case Character.Directions.RIGHT:
                     itemFactory.SetDirection(new Vector2(1, 0));
                     break;
-                case "up":
+                case Character.Directions.UP:
                     itemFactory.SetDirection(new Vector2(1, -90));
                     break;
-                case "down":
+                case Character.Directions.DOWN:
                     itemFactory.SetDirection(new Vector2(1, 90));
                     break;
                 default: break;
             }
         }
 
-        public void UpdatePostion()
+        public void UpdatePostion(Vector2 pos)
         {
-            Vector2 location = link.Position;
-
-            float x = link.Position.X + 52;
-            float y = link.Position.Y + 20;
-
-            itemFactory.SetStartPosition(new Vector2(x, link.Position.Y));
+            itemFactory.SetStartPosition(pos);
         }
     }
 }
