@@ -90,10 +90,10 @@ namespace Sprint
 
             enemies.Update(gameTime);
             items.Update(gameTime);
-
+            player.Update(gameTime);
             projectileSystem.UpdatePostion();
             projectileSystem.UpdateDirection();
-
+            
             base.Update(gameTime);
         }
 
