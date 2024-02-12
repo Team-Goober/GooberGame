@@ -39,5 +39,11 @@ namespace Sprint
             }
         }
 
+        //clears all the objects in the array
+        public void ClearObjects()
+        {
+            objects.Clear();
+        }
+
     }
 }
