@@ -57,6 +57,17 @@ namespace Sprint
             IAtlas stillAtlas = new SingleAtlas(new Rectangle(0, 0, 22, 22), new Vector2(0,0));  
             sprite.RegisterAnimation("still", stillAtlas);
 
+            IAtlas downStill = new SingleAtlas(new Rectangle(0,0,22,22), new Vector2(0, 0));
+            sprite.RegisterAnimation("downStill", downStill);
+
+            IAtlas leftStill = new SingleAtlas(new Rectangle(23, 0, 22, 22), new Vector2(0, 0));
+            sprite.RegisterAnimation("leftStill", leftStill);
+
+            IAtlas upStill = new SingleAtlas(new Rectangle(55, 0,22,22),new Vector2(0, 0));
+            sprite.RegisterAnimation("upStill", upStill);
+
+            IAtlas rightStill = new SingleAtlas(new Rectangle(88, 0,22,22),new Vector2(0, 0));   
+            sprite.RegisterAnimation("rightStill", rightStill);
 
             sprite.SetAnimation("still");
             Facing = Directions.STILL;
@@ -75,8 +86,22 @@ namespace Sprint
 
             if(!checkKey)
             {
-                sprite.SetAnimation("still");
-                Facing = Directions.STILL;
+                if(Facing == Directions.DOWN)
+                {
+
+
+                    sprite.SetAnimation("downStill");
+                }else if(Facing == Directions.LEFT)
+                {
+                    sprite.SetAnimation("leftStill");
+                }else if(Facing == Directions.UP)
+                {
+                    sprite.SetAnimation("upStill");
+                }else if(Facing == Directions.RIGHT)
+                {
+                    sprite.SetAnimation("rightStill");
+                }
+
             }
         }
 
