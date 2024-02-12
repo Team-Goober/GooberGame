@@ -82,7 +82,7 @@ namespace Sprint
 
         public void UpdateCheckMoving(KeyboardState keyState)
         {
-            bool checkKey=keyState.IsKeyDown(Keys.W) ||keyState.IsKeyDown(Keys.A)||keyState.IsKeyDown(Keys.S)||keyState.IsKeyDown(Keys.D);
+            bool checkKey=keyState.IsKeyDown(Keys.W) ||keyState.IsKeyDown(Keys.A)||keyState.IsKeyDown(Keys.S)||keyState.IsKeyDown(Keys.D)||keyState.IsKeyDown(Keys.Left)||keyState.IsKeyDown(Keys.Right)||keyState.IsKeyDown(Keys.Up)||keyState.IsKeyDown(Keys.Down);
 
             if(!checkKey)
             {
