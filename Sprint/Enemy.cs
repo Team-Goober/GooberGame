@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace Sprint
 {
-    internal class Enemy : IGameObject
+    internal class Enemy : Character
     {
 
         ISprite sprite;
@@ -17,12 +17,12 @@ namespace Sprint
             physics = new Physics(game, position);
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, physics.Position, gameTime);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             physics.Update(gameTime);
             sprite.Update(gameTime);
