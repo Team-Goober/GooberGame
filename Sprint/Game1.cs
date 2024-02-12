@@ -24,7 +24,7 @@ namespace Sprint
         private CycleItem items;
         private CycleEnemy enemies;
         private SpriteFont font;
-        private Vector2 characterLoc = new Vector2(500, 200);
+        private Vector2 characterLoc = new Vector2(20, 20);
 
         private GameObjectManager objectManager;
 
@@ -84,6 +84,7 @@ namespace Sprint
             enemies.Update(gameTime);
             items.Update(gameTime);
             player.Update(gameTime);
+            player.UpdateCheckMoving(Keyboard.GetState());
             
             base.Update(gameTime);
         }

@@ -14,6 +14,8 @@ namespace Sprint.Commands
         public void Execute()
         {
             this.player.MoveDown();
+
+        
         }
     }
 }

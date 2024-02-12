@@ -54,7 +54,7 @@ namespace Sprint
             IAtlas upAtlas = new AutoAtlas(new Rectangle(55, 0,22,47), 2, 1, 2, true, 5);
             sprite.RegisterAnimation("up", upAtlas);
 
-            IAtlas stillAtlas = new SingleAtlas(new Rectangle(0, 0, 22, 22), new Vector2(20, 20));  
+            IAtlas stillAtlas = new SingleAtlas(new Rectangle(0, 0, 22, 22), new Vector2(0,0));  
             sprite.RegisterAnimation("still", stillAtlas);
 
 
@@ -67,6 +67,17 @@ namespace Sprint
             secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, game.Content);
 
 
+        }
+
+        public void UpdateCheckMoving(KeyboardState keyState)
+        {
+            bool checkKey=keyState.IsKeyDown(Keys.W) ||keyState.IsKeyDown(Keys.A)||keyState.IsKeyDown(Keys.S)||keyState.IsKeyDown(Keys.D);
+
+            if(!checkKey)
+            {
+                sprite.SetAnimation("still");
+                Facing = Directions.STILL;
+            }
         }
 
 

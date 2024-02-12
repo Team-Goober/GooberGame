@@ -11,6 +11,7 @@ namespace Sprint
 
         public abstract void Update(GameTime gameTime);
 
+        
         public enum Directions
         {
             UP,
