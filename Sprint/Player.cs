@@ -64,7 +64,7 @@ namespace Sprint
 
 
             // Set up projectiles
-            secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager);
+            secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, game.Content);
 
 
         }

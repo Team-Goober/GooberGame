@@ -13,31 +13,32 @@ namespace Sprint.Projectile
     {
         private SimpleProjectileFactory itemFactory;
 
-        public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager)
+        public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager, ContentManager contManager)
         {
             // oldLocation = link.spriteLocation;
 
-            this.itemFactory = new SimpleProjectileFactory(objManager);
+            this.itemFactory = new SimpleProjectileFactory();
+            itemFactory.LoadAllTextures(contManager);
             itemFactory.SetDirection(new Vector2(90, 0));
             itemFactory.SetStartPosition(startPos);
 
             //Arrow
-            ISprite arrowSprite = itemFactory.CreateArrow();
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootCommand(itemFactory, arrowSprite, 200));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootArrowCommand(itemFactory, objManager));
             
 
-            //Blue Arrow
+            /*//Blue Arrow
             ISprite blueArrowSprite = itemFactory.CreateBlueArrow();
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootCommand(itemFactory, blueArrowSprite, 200));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootArrowCommand(itemFactory, blueArrowSprite, 200));
 
             //Bomb
             ISprite bombSprite = itemFactory.CreateBomb();
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootCommand(itemFactory, bombSprite, 0));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootArrowCommand(itemFactory, bombSprite, 0));
 
 
             //FireBomb
             ISprite boomarangSprite = itemFactory.CreateBoomarang();
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootCommand(itemFactory, boomarangSprite, 200));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootArrowCommand(itemFactory, boomarangSprite, 200));
+            */
 
         }
 
