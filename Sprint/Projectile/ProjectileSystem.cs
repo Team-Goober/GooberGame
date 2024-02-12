@@ -13,16 +13,13 @@ namespace Sprint.Projectile
     {
         private SimpleProjectileFactory itemFactory;
 
-        private Physics link;
-
-        public ProjectileSystem(SimpleProjectileFactory factory, IInputMap inputTable, Physics character)
+        public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager)
         {
-            this.link = character;
             // oldLocation = link.spriteLocation;
 
-            this.itemFactory = factory;
+            this.itemFactory = new SimpleProjectileFactory(objManager);
             itemFactory.SetDirection(new Vector2(90, 0));
-            itemFactory.SetStartPosition(link.Position);
+            itemFactory.SetStartPosition(startPos);
 
             //Arrow
             ISprite arrowSprite = itemFactory.CreateArrow();
@@ -44,36 +41,30 @@ namespace Sprint.Projectile
 
         }
 
-        public void UpdateDirection()
+        public void UpdateDirection(Character.Directions dir)
         {
-            string direction = link.Direction;
 
-            switch(direction)
+            switch(dir)
             {
-                case "left":
+                case Character.Directions.LEFT:
                     itemFactory.SetDirection(new Vector2(-1, 0));
                     break;
-                case "right":
+                case Character.Directions.RIGHT:
                     itemFactory.SetDirection(new Vector2(1, 0));
                     break;
-                case "up":
+                case Character.Directions.UP:
                     itemFactory.SetDirection(new Vector2(1, -90));
                     break;
-                case "down":
+                case Character.Directions.DOWN:
                     itemFactory.SetDirection(new Vector2(1, 90));
                     break;
                 default: break;
             }
         }
 
-        public void UpdatePostion()
+        public void UpdatePostion(Vector2 pos)
         {
-            Vector2 location = link.Position;
-
-            float x = link.Position.X + 52;
-            float y = link.Position.Y + 20;
-
-            itemFactory.SetStartPosition(new Vector2(x, link.Position.Y));
+            itemFactory.SetStartPosition(pos);
         }
     }
 }

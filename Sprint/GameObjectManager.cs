@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Sprint
 {
-    internal class GameObjectManager
+     public class GameObjectManager
     {
 
         private List<IGameObject> objects;

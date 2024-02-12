@@ -19,12 +19,12 @@ namespace Sprint.Projectile
 
         private Vector2 velocity;
 
-        public SimpleProjectileFactory(GameObjectManager entityManager)
+        public SimpleProjectileFactory(GameObjectManager objectManager)
         {
             //this.projSprite = projSprite;
             //this.speed = speed;
             //this.position = position;
-            this.objectManager = entityManager;
+            this.objectManager = objectManager;
         }
 
         public void LoadAllTextures(ContentManager content)

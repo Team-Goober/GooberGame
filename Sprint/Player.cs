@@ -5,21 +5,25 @@ using System.Collections.Generic;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
-
+using Sprint.Projectile;
 
 namespace Sprint
 {
 
-    public class Player : IGameObject
+    internal class Player : IGameObject
     {
 
         private ISprite sprite;
 
         private Physics physics;
 
+        private ProjectileSystem secondaryItems;
+
+        public Character.Directions Facing { get; private set; }
+
 
         //declares the move systems for the main character sprite
-        public Player(Game1 game, Vector2 pos)
+        public Player(Game1 game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager)
         {
 
             physics = new Physics(game, pos);
@@ -55,7 +59,13 @@ namespace Sprint
 
 
             sprite.SetAnimation("still");
+            Facing = Character.Directions.STILL;
             sprite.SetScale(3);
+
+
+            // Set up projectiles
+            secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager);
+
 
         }
 
@@ -65,6 +75,7 @@ namespace Sprint
             //Moves the sprite to the left
             physics.Move(new Vector2(-5, 0));
             sprite.SetAnimation("left");
+            Facing = Character.Directions.LEFT;
         }
 
         public void MoveRight()
@@ -72,6 +83,7 @@ namespace Sprint
             //Moves the sprite to the right
             physics.Move(new Vector2(5, 0));
             sprite.SetAnimation("right");
+            Facing = Character.Directions.RIGHT;
         }
 
         public void MoveUp()
@@ -79,6 +91,7 @@ namespace Sprint
             //Moves the sprite up
             physics.Move(new Vector2(0, -5));
             sprite.SetAnimation("up");
+            Facing = Character.Directions.UP;
         }
 
         public void MoveDown()
@@ -86,6 +99,7 @@ namespace Sprint
             //Moves the sprite down
             physics.Move(new Vector2(0, 5));
             sprite.SetAnimation("down");
+            Facing = Character.Directions.DOWN;
         }
 
         public Physics GetPhysic()
@@ -96,6 +110,9 @@ namespace Sprint
 
         public void Update(GameTime gameTime)
         {
+            secondaryItems.UpdateDirection(Facing);
+            secondaryItems.UpdatePostion(physics.Position);
+
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
