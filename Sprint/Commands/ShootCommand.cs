@@ -8,15 +8,20 @@ namespace Sprint.Commands
     {
 
         private IProjectileFactory factory;
+        private ISprite item;
+        private float speed;
 
-        public ShootCommand(IProjectileFactory factory)
+        public ShootCommand(IProjectileFactory factory, ISprite proj, float newSpeed)
         {
             this.factory = factory;
+            this.item = proj;
+            this.speed = newSpeed;
         }
 
         public void Execute()
         {
-            factory.Create();
+            factory.Stage(this.speed);
+            factory.Create(this.item);
         }
     }
 }

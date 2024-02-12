@@ -18,12 +18,16 @@ namespace Sprint
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Player player;
+
         private IInputMap inputTable;
 
         private CycleItem items;
         private CycleEnemy enemies;
         private SpriteFont font;
-        private Vector2 characterLoc = new Vector2(100, 100);
+        private Vector2 characterLoc = new Vector2(500, 200);
+
+        private ProjectileSystem projectileSystem;
+        private SimpleProjectileFactory simpleProjectileFactory;
 
         private GameObjectManager objectManager;
 
@@ -39,6 +43,9 @@ namespace Sprint
 
             objectManager = new GameObjectManager();
             inputTable = new InputTable();
+            simpleProjectileFactory = new SimpleProjectileFactory(objectManager);
+            simpleProjectileFactory.LoadAllTextures(Content);
+            
             base.Initialize();
         }
 
@@ -70,17 +77,7 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemies));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemies));
 
-
-            // Shooting projectile
-            Texture2D itemSheet = Content.Load<Texture2D>("zelda_items");
-            ISprite projSprite = new AnimatedSprite(itemSheet);
-            IAtlas projAtlas = new SingleAtlas(new Rectangle(0, 45, 16, 5), new Vector2(3, 8));
-            projSprite.RegisterAnimation("def", projAtlas);
-            projSprite.SetAnimation("def");
-            projSprite.SetScale(4);
-            IProjectileFactory projFactory = new SimpleProjectileFactory(objectManager, projSprite, 100, new Vector2(300, 300));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootCommand(projFactory));
-
+            projectileSystem = new ProjectileSystem(simpleProjectileFactory, inputTable, player.GetPhysic());
         }
 
         protected override void Update(GameTime gameTime)
@@ -93,6 +90,9 @@ namespace Sprint
 
             enemies.Update(gameTime);
             items.Update(gameTime);
+
+            projectileSystem.UpdatePostion();
+            projectileSystem.UpdateDirection();
 
             base.Update(gameTime);
         }

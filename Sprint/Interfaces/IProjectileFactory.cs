@@ -11,8 +11,11 @@ namespace Sprint.Interfaces
         //Sets the direction of the project
         void SetDirection(Vector2 direction);
 
+        //Prepare for Create
+        void Stage(float speed);
+
         // Create whatever shots must be created
-        void Create();
+        void Create(ISprite proj);
 
     }
 }
