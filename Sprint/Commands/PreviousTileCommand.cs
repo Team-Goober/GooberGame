@@ -9,9 +9,9 @@ namespace Sprint.Commands
 {
     internal class PreviousTileCommand : ICommand
     {
-        private TileManager tileManager;
+        private CycleTile tileManager;
 
-        public PreviousTileCommand(TileManager tileManager)
+        public PreviousTileCommand(CycleTile tileManager)
         {
             this.tileManager = tileManager;
         }
