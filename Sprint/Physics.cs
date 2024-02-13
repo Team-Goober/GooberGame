@@ -23,6 +23,10 @@ namespace Sprint
             Position += diff;
         }
 
+        public void SetPosition(Vector2 newPosition)
+        {
+            Position = newPosition;
+        }
 
         public void Update(GameTime gameTime)
         {
