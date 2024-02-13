@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using System;
+
 using Sprint.Input;
 using Sprint.Interfaces;
 using System.Collections;
@@ -10,6 +9,7 @@ using Sprint.Sprite;
 using System.Diagnostics;
 using Sprint.Commands;
 using Sprint.Projectile;
+using System.Collections.Generic;
 
 namespace Sprint
 {
@@ -17,29 +17,17 @@ namespace Sprint
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private MoveSystems moveSystems;
-        private MainCharacter mainCharacter;
-        private Texture2D texture;
-        private IInputMap inputTable;
         private Player player;
+
+        private IInputMap inputTable;
+
         private CycleItem items;
-        private EnemyManager enemyManager;
-        private TileManager tileManager;
+        private CycleEnemy enemies;
         private SpriteFont font;
-        private Vector2 characterLoc = new Vector2(100, 100);
+        private Vector2 characterLoc = new Vector2(20, 20);
+        private bool resetGame = false;
 
-
-        private ProjectileSystem ps;
-
-        //list for directions of sprites. directionList[0] is for main character
-        private List<string> directionList = new List<string>() {"still" };
-
-
-
-
-
-        private EntityManager entityManager;
-
+        private GameObjectManager objectManager;
 
         public Game1()
         {
@@ -50,9 +38,9 @@ namespace Sprint
 
         protected override void Initialize()
         {
-            entityManager = new EntityManager();
+
+            objectManager = new GameObjectManager();
             inputTable = new InputTable();
-           
             
             base.Initialize();
         }
@@ -61,9 +49,8 @@ namespace Sprint
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            items = new CycleItem(this);
-            enemyManager = new EnemyManager(this);
-
+            items = new CycleItem(this, new Vector2(500, 100));
+            enemies = new CycleEnemy(this, new Vector2(500, 300));
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -71,40 +58,60 @@ namespace Sprint
             font = Content.Load<SpriteFont>("Font");
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
-            moveSystems = new MoveSystems(this, characterLoc, directionList);
-            mainCharacter= new MainCharacter(this);
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.A), new MoveLeft(moveSystems));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.D), new MoveRight(moveSystems));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.W), new MoveUp(moveSystems));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.S), new MoveDown(moveSystems));
+            player = new Player(this, characterLoc, inputTable, objectManager);
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.A), new MoveLeft(player));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.D), new MoveRight(player));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.W), new MoveUp(player));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.S), new MoveDown(player));
 
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Left), new MoveLeft(moveSystems));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Right), new MoveRight(moveSystems));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Up), new MoveUp(moveSystems));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Down), new MoveDown(moveSystems));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Left), new MoveLeft(player));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Right), new MoveRight(player));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Up), new MoveUp(player));
+            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Down), new MoveDown(player));
 
             //Enemy cycling
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemyManager));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemyManager));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemies));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemies));
 
-            //Tile Cycling
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.T), new PreviousTileCommand(tileManager));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Y), new NextTileCommand(tileManager));
+            //Quit game
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
+        }
+
+        //clears input dictionary and object manager
+        public void ResetGame()
+        {
+            inputTable.ClearDictionary();
+            objectManager.ClearObjects();
+        }
 
 
-            // Shooting projectile
-            ps = new ProjectileSystem(Content, entityManager, inputTable, moveSystems);
-
+        //checks if the user requested a reset for game
+        public void ResetReq()
+        {
+            resetGame = true;
         }
 
         protected override void Update(GameTime gameTime)
         {
-            //Updates main character animation depending on "wasd" keys
+            
+            //resets the game when user request a reset
+            if(resetGame)
+            {
+                ResetGame();
+                LoadContent();
+                resetGame=false;
+            }
 
 
             inputTable.Update(gameTime);
-            entityManager.Update(gameTime);
-            ps.UpdatePostion();
+            objectManager.Update(gameTime);
+
+            enemies.Update(gameTime);
+            items.Update(gameTime);
+            player.Update(gameTime);
+            player.UpdateCheckMoving(Keyboard.GetState());
+            
             base.Update(gameTime);
         }
 
@@ -112,14 +119,14 @@ namespace Sprint
         {
             GraphicsDevice.Clear(Color.Aquamarine);
 
-            _spriteBatch.Begin();
-            mainCharacter.Draw(_spriteBatch, gameTime, moveSystems.spriteLocation, directionList[0]);
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
             //Gets the vector coordinates (spriteLocation) from MoveSystems.cs and draws main character sprite
-            
-            enemyManager.Draw(_spriteBatch, new Vector2(500, 300), gameTime);
+            player.Draw(_spriteBatch, gameTime);
+            enemies.Draw(_spriteBatch, gameTime);
             items.Draw(_spriteBatch, gameTime);
 
-            entityManager.Draw(_spriteBatch, gameTime);
+            objectManager.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
             _spriteBatch.DrawString(font, "Program Made By: Bill Yang", new Vector2(10, 330), Color.Black);

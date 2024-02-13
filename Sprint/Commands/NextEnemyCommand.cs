@@ -6,17 +6,17 @@ namespace Sprint.Commands
 {
 	internal class NextEnemyCommand : ICommand
 	{
-		private EnemyManager enemyManager;
+		private CycleEnemy enemies;
 
-		public NextEnemyCommand(EnemyManager enemyManager)
+		public NextEnemyCommand(CycleEnemy enemies)
 		{
-			this.enemyManager = enemyManager;
+			this.enemies = enemies;
 		}
 
 		public void Execute()
 		{
 			
-			enemyManager.NextEnemy();
+			enemies.NextEnemy();
 		}
 	}
 }

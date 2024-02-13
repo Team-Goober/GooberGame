@@ -35,14 +35,25 @@ namespace Sprint.Sprite
             currentAnimation = animations[label];
         }
 
+        public void Update(GameTime gameTime)
+        {
+
+            // No animation set, so don't update
+            if (currentAnimation == null)
+            {
+                return;
+            }
+
+            currentAnimation.PassTime(gameTime);
+
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime, float rotation = 0f)
         {
             // No animation set, so don't draw
             if (currentAnimation == null) {
                 return;
             }
-
-            currentAnimation.PassTime(gameTime);
 
             // Get spritesheet bounds of current frame from atlas
             Rectangle sourceRectangle = currentAnimation.CurrentFrame();
