@@ -1,3 +1,5 @@
+// CycleEnemy.cs
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
@@ -12,53 +14,40 @@ namespace Sprint
         private int currentEnemyIndex = 0;
         private Vector2 position;
 
+        // Constructor
         public CycleEnemy(Game1 game, Vector2 pos)
         {
             this.position = pos;
-            
+
             // Load textures and set up animations for enemies
             // Add enemies to the 'enemies' list
-
-            CreateEnemy(game, "zelda_enemies", 0, 0, 16, 16, new Vector2(8, 8), 2);  // Enemy 1
-            CreateEnemy(game, "zelda_enemies", 240, 0, 16, 16, new Vector2(8, 8), 2); // Enemy 2
-            CreateEnemy(game, "zelda_enemies", 0, 300, 16, 16, new Vector2(8, 8), 2); // Enemy 3
+            enemies.Add(JellyfishEnemy.CreateJellyfishEnemy(game, position));
 
             // Add more enemies as needed
         }
 
-        private void CreateEnemy(Game1 game, string textureName, int x, int y, int width, int height, Vector2 center, int scale)
-        {
-            Texture2D enemyTexture = game.Content.Load<Texture2D>(textureName);
-            ISprite enemySprite = new AnimatedSprite(enemyTexture);
-            IAtlas enemyAtlas = new SingleAtlas(new Rectangle(x, y, width, height), center);
-            enemySprite.RegisterAnimation("default", enemyAtlas);
-            enemySprite.SetAnimation("default");
-            enemySprite.SetScale(scale);
-
-            Enemy enemy = new Enemy(game, enemySprite, position);
-
-            enemies.Add(enemy);
-        }
-
+        // Switch to the next enemy in the cycle
         public void NextEnemy()
         {
             currentEnemyIndex = (currentEnemyIndex + 1) % enemies.Count;
         }
 
+        // Switch to the previous enemy in the cycle
         public void PreviousEnemy()
         {
             currentEnemyIndex = (currentEnemyIndex - 1 + enemies.Count) % enemies.Count;
         }
 
+        // Update the current enemy
         public void Update(GameTime gameTime)
         {
             enemies[currentEnemyIndex].Update(gameTime);
         }
 
+        // Draw the current enemy
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             enemies[currentEnemyIndex].Draw(spriteBatch, gameTime);
         }
     }
-
 }

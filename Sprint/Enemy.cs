@@ -1,15 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Enemy.cs
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
-using System.Diagnostics;
 
 namespace Sprint
 {
-    internal class Enemy : Character
+    public class Enemy : Character
     {
-
-        ISprite sprite;
-        Physics physics;
+        protected ISprite sprite;
+        protected Physics physics;
 
         public Enemy(Game1 game, ISprite sprite, Vector2 position)
         {
