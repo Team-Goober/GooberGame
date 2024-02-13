@@ -38,5 +38,10 @@ namespace Sprint.Input
                     command.Execute();
             }
         }
+
+        public void ClearDictionary()
+        {
+            inputMapping.Clear();
+        }
     }
 }

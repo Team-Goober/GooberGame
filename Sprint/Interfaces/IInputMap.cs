@@ -10,5 +10,8 @@ namespace Sprint.Interfaces
         // Find active inputs and run corresponding commands each cycle
         void Update(GameTime gameTime);
 
+        //Method that clears the dictionaryr
+        void ClearDictionary();
+
     }
 }

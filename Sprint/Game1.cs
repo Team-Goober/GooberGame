@@ -25,6 +25,7 @@ namespace Sprint
         private CycleEnemy enemies;
         private SpriteFont font;
         private Vector2 characterLoc = new Vector2(20, 20);
+        private bool resetGame = false;
 
         private GameObjectManager objectManager;
 
@@ -71,11 +72,36 @@ namespace Sprint
             //Enemy cycling
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemies));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemies));
+
+            //Quit game
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
+        }
+
+        //clears input dictionary and object manager
+        public void ResetGame()
+        {
+            inputTable.ClearDictionary();
+            objectManager.ClearObjects();
+        }
+
+
+        //checks if the user requested a reset for game
+        public void ResetReq()
+        {
+            resetGame = true;
         }
 
         protected override void Update(GameTime gameTime)
         {
-            //Updates main character animation depending on "wasd" keys
+            
+            //resets the game when user request a reset
+            if(resetGame)
+            {
+                ResetGame();
+                LoadContent();
+                resetGame=false;
+            }
 
 
             inputTable.Update(gameTime);
