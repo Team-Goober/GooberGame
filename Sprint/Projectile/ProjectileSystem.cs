@@ -4,7 +4,7 @@ using Sprint;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Sprint.Commands;
+using Sprint.Commands.SecondaryItem;
 using Sprint.Input;
 
 namespace Sprint.Projectile
@@ -15,30 +15,27 @@ namespace Sprint.Projectile
 
         public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager, ContentManager contManager)
         {
-            // oldLocation = link.spriteLocation;
 
             this.itemFactory = new SimpleProjectileFactory();
             itemFactory.LoadAllTextures(contManager);
-            itemFactory.SetDirection(new Vector2(90, 0));
+            itemFactory.SetDirection(new Vector2(1, 90));
             itemFactory.SetStartPosition(startPos);
 
             //Arrow
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootArrowCommand(itemFactory, objManager));
             
 
-            /*//Blue Arrow
-            ISprite blueArrowSprite = itemFactory.CreateBlueArrow();
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootArrowCommand(itemFactory, blueArrowSprite, 200));
+            //Blue Arrow
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootBlueArrowC(itemFactory, objManager));
 
+          
             //Bomb
-            ISprite bombSprite = itemFactory.CreateBomb();
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootArrowCommand(itemFactory, bombSprite, 0));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootBombC(itemFactory, objManager));
 
 
-            //FireBomb
-            ISprite boomarangSprite = itemFactory.CreateBoomarang();
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootArrowCommand(itemFactory, boomarangSprite, 200));
-            */
+            //Boomarang
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootBoomarangC(itemFactory, objManager));
+
 
         }
 
