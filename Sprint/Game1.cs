@@ -24,6 +24,7 @@ namespace Sprint
         private Player player;
         private CycleItem items;
         private EnemyManager enemyManager;
+        private TileManager tileManager;
         private SpriteFont font;
         private Vector2 characterLoc = new Vector2(100, 100);
 
@@ -85,6 +86,10 @@ namespace Sprint
             //Enemy cycling
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemyManager));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemyManager));
+
+            //Tile Cycling
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.T), new PreviousTileCommand(tileManager));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Y), new NextTileCommand(tileManager));
 
 
             // Shooting projectile
