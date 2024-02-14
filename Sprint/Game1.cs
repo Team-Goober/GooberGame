@@ -79,6 +79,9 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.T), new PreviousTileCommand(tiles));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Y), new NextTileCommand(tiles));
 
+            //Melee Regular Sword Attack
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Melee(player));
+
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
