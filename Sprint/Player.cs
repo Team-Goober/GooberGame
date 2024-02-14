@@ -104,6 +104,10 @@ namespace Sprint
         //Melee attack according to direction
         public void Attack()
         {
+
+            // Player shouldn't move while attacking
+            StopMoving();
+
             switch (Facing)
             {
                 case Directions.RIGHT:
@@ -121,26 +125,32 @@ namespace Sprint
                 default:
                     break;
             }
-            
-            // Player shouldn't move while attacking
-            StopMoving();
         }
 
         public void StopMoving()
         {
-            if(Facing == Directions.DOWN)
+            // TODO: replace these checks once we have a state machine
+            string currAnim = sprite.GetCurrentAnimation();
+            if (currAnim.Equals("left") || currAnim.Equals("right") || currAnim.Equals("up") || currAnim.Equals("down"))
             {
-                sprite.SetAnimation("downStill");
-            }else if(Facing == Directions.LEFT)
-            {
-                sprite.SetAnimation("leftStill");
-            }else if(Facing == Directions.UP)
-            {
-                sprite.SetAnimation("upStill");
-            }else if(Facing == Directions.RIGHT)
-            {
-                sprite.SetAnimation("rightStill");
+                if (Facing == Directions.DOWN)
+                {
+                    sprite.SetAnimation("downStill");
+                }
+                else if (Facing == Directions.LEFT)
+                {
+                    sprite.SetAnimation("leftStill");
+                }
+                else if (Facing == Directions.UP)
+                {
+                    sprite.SetAnimation("upStill");
+                }
+                else if (Facing == Directions.RIGHT)
+                {
+                    sprite.SetAnimation("rightStill");
+                }
             }
+
 
             physics.SetVelocity(new Vector2(0, 0));
         }
