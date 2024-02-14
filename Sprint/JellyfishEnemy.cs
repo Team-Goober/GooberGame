@@ -23,6 +23,8 @@ namespace Sprint
             this.initialPosition = initialPosition;
         }
 
+
+
         public static JellyfishEnemy CreateJellyfishEnemy(Game1 game, Vector2 initialPosition)
         {
             string textureName = "zelda_enemies";
