@@ -12,15 +12,13 @@ namespace Sprint
         public List<string> directionList;
 
         public Vector2 Position { get; private set; }
+        public Vector2 Velocity { get; private set; }
 
         //gets position of the sprite
         public Physics(Game1 game, Vector2 posChar)
         { 
             Position = posChar;
-        }
-        
-        public void Move(Vector2 diff) {
-            Position += diff;
+            Velocity = Vector2.Zero;
         }
 
         public void SetPosition(Vector2 newPosition)
@@ -28,9 +26,15 @@ namespace Sprint
             Position = newPosition;
         }
 
+        public void SetVelocity(Vector2 newVelocity)
+        {
+            Velocity = newVelocity;
+        }
+
         public void Update(GameTime gameTime)
         {
-            
+            // Move position according to current velocity
+            Position = Position + Velocity * (float)(gameTime.ElapsedGameTime.TotalSeconds);
         }
 
     }

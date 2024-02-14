@@ -121,58 +121,54 @@ namespace Sprint
             }
         }
 
-        public void UpdateCheckMoving(KeyboardState keyState)
+        public void StopMoving()
         {
-            bool checkKey=keyState.IsKeyDown(Keys.W) ||keyState.IsKeyDown(Keys.A)||keyState.IsKeyDown(Keys.S)||keyState.IsKeyDown(Keys.D)||keyState.IsKeyDown(Keys.Left)||keyState.IsKeyDown(Keys.Right)||keyState.IsKeyDown(Keys.Up)||keyState.IsKeyDown(Keys.Down);
-
-            if(!checkKey)
+            if(Facing == Directions.DOWN)
             {
-                if(Facing == Directions.DOWN)
-                {
-                    sprite.SetAnimation("downStill");
-                }else if(Facing == Directions.LEFT)
-                {
-                    sprite.SetAnimation("leftStill");
-                }else if(Facing == Directions.UP)
-                {
-                    sprite.SetAnimation("upStill");
-                }else if(Facing == Directions.RIGHT)
-                {
-                    sprite.SetAnimation("rightStill");
-                }
-
+                sprite.SetAnimation("downStill");
+            }else if(Facing == Directions.LEFT)
+            {
+                sprite.SetAnimation("leftStill");
+            }else if(Facing == Directions.UP)
+            {
+                sprite.SetAnimation("upStill");
+            }else if(Facing == Directions.RIGHT)
+            {
+                sprite.SetAnimation("rightStill");
             }
+
+            physics.SetVelocity(new Vector2(0, 0));
         }
 
 
         public void MoveLeft()
         {
-            //Moves the sprite to the left
-            physics.Move(new Vector2(-5, 0));
+            // Sets velocity towards left
+            physics.SetVelocity(new Vector2(-100, 0));
             sprite.SetAnimation("left");
             Facing = Directions.LEFT;
         }
 
         public void MoveRight()
         {
-            //Moves the sprite to the right
-            physics.Move(new Vector2(5, 0));
+            // Sets velocity towards right
+            physics.SetVelocity(new Vector2(100, 0));
             sprite.SetAnimation("right");
             Facing = Directions.RIGHT;
         }
 
         public void MoveUp()
         {
-            //Moves the sprite up
-            physics.Move(new Vector2(0, -5));
+            // Sets velocity towards up
+            physics.SetVelocity(new Vector2(0, -100));
             sprite.SetAnimation("up");
             Facing = Directions.UP;
         }
 
         public void MoveDown()
         {
-            //Moves the sprite down
-            physics.Move(new Vector2(0, 5));
+            // Sets velocity towards down
+            physics.SetVelocity(new Vector2(0, 100));
             sprite.SetAnimation("down");
             Facing = Directions.DOWN;
         }
