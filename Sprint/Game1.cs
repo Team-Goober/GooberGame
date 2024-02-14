@@ -23,6 +23,7 @@ namespace Sprint
 
         private CycleItem items;
         private CycleEnemy enemies;
+        private CycleTile tiles;
         private SpriteFont font;
         private Vector2 characterLoc = new Vector2(20, 20);
         private bool resetGame = false;
@@ -51,6 +52,7 @@ namespace Sprint
 
             items = new CycleItem(this, new Vector2(500, 100));
             enemies = new CycleEnemy(this, new Vector2(500, 300));
+            tiles = new CycleTile(this, new Vector2(500, 200));
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -72,6 +74,13 @@ namespace Sprint
             //Enemy cycling
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemies));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemies));
+
+            //Tile Cycling
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.T), new PreviousTileCommand(tiles));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Y), new NextTileCommand(tiles));
+
+            //Melee Regular Sword Attack
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Melee(player));
 
             //Take Damage
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.E), new TakeDamageCommand(player));
@@ -111,6 +120,7 @@ namespace Sprint
             objectManager.Update(gameTime);
 
             enemies.Update(gameTime);
+            tiles.Update(gameTime);
             items.Update(gameTime);
             player.Update(gameTime);
             player.UpdateCheckMoving(Keyboard.GetState());
@@ -127,6 +137,7 @@ namespace Sprint
             //Gets the vector coordinates (spriteLocation) from MoveSystems.cs and draws main character sprite
             player.Draw(_spriteBatch, gameTime);
             enemies.Draw(_spriteBatch, gameTime);
+            tiles.Draw(_spriteBatch, gameTime);
             items.Draw(_spriteBatch, gameTime);
 
             objectManager.Draw(_spriteBatch, gameTime);
