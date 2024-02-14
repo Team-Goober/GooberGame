@@ -74,10 +74,51 @@ namespace Sprint
             sprite.SetScale(3);
 
 
+            // sword animations RIGHT 
+            IAtlas swordRightAtlas = new SingleAtlas(new Rectangle(84, 90, 27, 15), new Vector2(0, 0));
+            sprite.RegisterAnimation("swordRight", swordRightAtlas);
+
+            // sword animations LEFT 
+            IAtlas swordLeftAtlas = new SingleAtlas(new Rectangle(24, 90, 27, 15), new Vector2(0, 0));
+            sprite.RegisterAnimation("swordLeft", swordLeftAtlas);
+
+            // sword animations UP 
+            IAtlas swordUpAtlas = new SingleAtlas(new Rectangle(60, 84, 16, 28), new Vector2(0, 0));
+            sprite.RegisterAnimation("swordUp", swordUpAtlas);
+
+            // sword animations DOWN 
+            IAtlas swordDownAtlas = new SingleAtlas(new Rectangle(0, 84, 16, 27), new Vector2(0, 0));
+            sprite.RegisterAnimation("swordDown", swordDownAtlas);
+
+
+
+
             // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, game.Content);
 
 
+        }
+
+        //Melee attack according to direction
+        public void Attack()
+        {
+            switch (Facing)
+            {
+                case Directions.RIGHT:
+                    sprite.SetAnimation("swordRight");
+                    break;
+                case Directions.LEFT:
+                    sprite.SetAnimation("swordLeft");
+                    break;
+                case Directions.UP:
+                    sprite.SetAnimation("swordUp");
+                    break;
+                case Directions.DOWN:
+                    sprite.SetAnimation("swordDown");
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void UpdateCheckMoving(KeyboardState keyState)
