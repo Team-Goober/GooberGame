@@ -21,6 +21,8 @@ namespace Sprint
 
         public Directions Facing { get; private set; }
 
+        private const float speed = 200;
+
 
         //declares the move systems for the main character sprite
         public Player(Game1 game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager)
@@ -119,6 +121,9 @@ namespace Sprint
                 default:
                     break;
             }
+            
+            // Player shouldn't move while attacking
+            StopMoving();
         }
 
         public void StopMoving()
@@ -144,7 +149,7 @@ namespace Sprint
         public void MoveLeft()
         {
             // Sets velocity towards left
-            physics.SetVelocity(new Vector2(-100, 0));
+            physics.SetVelocity(new Vector2(-speed, 0));
             sprite.SetAnimation("left");
             Facing = Directions.LEFT;
         }
@@ -152,7 +157,7 @@ namespace Sprint
         public void MoveRight()
         {
             // Sets velocity towards right
-            physics.SetVelocity(new Vector2(100, 0));
+            physics.SetVelocity(new Vector2(speed, 0));
             sprite.SetAnimation("right");
             Facing = Directions.RIGHT;
         }
@@ -160,7 +165,7 @@ namespace Sprint
         public void MoveUp()
         {
             // Sets velocity towards up
-            physics.SetVelocity(new Vector2(0, -100));
+            physics.SetVelocity(new Vector2(0, -speed));
             sprite.SetAnimation("up");
             Facing = Directions.UP;
         }
@@ -168,7 +173,7 @@ namespace Sprint
         public void MoveDown()
         {
             // Sets velocity towards down
-            physics.SetVelocity(new Vector2(0, 100));
+            physics.SetVelocity(new Vector2(0, speed));
             sprite.SetAnimation("down");
             Facing = Directions.DOWN;
         }
