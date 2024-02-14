@@ -73,6 +73,9 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemies));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemies));
 
+            //Take Damage
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.E), new TakeDamageCommand(player));
+
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));

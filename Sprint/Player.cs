@@ -18,6 +18,8 @@ namespace Sprint
         private Physics physics;
 
         private ProjectileSystem secondaryItems;
+        private bool isDamaged = false;
+        private int damageCheck = 0;
 
         public Directions Facing { get; private set; }
 
@@ -73,6 +75,9 @@ namespace Sprint
             Facing = Directions.STILL;
             sprite.SetScale(3);
 
+            //Set up damage atlas
+            IAtlas damage = new AutoAtlas(new Rectangle(0, 150, 22, 22), 1, 1, 0, true, 10);
+            sprite.RegisterAnimation("damage", damage);
 
             // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, game.Content);
@@ -84,47 +89,62 @@ namespace Sprint
         {
             bool checkKey=keyState.IsKeyDown(Keys.W) ||keyState.IsKeyDown(Keys.A)||keyState.IsKeyDown(Keys.S)||keyState.IsKeyDown(Keys.D)||keyState.IsKeyDown(Keys.Left)||keyState.IsKeyDown(Keys.Right)||keyState.IsKeyDown(Keys.Up)||keyState.IsKeyDown(Keys.Down);
 
-            if(!checkKey)
+            if ( !checkKey )
             {
-                if(Facing == Directions.DOWN)
+                if (isDamaged)
                 {
-
-
+                    return;
+                } else if (Facing == Directions.DOWN)
+                {
                     sprite.SetAnimation("downStill");
-                }else if(Facing == Directions.LEFT)
+                } else if (Facing == Directions.LEFT)
                 {
                     sprite.SetAnimation("leftStill");
-                }else if(Facing == Directions.UP)
+                } else if (Facing == Directions.UP)
                 {
                     sprite.SetAnimation("upStill");
-                }else if(Facing == Directions.RIGHT)
+                } else if (Facing == Directions.RIGHT)
                 {
                     sprite.SetAnimation("rightStill");
                 }
 
             }
+            
         }
 
 
         public void MoveLeft()
         {
             //Moves the sprite to the left
+            if (isDamaged)
+            {
+                return;
+            }
             physics.Move(new Vector2(-5, 0));
             sprite.SetAnimation("left");
             Facing = Directions.LEFT;
+            
         }
 
         public void MoveRight()
         {
             //Moves the sprite to the right
+            if (isDamaged)
+            {
+                return;
+            }
             physics.Move(new Vector2(5, 0));
             sprite.SetAnimation("right");
-            Facing = Directions.RIGHT;
+             Facing = Directions.RIGHT;
         }
 
         public void MoveUp()
         {
             //Moves the sprite up
+            if (isDamaged)
+            {
+                return;
+            }
             physics.Move(new Vector2(0, -5));
             sprite.SetAnimation("up");
             Facing = Directions.UP;
@@ -133,6 +153,10 @@ namespace Sprint
         public void MoveDown()
         {
             //Moves the sprite down
+            if (isDamaged)
+            {
+                return;
+            }
             physics.Move(new Vector2(0, 5));
             sprite.SetAnimation("down");
             Facing = Directions.DOWN;
@@ -143,12 +167,35 @@ namespace Sprint
             return physics;
         }
 
+        public void TakeDamage()
+        {
+            isDamaged = true;
+            
+            sprite.SetAnimation("damage");
+            
+        }
+
 
         public override void Update(GameTime gameTime)
         {
             secondaryItems.UpdateDirection(Facing);
             secondaryItems.UpdatePostion(physics.Position);
 
+            //Checks for damage state
+            if (isDamaged)
+            {
+                if(damageCheck == 10)
+                {
+                    isDamaged = false;
+                    damageCheck = 0;
+                }
+                else
+                {
+                    damageCheck++;
+                }
+
+            }
+            
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
