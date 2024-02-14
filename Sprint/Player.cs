@@ -88,8 +88,6 @@ namespace Sprint
             {
                 if(Facing == Directions.DOWN)
                 {
-
-
                     sprite.SetAnimation("downStill");
                 }else if(Facing == Directions.LEFT)
                 {
