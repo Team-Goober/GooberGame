@@ -18,6 +18,8 @@ namespace Sprint
         private Physics physics;
 
         private ProjectileSystem secondaryItems;
+        private bool isDamaged = false;
+        private int damageCheck = 0;
 
         public Directions Facing { get; private set; }
 
@@ -79,6 +81,9 @@ namespace Sprint
             Facing = Directions.STILL;
             sprite.SetScale(3);
 
+            //Set up damage atlas
+            IAtlas damage = new AutoAtlas(new Rectangle(0, 150, 22, 22), 1, 1, 0, true, 10);
+            sprite.RegisterAnimation("damage", damage);
 
             // sword animations RIGHT 
             IAtlas swordRightAtlas = new SingleAtlas(new Rectangle(84, 90, 27, 15), new Vector2(0, 0));
@@ -145,6 +150,28 @@ namespace Sprint
             // TODO: replace these checks once we have a state machine
             string currAnim = sprite.GetCurrentAnimation();
 
+
+            if ( !checkKey )
+            {
+                if (isDamaged)
+                {
+                    return;
+                } else if (Facing == Directions.DOWN)
+                {
+                    sprite.SetAnimation("downStill");
+                } else if (Facing == Directions.LEFT)
+                {
+                    sprite.SetAnimation("leftStill");
+                } else if (Facing == Directions.UP)
+                {
+                    sprite.SetAnimation("upStill");
+                } else if (Facing == Directions.RIGHT)
+                {
+                    sprite.SetAnimation("rightStill");
+                }
+
+            }
+
             // If the current animation is movement, stop it
             if (currAnim.Equals("left") || currAnim.Equals("right") || currAnim.Equals("up") || currAnim.Equals("down"))
             {
@@ -153,6 +180,7 @@ namespace Sprint
 
 
             physics.SetVelocity(new Vector2(0, 0));
+
         }
 
         // Set animation to still frame of current facing direction
@@ -178,32 +206,69 @@ namespace Sprint
 
         public void MoveLeft()
         {
+
+            //Moves the sprite to the left
+            if (isDamaged)
+            {
+                return;
+            }
+            physics.Move(new Vector2(-5, 0));
+
             // Sets velocity towards left
             physics.SetVelocity(new Vector2(-speed, 0));
+
             sprite.SetAnimation("left");
             Facing = Directions.LEFT;
+            
         }
 
         public void MoveRight()
         {
+
+            //Moves the sprite to the right
+            if (isDamaged)
+            {
+                return;
+            }
+            physics.Move(new Vector2(5, 0));
+
             // Sets velocity towards right
             physics.SetVelocity(new Vector2(speed, 0));
+
             sprite.SetAnimation("right");
-            Facing = Directions.RIGHT;
+             Facing = Directions.RIGHT;
         }
 
         public void MoveUp()
         {
+
+            //Moves the sprite up
+            if (isDamaged)
+            {
+                return;
+            }
+            physics.Move(new Vector2(0, -5));
+
             // Sets velocity towards up
             physics.SetVelocity(new Vector2(0, -speed));
+
             sprite.SetAnimation("up");
             Facing = Directions.UP;
         }
 
         public void MoveDown()
         {
+
+            //Moves the sprite down
+            if (isDamaged)
+            {
+                return;
+            }
+            physics.Move(new Vector2(0, 5));
+
             // Sets velocity towards down
             physics.SetVelocity(new Vector2(0, speed));
+
             sprite.SetAnimation("down");
             Facing = Directions.DOWN;
         }
@@ -211,6 +276,14 @@ namespace Sprint
         public Physics GetPhysic()
         {
             return physics;
+        }
+
+        public void TakeDamage()
+        {
+            isDamaged = true;
+            
+            sprite.SetAnimation("damage");
+            
         }
 
 
@@ -227,6 +300,21 @@ namespace Sprint
             secondaryItems.UpdateDirection(Facing);
             secondaryItems.UpdatePostion(physics.Position);
 
+            //Checks for damage state
+            if (isDamaged)
+            {
+                if(damageCheck == 10)
+                {
+                    isDamaged = false;
+                    damageCheck = 0;
+                }
+                else
+                {
+                    damageCheck++;
+                }
+
+            }
+            
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
