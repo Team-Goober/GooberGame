@@ -48,7 +48,7 @@ namespace Sprint
             itemFactory.SetSpriteDirection("right");
 
 
-            this.projectileCommand = new ShootArrowCommand(itemFactory, objectManager);
+            this.projectileCommand = new ShootBombC(itemFactory, objectManager);
 
 
 
