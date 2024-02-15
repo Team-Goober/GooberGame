@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System.Collections.Generic;
+using Sprint.Projectile;
 
 namespace Sprint
 {
@@ -15,7 +16,7 @@ namespace Sprint
         private Vector2 position;
 
         // Constructor
-        public CycleEnemy(Game1 game, Vector2 pos)
+        public CycleEnemy(Game1 game, Vector2 pos, GameObjectManager objectManager)
         {
             this.position = pos;
 
@@ -23,6 +24,7 @@ namespace Sprint
             // Add enemies to the 'enemies' list
             enemies.Add(JellyfishEnemy.CreateJellyfishEnemy(game, position));
             enemies.Add(BluebubbleEnemy.CreateBluebubbleEnemy(game, position));
+            enemies.Add(SkeletonEnemy.CreateSkeletonEnemy(game, position, objectManager));
 
             // Add more enemies as needed
         }
