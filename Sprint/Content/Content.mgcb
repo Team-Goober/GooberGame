@@ -32,7 +32,7 @@
 /processorParam:TextureFormat=Color
 /build:Items/Bomb.png
 
-#begin Items/Bomb.png
+#begin Items/FireBall.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -42,7 +42,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Items/Bomb.png
+/build:Items/FireBall.png
 
 #begin Items/Triforce.png
 /importer:TextureImporter

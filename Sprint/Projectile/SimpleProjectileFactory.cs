@@ -8,6 +8,8 @@ namespace Sprint.Projectile
     {
         private Texture2D itemSheet;
         private Texture2D bomb;
+        private Texture2D fireBall;
+
         Vector2 position;
         Vector2 direction;
 
@@ -22,6 +24,7 @@ namespace Sprint.Projectile
         {
             itemSheet = content.Load<Texture2D>("zelda_items");
             bomb = content.Load<Texture2D>("Items/Bomb");
+            fireBall = content.Load<Texture2D>("Items/FireBall");
 
         }
 
@@ -43,6 +46,11 @@ namespace Sprint.Projectile
         public Boomarang CreateBoomarang()
         { 
             return new Boomarang(itemSheet, position, direction);
+        }
+
+        public FireBall CreateFireBall()
+        {
+            return new FireBall(fireBall, position, direction);
         }
 
         public void SetDirection(Vector2 direction)

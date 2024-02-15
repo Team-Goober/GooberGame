@@ -3,12 +3,6 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Sprint.Character;
-using System.Diagnostics;
 
 namespace Sprint.Projectile
 {
