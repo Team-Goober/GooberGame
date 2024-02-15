@@ -14,7 +14,7 @@ namespace Sprint.Projectile
 
         const float speed = 300;
 
-        public BlueArrow(Texture2D sheet, Vector2 startPos, Vector2 direction, string spriteDirection)
+        public BlueArrow(Texture2D sheet, Vector2 startPos, Vector2 direction)
         {
             this.position = startPos;
 
@@ -28,22 +28,19 @@ namespace Sprint.Projectile
             }
 
             sprite = new AnimatedSprite(sheet);
-            IAtlas right = new SingleAtlas(new Rectangle(0, 125, 16, 5), new Vector2(-6, -2));
-            IAtlas left = new SingleAtlas(new Rectangle(40, 85, 16, 5), new Vector2(6, -2));
-            IAtlas up = new SingleAtlas(new Rectangle(45, 120, 5, 16), new Vector2(-4, 8));
-            IAtlas down = new SingleAtlas(new Rectangle(5, 80, 5, 16), new Vector2(-2, -6));
-            sprite.RegisterAnimation("right", right);
-            sprite.RegisterAnimation("left", left);
-            sprite.RegisterAnimation("up", up);
-            sprite.RegisterAnimation("down", down);
+            IAtlas right = new SingleAtlas(new Rectangle(0, 125, 16, 5), new Vector2(6, 2.5f));
 
-            sprite.SetAnimation(spriteDirection);
+            sprite.RegisterAnimation("right", right);
+
+
+            sprite.SetAnimation("right");
             sprite.SetScale(4);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            sprite.Draw(spriteBatch, position, gameTime);
+            float rotation = (float)Math.Atan2(velocity.Y, velocity.X);
+            sprite.Draw(spriteBatch, position, gameTime, rotation);
         }
 
         public void Update(GameTime gameTime)

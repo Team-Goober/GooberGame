@@ -45,10 +45,9 @@ namespace Sprint
             this.itemFactory = new SimpleProjectileFactory();
             
             itemFactory.LoadAllTextures(contManager);
-            itemFactory.SetSpriteDirection("right");
 
 
-            this.projectileCommand = new ShootBombC(itemFactory, objectManager);
+            this.projectileCommand = new ShootArrowCommand(itemFactory, objectManager);
 
 
 

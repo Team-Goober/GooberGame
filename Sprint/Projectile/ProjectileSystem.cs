@@ -25,7 +25,6 @@ namespace Sprint.Projectile
             this.itemFactory = new SimpleProjectileFactory();
             itemFactory.LoadAllTextures(contManager);
             itemFactory.SetDirection(new Vector2(1, 90));
-            itemFactory.SetSpriteDirection("right");
             itemFactory.SetStartPosition(startPos);
 
             //Arrow
@@ -57,19 +56,15 @@ namespace Sprint.Projectile
             {
                 case Character.Directions.LEFT:
                     itemFactory.SetDirection(new Vector2(-1, 0));
-                    itemFactory.SetSpriteDirection("left");
                     break;
                 case Character.Directions.RIGHT:
                     itemFactory.SetDirection(new Vector2(1, 0));
-                    itemFactory.SetSpriteDirection("right");
                     break;
                 case Character.Directions.UP:
-                    itemFactory.SetDirection(new Vector2(1, -90));
-                    itemFactory.SetSpriteDirection("up");
+                    itemFactory.SetDirection(new Vector2(0, -1));
                     break;
                 case Character.Directions.DOWN:
-                    itemFactory.SetDirection(new Vector2(1, 90));
-                    itemFactory.SetSpriteDirection("down");
+                    itemFactory.SetDirection(new Vector2(0, 1));
                     break;
                 default: break;
             }

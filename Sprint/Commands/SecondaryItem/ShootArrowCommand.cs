@@ -11,8 +11,6 @@ namespace Sprint.Commands.SecondaryItem
         private SimpleProjectileFactory factory;
         private GameObjectManager objManager;
 
-        private Character.Directions direction;
-
         public ShootArrowCommand(SimpleProjectileFactory newFactory, GameObjectManager newObjManager)
         {
             this.factory = newFactory;
