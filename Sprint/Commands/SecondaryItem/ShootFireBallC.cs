@@ -1,19 +1,19 @@
-﻿
-using Microsoft.Xna.Framework;
-using Sprint.Interfaces;
+﻿using Sprint.Interfaces;
 using Sprint.Projectile;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Sprint.Commands.SecondaryItem
 {
-    internal class ShootArrowCommand : ICommand
+    internal class ShootFireBallC : ICommand
     {
-
         private SimpleProjectileFactory factory;
         private GameObjectManager objManager;
 
-        private Character.Directions direction;
-
-        public ShootArrowCommand(SimpleProjectileFactory newFactory, GameObjectManager newObjManager)
+        public ShootFireBallC(SimpleProjectileFactory newFactory, GameObjectManager newObjManager)
         {
             this.factory = newFactory;
             this.objManager = newObjManager;
@@ -21,7 +21,7 @@ namespace Sprint.Commands.SecondaryItem
 
         public void Execute()
         {
-            IProjectile projectile = factory.CreateArrow();
+            IProjectile projectile = factory.CreateFireBall();
             objManager.Add(projectile);
         }
     }
