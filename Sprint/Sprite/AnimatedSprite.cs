@@ -13,6 +13,7 @@ namespace Sprint.Sprite
         private float scale = 1.0f;
         private Dictionary<string, IAtlas> animations;
         private IAtlas currentAnimation;
+        private string currentLabel;
 
         public AnimatedSprite(Texture2D texture)
         {
@@ -32,7 +33,13 @@ namespace Sprint.Sprite
 
         public void SetAnimation(string label)
         {
-            currentAnimation = animations[label];
+            currentLabel = label;
+            currentAnimation = animations[currentLabel];
+        }
+
+        public string GetCurrentAnimation()
+        {
+            return currentLabel;
         }
 
         public void Update(GameTime gameTime)
