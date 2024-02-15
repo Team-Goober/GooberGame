@@ -61,15 +61,18 @@ namespace Sprint
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
             player = new Player(this, characterLoc, inputTable, objectManager);
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.A), new MoveLeft(player));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.D), new MoveRight(player));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.W), new MoveUp(player));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.S), new MoveDown(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new MoveUp(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.S), new MoveDown(player));
 
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Left), new MoveLeft(player));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Right), new MoveRight(player));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Up), new MoveUp(player));
-            inputTable.RegisterMapping(new SingleKeyHoldTrigger(Keys.Down), new MoveDown(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveLeft(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveRight(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Up), new MoveUp(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveDown(player));
+
+            Keys[] moveKeys = { Keys.A, Keys.D, Keys.W, Keys.S, Keys.Left, Keys.Right, Keys.Up, Keys.Down };
+            inputTable.RegisterMapping(new MultipleKeyReleaseTrigger(moveKeys), new StopMoving(player));
 
             //Enemy cycling
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemies));
@@ -120,7 +123,6 @@ namespace Sprint
             tiles.Update(gameTime);
             items.Update(gameTime);
             player.Update(gameTime);
-            player.UpdateCheckMoving(Keyboard.GetState());
             
             base.Update(gameTime);
         }

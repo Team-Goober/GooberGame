@@ -20,5 +20,9 @@ namespace Sprint.Interfaces
 
         // Draw Sprite to given sprite batch at location
         void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime, float rotation = 0);
+
+        // Returns string label for current animation
+        string GetCurrentAnimation();
+    
     }
 }

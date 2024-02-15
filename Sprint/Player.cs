@@ -21,6 +21,9 @@ namespace Sprint
 
         public Directions Facing { get; private set; }
 
+        private const float speed = 200;
+
+        private Timer attackTimer;
 
         //declares the move systems for the main character sprite
         public Player(Game1 game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager)
@@ -31,6 +34,9 @@ namespace Sprint
             //Loads sprite sheet for link
             Texture2D zeldaSheet = game.Content.Load<Texture2D>("zelda_links");
             sprite = new AnimatedSprite(zeldaSheet);
+
+            // Duration of one sword swing
+            attackTimer = new Timer(0.5);
 
             //declares autoatlas on the location of animation down
             //0, 0, 16, 47 is the coordinates of the x, y for down animation in sprite sheet
@@ -102,6 +108,19 @@ namespace Sprint
         //Melee attack according to direction
         public void Attack()
         {
+
+            // Only attack if not already attacking
+            if (!attackTimer.Ended)
+            {
+                return;
+            }
+
+            // Player shouldn't move while attacking
+            StopMoving();
+
+            // Start timer for attack
+            attackTimer.Start();
+
             switch (Facing)
             {
                 case Directions.RIGHT:
@@ -121,58 +140,70 @@ namespace Sprint
             }
         }
 
-        public void UpdateCheckMoving(KeyboardState keyState)
+        public void StopMoving()
         {
-            bool checkKey=keyState.IsKeyDown(Keys.W) ||keyState.IsKeyDown(Keys.A)||keyState.IsKeyDown(Keys.S)||keyState.IsKeyDown(Keys.D)||keyState.IsKeyDown(Keys.Left)||keyState.IsKeyDown(Keys.Right)||keyState.IsKeyDown(Keys.Up)||keyState.IsKeyDown(Keys.Down);
+            // TODO: replace these checks once we have a state machine
+            string currAnim = sprite.GetCurrentAnimation();
 
-            if(!checkKey)
+            // If the current animation is movement, stop it
+            if (currAnim.Equals("left") || currAnim.Equals("right") || currAnim.Equals("up") || currAnim.Equals("down"))
             {
-                if(Facing == Directions.DOWN)
-                {
-                    sprite.SetAnimation("downStill");
-                }else if(Facing == Directions.LEFT)
-                {
-                    sprite.SetAnimation("leftStill");
-                }else if(Facing == Directions.UP)
-                {
-                    sprite.SetAnimation("upStill");
-                }else if(Facing == Directions.RIGHT)
-                {
-                    sprite.SetAnimation("rightStill");
-                }
+                animateStill();
+            }
 
+
+            physics.SetVelocity(new Vector2(0, 0));
+        }
+
+        // Set animation to still frame of current facing direction
+        private void animateStill()
+        {
+            if (Facing == Directions.DOWN)
+            {
+                sprite.SetAnimation("downStill");
+            }
+            else if (Facing == Directions.LEFT)
+            {
+                sprite.SetAnimation("leftStill");
+            }
+            else if (Facing == Directions.UP)
+            {
+                sprite.SetAnimation("upStill");
+            }
+            else if (Facing == Directions.RIGHT)
+            {
+                sprite.SetAnimation("rightStill");
             }
         }
 
-
         public void MoveLeft()
         {
-            //Moves the sprite to the left
-            physics.Move(new Vector2(-5, 0));
+            // Sets velocity towards left
+            physics.SetVelocity(new Vector2(-speed, 0));
             sprite.SetAnimation("left");
             Facing = Directions.LEFT;
         }
 
         public void MoveRight()
         {
-            //Moves the sprite to the right
-            physics.Move(new Vector2(5, 0));
+            // Sets velocity towards right
+            physics.SetVelocity(new Vector2(speed, 0));
             sprite.SetAnimation("right");
             Facing = Directions.RIGHT;
         }
 
         public void MoveUp()
         {
-            //Moves the sprite up
-            physics.Move(new Vector2(0, -5));
+            // Sets velocity towards up
+            physics.SetVelocity(new Vector2(0, -speed));
             sprite.SetAnimation("up");
             Facing = Directions.UP;
         }
 
         public void MoveDown()
         {
-            //Moves the sprite down
-            physics.Move(new Vector2(0, 5));
+            // Sets velocity towards down
+            physics.SetVelocity(new Vector2(0, speed));
             sprite.SetAnimation("down");
             Facing = Directions.DOWN;
         }
@@ -185,6 +216,14 @@ namespace Sprint
 
         public override void Update(GameTime gameTime)
         {
+
+            // Check for end of sword swing
+            attackTimer.Update(gameTime);
+            if (attackTimer.JustEnded)
+            {
+                animateStill();
+            }
+
             secondaryItems.UpdateDirection(Facing);
             secondaryItems.UpdatePostion(physics.Position);
 
