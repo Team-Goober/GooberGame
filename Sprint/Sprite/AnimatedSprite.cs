@@ -35,6 +35,7 @@ namespace Sprint.Sprite
         {
             currentLabel = label;
             currentAnimation = animations[currentLabel];
+            currentAnimation.Reset();
         }
 
         public string GetCurrentAnimation()

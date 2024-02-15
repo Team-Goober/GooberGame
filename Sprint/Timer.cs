@@ -30,6 +30,11 @@ namespace Sprint
             JustEnded = true;
         }
 
+        public void SetDuration(double seconds)
+        {
+            Duration = TimeSpan.FromSeconds(seconds);
+        }
+
         public void Update(GameTime gameTime)
         {
             if (JustEnded)
