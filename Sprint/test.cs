@@ -8,7 +8,7 @@ namespace Sprint
 {
     internal class test
     {
-        void methodone()
+        void MethodOne()
         {
             Console.WriteLine("test");
         }
@@ -17,8 +17,6 @@ namespace Sprint
         {
             Console.WriteLine("Hi");
         }
-
-        void MethodThree() { }
 
     }
 }
