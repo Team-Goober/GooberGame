@@ -150,28 +150,6 @@ namespace Sprint
             // TODO: replace these checks once we have a state machine
             string currAnim = sprite.GetCurrentAnimation();
 
-
-            if ( !checkKey )
-            {
-                if (isDamaged)
-                {
-                    return;
-                } else if (Facing == Directions.DOWN)
-                {
-                    sprite.SetAnimation("downStill");
-                } else if (Facing == Directions.LEFT)
-                {
-                    sprite.SetAnimation("leftStill");
-                } else if (Facing == Directions.UP)
-                {
-                    sprite.SetAnimation("upStill");
-                } else if (Facing == Directions.RIGHT)
-                {
-                    sprite.SetAnimation("rightStill");
-                }
-
-            }
-
             // If the current animation is movement, stop it
             if (currAnim.Equals("left") || currAnim.Equals("right") || currAnim.Equals("up") || currAnim.Equals("down"))
             {
@@ -206,14 +184,6 @@ namespace Sprint
 
         public void MoveLeft()
         {
-
-            //Moves the sprite to the left
-            if (isDamaged)
-            {
-                return;
-            }
-            physics.Move(new Vector2(-5, 0));
-
             // Sets velocity towards left
             physics.SetVelocity(new Vector2(-speed, 0));
 
@@ -224,14 +194,6 @@ namespace Sprint
 
         public void MoveRight()
         {
-
-            //Moves the sprite to the right
-            if (isDamaged)
-            {
-                return;
-            }
-            physics.Move(new Vector2(5, 0));
-
             // Sets velocity towards right
             physics.SetVelocity(new Vector2(speed, 0));
 
@@ -241,14 +203,6 @@ namespace Sprint
 
         public void MoveUp()
         {
-
-            //Moves the sprite up
-            if (isDamaged)
-            {
-                return;
-            }
-            physics.Move(new Vector2(0, -5));
-
             // Sets velocity towards up
             physics.SetVelocity(new Vector2(0, -speed));
 
@@ -258,14 +212,6 @@ namespace Sprint
 
         public void MoveDown()
         {
-
-            //Moves the sprite down
-            if (isDamaged)
-            {
-                return;
-            }
-            physics.Move(new Vector2(0, 5));
-
             // Sets velocity towards down
             physics.SetVelocity(new Vector2(0, speed));
 
@@ -307,6 +253,7 @@ namespace Sprint
                 {
                     isDamaged = false;
                     damageCheck = 0;
+                    animateStill();
                 }
                 else
                 {
