@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Sprint.Sprite
 {

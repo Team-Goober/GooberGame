@@ -13,12 +13,19 @@ namespace Sprint.Projectile
     {
         private SimpleProjectileFactory itemFactory;
 
+        private IInputMap inputTable;
+        private GameObjectManager objManager;
+
         public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager, ContentManager contManager)
         {
+            this.inputTable = inputTable;
+            this.objManager = objManager;
+
 
             this.itemFactory = new SimpleProjectileFactory();
             itemFactory.LoadAllTextures(contManager);
             itemFactory.SetDirection(new Vector2(1, 90));
+            itemFactory.SetSpriteDirection("right");
             itemFactory.SetStartPosition(startPos);
 
             //Arrow
@@ -41,20 +48,25 @@ namespace Sprint.Projectile
 
         public void UpdateDirection(Character.Directions dir)
         {
+            
 
-            switch(dir)
+            switch (dir)
             {
                 case Character.Directions.LEFT:
                     itemFactory.SetDirection(new Vector2(-1, 0));
+                    itemFactory.SetSpriteDirection("left");
                     break;
                 case Character.Directions.RIGHT:
                     itemFactory.SetDirection(new Vector2(1, 0));
+                    itemFactory.SetSpriteDirection("right");
                     break;
                 case Character.Directions.UP:
                     itemFactory.SetDirection(new Vector2(1, -90));
+                    itemFactory.SetSpriteDirection("up");
                     break;
                 case Character.Directions.DOWN:
                     itemFactory.SetDirection(new Vector2(1, 90));
+                    itemFactory.SetSpriteDirection("down");
                     break;
                 default: break;
             }
