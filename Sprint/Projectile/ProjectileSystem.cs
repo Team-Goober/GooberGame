@@ -79,5 +79,6 @@ namespace Sprint.Projectile
         {
             itemFactory.SetStartPosition(pos);
         }
+
     }
 }

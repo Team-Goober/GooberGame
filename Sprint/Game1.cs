@@ -51,7 +51,7 @@ namespace Sprint
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             items = new CycleItem(this, new Vector2(500, 100));
-            enemies = new CycleEnemy(this, new Vector2(500, 300));
+            enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager);
             tiles = new CycleTile(this, new Vector2(500, 200));
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
