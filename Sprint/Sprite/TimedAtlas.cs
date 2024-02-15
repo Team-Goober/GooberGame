@@ -12,7 +12,7 @@ namespace Sprint.Sprite
 
         private bool looping;
         private float fps;
-        private TimeSpan timeAtLastFrame;
+        private Timer timer;
 
         public TimedAtlas(int frameCount, bool loop, float framerate)
         {
@@ -21,6 +21,8 @@ namespace Sprint.Sprite
 
             looping = loop;
             fps = framerate;
+
+            timer = new Timer(1.0 / framerate);
         }
 
         // Move to next frame
@@ -36,6 +38,10 @@ namespace Sprint.Sprite
             {
                 frame = 0;
             }
+
+            // Begin timer again
+            timer.SetDuration(CurrentDuration() / fps);
+            timer.Start();
         }
 
         public void SetLooping(bool loop)
@@ -50,17 +56,18 @@ namespace Sprint.Sprite
 
         public void PassTime(GameTime gameTime)
         {
-            // Switch frames if needed and based on framerate
-            if (CurrentDuration() > 0 && fps > 0
-               && (gameTime.TotalGameTime - timeAtLastFrame).TotalSeconds > CurrentDuration() / fps)
+            // Pass time to timer until it is time to go to next frame
+            timer.Update(gameTime);
+            if (timer.JustEnded)
             {
                 advance();
-                timeAtLastFrame = gameTime.TotalGameTime;
             }
         }
 
         public void Reset()
         {
+            // Start from first frame
+            timer.Start();
             frame = 0;
         }
 
