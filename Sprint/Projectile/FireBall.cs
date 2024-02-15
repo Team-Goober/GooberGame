@@ -82,7 +82,7 @@ namespace Sprint.Projectile
             return disY;
         }
 
-        public void GetobjMangement(GameObjectManager newObjManager)
+        public void GetObjManagement(GameObjectManager newObjManager)
         {
             this.objManager = newObjManager;
         }
@@ -90,8 +90,6 @@ namespace Sprint.Projectile
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
-            
-            //new RemoveObject(this, objManager).Execute();
         }
 
         public void Update(GameTime gameTime)
