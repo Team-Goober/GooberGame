@@ -1,10 +1,5 @@
 ﻿using Sprint.Interfaces;
 using Sprint.Projectile;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sprint.Commands.SecondaryItem
 {
@@ -21,7 +16,8 @@ namespace Sprint.Commands.SecondaryItem
 
         public void Execute()
         {
-            IProjectile projectile = factory.CreateFireBall();
+            FireBall projectile = factory.CreateFireBall();
+            projectile.GetobjMangement(objManager);
             objManager.Add(projectile);
         }
     }

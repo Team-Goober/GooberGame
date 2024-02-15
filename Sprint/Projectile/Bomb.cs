@@ -20,31 +20,33 @@ namespace Sprint.Projectile
             //left
             if(direction == new Vector2(-1, 0))
             {
-                position.X -= 20;
+                position.X -= 50;
             }
 
             //right
             if(direction == new Vector2(1, 0))
             {
-                position.X += 60;
+                position.X += 30;
             }
 
             //up
-            if(direction == new Vector2(1, -90))
+            if(direction == new Vector2(0, -90))
             {
+                position.X -= 10;
                 position.Y -= 60;
             }
 
             //Down
-            if(direction == new Vector2(1, 90))
+            if(direction == new Vector2(0, 90))
             {
+                position.X -= 25;
                 position.Y += 50;
             }
             
             sprite = new AnimatedSprite(sheet);
             //IAtlas atlas = new SingleAtlas(new Rectangle(204, 1, 9, 14), new Vector2(0, 0));
             //Please look at this
-            IAtlas bomb = new AutoAtlas(new Rectangle(0, 0, 85, 16), 1, 5, 1, false, 5);
+            IAtlas bomb = new AutoAtlas(new Rectangle(0, 0, 85, 16), 1, 5, 1, false, 3);
             sprite.RegisterAnimation("bomb", bomb);
             sprite.SetAnimation("bomb");
             sprite.SetScale(4);
