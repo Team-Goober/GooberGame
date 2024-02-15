@@ -64,11 +64,11 @@ namespace Sprint.Projectile
                     itemFactory.SetSpriteDirection("right");
                     break;
                 case Character.Directions.UP:
-                    itemFactory.SetDirection(new Vector2(1, -90));
+                    itemFactory.SetDirection(new Vector2(0, -90));
                     itemFactory.SetSpriteDirection("up");
                     break;
                 case Character.Directions.DOWN:
-                    itemFactory.SetDirection(new Vector2(1, 90));
+                    itemFactory.SetDirection(new Vector2(0, 90));
                     itemFactory.SetSpriteDirection("down");
                     break;
                 default: break;

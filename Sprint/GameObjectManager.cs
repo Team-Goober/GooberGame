@@ -21,6 +21,11 @@ namespace Sprint
             objects.Add(gameObject);
         }
 
+        public void Remove(IGameObject gameObject)
+        {
+            objects.Remove(gameObject);
+        }
+
         public void Update(GameTime gameTime)
         {
             // Update every entity
