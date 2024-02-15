@@ -43,7 +43,9 @@ namespace Sprint
             timeAttack.Start();
 
             this.itemFactory = new SimpleProjectileFactory();
+            
             itemFactory.LoadAllTextures(contManager);
+            itemFactory.SetSpriteDirection("right");
 
 
             this.projectileCommand = new ShootArrowCommand(itemFactory, objectManager);
