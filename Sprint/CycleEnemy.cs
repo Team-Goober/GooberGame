@@ -22,6 +22,7 @@ namespace Sprint
             // Load textures and set up animations for enemies
             // Add enemies to the 'enemies' list
             enemies.Add(JellyfishEnemy.CreateJellyfishEnemy(game, position));
+            enemies.Add(BluebubbleEnemy.CreateBluebubbleEnemy(game, position));
 
             // Add more enemies as needed
         }
