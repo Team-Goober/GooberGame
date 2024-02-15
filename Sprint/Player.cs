@@ -48,31 +48,33 @@ namespace Sprint
             //the next 2 is the padding between sprites
             //true (boolean) is whether animation should loop
             //5 is the speed 
-            IAtlas downAtlas = new AutoAtlas(new Rectangle(0,0,16,46), 2, 1, 14, true, 5);
+            Vector2 centerOffset = new Vector2(8, 8);
+
+            IAtlas downAtlas = new AutoAtlas(new Rectangle(0,0,16,46), 2, 1, 14, centerOffset, true, 5);
             sprite.RegisterAnimation("down", downAtlas);
 
-            IAtlas leftAtlas = new AutoAtlas(new Rectangle(30,0,16,46), 2, 1, 14, true, 5);
+            IAtlas leftAtlas = new AutoAtlas(new Rectangle(30,0,16,46), 2, 1, 14, centerOffset, true, 5);
             sprite.RegisterAnimation("left", leftAtlas);
 
-            IAtlas rightAtlas = new AutoAtlas(new Rectangle(90, 0, 16, 46), 2, 1, 14, true,5);
+            IAtlas rightAtlas = new AutoAtlas(new Rectangle(90, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
             sprite.RegisterAnimation("right", rightAtlas);
 
-            IAtlas upAtlas = new AutoAtlas(new Rectangle(60, 0, 16, 46), 2, 1, 14, true, 5);
+            IAtlas upAtlas = new AutoAtlas(new Rectangle(60, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
             sprite.RegisterAnimation("up", upAtlas);
 
-            IAtlas stillAtlas = new SingleAtlas(new Rectangle(0, 0, 16, 16), new Vector2(0,0));  
+            IAtlas stillAtlas = new SingleAtlas(new Rectangle(0, 0, 16, 16), centerOffset);  
             sprite.RegisterAnimation("still", stillAtlas);
 
-            IAtlas downStill = new SingleAtlas(new Rectangle(0, 0, 16, 16), new Vector2(0, 0));
+            IAtlas downStill = new SingleAtlas(new Rectangle(0, 0, 16, 16), centerOffset);
             sprite.RegisterAnimation("downStill", downStill);
 
-            IAtlas leftStill = new SingleAtlas(new Rectangle(30, 0, 16, 16), new Vector2(0, 0));
+            IAtlas leftStill = new SingleAtlas(new Rectangle(30, 0, 16, 16), centerOffset);
             sprite.RegisterAnimation("leftStill", leftStill);
 
-            IAtlas upStill = new SingleAtlas(new Rectangle(90, 0, 16, 16),new Vector2(0, 0));
+            IAtlas upStill = new SingleAtlas(new Rectangle(60, 0, 16, 16), centerOffset);
             sprite.RegisterAnimation("upStill", upStill);
 
-            IAtlas rightStill = new SingleAtlas(new Rectangle(60, 0, 16, 16),new Vector2(0, 0));   
+            IAtlas rightStill = new SingleAtlas(new Rectangle(90, 0, 16, 16), centerOffset);   
             sprite.RegisterAnimation("rightStill", rightStill);
 
             sprite.SetAnimation("still");
@@ -80,23 +82,23 @@ namespace Sprint
             sprite.SetScale(3);
 
             //Set up damage atlas
-            IAtlas damage = new SingleAtlas(new Rectangle(0, 150, 16, 16), new Vector2(0, 0));
+            IAtlas damage = new SingleAtlas(new Rectangle(0, 150, 16, 16), centerOffset);
             sprite.RegisterAnimation("damage", damage);
 
             // sword animations RIGHT 
-            IAtlas swordRightAtlas = new SingleAtlas(new Rectangle(84, 90, 27, 15), new Vector2(0, 0));
+            IAtlas swordRightAtlas = new SingleAtlas(new Rectangle(84, 90, 27, 15), new Vector2(9, 7));
             sprite.RegisterAnimation("swordRight", swordRightAtlas);
 
             // sword animations LEFT 
-            IAtlas swordLeftAtlas = new SingleAtlas(new Rectangle(24, 90, 27, 15), new Vector2(0, 0));
+            IAtlas swordLeftAtlas = new SingleAtlas(new Rectangle(24, 90, 27, 15), new Vector2(18, 7));
             sprite.RegisterAnimation("swordLeft", swordLeftAtlas);
 
             // sword animations UP 
-            IAtlas swordUpAtlas = new SingleAtlas(new Rectangle(60, 84, 16, 28), new Vector2(0, 0));
+            IAtlas swordUpAtlas = new SingleAtlas(new Rectangle(60, 84, 16, 28), new Vector2(8, 21));
             sprite.RegisterAnimation("swordUp", swordUpAtlas);
 
             // sword animations DOWN 
-            IAtlas swordDownAtlas = new SingleAtlas(new Rectangle(0, 84, 16, 27), new Vector2(0, 0));
+            IAtlas swordDownAtlas = new SingleAtlas(new Rectangle(0, 84, 16, 27), new Vector2(8, 7));
             sprite.RegisterAnimation("swordDown", swordDownAtlas);
 
 

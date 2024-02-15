@@ -59,7 +59,7 @@ namespace Sprint.Projectile
             }
 
             sprite = new AnimatedSprite(sheet);
-            IAtlas fireBall = new AutoAtlas(new Rectangle(0, 0, 33, 15), 1, 2, 1, true, 5);
+            IAtlas fireBall = new AutoAtlas(new Rectangle(0, 0, 33, 15), 1, 2, 1, new Vector2(8, 8), true, 5);
             sprite.RegisterAnimation("fireBall", fireBall);
             sprite.SetAnimation("fireBall");
             sprite.SetScale(3);

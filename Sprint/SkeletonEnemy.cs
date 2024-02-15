@@ -68,7 +68,7 @@ namespace Sprint
             Texture2D skeletonTexture = game.Content.Load<Texture2D>(textureName);
 
             // Define auto atlases for animations
-            IAtlas moveAnimation = new AutoAtlas(new Rectangle(416,118,22,48),2, 1, 2, true, 10);
+            IAtlas moveAnimation = new AutoAtlas(new Rectangle(420,120,15,46), 2, 1, 16, new Vector2(7.5f, 8), true, 10);
 
             // Create SkeletonEnemy instance
             SkeletonEnemy skeletonEnemy = new SkeletonEnemy(game, skeletonTexture, initialPosition, moveAnimation, game.Content, objectManager);

@@ -10,19 +10,21 @@ namespace Sprint.Sprite
         private int rows;
         private int cols;
         private int padding;
+        private Vector2 centerPoint;
 
-        public AutoAtlas(Rectangle sheetArea, int rows, int cols, int padding, bool loop, float framerate): base(rows*cols, loop, framerate)
+        public AutoAtlas(Rectangle sheetArea, int rows, int cols, int padding, Vector2 centerPoint, bool loop, float framerate): base(rows*cols, loop, framerate)
         {
             this.sheetArea = sheetArea;
             this.rows = rows;
             this.cols = cols;
             this.padding = padding;
+            this.centerPoint = centerPoint;
         }
 
         override public Vector2 CurrentCenterPoint()
         {
-            // Centerpoint is top-left corner
-            return Vector2.Zero;
+            // Centerpoint is constant between frames
+            return centerPoint;
         }
 
         override public float CurrentDuration()
