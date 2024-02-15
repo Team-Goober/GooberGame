@@ -18,5 +18,7 @@ namespace Sprint
             Console.WriteLine("Hi");
         }
 
+        void MethodThree() { }
+
     }
 }
