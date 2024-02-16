@@ -1,0 +1,16 @@
+﻿Author: Bill Yang
+Date: 2/16/2024
+Sprint Number: 2
+Name of File: Player.cs only the Sword Part of the code
+Author of File: Sam Espanioly
+
+Comments on Code quality:
+- High Cohesion
+- Loose Coupling
+- The constructor of player is large.
+- Lots of magic numbers
+- The player class in general is very large. And adding the sword code to it makes it even larger.
+
+Changes:
+- Line 189 - 205. The switch cases can be replaced with a dictionary. It should be easy to change
+- Perhaps more the sprite creation out of the constructor  and make it into a method.
