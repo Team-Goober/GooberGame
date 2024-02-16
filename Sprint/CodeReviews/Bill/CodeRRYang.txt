@@ -6,10 +6,9 @@ Author Of File: Pavan Rauch
 Time taken to finish: 8 mins
 Comments: 
 
-- Good use of comments through out the code.
+- Good use of comments throughout the code.
 - Short Methods make it easier to read and understand
 - Methods names are clear
 - field names are clear.
-
 
 - Line 71 could become difficult to understand in the future. If we have to look back.

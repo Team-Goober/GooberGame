@@ -12,5 +12,5 @@ Comments on Code quality:
 - The player class in general is very large. And adding the sword code to it makes it even larger.
 
 Changes:
-- Line 189 - 205. The switch cases can be replace with a dictionary. It should be easy to change
-- Perhaps more the sprite creation out of the contructor and make it into a method.
+- Line 189 - 205. The switch cases can be replaced with a dictionary. It should be easy to change
+- Perhaps more the sprite creation out of the constructor  and make it into a method.
