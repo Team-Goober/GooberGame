@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Commands;
 using Sprint.Interfaces;
 using System.Collections.Generic;
 
@@ -30,7 +31,7 @@ namespace Sprint
             }
             else
             {   // Error message if object is not found
-                Console.WriteLine("\nTHE OBJECT \"" + gameObject + "\" DOES NOT EXIST!\n");
+                System.Diagnostics.Debug.WriteLine("\nTHE OBJECT \"" + gameObject + "\" DOES NOT EXIST!\n");
             }
         }
 
