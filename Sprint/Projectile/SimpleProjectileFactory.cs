@@ -13,9 +13,11 @@ namespace Sprint.Projectile
         Vector2 position;
         Vector2 direction;
 
-        public SimpleProjectileFactory()
+        private float distanceOut;
+
+        public SimpleProjectileFactory(float distanceOut)
         {
-         
+            this.distanceOut = distanceOut;
         }
 
         public void LoadAllTextures(ContentManager content)
@@ -28,27 +30,27 @@ namespace Sprint.Projectile
 
         public Arrow CreateArrow()
         {
-            return new Arrow(itemSheet, position, direction);
+            return new Arrow(itemSheet, getSpawnPosition(), direction);
         }
 
         public BlueArrow CreateBlueArrow()
         {
-            return new BlueArrow(itemSheet, position, direction);
+            return new BlueArrow(itemSheet, getSpawnPosition(), direction);
         }
 
         public Bomb CreateBomb()
         {
-            return new Bomb(bomb, position, direction); 
+            return new Bomb(bomb, getSpawnPosition(), direction); 
         }
         
         public Boomarang CreateBoomarang()
         { 
-            return new Boomarang(itemSheet, position, direction);
+            return new Boomarang(itemSheet, getSpawnPosition(), direction);
         }
 
         public FireBall CreateFireBall()
         {
-            return new FireBall(fireBall, position, direction);
+            return new FireBall(fireBall, getSpawnPosition(), direction);
         }
 
         public void SetDirection(Vector2 direction)
@@ -59,6 +61,11 @@ namespace Sprint.Projectile
         public void SetStartPosition(Vector2 pos)
         {
             position = pos;
+        }
+
+        private Vector2 getSpawnPosition()
+        {
+            return position + Vector2.Normalize(direction) * distanceOut;
         }
     }
 }

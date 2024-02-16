@@ -42,7 +42,7 @@ namespace Sprint
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            this.itemFactory = new SimpleProjectileFactory();
+            this.itemFactory = new SimpleProjectileFactory(30);
             
             itemFactory.LoadAllTextures(contManager);
 
