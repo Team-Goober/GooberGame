@@ -217,6 +217,7 @@ namespace Sprint
                 animateStill();
             }*/
             baseAnim = AnimationCycle.Idle;
+            returnToBaseAnim();
         }
 
         // Return to base animation cycle based on states and facing dir

@@ -26,7 +26,7 @@ namespace Sprint.Projectile
         public BlueArrow(Texture2D sheet, Texture2D smokeT, Vector2 startPos, Vector2 direction)
         {
             //Use to correct spawn position
-            this.position = startPos + Vector2.Normalize(direction) * 40;
+            this.position = startPos; //+ Vector2.Normalize(direction) * 40;
             this.startPosition = position;
 
             if (direction.Length() == 0)
