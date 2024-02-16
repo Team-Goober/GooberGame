@@ -66,7 +66,7 @@ namespace Sprint.Sprite
             Rectangle sourceRectangle = currentAnimation.CurrentFrame();
             // Calculate game position to draw sprite at
             Vector2 center = currentAnimation.CurrentCenterPoint();
-            Vector2 drawPos = location -  center * scale;
+            Vector2 drawPos = location;// -  center * scale;
 
             spriteBatch.Draw(texture, drawPos, sourceRectangle, Color.White, rotation, center, scale, SpriteEffects.None, 0f);
 

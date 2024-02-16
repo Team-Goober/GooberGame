@@ -13,8 +13,6 @@ namespace Sprint.Projectile
         Vector2 position;
         Vector2 direction;
 
-        string spriteDirection;
-
         public SimpleProjectileFactory()
         {
          
@@ -30,12 +28,12 @@ namespace Sprint.Projectile
 
         public Arrow CreateArrow()
         {
-            return new Arrow(itemSheet, position, direction, spriteDirection);
+            return new Arrow(itemSheet, position, direction);
         }
 
         public BlueArrow CreateBlueArrow()
         {
-            return new BlueArrow(itemSheet, position, direction, spriteDirection);
+            return new BlueArrow(itemSheet, position, direction);
         }
 
         public Bomb CreateBomb()
@@ -56,11 +54,6 @@ namespace Sprint.Projectile
         public void SetDirection(Vector2 direction)
         {
             this.direction = direction;
-        }
-
-        public void SetSpriteDirection(string newSpriteDirection)
-        {
-            this.spriteDirection = newSpriteDirection;
         }
 
         public void SetStartPosition(Vector2 pos)

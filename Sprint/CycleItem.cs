@@ -72,7 +72,7 @@ namespace Sprint
             Texture2D triforceT = game.Content.Load<Texture2D>("Items/Triforce");
             ISprite triforceS = new AnimatedSprite(triforceT);
 
-            IAtlas triforceA = new AutoAtlas(new Rectangle(0, 0, 24, 10), 1, 2, 4, true, 10);
+            IAtlas triforceA = new AutoAtlas(new Rectangle(0, 0, 24, 10), 1, 2, 4, new Vector2(5, 5), true, 10);
             triforceS.RegisterAnimation("triforce", triforceA);
 
             triforceS.SetAnimation("triforce");

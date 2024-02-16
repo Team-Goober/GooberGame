@@ -59,7 +59,7 @@ namespace Sprint.Testing
             sprite.RegisterAnimation("fall", stillAnim);
 
             // animation based on calculated grid atlas on spritesheet
-            IAtlas gridAnim = new AutoAtlas(new Rectangle(239, 0, 77, 16), 1, 3, 13, true, 8);
+            IAtlas gridAnim = new AutoAtlas(new Rectangle(239, 0, 77, 16), 1, 3, 13, new Vector2(0, 0), true, 8);
             sprite.RegisterAnimation("walk", gridAnim);
 
             // animation set by individually defining frames
