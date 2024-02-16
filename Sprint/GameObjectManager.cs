@@ -23,7 +23,15 @@ namespace Sprint
 
         public void Remove(IGameObject gameObject)
         {
-            objects.Remove(gameObject);
+            // Removes an existing game object from the list
+            if (objects.Contains(gameObject))
+            {
+                objects.Remove(gameObject);
+            }
+            else
+            {   // Error message if object is not found
+                Console.WriteLine("\nTHE OBJECT \"" + gameObject + "\" DOES NOT EXIST!\n");
+            }
         }
 
         public void Update(GameTime gameTime)
