@@ -26,31 +26,6 @@ namespace Sprint.Projectile
             this.position = startPos;
             this.direction = newDirection;
 
-            //left
-            if (direction == new Vector2(-1, 0))
-            {
-                position.X -= 20;
-            }
-
-            //right
-            if (direction == new Vector2(1, 0))
-            {
-                position.X += 60;
-            }
-
-            //up
-            if (direction == new Vector2(0, -90))
-            {
-                position.Y -= 60;
-                position.X += 15;
-            }
-
-            //Down
-            if (direction == new Vector2(0, 90))
-            {
-                position.Y += 50;
-            }
-
             if (direction.Length() == 0)
             {
                 velocity = Vector2.Zero;
