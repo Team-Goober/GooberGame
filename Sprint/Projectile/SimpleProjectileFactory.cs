@@ -9,6 +9,7 @@ namespace Sprint.Projectile
         private Texture2D itemSheet;
         private Texture2D bomb;
         private Texture2D fireBall;
+        private Texture2D smoke;
 
         Vector2 position;
         Vector2 direction;
@@ -25,17 +26,18 @@ namespace Sprint.Projectile
             itemSheet = content.Load<Texture2D>("zelda_items");
             bomb = content.Load<Texture2D>("Items/Bomb");
             fireBall = content.Load<Texture2D>("Items/FireBall");
+            smoke = content.Load<Texture2D>("Items/EndArrow");
 
         }
 
         public Arrow CreateArrow()
         {
-            return new Arrow(itemSheet, getSpawnPosition(), direction);
+            return new Arrow(itemSheet, smoke, getSpawnPosition(), direction);
         }
 
         public BlueArrow CreateBlueArrow()
         {
-            return new BlueArrow(itemSheet, getSpawnPosition(), direction);
+            return new BlueArrow(itemSheet, smoke, getSpawnPosition(), direction);
         }
 
         public Bomb CreateBomb()

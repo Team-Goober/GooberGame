@@ -16,7 +16,8 @@ namespace Sprint.Commands.SecondaryItem
 
         public void Execute()
         {
-            IProjectile projectile = factory.CreateBlueArrow();
+            BlueArrow projectile = factory.CreateBlueArrow();
+            projectile.GetObjManagement(objManager);
             objManager.Add(projectile);
         }
     }

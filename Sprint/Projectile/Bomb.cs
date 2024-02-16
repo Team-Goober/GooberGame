@@ -18,9 +18,6 @@ namespace Sprint.Projectile
             this.direction = newDirection;
             
             sprite = new AnimatedSprite(sheet);
-            //IAtlas atlas = new SingleAtlas(new Rectangle(204, 1, 9, 14), new Vector2(0, 0));
-            //Please look at this
-
             IAtlas bomb = new AutoAtlas(new Rectangle(0, 0, 85, 16), 1, 5, 1, new Vector2(8, 8), false, 3);
             sprite.RegisterAnimation("bomb", bomb);
             sprite.SetAnimation("bomb");

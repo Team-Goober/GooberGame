@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
+using Sprint.Commands.SecondaryItem;
 using System;
 using System.Diagnostics;
 
@@ -76,7 +77,7 @@ namespace Sprint.Projectile
             } else
             {
                 time += (float)(gameTime.ElapsedGameTime.TotalSeconds);
-                new RemoveObject(this, objManager, time).Execute();
+                new RemoveObject(this, objManager, time, 1).Execute();
             }
             
             sprite.Update(gameTime);
