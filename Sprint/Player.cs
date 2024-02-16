@@ -18,14 +18,23 @@ namespace Sprint
         private Physics physics;
 
         private ProjectileSystem secondaryItems;
-        private bool isDamaged = false;
-        private int damageCheck = 0;
 
         public Directions Facing { get; private set; }
 
         private const float speed = 200;
 
         private Timer attackTimer;
+        private Timer damageTimer;
+
+        // TODO: replace this with state machine
+        // Animation to return to as base after a played animation ends
+        private enum AnimationCycle 
+        {
+            Idle,
+            Walk
+        }
+        private AnimationCycle baseAnim;
+
 
         //declares the move systems for the main character sprite
         public Player(Game1 game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager)
@@ -37,8 +46,10 @@ namespace Sprint
             Texture2D zeldaSheet = game.Content.Load<Texture2D>("zelda_links");
             sprite = new AnimatedSprite(zeldaSheet);
 
-            // Duration of one sword swing
+            // Duration of one sword swing or item use
             attackTimer = new Timer(0.5);
+            // Duration of the damage state
+            damageTimer = new Timer(0.3);
 
             //declares autoatlas on the location of animation down
             //0, 0, 16, 47 is the coordinates of the x, y for down animation in sprite sheet
@@ -101,7 +112,8 @@ namespace Sprint
             IAtlas swordDownAtlas = new SingleAtlas(new Rectangle(0, 84, 16, 27), new Vector2(8, 7));
             sprite.RegisterAnimation("swordDown", swordDownAtlas);
 
-
+            // Start out idle
+            baseAnim = AnimationCycle.Idle;
 
 
             // Set up projectiles
@@ -147,39 +159,61 @@ namespace Sprint
 
         public void StopMoving()
         {
-            // TODO: replace these checks once we have a state machine
+            physics.SetVelocity(new Vector2(0, 0));
+/*            // TODO: replace these checks once we have a state machine
             string currAnim = sprite.GetCurrentAnimation();
 
             // If the current animation is movement, stop it
             if (currAnim.Equals("left") || currAnim.Equals("right") || currAnim.Equals("up") || currAnim.Equals("down"))
             {
                 animateStill();
-            }
-
-
-            physics.SetVelocity(new Vector2(0, 0));
-
+            }*/
+            baseAnim = AnimationCycle.Idle;
         }
 
-        // Set animation to still frame of current facing direction
-        private void animateStill()
+        // Return to base animation cycle based on states and facing dir
+        // TODO: replace with a state machine
+        private void returnToBaseAnim()
         {
-            if (Facing == Directions.DOWN)
+            if (baseAnim == AnimationCycle.Idle)
             {
-                sprite.SetAnimation("downStill");
+                if (Facing == Directions.DOWN)
+                {
+                    sprite.SetAnimation("downStill");
+                }
+                else if (Facing == Directions.LEFT)
+                {
+                    sprite.SetAnimation("leftStill");
+                }
+                else if (Facing == Directions.UP)
+                {
+                    sprite.SetAnimation("upStill");
+                }
+                else if (Facing == Directions.RIGHT)
+                {
+                    sprite.SetAnimation("rightStill");
+                }
             }
-            else if (Facing == Directions.LEFT)
+            else if (baseAnim == AnimationCycle.Walk)
             {
-                sprite.SetAnimation("leftStill");
+                if (Facing == Directions.DOWN)
+                {
+                    sprite.SetAnimation("down");
+                }
+                else if (Facing == Directions.LEFT)
+                {
+                    sprite.SetAnimation("left");
+                }
+                else if (Facing == Directions.UP)
+                {
+                    sprite.SetAnimation("up");
+                }
+                else if (Facing == Directions.RIGHT)
+                {
+                    sprite.SetAnimation("right");
+                }
             }
-            else if (Facing == Directions.UP)
-            {
-                sprite.SetAnimation("upStill");
-            }
-            else if (Facing == Directions.RIGHT)
-            {
-                sprite.SetAnimation("rightStill");
-            }
+
         }
 
         public void MoveLeft()
@@ -189,7 +223,7 @@ namespace Sprint
 
             sprite.SetAnimation("left");
             Facing = Directions.LEFT;
-            
+            baseAnim = AnimationCycle.Walk;
         }
 
         public void MoveRight()
@@ -199,6 +233,7 @@ namespace Sprint
 
             sprite.SetAnimation("right");
              Facing = Directions.RIGHT;
+            baseAnim = AnimationCycle.Walk;
         }
 
         public void MoveUp()
@@ -208,6 +243,7 @@ namespace Sprint
 
             sprite.SetAnimation("up");
             Facing = Directions.UP;
+            baseAnim = AnimationCycle.Walk;
         }
 
         public void MoveDown()
@@ -217,6 +253,7 @@ namespace Sprint
 
             sprite.SetAnimation("down");
             Facing = Directions.DOWN;
+            baseAnim = AnimationCycle.Walk;
         }
 
         public Physics GetPhysic()
@@ -226,10 +263,10 @@ namespace Sprint
 
         public void TakeDamage()
         {
-            isDamaged = true;
             
             sprite.SetAnimation("damage");
-            
+            damageTimer.Start();
+
         }
 
 
@@ -240,27 +277,19 @@ namespace Sprint
             attackTimer.Update(gameTime);
             if (attackTimer.JustEnded)
             {
-                animateStill();
+                returnToBaseAnim();
             }
 
             secondaryItems.UpdateDirection(Facing);
             secondaryItems.UpdatePostion(physics.Position);
 
-            //Checks for damage state
-            if (isDamaged)
+            // Checks for damage state
+            damageTimer.Update(gameTime);
+            if (damageTimer.JustEnded)
             {
-                if(damageCheck == 10)
-                {
-                    isDamaged = false;
-                    damageCheck = 0;
-                    animateStill();
-                }
-                else
-                {
-                    damageCheck++;
-                }
-
+                returnToBaseAnim();
             }
+
             
             physics.Update(gameTime);
             sprite.Update(gameTime);
