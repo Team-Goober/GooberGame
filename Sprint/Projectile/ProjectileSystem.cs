@@ -13,16 +13,12 @@ namespace Sprint.Projectile
     {
         private SimpleProjectileFactory itemFactory;
 
-        private IInputMap inputTable;
-        private GameObjectManager objManager;
+        private const float spawnDistance = 40;
 
         public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager, ContentManager contManager)
         {
-            this.inputTable = inputTable;
-            this.objManager = objManager;
 
-
-            this.itemFactory = new SimpleProjectileFactory();
+            this.itemFactory = new SimpleProjectileFactory(spawnDistance);
             itemFactory.LoadAllTextures(contManager);
             itemFactory.SetDirection(new Vector2(1, 90));
             itemFactory.SetStartPosition(startPos);

@@ -16,32 +16,6 @@ namespace Sprint.Projectile
         {
             this.position = startPos;
             this.direction = newDirection;
-
-            //left
-            if(direction == new Vector2(-1, 0))
-            {
-                position.X -= 60;
-            }
-
-            //right
-            if(direction == new Vector2(1, 0))
-            {
-                position.X += 30;
-            }
-
-            //up
-            if(direction == new Vector2(0, -1))
-            {
-                position.X -= 15;
-                position.Y -= 60;
-            }
-
-            //Down
-            if(direction == new Vector2(0, 1))
-            {
-                position.X -= 20;
-                position.Y += 50;
-            }
             
             sprite = new AnimatedSprite(sheet);
             IAtlas bomb = new AutoAtlas(new Rectangle(0, 0, 85, 16), 1, 5, 1, new Vector2(8, 8), false, 3);
