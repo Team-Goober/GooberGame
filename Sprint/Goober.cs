@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Sprint
 {
-    public class Game1 : Game
+    public class Goober : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -30,7 +30,7 @@ namespace Sprint
 
         private GameObjectManager objectManager;
 
-        public Game1()
+        public Goober()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";

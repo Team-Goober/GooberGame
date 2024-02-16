@@ -17,7 +17,7 @@
 - U/I to cycle item objects
 - O/P to cycle enemy/npc shown
 - Z/N to make Link Attck with his sword
-- 1,2,3,4,5 to make Link use a item
+- 1,2,3,4,5 to make Link use weapons
 
 ## Code Smells to check for:
 - Shotgun Surgery
@@ -34,5 +34,5 @@
 ## Known Bugs
 
 ## Extra Tools and Processes Used
-
+- Photoshop for frame rotation
 

@@ -10,6 +10,7 @@ namespace Sprint.Projectile
         private Texture2D bomb;
         private Texture2D fireBall;
         private Texture2D smoke;
+        private Texture2D boomerang;
 
         Vector2 position;
         Vector2 direction;
@@ -28,6 +29,7 @@ namespace Sprint.Projectile
             bomb = content.Load<Texture2D>("Items/Bomb");
             fireBall = content.Load<Texture2D>("Items/FireBall");
             smoke = content.Load<Texture2D>("Items/EndArrow");
+            boomerang = content.Load<Texture2D>("Items/boomerangs");
 
         }
 
@@ -48,7 +50,7 @@ namespace Sprint.Projectile
         
         public Boomarang CreateBoomarang()
         { 
-            return new Boomarang(itemSheet, getSpawnPosition(), direction);
+            return new Boomarang(boomerang, getSpawnPosition(), direction);
         }
 
         public FireBall CreateFireBall()

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
+using System.Reflection.Metadata;
 
 namespace Sprint.Projectile
 {
@@ -32,8 +33,8 @@ namespace Sprint.Projectile
                 velocity = Vector2.Normalize(direction) * speed;
             }
 
-            sprite = new AnimatedSprite(sheet);
-            IAtlas atlas = new SingleAtlas(new Rectangle(285, 4, 5, 8), new Vector2(0, 0));
+            sprite = new AnimatedSprite(sheet);;
+            IAtlas atlas = new AutoAtlas(new Rectangle(1, 2, 5, 8), 1, 4, 10, new Vector2(3, 4), true, 4);
             sprite.RegisterAnimation("boomarang", atlas);
             sprite.SetAnimation("boomarang");
             sprite.SetScale(4);
