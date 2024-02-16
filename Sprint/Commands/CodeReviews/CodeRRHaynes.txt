@@ -1,0 +1,14 @@
+Author: Luke Haynes
+Date: 2/15/24
+Sprint Number: 2
+Name Of File: Fireball.cs
+Author Of File: Bill Yang
+Time taken to finish: 10 minutes
+Comments: 
+-On the constructor, for each cardinal direction, it is labeled which direction is where, this is nice and readable
+
+-At lines 52-59, there is a if else statement that is unlabeled
+
+-Lines 61-65 create the animation, but is unlabeled
+
+-Method names are clear
