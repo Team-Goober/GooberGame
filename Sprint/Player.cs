@@ -112,6 +112,19 @@ namespace Sprint
             IAtlas swordDownAtlas = new SingleAtlas(new Rectangle(0, 84, 16, 27), new Vector2(8, 7));
             sprite.RegisterAnimation("swordDown", swordDownAtlas);
 
+            // casting animations
+            IAtlas castRightAtlas = new SingleAtlas(new Rectangle(90, 60, 16, 16), centerOffset);
+            sprite.RegisterAnimation("castRight", castRightAtlas);
+
+            IAtlas castLeftAtlas = new SingleAtlas(new Rectangle(30, 60, 16, 16), centerOffset);
+            sprite.RegisterAnimation("castLeft", castLeftAtlas);
+
+            IAtlas castUpAtlas = new SingleAtlas(new Rectangle(60, 60, 16, 16), centerOffset);
+            sprite.RegisterAnimation("castUp", castUpAtlas);
+
+            IAtlas castDownAtlas = new SingleAtlas(new Rectangle(0, 60, 16, 16), centerOffset);
+            sprite.RegisterAnimation("castDown", castDownAtlas);
+
             // Start out idle
             baseAnim = AnimationCycle.Idle;
 
@@ -151,6 +164,41 @@ namespace Sprint
                     break;
                 case Directions.DOWN:
                     sprite.SetAnimation("swordDown");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //Cast according to direction
+        public void Cast()
+        {
+
+            // Only attack if not already attacking
+            if (!attackTimer.Ended)
+            {
+                return;
+            }
+
+            // Player shouldn't move while attacking
+            StopMoving();
+
+            // Start timer for attack
+            attackTimer.Start();
+
+            switch (Facing)
+            {
+                case Directions.RIGHT:
+                    sprite.SetAnimation("castRight");
+                    break;
+                case Directions.LEFT:
+                    sprite.SetAnimation("castLeft");
+                    break;
+                case Directions.UP:
+                    sprite.SetAnimation("castUp");
+                    break;
+                case Directions.DOWN:
+                    sprite.SetAnimation("castDown");
                     break;
                 default:
                     break;

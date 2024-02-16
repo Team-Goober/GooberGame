@@ -84,6 +84,21 @@ namespace Sprint
 
             //Melee Regular Sword Attack
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Melee(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.N), new Melee(player));
+
+            //Player uses a cast move
+            // TODO: shouldnt bind separately from shoot commands
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new Cast(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new Cast(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new Cast(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new Cast(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D5), new Cast(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D6), new Cast(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D7), new Cast(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D8), new Cast(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D9), new Cast(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D0), new Cast(player));
+
 
             //Take Damage
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.E), new TakeDamageCommand(player));
