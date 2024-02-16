@@ -1,19 +1,31 @@
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
-using Sprint.Sprite;
+using Sprint;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Sprint.Commands.SecondaryItem;
+using Sprint.Input;
 using System;
+using Sprint.Projectile;
+using Sprint.Sprite;
+
+
 
 namespace Sprint
 {
     public class BluebubbleEnemy : Enemy
     {
         private float elapsedTime;
-        private Vector2 initialPosition;
+        private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
+        private Game1 game;
+        private ICommand projectileCommand;
+        private SimpleProjectileFactory itemFactory;
+        private GameObjectManager objectManager;
+        private Vector2 initialPosition;
 
-        // Constructor for BluebubbleEnemy
-        public BluebubbleEnemy(Game1 game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas)
+        public BluebubbleEnemy(Game1 game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas, GameObjectManager objectManager)
             : base(game, new AnimatedSprite(spriteSheet), initialPosition)
         {
             // Register default animation using the provided enemyAtlas
@@ -22,12 +34,25 @@ namespace Sprint
             // Store the initial position for reference
             this.initialPosition = initialPosition;
 
+            this.game = game;
+
+            timeAttack = new Timer(2);
+            timeAttack.Start();
+
+            this.itemFactory = new SimpleProjectileFactory();
+
+            itemFactory.LoadAllTextures(game.Content);
+
+            this.objectManager = objectManager;
+
+            this.projectileCommand = new ShootBombC(itemFactory, objectManager);
+
             // Initialize the move direction randomly
             RandomizeMoveDirection();
         }
 
         // Factory method to create a BluebubbleEnemy with default settings
-        public static BluebubbleEnemy CreateBluebubbleEnemy(Game1 game, Vector2 initialPosition)
+        public static BluebubbleEnemy CreateBluebubbleEnemy(Game1 game, Vector2 initialPosition, GameObjectManager objectManager)
         {
             string textureName = "zelda_enemies"; // Using the same texture as JellyfishEnemy
             int scale = 2;
@@ -42,7 +67,7 @@ namespace Sprint
             IAtlas rightFacing = new SingleAtlas(new Rectangle(210, 270, 16, 16), new Vector2(8, 8));
 
             // Create BluebubbleEnemy instance
-            BluebubbleEnemy bluebubbleEnemy = new BluebubbleEnemy(game, bluebubbleTexture, initialPosition, upFacing);
+            BluebubbleEnemy bluebubbleEnemy = new BluebubbleEnemy(game, bluebubbleTexture, initialPosition, upFacing, objectManager);
 
             // Register directional animations
             bluebubbleEnemy.RegisterDirectionalAnimation("upFacing", upFacing);
@@ -78,10 +103,18 @@ namespace Sprint
         // Update BluebubbleEnemy logic
         public override void Update(GameTime gameTime)
         {
-            // Calculate movement based on elapsed time for the random pattern
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            timeAttack.Update(gameTime);
 
-            // Move randomly within a specified area
+            // Uses timer to shoot projectiles every 2 seconds
+            if (timeAttack.JustEnded)
+            {
+                itemFactory.SetStartPosition(physics.Position);
+                itemFactory.SetDirection(moveDirection);
+                projectileCommand.Execute();
+                timeAttack.Start();
+            }
+
+            // Calculate movement based on elapsed time for the random pattern
             MoveRandomly(gameTime);
 
             // Update the sprite and physics
@@ -129,7 +162,26 @@ namespace Sprint
 
             // Move in the current direction
             Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            CheckBounds(newPosition, 3); // Ensure enemy stays within game bounds
             physics.SetPosition(newPosition);
+        }
+
+        // Ensure that the enemy always stays within the game bounds
+        private void CheckBounds(Vector2 pos, float scale)
+        {
+            int gameX = 600;
+            int gameY = 400;
+
+            // Make the enemy go to the other direction when it reaches a certain distance so that it doesn't go over the window
+            if (pos.X + scale > gameX)
+            {
+                moveDirection.X = -moveDirection.X;
+            }
+
+            if (pos.Y + scale > gameY)
+            {
+                moveDirection.Y = -moveDirection.Y;
+            }
         }
 
         // Generate a random movement direction for BluebubbleEnemy
@@ -139,6 +191,10 @@ namespace Sprint
             Random random = new Random();
             float angle = (float)random.NextDouble() * MathHelper.TwoPi;
             moveDirection = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+
+            // Normalize the moveDirection vector
+            moveDirection.Normalize();
         }
+
     }
 }

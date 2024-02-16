@@ -9,6 +9,15 @@
 - Sam Espanioly
 
 ## Program Controls
+- WASD to move the character
+- E to take damage
+- R to reset the game
+- Q to quit the game
+- T/Y to cycle tile objects
+- U/I to cycle item objects
+- O/P to cycle enemy/npc shown
+- Z/N to make Link Attck with his sword
+- 1,2,3,4,5 to make Link use a item
 
 ## Code Smells to check for:
 - Shotgun Surgery
@@ -26,6 +35,4 @@
 
 ## Extra Tools and Processes Used
 
-## Sprint Review
 
-## Key Binds:
