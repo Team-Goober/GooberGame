@@ -16,6 +16,7 @@ namespace Sprint.Projectile
 
         private float distanceOut;
 
+
         public SimpleProjectileFactory(float distanceOut)
         {
             this.distanceOut = distanceOut;
