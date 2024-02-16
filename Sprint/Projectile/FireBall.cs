@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
+using Sprint.Commands.SecondaryItem;
 using System;
 using System.Diagnostics;
 
@@ -29,26 +30,25 @@ namespace Sprint.Projectile
             //left
             if (direction == new Vector2(-1, 0))
             {
-                position.X -= 20;
+                position.X -= 40;
             }
 
             //right
             if (direction == new Vector2(1, 0))
             {
-                position.X += 60;
+                position.X += 40;
             }
 
             //up
-            if (direction == new Vector2(0, -90))
+            if (direction == new Vector2(0, -1))
             {
-                position.Y -= 60;
-                position.X += 15;
+                position.Y -= 40;
             }
 
             //Down
-            if (direction == new Vector2(0, 90))
+            if (direction == new Vector2(0, 1))
             {
-                position.Y += 50;
+                position.Y += 40;
             }
 
             if (direction.Length() == 0)
@@ -101,7 +101,7 @@ namespace Sprint.Projectile
             } else
             {
                 time += (float)(gameTime.ElapsedGameTime.TotalSeconds);
-                new RemoveObject(this, objManager, time).Execute();
+                new RemoveObject(this, objManager, time, 1).Execute();
             }
             
             sprite.Update(gameTime);
