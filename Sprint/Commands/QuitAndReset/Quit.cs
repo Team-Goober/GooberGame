@@ -4,9 +4,9 @@ namespace Sprint.Commands
 {
     internal class Quit : ICommand
     {
-        private Game1 game;
+        private Goober game;
 
-        public Quit(Game1 game)
+        public Quit(Goober game)
         {
             this.game = game;
         }

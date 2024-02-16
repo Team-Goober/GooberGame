@@ -17,7 +17,7 @@ namespace Sprint
         private int currentItem;
         private Vector2 position;
 
-        public CycleItem(Game1 game, Vector2 position)
+        public CycleItem(Goober game, Vector2 position)
         {
             this.position = position;
 

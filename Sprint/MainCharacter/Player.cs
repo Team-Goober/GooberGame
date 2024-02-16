@@ -37,7 +37,7 @@ namespace Sprint
 
 
         //declares the move systems for the main character sprite
-        public Player(Game1 game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager)
+        public Player(Goober game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager)
         {
 
             physics = new Physics(game, pos);

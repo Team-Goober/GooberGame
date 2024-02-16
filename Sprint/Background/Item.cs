@@ -10,7 +10,7 @@ namespace Sprint
         ISprite sprite;
         Vector2 position;
 
-        public Item(Game1 game, ISprite sprite, Vector2 position)
+        public Item(Goober game, ISprite sprite, Vector2 position)
         {
             this.sprite = sprite;
             this.position = position;

@@ -19,13 +19,13 @@ namespace Sprint
         private float elapsedTime;
         private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
-        private Game1 game;
+        private Goober game;
         private ICommand projectileCommand;
         private SimpleProjectileFactory itemFactory;
         private GameObjectManager objectManager;
         private Vector2 initialPosition;
 
-        public BluebubbleEnemy(Game1 game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas, GameObjectManager objectManager)
+        public BluebubbleEnemy(Goober game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas, GameObjectManager objectManager)
             : base(game, new AnimatedSprite(spriteSheet), initialPosition)
         {
             // Register default animation using the provided enemyAtlas
@@ -52,7 +52,7 @@ namespace Sprint
         }
 
         // Factory method to create a BluebubbleEnemy with default settings
-        public static BluebubbleEnemy CreateBluebubbleEnemy(Game1 game, Vector2 initialPosition, GameObjectManager objectManager)
+        public static BluebubbleEnemy CreateBluebubbleEnemy(Goober game, Vector2 initialPosition, GameObjectManager objectManager)
         {
             string textureName = "zelda_enemies"; // Using the same texture as JellyfishEnemy
             int scale = 2;

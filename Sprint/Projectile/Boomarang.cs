@@ -34,7 +34,7 @@ namespace Sprint.Projectile
             }
 
             sprite = new AnimatedSprite(sheet);;
-            IAtlas atlas = new AutoAtlas(new Rectangle(1, 2, 5, 8), 1, 4, 10, new Vector2(3, 4), true, 4);
+            IAtlas atlas = new AutoAtlas(new Rectangle(1, 2, 56, 9), 1, 4, 10, new Vector2(3, 4), true, 4);
             sprite.RegisterAnimation("boomarang", atlas);
             sprite.SetAnimation("boomarang");
             sprite.SetScale(4);

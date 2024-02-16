@@ -14,7 +14,7 @@ namespace Sprint
         ISprite sprite;
         Physics physics;
 
-        public Tiles(Game1 game, ISprite sprite, Vector2 position)
+        public Tiles(Goober game, ISprite sprite, Vector2 position)
         {
             this.sprite = sprite;
             physics = new Physics(game, position);

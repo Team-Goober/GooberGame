@@ -4,9 +4,9 @@ namespace Sprint.Commands
 {
     internal class Reset : ICommand
     {
-        private Game1 game;
+        private Goober game;
 
-        public Reset(Game1 game)
+        public Reset(Goober game)
         {
             this.game = game;
         }

@@ -16,7 +16,7 @@ namespace Sprint
         private Vector2 position;
 
         // Constructor
-        public CycleEnemy(Game1 game, Vector2 pos, GameObjectManager objectManager)
+        public CycleEnemy(Goober game, Vector2 pos, GameObjectManager objectManager)
         {
             this.position = pos;
 

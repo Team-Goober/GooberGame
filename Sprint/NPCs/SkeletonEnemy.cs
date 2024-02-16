@@ -19,7 +19,7 @@ namespace Sprint
         private float elapsedTime;
         private Vector2 initialPosition;
         private Vector2 moveDirection; // Movement direction for the random pattern
-        private Game1 game;
+        private Goober game;
         private SimpleProjectileFactory itemFactory;
         private ICommand projectileCommand;
         private GameObjectManager objectManager;
@@ -28,7 +28,7 @@ namespace Sprint
         private Timer timeAttack;
 
         
-        public SkeletonEnemy(Game1 game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas, ContentManager contManager, GameObjectManager objectManager)
+        public SkeletonEnemy(Goober game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas, ContentManager contManager, GameObjectManager objectManager)
             : base(game, new AnimatedSprite(spriteSheet), initialPosition)
         {
             //register default animation using the provided enemyAtlas
@@ -57,7 +57,7 @@ namespace Sprint
         }
 
         // Factory method to create a enemy with default settings
-        public static SkeletonEnemy CreateSkeletonEnemy(Game1 game, Vector2 initialPosition, GameObjectManager objectManager)
+        public static SkeletonEnemy CreateSkeletonEnemy(Goober game, Vector2 initialPosition, GameObjectManager objectManager)
         {
 
             

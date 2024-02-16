@@ -13,7 +13,7 @@ namespace Sprint
         private float elapsedTime;
         private Vector2 initialPosition;
 
-        public JellyfishEnemy(Game1 game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas)
+        public JellyfishEnemy(Goober game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas)
             : base(game, new AnimatedSprite(spriteSheet), initialPosition)
         {
             // Register the default animation
@@ -25,7 +25,7 @@ namespace Sprint
 
 
 
-        public static JellyfishEnemy CreateJellyfishEnemy(Game1 game, Vector2 initialPosition)
+        public static JellyfishEnemy CreateJellyfishEnemy(Goober game, Vector2 initialPosition)
         {
             string textureName = "zelda_enemies";
             Vector2 center = new Vector2(8, 8);

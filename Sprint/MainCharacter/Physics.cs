@@ -15,7 +15,7 @@ namespace Sprint
         public Vector2 Velocity { get; private set; }
 
         //gets position of the sprite
-        public Physics(Game1 game, Vector2 posChar)
+        public Physics(Goober game, Vector2 posChar)
         { 
             Position = posChar;
             Velocity = Vector2.Zero;

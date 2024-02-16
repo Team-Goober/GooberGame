@@ -12,7 +12,7 @@ if (c_args.Length == 2 && c_args[1].Equals("test"))
 }
 else
 {
-    game = new Sprint.Game1();
+    game = new Sprint.Goober();
 }
 
 

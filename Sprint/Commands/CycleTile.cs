@@ -14,7 +14,7 @@ namespace Sprint
         private int currentTileIndex = 0;
         private Vector2 position;
 
-        public CycleTile(Game1 game, Vector2 pos)
+        public CycleTile(Goober game, Vector2 pos)
         {
             this.position = pos;
             // Load textures and set up animations for enemies
@@ -35,7 +35,7 @@ namespace Sprint
 
         }
 
-        private void CreateTile(Game1 game, string textureName, int x, int y, int width, int height, Vector2 center, int scale)
+        private void CreateTile(Goober game, string textureName, int x, int y, int width, int height, Vector2 center, int scale)
         {
             Texture2D tileTexture = game.Content.Load<Texture2D>(textureName);
             ISprite tileSprite = new AnimatedSprite(tileTexture);

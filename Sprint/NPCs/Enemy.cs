@@ -11,7 +11,7 @@ namespace Sprint
         protected ISprite sprite;
         protected Physics physics;
 
-        public Enemy(Game1 game, ISprite sprite, Vector2 position)
+        public Enemy(Goober game, ISprite sprite, Vector2 position)
         {
             this.sprite = sprite;
             physics = new Physics(game, position);
