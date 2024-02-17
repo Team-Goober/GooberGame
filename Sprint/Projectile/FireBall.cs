@@ -57,6 +57,13 @@ namespace Sprint.Projectile
             return disY;
         }
 
+        public void GetObjManagement(GameObjectManager newObjManager)
+        {
+            this.objManager = newObjManager;
+        }
+
+
+
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);

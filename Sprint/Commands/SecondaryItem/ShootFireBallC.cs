@@ -17,6 +17,7 @@ namespace Sprint.Commands.SecondaryItem
         public void Execute()
         {
             FireBall projectile = factory.CreateFireBall();
+            projectile.GetObjManagement(objManager);
             objManager.Add(projectile);
         }
     }
