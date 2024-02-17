@@ -1,6 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
-using Sprint;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -10,28 +9,25 @@ using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 
-namespace Sprint
-{
 
-    //Code based on the BluebubbleEnemy.cs file
-    public class SkeletonEnemy : Enemy
+
+namespace Sprint.Characters
+{
+    public class BluebubbleEnemy : Enemy
     {
         private float elapsedTime;
-        private Vector2 initialPosition;
+        private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
         private Goober game;
-        private SimpleProjectileFactory itemFactory;
         private ICommand projectileCommand;
+        private SimpleProjectileFactory itemFactory;
         private GameObjectManager objectManager;
+        private Vector2 initialPosition;
 
-
-        private Timer timeAttack;
-
-        
-        public SkeletonEnemy(Goober game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas, ContentManager contManager, GameObjectManager objectManager)
+        public BluebubbleEnemy(Goober game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas, GameObjectManager objectManager)
             : base(game, new AnimatedSprite(spriteSheet), initialPosition)
         {
-            //register default animation using the provided enemyAtlas
+            // Register default animation using the provided enemyAtlas
             sprite.RegisterAnimation("default", enemyAtlas);
 
             // Store the initial position for reference
@@ -42,111 +38,112 @@ namespace Sprint
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            this.itemFactory = new SimpleProjectileFactory(30);
-            
-            itemFactory.LoadAllTextures(contManager);
+            itemFactory = new SimpleProjectileFactory(30);
 
+            itemFactory.LoadAllTextures(game.Content);
 
-            this.projectileCommand = new ShootArrowCommand(itemFactory, objectManager);
+            this.objectManager = objectManager;
 
-
-
+            projectileCommand = new ShootBombC(itemFactory, objectManager);
 
             // Initialize the move direction randomly
             RandomizeMoveDirection();
         }
 
-        // Factory method to create a enemy with default settings
-        public static SkeletonEnemy CreateSkeletonEnemy(Goober game, Vector2 initialPosition, GameObjectManager objectManager)
+        // Factory method to create a BluebubbleEnemy with default settings
+        public static BluebubbleEnemy CreateBluebubbleEnemy(Goober game, Vector2 initialPosition, GameObjectManager objectManager)
         {
-
-            
             string textureName = "zelda_enemies"; // Using the same texture as JellyfishEnemy
             int scale = 2;
 
-            // Load SkeletonEnemy texture
-            Texture2D skeletonTexture = game.Content.Load<Texture2D>(textureName);
+            // Load BluebubbleEnemy texture
+            Texture2D bluebubbleTexture = game.Content.Load<Texture2D>(textureName);
 
-            // Define auto atlases for animations
-            IAtlas moveAnimation = new AutoAtlas(new Rectangle(420,120,15,46), 2, 1, 16, new Vector2(7.5f, 8), true, 10);
+            // Define directional atlases for animations
+            IAtlas upFacing = new SingleAtlas(new Rectangle(180, 270, 16, 16), new Vector2(8, 8));
+            IAtlas leftFacing = new SingleAtlas(new Rectangle(152, 270, 16, 16), new Vector2(8, 8));
+            IAtlas downFacing = new SingleAtlas(new Rectangle(120, 270, 16, 16), new Vector2(8, 8));
+            IAtlas rightFacing = new SingleAtlas(new Rectangle(210, 270, 16, 16), new Vector2(8, 8));
 
-            // Create SkeletonEnemy instance
-            SkeletonEnemy skeletonEnemy = new SkeletonEnemy(game, skeletonTexture, initialPosition, moveAnimation, game.Content, objectManager);
+            // Create BluebubbleEnemy instance
+            BluebubbleEnemy bluebubbleEnemy = new BluebubbleEnemy(game, bluebubbleTexture, initialPosition, upFacing, objectManager);
 
             // Register directional animations
-            skeletonEnemy.RegisterDirectionalAnimation("moving", moveAnimation);
-
-
+            bluebubbleEnemy.RegisterDirectionalAnimation("upFacing", upFacing);
+            bluebubbleEnemy.RegisterDirectionalAnimation("leftFacing", leftFacing);
+            bluebubbleEnemy.RegisterDirectionalAnimation("downFacing", downFacing);
+            bluebubbleEnemy.RegisterDirectionalAnimation("rightFacing", rightFacing);
 
             // Set the default animation and scale
-            skeletonEnemy.SetAnimation("default");
-            skeletonEnemy.SetScale(scale);
+            bluebubbleEnemy.SetAnimation("default");
+            bluebubbleEnemy.SetScale(scale);
 
-            return skeletonEnemy;
+            return bluebubbleEnemy;
         }
 
-        // Register a directional animation for sprite
+        // Register a directional animation for BluebubbleEnemy sprite
         public void RegisterDirectionalAnimation(string animationLabel, IAtlas atlas)
         {
             sprite.RegisterAnimation(animationLabel, atlas);
         }
 
-        // Set the current animation for sprite
+        // Set the current animation for BluebubbleEnemy sprite
         public void SetAnimation(string animationLabel)
         {
             sprite.SetAnimation(animationLabel);
         }
 
-        // Set the scale of sprite
+        // Set the scale of BluebubbleEnemy sprite
         public void SetScale(int scale)
         {
             sprite.SetScale(scale);
         }
 
-        // Update logic
+        // Update BluebubbleEnemy logic
         public override void Update(GameTime gameTime)
         {
-
-            
-            
             timeAttack.Update(gameTime);
 
-            //uses timer to shoot arrows ever 3 seconds
+            // Uses timer to shoot projectiles every 2 seconds
             if (timeAttack.JustEnded)
             {
                 itemFactory.SetStartPosition(physics.Position);
-
                 itemFactory.SetDirection(moveDirection);
-
                 projectileCommand.Execute();
-
                 timeAttack.Start();
-
             }
 
-
             // Calculate movement based on elapsed time for the random pattern
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            // Move randomly within a specified area
             MoveRandomly(gameTime);
 
             // Update the sprite and physics
             sprite.Update(gameTime);
             physics.Update(gameTime);
-            
-            
         }
 
         // Set animation based on the direction of movement
         private void SetAnimationBasedOnDirection()
         {
-
-            SetAnimation("moving");
-
+            // Determine the direction and set the appropriate animation label
+            if (Math.Abs(moveDirection.X) > Math.Abs(moveDirection.Y))
+            {
+                // Horizontal movement
+                if (moveDirection.X > 0)
+                    SetAnimation("rightFacing");
+                else
+                    SetAnimation("leftFacing");
+            }
+            else
+            {
+                // Vertical movement
+                if (moveDirection.Y > 0)
+                    SetAnimation("downFacing");
+                else
+                    SetAnimation("upFacing");
+            }
         }
 
-        // Move Skeleton randomly within the game area
+        // Move BluebubbleEnemy randomly within the game area
         private void MoveRandomly(GameTime gameTime)
         {
             float speed = 50; // Adjust the speed as needed
@@ -164,39 +161,39 @@ namespace Sprint
 
             // Move in the current direction
             Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            CheckBounds(newPosition, 3);
-
+            CheckBounds(newPosition, 3); // Ensure enemy stays within game bounds
             physics.SetPosition(newPosition);
         }
 
-        //ensures that the enemy always stays within windows of the game
+        // Ensure that the enemy always stays within the game bounds
         private void CheckBounds(Vector2 pos, float scale)
         {
             int gameX = 600;
             int gameY = 400;
 
-            //makes the enemy go to the other direction when it reaches a certain distance so that it doesnt go over window
-            if(pos.X + scale > gameX)
+            // Make the enemy go to the other direction when it reaches a certain distance so that it doesn't go over the window
+            if (pos.X + scale > gameX)
             {
                 moveDirection.X = -moveDirection.X;
-                
             }
 
-            if(pos.Y + scale > gameY)
+            if (pos.Y + scale > gameY)
             {
                 moveDirection.Y = -moveDirection.Y;
             }
         }
 
-        // Generate a random movement direction
+        // Generate a random movement direction for BluebubbleEnemy
         private void RandomizeMoveDirection()
         {
             // Generate a random movement direction
             Random random = new Random();
             float angle = (float)random.NextDouble() * MathHelper.TwoPi;
             moveDirection = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-            
+
+            // Normalize the moveDirection vector
+            moveDirection.Normalize();
         }
+
     }
 }

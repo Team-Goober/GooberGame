@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 
-namespace Sprint
+namespace Sprint.Characters
 {
     public class Enemy : Character
     {

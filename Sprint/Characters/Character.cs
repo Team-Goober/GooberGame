@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 
-namespace Sprint
+namespace Sprint.Characters
 {
     public abstract class Character : IGameObject
     {
@@ -11,7 +11,7 @@ namespace Sprint
 
         public abstract void Update(GameTime gameTime);
 
-        
+
         public enum Directions
         {
             UP,

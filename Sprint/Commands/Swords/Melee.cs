@@ -1,4 +1,5 @@
-﻿using Sprint.Interfaces;
+﻿using Sprint.Characters;
+using Sprint.Interfaces;
 
 
 namespace Sprint.Commands

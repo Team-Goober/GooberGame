@@ -3,7 +3,7 @@ using Sprint.Commands;
 using System.Collections.Generic;
 
 
-namespace Sprint
+namespace Sprint.Characters
 {
 
     public class Physics
@@ -16,7 +16,7 @@ namespace Sprint
 
         //gets position of the sprite
         public Physics(Goober game, Vector2 posChar)
-        { 
+        {
             Position = posChar;
             Velocity = Vector2.Zero;
         }
@@ -34,7 +34,7 @@ namespace Sprint
         public void Update(GameTime gameTime)
         {
             // Move position according to current velocity
-            Position = Position + Velocity * (float)(gameTime.ElapsedGameTime.TotalSeconds);
+            Position = Position + Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
     }

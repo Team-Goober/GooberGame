@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Sprint.Sprite;
-using Sprint.Commands.SecondaryItem;
+using Sprint.Commands;
 using System;
 using System.Diagnostics;
 

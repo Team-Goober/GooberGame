@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sprint.Commands.SecondaryItem
+namespace Sprint.Commands
 {
     internal class RemoveObject : ICommand
     {
@@ -20,11 +20,11 @@ namespace Sprint.Commands.SecondaryItem
 
         public RemoveObject(IProjectile newProjectile, GameObjectManager newObjectManager, float newTime, float newEndTime)
         {
-            this.projectile = newProjectile;
-            this.objectManager = newObjectManager;
+            projectile = newProjectile;
+            objectManager = newObjectManager;
 
-            this.endTime = newEndTime;
-            this.time = newTime;
+            endTime = newEndTime;
+            time = newTime;
         }
 
         public void Execute()
