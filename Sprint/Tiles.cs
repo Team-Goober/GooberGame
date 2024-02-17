@@ -1,33 +1,28 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Sprint.Characters;
 
 namespace Sprint
 {
     internal class Tiles : Character
     {
         ISprite sprite;
-        Physics physics;
+        Vector2 position;
 
         public Tiles(Goober game, ISprite sprite, Vector2 position)
         {
             this.sprite = sprite;
-            physics = new Physics(game, position);
+            this.position = position;
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            sprite.Draw(spriteBatch, physics.Position, gameTime);
+            sprite.Draw(spriteBatch, position, gameTime);
         }
 
         public override void Update(GameTime gameTime)
         {
-            physics.Update(gameTime);
             sprite.Update(gameTime);
         }
     }

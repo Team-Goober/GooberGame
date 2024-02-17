@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
-using System.Reflection.Metadata;
 
 namespace Sprint.Projectile
 {
@@ -40,7 +39,7 @@ namespace Sprint.Projectile
             sprite.SetScale(4);
         }
 
-        public void Return(Vector2 currentPosition)
+        private void returnBack(Vector2 currentPosition)
         {
             float difX = Math.Abs(currentPosition.X - this.originalPosition.X);
             float difY = Math.Abs(currentPosition.Y - this.originalPosition.Y);
@@ -58,8 +57,8 @@ namespace Sprint.Projectile
 
         public void Update(GameTime gameTime)
         {
-            // Move linearly
-            Return(position);
+            // Move linearly one way, then flip to the other way
+            returnBack(position);
             position += velocity * (float)(gameTime.ElapsedGameTime.TotalSeconds);
 
             sprite.Update(gameTime);

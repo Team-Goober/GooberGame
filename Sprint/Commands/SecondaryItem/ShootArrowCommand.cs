@@ -1,6 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
-using Sprint.Interfaces;
+﻿using Sprint.Interfaces;
 using Sprint.Projectile;
 
 namespace Sprint.Commands.SecondaryItem

@@ -5,16 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Characters;
 using Sprint.Interfaces;
 
 
-namespace Sprint.Commands 
+namespace Sprint.Commands
 {
     internal class TakeDamageCommand : ICommand
     {
         private Player player;
-        private SpriteBatch spriteBatch;
-        private GameTime gameTime;
 
         public TakeDamageCommand(Player player)
         {

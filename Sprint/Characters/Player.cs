@@ -1,13 +1,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
 using Sprint.Interfaces;
 using Sprint.Sprite;
-using System;
 using Sprint.Projectile;
 
-namespace Sprint
+namespace Sprint.Characters
 {
 
     internal class Player : Character
@@ -28,7 +25,7 @@ namespace Sprint
 
         // TODO: replace this with state machine
         // Animation to return to as base after a played animation ends
-        private enum AnimationCycle 
+        private enum AnimationCycle
         {
             Idle,
             Walk
@@ -61,10 +58,10 @@ namespace Sprint
             //5 is the speed 
             Vector2 centerOffset = new Vector2(8, 8);
 
-            IAtlas downAtlas = new AutoAtlas(new Rectangle(0,0,16,46), 2, 1, 14, centerOffset, true, 5);
+            IAtlas downAtlas = new AutoAtlas(new Rectangle(0, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
             sprite.RegisterAnimation("down", downAtlas);
 
-            IAtlas leftAtlas = new AutoAtlas(new Rectangle(30,0,16,46), 2, 1, 14, centerOffset, true, 5);
+            IAtlas leftAtlas = new AutoAtlas(new Rectangle(30, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
             sprite.RegisterAnimation("left", leftAtlas);
 
             IAtlas rightAtlas = new AutoAtlas(new Rectangle(90, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
@@ -73,7 +70,7 @@ namespace Sprint
             IAtlas upAtlas = new AutoAtlas(new Rectangle(60, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
             sprite.RegisterAnimation("up", upAtlas);
 
-            IAtlas stillAtlas = new SingleAtlas(new Rectangle(0, 0, 16, 16), centerOffset);  
+            IAtlas stillAtlas = new SingleAtlas(new Rectangle(0, 0, 16, 16), centerOffset);
             sprite.RegisterAnimation("still", stillAtlas);
 
             IAtlas downStill = new SingleAtlas(new Rectangle(0, 0, 16, 16), centerOffset);
@@ -85,7 +82,7 @@ namespace Sprint
             IAtlas upStill = new SingleAtlas(new Rectangle(60, 0, 16, 16), centerOffset);
             sprite.RegisterAnimation("upStill", upStill);
 
-            IAtlas rightStill = new SingleAtlas(new Rectangle(90, 0, 16, 16), centerOffset);   
+            IAtlas rightStill = new SingleAtlas(new Rectangle(90, 0, 16, 16), centerOffset);
             sprite.RegisterAnimation("rightStill", rightStill);
 
             sprite.SetAnimation("still");
@@ -208,14 +205,14 @@ namespace Sprint
         public void StopMoving()
         {
             physics.SetVelocity(new Vector2(0, 0));
-/*            // TODO: replace these checks once we have a state machine
-            string currAnim = sprite.GetCurrentAnimation();
+            /*            // TODO: replace these checks once we have a state machine
+                        string currAnim = sprite.GetCurrentAnimation();
 
-            // If the current animation is movement, stop it
-            if (currAnim.Equals("left") || currAnim.Equals("right") || currAnim.Equals("up") || currAnim.Equals("down"))
-            {
-                animateStill();
-            }*/
+                        // If the current animation is movement, stop it
+                        if (currAnim.Equals("left") || currAnim.Equals("right") || currAnim.Equals("up") || currAnim.Equals("down"))
+                        {
+                            animateStill();
+                        }*/
             baseAnim = AnimationCycle.Idle;
             returnToBaseAnim();
         }
@@ -281,7 +278,7 @@ namespace Sprint
             physics.SetVelocity(new Vector2(speed, 0));
 
             sprite.SetAnimation("right");
-             Facing = Directions.RIGHT;
+            Facing = Directions.RIGHT;
             baseAnim = AnimationCycle.Walk;
         }
 
@@ -312,7 +309,7 @@ namespace Sprint
 
         public void TakeDamage()
         {
-            
+
             sprite.SetAnimation("damage");
             damageTimer.Start();
 
@@ -339,7 +336,7 @@ namespace Sprint
                 returnToBaseAnim();
             }
 
-            
+
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
@@ -348,7 +345,7 @@ namespace Sprint
         {
             //Draws sprite animation using AnimationSprite class
             sprite.Draw(spriteBatch, physics.Position, gameTime);
-            
+
         }
 
     }

@@ -4,12 +4,8 @@ using Microsoft.Xna.Framework.Input;
 
 using Sprint.Input;
 using Sprint.Interfaces;
-using System.Collections;
-using Sprint.Sprite;
-using System.Diagnostics;
 using Sprint.Commands;
-using Sprint.Projectile;
-using System.Collections.Generic;
+using Sprint.Characters;
 
 namespace Sprint
 {

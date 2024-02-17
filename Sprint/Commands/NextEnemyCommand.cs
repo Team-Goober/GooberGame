@@ -1,6 +1,4 @@
 using Sprint.Interfaces;
-using Sprint.Sprite;
-using System.Diagnostics;
 
 namespace Sprint.Commands
 {

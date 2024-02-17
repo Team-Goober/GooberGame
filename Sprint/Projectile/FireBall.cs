@@ -2,9 +2,8 @@
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
-using Sprint.Commands.SecondaryItem;
+using Sprint.Commands;
 using System;
-using System.Diagnostics;
 
 namespace Sprint.Projectile
 {
@@ -45,7 +44,7 @@ namespace Sprint.Projectile
             sprite.SetScale(3);
         }
 
-        public float Distance()
+        private float distance()
         {
             float disX = Math.Abs(position.X - startPosition.X);
             float disY = Math.Abs(position.Y - startPosition.Y);
@@ -58,11 +57,6 @@ namespace Sprint.Projectile
             return disY;
         }
 
-        public void GetObjManagement(GameObjectManager newObjManager)
-        {
-            this.objManager = newObjManager;
-        }
-
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
@@ -71,7 +65,7 @@ namespace Sprint.Projectile
         public void Update(GameTime gameTime)
         {
             // Move linearly
-            if(Distance() < 100) 
+            if(distance() < 100) 
             {
                 position += velocity * (float)(gameTime.ElapsedGameTime.TotalSeconds);
             } else

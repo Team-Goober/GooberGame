@@ -1,12 +1,10 @@
-// JellyfishEnemy.cs
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
 
-namespace Sprint
+namespace Sprint.Characters
 {
     public class JellyfishEnemy : Enemy
     {
