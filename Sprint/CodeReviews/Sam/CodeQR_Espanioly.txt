@@ -1,0 +1,17 @@
+Author: Sam Espanioly
+Date: 2/16/24
+Sprint Number: 2
+
+Author Of File: Luke Haynes
+
+Name Of File: TakeDamageCommands.cs
+Comments: 
+The file is very straight forward and short which is very good.
+
+Name Of File: CycleItem.cs
+Comments:
+The file is very long and needs to make paramters a little smaller. 
+
+
+
+For improvement I believe we should work on creating a list of all objects in all the different sheets to make it easier to grab them.

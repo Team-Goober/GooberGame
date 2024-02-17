@@ -1,0 +1,17 @@
+Author: Sam Espanioly
+Date: 2/16/24
+Sprint Number: 2
+
+Author Of File: Luke Haynes
+
+Name Of File: TakeDamageCommands.cs
+Comments: 
+The file is very easy to read and understand. One thing I noticed was an unused variable gameTime, but I'm not sure if that's going to be used later.
+In the file player.cs TakeDamage function is not too clear but I do see a timer there so it explains the gameTime variable. Needs more comments.
+
+Name Of File: CycleItem.cs
+Comments:
+The file lacks comments to understand what is going on. 
+
+
+Over all the code is readable but needs a little bit of comments to make it easier for the reader to understand what is being implemented and done in the code.
