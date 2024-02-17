@@ -33,7 +33,7 @@ namespace Sprint.Projectile
                 velocity = Vector2.Normalize(direction) * speed;
             }
 
-            sprite = new AnimatedSprite(sheet);;
+            sprite = new AnimatedSprite(sheet);
             IAtlas atlas = new AutoAtlas(new Rectangle(1, 2, 56, 9), 1, 4, 10, new Vector2(3, 4), true, 18);
             sprite.RegisterAnimation("boomarang", atlas);
             sprite.SetAnimation("boomarang");

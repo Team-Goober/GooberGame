@@ -56,9 +56,9 @@ namespace Sprint.Projectile
             return new Boomarang(boomerang, getSpawnPosition(), direction);
         }
 
-        public BlueBoomarang CreateBlueBoomarang()
+        public BlueBoomerang CreateBlueBoomerang()
         {
-            return new BlueBoomarang(BlueBoomerang, getSpawnPosition(), direction);
+            return new BlueBoomerang(BlueBoomerang, getSpawnPosition(), direction);
         }
 
         public FireBall CreateFireBall()
