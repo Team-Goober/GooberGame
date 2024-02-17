@@ -48,7 +48,7 @@ namespace Sprint.Projectile
 
         public Bomb CreateBomb()
         {
-            return new Bomb(bomb, getSpawnPosition(), direction); 
+            return new Bomb(bomb, getSpawnPosition()); 
         }
         
         public Boomarang CreateBoomarang()

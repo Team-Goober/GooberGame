@@ -14,8 +14,6 @@ namespace Sprint.Commands
     internal class TakeDamageCommand : ICommand
     {
         private Player player;
-        private SpriteBatch spriteBatch;
-        private GameTime gameTime;
 
         public TakeDamageCommand(Player player)
         {

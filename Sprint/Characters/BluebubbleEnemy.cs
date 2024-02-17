@@ -1,10 +1,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Sprint.Commands.SecondaryItem;
-using Sprint.Input;
 using System;
 using Sprint.Projectile;
 using Sprint.Sprite;

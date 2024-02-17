@@ -4,7 +4,6 @@ using Sprint.Commands;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
-using System.Diagnostics;
 
 namespace Sprint.Projectile
 {

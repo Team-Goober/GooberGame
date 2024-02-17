@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
-using System.Diagnostics;
 
 namespace Sprint.Projectile
 {
@@ -10,12 +9,10 @@ namespace Sprint.Projectile
     {
         ISprite sprite;
         Vector2 position;
-        Vector2 direction;
 
-        public Bomb(Texture2D sheet, Vector2 startPos, Vector2 newDirection)
+        public Bomb(Texture2D sheet, Vector2 startPos)
         {
             this.position = startPos;
-            this.direction = newDirection;
             
             sprite = new AnimatedSprite(sheet);
             IAtlas bomb = new AutoAtlas(new Rectangle(0, 0, 85, 16), 1, 5, 1, new Vector2(8, 8), false, 3);

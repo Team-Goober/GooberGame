@@ -3,11 +3,6 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Sprint.Interfaces;
 using Sprint.Sprite;
-using System;
-using System.Runtime.InteropServices;
-
-
-
 
 namespace Sprint
 {

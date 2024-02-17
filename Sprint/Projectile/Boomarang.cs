@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
-using System.Reflection.Metadata;
 
 namespace Sprint.Projectile
 {

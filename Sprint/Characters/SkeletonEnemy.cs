@@ -18,11 +18,8 @@ namespace Sprint.Characters
         private float elapsedTime;
         private Vector2 initialPosition;
         private Vector2 moveDirection; // Movement direction for the random pattern
-        private Goober game;
         private SimpleProjectileFactory itemFactory;
         private ICommand projectileCommand;
-        private GameObjectManager objectManager;
-
 
         private Timer timeAttack;
 
@@ -35,8 +32,6 @@ namespace Sprint.Characters
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
-
-            this.game = game;
 
             timeAttack = new Timer(2);
             timeAttack.Start();

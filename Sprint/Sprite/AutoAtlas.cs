@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using System;
 
 namespace Sprint.Sprite
 {
