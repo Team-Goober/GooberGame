@@ -160,8 +160,8 @@ namespace Sprint
             objectManager.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
-            _spriteBatch.DrawString(font, "Program Made By: Bill Yang", new Vector2(10, 330), Color.Black);
-            _spriteBatch.DrawString(font, "Sprites from: www.mariomayhem.com/downloads/sprites/super_mario_bros_sprites.php", new Vector2(10, 360), Color.Black);
+            _spriteBatch.DrawString(font, "Program Made By: Team Goobers", new Vector2(10, 330), Color.Black);
+            _spriteBatch.DrawString(font, "Sprites from: www.mariomayhem.com/downloads/sprites/the_legend_of_zelda_sprites.php", new Vector2(10, 360), Color.Black);
             _spriteBatch.End();
 
             base.Draw(gameTime);
