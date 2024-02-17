@@ -15,10 +15,8 @@ namespace Sprint.Characters
         private float elapsedTime;
         private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
-        private Goober game;
         private ICommand projectileCommand;
         private SimpleProjectileFactory itemFactory;
-        private GameObjectManager objectManager;
         private Vector2 initialPosition;
 
         public BluebubbleEnemy(Goober game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas, GameObjectManager objectManager)
@@ -30,16 +28,12 @@ namespace Sprint.Characters
             // Store the initial position for reference
             this.initialPosition = initialPosition;
 
-            this.game = game;
-
             timeAttack = new Timer(2);
             timeAttack.Start();
 
             itemFactory = new SimpleProjectileFactory(30);
 
             itemFactory.LoadAllTextures(game.Content);
-
-            this.objectManager = objectManager;
 
             projectileCommand = new ShootBombC(itemFactory, objectManager);
 
