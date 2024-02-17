@@ -41,6 +41,10 @@ namespace Sprint.Projectile
             //FireBall
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D5), new ShootFireBallC(itemFactory, objManager));
 
+            //Blue Boomerang
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D6), new ShootBlueBoomarangC(itemFactory, objManager));
+
+
 
         }
 

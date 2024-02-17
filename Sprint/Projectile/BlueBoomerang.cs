@@ -7,7 +7,7 @@ using System.Reflection.Metadata;
 
 namespace Sprint.Projectile
 {
-    internal class Boomarang : IProjectile
+    internal class BlueBoomarang : IProjectile
     {
         ISprite sprite;
         Vector2 position;
@@ -15,10 +15,10 @@ namespace Sprint.Projectile
         Vector2 velocity;
         Vector2 direction;
 
-        const float speed = 400;
-        const float backSpeed = -400;
+        const float speed = 200;
+        const float backSpeed = -200;
 
-        public Boomarang(Texture2D sheet, Vector2 startPos, Vector2 newDirection)
+        public BlueBoomarang(Texture2D sheet, Vector2 startPos, Vector2 newDirection)
         {
             this.position = startPos;
             this.originalPosition = this.position;
@@ -34,10 +34,10 @@ namespace Sprint.Projectile
             }
 
             sprite = new AnimatedSprite(sheet);;
-            IAtlas atlas = new AutoAtlas(new Rectangle(1, 2, 56, 9), 1, 4, 10, new Vector2(3, 4), true, 18);
+            IAtlas atlas = new AutoAtlas(new Rectangle(3, 18, 54, 8), 1, 4, 10, new Vector2(3, 4), true, 50);
             sprite.RegisterAnimation("boomarang", atlas);
             sprite.SetAnimation("boomarang");
-            sprite.SetScale(4);
+            sprite.SetScale(2);
         }
 
         public void Return(Vector2 currentPosition)
