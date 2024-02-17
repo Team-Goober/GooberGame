@@ -1,0 +1,28 @@
+Author: Pavan Rauch
+Date: 2/16/2024
+Sprint Number: 2
+Name of File: CycleTile.cs and Tile.cs
+Author of File: Luke Haynes
+
+Comments on Code Readability:
+
+CycleTile.cs:
+- Class members are intuitively named
+- Comments are given to explain thought process
+	One comment mentions enemies isntead of tiles
+- Potentially repetitive tile instantiation is abstracted to a CreateTile funtion
+	This makes the loaded data much easier to read
+	The parameter list for CreateTile() is still very long
+	As a Data Clump, it might be beneficial to make a struct with these parameters
+- All functions are short, well-named, and easy to understand
+
+Tile.cs:
+- Class is short and doesn't do anything outside of its narrow role
+	As a result there are no readability issues
+- I'm not sure why Tiles need a Physics object
+
+
+Recommended Changes:
+- Make a struct for sprite creation parameters
+	This should be part of the Sprite system and be used by this class
+- Remove Physics from Tile

@@ -1,0 +1,26 @@
+Author: Pavan Rauch
+Date: 2/16/2024
+Sprint Number: 2
+Name of File: ProjectileSystem.cs
+Author of File: Bill Yang
+
+Comments on Code Quality:
+
+- Class is handling data by registering all projectile commands.
+	this shouldn't be done in this class, as it splits our data problem across multiple files.
+	
+- ProjectileSystem is a Middle Man between Player and SimpleProjectileFactory.
+	every method call to this class is passed along in some form.
+	this increases complexity in our code.
+
+- Switch case is used to choose projectile shot direction
+	because Character.Directions is an enum, this is unavoidable.
+
+Recommended Changes:
+
+- Remove commands from this file and put them with other command registration.
+
+- Consider deleting the ProjectileSystem class altogether and having Player call a ProjectileFactory directly.	
+	alternatively, more fuctionality could be added to ProjectileSystem, such as inventory management
+	in this case, the file should probably be renamed
+	the goal should be to increase cohesion by giving each class a clear role
