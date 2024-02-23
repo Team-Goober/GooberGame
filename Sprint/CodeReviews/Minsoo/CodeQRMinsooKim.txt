@@ -1,0 +1,22 @@
+Author: Minsoo Kim
+Date: 2/16/2024
+Sprint Number: 2
+Name of File: Arrow.cs
+Author of File: Bill Yang
+
+Code Quality Comments:
+
+-Code is evently separated in multiple methods
+
+-Need more comments that will help understand the reader
+
+-Could make the if statement in the Arrow function into a separate function
+
+-Good syntax having good white spaces and indentation
+
+-Overall decent class
+
+
+Hypothetical Change:
+
+-The if statement on 33 - 40 can be changed into another function possibily named ChangeVelocity to increase simplicity, reusability, and readablity

@@ -1,0 +1,16 @@
+Author: Yash Wani
+Date: 2/17/2024
+Sprint Number: 2
+Name of File: BlueArrow.cs
+Author of File: Bill Yang
+
+Comments on Code Quality:
+
+- The BlueArrow class is well-structured, focusing on its specific role in managing blue arrow projectiles.
+- Class members are appropriately named for clarity.
+- The constructor logic is straightforward and initializes class members effectively
+
+Recommended Changes:
+
+- Consider adding comments to the Distance method to explain the purpose and rationale behind the distance calculation.
+- The overall structure and design of the class seem appropriate, and no major changes are necessary based on the provided code.

@@ -1,0 +1,14 @@
+Author: Minsoo Kim
+Date: 2/16/2024
+Sprint Number: 2
+Name Of File: JellyfishEnemy.cs
+Author Of File: Yash
+Time taken to finish: 8
+Comments: 
+-The code has a lot of comments which helpes me understand the code
+
+-The update method which is used to determine the enemy direction and move it is too long.
+It might help to make separate methods.
+
+-There might be too much parameters for the JellyFishEnemy function
+

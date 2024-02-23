@@ -1,0 +1,14 @@
+﻿Things to Improve:
+- Testing code to be free of bugs before merging.
+- If there are known bugs let the team know.
+- Comments on who wrote each file.
+- Design out each feature before coding. This will minimize the need to reimplement class do to missing functionally.
+- Local merge before making a pull request to reduce merge conflicts issues.
+
+Things done well:
+- Communication between team member.
+- Teammate helping each other with coding issues.
+
+Do Differently:
+- Start Earlier to plan out the design of the project
+- Have everyone do the local merge before making a pull request.

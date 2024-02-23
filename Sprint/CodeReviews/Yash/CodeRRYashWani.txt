@@ -1,0 +1,17 @@
+Author: Yash Wani
+Date: 2/17/2024
+Sprint Number: 2
+Name of File: BlueBoomerang.cs
+Author of File: Sam Espanioly
+
+Comments on Code Readability:
+
+- Class members are appropriately named for clarity.
+- There's a lack of comments explaining the thought process behind certain decisions or complex logic.
+- The BlueBoomerang class is relatively short and focused, reducing the likelihood of readability issues.
+- The Return method has a conditional block without a corresponding else block. Adding a comment to clarify this decision would be helpful.
+
+
+Recommended Changes:
+
+- Add comments to explain complex logic or decisions.
