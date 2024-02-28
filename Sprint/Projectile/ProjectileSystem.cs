@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Sprint.Commands.SecondaryItem;
 using Sprint.Input;
 using Sprint.Characters;
+using Sprint.Sprite;
 
 namespace Sprint.Projectile
 {
@@ -14,11 +15,10 @@ namespace Sprint.Projectile
 
         private const float spawnDistance = 40;
 
-        public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager, ContentManager contManager)
+        public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
 
-            this.itemFactory = new SimpleProjectileFactory(spawnDistance);
-            itemFactory.LoadAllTextures(contManager);
+            this.itemFactory = new SimpleProjectileFactory(spriteLoader, spawnDistance);
             itemFactory.SetDirection(new Vector2(1, 90));
             itemFactory.SetStartPosition(startPos);
 

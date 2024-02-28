@@ -134,6 +134,11 @@
 /processor:PassThroughProcessor
 /build:playerAnims.xml
 
+#begin projectileAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:projectileAnims.xml
+
 #begin smb_luigi_sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor

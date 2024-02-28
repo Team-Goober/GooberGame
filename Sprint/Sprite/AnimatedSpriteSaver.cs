@@ -1,8 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Sprint.Interfaces;
+using Sprint.Projectile;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 using System.Xml;
 using XMLData;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Sprint.Sprite
 {
@@ -42,78 +47,73 @@ namespace Sprint.Sprite
 
         public static void WriteFile()
         {
-            // currently set up to generate the player animation file
+            // currently set up to generate the projectile animation file
 
-            AnimatedSpriteSaver sprite = new AnimatedSpriteSaver("zelda_links");
+            string itemSheet = "zelda_items";
+            string bomb = "Items/Bomb";
+            string fireBall = "Items/FireBall";
+            string smokeT = "Items/EndArrow";
+            string boomerang = "Items/boomerangs";
 
-            Vector2 centerOffset = new Vector2(8, 8);
 
-            AutoAtlasSaver downAtlas = new AutoAtlasSaver(new Rectangle(0, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
-            sprite.RegisterAnimation("down", downAtlas);
+            // Smoke
+            AnimatedSpriteSaver smoke = new AnimatedSpriteSaver(smokeT);
+            IAtlasSaver smokeAtlas = new SingleAtlasSaver(new Rectangle(0, 0, 7, 8), new Vector2(3.5f, 4));
+            smoke.SetAnimation("smoke");
+            smoke.RegisterAnimation("smoke", smokeAtlas);
+            smoke.SetScale(4);
 
-            IAtlasSaver leftAtlas = new AutoAtlasSaver(new Rectangle(30, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
-            sprite.RegisterAnimation("left", leftAtlas);
+            // Arrow
+            AnimatedSpriteSaver arrowsprite = new AnimatedSpriteSaver(itemSheet);
+            IAtlasSaver arrowright = new SingleAtlasSaver(new Rectangle(0, 45, 16, 5), new Vector2(6, 2.5f));
+            arrowsprite.RegisterAnimation("right", arrowright);
+            arrowsprite.SetAnimation("right");
+            arrowsprite.SetScale(4);
 
-            IAtlasSaver rightAtlas = new AutoAtlasSaver(new Rectangle(90, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
-            sprite.RegisterAnimation("right", rightAtlas);
+            // Blue Arrow
+            AnimatedSpriteSaver bluearrowsprite = new AnimatedSpriteSaver(itemSheet);
+            IAtlasSaver bluearrowright = new SingleAtlasSaver(new Rectangle(0, 125, 16, 5), new Vector2(6, 2.5f));
+            bluearrowsprite.RegisterAnimation("right", bluearrowright);
+            bluearrowsprite.SetAnimation("right");
+            bluearrowsprite.SetScale(4);
 
-            IAtlasSaver upAtlas = new AutoAtlasSaver(new Rectangle(60, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
-            sprite.RegisterAnimation("up", upAtlas);
+            // Blue Boomerang
+            AnimatedSpriteSaver bboomerangsprite = new AnimatedSpriteSaver(boomerang);
+            IAtlasSaver bbatlas = new AutoAtlasSaver(new Rectangle(3, 18, 54, 8), 1, 4, 10, new Vector2(3, 4), true, 50);
+            bboomerangsprite.RegisterAnimation("default", bbatlas);
+            bboomerangsprite.SetAnimation("default");
+            bboomerangsprite.SetScale(4);
 
-            IAtlasSaver stillAtlas = new SingleAtlasSaver(new Rectangle(0, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("still", stillAtlas);
+            // Bomb
+            AnimatedSpriteSaver bombsprite = new AnimatedSpriteSaver(bomb);
+            IAtlasSaver bombatlas = new AutoAtlasSaver(new Rectangle(0, 0, 85, 16), 1, 5, 1, new Vector2(8, 8), false, 3);
+            bombsprite.RegisterAnimation("default", bombatlas);
+            bombsprite.SetAnimation("default");
+            bombsprite.SetScale(4);
 
-            IAtlasSaver downStill = new SingleAtlasSaver(new Rectangle(0, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("downStill", downStill);
+            // Boomerang
+            AnimatedSpriteSaver boomerangsprite = new AnimatedSpriteSaver(boomerang);
+            IAtlasSaver atlas = new AutoAtlasSaver(new Rectangle(1, 2, 56, 9), 1, 4, 10, new Vector2(3, 4), true, 18);
+            boomerangsprite.RegisterAnimation("boomarang", atlas);
+            boomerangsprite.SetAnimation("boomarang");
+            boomerangsprite.SetScale(4);
 
-            IAtlasSaver leftStill = new SingleAtlasSaver(new Rectangle(30, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("leftStill", leftStill);
-
-            IAtlasSaver upStill = new SingleAtlasSaver(new Rectangle(60, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("upStill", upStill);
-
-            IAtlasSaver rightStill = new SingleAtlasSaver(new Rectangle(90, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("rightStill", rightStill);
-
-            sprite.SetAnimation("still");
-            sprite.SetScale(3);
-
-            //Set up damage atlas
-            IAtlasSaver damage = new SingleAtlasSaver(new Rectangle(0, 150, 16, 16), centerOffset);
-            sprite.RegisterAnimation("damage", damage);
-
-            // sword animations RIGHT 
-            IAtlasSaver swordRightAtlas = new SingleAtlasSaver(new Rectangle(84, 90, 27, 15), new Vector2(9, 7));
-            sprite.RegisterAnimation("swordRight", swordRightAtlas);
-
-            // sword animations LEFT 
-            IAtlasSaver swordLeftAtlas = new SingleAtlasSaver(new Rectangle(24, 90, 27, 15), new Vector2(18, 7));
-            sprite.RegisterAnimation("swordLeft", swordLeftAtlas);
-
-            // sword animations UP 
-            IAtlasSaver swordUpAtlas = new SingleAtlasSaver(new Rectangle(60, 84, 16, 28), new Vector2(8, 21));
-            sprite.RegisterAnimation("swordUp", swordUpAtlas);
-
-            // sword animations DOWN 
-            IAtlasSaver swordDownAtlas = new SingleAtlasSaver(new Rectangle(0, 84, 16, 27), new Vector2(8, 7));
-            sprite.RegisterAnimation("swordDown", swordDownAtlas);
-
-            // casting animations
-            IAtlasSaver castRightAtlas = new SingleAtlasSaver(new Rectangle(90, 60, 16, 16), centerOffset);
-            sprite.RegisterAnimation("castRight", castRightAtlas);
-
-            IAtlasSaver castLeftAtlas = new SingleAtlasSaver(new Rectangle(30, 60, 16, 16), centerOffset);
-            sprite.RegisterAnimation("castLeft", castLeftAtlas);
-
-            IAtlasSaver castUpAtlas = new SingleAtlasSaver(new Rectangle(60, 60, 16, 16), centerOffset);
-            sprite.RegisterAnimation("castUp", castUpAtlas);
-
-            IAtlasSaver castDownAtlas = new SingleAtlasSaver(new Rectangle(0, 60, 16, 16), centerOffset);
-            sprite.RegisterAnimation("castDown", castDownAtlas);
+            // Fireball
+            AnimatedSpriteSaver firesprite = new AnimatedSpriteSaver(fireBall);
+            IAtlasSaver fireatlas = new AutoAtlasSaver(new Rectangle(0, 0, 33, 15), 1, 2, 1, new Vector2(8, 8), true, 5);
+            firesprite.RegisterAnimation("fireBall", fireatlas);
+            firesprite.SetAnimation("fireBall");
+            firesprite.SetScale(3);
 
             SpriteGroupSaver group = new SpriteGroupSaver();
-            group.AddSprite("player", sprite.data);
-            group.WriteXML("playerAnims.xml");
+            group.AddSprite("smoke", smoke.data);
+            group.AddSprite("arrow", arrowsprite.data);
+            group.AddSprite("bluearrow", bluearrowsprite.data);
+            group.AddSprite("blueboomerang", bboomerangsprite.data);
+            group.AddSprite("bomb", bombsprite.data);
+            group.AddSprite("boomerang", boomerangsprite.data);
+            group.AddSprite("fireball", boomerangsprite.data);
+            group.WriteXML("projectileAnims.xml");
         }
 
     }

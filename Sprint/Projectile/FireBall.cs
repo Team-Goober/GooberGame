@@ -21,7 +21,7 @@ namespace Sprint.Projectile
 
         const float speed = 300;
 
-        public FireBall(Texture2D sheet, Vector2 startPos, Vector2 newDirection)
+        public FireBall(ISprite sprite, Vector2 startPos, Vector2 newDirection)
         {
             this.position = startPos;
             this.direction = newDirection;
@@ -37,11 +37,7 @@ namespace Sprint.Projectile
 
             this.startPosition = position;
 
-            sprite = new AnimatedSprite(sheet);
-            IAtlas fireBall = new AutoAtlas(new Rectangle(0, 0, 33, 15), 1, 2, 1, new Vector2(8, 8), true, 5);
-            sprite.RegisterAnimation("fireBall", fireBall);
-            sprite.SetAnimation("fireBall");
-            sprite.SetScale(3);
+            this.sprite = sprite;
         }
 
         private float distance()

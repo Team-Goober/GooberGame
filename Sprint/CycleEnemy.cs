@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using System.Collections.Generic;
 using Sprint.Characters;
+using Sprint.Sprite;
 
 namespace Sprint
 {
@@ -13,15 +14,15 @@ namespace Sprint
         private Vector2 position;
 
         // Constructor
-        public CycleEnemy(Goober game, Vector2 pos, GameObjectManager objectManager)
+        public CycleEnemy(Goober game, Vector2 pos, GameObjectManager objectManager, SpriteLoader spriteLoader)
         {
             this.position = pos;
 
             // Load textures and set up animations for enemies
             // Add enemies to the 'enemies' list
             enemies.Add(JellyfishEnemy.CreateJellyfishEnemy(game, position));
-            enemies.Add(BluebubbleEnemy.CreateBluebubbleEnemy(game, position, objectManager));
-            enemies.Add(SkeletonEnemy.CreateSkeletonEnemy(game, position, objectManager));
+            enemies.Add(BluebubbleEnemy.CreateBluebubbleEnemy(game, position, objectManager, spriteLoader));
+            enemies.Add(SkeletonEnemy.CreateSkeletonEnemy(game, position, objectManager, spriteLoader));
 
             // Add more enemies as needed
         }

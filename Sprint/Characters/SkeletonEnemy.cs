@@ -24,7 +24,7 @@ namespace Sprint.Characters
         private Timer timeAttack;
 
 
-        public SkeletonEnemy(Goober game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas, ContentManager contManager, GameObjectManager objectManager)
+        public SkeletonEnemy(Goober game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas, GameObjectManager objectManager, SpriteLoader spriteLoader)
             : base(game, new AnimatedSprite(spriteSheet), initialPosition)
         {
             //register default animation using the provided enemyAtlas
@@ -36,10 +36,7 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(30);
-
-            itemFactory.LoadAllTextures(contManager);
-
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30);
 
             projectileCommand = new ShootArrowCommand(itemFactory, objectManager);
 
@@ -51,7 +48,7 @@ namespace Sprint.Characters
         }
 
         // Factory method to create a enemy with default settings
-        public static SkeletonEnemy CreateSkeletonEnemy(Goober game, Vector2 initialPosition, GameObjectManager objectManager)
+        public static SkeletonEnemy CreateSkeletonEnemy(Goober game, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
         {
 
 
@@ -65,7 +62,7 @@ namespace Sprint.Characters
             IAtlas moveAnimation = new AutoAtlas(new Rectangle(420, 120, 15, 46), 2, 1, 16, new Vector2(7.5f, 8), true, 10);
 
             // Create SkeletonEnemy instance
-            SkeletonEnemy skeletonEnemy = new SkeletonEnemy(game, skeletonTexture, initialPosition, moveAnimation, game.Content, objectManager);
+            SkeletonEnemy skeletonEnemy = new SkeletonEnemy(game, skeletonTexture, initialPosition, moveAnimation, objectManager, spriteLoader);
 
             // Register directional animations
             skeletonEnemy.RegisterDirectionalAnimation("moving", moveAnimation);

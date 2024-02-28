@@ -30,7 +30,7 @@ namespace Sprint
 
         private IInputMap inputTable;
         private GameObjectManager objectManager;
-        public SpriteLoader SpriteLoader;
+        private SpriteLoader spriteLoader;
 
         public Goober()
         {
@@ -44,7 +44,7 @@ namespace Sprint
 
             objectManager = new GameObjectManager();
             inputTable = new InputTable();
-            SpriteLoader = new SpriteLoader(Content);
+            spriteLoader = new SpriteLoader(Content);
             
             base.Initialize();
         }
@@ -57,7 +57,7 @@ namespace Sprint
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             items = new CycleItem(this, new Vector2(500, 100));
-            enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager);
+            enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
             tiles = new CycleTile(this, new Vector2(500, 200));
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
@@ -66,7 +66,7 @@ namespace Sprint
             font = Content.Load<SpriteFont>("Font");
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
-            player = new Player(this, characterLoc, inputTable, objectManager);
+            player = new Player(this, characterLoc, inputTable, objectManager, spriteLoader);
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new MoveUp(player));

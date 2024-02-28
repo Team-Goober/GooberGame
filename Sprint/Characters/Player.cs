@@ -34,13 +34,13 @@ namespace Sprint.Characters
 
 
         //declares the move systems for the main character sprite
-        public Player(Goober game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager)
+        public Player(Goober game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
 
             physics = new Physics(game, pos);
 
             //Loads sprite for link
-            sprite = game.SpriteLoader.BuildSprite("playerAnims", "player");
+            sprite = spriteLoader.BuildSprite("playerAnims", "player");
 
             // Duration of one sword swing or item use
             attackTimer = new Timer(0.5);
@@ -55,7 +55,7 @@ namespace Sprint.Characters
 
 
             // Set up projectiles
-            secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, game.Content);
+            secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, spriteLoader);
         }
 
         //Melee attack according to direction
