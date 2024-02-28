@@ -51,14 +51,14 @@ namespace Sprint
 
         protected override void LoadContent()
         {
-
+            // Uncomment in order to write an XML file
             //SpriteGroupSaver.WriteFile();
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             items = new CycleItem(this, new Vector2(500, 100), spriteLoader);
             enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
-            tiles = new CycleTile(this, new Vector2(500, 200));
+            tiles = new CycleTile(this, new Vector2(500, 200), spriteLoader);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));

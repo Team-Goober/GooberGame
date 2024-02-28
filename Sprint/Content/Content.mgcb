@@ -173,6 +173,11 @@
 /processorParam:TextureFormat=Color
 /build:Sprite/ZeldaSpriteLinkLeft.gif
 
+#begin tileAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:tileAnims.xml
+
 #begin tiles.png
 /importer:TextureImporter
 /processor:TextureProcessor

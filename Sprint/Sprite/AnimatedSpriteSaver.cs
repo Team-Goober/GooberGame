@@ -49,50 +49,36 @@ namespace Sprint.Sprite
 
         public static void WriteFile()
         {
-            // currently set up to generate the item animation file
-
-            string rupyT = "Items/ZeldaSprite5Rupies";
-            AnimatedSpriteSaver rupyS = new AnimatedSpriteSaver(rupyT);
-            IAtlasSaver rupyA = new SingleAtlasSaver(new Rectangle(0, 0, 8, 16), new Vector2(4, 8));
-            rupyS.RegisterAnimation("rupy", rupyA);
-            rupyS.SetAnimation("rupy");
-            rupyS.SetScale(4);
-
-            string arrowT = "Items/ZeldaSpriteArrow";
-            AnimatedSpriteSaver arrowS = new AnimatedSpriteSaver(arrowT);
-            IAtlasSaver arrowA = new SingleAtlasSaver(new Rectangle(0, 0, 5, 16), new Vector2(2, 8));
-            arrowS.RegisterAnimation("arrow", arrowA);
-            arrowS.SetAnimation("arrow");
-            arrowS.SetScale(4);
-
-            string heartConT = "Items/ZeldaSpriteHeartContainer";
-            AnimatedSpriteSaver heartConS = new AnimatedSpriteSaver(heartConT);
-            IAtlasSaver heartConA = new SingleAtlasSaver(new Rectangle(0, 0, 13, 13), new Vector2(5, 5));
-            heartConS.RegisterAnimation("heartCon", heartConA);
-            heartConS.SetAnimation("heartCon");
-            heartConS.SetScale(4);
-
-            string magicalShieldT = "Items/ZeldaSpriteMagicalShield";
-            AnimatedSpriteSaver magicalShieldS = new AnimatedSpriteSaver(magicalShieldT);
-            IAtlasSaver magicalShieldA = new SingleAtlasSaver(new Rectangle(0, 0, 8, 12), new Vector2(4, 6));
-            magicalShieldS.RegisterAnimation("magicalShield", magicalShieldA);
-            magicalShieldS.SetAnimation("magicalShield");
-            magicalShieldS.SetScale(4);
-
-            string triforceT = "Items/Triforce";
-            AnimatedSpriteSaver triforceS = new AnimatedSpriteSaver(triforceT);
-            IAtlasSaver triforceA = new AutoAtlasSaver(new Rectangle(0, 0, 24, 10), 1, 2, 4, new Vector2(5, 5), true, 10);
-            triforceS.RegisterAnimation("triforce", triforceA);
-            triforceS.SetAnimation("triforce");
-            triforceS.SetScale(4);
+            // currently set up to generate the tile animation file
 
             SpriteGroupSaver group = new SpriteGroupSaver();
-            group.AddSprite("rupy", rupyS.data);
-            group.AddSprite("arrow", arrowS.data);
-            group.AddSprite("heart", heartConS.data);
-            group.AddSprite("shield", magicalShieldS.data);
-            group.AddSprite("triforce", triforceS.data);
-            group.WriteXML("itemAnims.xml");
+
+            CreateTile(group, "flat", "tiles", 0, 0, 16, 16, new Vector2(8, 8), 2);   // Tile 1
+            CreateTile(group, "bevel", "tiles", 17, 0, 16, 16, new Vector2(8, 8), 2);  // Tile 2
+            CreateTile(group, "fish", "tiles", 34, 0, 16, 16, new Vector2(8, 8), 2);  // Tile 3
+            CreateTile(group, "dragon", "tiles", 52, 0, 16, 16, new Vector2(8, 8), 2);  // Tile 4
+
+            CreateTile(group, "dark", "tiles", 0, 17, 16, 16, new Vector2(8, 8), 2);   // Tile 5
+            CreateTile(group, "sand", "tiles", 17, 17, 16, 16, new Vector2(8, 8), 2);  // Tile 6
+            CreateTile(group, "light", "tiles", 34, 17, 16, 16, new Vector2(8, 8), 2);  // Tile 7
+            CreateTile(group, "stairs", "tiles", 52, 17, 16, 16, new Vector2(8, 8), 2);  // Tile 8
+
+            CreateTile(group, "bricks", "tiles", 0, 34, 16, 16, new Vector2(8, 8), 2);   // Tile 9
+            CreateTile(group, "slats", "tiles", 17, 34, 16, 16, new Vector2(8, 8), 2);  // Tile 10
+
+
+            group.WriteXML("tileAnims.xml");
+        }
+
+        private static void CreateTile(SpriteGroupSaver group, string label, string textureName, int x, int y, int width, int height, Vector2 center, int scale)
+        {
+            AnimatedSpriteSaver tileSprite = new AnimatedSpriteSaver(textureName);
+            IAtlasSaver tileAtlas = new SingleAtlasSaver(new Rectangle(x, y, width, height), center);
+            tileSprite.RegisterAnimation("default", tileAtlas);
+            tileSprite.SetAnimation("default");
+            tileSprite.SetScale(scale);
+
+            group.AddSprite(label, tileSprite.data);
         }
 
     }
