@@ -14,11 +14,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin DefSprite.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:DefSprite.xml
-
 #begin Font.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -133,6 +128,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Items/ZeldaSpriteMagicalShield.png
+
+#begin player.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:player.xml
 
 #begin smb_luigi_sheet.png
 /importer:TextureImporter

@@ -7,7 +7,7 @@ using XMLData;
 
 namespace Sprint.Sprite
 {
-    internal class SpriteLoader
+    public class SpriteLoader
     {
 
         private Dictionary<string, Texture2D> textures;
@@ -16,10 +16,11 @@ namespace Sprint.Sprite
         public SpriteLoader(ContentManager content)
         {
             textures = new Dictionary<string, Texture2D>();
+            this.content = content;
         }
 
         // Loads a new AnimatedSprite from the path
-        public ISprite loadSprite(string path)
+        public ISprite LoadSprite(string path)
         {
             // Read XML file into a data object
             SpriteData data = content.Load<SpriteData>(path);

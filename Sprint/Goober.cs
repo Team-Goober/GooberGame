@@ -11,6 +11,7 @@ using XMLData;
 using System.Diagnostics;
 using System.Security;
 using System.Collections.Generic;
+using Sprint.Sprite;
 
 namespace Sprint
 {
@@ -20,8 +21,6 @@ namespace Sprint
         private SpriteBatch _spriteBatch;
         private Player player;
 
-        private IInputMap inputTable;
-
         private CycleItem items;
         private CycleEnemy enemies;
         private CycleTile tiles;
@@ -29,7 +28,9 @@ namespace Sprint
         private Vector2 characterLoc = new Vector2(20, 20);
         private bool resetGame = false;
 
+        private IInputMap inputTable;
         private GameObjectManager objectManager;
+        public SpriteLoader SpriteLoader;
 
         public Goober()
         {
@@ -43,13 +44,13 @@ namespace Sprint
 
             objectManager = new GameObjectManager();
             inputTable = new InputTable();
+            SpriteLoader = new SpriteLoader(Content);
             
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             items = new CycleItem(this, new Vector2(500, 100));
