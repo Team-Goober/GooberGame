@@ -26,6 +26,11 @@
 /processorParam:TextureFormat=Compressed
 /build:Font.spritefont
 
+#begin itemAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:itemAnims.xml
+
 #begin Items/Bomb.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -49,74 +49,50 @@ namespace Sprint.Sprite
 
         public static void WriteFile()
         {
-            // currently set up to generate the enemy animation file
+            // currently set up to generate the item animation file
 
-            string textureName = "zelda_enemies"; // Using the same texture as JellyfishEnemy
-            int scale = 2;
+            string rupyT = "Items/ZeldaSprite5Rupies";
+            AnimatedSpriteSaver rupyS = new AnimatedSpriteSaver(rupyT);
+            IAtlasSaver rupyA = new SingleAtlasSaver(new Rectangle(0, 0, 8, 16), new Vector2(4, 8));
+            rupyS.RegisterAnimation("rupy", rupyA);
+            rupyS.SetAnimation("rupy");
+            rupyS.SetScale(4);
 
-            // Define directional atlases for animations
-            IAtlasSaver upFacing = new SingleAtlasSaver(new Rectangle(180, 270, 16, 16), new Vector2(8, 8));
-            IAtlasSaver leftFacing = new SingleAtlasSaver(new Rectangle(152, 270, 16, 16), new Vector2(8, 8));
-            IAtlasSaver downFacing = new SingleAtlasSaver(new Rectangle(120, 270, 16, 16), new Vector2(8, 8));
-            IAtlasSaver rightFacing = new SingleAtlasSaver(new Rectangle(210, 270, 16, 16), new Vector2(8, 8));
+            string arrowT = "Items/ZeldaSpriteArrow";
+            AnimatedSpriteSaver arrowS = new AnimatedSpriteSaver(arrowT);
+            IAtlasSaver arrowA = new SingleAtlasSaver(new Rectangle(0, 0, 5, 16), new Vector2(2, 8));
+            arrowS.RegisterAnimation("arrow", arrowA);
+            arrowS.SetAnimation("arrow");
+            arrowS.SetScale(4);
 
-            AnimatedSpriteSaver bluebubbleEnemy = new AnimatedSpriteSaver(textureName);
+            string heartConT = "Items/ZeldaSpriteHeartContainer";
+            AnimatedSpriteSaver heartConS = new AnimatedSpriteSaver(heartConT);
+            IAtlasSaver heartConA = new SingleAtlasSaver(new Rectangle(0, 0, 13, 13), new Vector2(5, 5));
+            heartConS.RegisterAnimation("heartCon", heartConA);
+            heartConS.SetAnimation("heartCon");
+            heartConS.SetScale(4);
 
-            // Register directional animations
-            bluebubbleEnemy.RegisterAnimation("upFacing", upFacing);
-            bluebubbleEnemy.RegisterAnimation("leftFacing", leftFacing);
-            bluebubbleEnemy.RegisterAnimation("downFacing", downFacing);
-            bluebubbleEnemy.RegisterAnimation("rightFacing", rightFacing);
+            string magicalShieldT = "Items/ZeldaSpriteMagicalShield";
+            AnimatedSpriteSaver magicalShieldS = new AnimatedSpriteSaver(magicalShieldT);
+            IAtlasSaver magicalShieldA = new SingleAtlasSaver(new Rectangle(0, 0, 8, 12), new Vector2(4, 6));
+            magicalShieldS.RegisterAnimation("magicalShield", magicalShieldA);
+            magicalShieldS.SetAnimation("magicalShield");
+            magicalShieldS.SetScale(4);
 
-            // Set the default animation and scale
-            bluebubbleEnemy.SetAnimation("upFacing");
-            bluebubbleEnemy.SetScale(scale);
-
-
-
-            Vector2 center = new Vector2(8, 8);
-
-            // Define directional atlases for animations
-            IAtlasSaver upFacing2 = new SingleAtlasSaver(new Rectangle(0, 0, 16, 16), new Vector2(8, 8));
-            IAtlasSaver leftFacing2 = new SingleAtlasSaver(new Rectangle(88, 0, 16, 16), new Vector2(8, 8));
-            IAtlasSaver downFacing2 = new SingleAtlasSaver(new Rectangle(60, 0, 16, 16), new Vector2(8, 8));
-            IAtlasSaver rightFacing2 = new SingleAtlasSaver(new Rectangle(32, 0, 16, 16), new Vector2(8, 8));
-
-            AnimatedSpriteSaver jellyfishEnemy = new AnimatedSpriteSaver(textureName);
-
-            // Register directional animations
-            jellyfishEnemy.RegisterAnimation("upFacing", upFacing2);
-            jellyfishEnemy.RegisterAnimation("leftFacing", leftFacing2);
-            jellyfishEnemy.RegisterAnimation("downFacing", downFacing2);
-            jellyfishEnemy.RegisterAnimation("rightFacing", rightFacing2);
-
-            // Set the default animation and scale
-            jellyfishEnemy.SetAnimation("upFacing");
-            jellyfishEnemy.SetScale(scale);
-
-
-
-
-            // Define auto atlases for animations
-            IAtlasSaver moveAnimation = new AutoAtlasSaver(new Rectangle(420, 120, 15, 46), 2, 1, 16, new Vector2(7.5f, 8), true, 10);
-
-            AnimatedSpriteSaver skeletonEnemy = new AnimatedSpriteSaver(textureName);
-
-            // Register directional animations
-            skeletonEnemy.RegisterAnimation("moving", moveAnimation);
-
-
-
-            // Set the default animation and scale
-            skeletonEnemy.SetAnimation("moving");
-            skeletonEnemy.SetScale(scale);
-
+            string triforceT = "Items/Triforce";
+            AnimatedSpriteSaver triforceS = new AnimatedSpriteSaver(triforceT);
+            IAtlasSaver triforceA = new AutoAtlasSaver(new Rectangle(0, 0, 24, 10), 1, 2, 4, new Vector2(5, 5), true, 10);
+            triforceS.RegisterAnimation("triforce", triforceA);
+            triforceS.SetAnimation("triforce");
+            triforceS.SetScale(4);
 
             SpriteGroupSaver group = new SpriteGroupSaver();
-            group.AddSprite("bluebubble", bluebubbleEnemy.data);
-            group.AddSprite("jellyfish", jellyfishEnemy.data);
-            group.AddSprite("skeleton", skeletonEnemy.data);
-            group.WriteXML("enemyAnims.xml");
+            group.AddSprite("rupy", rupyS.data);
+            group.AddSprite("arrow", arrowS.data);
+            group.AddSprite("heart", heartConS.data);
+            group.AddSprite("shield", magicalShieldS.data);
+            group.AddSprite("triforce", triforceS.data);
+            group.WriteXML("itemAnims.xml");
         }
 
     }

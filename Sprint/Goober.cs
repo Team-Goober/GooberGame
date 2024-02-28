@@ -56,7 +56,7 @@ namespace Sprint
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            items = new CycleItem(this, new Vector2(500, 100));
+            items = new CycleItem(this, new Vector2(500, 100), spriteLoader);
             enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
             tiles = new CycleTile(this, new Vector2(500, 200));
 

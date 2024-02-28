@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
@@ -30,7 +31,7 @@ namespace Sprint.Sprite
             Dictionary<string, SpriteData> spriteDict = content.Load<Dictionary<string, SpriteData>>(path);
             foreach (KeyValuePair<string, SpriteData> kvp in spriteDict)
             {
-                loaded.Add(kvp.Key, kvp.Value);
+                loaded.Add(path + "." + kvp.Key, kvp.Value);
             }
         }
 
@@ -44,11 +45,11 @@ namespace Sprint.Sprite
         {
             // Try to get data from loaded dictionary
             SpriteData data;
-            if (!loaded.ContainsKey(spriteLabel))
+            if (!loaded.ContainsKey(path + "." + spriteLabel))
             {
                 LoadXML(path);
             }
-            data = loaded[spriteLabel];
+            data = loaded[path + "." + spriteLabel];
 
             // Already loaded textures are saved so they won't be reloaded for every sprite
             Texture2D texture;
