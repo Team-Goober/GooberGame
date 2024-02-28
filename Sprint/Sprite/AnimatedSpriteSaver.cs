@@ -49,36 +49,7 @@ namespace Sprint.Sprite
 
         public static void WriteFile()
         {
-            // currently set up to generate the tile animation file
-
-            SpriteGroupSaver group = new SpriteGroupSaver();
-
-            CreateTile(group, "flat", "tiles", 0, 0, 16, 16, new Vector2(8, 8), 2);   // Tile 1
-            CreateTile(group, "bevel", "tiles", 17, 0, 16, 16, new Vector2(8, 8), 2);  // Tile 2
-            CreateTile(group, "fish", "tiles", 34, 0, 16, 16, new Vector2(8, 8), 2);  // Tile 3
-            CreateTile(group, "dragon", "tiles", 52, 0, 16, 16, new Vector2(8, 8), 2);  // Tile 4
-
-            CreateTile(group, "dark", "tiles", 0, 17, 16, 16, new Vector2(8, 8), 2);   // Tile 5
-            CreateTile(group, "sand", "tiles", 17, 17, 16, 16, new Vector2(8, 8), 2);  // Tile 6
-            CreateTile(group, "light", "tiles", 34, 17, 16, 16, new Vector2(8, 8), 2);  // Tile 7
-            CreateTile(group, "stairs", "tiles", 52, 17, 16, 16, new Vector2(8, 8), 2);  // Tile 8
-
-            CreateTile(group, "bricks", "tiles", 0, 34, 16, 16, new Vector2(8, 8), 2);   // Tile 9
-            CreateTile(group, "slats", "tiles", 17, 34, 16, 16, new Vector2(8, 8), 2);  // Tile 10
-
-
-            group.WriteXML("tileAnims.xml");
-        }
-
-        private static void CreateTile(SpriteGroupSaver group, string label, string textureName, int x, int y, int width, int height, Vector2 center, int scale)
-        {
-            AnimatedSpriteSaver tileSprite = new AnimatedSpriteSaver(textureName);
-            IAtlasSaver tileAtlas = new SingleAtlasSaver(new Rectangle(x, y, width, height), center);
-            tileSprite.RegisterAnimation("default", tileAtlas);
-            tileSprite.SetAnimation("default");
-            tileSprite.SetScale(scale);
-
-            group.AddSprite(label, tileSprite.data);
+            // replace this with code that savesa group to a file when needed
         }
 
     }
