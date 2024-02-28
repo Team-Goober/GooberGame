@@ -10,8 +10,14 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\XMLData\bin\Debug\net6.0\XMLData.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin DefSprite.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:DefSprite.xml
 
 #begin Font.spritefont
 /importer:FontDescriptionImporter

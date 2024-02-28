@@ -6,6 +6,9 @@ using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Commands;
 using Sprint.Characters;
+using System.Xml;
+using XMLData;
+using System.Diagnostics;
 
 namespace Sprint
 {
@@ -26,6 +29,8 @@ namespace Sprint
 
         private GameObjectManager objectManager;
 
+        AtlasData atlas;
+
         public Goober()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -44,6 +49,11 @@ namespace Sprint
 
         protected override void LoadContent()
         {
+
+            atlas = Content.Load<AtlasData>("DefSprite");
+            Debug.WriteLine(atlas.Label+" "+atlas.XPos+" "+atlas.YPos);
+
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             items = new CycleItem(this, new Vector2(500, 100));

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+  <Asset Type="XMLData.AtlasData">
+    <Label>"Def"</Label>
+    <XPos>200</XPos>
+    <YPos>200</YPos>
+  </Asset>
+</XnaContent>
