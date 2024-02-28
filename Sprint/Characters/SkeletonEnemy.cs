@@ -24,11 +24,9 @@ namespace Sprint.Characters
         private Timer timeAttack;
 
 
-        public SkeletonEnemy(Goober game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas, ContentManager contManager, GameObjectManager objectManager)
-            : base(game, new AnimatedSprite(spriteSheet), initialPosition)
+        public SkeletonEnemy(Goober game, ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
+            : base(game, sprite, initialPosition)
         {
-            //register default animation using the provided enemyAtlas
-            sprite.RegisterAnimation("default", enemyAtlas);
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
@@ -36,72 +34,18 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(30);
-
-            itemFactory.LoadAllTextures(contManager);
-
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30);
 
             projectileCommand = new ShootArrowCommand(itemFactory, objectManager);
-
-
 
 
             // Initialize the move direction randomly
             RandomizeMoveDirection();
         }
 
-        // Factory method to create a enemy with default settings
-        public static SkeletonEnemy CreateSkeletonEnemy(Goober game, Vector2 initialPosition, GameObjectManager objectManager)
-        {
-
-
-            string textureName = "zelda_enemies"; // Using the same texture as JellyfishEnemy
-            int scale = 2;
-
-            // Load SkeletonEnemy texture
-            Texture2D skeletonTexture = game.Content.Load<Texture2D>(textureName);
-
-            // Define auto atlases for animations
-            IAtlas moveAnimation = new AutoAtlas(new Rectangle(420, 120, 15, 46), 2, 1, 16, new Vector2(7.5f, 8), true, 10);
-
-            // Create SkeletonEnemy instance
-            SkeletonEnemy skeletonEnemy = new SkeletonEnemy(game, skeletonTexture, initialPosition, moveAnimation, game.Content, objectManager);
-
-            // Register directional animations
-            skeletonEnemy.RegisterDirectionalAnimation("moving", moveAnimation);
-
-
-
-            // Set the default animation and scale
-            skeletonEnemy.SetAnimation("default");
-            skeletonEnemy.SetScale(scale);
-
-            return skeletonEnemy;
-        }
-
-        // Register a directional animation for sprite
-        public void RegisterDirectionalAnimation(string animationLabel, IAtlas atlas)
-        {
-            sprite.RegisterAnimation(animationLabel, atlas);
-        }
-
-        // Set the current animation for sprite
-        public void SetAnimation(string animationLabel)
-        {
-            sprite.SetAnimation(animationLabel);
-        }
-
-        // Set the scale of sprite
-        public void SetScale(int scale)
-        {
-            sprite.SetScale(scale);
-        }
-
         // Update logic
         public override void Update(GameTime gameTime)
         {
-
-
 
             timeAttack.Update(gameTime);
 
@@ -132,14 +76,6 @@ namespace Sprint.Characters
 
         }
 
-        // Set animation based on the direction of movement
-        private void SetAnimationBasedOnDirection()
-        {
-
-            SetAnimation("moving");
-
-        }
-
         // Move Skeleton randomly within the game area
         private void MoveRandomly(GameTime gameTime)
         {
@@ -152,9 +88,6 @@ namespace Sprint.Characters
                 RandomizeMoveDirection();
                 elapsedTime = 0;
             }
-
-            // Set animation based on the new direction
-            SetAnimationBasedOnDirection();
 
             // Move in the current direction
             Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;

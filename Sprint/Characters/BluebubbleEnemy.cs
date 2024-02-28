@@ -19,11 +19,9 @@ namespace Sprint.Characters
         private SimpleProjectileFactory itemFactory;
         private Vector2 initialPosition;
 
-        public BluebubbleEnemy(Goober game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas, GameObjectManager objectManager)
-            : base(game, new AnimatedSprite(spriteSheet), initialPosition)
+        public BluebubbleEnemy(Goober game, ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
+            : base(game, sprite, initialPosition)
         {
-            // Register default animation using the provided enemyAtlas
-            sprite.RegisterAnimation("default", enemyAtlas);
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
@@ -31,45 +29,12 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(30);
-
-            itemFactory.LoadAllTextures(game.Content);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30);
 
             projectileCommand = new ShootBombC(itemFactory, objectManager);
 
             // Initialize the move direction randomly
             RandomizeMoveDirection();
-        }
-
-        // Factory method to create a BluebubbleEnemy with default settings
-        public static BluebubbleEnemy CreateBluebubbleEnemy(Goober game, Vector2 initialPosition, GameObjectManager objectManager)
-        {
-            string textureName = "zelda_enemies"; // Using the same texture as JellyfishEnemy
-            int scale = 2;
-
-            // Load BluebubbleEnemy texture
-            Texture2D bluebubbleTexture = game.Content.Load<Texture2D>(textureName);
-
-            // Define directional atlases for animations
-            IAtlas upFacing = new SingleAtlas(new Rectangle(180, 270, 16, 16), new Vector2(8, 8));
-            IAtlas leftFacing = new SingleAtlas(new Rectangle(152, 270, 16, 16), new Vector2(8, 8));
-            IAtlas downFacing = new SingleAtlas(new Rectangle(120, 270, 16, 16), new Vector2(8, 8));
-            IAtlas rightFacing = new SingleAtlas(new Rectangle(210, 270, 16, 16), new Vector2(8, 8));
-
-            // Create BluebubbleEnemy instance
-            BluebubbleEnemy bluebubbleEnemy = new BluebubbleEnemy(game, bluebubbleTexture, initialPosition, upFacing, objectManager);
-
-            // Register directional animations
-            bluebubbleEnemy.RegisterDirectionalAnimation("upFacing", upFacing);
-            bluebubbleEnemy.RegisterDirectionalAnimation("leftFacing", leftFacing);
-            bluebubbleEnemy.RegisterDirectionalAnimation("downFacing", downFacing);
-            bluebubbleEnemy.RegisterDirectionalAnimation("rightFacing", rightFacing);
-
-            // Set the default animation and scale
-            bluebubbleEnemy.SetAnimation("default");
-            bluebubbleEnemy.SetScale(scale);
-
-            return bluebubbleEnemy;
         }
 
         // Register a directional animation for BluebubbleEnemy sprite

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+  <Asset Type="Generic:Dictionary[string,XMLData.SpriteData]">
+    <Item>
+      <Key>bluebubble</Key>
+      <Value>
+        <Texture>zelda_enemies</Texture>
+        <Animations>
+          <Item>
+            <Key>upFacing</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>180 270 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>leftFacing</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>152 270 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>downFacing</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>120 270 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>rightFacing</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>210 270 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>2</Scale>
+        <InitialAnimation>upFacing</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>jellyfish</Key>
+      <Value>
+        <Texture>zelda_enemies</Texture>
+        <Animations>
+          <Item>
+            <Key>upFacing</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>leftFacing</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>88 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>downFacing</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>60 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>rightFacing</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>32 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>2</Scale>
+        <InitialAnimation>upFacing</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>skeleton</Key>
+      <Value>
+        <Texture>zelda_enemies</Texture>
+        <Animations>
+          <Item>
+            <Key>moving</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>420 120 15 46</SheetArea>
+              <Rows>2</Rows>
+              <Cols>1</Cols>
+              <Padding>16</Padding>
+              <CenterPoint>7.5 8</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>10</Framerate>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>2</Scale>
+        <InitialAnimation>moving</InitialAnimation>
+      </Value>
+    </Item>
+  </Asset>
+</XnaContent>

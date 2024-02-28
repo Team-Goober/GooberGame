@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+  <Asset Type="Generic:Dictionary[string,XMLData.SpriteData]">
+    <Item>
+      <Key>rupy</Key>
+      <Value>
+        <Texture>Items/ZeldaSprite5Rupies</Texture>
+        <Animations>
+          <Item>
+            <Key>rupy</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 8 16</Rectangle>
+              <CenterPoint>4 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>rupy</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>arrow</Key>
+      <Value>
+        <Texture>Items/ZeldaSpriteArrow</Texture>
+        <Animations>
+          <Item>
+            <Key>arrow</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 5 16</Rectangle>
+              <CenterPoint>2 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>arrow</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>heart</Key>
+      <Value>
+        <Texture>Items/ZeldaSpriteHeartContainer</Texture>
+        <Animations>
+          <Item>
+            <Key>heartCon</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 13 13</Rectangle>
+              <CenterPoint>5 5</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>heartCon</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>shield</Key>
+      <Value>
+        <Texture>Items/ZeldaSpriteMagicalShield</Texture>
+        <Animations>
+          <Item>
+            <Key>magicalShield</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 8 12</Rectangle>
+              <CenterPoint>4 6</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>magicalShield</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>triforce</Key>
+      <Value>
+        <Texture>Items/Triforce</Texture>
+        <Animations>
+          <Item>
+            <Key>triforce</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>0 0 24 10</SheetArea>
+              <Rows>1</Rows>
+              <Cols>2</Cols>
+              <Padding>4</Padding>
+              <CenterPoint>5 5</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>10</Framerate>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>triforce</InitialAnimation>
+      </Value>
+    </Item>
+  </Asset>
+</XnaContent>

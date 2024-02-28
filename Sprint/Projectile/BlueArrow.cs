@@ -22,7 +22,7 @@ namespace Sprint.Projectile
         const float speed = 300;
         const float travel = 400;
 
-        public BlueArrow(Texture2D sheet, Texture2D smokeT, Vector2 startPos, Vector2 direction)
+        public BlueArrow(ISprite sprite, ISprite smoke, Vector2 startPos, Vector2 direction)
         {
             //Use to correct spawn position
             this.position = startPos; //+ Vector2.Normalize(direction) * 40;
@@ -37,18 +37,9 @@ namespace Sprint.Projectile
                 velocity = Vector2.Normalize(direction) * speed;
             }
 
-            sprite = new AnimatedSprite(sheet);
-            smoke = new AnimatedSprite(smokeT);
-            IAtlas right = new SingleAtlas(new Rectangle(0, 125, 16, 5), new Vector2(6, 2.5f));
-            IAtlas smokeAtlas = new SingleAtlas(new Rectangle(0, 0, 7, 8), new Vector2(3.5f, 4));
-            sprite.RegisterAnimation("right", right);
-            smoke.RegisterAnimation("smoke", smokeAtlas);
+            this.sprite = sprite;
+            this.smoke = smoke;
 
-            sprite.SetAnimation("right");
-            smoke.SetAnimation("smoke");
-
-            sprite.SetScale(4);
-            smoke.SetScale(4);
         }
 
         private float distance()

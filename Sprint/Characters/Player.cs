@@ -34,102 +34,28 @@ namespace Sprint.Characters
 
 
         //declares the move systems for the main character sprite
-        public Player(Goober game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager)
+        public Player(Goober game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
 
             physics = new Physics(game, pos);
 
-            //Loads sprite sheet for link
-            Texture2D zeldaSheet = game.Content.Load<Texture2D>("zelda_links");
-            sprite = new AnimatedSprite(zeldaSheet);
+            //Loads sprite for link
+            sprite = spriteLoader.BuildSprite("playerAnims", "player");
 
             // Duration of one sword swing or item use
             attackTimer = new Timer(0.5);
             // Duration of the damage state
             damageTimer = new Timer(0.3);
 
-            //declares autoatlas on the location of animation down
-            //0, 0, 16, 47 is the coordinates of the x, y for down animation in sprite sheet
-            //Important: the second part 16, 47 is the width and height of sprite. For instance is the sprite size is 
-            //22x47, then you have to state that in the second part of the rectangle
-            //the next 2, 1 is the rows and cols of the sprites
-            //the next 2 is the padding between sprites
-            //true (boolean) is whether animation should loop
-            //5 is the speed 
-            Vector2 centerOffset = new Vector2(8, 8);
-
-            IAtlas downAtlas = new AutoAtlas(new Rectangle(0, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
-            sprite.RegisterAnimation("down", downAtlas);
-
-            IAtlas leftAtlas = new AutoAtlas(new Rectangle(30, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
-            sprite.RegisterAnimation("left", leftAtlas);
-
-            IAtlas rightAtlas = new AutoAtlas(new Rectangle(90, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
-            sprite.RegisterAnimation("right", rightAtlas);
-
-            IAtlas upAtlas = new AutoAtlas(new Rectangle(60, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
-            sprite.RegisterAnimation("up", upAtlas);
-
-            IAtlas stillAtlas = new SingleAtlas(new Rectangle(0, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("still", stillAtlas);
-
-            IAtlas downStill = new SingleAtlas(new Rectangle(0, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("downStill", downStill);
-
-            IAtlas leftStill = new SingleAtlas(new Rectangle(30, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("leftStill", leftStill);
-
-            IAtlas upStill = new SingleAtlas(new Rectangle(60, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("upStill", upStill);
-
-            IAtlas rightStill = new SingleAtlas(new Rectangle(90, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("rightStill", rightStill);
-
-            sprite.SetAnimation("still");
-            Facing = Directions.STILL;
-            sprite.SetScale(3);
-
-            //Set up damage atlas
-            IAtlas damage = new SingleAtlas(new Rectangle(0, 150, 16, 16), centerOffset);
-            sprite.RegisterAnimation("damage", damage);
-
-            // sword animations RIGHT 
-            IAtlas swordRightAtlas = new SingleAtlas(new Rectangle(84, 90, 27, 15), new Vector2(9, 7));
-            sprite.RegisterAnimation("swordRight", swordRightAtlas);
-
-            // sword animations LEFT 
-            IAtlas swordLeftAtlas = new SingleAtlas(new Rectangle(24, 90, 27, 15), new Vector2(18, 7));
-            sprite.RegisterAnimation("swordLeft", swordLeftAtlas);
-
-            // sword animations UP 
-            IAtlas swordUpAtlas = new SingleAtlas(new Rectangle(60, 84, 16, 28), new Vector2(8, 21));
-            sprite.RegisterAnimation("swordUp", swordUpAtlas);
-
-            // sword animations DOWN 
-            IAtlas swordDownAtlas = new SingleAtlas(new Rectangle(0, 84, 16, 27), new Vector2(8, 7));
-            sprite.RegisterAnimation("swordDown", swordDownAtlas);
-
-            // casting animations
-            IAtlas castRightAtlas = new SingleAtlas(new Rectangle(90, 60, 16, 16), centerOffset);
-            sprite.RegisterAnimation("castRight", castRightAtlas);
-
-            IAtlas castLeftAtlas = new SingleAtlas(new Rectangle(30, 60, 16, 16), centerOffset);
-            sprite.RegisterAnimation("castLeft", castLeftAtlas);
-
-            IAtlas castUpAtlas = new SingleAtlas(new Rectangle(60, 60, 16, 16), centerOffset);
-            sprite.RegisterAnimation("castUp", castUpAtlas);
-
-            IAtlas castDownAtlas = new SingleAtlas(new Rectangle(0, 60, 16, 16), centerOffset);
-            sprite.RegisterAnimation("castDown", castDownAtlas);
+            
 
             // Start out idle
+            Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
 
 
             // Set up projectiles
-            secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, game.Content);
-
-
+            secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, spriteLoader);
         }
 
         //Melee attack according to direction

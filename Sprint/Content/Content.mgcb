@@ -10,8 +10,14 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\XMLData\bin\Debug\net6.0\XMLData.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin enemyAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:enemyAnims.xml
 
 #begin Font.spritefont
 /importer:FontDescriptionImporter
@@ -19,6 +25,11 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Font.spritefont
+
+#begin itemAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:itemAnims.xml
 
 #begin Items/Bomb.png
 /importer:TextureImporter
@@ -128,6 +139,16 @@
 /processorParam:TextureFormat=Color
 /build:Items/ZeldaSpriteMagicalShield.png
 
+#begin playerAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:playerAnims.xml
+
+#begin projectileAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:projectileAnims.xml
+
 #begin smb_luigi_sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -151,6 +172,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprite/ZeldaSpriteLinkLeft.gif
+
+#begin tileAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:tileAnims.xml
 
 #begin tiles.png
 /importer:TextureImporter

@@ -17,7 +17,7 @@ namespace Sprint.Projectile
         const float speed = 400;
         const float backSpeed = -400;
 
-        public Boomarang(Texture2D sheet, Vector2 startPos, Vector2 newDirection)
+        public Boomarang(ISprite sprite, Vector2 startPos, Vector2 newDirection)
         {
             this.position = startPos;
             this.originalPosition = this.position;
@@ -32,11 +32,7 @@ namespace Sprint.Projectile
                 velocity = Vector2.Normalize(direction) * speed;
             }
 
-            sprite = new AnimatedSprite(sheet);
-            IAtlas atlas = new AutoAtlas(new Rectangle(1, 2, 56, 9), 1, 4, 10, new Vector2(3, 4), true, 18);
-            sprite.RegisterAnimation("boomarang", atlas);
-            sprite.SetAnimation("boomarang");
-            sprite.SetScale(4);
+            this.sprite = sprite;
         }
 
         private void returnBack(Vector2 currentPosition)
