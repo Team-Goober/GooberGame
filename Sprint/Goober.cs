@@ -61,7 +61,7 @@ namespace Sprint
             settings.Indent = true;
 
             using (XmlWriter writer = XmlWriter.Create("testSprite.xml", settings))
-            {
+            {  
                 Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate.
                 IntermediateSerializer.Serialize(writer, testData, null);
             }
