@@ -51,6 +51,9 @@ namespace Sprint
 
         protected override void LoadContent()
         {
+
+            //SpriteGroupSaver.WriteFile();
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             items = new CycleItem(this, new Vector2(500, 100));

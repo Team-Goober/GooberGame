@@ -40,7 +40,7 @@ namespace Sprint.Characters
             physics = new Physics(game, pos);
 
             //Loads sprite for link
-            sprite = game.SpriteLoader.LoadSprite("player");
+            sprite = game.SpriteLoader.BuildSprite("playerAnims", "player");
 
             // Duration of one sword swing or item use
             attackTimer = new Timer(0.5);

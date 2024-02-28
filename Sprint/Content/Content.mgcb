@@ -129,10 +129,10 @@
 /processorParam:TextureFormat=Color
 /build:Items/ZeldaSpriteMagicalShield.png
 
-#begin player.xml
+#begin playerAnims.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
-/build:player.xml
+/build:playerAnims.xml
 
 #begin smb_luigi_sheet.png
 /importer:TextureImporter

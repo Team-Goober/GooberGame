@@ -1,40 +1,34 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Sprint.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Xml;
 using XMLData;
-using static Sprint.Characters.Character;
 
 namespace Sprint.Sprite
 {
 
     /*
-     * This class exists solely to convert hard-coded sprite initializations
-     * into XML files. It is written to easily replace those constructors.
-     * This class should not live to the final game.
+     * These classes exist solely to convert hard-coded sprite initializations
+     * into XML files. They are written to easily replace those constructors.
+     * This file should not live to the final game.
      */
 
-    public class AnimatedSpriteSaver
+    public class SpriteGroupSaver
     {
 
-        private float scale;
-        private string initAnim;
-        private SpriteData data;
-
-        public AnimatedSpriteSaver(String texture)
+        Dictionary<string, SpriteData> dict;
+        public SpriteGroupSaver()
         {
-            data = new SpriteData();
-            data.Texture = texture;
-            
-            data.Animations = new Dictionary<string, AtlasData>();
+            dict = new Dictionary<string, SpriteData>();
+        }
+
+        public void AddSprite(string label, SpriteData data)
+        {
+            dict.Add(label, data);
         }
 
         public void WriteXML(string path)
         {
-            data.Scale = scale;
-            data.InitialAnimation = initAnim;
 
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
@@ -42,23 +36,8 @@ namespace Sprint.Sprite
             using (XmlWriter writer = XmlWriter.Create(path, settings))
             {
                 Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate.
-                IntermediateSerializer.Serialize(writer, data, null);
+                IntermediateSerializer.Serialize(writer, dict, null);
             }
-        }
-
-        public void RegisterAnimation(string label, IAtlasSaver atlas)
-        {
-            data.Animations.Add(label, atlas.GetData());
-        }
-
-        public void SetAnimation(string label)
-        {
-            initAnim = label;
-        }
-
-        public void SetScale(float scale)
-        {
-            this.scale = scale;
         }
 
         public static void WriteFile()
@@ -132,7 +111,39 @@ namespace Sprint.Sprite
             IAtlasSaver castDownAtlas = new SingleAtlasSaver(new Rectangle(0, 60, 16, 16), centerOffset);
             sprite.RegisterAnimation("castDown", castDownAtlas);
 
-            sprite.WriteXML("player.xml");
+            SpriteGroupSaver group = new SpriteGroupSaver();
+            group.AddSprite("player", sprite.data);
+            group.WriteXML("playerAnims.xml");
+        }
+
+    }
+
+    public class AnimatedSpriteSaver
+    {
+
+        public SpriteData data;
+
+        public AnimatedSpriteSaver(String texture)
+        {
+            data = new SpriteData();
+            data.Texture = texture;
+            
+            data.Animations = new Dictionary<string, AtlasData>();
+        }
+
+        public void RegisterAnimation(string label, IAtlasSaver atlas)
+        {
+            data.Animations.Add(label, atlas.GetData());
+        }
+
+        public void SetAnimation(string label)
+        {
+            data.InitialAnimation = label;
+        }
+
+        public void SetScale(float scale)
+        {
+            data.Scale = scale;
         }
 
     }
