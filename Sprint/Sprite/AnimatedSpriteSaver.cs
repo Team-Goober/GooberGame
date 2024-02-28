@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Characters;
 using Sprint.Interfaces;
 using Sprint.Projectile;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
+using System.Runtime.Serialization;
 using System.Xml;
 using XMLData;
 using static System.Formats.Asn1.AsnWriter;
@@ -47,73 +49,74 @@ namespace Sprint.Sprite
 
         public static void WriteFile()
         {
-            // currently set up to generate the projectile animation file
+            // currently set up to generate the enemy animation file
 
-            string itemSheet = "zelda_items";
-            string bomb = "Items/Bomb";
-            string fireBall = "Items/FireBall";
-            string smokeT = "Items/EndArrow";
-            string boomerang = "Items/boomerangs";
+            string textureName = "zelda_enemies"; // Using the same texture as JellyfishEnemy
+            int scale = 2;
+
+            // Define directional atlases for animations
+            IAtlasSaver upFacing = new SingleAtlasSaver(new Rectangle(180, 270, 16, 16), new Vector2(8, 8));
+            IAtlasSaver leftFacing = new SingleAtlasSaver(new Rectangle(152, 270, 16, 16), new Vector2(8, 8));
+            IAtlasSaver downFacing = new SingleAtlasSaver(new Rectangle(120, 270, 16, 16), new Vector2(8, 8));
+            IAtlasSaver rightFacing = new SingleAtlasSaver(new Rectangle(210, 270, 16, 16), new Vector2(8, 8));
+
+            AnimatedSpriteSaver bluebubbleEnemy = new AnimatedSpriteSaver(textureName);
+
+            // Register directional animations
+            bluebubbleEnemy.RegisterAnimation("upFacing", upFacing);
+            bluebubbleEnemy.RegisterAnimation("leftFacing", leftFacing);
+            bluebubbleEnemy.RegisterAnimation("downFacing", downFacing);
+            bluebubbleEnemy.RegisterAnimation("rightFacing", rightFacing);
+
+            // Set the default animation and scale
+            bluebubbleEnemy.SetAnimation("upFacing");
+            bluebubbleEnemy.SetScale(scale);
 
 
-            // Smoke
-            AnimatedSpriteSaver smoke = new AnimatedSpriteSaver(smokeT);
-            IAtlasSaver smokeAtlas = new SingleAtlasSaver(new Rectangle(0, 0, 7, 8), new Vector2(3.5f, 4));
-            smoke.SetAnimation("smoke");
-            smoke.RegisterAnimation("smoke", smokeAtlas);
-            smoke.SetScale(4);
 
-            // Arrow
-            AnimatedSpriteSaver arrowsprite = new AnimatedSpriteSaver(itemSheet);
-            IAtlasSaver arrowright = new SingleAtlasSaver(new Rectangle(0, 45, 16, 5), new Vector2(6, 2.5f));
-            arrowsprite.RegisterAnimation("right", arrowright);
-            arrowsprite.SetAnimation("right");
-            arrowsprite.SetScale(4);
+            Vector2 center = new Vector2(8, 8);
 
-            // Blue Arrow
-            AnimatedSpriteSaver bluearrowsprite = new AnimatedSpriteSaver(itemSheet);
-            IAtlasSaver bluearrowright = new SingleAtlasSaver(new Rectangle(0, 125, 16, 5), new Vector2(6, 2.5f));
-            bluearrowsprite.RegisterAnimation("right", bluearrowright);
-            bluearrowsprite.SetAnimation("right");
-            bluearrowsprite.SetScale(4);
+            // Define directional atlases for animations
+            IAtlasSaver upFacing2 = new SingleAtlasSaver(new Rectangle(0, 0, 16, 16), new Vector2(8, 8));
+            IAtlasSaver leftFacing2 = new SingleAtlasSaver(new Rectangle(88, 0, 16, 16), new Vector2(8, 8));
+            IAtlasSaver downFacing2 = new SingleAtlasSaver(new Rectangle(60, 0, 16, 16), new Vector2(8, 8));
+            IAtlasSaver rightFacing2 = new SingleAtlasSaver(new Rectangle(32, 0, 16, 16), new Vector2(8, 8));
 
-            // Blue Boomerang
-            AnimatedSpriteSaver bboomerangsprite = new AnimatedSpriteSaver(boomerang);
-            IAtlasSaver bbatlas = new AutoAtlasSaver(new Rectangle(3, 18, 54, 8), 1, 4, 10, new Vector2(3, 4), true, 50);
-            bboomerangsprite.RegisterAnimation("default", bbatlas);
-            bboomerangsprite.SetAnimation("default");
-            bboomerangsprite.SetScale(4);
+            AnimatedSpriteSaver jellyfishEnemy = new AnimatedSpriteSaver(textureName);
 
-            // Bomb
-            AnimatedSpriteSaver bombsprite = new AnimatedSpriteSaver(bomb);
-            IAtlasSaver bombatlas = new AutoAtlasSaver(new Rectangle(0, 0, 85, 16), 1, 5, 1, new Vector2(8, 8), false, 3);
-            bombsprite.RegisterAnimation("default", bombatlas);
-            bombsprite.SetAnimation("default");
-            bombsprite.SetScale(4);
+            // Register directional animations
+            jellyfishEnemy.RegisterAnimation("upFacing", upFacing2);
+            jellyfishEnemy.RegisterAnimation("leftFacing", leftFacing2);
+            jellyfishEnemy.RegisterAnimation("downFacing", downFacing2);
+            jellyfishEnemy.RegisterAnimation("rightFacing", rightFacing2);
 
-            // Boomerang
-            AnimatedSpriteSaver boomerangsprite = new AnimatedSpriteSaver(boomerang);
-            IAtlasSaver atlas = new AutoAtlasSaver(new Rectangle(1, 2, 56, 9), 1, 4, 10, new Vector2(3, 4), true, 18);
-            boomerangsprite.RegisterAnimation("boomarang", atlas);
-            boomerangsprite.SetAnimation("boomarang");
-            boomerangsprite.SetScale(4);
+            // Set the default animation and scale
+            jellyfishEnemy.SetAnimation("upFacing");
+            jellyfishEnemy.SetScale(scale);
 
-            // Fireball
-            AnimatedSpriteSaver firesprite = new AnimatedSpriteSaver(fireBall);
-            IAtlasSaver fireatlas = new AutoAtlasSaver(new Rectangle(0, 0, 33, 15), 1, 2, 1, new Vector2(8, 8), true, 5);
-            firesprite.RegisterAnimation("fireBall", fireatlas);
-            firesprite.SetAnimation("fireBall");
-            firesprite.SetScale(3);
+
+
+
+            // Define auto atlases for animations
+            IAtlasSaver moveAnimation = new AutoAtlasSaver(new Rectangle(420, 120, 15, 46), 2, 1, 16, new Vector2(7.5f, 8), true, 10);
+
+            AnimatedSpriteSaver skeletonEnemy = new AnimatedSpriteSaver(textureName);
+
+            // Register directional animations
+            skeletonEnemy.RegisterAnimation("moving", moveAnimation);
+
+
+
+            // Set the default animation and scale
+            skeletonEnemy.SetAnimation("moving");
+            skeletonEnemy.SetScale(scale);
+
 
             SpriteGroupSaver group = new SpriteGroupSaver();
-            group.AddSprite("smoke", smoke.data);
-            group.AddSprite("arrow", arrowsprite.data);
-            group.AddSprite("bluearrow", bluearrowsprite.data);
-            group.AddSprite("blueboomerang", bboomerangsprite.data);
-            group.AddSprite("bomb", bombsprite.data);
-            group.AddSprite("boomerang", boomerangsprite.data);
-            group.AddSprite("fireball", boomerangsprite.data);
-            group.WriteXML("projectileAnims.xml");
+            group.AddSprite("bluebubble", bluebubbleEnemy.data);
+            group.AddSprite("jellyfish", jellyfishEnemy.data);
+            group.AddSprite("skeleton", skeletonEnemy.data);
+            group.WriteXML("enemyAnims.xml");
         }
 
     }

@@ -11,51 +11,12 @@ namespace Sprint.Characters
         private float elapsedTime;
         private Vector2 initialPosition;
 
-        public JellyfishEnemy(Goober game, Texture2D spriteSheet, Vector2 initialPosition, IAtlas enemyAtlas)
-            : base(game, new AnimatedSprite(spriteSheet), initialPosition)
+        public JellyfishEnemy(Goober game, ISprite sprite, Vector2 initialPosition)
+            : base(game, sprite, initialPosition)
         {
-            // Register the default animation
-            sprite.RegisterAnimation("default", enemyAtlas);
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
-        }
-
-
-
-        public static JellyfishEnemy CreateJellyfishEnemy(Goober game, Vector2 initialPosition)
-        {
-            string textureName = "zelda_enemies";
-            Vector2 center = new Vector2(8, 8);
-            int scale = 2;
-
-            Texture2D jellyfishTexture = game.Content.Load<Texture2D>(textureName);
-
-            // Define directional atlases for animations
-            IAtlas upFacing = new SingleAtlas(new Rectangle(0, 0, 16, 16), new Vector2(8, 8));
-            IAtlas leftFacing = new SingleAtlas(new Rectangle(88, 0, 16, 16), new Vector2(8, 8));
-            IAtlas downFacing = new SingleAtlas(new Rectangle(60, 0, 16, 16), new Vector2(8, 8));
-            IAtlas rightFacing = new SingleAtlas(new Rectangle(32, 0, 16, 16), new Vector2(8, 8));
-
-            JellyfishEnemy jellyfishEnemy = new JellyfishEnemy(game, jellyfishTexture, initialPosition, upFacing);
-
-            // Register directional animations
-            jellyfishEnemy.RegisterDirectionalAnimation("upFacing", upFacing);
-            jellyfishEnemy.RegisterDirectionalAnimation("leftFacing", leftFacing);
-            jellyfishEnemy.RegisterDirectionalAnimation("downFacing", downFacing);
-            jellyfishEnemy.RegisterDirectionalAnimation("rightFacing", rightFacing);
-
-            // Set the default animation and scale
-            jellyfishEnemy.SetAnimation("default");
-            jellyfishEnemy.SetScale(scale);
-
-            return jellyfishEnemy;
-        }
-
-        // Register a directional animation with a specific atlas
-        public void RegisterDirectionalAnimation(string animationLabel, IAtlas atlas)
-        {
-            sprite.RegisterAnimation(animationLabel, atlas);
         }
 
         // Set the direction and update the animation accordingly

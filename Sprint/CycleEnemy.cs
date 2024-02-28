@@ -13,16 +13,20 @@ namespace Sprint
         private int currentEnemyIndex = 0;
         private Vector2 position;
 
+        private const string ANIM_FILE = "enemyAnims";
         // Constructor
         public CycleEnemy(Goober game, Vector2 pos, GameObjectManager objectManager, SpriteLoader spriteLoader)
         {
             this.position = pos;
 
             // Load textures and set up animations for enemies
-            // Add enemies to the 'enemies' list
-            enemies.Add(JellyfishEnemy.CreateJellyfishEnemy(game, position));
-            enemies.Add(BluebubbleEnemy.CreateBluebubbleEnemy(game, position, objectManager, spriteLoader));
-            enemies.Add(SkeletonEnemy.CreateSkeletonEnemy(game, position, objectManager, spriteLoader));
+            // Add enemies to the 'enemies' 
+            ISprite jellyfishSprite = spriteLoader.BuildSprite(ANIM_FILE, "jellyfish");
+            ISprite bluebubbleSprite = spriteLoader.BuildSprite(ANIM_FILE, "bluebubble");
+            ISprite skeletonSprite = spriteLoader.BuildSprite(ANIM_FILE, "skeleton");
+            enemies.Add(new JellyfishEnemy(game, jellyfishSprite, position));
+            enemies.Add(new BluebubbleEnemy(game, bluebubbleSprite, position, objectManager, spriteLoader));
+            enemies.Add(new SkeletonEnemy(game, skeletonSprite, position, objectManager, spriteLoader));
 
             // Add more enemies as needed
         }
