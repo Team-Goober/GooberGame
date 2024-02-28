@@ -9,6 +9,8 @@ using Sprint.Characters;
 using System.Xml;
 using XMLData;
 using System.Diagnostics;
+using System.Security;
+using System.Collections.Generic;
 
 namespace Sprint
 {
@@ -29,8 +31,6 @@ namespace Sprint
 
         private GameObjectManager objectManager;
 
-        AtlasData atlas;
-
         public Goober()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -50,8 +50,21 @@ namespace Sprint
         protected override void LoadContent()
         {
 
-            atlas = Content.Load<AtlasData>("DefSprite");
-            Debug.WriteLine(atlas.Label+" "+atlas.XPos+" "+atlas.YPos);
+            XMLData.SpriteData testData = new XMLData.SpriteData();
+            testData.Texture = "wooo";
+            testData.Animations = new Dictionary<string, XMLData.AtlasData>();
+            XMLData.SingleAtlasData singleAtlas = new XMLData.SingleAtlasData();
+            singleAtlas.rectangle = new System.Drawing.Rectangle(5, 6, 87, 98);
+            testData.Animations.Add("single", singleAtlas);
+
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+
+            using (XmlWriter writer = XmlWriter.Create("testSprite.xml", settings))
+            {
+                Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate.
+                IntermediateSerializer.Serialize(writer, testData, null);
+            }
 
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
