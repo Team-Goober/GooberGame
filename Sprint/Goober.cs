@@ -50,23 +50,6 @@ namespace Sprint
         protected override void LoadContent()
         {
 
-            XMLData.SpriteData testData = new XMLData.SpriteData();
-            testData.Texture = "wooo";
-            testData.Animations = new Dictionary<string, XMLData.AtlasData>();
-            XMLData.SingleAtlasData singleAtlas = new XMLData.SingleAtlasData();
-            singleAtlas.rectangle = new System.Drawing.Rectangle(5, 6, 87, 98);
-            testData.Animations.Add("single", singleAtlas);
-
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-
-            using (XmlWriter writer = XmlWriter.Create("testSprite.xml", settings))
-            {  
-                Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate.
-                IntermediateSerializer.Serialize(writer, testData, null);
-            }
-
-
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             items = new CycleItem(this, new Vector2(500, 100));

@@ -1,7 +1,5 @@
 ﻿
-using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
@@ -24,7 +22,7 @@ namespace Sprint.Sprite
         public ISprite loadSprite(string path)
         {
             // Read XML file into a data object
-            XMLData.SpriteData data = content.Load<XMLData.SpriteData>(path);
+            SpriteData data = content.Load<SpriteData>(path);
 
             // Already loaded textures are saved so they won't be reloaded for every sprite
             Texture2D texture;
@@ -41,15 +39,15 @@ namespace Sprint.Sprite
             ISprite sprite = new AnimatedSprite(texture);
 
             // Add each animation
-            foreach (KeyValuePair<string, XMLData.AtlasData> entry in data.Animations)
+            foreach (KeyValuePair<string, AtlasData> entry in data.Animations)
             {
-                XMLData.AtlasData atlasData = entry.Value;
+                AtlasData atlasData = entry.Value;
                 IAtlas atlas = null;
                 
                 // Load atlas based on its type
-                if (atlasData is XMLData.AutoAtlasData)
+                if (atlasData is AutoAtlasData)
                 {
-                    XMLData.AutoAtlasData aad = atlasData as XMLData.AutoAtlasData;
+                    AutoAtlasData aad = atlasData as AutoAtlasData;
                     atlas = new AutoAtlas(
                         aad.SheetArea,
                         aad.Rows,
@@ -60,17 +58,17 @@ namespace Sprint.Sprite
                         aad.Framerate
                         );
                 }
-                else if (atlasData is XMLData.SingleAtlasData)
+                else if (atlasData is SingleAtlasData)
                 {
-                    XMLData.SingleAtlasData sad = atlasData as XMLData.SingleAtlasData;
+                    SingleAtlasData sad = atlasData as SingleAtlasData;
                     atlas = new SingleAtlas(
                         sad.Rectangle,
                         sad.CenterPoint
                         );
                 }
-                else if (atlasData is XMLData.ManualAtlasData)
+                else if (atlasData is ManualAtlasData)
                 {
-                    XMLData.ManualAtlasData mad = atlasData as XMLData.ManualAtlasData;
+                    ManualAtlasData mad = atlasData as ManualAtlasData;
                     atlas = new ManualAtlas(
                         mad.Rectangles.ToArray(),
                         mad.CenterPoints.ToArray(),
@@ -98,7 +96,6 @@ namespace Sprint.Sprite
             return sprite;
 
         }
-
 
     }
 }
