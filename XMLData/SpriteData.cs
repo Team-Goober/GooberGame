@@ -9,7 +9,6 @@ namespace XMLData
         public Dictionary<string, AtlasData> Animations;
         public float Scale;
         public string InitialAnimation;
-
     }
 
     public abstract class AtlasData

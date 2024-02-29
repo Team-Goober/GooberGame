@@ -8,6 +8,7 @@ using Sprint.Commands;
 using Sprint.Characters;
 using Sprint.Sprite;
 using Sprint.Level;
+using Sprint.Loader;
 
 namespace Sprint
 {
@@ -60,7 +61,8 @@ namespace Sprint
             items = new CycleItem(this, new Vector2(500, 100), spriteLoader);
             enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
             tiles = new CycleTile(this, new Vector2(500, 200), spriteLoader);
-            levelOne = new LevelOne(this, spriteLoader);
+
+            levelOne = new LevelOne(this, Content, spriteLoader);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));

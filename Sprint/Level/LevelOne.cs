@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System.Collections.Generic;
+using Sprint.Loader;
+using Microsoft.Xna.Framework.Content;
 
 namespace Sprint.Level
 {
@@ -10,30 +12,37 @@ namespace Sprint.Level
     {
         private List<IGameObject> tiles = new List<IGameObject>();
         private int currentRoomIndex = 0;
-        private const string ANIM_FILE = "XML/LevelOne";
 
-        public LevelOne(Goober game, SpriteLoader spriteLoader) 
+        PositionLoader pl;
+
+        private const string ANIM_FILE = "XML/LevelOne";
+        private const string POS_FILE = "XML/LevelOnePos";
+
+        public LevelOne(Goober game, ContentManager content, SpriteLoader spriteLoader) 
         {
-            CreateRoom(game, "roomOneExterior", new Vector2(0, 0), spriteLoader);
-            CreateRoom(game, "roomOneTopDoor", new Vector2(447, 0), spriteLoader);
-            CreateRoom(game, "roomOneLeftDoor", new Vector2(0, 288), spriteLoader);
-            CreateRoom(game, "roomOneRightDoor", new Vector2(895, 288), spriteLoader);
-            CreateRoom(game, "roomOneDownDoor", new Vector2(447, 576), spriteLoader);
-            CreateRoom(game, "roomOneFloor", new Vector2(127, 128), spriteLoader);
+            pl = new PositionLoader(content);
+            pl.LoadXML(POS_FILE);
+
+            CreateRoom(game, "roomOneExterior", spriteLoader);
+            CreateRoom(game, "roomOneTopDoor", spriteLoader);
+            CreateRoom(game, "roomOneLeftDoor", spriteLoader);
+            CreateRoom(game, "roomOneRightDoor", spriteLoader);
+            CreateRoom(game, "roomOneDownDoor", spriteLoader);
+            CreateRoom(game, "roomOneFloor", spriteLoader);
         }
 
-        private void CreateRoom(Goober game, string roomName, Vector2 position, SpriteLoader spriteLoader)
+        private void CreateRoom(Goober game, string roomName, SpriteLoader spriteLoader)
         {
             ISprite roomSprite = spriteLoader.BuildSprite(ANIM_FILE, roomName);
 
-            Tiles roomPart = new(game, roomSprite, position);
+            Tiles roomPart = new(game, roomSprite, pl.GetPosition(roomName));
 
             tiles.Add(roomPart);
         }
 
         public void Update(GameTime gameTime)
         {
-            tiles[currentRoomIndex].Update(gameTime);
+            // None For Now
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

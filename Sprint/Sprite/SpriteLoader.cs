@@ -61,7 +61,7 @@ namespace Sprint.Sprite
                 texture = content.Load<Texture2D>(data.Texture);
                 textures.Add(data.Texture, texture);
             }
-
+            
             ISprite sprite = new AnimatedSprite(texture);
 
             // Add each animation
