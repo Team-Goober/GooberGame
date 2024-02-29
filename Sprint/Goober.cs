@@ -6,12 +6,8 @@ using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Commands;
 using Sprint.Characters;
-using System.Xml;
-using XMLData;
-using System.Diagnostics;
-using System.Security;
-using System.Collections.Generic;
 using Sprint.Sprite;
+using Sprint.Level;
 
 namespace Sprint
 {
@@ -32,6 +28,8 @@ namespace Sprint
         private GameObjectManager objectManager;
         private SpriteLoader spriteLoader;
 
+        private LevelOne levelOne;
+
         public Goober()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -41,6 +39,9 @@ namespace Sprint
 
         protected override void Initialize()
         {
+            _graphics.PreferredBackBufferWidth = 1024;
+            _graphics.PreferredBackBufferHeight = 700;
+            _graphics.ApplyChanges();
 
             objectManager = new GameObjectManager();
             inputTable = new InputTable();
@@ -59,6 +60,7 @@ namespace Sprint
             items = new CycleItem(this, new Vector2(500, 100), spriteLoader);
             enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
             tiles = new CycleTile(this, new Vector2(500, 200), spriteLoader);
+            levelOne = new LevelOne(this, spriteLoader);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -147,6 +149,8 @@ namespace Sprint
             tiles.Update(gameTime);
             items.Update(gameTime);
             player.Update(gameTime);
+
+            levelOne.Update(gameTime);
             
             base.Update(gameTime);
         }
@@ -158,6 +162,8 @@ namespace Sprint
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             //Gets the vector coordinates (spriteLocation) from MoveSystems.cs and draws main character sprite
+            levelOne.Draw(_spriteBatch, gameTime);
+
             player.Draw(_spriteBatch, gameTime);
             enemies.Draw(_spriteBatch, gameTime);
             tiles.Draw(_spriteBatch, gameTime);
@@ -165,9 +171,10 @@ namespace Sprint
 
             objectManager.Draw(_spriteBatch, gameTime);
 
-            _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
-            _spriteBatch.DrawString(font, "Program Made By: Team Goobers", new Vector2(10, 330), Color.Black);
-            _spriteBatch.DrawString(font, "Sprites from: www.mariomayhem.com/downloads/sprites/the_legend_of_zelda_sprites.php", new Vector2(10, 360), Color.Black);
+            //Remove
+            //_spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
+            //_spriteBatch.DrawString(font, "Program Made By: Team Goobers", new Vector2(10, 330), Color.Black);
+            //_spriteBatch.DrawString(font, "Sprites from: www.mariomayhem.com/downloads/sprites/the_legend_of_zelda_sprites.php", new Vector2(10, 360), Color.Black);
             _spriteBatch.End();
 
             base.Draw(gameTime);

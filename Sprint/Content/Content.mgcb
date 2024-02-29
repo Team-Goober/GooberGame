@@ -139,6 +139,42 @@
 /processorParam:TextureFormat=Color
 /build:Items/ZeldaSpriteMagicalShield.png
 
+#begin LevelOne/roomDoors.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LevelOne/roomDoors.png
+
+#begin LevelOne/RoomOne/roomOneExterior.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LevelOne/RoomOne/roomOneExterior.png
+
+#begin LevelOne/RoomOne/roomOneFloor.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LevelOne/RoomOne/roomOneFloor.png
+
 #begin playerAnims.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
@@ -189,6 +225,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tiles.png
+
+#begin XML/LevelOne.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:XML/LevelOne.xml
 
 #begin zelda_enemies.png
 /importer:TextureImporter

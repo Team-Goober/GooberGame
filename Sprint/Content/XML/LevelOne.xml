@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+	<Asset Type="Generic:Dictionary[string,XMLData.SpriteData]">
+		<Item>
+			<Key>roomOneExterior</Key>
+			<Value>
+				<Texture>LevelOne/RoomOne/roomOneExterior</Texture>
+				<Animations>
+					<Item>
+						<Key>wall</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>1 0 256 175</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>wall</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>roomOneTopDoor</Key>
+			<Value>
+				<Texture>LevelOne/roomDoors</Texture>
+				<Animations>
+					<Item>
+						<Key>door</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>33 0 31 31</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4.2</Scale>
+				<InitialAnimation>door</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>roomOneLeftDoor</Key>
+			<Value>
+				<Texture>LevelOne/roomDoors</Texture>
+				<Animations>
+					<Item>
+						<Key>door</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>33 33 31 31</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4.2</Scale>
+				<InitialAnimation>door</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>roomOneRightDoor</Key>
+			<Value>
+				<Texture>LevelOne/roomDoors</Texture>
+				<Animations>
+					<Item>
+						<Key>door</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>33 66 31 31</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4.2</Scale>
+				<InitialAnimation>door</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>roomOneDownDoor</Key>
+			<Value>
+				<Texture>LevelOne/roomDoors</Texture>
+				<Animations>
+					<Item>
+						<Key>door</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>33 99 31 31</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4.2</Scale>
+				<InitialAnimation>door</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>roomOneFloor</Key>
+			<Value>
+				<Texture>LevelOne/RoomOne/roomOneFloor</Texture>
+				<Animations>
+					<Item>
+						<Key>door</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>0 0 192 111</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4.2</Scale>
+				<InitialAnimation>door</InitialAnimation>
+			</Value>
+		</Item>
+	</Asset>
+</XnaContent>
