@@ -23,6 +23,12 @@ namespace Sprint.Interfaces
 
         // Returns string label for current animation
         string GetCurrentAnimation();
-    
+
+        //Return CenterPoint
+        Vector2 GetCenterPoint();
+
+        //Return sprite texture
+        Texture2D GetTexture();
+
     }
 }
