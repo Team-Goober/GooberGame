@@ -1,83 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
-using Sprint.Characters;
 using Sprint.Interfaces;
-using Sprint.Sprite;
 using static Sprint.Characters.Character;
 
 namespace Sprint.Collision
 {
     internal class CollisionHandler
     {
-        public CollisionHandler() {}
+        
+        public CollisionHandler() { }
+
+        //Made assuming that ICollidable can access the objects native type
 
         /// <summary>
-        /// Iterates game objects to check for collision
+        /// Takes Collision and maps to function call to handle
         /// </summary>
-        /// <param name="gt"></param>
-        /// <param name="movingObjects"></param>
-        /// <param name="staticObjects"></param>
-        public void Update(GameTime gt, List<ICollidable> movingObjects, List<ICollidable> staticObjects )
+        /// <param name="object1"></param>
+        /// <param name="object2"></param>
+        /// <param name="direction"></param>
+        public void HandleCollision(ICollidable object1, ICollidable object2, Directions direction)
         {
-
-            foreach ( var movingElement in movingObjects)
+            Dictionary<String, Action> methodDictionary = new Dictionary<String, Action>() 
             {
-                Rectangle movingElementBoundingBox = movingElement.GetBoundingBox();
+                //Add collision methods here
+                {"Key", methodName }
+            };
 
-                List<ICollidable> iteratorList = staticObjects;
-                iteratorList.AddRange(iteratorList);
+            var object1NativeType = object1.GetNativeType().ToString();
+            var object2NativeType = object2.GetNativeType().ToString();
 
-                List<ICollidable> checkedItems = new List<ICollidable>();
-                checkedItems.Add(movingElement);
+            String dictionaryKey = object1NativeType + object2NativeType + direction.ToString();
+            Action methodToRun;
 
-                foreach (var element in iteratorList)
-                {
-                    if( checkedItems.Contains(element))
-                          continue; 
-                    
-                    Rectangle elementBoundingBox = element.GetBoundingBox();
-
-                    if (movingElementBoundingBox.Intersects(elementBoundingBox))
-                    {
-                        FindCollisionType(movingElement, element);
-                    }
-
-                }
-            }
+            methodDictionary.TryGetValue(dictionaryKey,out methodToRun);
+            methodToRun.Invoke();
         }
 
-        /// <summary>
-        /// Used to find the collision direction, calls handler
-        /// </summary>
-        /// <param name="movingElement"></param>
-        /// <param name="element"></param>
-        public void FindCollisionType(ICollidable movingElement, ICollidable element)
+
+        public void methodName()
         {
-            Rectangle movingElementBoundingBox = movingElement.GetBoundingBox();
-            Rectangle elementBoundingBox = element.GetBoundingBox();
-
-            CollisionDetector collisionDetector = new CollisionDetector();
-            Rectangle intersection = Rectangle.Union(movingElementBoundingBox, elementBoundingBox);
-            Directions collisionDirection = new();
-
-            //Left Right collision check
-            if ( intersection.Height > intersection.Width )
-            {
-                if (movingElementBoundingBox.X > elementBoundingBox.X)
-                    collisionDirection = Directions.RIGHT;
-                if (movingElementBoundingBox.X < elementBoundingBox.X)
-                    collisionDirection = Directions.LEFT;
-            }
-            else //Top Bottom Collision Check
-            {
-                if (movingElementBoundingBox.Y > elementBoundingBox.Y)
-                    collisionDirection = Directions.UP;
-                if (movingElementBoundingBox.Y < elementBoundingBox.Y)
-                    collisionDirection = Directions.DOWN;
-            }
-            collisionDetector.HandleCollision(movingElement, element, collisionDirection);
-            
+            Console.WriteLine("Hi");
         }
     }
 }
