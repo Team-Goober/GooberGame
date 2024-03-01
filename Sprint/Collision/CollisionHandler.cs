@@ -22,14 +22,21 @@ namespace Sprint.Collision
                 List<ICollidable> iteratorList = staticObjects;
                 iteratorList.AddRange(iteratorList);
 
+                List<ICollidable> checkedItems = new List<ICollidable>();
+                checkedItems.Add(movingElement);
+
                 foreach (var element in iteratorList)
                 {
+                    if( checkedItems.Contains(element))
+                          continue; 
+                    
                     Rectangle elementBoundingBox = element.GetBoundingBox();
 
                     if (movingElementBoundingBox.Intersects(elementBoundingBox))
                     {
                         FindCollisionType(movingElement, element);
                     }
+
                 }
             }
         }
