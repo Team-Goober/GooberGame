@@ -57,7 +57,7 @@ namespace Sprint.Collision
             Rectangle movingElementBoundingBox = movingElement.GetBoundingBox();
             Rectangle elementBoundingBox = element.GetBoundingBox();
 
-            CollisionHandler collisionDetector = new CollisionHandler();
+            CollisionHandler collisionHandler = new CollisionHandler();
             Rectangle intersection = Rectangle.Union(movingElementBoundingBox, elementBoundingBox);
             Directions collisionDirection = new();
 
@@ -76,7 +76,7 @@ namespace Sprint.Collision
                 if (movingElementBoundingBox.Y < elementBoundingBox.Y)
                     collisionDirection = Directions.DOWN;
             }
-            collisionDetector.HandleCollision(movingElement, element, collisionDirection);
+            collisionHandler.HandleCollision(movingElement, element, collisionDirection);
             
         }
     }
