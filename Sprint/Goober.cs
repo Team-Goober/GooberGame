@@ -47,9 +47,9 @@ namespace Sprint
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            items = new CycleItem(this, new Vector2(500, 100));
+            items = new CycleItem(this, new Vector2(500, 100), objectManager);
             enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager);
-            tiles = new CycleTile(this, new Vector2(500, 200));
+            tiles = new CycleTile(this, new Vector2(500, 200), objectManager);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -58,6 +58,8 @@ namespace Sprint
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
             player = new Player(this, characterLoc, inputTable, objectManager);
+            objectManager.Add(player);
+
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new MoveUp(player));
@@ -138,11 +140,6 @@ namespace Sprint
                 obj.Update(gameTime);
 
             objectManager.EndCycle();
-
-            enemies.Update(gameTime);
-            tiles.Update(gameTime);
-            items.Update(gameTime);
-            player.Update(gameTime);
             
             base.Update(gameTime);
         }
@@ -153,11 +150,6 @@ namespace Sprint
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            //Gets the vector coordinates (spriteLocation) from MoveSystems.cs and draws main character sprite
-            player.Draw(_spriteBatch, gameTime);
-            enemies.Draw(_spriteBatch, gameTime);
-            tiles.Draw(_spriteBatch, gameTime);
-            items.Draw(_spriteBatch, gameTime);
 
             List<IGameObject> objects = objectManager.GetObjects();
             foreach (IGameObject obj in objects)
