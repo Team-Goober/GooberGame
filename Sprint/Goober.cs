@@ -6,6 +6,7 @@ using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Commands;
 using Sprint.Characters;
+using System.Collections.Generic;
 
 namespace Sprint
 {
@@ -131,7 +132,12 @@ namespace Sprint
 
 
             inputTable.Update(gameTime);
-            objectManager.Update(gameTime);
+
+            List<IGameObject> objects = objectManager.GetObjects();
+            foreach (IGameObject obj in objects)
+                obj.Update(gameTime);
+
+            objectManager.EndCycle();
 
             enemies.Update(gameTime);
             tiles.Update(gameTime);
@@ -153,7 +159,9 @@ namespace Sprint
             tiles.Draw(_spriteBatch, gameTime);
             items.Draw(_spriteBatch, gameTime);
 
-            objectManager.Draw(_spriteBatch, gameTime);
+            List<IGameObject> objects = objectManager.GetObjects();
+            foreach (IGameObject obj in objects)
+                obj.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
             _spriteBatch.DrawString(font, "Program Made By: Team Goobers", new Vector2(10, 330), Color.Black);

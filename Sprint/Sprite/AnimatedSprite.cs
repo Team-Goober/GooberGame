@@ -42,23 +42,6 @@ namespace Sprint.Sprite
             return currentLabel;
         }
 
-        /**
-         * Returns the position and dimensions of the current sprite
-         * @param screenPosition - The Vector2 coordnates of the center dot of the spirte on the screen
-         * @returns Rectangle
-         */
-        public Rectangle GetSpriteRectangle(Vector2 screenPosition)
-        {
-            Rectangle positionAndSize = new()
-            {
-                X = (int)screenPosition.X - (int)currentAnimation.CurrentCenterPoint().X,
-                Y = (int)screenPosition.Y - (int)currentAnimation.CurrentCenterPoint().Y,
-                Width = texture.Width,
-                Height = texture.Height
-            };
-
-            return positionAndSize;
-        }
 
         public void Update(GameTime gameTime)
         {
