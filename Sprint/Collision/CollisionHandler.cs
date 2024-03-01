@@ -12,6 +12,12 @@ namespace Sprint.Collision
     {
         public CollisionHandler() {}
 
+        /// <summary>
+        /// Iterates game objects to check for collision
+        /// </summary>
+        /// <param name="gt"></param>
+        /// <param name="movingObjects"></param>
+        /// <param name="staticObjects"></param>
         public void Update(GameTime gt, List<ICollidable> movingObjects, List<ICollidable> staticObjects )
         {
 
@@ -41,6 +47,11 @@ namespace Sprint.Collision
             }
         }
 
+        /// <summary>
+        /// Used to find the collision direction, calls handler
+        /// </summary>
+        /// <param name="movingElement"></param>
+        /// <param name="element"></param>
         public void FindCollisionType(ICollidable movingElement, ICollidable element)
         {
             Rectangle movingElementBoundingBox = movingElement.GetBoundingBox();

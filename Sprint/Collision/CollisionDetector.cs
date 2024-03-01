@@ -13,6 +13,13 @@ namespace Sprint.Collision
         public CollisionDetector() { }
 
         //Made assuming that ICollidable can access the objects native type
+
+        /// <summary>
+        /// Takes Collision and maps to function call to handle
+        /// </summary>
+        /// <param name="object1"></param>
+        /// <param name="object2"></param>
+        /// <param name="direction"></param>
         public void HandleCollision(ICollidable object1, ICollidable object2, Directions direction)
         {
             Dictionary<String, Action> methodDictionary = new Dictionary<String, Action>() 
