@@ -7,6 +7,7 @@ using Sprint.Interfaces;
 using Sprint.Commands;
 using Sprint.Characters;
 using System.Collections.Generic;
+using Sprint.Collision;
 
 namespace Sprint
 {
@@ -26,6 +27,7 @@ namespace Sprint
         private bool resetGame = false;
 
         private GameObjectManager objectManager;
+        private CollisionDetector collisionDetector;
 
         public Goober()
         {
@@ -39,6 +41,7 @@ namespace Sprint
 
             objectManager = new GameObjectManager();
             inputTable = new InputTable();
+            collisionDetector = new CollisionDetector();
             
             base.Initialize();
         }
@@ -140,6 +143,8 @@ namespace Sprint
                 obj.Update(gameTime);
 
             objectManager.EndCycle();
+
+            collisionDetector.Update(gameTime, objectManager.GetMovers(), objectManager.GetStatics());
             
             base.Update(gameTime);
         }

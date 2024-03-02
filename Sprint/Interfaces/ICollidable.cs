@@ -11,7 +11,5 @@ namespace Sprint.Interfaces
     public interface ICollidable
     {
         Rectangle GetBoundingBox();
-
-        object GetNativeType();
     }
 }

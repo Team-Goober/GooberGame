@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Sprint.Characters;
 using Sprint.Interfaces;
@@ -25,30 +27,32 @@ namespace Sprint.Collision
         /// <param name="staticObjects"></param>
         public void Update(GameTime gt, List<IMovingCollidable> movingObjects, List<ICollidable> staticObjects )
         {
-
-            foreach ( var movingElement in movingObjects)
+            // Check all movers as collision instigators
+            for (int i = 0; i < movingObjects.Count; i++)
             {
-                Rectangle movingElementBoundingBox = movingElement.GetBoundingBox();
-
-                List<ICollidable> iteratorList = staticObjects;
-                iteratorList.AddRange(movingObjects);
-
-                List<ICollidable> checkedItems = new List<ICollidable>();
-                checkedItems.Add(movingElement);
-
-                foreach (var element in iteratorList)
+                // Check only the movers after this one in the list (to avoid duplicate checks)
+                for (int k = i + 1; k < movingObjects.Count; k++)
                 {
-                    if( checkedItems.Contains(element))
-                          continue; 
-                    
-                    Rectangle elementBoundingBox = element.GetBoundingBox();
-
-                    if (movingElementBoundingBox.Intersects(elementBoundingBox))
-                    {
-                        FindCollisionType(movingElement, element);
-                    }
-
+                    CheckCollision(movingObjects[i], movingObjects[k]);
                 }
+
+                // Check against all static objects
+                for (int j = 0; j < staticObjects.Count; j++)
+                {
+                    CheckCollision(movingObjects[i], staticObjects[j]);
+                }
+            }
+        }
+
+        public void CheckCollision(IMovingCollidable movingElement, ICollidable element)
+        {
+            Rectangle movingElementBoundingBox = movingElement.GetBoundingBox();
+            Rectangle elementBoundingBox = element.GetBoundingBox();
+
+            // If bounding boxes intersect, handle it
+            if (movingElementBoundingBox.Intersects(elementBoundingBox))
+            {
+                FindCollisionType(movingElement, element);
             }
         }
 
@@ -62,9 +66,11 @@ namespace Sprint.Collision
             Rectangle movingElementBoundingBox = movingElement.GetBoundingBox();
             Rectangle elementBoundingBox = element.GetBoundingBox();
 
-            Rectangle intersection = Rectangle.Union(movingElementBoundingBox, elementBoundingBox);
+            // Get Intersection of boxes
+            Rectangle intersection = Rectangle.Intersect(movingElementBoundingBox, elementBoundingBox);
             Directions collisionDirection = new();
-            Vector2 overlap = Vector2.Zero;
+            Vector2 overlap;
+
 
             //Left Right collision check
             if ( intersection.Height > intersection.Width )
@@ -72,10 +78,10 @@ namespace Sprint.Collision
                 if (movingElementBoundingBox.X > elementBoundingBox.X)
                 {
                     collisionDirection = Directions.LEFT;
-                    overlap = new Vector2(intersection.Width, 0);
+                    overlap = new Vector2(-intersection.Width, 0);
                 }else{
                     collisionDirection = Directions.RIGHT;
-                    overlap = new Vector2(-intersection.Width, 0);
+                    overlap = new Vector2(intersection.Width, 0);
                 }
 
             }
@@ -84,12 +90,12 @@ namespace Sprint.Collision
                 if (movingElementBoundingBox.Y > elementBoundingBox.Y)
                 {
                     collisionDirection = Directions.UP;
-                    overlap = new Vector2(0, intersection.Height);
+                    overlap = new Vector2(0, -intersection.Height);
                 }
                 else
                 {
                     collisionDirection = Directions.DOWN;
-                    overlap = new Vector2(0, -intersection.Height);
+                    overlap = new Vector2(0, intersection.Height);
                 }
             }
             collisionHandler.HandleCollision(movingElement, element, overlap);

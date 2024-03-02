@@ -7,12 +7,14 @@ using Sprint.Projectile;
 namespace Sprint.Characters
 {
 
-    internal class Player : Character
+    internal class Player : Character, IMovingCollidable
     {
 
         private ISprite sprite;
 
         private Physics physics;
+
+        private int sideLength = 4 * 16;
 
         private ProjectileSystem secondaryItems;
 
@@ -346,6 +348,21 @@ namespace Sprint.Characters
             //Draws sprite animation using AnimationSprite class
             sprite.Draw(spriteBatch, physics.Position, gameTime);
 
+        }
+
+        public void Move(Vector2 distance)
+        {
+            // teleport player in displacement specified
+            physics.SetPosition(physics.Position + distance);
+        }
+
+        public Rectangle GetBoundingBox()
+        {
+            // compute current rectangle bounds of player in world space
+            return new Rectangle((int)(physics.Position.X - sideLength / 2.0),
+                (int)(physics.Position.Y - sideLength / 2.0),
+                sideLength,
+                sideLength);
         }
 
     }

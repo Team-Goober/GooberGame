@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
@@ -17,6 +19,7 @@ namespace Sprint.Collision
 
         public readonly struct TypePairKey
         {
+            // Represents a dictionary key for two colliding types, where the first type must react
             public TypePairKey(Type receptor, Type effector)
             {
                 Receptor = receptor;
@@ -28,12 +31,15 @@ namespace Sprint.Collision
 
         }
 
+        // Dictionary mapping two collider types, where the first one is passed as a receiver to the command value
+        // TODO: Read this from file
         Dictionary<TypePairKey, ConstructorInfo> commandDictionary = new Dictionary<TypePairKey, ConstructorInfo>()
             {
                 {new TypePairKey(typeof(Player), typeof(Tiles)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})}
             };
 
-        public CollisionHandler() { }
+        public CollisionHandler() {
+        }
 
         //Made assuming that ICollidable can access the objects native type
 
@@ -48,10 +54,14 @@ namespace Sprint.Collision
 
             TypePairKey key1 = new TypePairKey(object1.GetType(), object2.GetType());
             TypePairKey key2 = new TypePairKey(object2.GetType(), object1.GetType());
+
+            // Handle object1 reaction
             if (commandDictionary.ContainsKey(key1))
             {
                 CreateAndRun(commandDictionary[key1], object1, overlap);
             }
+
+            // Handle object2 reaction
             if (commandDictionary.ContainsKey(key2))
             {
                 CreateAndRun(commandDictionary[key2], object2, -overlap);
@@ -63,6 +73,7 @@ namespace Sprint.Collision
 
         public void CreateAndRun(ConstructorInfo commandConstructor, ICollidable receiver, Vector2 overlap)
         {
+            // Construct command then execute
             ICommand c = commandConstructor.Invoke(new object[] { receiver, overlap }) as ICommand;
             c.Execute();
         }
