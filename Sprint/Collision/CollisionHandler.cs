@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Sprint.Characters;
+using Sprint.Commands.Collision;
 using Sprint.Interfaces;
 using static Sprint.Characters.Character;
 
@@ -9,7 +14,25 @@ namespace Sprint.Collision
 {
     internal class CollisionHandler
     {
-        
+
+        public readonly struct TypePairKey
+        {
+            public TypePairKey(Type receptor, Type effector)
+            {
+                Receptor = receptor;
+                Effector = effector;
+            }
+
+            public Type Receptor { get; init; }
+            public Type Effector { get; init; }
+
+        }
+
+        Dictionary<TypePairKey, ConstructorInfo> commandDictionary = new Dictionary<TypePairKey, ConstructorInfo>()
+            {
+                {new TypePairKey(typeof(Player), typeof(Tiles)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})}
+            };
+
         public CollisionHandler() { }
 
         //Made assuming that ICollidable can access the objects native type
@@ -19,29 +42,31 @@ namespace Sprint.Collision
         /// </summary>
         /// <param name="object1"></param>
         /// <param name="object2"></param>
-        /// <param name="direction"></param>
-        public void HandleCollision(ICollidable object1, ICollidable object2, Directions direction)
+        /// <param name="overlap"></param>
+        public void HandleCollision(ICollidable object1, ICollidable object2, Vector2 overlap)
         {
-            Dictionary<String, Action> methodDictionary = new Dictionary<String, Action>() 
+
+            TypePairKey key1 = new TypePairKey(object1.GetType(), object2.GetType());
+            TypePairKey key2 = new TypePairKey(object2.GetType(), object1.GetType());
+            if (commandDictionary.ContainsKey(key1))
             {
-                //Add collision methods here
-                {"Key", methodName }
-            };
+                CreateAndRun(commandDictionary[key1], object1, overlap);
+            }
+            if (commandDictionary.ContainsKey(key2))
+            {
+                CreateAndRun(commandDictionary[key2], object2, -overlap);
+            }
 
-            var object1NativeType = object1.GetNativeType().ToString();
-            var object2NativeType = object2.GetNativeType().ToString();
 
-            String dictionaryKey = object1NativeType + object2NativeType + direction.ToString();
-            Action methodToRun;
-
-            methodDictionary.TryGetValue(dictionaryKey,out methodToRun);
-            methodToRun.Invoke();
         }
 
 
-        public void methodName()
+        public void CreateAndRun(ConstructorInfo commandConstructor, ICollidable receiver, Vector2 overlap)
         {
-            Console.WriteLine("Hi");
+            ICommand c = commandConstructor.Invoke(new object[] { receiver, overlap }) as ICommand;
+            c.Execute();
         }
+
+
     }
 }
