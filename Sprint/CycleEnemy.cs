@@ -24,9 +24,11 @@ namespace Sprint
             ISprite jellyfishSprite = spriteLoader.BuildSprite(ANIM_FILE, "jellyfish");
             ISprite bluebubbleSprite = spriteLoader.BuildSprite(ANIM_FILE, "bluebubble");
             ISprite skeletonSprite = spriteLoader.BuildSprite(ANIM_FILE, "skeleton");
+            ISprite dogSprite = spriteLoader.BuildSprite(ANIM_FILE, "dog");
             enemies.Add(new JellyfishEnemy(game, jellyfishSprite, position));
             enemies.Add(new BluebubbleEnemy(game, bluebubbleSprite, position, objectManager, spriteLoader));
             enemies.Add(new SkeletonEnemy(game, skeletonSprite, position, objectManager, spriteLoader));
+            enemies.Add(new DogEnemy(game, dogSprite, position, objectManager, spriteLoader));
 
             // Add more enemies as needed
         }
