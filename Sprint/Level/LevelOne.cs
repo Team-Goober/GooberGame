@@ -11,7 +11,6 @@ namespace Sprint.Level
     internal class LevelOne
     {
         private List<IGameObject> tiles = new List<IGameObject>();
-        private int currentRoomIndex = 0;
 
         PositionLoader pl;
 
@@ -28,7 +27,8 @@ namespace Sprint.Level
             CreateRoom(game, "roomOneLeftDoor", spriteLoader);
             CreateRoom(game, "roomOneRightDoor", spriteLoader);
             CreateRoom(game, "roomOneDownDoor", spriteLoader);
-            CreateRoom(game, "roomOneFloor", spriteLoader);
+            CreatFloor(game, spriteLoader);
+
         }
 
         private void CreateRoom(Goober game, string roomName, SpriteLoader spriteLoader)
@@ -38,6 +38,19 @@ namespace Sprint.Level
             Tiles roomPart = new(game, roomSprite, pl.GetPosition(roomName));
 
             tiles.Add(roomPart);
+        }
+
+        private void CreatFloor(Goober game, SpriteLoader spriteLoader)
+        {
+            foreach (var floor in pl.GetFloor())
+            {
+                ISprite floorSprite = spriteLoader.BuildSprite(ANIM_FILE, floor.tile);
+
+                Tiles floorPart = new(game, floorSprite, floor.position);
+
+                tiles.Add(floorPart);
+
+            }
         }
 
         public void Update(GameTime gameTime)

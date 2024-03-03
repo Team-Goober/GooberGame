@@ -11,10 +11,19 @@ namespace Sprint.Loader
         private ContentManager content;
 
         private Dictionary<string, Vector2> loaded;
+        //Make into XML?
+        private Dictionary<string, string> TileDictionary;
+        private List<(string tile, Vector2 position)> tiles;
 
         public PositionLoader(ContentManager newContent)
         {
             loaded = new Dictionary<string, Vector2>();
+            tiles = new List<(string tile, Vector2 position)>();
+            TileDictionary = new Dictionary<string, string>
+            {
+                { "1", "blueTile" }
+            };
+
             this.content = newContent;
         }
 
@@ -24,17 +33,39 @@ namespace Sprint.Loader
         */
         public void LoadXML(string path)
         {
-            PositionData spriteDict = content.Load<PositionData>(path);
-            foreach (KeyValuePair<string, Vector2> kvp in spriteDict.SpritePosition)
-            {
-                loaded.Add(kvp.Key, kvp.Value);
-                Debug.WriteLine(kvp.Key + " " + kvp.Value);
+            PositionData pd = content.Load<PositionData>(path);
+            //Load Wall Position
+            loaded.Add("roomOneExterior", pd.Wall);
+
+            //Load the four door position
+            loaded.Add("roomOneTopDoor", pd.TopDoor);
+            loaded.Add("roomOneLeftDoor", pd.LeftDoor);
+            loaded.Add("roomOneRightDoor", pd.RightDoor);
+            loaded.Add("roomOneDownDoor", pd.BottomDoor);
+
+            //Load Floor position
+            int x = pd.XTile; int y = pd.YTile;
+            foreach (string row in pd.Tile)
+            { 
+                string[] str = row.Split(' ');
+                foreach (string tile in str)
+                {
+                    tiles.Add((TileDictionary[tile], new Vector2(x, y)));
+                    x += 64;
+                }
+                x = pd.XTile;
+                y += 64;
             }
         }
 
         public Vector2 GetPosition(string key)
         {
             return loaded[key];
+        }
+
+        public List<(string tile, Vector2 position)> GetFloor()
+        {
+            return tiles;
         }
     }
 }

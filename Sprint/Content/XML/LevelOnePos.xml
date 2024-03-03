@@ -1,36 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:ns="Microsoft.Xna.Framework">
-  <Asset Type="XMLData.PositionData">
-		<SpritePosition>
-			<Item>
-				<Key>roomOneExterior</Key>
-				<Value>0 0</Value>
-			</Item>
-			
-			<Item>
-				<Key>roomOneTopDoor</Key>
-				<Value>447 0</Value>
-			</Item>
-
-			<Item>
-				<Key>roomOneLeftDoor</Key>
-				<Value>0 288</Value>
-			</Item>
-
-			<Item>
-				<Key>roomOneRightDoor</Key>
-				<Value>895 288</Value>
-			</Item>
-			
-			<Item>
-				<Key>roomOneDownDoor</Key>
-				<Value>447 576</Value>
-			</Item>
-
-			<Item>
-				<Key>roomOneFloor</Key>
-				<Value>127 128</Value>
-			</Item>
-		</SpritePosition>
-  </Asset>
+	<Asset Type="XMLData.PositionData">
+		<Wall>0 0</Wall>
+		<TopDoor>448 0</TopDoor>
+		<LeftDoor>0 288</LeftDoor>
+		<RightDoor>896 288</RightDoor>
+		<BottomDoor>448 576</BottomDoor>
+		<XTile>128</XTile>
+		<YTile>128</YTile>
+		<Tile>
+			<Item>1 1 1 1 1 1 1 1 1 1 1 1</Item>
+			<Item>1 1 1 1 1 1 1 1 1 1 1 1</Item>
+			<Item>1 1 1 1 1 1 1 1 1 1 1 1</Item>
+			<Item>1 1 1 1 1 1 1 1 1 1 1 1</Item>
+			<Item>1 1 1 1 1 1 1 1 1 1 1 1</Item>
+			<Item>1 1 1 1 1 1 1 1 1 1 1 1</Item>
+			<Item>1 1 1 1 1 1 1 1 1 1 1 1</Item>
+		</Tile>
+	</Asset>
 </XnaContent>

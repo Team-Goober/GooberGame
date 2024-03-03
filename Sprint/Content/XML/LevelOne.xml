@@ -27,12 +27,12 @@
 					<Item>
 						<Key>door</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>33 0 31 31</Rectangle>
+							<Rectangle>33 0 32 32</Rectangle>
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
 				</Animations>
-				<Scale>4.2</Scale>
+				<Scale>4</Scale>
 				<InitialAnimation>door</InitialAnimation>
 			</Value>
 		</Item>
@@ -45,12 +45,12 @@
 					<Item>
 						<Key>door</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>33 33 31 31</Rectangle>
+							<Rectangle>33 33 32 32</Rectangle>
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
 				</Animations>
-				<Scale>4.2</Scale>
+				<Scale>4</Scale>
 				<InitialAnimation>door</InitialAnimation>
 			</Value>
 		</Item>
@@ -63,12 +63,12 @@
 					<Item>
 						<Key>door</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>33 66 31 31</Rectangle>
+							<Rectangle>33 66 32 32</Rectangle>
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
 				</Animations>
-				<Scale>4.2</Scale>
+				<Scale>4</Scale>
 				<InitialAnimation>door</InitialAnimation>
 			</Value>
 		</Item>
@@ -81,31 +81,31 @@
 					<Item>
 						<Key>door</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>33 99 31 31</Rectangle>
+							<Rectangle>33 99 32 32</Rectangle>
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
 				</Animations>
-				<Scale>4.2</Scale>
+				<Scale>4</Scale>
 				<InitialAnimation>door</InitialAnimation>
 			</Value>
 		</Item>
 
 		<Item>
-			<Key>roomOneFloor</Key>
+			<Key>blueTile</Key>
 			<Value>
-				<Texture>LevelOne/RoomOne/roomOneFloor</Texture>
+				<Texture>tiles</Texture>
 				<Animations>
 					<Item>
-						<Key>door</Key>
+						<Key>tile</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>0 0 192 111</Rectangle>
+							<Rectangle>0 0 16 16</Rectangle>
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
 				</Animations>
-				<Scale>4.2</Scale>
-				<InitialAnimation>door</InitialAnimation>
+				<Scale>4</Scale>
+				<InitialAnimation>tile</InitialAnimation>
 			</Value>
 		</Item>
 	</Asset>
