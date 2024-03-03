@@ -8,6 +8,12 @@ using Sprint.Commands;
 using Sprint.Characters;
 using System.Collections.Generic;
 using Sprint.Collision;
+using System.Xml;
+using XMLData;
+using System.Diagnostics;
+using System.Security;
+using System.Collections.Generic;
+using Sprint.Sprite;
 
 namespace Sprint
 {
@@ -17,8 +23,6 @@ namespace Sprint
         private SpriteBatch _spriteBatch;
         private Player player;
 
-        private IInputMap inputTable;
-
         private CycleItem items;
         private CycleEnemy enemies;
         private CycleTile tiles;
@@ -26,8 +30,10 @@ namespace Sprint
         private Vector2 characterLoc = new Vector2(20, 20);
         private bool resetGame = false;
 
+        private IInputMap inputTable;
         private GameObjectManager objectManager;
         private CollisionDetector collisionDetector;
+        private SpriteLoader spriteLoader;
 
         public Goober()
         {
@@ -42,17 +48,21 @@ namespace Sprint
             objectManager = new GameObjectManager();
             inputTable = new InputTable();
             collisionDetector = new CollisionDetector();
+            spriteLoader = new SpriteLoader(Content);
             
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            // Uncomment in order to write an XML file
+            //SpriteGroupSaver.WriteFile();
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            items = new CycleItem(this, new Vector2(500, 100), objectManager);
-            enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager);
-            tiles = new CycleTile(this, new Vector2(500, 200), objectManager);
+            items = new CycleItem(this, new Vector2(500, 100), objectManager, spriteLoader);
+            enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
+            tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -60,7 +70,8 @@ namespace Sprint
             font = Content.Load<SpriteFont>("Font");
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
-            player = new Player(this, characterLoc, inputTable, objectManager);
+
+            player = new Player(this, characterLoc, inputTable, objectManager, spriteLoader);
             objectManager.Add(player);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));

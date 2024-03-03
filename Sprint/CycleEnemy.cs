@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using System.Collections.Generic;
 using Sprint.Characters;
+using Sprint.Sprite;
 
 namespace Sprint
 {
@@ -13,17 +14,21 @@ namespace Sprint
         private Vector2 position;
         private GameObjectManager objManager;
 
+        private const string ANIM_FILE = "enemyAnims";
         // Constructor
-        public CycleEnemy(Goober game, Vector2 pos, GameObjectManager objManager)
+        public CycleEnemy(Goober game, Vector2 pos, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
             this.position = pos;
             this.objManager = objManager;
 
             // Load textures and set up animations for enemies
-            // Add enemies to the 'enemies' list
-            enemies.Add(JellyfishEnemy.CreateJellyfishEnemy(game, position));
-            enemies.Add(BluebubbleEnemy.CreateBluebubbleEnemy(game, position, objManager));
-            enemies.Add(SkeletonEnemy.CreateSkeletonEnemy(game, position, objManager));
+            // Add enemies to the 'enemies' 
+            ISprite jellyfishSprite = spriteLoader.BuildSprite(ANIM_FILE, "jellyfish");
+            ISprite bluebubbleSprite = spriteLoader.BuildSprite(ANIM_FILE, "bluebubble");
+            ISprite skeletonSprite = spriteLoader.BuildSprite(ANIM_FILE, "skeleton");
+            enemies.Add(new JellyfishEnemy(game, jellyfishSprite, position));
+            enemies.Add(new BluebubbleEnemy(game, bluebubbleSprite, position, objManager, spriteLoader));
+            enemies.Add(new SkeletonEnemy(game, skeletonSprite, position, objManager, spriteLoader));
 
             // Add more enemies as needed
 

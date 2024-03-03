@@ -25,6 +25,14 @@
   <ItemGroup>
     <Folder Include="CodeReviews\Pavan\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XMLData\XMLData.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework.Content.Pipeline">
+      <HintPath>..\..\..\..\..\.nuget\packages\dotnet-mgcb\3.8.1.303\tools\net6.0\any\MonoGame.Framework.Content.Pipeline.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
     <Exec Command="dotnet tool restore" />

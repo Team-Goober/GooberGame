@@ -1,69 +1,62 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Sprite;
 
 namespace Sprint.Projectile
 {
     internal class SimpleProjectileFactory
     {
-        private Texture2D itemSheet;
-        private Texture2D bomb;
-        private Texture2D fireBall;
-        private Texture2D smoke;
-        private Texture2D boomerang;
-        private Texture2D BlueBoomerang;
+        private SpriteLoader spriteLoader;
 
         Vector2 position;
         Vector2 direction;
 
         private float distanceOut;
 
+        private const string ANIMS_FILE = "projectileAnims";
 
-        public SimpleProjectileFactory(float distanceOut)
+
+        public SimpleProjectileFactory(SpriteLoader spriteLoader, float distanceOut)
         {
             this.distanceOut = distanceOut;
-        }
-
-        public void LoadAllTextures(ContentManager content)
-        {
-            itemSheet = content.Load<Texture2D>("zelda_items");
-            bomb = content.Load<Texture2D>("Items/Bomb");
-            fireBall = content.Load<Texture2D>("Items/FireBall");
-            smoke = content.Load<Texture2D>("Items/EndArrow");
-            boomerang = content.Load<Texture2D>("Items/boomerangs");
-            BlueBoomerang = content.Load<Texture2D>("Items/boomerangs");
-
-
+            this.spriteLoader = spriteLoader;
         }
 
         public Arrow CreateArrow()
         {
-            return new Arrow(itemSheet, smoke, getSpawnPosition(), direction);
+            return new Arrow(
+                spriteLoader.BuildSprite(ANIMS_FILE, "arrow"), 
+                spriteLoader.BuildSprite(ANIMS_FILE, "smoke"), 
+                getSpawnPosition(), direction);
         }
 
         public BlueArrow CreateBlueArrow()
         {
-            return new BlueArrow(itemSheet, smoke, getSpawnPosition(), direction);
+            return new BlueArrow(
+                spriteLoader.BuildSprite(ANIMS_FILE, "bluearrow"), 
+                spriteLoader.BuildSprite(ANIMS_FILE, "smoke"), 
+                getSpawnPosition(), direction);
         }
 
         public Bomb CreateBomb()
         {
-            return new Bomb(bomb, getSpawnPosition()); 
+            return new Bomb(spriteLoader.BuildSprite(ANIMS_FILE, "bomb"), getSpawnPosition()); 
         }
         
         public Boomarang CreateBoomarang()
         { 
-            return new Boomarang(boomerang, getSpawnPosition(), direction);
+            return new Boomarang(spriteLoader.BuildSprite(ANIMS_FILE, "boomerang"), getSpawnPosition(), direction);
         }
 
         public BlueBoomerang CreateBlueBoomerang()
         {
-            return new BlueBoomerang(BlueBoomerang, getSpawnPosition(), direction);
+            return new BlueBoomerang(spriteLoader.BuildSprite(ANIMS_FILE, "blueboomerang"), getSpawnPosition(), direction);
         }
 
         public FireBall CreateFireBall()
         {
-            return new FireBall(fireBall, getSpawnPosition(), direction);
+            return new FireBall(spriteLoader.BuildSprite(ANIMS_FILE, "fireball"), getSpawnPosition(), direction);
         }
 
         public void SetDirection(Vector2 direction)
