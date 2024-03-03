@@ -119,7 +119,7 @@
 				  <Item>
 					  <Key>leftFacing</Key>
 					  <Value Type="XMLData.AutoAtlasData">
-						  <SheetArea>24 55 16 60</SheetArea>
+						  <SheetArea>30 55 16 60</SheetArea>
 						  <Rows>2</Rows>
 						  <Cols>1</Cols>
 						  <Padding>0</Padding>
@@ -131,7 +131,7 @@
 				  <Item>
 					  <Key>downFacing</Key>
 					  <Value Type="XMLData.AutoAtlasData">
-						  <SheetArea>53 55 16 60</SheetArea>
+						  <SheetArea>59 55 16 60</SheetArea>
 						  <Rows>2</Rows>
 						  <Cols>1</Cols>
 						  <Padding>0</Padding>
@@ -143,7 +143,7 @@
 				  <Item>
 					  <Key>rightFacing</Key>
 					  <Value Type="XMLData.AutoAtlasData">
-						  <SheetArea>90 53 16 60</SheetArea>
+						  <SheetArea>89 55 16 60</SheetArea>
 						  <Rows>2</Rows>
 						  <Cols>1</Cols>
 						  <Padding>0</Padding>
@@ -157,5 +157,62 @@
 			  <InitialAnimation>upFacing</InitialAnimation>
 		  </Value>
 	  </Item>
+	  <Item>
+		  <Key>bat</Key>
+		  <Value>
+			  <Texture>zelda_enemies</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>moving</Key>
+					  <Value Type="XMLData.AutoAtlasData">
+						  <SheetArea>234 271 40 16</SheetArea>
+						  <Rows>1</Rows>
+						  <Cols>2</Cols>
+						  <Padding>6</Padding>
+						  <CenterPoint>7.5 8</CenterPoint>
+						  <Loop>true</Loop>
+						  <Framerate>10</Framerate>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>2</Scale>
+			  <InitialAnimation>moving</InitialAnimation>
+		  </Value>
+	  </Item>
+	  <Item>
+		  <Key>hand</Key>
+		  <Value>
+			  <Texture>zelda_enemies</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>leftFacing</Key>
+					  <Value Type="XMLData.AutoAtlasData">
+						  <SheetArea>239 0 18 60</SheetArea>
+						  <Rows>2</Rows>
+						  <Cols>1</Cols>
+						  <Padding>0</Padding>
+						  <CenterPoint>7.5 8</CenterPoint>
+						  <Loop>true</Loop>
+						  <Framerate>10</Framerate>
+					  </Value>
+				  </Item>
+				  <Item>
+					  <Key>rightFacing</Key>
+					  <Value Type="XMLData.AutoAtlasData">
+						  <SheetArea>269 0 18 60</SheetArea>
+						  <Rows>2</Rows>
+						  <Cols>1</Cols>
+						  <Padding>0</Padding>
+						  <CenterPoint>7.5 8</CenterPoint>
+						  <Loop>true</Loop>
+						  <Framerate>10</Framerate>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>2</Scale>
+			  <InitialAnimation>leftFacing</InitialAnimation>
+		  </Value>
+	  </Item>
+	  
   </Asset>
 </XnaContent>

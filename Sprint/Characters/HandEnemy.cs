@@ -10,7 +10,7 @@ using Sprint.Sprite;
 
 namespace Sprint.Characters
 {
-    public class DogEnemy : Enemy
+    public class HandEnemy : Enemy
     {
         private float elapsedTime;
         private Timer timeAttack;
@@ -20,7 +20,7 @@ namespace Sprint.Characters
         private Vector2 initialPosition;
         private string lastAnimationName;
 
-        public DogEnemy(Goober game, ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
+        public HandEnemy(Goober game, ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
             : base(game, sprite, initialPosition)
         {
 
@@ -40,25 +40,25 @@ namespace Sprint.Characters
 
         }
 
-        // Register a directional animation for DogEnemy sprite
+        // Register a directional animation for HandEnemy sprite
         public void RegisterDirectionalAnimation(string animationLabel, IAtlas atlas)
         {
             sprite.RegisterAnimation(animationLabel, atlas);
         }
 
-        // Set the current animation for DogEnemy sprite
+        // Set the current animation for HandEnemy sprite
         public void SetAnimation(string animationLabel)
         {
             sprite.SetAnimation(animationLabel);
         }
 
-        // Set the scale of DogEnemy sprite
+        // Set the scale of HandEnemy sprite
         public void SetScale(int scale)
         {
             sprite.SetScale(scale);
         }
 
-        // Update DogEnemy logic
+        // Update HandEnemy logic
         public override void Update(GameTime gameTime)
         {
             timeAttack.Update(gameTime);
@@ -86,23 +86,7 @@ namespace Sprint.Characters
         // Set animation based on the direction of movement
         private void SetAnimationBasedOnDirection()
         {
-            // Determine the direction and set the appropriate animation label
-            //if (Math.Abs(moveDirection.X) > Math.Abs(moveDirection.Y))
-            //{
-            //    // Horizontal movement
-            //    if (moveDirection.X > 0)
-            //        SetAnimation("rightFacing");
-            //    else
-            //        SetAnimation("leftFacing");
-            //}
-            //else
-            //{
-            //    // Vertical movement
-            //    if (moveDirection.Y > 0)
-            //        SetAnimation("downFacing");
-            //    else
-            //        SetAnimation("upFacing");
-            //}
+
             string newAnim = "";
             if (Math.Abs(moveDirection.X) > Math.Abs(moveDirection.Y))
             {
@@ -112,14 +96,6 @@ namespace Sprint.Characters
                 else
                     newAnim = "leftFacing";
 
-            }
-            else
-            {
-
-                if (moveDirection.Y > 0)
-                    newAnim = "upFacing";
-                else
-                    newAnim = "downFacing";
             }
 
             if(newAnim != lastAnimationName)
@@ -131,7 +107,7 @@ namespace Sprint.Characters
 
         }
 
-        // Move DogEnemy randomly within the game area
+        // Move HandEnemy randomly within the game area
         private void MoveRandomly(GameTime gameTime)
         {
             float speed = 50; // Adjust the speed as needed
@@ -172,7 +148,7 @@ namespace Sprint.Characters
             }
         }
 
-        // Generate a random movement direction for DogEnemy
+        // Generate a random movement direction for HandEnemy
         private void RandomizeMoveDirection()
         {
             // Generate a random movement direction
