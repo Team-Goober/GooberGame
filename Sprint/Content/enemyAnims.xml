@@ -221,7 +221,7 @@
 				  <Item>
 					  <Key>dragmoving</Key>
 					  <Value Type="XMLData.SingleAtlasData">
-						  <Rectangle>0 0 31 31</Rectangle>
+						  <Rectangle>0 0 30 30</Rectangle>
 						  <CenterPoint>0 0</CenterPoint>
 					  </Value>
 				  </Item>
