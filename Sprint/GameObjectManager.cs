@@ -8,54 +8,107 @@ namespace Sprint
      public class GameObjectManager
     {
 
+        private List<ICollidable> staticColliders;
+        private List<IMovingCollidable> movingColliders;
         private List<IGameObject> objects;
+
+        private Queue<IGameObject> removeQueue;
+        private Queue<IGameObject> addQueue;
 
         public GameObjectManager()
         {
             objects = new List<IGameObject>();
+            staticColliders = new List<ICollidable>();
+            movingColliders = new List<IMovingCollidable>();
+            removeQueue = new Queue<IGameObject>();
+            addQueue = new Queue<IGameObject>();
+        }
+
+        public List<IGameObject> GetObjects()
+        {
+            return objects;
+        }
+
+        public List<ICollidable> GetStatics()
+        {
+            return staticColliders;
+        }
+
+        public List<IMovingCollidable> GetMovers()
+        {
+            return movingColliders;
         }
 
         public void Add(IGameObject gameObject)
         {
-            // Add new game object to manage
-            objects.Add(gameObject);
+            addQueue.Enqueue(gameObject);
         }
 
         public void Remove(IGameObject gameObject)
         {
-            // Removes an existing game object from the list
-            if (objects.Contains(gameObject))
-            {
-                objects.Remove(gameObject);
-            }
-            else
-            {   // Error message if object is not found
-                System.Diagnostics.Debug.WriteLine("\nTHE OBJECT \"" + gameObject + "\" DOES NOT EXIST!\n");
-            }
+            removeQueue.Enqueue(gameObject);
         }
-
-        public void Update(GameTime gameTime)
+        
+        // completes all queued changes
+        public void EndCycle()
         {
-            // Update every entity
-            for(int i = objects.Count - 1; i >= 0; i--)
+            while(addQueue.Count > 0)
             {
-                objects[i].Update(gameTime);
+                // Adds a new game object to the list
+                IGameObject gameObject = addQueue.Dequeue();
+                if (!objects.Contains(gameObject))
+                {
+                    objects.Add(gameObject);
+                    // add to collision if needed
+                    if (gameObject is IMovingCollidable)
+                    {
+                        IMovingCollidable mc = gameObject as IMovingCollidable;
+                        movingColliders.Add(mc);
+                    }
+                    else if (gameObject is ICollidable)
+                    {
+                        ICollidable c = gameObject as ICollidable;
+                        staticColliders.Add(c);
+                    }
+                }
+                else
+                {   // Error message if object is not found
+                    System.Diagnostics.Debug.WriteLine("\nThe added object \"" + gameObject + "\" is already in Object Manager!\n");
+                }
+            }
+            while (removeQueue.Count > 0)
+            { 
+                // Removes an existing game object from the list
+                IGameObject gameObject = removeQueue.Dequeue();
+                if (objects.Contains(gameObject))
+                {
+                    objects.Remove(gameObject);
+                    // remove from collision if needed
+                    if (gameObject is IMovingCollidable)
+                    {
+                        IMovingCollidable mc = gameObject as IMovingCollidable;
+                        movingColliders.Remove(mc);
+                    }
+                    else if (gameObject is ICollidable)
+                    {
+                        ICollidable c = gameObject as ICollidable;
+                        staticColliders.Remove(c);
+                    }
+                }
+                else
+                {   // Error message if object is not found
+                    System.Diagnostics.Debug.WriteLine("\nThe removed object \"" + gameObject + "\" is not in Object Manager!\n");
+                }
+
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            // Draw every entity
-            for (int i = objects.Count - 1; i >= 0; i--)
-            {
-                objects[i].Draw(spriteBatch, gameTime);
-            }
-        }
-
-        //clears all the objects in the array
+        // clears all the objects in the array
         public void ClearObjects()
         {
             objects.Clear();
+            staticColliders.Clear();
+            movingColliders.Clear();
         }
 
     }

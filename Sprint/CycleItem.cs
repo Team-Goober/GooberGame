@@ -8,15 +8,18 @@ namespace Sprint
 {
     internal class CycleItem
     {
-        private List<IGameObject> items = new List<IGameObject>();
+        private List<Item> items = new List<Item>();
         private int currentItem;
         private Vector2 position;
-
+        private GameObjectManager objManager;
         private const string ANIM_FILE = "itemAnims";
 
-        public CycleItem(Goober game, Vector2 position, SpriteLoader spriteLoader)
+        public CycleItem(Goober game, Vector2 position, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
             this.position = position;
+            this.objManager = objManager;
+
+            // Create all items and add to game object manager
 
             ISprite rupyS = spriteLoader.BuildSprite(ANIM_FILE, "rupy");
             Item rupy = new Item(game, rupyS, this.position);
@@ -37,35 +40,41 @@ namespace Sprint
             ISprite triforceS = spriteLoader.BuildSprite(ANIM_FILE, "triforce");
             Item triforce = new Item(game, triforceS, this.position);
             items.Add(triforce);
+
+            // Select the first item
+            SwitchItem(null, items[0]);
         }
 
         public void Next()
         {
+            int before = currentItem;
             currentItem++;
 
             if(currentItem == items.Count)
             {
                 currentItem = 0;
             }
+            SwitchItem(items[before], items[currentItem]);
         }
 
         public void Back()
         {
+            int before = currentItem;
             currentItem--;
             if(currentItem == -1)
             {
                 currentItem = items.Count - 1;
             }
+            SwitchItem(items[before], items[currentItem]);
         }
 
-        public void Update(GameTime gameTime)
+        public void SwitchItem(Item oldI, Item newI)
         {
-            items[currentItem].Update(gameTime);
+            if (oldI != null)
+                objManager.Remove(oldI);
+            if (newI != null)
+                objManager.Add(newI);
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            items[currentItem].Draw(spriteBatch, gameTime);
-        }
     }
 }

@@ -10,15 +10,18 @@ namespace Sprint
     //Later be refactored into level loader
     internal class CycleTile
     {
-        private List<IGameObject> tiles = new();
-        private int currentTileIndex = 0;
+        private List<Tiles> tiles = new();
+        private GameObjectManager objManager;
+
+        private int currentTileIndex;
         private Vector2 position;
 
         private const string ANIM_FILE = "tileAnims";
 
-        public CycleTile(Goober game, Vector2 pos, SpriteLoader spriteLoader)
+        public CycleTile(Goober game, Vector2 pos, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
             this.position = pos;
+            this.objManager = objManager;
             // Load textures and set up animations for enemies
             // Add enemies to the 'enemies' list
 
@@ -35,6 +38,7 @@ namespace Sprint
             CreateTile(game, "bricks", spriteLoader);   // Tile 9
             CreateTile(game, "slats", spriteLoader);  // Tile 10
 
+            SwitchTile(null, tiles[0]);
         }
 
         private void CreateTile(Goober game, string blockName, SpriteLoader spriteLoader)
@@ -48,23 +52,26 @@ namespace Sprint
 
         public void NextTile()
         {
+            int before = currentTileIndex;
             currentTileIndex = (currentTileIndex + 1) % tiles.Count;
+            SwitchTile(tiles[before], tiles[currentTileIndex]);
         }
 
         public void PreviousTile()
         {
+            int before = currentTileIndex;
             currentTileIndex = (currentTileIndex - 1 + tiles.Count) % tiles.Count;
+            SwitchTile(tiles[before], tiles[currentTileIndex]);
         }
 
-        public void Update(GameTime gameTime)
+        public void SwitchTile(Tiles oldT, Tiles newT)
         {
-            tiles[currentTileIndex].Update(gameTime);
+            if(oldT!=null)
+                objManager.Remove(oldT);
+            if(newT!=null)
+                objManager.Add(newT);
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            tiles[currentTileIndex].Draw(spriteBatch, gameTime);
-        }
     }
 
 }
