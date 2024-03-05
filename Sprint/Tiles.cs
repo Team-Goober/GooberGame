@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using Sprint.Characters;
 
 namespace Sprint
 {
@@ -11,7 +10,7 @@ namespace Sprint
         Vector2 position;
         Rectangle bounds;
 
-        public Tiles(Goober game, ISprite sprite, Vector2 position)
+        public Tiles(ISprite sprite, Vector2 position)
         {
             this.sprite = sprite;
             this.position = position;

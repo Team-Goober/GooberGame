@@ -17,17 +17,17 @@ namespace Sprint.Level
         private const string ANIM_FILE = "XML/LevelOne";
         private const string POS_FILE = "XML/LevelOnePos";
 
-        public Room(Goober game, ContentManager content, SpriteLoader spriteLoader) 
+        public Room(ContentManager content, SpriteLoader spriteLoader) 
         {
             pl = new RoomTileLoader(content);
             pl.LoadXML(POS_FILE);
 
-            createRoomPart(game, "roomOneExterior", spriteLoader);
-            createRoomPart(game, "roomOneTopDoor", spriteLoader);
-            createRoomPart(game, "roomOneLeftDoor", spriteLoader);
-            createRoomPart(game, "roomOneRightDoor", spriteLoader);
-            createRoomPart(game, "roomOneDownDoor", spriteLoader);
-            createFloorTiles(game, spriteLoader);
+            createRoomPart("roomOneExterior", spriteLoader);
+            createRoomPart("roomOneTopDoor", spriteLoader);
+            createRoomPart("roomOneLeftDoor", spriteLoader);
+            createRoomPart("roomOneRightDoor", spriteLoader);
+            createRoomPart("roomOneDownDoor", spriteLoader);
+            createFloorTiles(spriteLoader);
 
         }
 
@@ -61,11 +61,11 @@ namespace Sprint.Level
         /// <param name="game"></param>
         /// <param name="roomName">Name of the room in XML file</param>
         /// <param name="spriteLoader"></param>
-        private void createRoomPart(Goober game, string partName, SpriteLoader spriteLoader)
+        private void createRoomPart(string partName, SpriteLoader spriteLoader)
         {
             ISprite roomSprite = spriteLoader.BuildSprite(ANIM_FILE, partName);
 
-            Tiles roomPart = new(game, roomSprite, pl.GetPosition(partName));
+            Tiles roomPart = new(roomSprite, pl.GetPosition(partName));
 
             tiles.Add(roomPart);
         }
@@ -75,13 +75,13 @@ namespace Sprint.Level
         /// </summary>
         /// <param name="game"></param>
         /// <param name="spriteLoader"></param>
-        private void createFloorTiles(Goober game, SpriteLoader spriteLoader)
+        private void createFloorTiles(SpriteLoader spriteLoader)
         {
             foreach (var floor in pl.GetFloor())
             {
                 ISprite floorSprite = spriteLoader.BuildSprite(ANIM_FILE, floor.tile);
 
-                Tiles floorPart = new(game, floorSprite, floor.position);
+                Tiles floorPart = new(floorSprite, floor.position);
 
                 tiles.Add(floorPart);
 
