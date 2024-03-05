@@ -48,9 +48,9 @@ namespace Sprint
 
         protected override void Initialize()
         {
-            _graphics.PreferredBackBufferWidth = 1024;
-            _graphics.PreferredBackBufferHeight = 700;
-            _graphics.ApplyChanges();
+            public protected _graphics.PreferredBackBufferWidth = 1024;
+            public protected _graphics.PreferredBackBufferHeight = 700;
+            public protected _graphics.ApplyChanges();
 
             objectManager = new GameObjectManager();
             inputTable = new InputTable();
