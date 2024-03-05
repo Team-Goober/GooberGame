@@ -31,6 +31,7 @@
 - Large Class
 - Large Method
 - Excessive or Unclear Comments
+- File Organization
 
 ## Known Bugs
 - On some machines you have to write "dotnet restore" in the terminal to run the game

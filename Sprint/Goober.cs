@@ -29,7 +29,7 @@ namespace Sprint
         private CycleEnemy enemies;
         private CycleTile tiles;
         private SpriteFont font;
-        private Vector2 characterLoc = new Vector2(20, 20);
+        private Vector2 characterLoc = new Vector2(400, 500);
         private bool resetGame = false;
 
         private IInputMap inputTable;
