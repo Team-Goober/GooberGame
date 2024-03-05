@@ -23,6 +23,6 @@ namespace Sprint.Interfaces
 
         // Returns string label for current animation
         string GetCurrentAnimation();
-    
+
     }
 }
