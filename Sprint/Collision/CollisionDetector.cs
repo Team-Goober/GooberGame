@@ -44,6 +44,11 @@ namespace Sprint.Collision
             }
         }
 
+        /// <summary>
+        /// Checks if two collidables overlap on screen and handles their collision if they do
+        /// </summary>
+        /// <param name="movingElement">The collider instigating the collision</param>
+        /// <param name="element">The collider that was collided into</param>
         public void CheckCollision(IMovingCollidable movingElement, ICollidable element)
         {
             Rectangle movingElementBoundingBox = movingElement.GetBoundingBox();

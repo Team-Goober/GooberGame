@@ -19,6 +19,8 @@ namespace Sprint
             this.position = position;
             this.objManager = objManager;
 
+            // Create all items and add to game object manager
+
             ISprite rupyS = spriteLoader.BuildSprite(ANIM_FILE, "rupy");
             Item rupy = new Item(game, rupyS, this.position);
             items.Add(rupy);
@@ -39,6 +41,7 @@ namespace Sprint
             Item triforce = new Item(game, triforceS, this.position);
             items.Add(triforce);
 
+            // Select the first item
             SwitchItem(null, items[0]);
         }
 

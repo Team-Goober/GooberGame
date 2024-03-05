@@ -38,9 +38,6 @@ namespace Sprint.Collision
                 {new TypePairKey(typeof(Player), typeof(Tiles)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})}
             };
 
-        public CollisionHandler() {
-        }
-
         //Made assuming that ICollidable can access the objects native type
 
         /// <summary>

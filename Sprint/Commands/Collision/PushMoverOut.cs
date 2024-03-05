@@ -10,8 +10,8 @@ namespace Sprint.Commands.Collision
     internal class PushMoverOut : ICommand
     {
 
-        private IMovingCollidable receiver;
-        private Vector2 distance;
+        private IMovingCollidable receiver; // moving collidable to be pushed
+        private Vector2 distance; // displacement to push over
 
         public PushMoverOut(IMovingCollidable receiver, Vector2 overlap) {
             this.receiver = receiver;

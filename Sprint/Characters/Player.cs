@@ -276,12 +276,14 @@ namespace Sprint.Characters
 
         }
 
+        // Moves the player by a set distance
         public void Move(Vector2 distance)
         {
             // teleport player in displacement specified
             physics.SetPosition(physics.Position + distance);
         }
 
+        // Returns current bounds of player on screen
         public Rectangle GetBoundingBox()
         {
             // compute current rectangle bounds of player in world space
