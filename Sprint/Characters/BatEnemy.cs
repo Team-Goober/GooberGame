@@ -100,8 +100,8 @@ namespace Sprint.Characters
         //ensures that the enemy always stays within windows of the game
         private void CheckBounds(Vector2 pos, float scale)
         {
-            int gameX = 600;
-            int gameY = 400;
+            int gameX = 1024 ;
+            int gameY = 700;
 
             //makes the enemy go to the other direction when it reaches a certain distance so that it doesnt go over window
             if (pos.X + scale > gameX)
