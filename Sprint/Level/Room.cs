@@ -88,18 +88,5 @@ namespace Sprint.Level
             }
         }
 
-        public void Update(GameTime gameTime)
-        {
-            // None For Now
-        }
-
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            for(int i = 0; i < tiles.Count; i++)
-            {
-                tiles[i].Draw(spriteBatch, gameTime);
-            }
-
-        }
     }
 }
