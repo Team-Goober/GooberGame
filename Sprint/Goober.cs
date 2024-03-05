@@ -36,6 +36,8 @@ namespace Sprint
         private GameObjectManager objectManager;
         private CollisionDetector collisionDetector;
         private SpriteLoader spriteLoader;
+        public readonly int gameWidth = 1024;
+        public readonly int gameHeight = 700;
 
         private Room currentRoom;
 
@@ -48,9 +50,9 @@ namespace Sprint
 
         protected override void Initialize()
         {
-            public protected _graphics.PreferredBackBufferWidth = 1024;
-            public protected _graphics.PreferredBackBufferHeight = 700;
-            public protected _graphics.ApplyChanges();
+            _graphics.PreferredBackBufferWidth = gameWidth;
+            _graphics.PreferredBackBufferHeight = gameHeight;
+            _graphics.ApplyChanges();
 
             objectManager = new GameObjectManager();
             inputTable = new InputTable();
