@@ -22,13 +22,37 @@ namespace Sprint.Level
             pl = new RoomTileLoader(content);
             pl.LoadXML(POS_FILE);
 
-            CreateRoomPart(game, "roomOneExterior", spriteLoader);
-            CreateRoomPart(game, "roomOneTopDoor", spriteLoader);
-            CreateRoomPart(game, "roomOneLeftDoor", spriteLoader);
-            CreateRoomPart(game, "roomOneRightDoor", spriteLoader);
-            CreateRoomPart(game, "roomOneDownDoor", spriteLoader);
-            CreatFloorTiles(game, spriteLoader);
+            createRoomPart(game, "roomOneExterior", spriteLoader);
+            createRoomPart(game, "roomOneTopDoor", spriteLoader);
+            createRoomPart(game, "roomOneLeftDoor", spriteLoader);
+            createRoomPart(game, "roomOneRightDoor", spriteLoader);
+            createRoomPart(game, "roomOneDownDoor", spriteLoader);
+            createFloorTiles(game, spriteLoader);
 
+        }
+
+        /// <summary>
+        /// Loads this room into the game world
+        /// </summary>
+        /// <param name="objectManager">GameObjectManager to add objects to</param>
+        public void LoadIn(GameObjectManager objectManager)
+        {
+            foreach (IGameObject tile in tiles)
+            {
+                objectManager.Add(tile);
+            }
+        }
+
+        /// <summary>
+        /// Removes this room from the game world
+        /// </summary>
+        /// <param name="objectManager">GameObjectManager to remove objects from</param>
+        public void Unload(GameObjectManager objectManager)
+        {
+            foreach (IGameObject tile in tiles)
+            {
+                objectManager.Remove(tile);
+            }
         }
 
         /// <summary>
@@ -37,7 +61,7 @@ namespace Sprint.Level
         /// <param name="game"></param>
         /// <param name="roomName">Name of the room in XML file</param>
         /// <param name="spriteLoader"></param>
-        private void CreateRoomPart(Goober game, string partName, SpriteLoader spriteLoader)
+        private void createRoomPart(Goober game, string partName, SpriteLoader spriteLoader)
         {
             ISprite roomSprite = spriteLoader.BuildSprite(ANIM_FILE, partName);
 
@@ -51,7 +75,7 @@ namespace Sprint.Level
         /// </summary>
         /// <param name="game"></param>
         /// <param name="spriteLoader"></param>
-        private void CreatFloorTiles(Goober game, SpriteLoader spriteLoader)
+        private void createFloorTiles(Goober game, SpriteLoader spriteLoader)
         {
             foreach (var floor in pl.GetFloor())
             {

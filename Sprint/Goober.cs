@@ -37,7 +37,7 @@ namespace Sprint
         private CollisionDetector collisionDetector;
         private SpriteLoader spriteLoader;
 
-        private Room levelOne;
+        private Room currentRoom;
 
         public Goober()
         {
@@ -69,9 +69,10 @@ namespace Sprint
 
             items = new CycleItem(this, new Vector2(500, 100), objectManager, spriteLoader);
             enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
-            tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
+            //tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
 
-            levelOne = new Room(this, Content, spriteLoader);
+            currentRoom = new Room(this, Content, spriteLoader);
+            currentRoom.LoadIn(objectManager);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -174,12 +175,6 @@ namespace Sprint
             GraphicsDevice.Clear(Color.Aquamarine);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-            //Gets the vector coordinates (spriteLocation) from MoveSystems.cs and draws main character sprite
-            player.Draw(_spriteBatch, gameTime);
-            enemies.Draw(_spriteBatch, gameTime);
-            tiles.Draw(_spriteBatch, gameTime);
-            items.Draw(_spriteBatch, gameTime);
 
             List<IGameObject> objects = objectManager.GetObjects();
             foreach (IGameObject obj in objects)
