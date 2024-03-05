@@ -31,6 +31,12 @@ namespace Sprint.Level
 
         }
 
+        /// <summary>
+        /// Creates tile for an outer wall of a room
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="roomName">Name of the room in XML file</param>
+        /// <param name="spriteLoader"></param>
         private void CreateRoom(Goober game, string roomName, SpriteLoader spriteLoader)
         {
             ISprite roomSprite = spriteLoader.BuildSprite(ANIM_FILE, roomName);
@@ -40,6 +46,11 @@ namespace Sprint.Level
             tiles.Add(roomPart);
         }
 
+        /// <summary>
+        /// Creates tiles for each cell on the floor
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="spriteLoader"></param>
         private void CreatFloor(Goober game, SpriteLoader spriteLoader)
         {
             foreach (var floor in pl.GetFloor())

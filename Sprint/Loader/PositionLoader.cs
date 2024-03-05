@@ -58,11 +58,13 @@ namespace Sprint.Loader
             }
         }
 
+        // Returns position for a given tile name
         public Vector2 GetPosition(string key)
         {
             return loaded[key];
         }
 
+        // Returns a list of tiles and their accompanying positions for the floor of this level
         public List<(string tile, Vector2 position)> GetFloor()
         {
             return tiles;
