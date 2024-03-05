@@ -1,6 +1,5 @@
 ﻿
 using System.Collections.Generic;
-using System.Diagnostics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
@@ -62,7 +61,7 @@ namespace Sprint.Sprite
                 texture = content.Load<Texture2D>(data.Texture);
                 textures.Add(data.Texture, texture);
             }
-
+            
             ISprite sprite = new AnimatedSprite(texture);
 
             // Add each animation

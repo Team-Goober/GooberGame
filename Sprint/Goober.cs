@@ -14,6 +14,8 @@ using System.Diagnostics;
 using System.Security;
 using System.Collections.Generic;
 using Sprint.Sprite;
+using Sprint.Level;
+using Sprint.Loader;
 
 namespace Sprint
 {
@@ -35,6 +37,8 @@ namespace Sprint
         private CollisionDetector collisionDetector;
         private SpriteLoader spriteLoader;
 
+        private Room currentRoom;
+
         public Goober()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -44,6 +48,9 @@ namespace Sprint
 
         protected override void Initialize()
         {
+            _graphics.PreferredBackBufferWidth = 1024;
+            _graphics.PreferredBackBufferHeight = 700;
+            _graphics.ApplyChanges();
 
             objectManager = new GameObjectManager();
             inputTable = new InputTable();
@@ -62,7 +69,10 @@ namespace Sprint
 
             items = new CycleItem(this, new Vector2(500, 100), objectManager, spriteLoader);
             enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
-            tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
+            //tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
+
+            currentRoom = new Room(this, Content, spriteLoader);
+            currentRoom.LoadIn(objectManager);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -166,14 +176,14 @@ namespace Sprint
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-
             List<IGameObject> objects = objectManager.GetObjects();
             foreach (IGameObject obj in objects)
                 obj.Draw(_spriteBatch, gameTime);
 
-            _spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
-            _spriteBatch.DrawString(font, "Program Made By: Team Goobers", new Vector2(10, 330), Color.Black);
-            _spriteBatch.DrawString(font, "Sprites from: www.mariomayhem.com/downloads/sprites/the_legend_of_zelda_sprites.php", new Vector2(10, 360), Color.Black);
+            //Remove
+            //_spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
+            //_spriteBatch.DrawString(font, "Program Made By: Team Goobers", new Vector2(10, 330), Color.Black);
+            //_spriteBatch.DrawString(font, "Sprites from: www.mariomayhem.com/downloads/sprites/the_legend_of_zelda_sprites.php", new Vector2(10, 360), Color.Black);
             _spriteBatch.End();
 
             base.Draw(gameTime);
