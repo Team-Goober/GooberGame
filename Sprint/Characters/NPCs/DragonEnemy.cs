@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Microsoft.Xna.Framework;
 using Sprint.Commands.SecondaryItem;
@@ -10,7 +10,7 @@ using Sprint.Sprite;
 
 namespace Sprint.Characters
 {
-    public class DogEnemy : Enemy
+    public class DragonEnemy : Enemy
     {
         private float elapsedTime;
         private Timer timeAttack;
@@ -20,7 +20,7 @@ namespace Sprint.Characters
         private Vector2 initialPosition;
         private string lastAnimationName;
 
-        public DogEnemy(Goober game, ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
+        public DragonEnemy(Goober game, ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
             : base(game, sprite, initialPosition)
         {
 
@@ -40,25 +40,25 @@ namespace Sprint.Characters
 
         }
 
-        // Register a directional animation for DogEnemy sprite
+        // Register a directional animation for DragonEnemy sprite
         public void RegisterDirectionalAnimation(string animationLabel, IAtlas atlas)
         {
             sprite.RegisterAnimation(animationLabel, atlas);
         }
 
-        // Set the current animation for DogEnemy sprite
+        // Set the current animation for DragonEnemy sprite
         public void SetAnimation(string animationLabel)
         {
             sprite.SetAnimation(animationLabel);
         }
 
-        // Set the scale of DogEnemy sprite
+        // Set the scale of DragonEnemy sprite
         public void SetScale(int scale)
         {
             sprite.SetScale(scale);
         }
 
-        // Update DogEnemy logic
+        // Update DragonEnemy logic
         public override void Update(GameTime gameTime)
         {
             timeAttack.Update(gameTime);
@@ -86,23 +86,7 @@ namespace Sprint.Characters
         // Set animation based on the direction of movement
         private void SetAnimationBasedOnDirection()
         {
-            // Determine the direction and set the appropriate animation label
-            //if (Math.Abs(moveDirection.X) > Math.Abs(moveDirection.Y))
-            //{
-            //    // Horizontal movement
-            //    if (moveDirection.X > 0)
-            //        SetAnimation("rightFacing");
-            //    else
-            //        SetAnimation("leftFacing");
-            //}
-            //else
-            //{
-            //    // Vertical movement
-            //    if (moveDirection.Y > 0)
-            //        SetAnimation("downFacing");
-            //    else
-            //        SetAnimation("upFacing");
-            //}
+
             string newAnim = "";
             if (Math.Abs(moveDirection.X) > Math.Abs(moveDirection.Y))
             {
@@ -122,16 +106,16 @@ namespace Sprint.Characters
                     newAnim = "downFacing";
             }
 
-            if(newAnim != lastAnimationName)
+            if (newAnim != lastAnimationName)
             {
                 lastAnimationName = newAnim;
-                SetAnimation(newAnim);
+                SetAnimation("dragmoving");
             }
 
 
         }
 
-        // Move DogEnemy randomly within the game area
+        // Move DragonEnemy randomly within the game area
         private void MoveRandomly(GameTime gameTime)
         {
             float speed = 50; // Adjust the speed as needed
@@ -157,8 +141,8 @@ namespace Sprint.Characters
         // Ensure that the enemy always stays within the game bounds
         private void CheckBounds(Vector2 pos, float scale)
         {
-            int gameX = 1024;
-            int gameY = 700;
+            int gameX = Goober.gameWidth;
+            int gameY = Goober.gameHeight;
 
             // Make the enemy go to the other direction when it reaches a certain distance so that it doesn't go over the window
             if (pos.X + scale > gameX)
@@ -172,7 +156,7 @@ namespace Sprint.Characters
             }
         }
 
-        // Generate a random movement direction for DogEnemy
+        // Generate a random movement direction for DragonEnemy
         private void RandomizeMoveDirection()
         {
             // Generate a random movement direction

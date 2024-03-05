@@ -36,8 +36,8 @@ namespace Sprint
         private GameObjectManager objectManager;
         private CollisionDetector collisionDetector;
         private SpriteLoader spriteLoader;
-        public readonly int gameWidth = 1024;
-        public readonly int gameHeight = 700;
+        public static int gameWidth = 1024;
+        public static readonly int gameHeight = 700;
 
         private Room currentRoom;
 

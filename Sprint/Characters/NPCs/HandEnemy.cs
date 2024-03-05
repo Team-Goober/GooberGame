@@ -133,8 +133,8 @@ namespace Sprint.Characters
         // Ensure that the enemy always stays within the game bounds
         private void CheckBounds(Vector2 pos, float scale)
         {
-            int gameX = 1024;
-            int gameY = 700;
+            int gameX = Goober.gameWidth;
+            int gameY = Goober.gameHeight;
 
             // Make the enemy go to the other direction when it reaches a certain distance so that it doesn't go over the window
             if (pos.X + scale > gameX)
