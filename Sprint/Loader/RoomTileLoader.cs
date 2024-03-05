@@ -6,7 +6,7 @@ using XMLData;
 
 namespace Sprint.Loader
 {
-    internal class PositionLoader
+    internal class RoomTileLoader
     {
         private ContentManager content;
 
@@ -15,7 +15,7 @@ namespace Sprint.Loader
         private Dictionary<string, string> TileDictionary;
         private List<(string tile, Vector2 position)> tiles;
 
-        public PositionLoader(ContentManager newContent)
+        public RoomTileLoader(ContentManager newContent)
         {
             loaded = new Dictionary<string, Vector2>();
             tiles = new List<(string tile, Vector2 position)>();
@@ -33,7 +33,7 @@ namespace Sprint.Loader
         */
         public void LoadXML(string path)
         {
-            PositionData pd = content.Load<PositionData>(path);
+            RoomTileData pd = content.Load<RoomTileData>(path);
             //Load Wall Position
             loaded.Add("roomOneExterior", pd.Wall);
 

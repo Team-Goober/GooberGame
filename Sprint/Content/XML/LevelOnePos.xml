@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:ns="Microsoft.Xna.Framework">
-	<Asset Type="XMLData.PositionData">
+	<Asset Type="XMLData.RoomTileData">
 		<Wall>0 0</Wall>
 		<TopDoor>448 0</TopDoor>
 		<LeftDoor>0 288</LeftDoor>

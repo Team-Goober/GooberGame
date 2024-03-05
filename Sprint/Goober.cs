@@ -29,7 +29,7 @@ namespace Sprint
         private GameObjectManager objectManager;
         private SpriteLoader spriteLoader;
 
-        private LevelOne levelOne;
+        private Room levelOne;
 
         public Goober()
         {
@@ -62,7 +62,7 @@ namespace Sprint
             enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
             tiles = new CycleTile(this, new Vector2(500, 200), spriteLoader);
 
-            levelOne = new LevelOne(this, Content, spriteLoader);
+            levelOne = new Room(this, Content, spriteLoader);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));

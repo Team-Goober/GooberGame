@@ -2,7 +2,7 @@
 
 namespace XMLData
 {
-    public class PositionData
+    public class RoomTileData
     {
         public Vector2 Wall;
         public Vector2 TopDoor;
