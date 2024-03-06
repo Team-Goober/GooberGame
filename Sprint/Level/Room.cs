@@ -35,7 +35,7 @@ namespace Sprint.Level
         /// Loads this room into the game world
         /// </summary>
         /// <param name="objectManager">GameObjectManager to add objects to</param>
-        public void LoadIn(GameObjectManager objectManager)
+        public void Enter(GameObjectManager objectManager)
         {
             foreach (IGameObject tile in tiles)
             {
@@ -47,7 +47,7 @@ namespace Sprint.Level
         /// Removes this room from the game world
         /// </summary>
         /// <param name="objectManager">GameObjectManager to remove objects from</param>
-        public void Unload(GameObjectManager objectManager)
+        public void Exit(GameObjectManager objectManager)
         {
             foreach (IGameObject tile in tiles)
             {
