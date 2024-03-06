@@ -6,8 +6,6 @@ using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 
-
-
 namespace Sprint.Characters
 {
     public class DogEnemy : Enemy
@@ -36,8 +34,6 @@ namespace Sprint.Characters
 
             // Initialize the move direction randomly
             RandomizeMoveDirection();
-
-
         }
 
         // Register a directional animation for DogEnemy sprite
@@ -86,23 +82,6 @@ namespace Sprint.Characters
         // Set animation based on the direction of movement
         private void SetAnimationBasedOnDirection()
         {
-            // Determine the direction and set the appropriate animation label
-            //if (Math.Abs(moveDirection.X) > Math.Abs(moveDirection.Y))
-            //{
-            //    // Horizontal movement
-            //    if (moveDirection.X > 0)
-            //        SetAnimation("rightFacing");
-            //    else
-            //        SetAnimation("leftFacing");
-            //}
-            //else
-            //{
-            //    // Vertical movement
-            //    if (moveDirection.Y > 0)
-            //        SetAnimation("downFacing");
-            //    else
-            //        SetAnimation("upFacing");
-            //}
             string newAnim = "";
             if (Math.Abs(moveDirection.X) > Math.Abs(moveDirection.Y))
             {
@@ -144,10 +123,6 @@ namespace Sprint.Characters
                 elapsedTime = 0;
             }
 
-
-
-
-
             // Move in the current direction
             Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             CheckBounds(newPosition, 3); // Ensure enemy stays within game bounds
@@ -179,8 +154,6 @@ namespace Sprint.Characters
             Random random = new Random();
             float angle = (float)random.NextDouble() * MathHelper.TwoPi;
             moveDirection = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-
-
 
             // Normalize the moveDirection vector
             moveDirection.Normalize();

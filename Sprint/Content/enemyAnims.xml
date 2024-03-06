@@ -76,7 +76,7 @@
         <Scale>2</Scale>
         <InitialAnimation>upFacing</InitialAnimation>
       </Value>
-    </Item>
+	</Item>
     <Item>
       <Key>skeleton</Key>
       <Value>
@@ -97,9 +97,9 @@
         </Animations>
         <Scale>2</Scale>
         <InitialAnimation>moving</InitialAnimation>
-      </Value>
-    </Item>
-	  <Item>
+       </Value>
+	</Item>
+	<Item>
 		  <Key>dog</Key>
 		  <Value>
 			  <Texture>zelda_enemies</Texture>
