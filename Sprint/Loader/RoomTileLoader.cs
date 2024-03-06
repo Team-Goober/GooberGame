@@ -33,7 +33,7 @@ namespace Sprint.Loader
         */
         public void LoadXML(string path)
         {
-            RoomTileData pd = content.Load<RoomTileData>(path);
+            RoomData pd = content.Load<RoomData>(path);
             //Load Wall Position
             loaded.Add("roomOneExterior", pd.Wall);
 
