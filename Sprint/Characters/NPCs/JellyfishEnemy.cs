@@ -11,7 +11,7 @@ namespace Sprint.Characters
         private float elapsedTime;
         private Vector2 initialPosition;
 
-        public JellyfishEnemy(Goober game, ISprite sprite, Vector2 initialPosition)
+        public JellyfishEnemy(Goober game, ISprite sprite, Vector2 initialPosition, GameObjectManager objManager, SpriteLoader spriteLoader)
             : base(game, sprite, initialPosition)
         {
 

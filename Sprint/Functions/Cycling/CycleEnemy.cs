@@ -31,7 +31,7 @@ namespace Sprint
             ISprite handSprite = spriteLoader.BuildSprite(ANIM_FILE, "hand");
             ISprite dragonSprite = spriteLoader.BuildSprite(ANIM_FILE, "dragonmov");
           
-            enemies.Add(new JellyfishEnemy(game, jellyfishSprite, position));
+            enemies.Add(new JellyfishEnemy(game, jellyfishSprite, position, objectManager, spriteLoader));
             enemies.Add(new BluebubbleEnemy(game, bluebubbleSprite, position, objectManager, spriteLoader));
             enemies.Add(new SkeletonEnemy(game, skeletonSprite, position, objectManager, spriteLoader));
             enemies.Add(new DogEnemy(game, dogSprite, position, objectManager, spriteLoader));
