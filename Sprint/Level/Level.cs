@@ -4,7 +4,7 @@ namespace Sprint.Level
     internal class Level
     {
 
-        public Level(GameObjectManager ) { }
+        public Level(GameObjectManager objManager) { }
 
 
     }

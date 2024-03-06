@@ -163,6 +163,11 @@
 /processorParam:TextureFormat=Color
 /build:Items/ZeldaSpriteMagicalShield.png
 
+#begin LevelOne/Level1.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:LevelOne/Level1.xml
+
 #begin LevelOne/roomDoors.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -250,6 +255,16 @@
 /processorParam:TextureFormat=Color
 /build:tiles.png
 
+#begin XML/LevelOne.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:XML/LevelOne.xml
+
+#begin XML/LevelOnePos.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:XML/LevelOnePos.xml
+
 #begin zelda_boss.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -261,16 +276,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:zelda_boss.png
-
-#begin XML/LevelOne.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:XML/LevelOne.xml
-
-#begin XML/LevelOnePos.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:XML/LevelOnePos.xml
 
 #begin zelda_enemies.png
 /importer:TextureImporter

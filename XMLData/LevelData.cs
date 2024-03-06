@@ -44,7 +44,7 @@ namespace XMLData
     public class ExitData
     {
         public string Door; // The type of door to place. Uses LevelData.DoorReferences keys
-        public int AdjacentRoom; // Index in LevelData.Rooms of the Room on the other side of this exit
+        public int AdjacentRoom; // Index in LevelData.Rooms of the Room on the other side of this exit. -1 if none
     }
 
     public class ItemSpawnData

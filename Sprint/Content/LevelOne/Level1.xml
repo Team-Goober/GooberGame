@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:XMLData="XMLData">
+  <Asset Type="XMLData:LevelData">
+    <FloorGridPos>128 128</FloorGridPos>
+    <Rows>7</Rows>
+    <Columns>12</Columns>
+    <TileSize>64 64</TileSize>
+    <TileReferences>
+      <Item>
+        <Key>0</Key>
+        <Value>
+          <SpriteName>flatTile</SpriteName>
+          <Type>floor</Type>
+        </Value>
+      </Item>
+      <Item>
+        <Key>1</Key>
+        <Value>
+          <SpriteName>bevelTile</SpriteName>
+          <Type>wall</Type>
+        </Value>
+      </Item>
+    </TileReferences>
+    <DoorSize>128 128</DoorSize>
+    <DoorPositions>448 0 896 288 448 576 0 288</DoorPositions>
+    <DoorReferences>
+      <Item>
+        <Key>open</Key>
+        <Value>
+          <OpenSprite>openDoor</OpenSprite>
+          <ClosedSprite></ClosedSprite>
+          <Type>open</Type>
+        </Value>
+      </Item>
+      <Item>
+        <Key>none</Key>
+        <Value>
+          <OpenSprite>noneDoor</OpenSprite>
+          <ClosedSprite></ClosedSprite>
+          <Type>none</Type>
+        </Value>
+      </Item>
+    </DoorReferences>
+    <SpriteFile>LevelOne/Level1</SpriteFile>
+    <Rooms>
+      <Item>
+        <Exits>
+          <Item>
+            <Door>open</Door>
+            <AdjacentRoom>1</AdjacentRoom>
+          </Item>
+          <Item>
+            <Door>none</Door>
+            <AdjacentRoom>-1</AdjacentRoom>
+          </Item>
+          <Item>
+            <Door>none</Door>
+            <AdjacentRoom>-1</AdjacentRoom>
+          </Item>
+          <Item>
+            <Door>none</Door>
+            <AdjacentRoom>-1</AdjacentRoom>
+          </Item>
+        </Exits>
+        <TileGrid>
+          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+        </TileGrid>
+        <Items />
+        <Enemies />
+      </Item>
+      <Item>
+        <Exits>
+          <Item>
+            <Door>none</Door>
+            <AdjacentRoom>-1</AdjacentRoom>
+          </Item>
+          <Item>
+            <Door>none</Door>
+            <AdjacentRoom>-1</AdjacentRoom>
+          </Item>
+          <Item>
+            <Door>open</Door>
+            <AdjacentRoom>0</AdjacentRoom>
+          </Item>
+          <Item>
+            <Door>none</Door>
+            <AdjacentRoom>-1</AdjacentRoom>
+          </Item>
+        </Exits>
+        <TileGrid>
+          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+          <Item>0 0 0 1 0 0 0 0 0 0 0 0</Item>
+          <Item>0 0 0 0 0 0 0 0 1 0 0 0</Item>
+          <Item>0 0 1 0 0 0 0 0 1 1 0 0</Item>
+          <Item>0 0 0 0 0 0 0 0 1 0 0 0</Item>
+          <Item>0 0 0 1 0 0 0 0 0 0 0 0</Item>
+          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+        </TileGrid>
+        <Items>
+          <Item>
+            <Type>triforce</Type>
+            <Row>6</Row>
+            <Column>3</Column>
+          </Item>
+        </Items>
+        <Enemies>
+          <Item>
+            <Type>skeleton</Type>
+            <Row>5</Row>
+            <Column>3</Column>
+          </Item>
+        </Enemies>
+      </Item>
+    </Rooms>
+  </Asset>
+</XnaContent>
