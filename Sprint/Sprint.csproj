@@ -23,9 +23,6 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CodeReviews\Pavan\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\XMLData\XMLData.csproj" />
   </ItemGroup>
   <ItemGroup>

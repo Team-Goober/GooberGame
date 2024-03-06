@@ -12,23 +12,32 @@ namespace Sprint
         private List<Enemy> enemies = new List<Enemy>();
         private int currentEnemyIndex;
         private Vector2 position;
-        private GameObjectManager objManager;
+        private GameObjectManager objectManager;
 
         private const string ANIM_FILE = "enemyAnims";
         // Constructor
-        public CycleEnemy(Goober game, Vector2 pos, GameObjectManager objManager, SpriteLoader spriteLoader)
+        public CycleEnemy(Goober game, Vector2 pos, GameObjectManager objectManager, SpriteLoader spriteLoader)
         {
             this.position = pos;
-            this.objManager = objManager;
+            this.objectManager = objectManager;
 
             // Load textures and set up animations for enemies
             // Add enemies to the 'enemies' 
             ISprite jellyfishSprite = spriteLoader.BuildSprite(ANIM_FILE, "jellyfish");
             ISprite bluebubbleSprite = spriteLoader.BuildSprite(ANIM_FILE, "bluebubble");
             ISprite skeletonSprite = spriteLoader.BuildSprite(ANIM_FILE, "skeleton");
+            ISprite dogSprite = spriteLoader.BuildSprite(ANIM_FILE, "dog");
+            ISprite batSprite = spriteLoader.BuildSprite(ANIM_FILE, "bat");
+            ISprite handSprite = spriteLoader.BuildSprite(ANIM_FILE, "hand");
+            ISprite dragonSprite = spriteLoader.BuildSprite(ANIM_FILE, "dragonmov");
+          
             enemies.Add(new JellyfishEnemy(game, jellyfishSprite, position));
-            enemies.Add(new BluebubbleEnemy(game, bluebubbleSprite, position, objManager, spriteLoader));
-            enemies.Add(new SkeletonEnemy(game, skeletonSprite, position, objManager, spriteLoader));
+            enemies.Add(new BluebubbleEnemy(game, bluebubbleSprite, position, objectManager, spriteLoader));
+            enemies.Add(new SkeletonEnemy(game, skeletonSprite, position, objectManager, spriteLoader));
+            enemies.Add(new DogEnemy(game, dogSprite, position, objectManager, spriteLoader));
+            enemies.Add(new BatEnemy(game, batSprite, position, objectManager, spriteLoader));
+            enemies.Add(new HandEnemy(game, handSprite, position, objectManager, spriteLoader));
+            enemies.Add(new DragonEnemy(game, dragonSprite, position, objectManager, spriteLoader));
 
             // Add more enemies as needed
 
@@ -54,9 +63,9 @@ namespace Sprint
         public void SwitchEnemy(Enemy oldE, Enemy newE)
         {
             if (oldE != null)
-                objManager.Remove(oldE);
+                objectManager.Remove(oldE);
             if (newE != null)
-                objManager.Add(newE);
+                objectManager.Add(newE);
         }
 
     }

@@ -1,4 +1,4 @@
-# Team Goobers Sprint 2
+# Team Goobers Sprint 3
 
 ## Team Members:
 - Pavan Rauch
@@ -25,14 +25,18 @@
 - Dead Code
 - Data Clumps
 - Long Parameter List
-- Inappropriate Intamacy
+- Inappropriate Intamacy, and Variable Naming
+- Missing Method Headers
 - Temporary Field
 - Large Class
 - Large Method
 - Excessive or Unclear Comments
+- File Organization
 
 ## Known Bugs
+- On some machines you have to write "dotnet restore" in the terminal to run the game
 
 ## Extra Tools and Processes Used
-- Photoshop for frame rotation
+- Adobe Photoshop for frame rotation
+- Tiled website for assisted tile building
 

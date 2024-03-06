@@ -10,7 +10,7 @@ using Sprint.Sprite;
 
 namespace Sprint.Characters
 {
-    public class BluebubbleEnemy : Enemy
+    public class HandEnemy : Enemy
     {
         private float elapsedTime;
         private Timer timeAttack;
@@ -18,8 +18,9 @@ namespace Sprint.Characters
         private ICommand projectileCommand;
         private SimpleProjectileFactory itemFactory;
         private Vector2 initialPosition;
+        private string lastAnimationName;
 
-        public BluebubbleEnemy(Goober game, ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
+        public HandEnemy(Goober game, ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
             : base(game, sprite, initialPosition)
         {
 
@@ -35,27 +36,29 @@ namespace Sprint.Characters
 
             // Initialize the move direction randomly
             RandomizeMoveDirection();
+
+
         }
 
-        // Register a directional animation for BluebubbleEnemy sprite
+        // Register a directional animation for HandEnemy sprite
         public void RegisterDirectionalAnimation(string animationLabel, IAtlas atlas)
         {
             sprite.RegisterAnimation(animationLabel, atlas);
         }
 
-        // Set the current animation for BluebubbleEnemy sprite
+        // Set the current animation for HandEnemy sprite
         public void SetAnimation(string animationLabel)
         {
             sprite.SetAnimation(animationLabel);
         }
 
-        // Set the scale of BluebubbleEnemy sprite
+        // Set the scale of HandEnemy sprite
         public void SetScale(int scale)
         {
             sprite.SetScale(scale);
         }
 
-        // Update BluebubbleEnemy logic
+        // Update HandEnemy logic
         public override void Update(GameTime gameTime)
         {
             timeAttack.Update(gameTime);
@@ -72,6 +75,9 @@ namespace Sprint.Characters
             // Calculate movement based on elapsed time for the random pattern
             MoveRandomly(gameTime);
 
+            // Set animation based on the new direction
+            SetAnimationBasedOnDirection();
+
             // Update the sprite and physics
             sprite.Update(gameTime);
             physics.Update(gameTime);
@@ -80,26 +86,28 @@ namespace Sprint.Characters
         // Set animation based on the direction of movement
         private void SetAnimationBasedOnDirection()
         {
-            // Determine the direction and set the appropriate animation label
+
+            string newAnim = "";
             if (Math.Abs(moveDirection.X) > Math.Abs(moveDirection.Y))
             {
-                // Horizontal movement
+
                 if (moveDirection.X > 0)
-                    SetAnimation("rightFacing");
+                    newAnim = "rightFacing";
                 else
-                    SetAnimation("leftFacing");
+                    newAnim = "leftFacing";
+
             }
-            else
+
+            if(newAnim != lastAnimationName)
             {
-                // Vertical movement
-                if (moveDirection.Y > 0)
-                    SetAnimation("downFacing");
-                else
-                    SetAnimation("upFacing");
+                lastAnimationName = newAnim;
+                SetAnimation(newAnim);
             }
+
+
         }
 
-        // Move BluebubbleEnemy randomly within the game area
+        // Move HandEnemy randomly within the game area
         private void MoveRandomly(GameTime gameTime)
         {
             float speed = 50; // Adjust the speed as needed
@@ -112,8 +120,9 @@ namespace Sprint.Characters
                 elapsedTime = 0;
             }
 
-            // Set animation based on the new direction
-            SetAnimationBasedOnDirection();
+
+
+
 
             // Move in the current direction
             Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -124,8 +133,8 @@ namespace Sprint.Characters
         // Ensure that the enemy always stays within the game bounds
         private void CheckBounds(Vector2 pos, float scale)
         {
-            int gameX = 600;
-            int gameY = 400;
+            int gameX = Goober.gameWidth;
+            int gameY = Goober.gameHeight;
 
             // Make the enemy go to the other direction when it reaches a certain distance so that it doesn't go over the window
             if (pos.X + scale > gameX)
@@ -139,13 +148,15 @@ namespace Sprint.Characters
             }
         }
 
-        // Generate a random movement direction for BluebubbleEnemy
+        // Generate a random movement direction for HandEnemy
         private void RandomizeMoveDirection()
         {
             // Generate a random movement direction
             Random random = new Random();
             float angle = (float)random.NextDouble() * MathHelper.TwoPi;
             moveDirection = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+
+
 
             // Normalize the moveDirection vector
             moveDirection.Normalize();

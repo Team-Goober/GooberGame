@@ -29,13 +29,15 @@ namespace Sprint
         private CycleEnemy enemies;
         private CycleTile tiles;
         private SpriteFont font;
-        private Vector2 characterLoc = new Vector2(20, 20);
+        private Vector2 characterLoc = new Vector2(400, 500);
         private bool resetGame = false;
 
         private IInputMap inputTable;
         private GameObjectManager objectManager;
         private CollisionDetector collisionDetector;
         private SpriteLoader spriteLoader;
+        public static int gameWidth = 1024;
+        public static readonly int gameHeight = 700;
 
         private Room currentRoom;
 
@@ -48,8 +50,8 @@ namespace Sprint
 
         protected override void Initialize()
         {
-            _graphics.PreferredBackBufferWidth = 1024;
-            _graphics.PreferredBackBufferHeight = 700;
+            _graphics.PreferredBackBufferWidth = gameWidth;
+            _graphics.PreferredBackBufferHeight = gameHeight;
             _graphics.ApplyChanges();
 
             objectManager = new GameObjectManager();
