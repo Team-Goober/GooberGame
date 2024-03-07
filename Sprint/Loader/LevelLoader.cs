@@ -46,9 +46,9 @@ namespace Sprint.Loader
 
         public Tiles MakeTile(string charLabel)
         {
-            //TileReference tRef = data.TileReferences[charLabel];
-            //ISprite tSprite = new AnimatedSprite(data);
-            //return tileFactory.MakeTile()
+            /*TileReference tRef = data.TileReferences[charLabel];
+            ISprite tSprite = new AnimatedSprite(data);
+            return tileFactory.MakeTile()*/
             return null;
 }
 
