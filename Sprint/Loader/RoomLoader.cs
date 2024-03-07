@@ -14,6 +14,7 @@ namespace Sprint.Loader
     {
         private ContentManager content;
         private SpriteLoader spriteLoader;
+        private GameObjectManager objectManager;
 
         private TileFactory tileFactory;
         private DoorFactory doorFactory;
@@ -28,7 +29,7 @@ namespace Sprint.Loader
             tileFactory = new(spriteLoader);
             doorFactory = new(spriteLoader);
             itemFactory = new();
-            enemyFactory = new();
+            enemyFactory = new(objectManager, spriteLoader);
         }
 
         /* Loads Position from the given XML file
@@ -74,23 +75,23 @@ namespace Sprint.Loader
                 y += lvl.TileSize.Y;
             }
 
-            /* 
-            //Load enemies
-            foreach (EnemySpawnData spawn in rd.Enemies)
-            {
-                float xP = lvl.FloorGridPos.X + spawn.Column * lvl.TileSize.X;
-                float yP = lvl.FloorGridPos.Y + spawn.Row * lvl.TileSize.Y;
-                room.AddEnemy(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP)));
-            }
 
-            //Load items
-            foreach (ItemSpawnData spawn in rd.Items)
-            {
-                float xP = lvl.FloorGridPos.X + spawn.Column * lvl.TileSize.X;
-                float yP = lvl.FloorGridPos.Y + spawn.Row * lvl.TileSize.Y;
-                room.AddItem(itemFactory.MakeItem(spawn.Type, new System.Numerics.Vector2(xP, yP)));
-            }
-            */
+            //Load enemies
+            //foreach (EnemySpawnData spawn in rd.Enemies)
+            //{
+            //    float xP = lvl.FloorGridPos.X + spawn.Column * lvl.TileSize.X;
+            //    float yP = lvl.FloorGridPos.Y + spawn.Row * lvl.TileSize.Y;
+            //    room.AddEnemy(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP)));
+            //}
+
+            ////Load items
+            //foreach (ItemSpawnData spawn in rd.Items)
+            //{
+            //    float xP = lvl.FloorGridPos.X + spawn.Column * lvl.TileSize.X;
+            //    float yP = lvl.FloorGridPos.Y + spawn.Row * lvl.TileSize.Y;
+            //    room.AddItem(itemFactory.MakeItem(spawn.Type, new System.Numerics.Vector2(xP, yP)));
+            //}
+
             return room;
         }
 

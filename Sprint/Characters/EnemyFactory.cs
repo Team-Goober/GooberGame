@@ -1,5 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using Sprint.Sprite;
+using Sprint.Loader;
+using Sprint.Input;
+using Sprint.Levels;
+using Sprint.Interfaces;
 
 namespace Sprint.Characters
 {
@@ -7,13 +12,15 @@ namespace Sprint.Characters
     {
 
 
-        private Vector2 position;
         private GameObjectManager objectManager;
+        private SpriteLoader spriteLoader;
+        private const string ANIM_FILE = "enemyAnims";
 
         public EnemyFactory(GameObjectManager objectManager, SpriteLoader spriteLoader)
         {
-            this.position = pos;
+    
             this.objectManager = objectManager;
+            this.spriteLoader = spriteLoader;
         }
 
 
@@ -28,11 +35,9 @@ namespace Sprint.Characters
             // TODO: Implement this function
             // Consider storing enemies in file with reflection, and having enemies load their own sprites
             // This would make dealing with enemies much easier
-            this.position = pos;
-            this.objectManager = objectManager;
 
 
-            ISprite enemySprite = spriteLoader.BuildSprite(ANIM_FILE, makeStr);
+            ISprite enemySprite = spriteLoader.BuildSprite(ANIM_FILE, name);
 
             switch (name)
             {
@@ -50,6 +55,8 @@ namespace Sprint.Characters
                     return new HandEnemy(game, enemySprite, position, objectManager, spriteLoader);
                 case "dragonmov":
                     return new DragonEnemy(game, enemySprite, position, objectManager, spriteLoader);
+                default:
+                    return null;
             }
 
 
