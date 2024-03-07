@@ -21,10 +21,11 @@ namespace Sprint.Loader
         private ItemFactory itemFactory;
         private EnemyFactory enemyFactory;
 
-        public RoomLoader(ContentManager newContent, SpriteLoader spriteLoader)
+        public RoomLoader(GameObjectManager objectManager, ContentManager newContent, SpriteLoader spriteLoader)
         {
             this.content = newContent;
             this.spriteLoader = spriteLoader;
+            this.objectManager = objectManager;
 
             tileFactory = new(spriteLoader);
             doorFactory = new(spriteLoader);
@@ -77,12 +78,12 @@ namespace Sprint.Loader
 
 
             //Load enemies
-            //foreach (EnemySpawnData spawn in rd.Enemies)
-            //{
-            //    float xP = lvl.FloorGridPos.X + spawn.Column * lvl.TileSize.X;
-            //    float yP = lvl.FloorGridPos.Y + spawn.Row * lvl.TileSize.Y;
-            //    room.AddEnemy(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP)));
-            //}
+            foreach (EnemySpawnData spawn in rd.Enemies)
+            {
+                float xP = lvl.FloorGridPos.X + spawn.Column * lvl.TileSize.X;
+                float yP = lvl.FloorGridPos.Y + spawn.Row * lvl.TileSize.Y;
+                room.AddEnemy(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP)));
+            }
 
             ////Load items
             //foreach (ItemSpawnData spawn in rd.Items)

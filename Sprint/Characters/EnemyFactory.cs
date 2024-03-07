@@ -30,7 +30,7 @@ namespace Sprint.Characters
         /// <param name="name">Name of enemy to make</param>
         /// <param name="position">World position to spawn at</param>
         /// <returns></returns>
-        public Enemy MakeEnemy(Goober game, String name, Vector2 position)
+        public Enemy MakeEnemy(String name, Vector2 position)
         {
             // TODO: Implement this function
             // Consider storing enemies in file with reflection, and having enemies load their own sprites
@@ -42,19 +42,19 @@ namespace Sprint.Characters
             switch (name)
             {
                 case "jellyfish":
-                    return new JellyfishEnemy(game, enemySprite, position, objectManager, spriteLoader);
+                    return new JellyfishEnemy(enemySprite, position, objectManager, spriteLoader);
                 case "bluebubble":
-                    return new BluebubbleEnemy(game, enemySprite, position, objectManager, spriteLoader);
+                    return new BluebubbleEnemy(enemySprite, position, objectManager, spriteLoader);
                 case "skeleton":
-                    return new SkeletonEnemy(game, enemySprite, position, objectManager, spriteLoader);
+                    return new SkeletonEnemy(enemySprite, position, objectManager, spriteLoader);
                 case "dog":
-                    return new DogEnemy(game,enemySprite, position, objectManager, spriteLoader);
+                    return new DogEnemy(enemySprite, position, objectManager, spriteLoader);
                 case "bat":
-                    return new BatEnemy(game, enemySprite, position, objectManager, spriteLoader);
+                    return new BatEnemy(enemySprite, position, objectManager, spriteLoader);
                 case "hand":
-                    return new HandEnemy(game, enemySprite, position, objectManager, spriteLoader);
+                    return new HandEnemy(enemySprite, position, objectManager, spriteLoader);
                 case "dragonmov":
-                    return new DragonEnemy(game, enemySprite, position, objectManager, spriteLoader);
+                    return new DragonEnemy(enemySprite, position, objectManager, spriteLoader);
                 default:
                     return null;
             }

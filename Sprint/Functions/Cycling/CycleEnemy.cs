@@ -32,13 +32,13 @@ namespace Sprint
             ISprite handSprite = spriteLoader.BuildSprite(ANIM_FILE, "hand");
             ISprite dragonSprite = spriteLoader.BuildSprite(ANIM_FILE, "dragonmov");
           
-            enemies.Add(new JellyfishEnemy(game, jellyfishSprite, position, objectManager, spriteLoader));
-            enemies.Add(new BluebubbleEnemy(game, bluebubbleSprite, position, objectManager, spriteLoader));
-            enemies.Add(new SkeletonEnemy(game, skeletonSprite, position, objectManager, spriteLoader));
-            enemies.Add(new DogEnemy(game, dogSprite, position, objectManager, spriteLoader));
-            enemies.Add(new BatEnemy(game, batSprite, position, objectManager, spriteLoader));
-            enemies.Add(new HandEnemy(game, handSprite, position, objectManager, spriteLoader));
-            enemies.Add(new DragonEnemy(game, dragonSprite, position, objectManager, spriteLoader));
+            enemies.Add(new JellyfishEnemy(jellyfishSprite, position, objectManager, spriteLoader));
+            enemies.Add(new BluebubbleEnemy(bluebubbleSprite, position, objectManager, spriteLoader));
+            enemies.Add(new SkeletonEnemy(skeletonSprite, position, objectManager, spriteLoader));
+            enemies.Add(new DogEnemy(dogSprite, position, objectManager, spriteLoader));
+            enemies.Add(new BatEnemy(batSprite, position, objectManager, spriteLoader));
+            enemies.Add(new HandEnemy(handSprite, position, objectManager, spriteLoader));
+            enemies.Add(new DragonEnemy(dragonSprite, position, objectManager, spriteLoader));
 
             // Add more enemies as needed
 

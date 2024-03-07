@@ -30,7 +30,7 @@ namespace Sprint.Loader
 
             Level level = new Level(objectManager);
 
-            RoomLoader rLoader = new RoomLoader(content, spriteLoader);
+            RoomLoader rLoader = new RoomLoader(objectManager, content, spriteLoader);
 
             // Load all rooms by index using RoomLoader
             for (int i = 0; i < data.Rooms.Count; i++) {

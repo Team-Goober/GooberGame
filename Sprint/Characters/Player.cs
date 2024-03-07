@@ -40,7 +40,7 @@ namespace Sprint.Characters
         public Player(Goober game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
 
-            physics = new Physics(game, pos);
+            physics = new Physics(pos);
 
             //Loads sprite for link
             sprite = spriteLoader.BuildSprite("playerAnims", "player");
