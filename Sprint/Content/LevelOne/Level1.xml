@@ -31,16 +31,14 @@
       <Item>
         <Key>open</Key>
         <Value>
-          <OpenSprite>openDoor</OpenSprite>
-          <ClosedSprite></ClosedSprite>
+          <SpriteName>openDoor</SpriteName>
           <Type>open</Type>
         </Value>
       </Item>
       <Item>
         <Key>none</Key>
         <Value>
-          <OpenSprite>noneDoor</OpenSprite>
-          <ClosedSprite></ClosedSprite>
+          <SpriteName>noneDoor</SpriteName>
           <Type>none</Type>
         </Value>
       </Item>

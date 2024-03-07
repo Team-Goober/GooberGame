@@ -39,7 +39,7 @@ namespace Sprint
         public static int gameWidth = 1024;
         public static readonly int gameHeight = 700;
 
-        private Room currentRoom;
+        private Level currLevel;
 
         public Goober()
         {
@@ -65,16 +65,16 @@ namespace Sprint
         protected override void LoadContent()
         {
             // Uncomment in order to write an XML file
-            //new TempLevelSaver("Level1.xml");
+            new TempLevelSaver("Level1.xml");
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            items = new CycleItem(this, new Vector2(500, 100), objectManager, spriteLoader);
-            enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
+            //items = new CycleItem(this, new Vector2(500, 100), objectManager, spriteLoader);
+            //enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
             //tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
 
-            currentRoom = new Room(Content, spriteLoader);
-            currentRoom.Enter(objectManager);
+            LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader);
+            loader.LoadXML("Level1");
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
