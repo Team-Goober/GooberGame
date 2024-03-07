@@ -10,14 +10,14 @@ namespace XMLData
         public string SpriteFile; // Path to file holding all room sprites for this level
 
         public Rectangle[] OuterWalls; // Collision bounds of walls on the outside of the room
+        public string BackgroundSprite; // is drawn at 0,0 and should show the background walls
 
         public Vector2 FloorGridPos; // World position of where the floor starts
-        public int Rows, Columns; // Dimensions of the tile grid
         public Vector2 TileSize; // World dimensions of each tile on the floor
         public Dictionary<string, TileReference> TileReferences; // Mapping of labels to tile data so rooms can reuse the same tile types
 
         public Vector2 DoorSize; // World dimensions of each door
-        public Vector2[] DoorPositions; // Positions of each door in every room, clockwise from top
+        public Vector2 TopDoorPos; // Positions of each door in every room
         public Dictionary<string, DoorReference> DoorReferences; // Mapping of labels to door data so rooms can reuse the same door types
 
         public List<RoomData> Rooms; // All rooms in this level. First index is the starting room.
