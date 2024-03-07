@@ -45,7 +45,7 @@ namespace Sprint
         {
             ISprite tileSprite = spriteLoader.BuildSprite(ANIM_FILE, blockName);
 
-            Tiles tile = new(tileSprite, position);
+            Tiles tile = new(tileSprite, position, new Vector2(16, 16));
 
             tiles.Add(tile);
         }

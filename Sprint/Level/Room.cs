@@ -12,14 +12,14 @@ namespace Sprint.Level
     {
         private List<IGameObject> tiles = new List<IGameObject>();
 
-        RoomTileLoader pl;
+        RoomLoader pl;
 
         private const string ANIM_FILE = "XML/LevelOne";
         private const string POS_FILE = "XML/LevelOnePos";
 
         public Room(ContentManager content, SpriteLoader spriteLoader) 
         {
-            pl = new RoomTileLoader(content);
+            pl = new RoomLoader(content);
             pl.LoadXML(POS_FILE);
 
             createRoomPart("roomOneExterior", spriteLoader);
@@ -65,7 +65,7 @@ namespace Sprint.Level
         {
             ISprite roomSprite = spriteLoader.BuildSprite(ANIM_FILE, partName);
 
-            Tiles roomPart = new(roomSprite, pl.GetPosition(partName));
+            Tiles roomPart = new(roomSprite, pl.GetPosition(partName), Vector2.Zero);
 
             tiles.Add(roomPart);
         }
@@ -81,7 +81,7 @@ namespace Sprint.Level
             {
                 ISprite floorSprite = spriteLoader.BuildSprite(ANIM_FILE, floor.tile);
 
-                Tiles floorPart = new(floorSprite, floor.position);
+                Tiles floorPart = new(floorSprite, floor.position, Vector2.Zero);
 
                 tiles.Add(floorPart);
 

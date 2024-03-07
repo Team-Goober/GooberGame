@@ -65,7 +65,7 @@ namespace Sprint
         protected override void LoadContent()
         {
             // Uncomment in order to write an XML file
-            //SpriteGroupSaver.WriteFile();
+            //new TempLevelSaver("Level1.xml");
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -73,8 +73,8 @@ namespace Sprint
             enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
             //tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
 
-            currentRoom = new Room(this, Content, spriteLoader);
-            currentRoom.LoadIn(objectManager);
+            currentRoom = new Room(Content, spriteLoader);
+            currentRoom.Enter(objectManager);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));

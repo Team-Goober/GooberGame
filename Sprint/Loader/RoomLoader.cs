@@ -33,7 +33,7 @@ namespace Sprint.Loader
         */
         public void LoadXML(string path)
         {
-            RoomData pd = content.Load<RoomData>(path);
+            /*RoomData pd = content.Load<RoomData>(path);
             //Load Wall Position
             loaded.Add("roomOneExterior", pd.Wall);
 
@@ -55,7 +55,7 @@ namespace Sprint.Loader
                 }
                 x = pd.XTile;
                 y += 64;
-            }
+            }*/
         }
 
         // Returns position for a given tile name

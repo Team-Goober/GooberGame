@@ -255,16 +255,6 @@
 /processorParam:TextureFormat=Color
 /build:tiles.png
 
-#begin XML/LevelOne.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:XML/LevelOne.xml
-
-#begin XML/LevelOnePos.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:XML/LevelOnePos.xml
-
 #begin zelda_boss.png
 /importer:TextureImporter
 /processor:TextureProcessor

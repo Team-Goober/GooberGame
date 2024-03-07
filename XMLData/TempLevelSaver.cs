@@ -13,6 +13,20 @@ namespace XMLData
             LevelData lvl = new LevelData();
 
             // set up LevelDat params
+            lvl.SpriteFile = "LevelOne/Level1";
+
+            int s = 4; //scaling up from texture file
+            lvl.OuterWalls = new Rectangle[] {
+                new Rectangle(0*s, 0*s, 112*s, 32*s),
+                new Rectangle(0*s, 0*s, 32*s, 72*s),
+                new Rectangle(144*s, 0*s, 112*s, 32*s),
+                new Rectangle(224*s, 0*s, 32*s, 72*s),
+                new Rectangle(144*s, 144*s, 112*s, 32*s),
+                new Rectangle(224*s, 104*s, 32*s, 72*s),
+                new Rectangle(0*s, 144*s, 112*s, 32*s),
+                new Rectangle(0*s, 104*s, 32*s, 72*s),
+            };
+
             lvl.FloorGridPos = new Vector2(128, 128);
             lvl.Rows = 7;
             lvl.Columns = 12;
@@ -23,7 +37,6 @@ namespace XMLData
             lvl.DoorPositions = new Vector2[] { new Vector2(448, 0), new Vector2(896, 288), new Vector2(448, 576), new Vector2(0, 288) };
             lvl.DoorReferences = new();
 
-            lvl.SpriteFile = "LevelOne/Level1";
             lvl.Rooms = new();
 
             //set up TileReferences
