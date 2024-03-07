@@ -2,113 +2,70 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprint.Levels
 {
     public class GameObjectManager
     {
 
-        private List<ICollidable> staticColliders;
-        private List<IMovingCollidable> movingColliders;
-        private List<IGameObject> objects;
-
-        private Queue<IGameObject> removeQueue;
-        private Queue<IGameObject> addQueue;
+        private List<RoomObjectManager> rooms;
+        private int currentRoom = 0;
 
         public GameObjectManager()
         {
-            objects = new List<IGameObject>();
-            staticColliders = new List<ICollidable>();
-            movingColliders = new List<IMovingCollidable>();
-            removeQueue = new Queue<IGameObject>();
-            addQueue = new Queue<IGameObject>();
+            rooms = new List<RoomObjectManager>();
+        }
+
+
+        public void AddRoom(RoomObjectManager room)
+        {
+            rooms.Add(room);
+        }
+
+        public void SwitchRoom(int idx)
+        {
+            currentRoom = idx;
+        }
+
+        public void ClearRooms()
+        {
+            rooms.Clear();
         }
 
         public List<IGameObject> GetObjects()
         {
-            return objects;
+            return rooms[currentRoom].GetObjects();
         }
 
         public List<ICollidable> GetStatics()
         {
-            return staticColliders;
+            return rooms[currentRoom].GetStatics();
         }
 
         public List<IMovingCollidable> GetMovers()
         {
-            return movingColliders;
+            return rooms[currentRoom].GetMovers();
         }
 
         public void Add(IGameObject gameObject)
         {
-            addQueue.Enqueue(gameObject);
+            rooms[currentRoom].Add(gameObject);
         }
 
         public void Remove(IGameObject gameObject)
         {
-            removeQueue.Enqueue(gameObject);
+            rooms[currentRoom].Remove(gameObject);
         }
 
-        // completes all queued changes
-        public void EndCycle()
-        {
-            while (addQueue.Count > 0)
-            {
-                // Adds a new game object to the list
-                IGameObject gameObject = addQueue.Dequeue();
-                if (!objects.Contains(gameObject))
-                {
-                    objects.Add(gameObject);
-                    // add to collision if needed
-                    if (gameObject is IMovingCollidable)
-                    {
-                        IMovingCollidable mc = gameObject as IMovingCollidable;
-                        movingColliders.Add(mc);
-                    }
-                    else if (gameObject is ICollidable)
-                    {
-                        ICollidable c = gameObject as ICollidable;
-                        staticColliders.Add(c);
-                    }
-                }
-                else
-                {   // Error message if object is not found
-                    System.Diagnostics.Debug.WriteLine("\nThe added object \"" + gameObject + "\" is already in Object Manager!\n");
-                }
-            }
-            while (removeQueue.Count > 0)
-            {
-                // Removes an existing game object from the list
-                IGameObject gameObject = removeQueue.Dequeue();
-                if (objects.Contains(gameObject))
-                {
-                    objects.Remove(gameObject);
-                    // remove from collision if needed
-                    if (gameObject is IMovingCollidable)
-                    {
-                        IMovingCollidable mc = gameObject as IMovingCollidable;
-                        movingColliders.Remove(mc);
-                    }
-                    else if (gameObject is ICollidable)
-                    {
-                        ICollidable c = gameObject as ICollidable;
-                        staticColliders.Remove(c);
-                    }
-                }
-                else
-                {   // Error message if object is not found
-                    System.Diagnostics.Debug.WriteLine("\nThe removed object \"" + gameObject + "\" is not in Object Manager!\n");
-                }
-
-            }
-        }
-
-        // clears all the objects in the array
         public void ClearObjects()
         {
-            objects.Clear();
-            staticColliders.Clear();
-            movingColliders.Clear();
+            rooms[currentRoom].ClearObjects();
+        }
+
+        public void EndCycle()
+        {
+            rooms[currentRoom].EndCycle();
         }
 
     }

@@ -1,6 +1,10 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Sprint.Characters;
+using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using XMLData;
 
@@ -12,11 +16,21 @@ namespace Sprint.Loader
         private GameObjectManager objectManager;
         private SpriteLoader spriteLoader;
 
+        private TileFactory tileFactory;
+        private DoorFactory doorFactory;
+        private ItemFactory itemFactory;
+        private EnemyFactory enemyFactory;
+
         public LevelLoader(ContentManager newContent, GameObjectManager objectManager, SpriteLoader spriteLoader)
         {
             this.content = newContent;
             this.objectManager = objectManager;
             this.spriteLoader = spriteLoader;
+
+            tileFactory = new(spriteLoader);
+            doorFactory = new(spriteLoader);
+            itemFactory = new();
+            enemyFactory = new();
 
         }
 
@@ -24,23 +38,99 @@ namespace Sprint.Loader
         * 
         * @param path      Path to the XML file
         */
-        public Level LoadXML(string path)
+        public void LoadLevelXML(string path)
         {
             LevelData data = content.Load<LevelData>(path);
 
-            Level level = new Level(objectManager);
-
-            RoomLoader rLoader = new RoomLoader(content, spriteLoader);
+            objectManager.ClearRooms();
 
             // Load all rooms by index using RoomLoader
             for (int i = 0; i < data.Rooms.Count; i++) {
-                level.AddRoom(rLoader.LoadFromData(data, i));
+                objectManager.AddRoom(BuildRoomManager(data, i));
             }
+            
+            // TODO: find the player and move them to the correct ROM
 
-            return level;
+            objectManager.SwitchRoom(1);
+
         }
 
+        /* Loads Position from the given XML file
+        * 
+        * @param path      Path to the XML file
+        */
+        public RoomObjectManager BuildRoomManager(LevelData lvl, int roomIndex)
+        {
+            RoomData rd = lvl.Rooms[roomIndex];
+            RoomObjectManager rom = new RoomObjectManager();
 
+            //Load Wall texture
+            ISprite bgSprite = spriteLoader.BuildSprite(lvl.SpriteFile, lvl.BackgroundSprite);
+            BackgroundTexture bg = new BackgroundTexture(bgSprite, Vector2.Zero);
+            rom.Add(bg);
+
+            //Load Wall colliders
+            foreach (Rectangle rect in lvl.OuterWalls)
+            {
+                InvisibleWall ow = new InvisibleWall(rect);
+                rom.Add(ow);
+            }
+
+            /*
+            //Load the four door position
+            rom.Add(MakeDoor(lvl, rd.TopExit, lvl.TopDoorPos));
+            rom.Add(MakeDoor(lvl, rd.BottomExit, lvl.BottomDoorPos));
+            rom.Add(MakeDoor(lvl, rd.LeftExit, lvl.LeftDoorPos));
+            rom.Add(MakeDoor(lvl, rd.RightExit, lvl.RightDoorPos));
+            */
+
+            //Load Floor tile 
+            float x = lvl.FloorGridPos.X; float y = lvl.FloorGridPos.Y;
+            foreach (string row in rd.TileGrid)
+            {
+                string[] str = row.Split(' ');
+                foreach (string tile in str)
+                {
+                    rom.Add(MakeTile(lvl, tile, new Vector2(x, y)));
+                    x += lvl.TileSize.X;
+                }
+                x = lvl.FloorGridPos.X;
+                y += lvl.TileSize.Y;
+            }
+
+            /* 
+            //Load enemies
+            foreach (EnemySpawnData spawn in rd.Enemies)
+            {
+                float xP = lvl.FloorGridPos.X + spawn.Column * lvl.TileSize.X;
+                float yP = lvl.FloorGridPos.Y + spawn.Row * lvl.TileSize.Y;
+                rom.Add(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP)));
+            }
+
+            //Load items
+            foreach (ItemSpawnData spawn in rd.Items)
+            {
+                float xP = lvl.FloorGridPos.X + spawn.Column * lvl.TileSize.X;
+                float yP = lvl.FloorGridPos.Y + spawn.Row * lvl.TileSize.Y;
+                rom.Add(itemFactory.MakeItem(spawn.Type, new System.Numerics.Vector2(xP, yP)));
+            }
+            */
+            return rom;
+        }
+
+        public Door MakeDoor(LevelData lvl, ExitData exit, Vector2 position)
+        {
+            DoorReference doorRef = lvl.DoorReferences[exit.Door];
+            Door door = doorFactory.MakeDoor(doorRef.Type, lvl.SpriteFile, doorRef.SpriteName, position, lvl.DoorSize);
+            return door;
+        }
+
+        public ITile MakeTile(LevelData lvl, string dictLabel, Vector2 position)
+        {
+            TileReference tRef = lvl.TileReferences[dictLabel];
+            ITile tile = tileFactory.MakeTile(tRef.Type, lvl.SpriteFile, tRef.SpriteName, position, lvl.TileSize);
+            return tile;
+        }
 
     }
 }
