@@ -1,10 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Sprint.Characters;
-using Sprint.Interfaces;
-using Sprint.Level;
+﻿using Microsoft.Xna.Framework.Content;
+using Sprint.Levels;
 using Sprint.Sprite;
-using System.Collections.Generic;
+using System.Runtime.Serialization;
 using XMLData;
 
 namespace Sprint.Loader
@@ -12,45 +9,37 @@ namespace Sprint.Loader
     internal class LevelLoader
     {
         private ContentManager content;
-        private LevelData data;
+        private GameObjectManager objectManager;
+        private SpriteLoader spriteLoader;
 
-        private List<Room> rooms;
-
-        private ItemFactory itemFactory;
-        private EnemyFactory enemyFactory;
-        private DoorFactory doorFactory;
-        private TileFactory tileFactory;
-
-        public LevelLoader(ContentManager newContent)
+        public LevelLoader(ContentManager newContent, GameObjectManager objectManager, SpriteLoader spriteLoader)
         {
             this.content = newContent;
+            this.objectManager = objectManager;
+            this.spriteLoader = spriteLoader;
 
-            itemFactory = new();
-            enemyFactory = new();
-            doorFactory = new();
-            tileFactory = new();
         }
 
         /* Loads Level data from given file
         * 
         * @param path      Path to the XML file
         */
-        public void LoadXML(string path)
+        public Level LoadXML(string path)
         {
-            data = content.Load<LevelData>(path);
+            LevelData data = content.Load<LevelData>(path);
 
-            //tileDictionary = new();
+            Level level = new Level(objectManager);
 
+            RoomLoader rLoader = new RoomLoader(content, spriteLoader);
 
+            // Load all rooms by index using RoomLoader
+            for (int i = 0; i < data.Rooms.Count; i++) {
+                level.AddRoom(rLoader.LoadFromData(data, i));
+            }
+
+            return level;
         }
 
-        public Tiles MakeTile(string charLabel)
-        {
-            //TileReference tRef = data.TileReferences[charLabel];
-            //ISprite tSprite = new AnimatedSprite(data);
-            //return tileFactory.MakeTile()
-            return null;
-}
 
 
     }

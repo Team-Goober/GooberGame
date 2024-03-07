@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sprint.Level
+namespace Sprint.Levels
 {
     internal class InvisibleWall : IGameObject, ICollidable
     {
 
         Rectangle bounds;
 
-        public InvisibleWall(Rectangle bounds) { 
+        public InvisibleWall(Rectangle bounds)
+        {
             this.bounds = bounds;
         }
         public Rectangle GetBoundingBox()

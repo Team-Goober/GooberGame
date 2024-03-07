@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System.Collections.Generic;
+using Sprint.Levels;
 
 
 namespace Sprint
@@ -10,7 +11,7 @@ namespace Sprint
     //Later be refactored into level loader
     internal class CycleTile
     {
-        private List<Tiles> tiles = new();
+        private List<ITile> tiles = new();
         private GameObjectManager objManager;
 
         private int currentTileIndex;
@@ -45,7 +46,7 @@ namespace Sprint
         {
             ISprite tileSprite = spriteLoader.BuildSprite(ANIM_FILE, blockName);
 
-            Tiles tile = new(tileSprite, position, new Vector2(16, 16));
+            ITile tile = new WallTile(tileSprite, position, new Vector2(16, 16));
 
             tiles.Add(tile);
         }
@@ -64,7 +65,7 @@ namespace Sprint
             SwitchTile(tiles[before], tiles[currentTileIndex]);
         }
 
-        public void SwitchTile(Tiles oldT, Tiles newT)
+        public void SwitchTile(ITile oldT, ITile newT)
         {
             if(oldT!=null)
                 objManager.Remove(oldT);

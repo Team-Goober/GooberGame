@@ -13,7 +13,8 @@ namespace XMLData
             LevelData lvl = new LevelData();
 
             // set up LevelDat params
-            lvl.SpriteFile = "LevelOne/Level1";
+            lvl.SpriteFile = "LevelOne/Level1Sprites";
+            lvl.BackgroundSprite = "roomOneExterior";
 
             int s = 4; //scaling up from texture file
             lvl.OuterWalls = new Rectangle[] {
@@ -28,13 +29,15 @@ namespace XMLData
             };
 
             lvl.FloorGridPos = new Vector2(128, 128);
-            lvl.Rows = 7;
-            lvl.Columns = 12;
             lvl.TileSize = new Vector2(64, 64);
             lvl.TileReferences = new();
 
             lvl.DoorSize = new Vector2(128, 128);
-            lvl.DoorPositions = new Vector2[] { new Vector2(448, 0), new Vector2(896, 288), new Vector2(448, 576), new Vector2(0, 288) };
+            lvl.TopDoorPos = new Vector2(448, 0);
+            lvl.BottomDoorPos = new Vector2(896, 288);
+            lvl.RightDoorPos = new Vector2(448, 576);
+            lvl.LeftDoorPos = new Vector2(0, 288);
+
             lvl.DoorReferences = new();
 
             lvl.Rooms = new();
@@ -53,29 +56,30 @@ namespace XMLData
 
             //set up DoorReferences
             DoorReference openExit = new DoorReference();
-            openExit.OpenSprite = "openDoor";
-            openExit.ClosedSprite = "";
+            openExit.SpriteName = "openDoor";
             openExit.Type = "open";
             lvl.DoorReferences.Add("open", openExit);
 
             DoorReference noExit = new DoorReference();
-            noExit.OpenSprite = "noneDoor";
-            noExit.ClosedSprite = "";
+            noExit.SpriteName = "noneDoor";
             noExit.Type = "none";
             lvl.DoorReferences.Add("none", noExit);
 
 
             //set up Rooms
             RoomData emptyRoom = new RoomData();
-            emptyRoom.Exits = new ExitData[] { new ExitData(), new ExitData(), new ExitData(), new ExitData() };
-            emptyRoom.Exits[0].Door = "open";
-            emptyRoom.Exits[0].AdjacentRoom = 1;
-            emptyRoom.Exits[1].Door = "none";
-            emptyRoom.Exits[1].AdjacentRoom = -1;
-            emptyRoom.Exits[2].Door = "none";
-            emptyRoom.Exits[2].AdjacentRoom = -1;
-            emptyRoom.Exits[3].Door = "none";
-            emptyRoom.Exits[3].AdjacentRoom = -1;
+            emptyRoom.TopExit = new ExitData();
+            emptyRoom.TopExit.Door = "open";
+            emptyRoom.TopExit.AdjacentRoom = 1;
+            emptyRoom.BottomExit = new ExitData();
+            emptyRoom.BottomExit.Door = "none";
+            emptyRoom.BottomExit.AdjacentRoom = -1;
+            emptyRoom.RightExit = new ExitData();
+            emptyRoom.RightExit.Door = "none";
+            emptyRoom.RightExit.AdjacentRoom = -1;
+            emptyRoom.LeftExit = new ExitData();
+            emptyRoom.LeftExit.Door = "none";
+            emptyRoom.LeftExit.AdjacentRoom = -1;
             emptyRoom.TileGrid = new()
             {
                 "0 0 0 0 0 0 0 0 0 0 0 0",
@@ -91,15 +95,18 @@ namespace XMLData
             lvl.Rooms.Add(emptyRoom);
 
             RoomData betterRoom = new RoomData();
-            betterRoom.Exits = new ExitData[] { new ExitData(), new ExitData(), new ExitData(), new ExitData() };
-            betterRoom.Exits[0].Door = "none";
-            betterRoom.Exits[0].AdjacentRoom = -1;
-            betterRoom.Exits[1].Door = "none";
-            betterRoom.Exits[1].AdjacentRoom = -1;
-            betterRoom.Exits[2].Door = "open";
-            betterRoom.Exits[2].AdjacentRoom = 0;
-            betterRoom.Exits[3].Door = "none";
-            betterRoom.Exits[3].AdjacentRoom = -1;
+            emptyRoom.TopExit = new ExitData();
+            emptyRoom.TopExit.Door = "open";
+            emptyRoom.TopExit.AdjacentRoom = -1;
+            emptyRoom.BottomExit = new ExitData();
+            emptyRoom.BottomExit.Door = "none";
+            emptyRoom.BottomExit.AdjacentRoom = 0;
+            emptyRoom.RightExit = new ExitData();
+            emptyRoom.RightExit.Door = "none";
+            emptyRoom.RightExit.AdjacentRoom = -1;
+            emptyRoom.LeftExit = new ExitData();
+            emptyRoom.LeftExit.Door = "none";
+            emptyRoom.LeftExit.AdjacentRoom = -1;
             betterRoom.TileGrid = new()
             {
                 "0 0 0 0 0 0 0 0 0 0 0 0",

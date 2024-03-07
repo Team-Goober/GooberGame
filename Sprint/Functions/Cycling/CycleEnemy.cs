@@ -4,6 +4,7 @@ using Sprint.Interfaces;
 using System.Collections.Generic;
 using Sprint.Characters;
 using Sprint.Sprite;
+using Sprint.Levels;
 
 namespace Sprint
 {

@@ -1,4 +1,5 @@
 ﻿using Sprint.Interfaces;
+using Sprint.Levels;
 using Sprint.Projectile;
 
 namespace Sprint.Commands.SecondaryItem

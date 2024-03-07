@@ -1,16 +1,21 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Sprint
+namespace Sprint.Levels
 {
-    internal class Item : IGameObject
+    internal class BackgroundTexture : IGameObject
     {
+
         ISprite sprite;
         Vector2 position;
 
-        public Item(Goober game, ISprite sprite, Vector2 position)
+        public BackgroundTexture(ISprite sprite, Vector2 position)
         {
             this.sprite = sprite;
             this.position = position;
@@ -23,7 +28,7 @@ namespace Sprint
 
         public void Update(GameTime gameTime)
         {
-            sprite.Update(gameTime);
+            // nothing to update
         }
     }
 }

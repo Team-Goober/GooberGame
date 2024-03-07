@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using Sprint.Levels;
 
 namespace Sprint.Characters
 {

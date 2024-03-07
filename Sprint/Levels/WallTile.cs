@@ -2,19 +2,19 @@
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 
-namespace Sprint
+namespace Sprint.Levels
 {
-    internal class Tiles : IGameObject, ICollidable
+    internal class WallTile : ITile, ICollidable
     {
         ISprite sprite;
         Vector2 position;
         Rectangle bounds;
 
-        public Tiles(ISprite sprite, Vector2 position, Vector2 size)
+        public WallTile(ISprite sprite, Vector2 position, Vector2 size)
         {
             this.sprite = sprite;
             this.position = position;
-            bounds = new Rectangle((int)(position.X), (int)(position.Y), (int)(size.X), (int)(size.Y));
+            bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

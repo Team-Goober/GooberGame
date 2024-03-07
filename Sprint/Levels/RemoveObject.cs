@@ -1,6 +1,6 @@
 ﻿using Sprint.Interfaces;
 
-namespace Sprint.Commands
+namespace Sprint.Levels
 {
     internal class RemoveObject : ICommand
     {

@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Reflection;
-using System.Xml.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Sprint.Characters;
 using Sprint.Commands.Collision;
 using Sprint.Interfaces;
-using static Sprint.Characters.Character;
+using Sprint.Levels;
+
 
 namespace Sprint.Collision
 {
@@ -35,7 +31,7 @@ namespace Sprint.Collision
         // TODO: Read this from file
         Dictionary<TypePairKey, ConstructorInfo> commandDictionary = new Dictionary<TypePairKey, ConstructorInfo>()
             {
-                {new TypePairKey(typeof(Player), typeof(Tiles)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})}
+                {new TypePairKey(typeof(Player), typeof(WallTile)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})}
             };
 
         //Made assuming that ICollidable can access the objects native type
