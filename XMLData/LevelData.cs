@@ -35,8 +35,7 @@ namespace XMLData
 
     public class DoorReference
     {
-        public string OpenSprite; // Name of sprite to draw when open. Name is used in the Level's SpriteFile. May be empty
-        public string ClosedSprite; // Name of sprite to draw when closed. Name is used in the Level's SpriteFile. May be empty
+        public string SpriteName; // Name of sprite to draw. Name is used in the Level's SpriteFile. Should have animations named "open" and "closed"
         public string Type; // Door type to construct. Used by DoorFactory
     }
 

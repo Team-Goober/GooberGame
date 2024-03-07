@@ -56,14 +56,12 @@ namespace XMLData
 
             //set up DoorReferences
             DoorReference openExit = new DoorReference();
-            openExit.OpenSprite = "openDoor";
-            openExit.ClosedSprite = "";
+            openExit.SpriteName = "openDoor";
             openExit.Type = "open";
             lvl.DoorReferences.Add("open", openExit);
 
             DoorReference noExit = new DoorReference();
-            noExit.OpenSprite = "noneDoor";
-            noExit.ClosedSprite = "";
+            noExit.SpriteName = "noneDoor";
             noExit.Type = "none";
             lvl.DoorReferences.Add("none", noExit);
 

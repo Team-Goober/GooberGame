@@ -1,5 +1,5 @@
-﻿using System;
-using System.Numerics;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace Sprint.Characters
 {
@@ -12,7 +12,7 @@ namespace Sprint.Characters
         /// <param name="name">Name of enemy to make</param>
         /// <param name="position">World position to spawn at</param>
         /// <returns></returns>
-        public Character MakeEnemy(String name, Vector2 position)
+        public Enemy MakeEnemy(String name, Vector2 position)
         {
             // TODO: Implement this function
             // Consider storing enemies in file with reflection, and having enemies load their own sprites

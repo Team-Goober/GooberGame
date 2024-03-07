@@ -10,9 +10,9 @@ namespace Sprint
         ISprite sprite;
         Vector2 position;
         Rectangle bounds;
-        Room otherSide;
+        int otherSide;
 
-        public Door(ISprite sprite, Vector2 position, Vector2 size, Room otherSide)
+        public Door(ISprite sprite, Vector2 position, Vector2 size, int otherSide)
         {
             this.sprite = sprite;
             this.position = position;
@@ -35,7 +35,8 @@ namespace Sprint
             sprite.Update(gameTime);
         }
 
-        public Room GetAdjacentRoom()
+        // Returns index in Level's room array of the Room this leads to
+        public int GetAdjacentRoomIndex()
         {
             return otherSide;
         }
