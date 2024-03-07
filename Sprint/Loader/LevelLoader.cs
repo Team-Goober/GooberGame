@@ -24,9 +24,16 @@ namespace Sprint.Loader
         {
             LevelData ld = content.Load<LevelData>(path);
 
-            tileDictionary = new();
+            //tileDictionary = new();
 
 
         }
+
+        public Tiles ReadTileLabel(string label)
+        {
+            return null;
+        }
+
+
     }
 }

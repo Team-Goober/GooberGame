@@ -4,13 +4,13 @@ using Sprint.Interfaces;
 
 namespace Sprint
 {
-    internal class Tiles : IGameObject, ICollidable
+    internal class Door : IGameObject, ICollidable
     {
         ISprite sprite;
         Vector2 position;
         Rectangle bounds;
 
-        public Tiles(ISprite sprite, Vector2 position, Vector2 size)
+        public Door(ISprite sprite, Vector2 position, Vector2 size)
         {
             this.sprite = sprite;
             this.position = position;
