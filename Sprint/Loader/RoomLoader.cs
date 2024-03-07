@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Sprint.Level;
 using System.Collections.Generic;
 using System.Diagnostics;
 using XMLData;
@@ -68,6 +69,12 @@ namespace Sprint.Loader
         public List<(string tile, Vector2 position)> GetFloor()
         {
             return tiles;
+        }
+        public Tiles MakeTile(string charLabel, int row, int col)
+        {
+            TileReference tRef = data.TileReferences[charLabel];
+            Vector2 pos = new Vector2(data.FloorGridPos.X + col * data.TileSize.X, data.FloorGridPos.Y + row * data.TileSize.Y);
+            return tileFactory.MakeTile(tRef.Type, data.SpriteFile, tRef.SpriteName, pos);
         }
     }
 }

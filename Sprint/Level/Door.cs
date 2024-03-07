@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
+using Sprint.Level;
 
 namespace Sprint
 {
@@ -9,12 +10,14 @@ namespace Sprint
         ISprite sprite;
         Vector2 position;
         Rectangle bounds;
+        Room otherSide;
 
-        public Door(ISprite sprite, Vector2 position, Vector2 size)
+        public Door(ISprite sprite, Vector2 position, Vector2 size, Room otherSide)
         {
             this.sprite = sprite;
             this.position = position;
             bounds = new Rectangle((int)(position.X), (int)(position.Y), (int)(size.X), (int)(size.Y));
+            this.otherSide = otherSide;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -31,5 +34,11 @@ namespace Sprint
         {
             sprite.Update(gameTime);
         }
+
+        public Room GetAdjacentRoom()
+        {
+            return otherSide;
+        }
+
     }
 }

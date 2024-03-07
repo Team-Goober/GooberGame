@@ -5,39 +5,29 @@ using Sprint.Sprite;
 using System.Collections.Generic;
 using Sprint.Loader;
 using Microsoft.Xna.Framework.Content;
+using XMLData;
+using Sprint.Characters;
 
 namespace Sprint.Level
 {
     internal class Room
     {
-        private List<IGameObject> tiles = new List<IGameObject>();
-
-        RoomLoader pl;
-
-        private const string ANIM_FILE = "XML/LevelOne";
-        private const string POS_FILE = "XML/LevelOnePos";
+        private List<Tiles> tiles;
+        private Dictionary<Character.Directions, Door> doors;
 
         public Room(ContentManager content, SpriteLoader spriteLoader) 
         {
-            pl = new RoomLoader(content);
-            pl.LoadXML(POS_FILE);
-
-            createRoomPart("roomOneExterior", spriteLoader);
-            createRoomPart("roomOneTopDoor", spriteLoader);
-            createRoomPart("roomOneLeftDoor", spriteLoader);
-            createRoomPart("roomOneRightDoor", spriteLoader);
-            createRoomPart("roomOneDownDoor", spriteLoader);
-            createFloorTiles(spriteLoader);
-
+            tiles = new();
+            doors = new();
         }
 
         /// <summary>
         /// Loads this room into the game world
         /// </summary>
         /// <param name="objectManager">GameObjectManager to add objects to</param>
-        public void Enter(GameObjectManager objectManager)
+        public void Enter(Character.Directions direction, GameObjectManager objectManager)
         {
-            foreach (IGameObject tile in tiles)
+            foreach (Tiles tile in tiles)
             {
                 objectManager.Add(tile);
             }
@@ -49,42 +39,9 @@ namespace Sprint.Level
         /// <param name="objectManager">GameObjectManager to remove objects from</param>
         public void Exit(GameObjectManager objectManager)
         {
-            foreach (IGameObject tile in tiles)
+            foreach (Tiles tile in tiles)
             {
                 objectManager.Remove(tile);
-            }
-        }
-
-        /// <summary>
-        /// Creates tile for an outer wall of a room
-        /// </summary>
-        /// <param name="game"></param>
-        /// <param name="roomName">Name of the room in XML file</param>
-        /// <param name="spriteLoader"></param>
-        private void createRoomPart(string partName, SpriteLoader spriteLoader)
-        {
-            ISprite roomSprite = spriteLoader.BuildSprite(ANIM_FILE, partName);
-
-            Tiles roomPart = new(roomSprite, pl.GetPosition(partName), Vector2.Zero);
-
-            tiles.Add(roomPart);
-        }
-
-        /// <summary>
-        /// Creates tiles for each cell on the floor
-        /// </summary>
-        /// <param name="game"></param>
-        /// <param name="spriteLoader"></param>
-        private void createFloorTiles(SpriteLoader spriteLoader)
-        {
-            foreach (var floor in pl.GetFloor())
-            {
-                ISprite floorSprite = spriteLoader.BuildSprite(ANIM_FILE, floor.tile);
-
-                Tiles floorPart = new(floorSprite, floor.position, Vector2.Zero);
-
-                tiles.Add(floorPart);
-
             }
         }
 
