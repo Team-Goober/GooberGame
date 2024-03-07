@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:XMLData="XMLData">
   <Asset Type="XMLData:LevelData">
-    <SpriteFile>LevelOne/Level1</SpriteFile>
+    <SpriteFile>LevelOne/Level1Sprites</SpriteFile>
     <OuterWalls>0 0 448 128 0 0 128 288 576 0 448 128 896 0 128 288 576 576 448 128 896 416 128 288 0 576 448 128 0 416 128 288</OuterWalls>
-    <BackgroundSprite>background</BackgroundSprite>
+    <BackgroundSprite>roomOneExterior</BackgroundSprite>
     <FloorGridPos>128 128</FloorGridPos>
     <TileSize>64 64</TileSize>
     <TileReferences>

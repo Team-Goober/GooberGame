@@ -19,7 +19,7 @@ namespace Sprint.Levels
 
         public void Start()
         {
-            currRoom = rooms[0];
+            currRoom = rooms[1];
             currRoom.Enter(Character.Directions.DOWN, objManager);
         }
 

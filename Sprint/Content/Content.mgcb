@@ -168,6 +168,11 @@
 /processor:PassThroughProcessor
 /build:LevelOne/Level1.xml
 
+#begin LevelOne/Level1Sprites.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:LevelOne/Level1Sprites.xml
+
 #begin LevelOne/roomDoors.png
 /importer:TextureImporter
 /processor:TextureProcessor

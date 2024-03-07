@@ -13,8 +13,8 @@ namespace XMLData
             LevelData lvl = new LevelData();
 
             // set up LevelDat params
-            lvl.SpriteFile = "LevelOne/Level1";
-            lvl.BackgroundSprite = "background";
+            lvl.SpriteFile = "LevelOne/Level1Sprites";
+            lvl.BackgroundSprite = "roomOneExterior";
 
             int s = 4; //scaling up from texture file
             lvl.OuterWalls = new Rectangle[] {

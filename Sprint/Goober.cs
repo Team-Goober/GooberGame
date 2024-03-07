@@ -58,14 +58,14 @@ namespace Sprint
             inputTable = new InputTable();
             collisionDetector = new CollisionDetector();
             spriteLoader = new SpriteLoader(Content);
-            
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             // Uncomment in order to write an XML file
-            new TempLevelSaver("Level1.xml");
+            //new TempLevelSaver("Level1.xml");
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -74,7 +74,7 @@ namespace Sprint
             //tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
 
             LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader);
-            loader.LoadXML("Level1");
+            currLevel = loader.LoadXML("LevelOne/Level1");
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -131,6 +131,8 @@ namespace Sprint
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
+
+            currLevel.Start();
         }
 
         //clears input dictionary and object manager

@@ -52,11 +52,13 @@ namespace Sprint.Loader
                 room.AddInvisibleWall(ow);
             }
 
+            /*
             //Load the four door position
             room.PutDoor(Character.Directions.UP, MakeDoor(lvl, rd.TopExit, lvl.TopDoorPos));
             room.PutDoor(Character.Directions.DOWN, MakeDoor(lvl, rd.BottomExit, lvl.BottomDoorPos));
             room.PutDoor(Character.Directions.LEFT, MakeDoor(lvl, rd.LeftExit, lvl.LeftDoorPos));
             room.PutDoor(Character.Directions.RIGHT, MakeDoor(lvl, rd.RightExit, lvl.RightDoorPos));
+            */
 
             //Load Floor tile 
             float x = lvl.FloorGridPos.X; float y = lvl.FloorGridPos.Y;
@@ -72,6 +74,7 @@ namespace Sprint.Loader
                 y += lvl.TileSize.Y;
             }
 
+            /* 
             //Load enemies
             foreach (EnemySpawnData spawn in rd.Enemies)
             {
@@ -87,7 +90,7 @@ namespace Sprint.Loader
                 float yP = lvl.FloorGridPos.Y + spawn.Row * lvl.TileSize.Y;
                 room.AddItem(itemFactory.MakeItem(spawn.Type, new System.Numerics.Vector2(xP, yP)));
             }
-
+            */
             return room;
         }
 
