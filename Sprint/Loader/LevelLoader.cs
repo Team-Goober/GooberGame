@@ -44,13 +44,12 @@ namespace Sprint.Loader
 
         }
 
-        public Tiles MakeTile(string charLabel)
+        public Tiles MakeTile(string charLabel, int row, int col)
         {
-            /*TileReference tRef = data.TileReferences[charLabel];
-            ISprite tSprite = new AnimatedSprite(data);
-            return tileFactory.MakeTile()*/
-            return null;
-}
+            TileReference tRef = data.TileReferences[charLabel];
+            Vector2 pos = new Vector2(data.FloorGridPos.X + col * data.TileSize.X, data.FloorGridPos.Y + row * data.TileSize.Y);
+            return tileFactory.MakeTile(tRef.Type, data.SpriteFile, tRef.SpriteName, pos);
+        }
 
 
     }
