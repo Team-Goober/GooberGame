@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Sprint.Levels;
+using Sprint.Sprite;
+using System.Runtime.Serialization;
 using XMLData;
 
 namespace Sprint.Loader
@@ -7,11 +9,14 @@ namespace Sprint.Loader
     internal class LevelLoader
     {
         private ContentManager content;
-        public LevelData Data;
+        private GameObjectManager objectManager;
+        private SpriteLoader spriteLoader;
 
-        public LevelLoader(ContentManager newContent)
+        public LevelLoader(ContentManager newContent, GameObjectManager objectManager, SpriteLoader spriteLoader)
         {
             this.content = newContent;
+            this.objectManager = objectManager;
+            this.spriteLoader = spriteLoader;
 
         }
 
@@ -21,8 +26,18 @@ namespace Sprint.Loader
         */
         public Level LoadXML(string path)
         {
-            Data = content.Load<LevelData>(path);
-            return null;
+            LevelData data = content.Load<LevelData>(path);
+
+            Level level = new Level(objectManager);
+
+            RoomLoader rLoader = new RoomLoader(content, spriteLoader);
+
+            // Load all rooms by index using RoomLoader
+            for (int i = 0; i < data.Rooms.Count; i++) {
+                level.AddRoom(rLoader.LoadFromData(data, i));
+            }
+
+            return level;
         }
 
 

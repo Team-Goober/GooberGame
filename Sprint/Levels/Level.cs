@@ -1,5 +1,6 @@
 ﻿using Sprint.Characters;
 using Sprint.Loader;
+using System.Collections.Generic;
 
 namespace Sprint.Levels
 {
@@ -7,17 +8,18 @@ namespace Sprint.Levels
     {
 
         private Room currRoom;
-        private Room firstRoom;
+        private List<Room> rooms;
         private GameObjectManager objManager;
 
         public Level(GameObjectManager objManager)
         {
             this.objManager = objManager;
+            rooms = new List<Room>();
         }
 
         public void Start()
         {
-            currRoom = firstRoom;
+            currRoom = rooms[0];
             currRoom.Enter(Character.Directions.DOWN, objManager);
         }
 
@@ -26,6 +28,11 @@ namespace Sprint.Levels
             currRoom.Exit(objManager);
             currRoom = room;
             currRoom.Enter(doorDirection, objManager);
+        }
+
+        public void AddRoom(Room r)
+        {
+            rooms.Add(r);
         }
 
     }
