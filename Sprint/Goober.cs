@@ -39,8 +39,6 @@ namespace Sprint
         public static int gameWidth = 1024;
         public static readonly int gameHeight = 700;
 
-        private Level currLevel;
-
         public Goober()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -74,7 +72,7 @@ namespace Sprint
             //tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
 
             LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader);
-            currLevel = loader.LoadXML("LevelOne/Level1");
+            loader.LoadLevelXML("LevelOne/Level1");
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -84,7 +82,6 @@ namespace Sprint
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
 
             player = new Player(this, characterLoc, inputTable, objectManager, spriteLoader);
-            objectManager.Add(player);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
@@ -132,7 +129,7 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
 
-            currLevel.Start();
+            objectManager.Add(player);
         }
 
         //clears input dictionary and object manager
