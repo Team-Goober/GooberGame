@@ -48,8 +48,6 @@ namespace Sprint.Loader
             for (int i = 0; i < data.Rooms.Count; i++) {
                 objectManager.AddRoom(BuildRoomManager(data, i));
             }
-            
-            // TODO: find the player and move them to the correct ROM
 
             objectManager.SwitchRoom(1);
 

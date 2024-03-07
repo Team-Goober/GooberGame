@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using Sprint.Sprite;
 using Sprint.Loader;
 using Sprint.Levels;
+using Sprint.Functions;
 
 namespace Sprint
 {
@@ -129,7 +130,11 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
 
-            objectManager.Add(player);
+            // Switching rooms
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.B), new NextRoomCommand(objectManager));
+
+            // Add player as persistent object
+            objectManager.Add(player, true);
         }
 
         //clears input dictionary and object manager
