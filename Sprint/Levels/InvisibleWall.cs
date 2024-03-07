@@ -37,10 +37,6 @@ namespace Sprint.Levels
 
 
 
-        public void CreateWall()
-        {
-            //ISprite mapSprite = spriteLoader.BuildSprite(ANIM_FILE, spriteName);
-            InvisibleWall wall = new InvisibleWall(bounds);
-        }
+
     }
 }
