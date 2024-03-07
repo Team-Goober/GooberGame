@@ -1,10 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprint.Interfaces;
+using Sprint.Sprite;
 using System;
 
 namespace Sprint.Levels
 {
     internal class TileFactory
     {
+
+        private SpriteLoader spriteLoader;
+
+        public TileFactory(SpriteLoader spriteLoader)
+        {
+            this.spriteLoader = spriteLoader;
+        }
 
         /// <summary>
         /// Constructs a tile with given parameters
@@ -14,11 +23,24 @@ namespace Sprint.Levels
         /// <param name="spriteLabel">Label for sprite to use</param>
         /// <param name="position">Position in world space for this tile</param>
         /// <returns></returns>
-        public Tiles MakeTile(string type, string spriteFile, string spriteLabel, Vector2 position)
+        public ITile MakeTile(string type, string spriteFile, string spriteLabel, Vector2 position, Vector2 size)
         {
-            // TODO: Implement this function
-            // Consider storing tiles in file with reflection
-            return null;
+            // TODO: Store this in a better way
+
+            ISprite sprite = spriteLoader.BuildSprite(spriteFile, spriteLabel);
+
+            if (type.Equals("floor"))
+            {
+                return new FloorTile(sprite, position, size);
+            }
+            else if (type.Equals("wall"))
+            {
+                return new WallTile(sprite, position, size);
+            }
+            else
+            {
+                return null;
+            }
         }
 
     }

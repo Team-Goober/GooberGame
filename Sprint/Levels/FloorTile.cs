@@ -4,13 +4,13 @@ using Sprint.Interfaces;
 
 namespace Sprint.Levels
 {
-    internal class Tiles : IGameObject, ICollidable
+    internal class FloorTile : ITile
     {
         ISprite sprite;
         Vector2 position;
         Rectangle bounds;
 
-        public Tiles(ISprite sprite, Vector2 position, Vector2 size)
+        public FloorTile(ISprite sprite, Vector2 position, Vector2 size)
         {
             this.sprite = sprite;
             this.position = position;
@@ -20,11 +20,6 @@ namespace Sprint.Levels
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
-        }
-
-        public Rectangle GetBoundingBox()
-        {
-            return bounds;
         }
 
         public void Update(GameTime gameTime)

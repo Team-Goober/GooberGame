@@ -25,8 +25,8 @@ namespace Sprint.Loader
             this.content = newContent;
             this.spriteLoader = spriteLoader;
 
-            tileFactory = new();
-            doorFactory = new();
+            tileFactory = new(spriteLoader);
+            doorFactory = new(spriteLoader);
             itemFactory = new();
             enemyFactory = new();
         }
@@ -94,14 +94,14 @@ namespace Sprint.Loader
         public Door MakeDoor(LevelData lvl, ExitData exit, Vector2 position)
         {
             DoorReference doorRef = lvl.DoorReferences[exit.Door];
-            Door door = doorFactory.MakeDoor(doorRef.Type, lvl.SpriteFile, doorRef.SpriteName, position);
+            Door door = doorFactory.MakeDoor(doorRef.Type, lvl.SpriteFile, doorRef.SpriteName, position, lvl.DoorSize);
             return door;
         }
 
-        public Tiles MakeTile(LevelData lvl, string dictLabel, Vector2 position)
+        public ITile MakeTile(LevelData lvl, string dictLabel, Vector2 position)
         {
             TileReference tRef = lvl.TileReferences[dictLabel];
-            Tiles tile = tileFactory.MakeTile(tRef.Type, lvl.SpriteFile, tRef.SpriteName, position);
+            ITile tile = tileFactory.MakeTile(tRef.Type, lvl.SpriteFile, tRef.SpriteName, position, lvl.TileSize);
             return tile;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Sprint.Characters;
+using Sprint.Interfaces;
 
 namespace Sprint.Levels
 {
@@ -8,7 +9,7 @@ namespace Sprint.Levels
 
         private BackgroundTexture background;
         private List<InvisibleWall> walls;
-        private List<Tiles> tiles;
+        private List<ITile> tiles;
         private Dictionary<Character.Directions, Door> doors;
         private List<Item> items;
         private List<Enemy> enemies;
@@ -35,7 +36,7 @@ namespace Sprint.Levels
             {
                 objectManager.Add(wall);
             }
-            foreach (Tiles tile in tiles)
+            foreach (ITile tile in tiles)
             {
                 objectManager.Add(tile);
             }
@@ -64,7 +65,7 @@ namespace Sprint.Levels
             {
                 objectManager.Remove(wall);
             }
-            foreach (Tiles tile in tiles)
+            foreach (ITile tile in tiles)
             {
                 objectManager.Remove(tile);
             }
@@ -93,7 +94,7 @@ namespace Sprint.Levels
             walls.Add(wall);
         }
 
-        public void AddTile(Tiles tile)
+        public void AddTile(ITile tile)
         {
             tiles.Add(tile);
         }
