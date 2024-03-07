@@ -38,6 +38,7 @@ namespace Sprint
         private SpriteLoader spriteLoader;
         public static int gameWidth = 1024;
         public static readonly int gameHeight = 700;
+        private InvisibleWall invisibleWall;
 
         private Level currLevel;
 
@@ -130,6 +131,9 @@ namespace Sprint
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
+
+
+
 
             currLevel.Start();
             objectManager.Add(player);

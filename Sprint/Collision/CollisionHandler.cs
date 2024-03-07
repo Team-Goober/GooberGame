@@ -31,7 +31,9 @@ namespace Sprint.Collision
         // TODO: Read this from file
         Dictionary<TypePairKey, ConstructorInfo> commandDictionary = new Dictionary<TypePairKey, ConstructorInfo>()
             {
-                {new TypePairKey(typeof(Player), typeof(WallTile)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})}
+                {new TypePairKey(typeof(Player), typeof(WallTile)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
+                {new TypePairKey(typeof(Player), typeof(InvisibleWall)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})}
+
             };
 
         //Made assuming that ICollidable can access the objects native type

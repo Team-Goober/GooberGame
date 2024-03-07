@@ -13,6 +13,7 @@ namespace Sprint.Levels
     {
 
         Rectangle bounds;
+        private const string ANIM_FILE = "tileAnims";
 
         public InvisibleWall(Rectangle bounds)
         {
@@ -32,6 +33,14 @@ namespace Sprint.Levels
         public void Update(GameTime gameTime)
         {
             // no updates
+        }
+
+
+
+        public void CreateWall()
+        {
+            //ISprite mapSprite = spriteLoader.BuildSprite(ANIM_FILE, spriteName);
+            InvisibleWall wall = new InvisibleWall(bounds);
         }
     }
 }
