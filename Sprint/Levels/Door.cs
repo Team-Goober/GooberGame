@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Level;
 
-namespace Sprint
+namespace Sprint.Levels
 {
     internal class Door : IGameObject, ICollidable
     {
@@ -16,7 +16,7 @@ namespace Sprint
         {
             this.sprite = sprite;
             this.position = position;
-            bounds = new Rectangle((int)(position.X), (int)(position.Y), (int)(size.X), (int)(size.Y));
+            bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
             this.otherSide = otherSide;
         }
 

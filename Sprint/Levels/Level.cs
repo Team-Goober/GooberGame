@@ -1,8 +1,7 @@
-﻿
-using Sprint.Characters;
+﻿using Sprint.Characters;
 using Sprint.Loader;
 
-namespace Sprint.Level
+namespace Sprint.Levels
 {
     internal class Level
     {
@@ -11,7 +10,8 @@ namespace Sprint.Level
         private Room firstRoom;
         private GameObjectManager objManager;
 
-        public Level(GameObjectManager objManager) {
+        public Level(GameObjectManager objManager)
+        {
             this.objManager = objManager;
         }
 

@@ -8,6 +8,7 @@ using Sprint.Input;
 using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
+using Sprint.Levels;
 
 namespace Sprint.Characters
 {

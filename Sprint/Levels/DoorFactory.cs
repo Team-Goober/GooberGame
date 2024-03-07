@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 
-namespace Sprint.Level
+namespace Sprint.Levels
 {
     internal class DoorFactory
     {
@@ -14,7 +14,7 @@ namespace Sprint.Level
         /// <param name="spriteLabel">Label for sprite to use</param>
         /// <param name="position">Position in world space for this door</param>
         /// <returns></returns>
-        public Door MakeDoor(String type, String spriteFile, String spriteLabel, Vector2 position)
+        public Door MakeDoor(string type, string spriteFile, string spriteLabel, Vector2 position)
         {
             // TODO: Implement this function
             // Consider storing doors in file with reflection

@@ -14,8 +14,8 @@ using System.Diagnostics;
 using System.Security;
 using System.Collections.Generic;
 using Sprint.Sprite;
-using Sprint.Level;
 using Sprint.Loader;
+using Sprint.Levels;
 
 namespace Sprint
 {

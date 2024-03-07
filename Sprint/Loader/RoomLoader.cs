@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
 using Sprint.Interfaces;
-using Sprint.Level;
+using Sprint.Levels;
 using Sprint.Sprite;
 using System.Collections.Generic;
 using System.Diagnostics;

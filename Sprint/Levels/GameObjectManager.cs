@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using System.Collections.Generic;
 
-namespace Sprint
+namespace Sprint.Levels
 {
-     public class GameObjectManager
+    public class GameObjectManager
     {
 
         private List<ICollidable> staticColliders;
@@ -48,11 +48,11 @@ namespace Sprint
         {
             removeQueue.Enqueue(gameObject);
         }
-        
+
         // completes all queued changes
         public void EndCycle()
         {
-            while(addQueue.Count > 0)
+            while (addQueue.Count > 0)
             {
                 // Adds a new game object to the list
                 IGameObject gameObject = addQueue.Dequeue();
@@ -77,7 +77,7 @@ namespace Sprint
                 }
             }
             while (removeQueue.Count > 0)
-            { 
+            {
                 // Removes an existing game object from the list
                 IGameObject gameObject = removeQueue.Dequeue();
                 if (objects.Contains(gameObject))

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Sprint.Characters;
 using Sprint.Commands.Collision;
 using Sprint.Interfaces;
+using Sprint.Levels;
 using static Sprint.Characters.Character;
 
 namespace Sprint.Collision

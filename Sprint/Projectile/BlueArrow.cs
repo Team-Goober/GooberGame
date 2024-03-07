@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Commands;
 using Sprint.Interfaces;
+using Sprint.Levels;
 using Sprint.Sprite;
 using System;
 

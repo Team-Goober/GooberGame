@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 
-namespace Sprint
+namespace Sprint.Levels
 {
     internal class Tiles : IGameObject, ICollidable
     {
@@ -14,7 +14,7 @@ namespace Sprint
         {
             this.sprite = sprite;
             this.position = position;
-            bounds = new Rectangle((int)(position.X), (int)(position.Y), (int)(size.X), (int)(size.Y));
+            bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

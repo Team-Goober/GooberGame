@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Sprint.Characters;
 
-namespace Sprint.Level
+namespace Sprint.Levels
 {
     internal class Room
     {
@@ -13,7 +13,7 @@ namespace Sprint.Level
         private List<Item> items;
         private List<Enemy> enemies;
 
-        public Room() 
+        public Room()
         {
             walls = new();
             tiles = new();
@@ -82,7 +82,7 @@ namespace Sprint.Level
             }
         }
 
-        
+
         public void SetBackground(BackgroundTexture background)
         {
             this.background = background;

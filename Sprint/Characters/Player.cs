@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using Sprint.Projectile;
+using Sprint.Levels;
 
 namespace Sprint.Characters
 {
