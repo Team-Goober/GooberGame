@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
@@ -43,6 +44,7 @@ namespace Sprint.Sprite
         public ISprite BuildSprite(string path, string spriteLabel)
         {
             // Try to get data from loaded dictionary
+            Debug.WriteLine("Here " + path + "." + spriteLabel);
             SpriteData data;
             if (!loaded.ContainsKey(path + "." + spriteLabel))
             {

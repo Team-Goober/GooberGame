@@ -4,14 +4,14 @@ using Sprint.Interfaces;
 
 namespace Sprint.Factory.Door
 {
-    internal class Door : IDoor, ICollidable
+    internal class WallDoor: IDoor, ICollidable
     {
         ISprite sprite;
         Vector2 position;
         Rectangle bounds;
         int otherSide;
 
-        public Door(ISprite sprite, Vector2 position, Vector2 size, int otherSide)
+        public WallDoor(ISprite sprite, Vector2 position, Vector2 size, int otherSide)
         {
             this.sprite = sprite;
             this.position = position;
@@ -39,6 +39,5 @@ namespace Sprint.Factory.Door
         {
             return otherSide;
         }
-
     }
 }

@@ -27,7 +27,7 @@ namespace Sprint.Loader
             this.content = newContent;
             this.objectManager = objectManager;
             this.spriteLoader = spriteLoader;
-
+            
             tileFactory = new(spriteLoader);
             doorFactory = new(spriteLoader);
             itemFactory = new();
@@ -50,7 +50,7 @@ namespace Sprint.Loader
                 objectManager.AddRoom(BuildRoomManager(data, i));
             }
 
-            objectManager.SwitchRoom(1);
+            objectManager.SwitchRoom(0);
 
         }
 
@@ -75,13 +75,10 @@ namespace Sprint.Loader
                 rom.Add(ow);
             }
 
-            /*
-            //Load the four door position
             rom.Add(MakeDoor(lvl, rd.TopExit, lvl.TopDoorPos));
             rom.Add(MakeDoor(lvl, rd.BottomExit, lvl.BottomDoorPos));
             rom.Add(MakeDoor(lvl, rd.LeftExit, lvl.LeftDoorPos));
             rom.Add(MakeDoor(lvl, rd.RightExit, lvl.RightDoorPos));
-            */
 
             //Load Floor tile 
             float x = lvl.FloorGridPos.X; float y = lvl.FloorGridPos.Y;
@@ -117,10 +114,11 @@ namespace Sprint.Loader
             return rom;
         }
 
-        public Door MakeDoor(LevelData lvl, ExitData exit, Vector2 position)
+        public IDoor MakeDoor(LevelData lvl, ExitData exit, Vector2 position)
         {
             DoorReference doorRef = lvl.DoorReferences[exit.Door];
-            Door door = doorFactory.MakeDoor(doorRef.Type, lvl.SpriteFile, doorRef.SpriteName, position, lvl.DoorSize);
+            //Parameter list is too long
+            IDoor door = doorFactory.MakeDoor(doorRef.Type, lvl.SpriteFile, doorRef.SpriteName, position, lvl.DoorSize, exit.AdjacentRoom);
             return door;
         }
 

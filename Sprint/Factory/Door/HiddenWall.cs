@@ -1,17 +1,22 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Sprint.Factory.Door
 {
-    internal class Door : IDoor, ICollidable
+    internal class HiddenWall: IDoor, ICollidable
     {
         ISprite sprite;
         Vector2 position;
         Rectangle bounds;
         int otherSide;
 
-        public Door(ISprite sprite, Vector2 position, Vector2 size, int otherSide)
+        public HiddenWall(ISprite sprite, Vector2 position, Vector2 size, int otherSide)
         {
             this.sprite = sprite;
             this.position = position;
@@ -39,6 +44,5 @@ namespace Sprint.Factory.Door
         {
             return otherSide;
         }
-
     }
 }
