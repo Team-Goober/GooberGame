@@ -51,8 +51,8 @@ namespace Sprint.Collision
         /// <param name="element">The collider that was collided into</param>
         public void CheckCollision(IMovingCollidable movingElement, ICollidable element)
         {
-            Rectangle movingElementBoundingBox = movingElement.GetBoundingBox();
-            Rectangle elementBoundingBox = element.GetBoundingBox();
+            Rectangle movingElementBoundingBox = movingElement.BoundingBox;
+            Rectangle elementBoundingBox = element.BoundingBox;
 
             // If bounding boxes intersect, handle it
             if (movingElementBoundingBox.Intersects(elementBoundingBox))
@@ -68,8 +68,8 @@ namespace Sprint.Collision
         /// <param name="element"></param>
         public void FindCollisionType(IMovingCollidable movingElement, ICollidable element)
         {
-            Rectangle movingElementBoundingBox = movingElement.GetBoundingBox();
-            Rectangle elementBoundingBox = element.GetBoundingBox();
+            Rectangle movingElementBoundingBox = movingElement.BoundingBox;
+            Rectangle elementBoundingBox = element.BoundingBox;
 
             // Get Intersection of boxes
             Rectangle intersection = Rectangle.Intersect(movingElementBoundingBox, elementBoundingBox);
