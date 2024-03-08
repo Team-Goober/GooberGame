@@ -31,7 +31,7 @@ namespace Sprint.Loader
             tileFactory = new(spriteLoader);
             doorFactory = new(spriteLoader);
             itemFactory = new();
-            enemyFactory = new();
+            enemyFactory = new(objectManager, spriteLoader);
 
         }
 
@@ -94,7 +94,6 @@ namespace Sprint.Loader
                 y += lvl.TileSize.Y;
             }
 
-            /* 
             //Load enemies
             foreach (EnemySpawnData spawn in rd.Enemies)
             {
@@ -103,6 +102,7 @@ namespace Sprint.Loader
                 rom.Add(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP)));
             }
 
+            /*
             //Load items
             foreach (ItemSpawnData spawn in rd.Items)
             {

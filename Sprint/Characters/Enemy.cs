@@ -9,10 +9,10 @@ namespace Sprint.Characters
         protected ISprite sprite;
         protected Physics physics;
 
-        public Enemy(Goober game, ISprite sprite, Vector2 position)
+        public Enemy(ISprite sprite, Vector2 position)
         {
             this.sprite = sprite;
-            physics = new Physics(game, position);
+            physics = new Physics(position);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)

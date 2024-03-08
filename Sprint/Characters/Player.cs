@@ -41,8 +41,8 @@ namespace Sprint.Characters
         //declares the move systems for the main character sprite
         public Player(Goober game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
+        
             this.objectManager = objManager;    
-            physics = new Physics(game, pos);
 
             //Loads sprite for link
             sprite = spriteLoader.BuildSprite("playerAnims", "player");

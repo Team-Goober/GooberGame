@@ -20,8 +20,8 @@ namespace Sprint.Characters
         private SimpleProjectileFactory itemFactory;
         private Vector2 initialPosition;
 
-        public BluebubbleEnemy(Goober game, ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(game, sprite, initialPosition)
+        public BluebubbleEnemy(ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
+            : base(sprite, initialPosition)
         {
 
             // Store the initial position for reference
@@ -125,19 +125,19 @@ namespace Sprint.Characters
         // Ensure that the enemy always stays within the game bounds
         private void CheckBounds(Vector2 pos, float scale)
         {
-            int gameX = Goober.gameWidth;
-            int gameY = Goober.gameHeight;
+            //int gameX = Goober.gameWidth;
+            //int gameY = Goober.gameHeight;
 
             // Make the enemy go to the other direction when it reaches a certain distance so that it doesn't go over the window
-            if (pos.X + scale > gameX)
-            {
-                moveDirection.X = -moveDirection.X;
-            }
+            //if (pos.X + scale > gameX)
+            //{
+            //    moveDirection.X = -moveDirection.X;
+            //}
 
-            if (pos.Y + scale > gameY)
-            {
-                moveDirection.Y = -moveDirection.Y;
-            }
+            //if (pos.Y + scale > gameY)
+            //{
+            //    moveDirection.Y = -moveDirection.Y;
+            //}
         }
 
         // Generate a random movement direction for BluebubbleEnemy
