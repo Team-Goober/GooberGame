@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using Sprint.Levels;
 
-namespace Sprint.Levels
+namespace Sprint.Factory.Door
 {
     internal class Door : IGameObject, ICollidable
     {
@@ -12,12 +11,19 @@ namespace Sprint.Levels
         Rectangle bounds;
         int otherSide;
 
-        public Door(ISprite sprite, Vector2 position, Vector2 size, int otherSide)
+        public Door()
+        {
+            
+        }
+
+        public Door Load(ISprite sprite, Vector2 position, Vector2 size, int otherSide)
         {
             this.sprite = sprite;
             this.position = position;
             bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
             this.otherSide = otherSide;
+
+            return this;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

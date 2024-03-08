@@ -1,16 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
+using System.Collections.Generic;
 
-namespace Sprint.Levels
+namespace Sprint.Factory.Door
 {
     internal class DoorFactory
     {
         private SpriteLoader spriteLoader;
+        private Dictionary<string, Door> doorType;
 
         public DoorFactory(SpriteLoader spriteLoader)
         {
             this.spriteLoader = spriteLoader;
+            doorType = new Dictionary<string, Door>();
+            doorType.Add("TopOpenDoor", new Door());
         }
 
         /// <summary>
@@ -25,7 +30,12 @@ namespace Sprint.Levels
         {
             // TODO: Implement this function
             // Consider storing doors in file with reflection
-            return null;
+
+            ISprite sprite = spriteLoader.BuildSprite(spriteFile, spriteLabel);
+
+
+
+            return doorType[type].Load(sprite, position, size, 1);
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
+using Sprint.Factory.Door;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;

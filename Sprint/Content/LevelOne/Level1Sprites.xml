@@ -20,7 +20,7 @@
     </Item>
 
     <Item>
-      <Key>roomOneTopDoor</Key>
+      <Key>OpenTopDoor</Key>
       <Value>
         <Texture>LevelOne/roomDoors</Texture>
         <Animations>
@@ -38,7 +38,7 @@
     </Item>
 
     <Item>
-      <Key>roomOneLeftDoor</Key>
+      <Key>OpenLeftDoor</Key>
       <Value>
         <Texture>LevelOne/roomDoors</Texture>
         <Animations>
@@ -56,7 +56,7 @@
     </Item>
 
     <Item>
-      <Key>roomOneRightDoor</Key>
+      <Key>OpenRightDoor</Key>
       <Value>
         <Texture>LevelOne/roomDoors</Texture>
         <Animations>
@@ -74,7 +74,7 @@
     </Item>
 
     <Item>
-      <Key>roomOneDownDoor</Key>
+      <Key>OpenDownDoor</Key>
       <Value>
         <Texture>LevelOne/roomDoors</Texture>
         <Animations>
