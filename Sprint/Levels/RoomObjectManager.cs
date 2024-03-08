@@ -45,12 +45,22 @@ namespace Sprint.Levels
         public void Add(IGameObject gameObject)
         {
             Debug.Assert(!objects.Contains(gameObject), "\nThe object \"" + gameObject + "\" to be added is already in Object Manager!\n");
+            if (addQueue.Contains(gameObject))
+            {
+                // Íf already in added queue, make sure only one add makes it in
+                return;
+            }
             addQueue.Enqueue(gameObject);
         }
 
         public void Remove(IGameObject gameObject)
         {
             Debug.Assert(objects.Contains(gameObject), "\nThe object \"" + gameObject + "\" to be removed is not in Object Manager!\n");
+            if (removeQueue.Contains(gameObject)) 
+            {
+                // Íf already in removed queue, make sure only one remove makes it in
+                return;
+            }
             removeQueue.Enqueue(gameObject);
         }
 

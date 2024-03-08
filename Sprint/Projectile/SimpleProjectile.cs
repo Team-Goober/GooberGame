@@ -16,7 +16,7 @@ namespace Sprint.Projectile
 
         public Rectangle BoundingBox => new((int)(position.X - 4 * 3),
             (int)(position.Y - 4 * 3),
-            8, 8);
+            8*3, 8*3);
 
         public virtual CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PROJECTILE };
 
