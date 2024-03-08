@@ -1,95 +1,435 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:Generic="System.Collections.Generic">
-  <Asset Type="Generic:Dictionary[string,XMLData.SpriteData]">
-    <Item>
-      <Key>rupy</Key>
-      <Value>
-        <Texture>Items/ZeldaSprite5Rupies</Texture>
-        <Animations>
-          <Item>
-            <Key>rupy</Key>
-            <Value Type="XMLData.SingleAtlasData">
-              <Rectangle>0 0 8 16</Rectangle>
-              <CenterPoint>4 8</CenterPoint>
-            </Value>
-          </Item>
-        </Animations>
-        <Scale>4</Scale>
-        <InitialAnimation>rupy</InitialAnimation>
-      </Value>
-    </Item>
-    <Item>
-      <Key>arrow</Key>
-      <Value>
-        <Texture>Items/ZeldaSpriteArrow</Texture>
-        <Animations>
-          <Item>
-            <Key>arrow</Key>
-            <Value Type="XMLData.SingleAtlasData">
-              <Rectangle>0 0 5 16</Rectangle>
-              <CenterPoint>2 8</CenterPoint>
-            </Value>
-          </Item>
-        </Animations>
-        <Scale>4</Scale>
-        <InitialAnimation>arrow</InitialAnimation>
-      </Value>
-    </Item>
-    <Item>
-      <Key>heart</Key>
-      <Value>
-        <Texture>Items/ZeldaSpriteHeartContainer</Texture>
-        <Animations>
-          <Item>
-            <Key>heartCon</Key>
-            <Value Type="XMLData.SingleAtlasData">
-              <Rectangle>0 0 13 13</Rectangle>
-              <CenterPoint>5 5</CenterPoint>
-            </Value>
-          </Item>
-        </Animations>
-        <Scale>4</Scale>
-        <InitialAnimation>heartCon</InitialAnimation>
-      </Value>
-    </Item>
-    <Item>
-      <Key>shield</Key>
-      <Value>
-        <Texture>Items/ZeldaSpriteMagicalShield</Texture>
-        <Animations>
-          <Item>
-            <Key>magicalShield</Key>
-            <Value Type="XMLData.SingleAtlasData">
-              <Rectangle>0 0 8 12</Rectangle>
-              <CenterPoint>4 6</CenterPoint>
-            </Value>
-          </Item>
-        </Animations>
-        <Scale>4</Scale>
-        <InitialAnimation>magicalShield</InitialAnimation>
-      </Value>
-    </Item>
-    <Item>
-      <Key>triforce</Key>
-      <Value>
-        <Texture>Items/Triforce</Texture>
-        <Animations>
-          <Item>
-            <Key>triforce</Key>
-            <Value Type="XMLData.AutoAtlasData">
-              <SheetArea>0 0 24 10</SheetArea>
-              <Rows>1</Rows>
-              <Cols>2</Cols>
-              <Padding>4</Padding>
-              <CenterPoint>5 5</CenterPoint>
-              <Loop>true</Loop>
-              <Framerate>10</Framerate>
-            </Value>
-          </Item>
-        </Animations>
-        <Scale>4</Scale>
-        <InitialAnimation>triforce</InitialAnimation>
-      </Value>
-    </Item>
-  </Asset>
+	<Asset Type="Generic:Dictionary[string,XMLData.SpriteData]">
+		<Item>
+			<Key>rupy</Key>
+			<Value>
+				<Texture>Items/ZeldaSprite5Rupies</Texture>
+				<Animations>
+					<Item>
+						<Key>rupy</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>0 0 8 16</Rectangle>
+							<CenterPoint>4 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>rupy</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>arrow</Key>
+			<Value>
+				<Texture>Items/ZeldaSpriteArrow</Texture>
+				<Animations>
+					<Item>
+						<Key>arrow</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>0 0 5 16</Rectangle>
+							<CenterPoint>2 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>arrow</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>heart</Key>
+			<Value>
+				<Texture>Items/ZeldaSpriteHeartContainer</Texture>
+				<Animations>
+					<Item>
+						<Key>heartCon</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>0 0 13 13</Rectangle>
+							<CenterPoint>5 5</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>heartCon</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>shield</Key>
+			<Value>
+				<Texture>Items/ZeldaSpriteMagicalShield</Texture>
+				<Animations>
+					<Item>
+						<Key>magicalShield</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>0 0 8 12</Rectangle>
+							<CenterPoint>4 6</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>magicalShield</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>triforce</Key>
+			<Value>
+				<Texture>Items/Triforce</Texture>
+				<Animations>
+					<Item>
+						<Key>triforce</Key>
+						<Value Type="XMLData.AutoAtlasData">
+							<SheetArea>0 0 24 10</SheetArea>
+							<Rows>1</Rows>
+							<Cols>2</Cols>
+							<Padding>4</Padding>
+							<CenterPoint>5 5</CenterPoint>
+							<Loop>true</Loop>
+							<Framerate>10</Framerate>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>triforce</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>specialKey</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>specialKey</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>160 80 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>specialKey</InitialAnimation>
+			</Value>
+		</Item>
+		
+		<Item>
+			<Key>clock</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>clock</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>360 1 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>clock</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>bow</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>bow</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>322 0 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>bow</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>ladder</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>ladder</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>320 40 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>ladder</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>fence</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>fence</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>320 80 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>fence</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>blueArrow</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>blueArrow</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>40 120 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>blueArrow</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>fairy</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>fairy</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>123 38 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>fairy</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>blueOrb</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>blueOrb</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>203 4 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>blueOrb</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>blueRing</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>blueRing</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>163 2 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>blueRing</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>redRing</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>redRing</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>123 122 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>redRing</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>blueBoomerang</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>blueBoomerang</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>123 82 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>blueBoomerang</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>boomerang</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>boomerang</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>284 3 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>boomerang</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>blueHeart</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>blueHeart</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>243 123 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>blueHeart</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>blueTorch</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>blueTorch</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>204 80 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>blueTorch</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>sword</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>sword</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>283 120 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>sword</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>citem</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>citem</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>282 80 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>citem</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>shield_red</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>shield_red</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>241 0 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>shield_red</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>potion</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>potion</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>84 0 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>potion</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>cake</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>cake</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>82 42 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>cake</InitialAnimation>
+			</Value>
+		</Item>
+	</Asset>
 </XnaContent>
