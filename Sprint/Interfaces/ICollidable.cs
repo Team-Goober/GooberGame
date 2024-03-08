@@ -5,11 +5,14 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Sprint.Collision;
 
 namespace Sprint.Interfaces
 {
     public interface ICollidable
     {
-        Rectangle GetBoundingBox();
+        public Rectangle BoundingBox { get; }
+
+        public CollisionTypes[] CollisionType { get; }
     }
 }

@@ -4,6 +4,7 @@ using Sprint.Interfaces;
 using Sprint.Sprite;
 using Sprint.Projectile;
 using Sprint.Levels;
+using Sprint.Collision;
 
 namespace Sprint.Characters
 {
@@ -20,6 +21,13 @@ namespace Sprint.Characters
         private ProjectileSystem secondaryItems;
 
         public Directions Facing { get; private set; }
+
+        public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
+                (int) (physics.Position.Y - sideLength / 2.0),
+                sideLength,
+                sideLength);
+
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
 
         private const float speed = 200;
 
@@ -282,16 +290,6 @@ namespace Sprint.Characters
         {
             // teleport player in displacement specified
             physics.SetPosition(physics.Position + distance);
-        }
-
-        // Returns current bounds of player on screen
-        public Rectangle GetBoundingBox()
-        {
-            // compute current rectangle bounds of player in world space
-            return new Rectangle((int)(physics.Position.X - sideLength / 2.0),
-                (int)(physics.Position.Y - sideLength / 2.0),
-                sideLength,
-                sideLength);
         }
 
     }
