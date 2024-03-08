@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-
 namespace Sprint.Interfaces
 {
-    public interface ICollidable
+    internal interface IDoor : IGameObject
     {
-        Rectangle GetBoundingBox();
     }
 }
