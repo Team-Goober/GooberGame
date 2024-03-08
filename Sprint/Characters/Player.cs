@@ -15,7 +15,7 @@ namespace Sprint.Characters
 
         private Physics physics;
 
-        private int sideLength = 4 * 16;
+        private int sideLength = 3 * 16;
 
         private ProjectileSystem secondaryItems;
 

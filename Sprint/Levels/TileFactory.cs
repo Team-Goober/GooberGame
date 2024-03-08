@@ -37,6 +37,10 @@ namespace Sprint.Levels
             {
                 return new WallTile(sprite, position, size);
             }
+            else if (type.Equals("gap"))
+            {
+                return new GapTile(sprite, position, size);
+            }
             else
             {
                 return null;
