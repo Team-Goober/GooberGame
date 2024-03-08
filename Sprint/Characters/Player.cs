@@ -19,6 +19,7 @@ namespace Sprint.Characters
         private int sideLength = 3 * 16;
 
         private ProjectileSystem secondaryItems;
+        private SwordCollision swordCollision;
 
         public Directions Facing { get; private set; }
 
@@ -33,6 +34,7 @@ namespace Sprint.Characters
 
         private Timer attackTimer;
         private Timer damageTimer;
+        private GameObjectManager objectManager;
 
         // TODO: replace this with state machine
         // Animation to return to as base after a played animation ends
@@ -45,10 +47,10 @@ namespace Sprint.Characters
 
 
         //declares the move systems for the main character sprite
-        public Player(Goober game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
+        public Player(Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
-
-            physics = new Physics(game, pos);
+        
+            this.objectManager = objManager;    
 
             //Loads sprite for link
             sprite = spriteLoader.BuildSprite("playerAnims", "player");
@@ -64,6 +66,7 @@ namespace Sprint.Characters
             Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
 
+            physics = new Physics(pos);
 
             // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, spriteLoader);
@@ -72,10 +75,12 @@ namespace Sprint.Characters
         //Melee attack according to direction
         public void Attack()
         {
+            Rectangle swordRec  = new Rectangle();
 
             // Only attack if not already attacking
             if (!attackTimer.Ended)
             {
+                
                 return;
             }
 
@@ -85,23 +90,35 @@ namespace Sprint.Characters
             // Start timer for attack
             attackTimer.Start();
 
+            //Creates animations and bounds for the sword for collision
             switch (Facing)
             {
                 case Directions.RIGHT:
                     sprite.SetAnimation("swordRight");
+                    swordRec = new Rectangle((int)physics.Position.X+12, (int)physics.Position.Y + sideLength/2 - 5,40,12);
                     break;
                 case Directions.LEFT:
                     sprite.SetAnimation("swordLeft");
+                    swordRec = new Rectangle((int)physics.Position.X - 12, (int)physics.Position.Y + sideLength / 2 - 5, 40, 12);
                     break;
                 case Directions.UP:
                     sprite.SetAnimation("swordUp");
+                    swordRec = new Rectangle((int)physics.Position.X + sideLength/2 -5, (int)physics.Position.Y -12,12,40);
                     break;
                 case Directions.DOWN:
                     sprite.SetAnimation("swordDown");
+                    swordRec = new Rectangle((int)physics.Position.X +sideLength /2-5, (int)physics.Position.Y + 12, 12, 40);
                     break;
                 default:
                     break;
             }
+
+            
+            swordCollision = new SwordCollision(swordRec, this);
+            
+            objectManager.Add(swordCollision, false);
+            
+            
         }
 
         //Cast according to direction
@@ -260,6 +277,7 @@ namespace Sprint.Characters
             attackTimer.Update(gameTime);
             if (attackTimer.JustEnded)
             {
+                objectManager.Remove(swordCollision, false);
                 returnToBaseAnim();
             }
 
@@ -291,6 +309,7 @@ namespace Sprint.Characters
             // teleport player in displacement specified
             physics.SetPosition(physics.Position + distance);
         }
+        
 
     }
 }

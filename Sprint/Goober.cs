@@ -82,7 +82,7 @@ namespace Sprint
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
 
-            player = new Player(this, characterLoc, inputTable, objectManager, spriteLoader);
+            player = new Player(characterLoc, inputTable, objectManager, spriteLoader);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
