@@ -6,6 +6,7 @@
     <BackgroundSprite>roomOneExterior</BackgroundSprite>
     <FloorGridPos>128 128</FloorGridPos>
     <TileSize>64 64</TileSize>
+	  
     <TileReferences>
       <Item>
         <Key>0</Key>
@@ -29,62 +30,118 @@
         </Value>
       </Item>
     </TileReferences>
+	  
     <DoorSize>128 128</DoorSize>
     <TopDoorPos>448 0</TopDoorPos>
     <BottomDoorPos>896 288</BottomDoorPos>
     <LeftDoorPos>0 288</LeftDoorPos>
     <RightDoorPos>448 576</RightDoorPos>
+	  
     <DoorReferences>
-      <Item>
-        <Key>open</Key>
+        <Item>
+        <Key>OpenTop</Key>
         <Value>
-          <SpriteName>openDoor</SpriteName>
-          <Type>open</Type>
+            <SpriteName>OpenTopDoor</SpriteName>
+            <Type>open</Type>
         </Value>
-      </Item>
-      <Item>
-        <Key>none</Key>
-        <Value>
-          <SpriteName>noneDoor</SpriteName>
-          <Type>none</Type>
-        </Value>
-      </Item>
+        </Item>
+        <Item>
+	        <Key>OpenLeft</Key>
+	        <Value>
+		        <SpriteName>OpenLeftDoor</SpriteName>
+		        <Type>open</Type>
+	        </Value>
+        </Item>
+		<Item>
+			<Key>OpenRight</Key>
+			<Value>
+				<SpriteName>OpenRightDoor</SpriteName>
+				<Type>open</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>OpenDown</Key>
+			<Value>
+				<SpriteName>OpenDownDoor</SpriteName>
+				<Type>open</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>WallTop</Key>
+			<Value>
+				<SpriteName>WallTopDoor</SpriteName>
+				<Type>wall</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>WallLeft</Key>
+			<Value>
+				<SpriteName>WallLeftDoor</SpriteName>
+				<Type>wall</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>WallRight</Key>
+			<Value>
+				<SpriteName>WallRightDoor</SpriteName>
+				<Type>wall</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>WallDown</Key>
+			<Value>
+				<SpriteName>WallDownDoor</SpriteName>
+				<Type>wall</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>LockTop</Key>
+			<Value>
+				<SpriteName>LockTopDoor</SpriteName>
+				<Type>lock</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>LockLeft</Key>
+			<Value>
+				<SpriteName>LockLeftDoor</SpriteName>
+				<Type>lock</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>LockRight</Key>
+			<Value>
+				<SpriteName>LockRightDoor</SpriteName>
+				<Type>lock</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>LockDown</Key>
+			<Value>
+				<SpriteName>LockDownDoor</SpriteName>
+				<Type>lock</Type>
+			</Value>
+		</Item>
     </DoorReferences>
-    <Rooms>
+	  
+    <Rooms>		
       <Item>
-        <TopExit>
-          <Door>open</Door>
-          <AdjacentRoom>-1</AdjacentRoom>
-        </TopExit>
-        <BottomExit>
-          <Door>none</Door>
-          <AdjacentRoom>0</AdjacentRoom>
-        </BottomExit>
-        <LeftExit>
-          <Door>none</Door>
-          <AdjacentRoom>-1</AdjacentRoom>
-        </LeftExit>
-        <RightExit>
-          <Door>none</Door>
-          <AdjacentRoom>-1</AdjacentRoom>
-        </RightExit>
-        <TileGrid>
-          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-        </TileGrid>
-        <Items />
-        <Enemies />
-      </Item>
-      <Item>
-        <TopExit Null="true" />
-        <BottomExit Null="true" />
-        <LeftExit Null="true" />
-        <RightExit Null="true" />
+		  <TopExit>
+			  <Door>LockTop</Door>
+			  <AdjacentRoom>1</AdjacentRoom>
+		  </TopExit>
+		  <BottomExit>
+			  <Door>LockRight</Door>
+			  <AdjacentRoom>2</AdjacentRoom>
+		  </BottomExit>
+		  <LeftExit>
+			  <Door>LockLeft</Door>
+			  <AdjacentRoom>3</AdjacentRoom>
+		  </LeftExit>
+		  <RightExit>
+			  <Door>LockDown</Door>
+			  <AdjacentRoom>4</AdjacentRoom>
+		  </RightExit>
         <TileGrid>
           <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
           <Item>0 2 2 1 0 0 0 0 0 0 0 0</Item>
@@ -110,5 +167,6 @@
         </Enemies>
       </Item>
     </Rooms>
+	  
   </Asset>
 </XnaContent>
