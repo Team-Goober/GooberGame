@@ -35,6 +35,7 @@
 
 ## Known Bugs
 - On some machines you have to write "dotnet restore" in the terminal to run the game
+- If you launch the game and press 'O' on the keyboard twice the game crashes
 
 ## Extra Tools and Processes Used
 - Adobe Photoshop for frame rotation
