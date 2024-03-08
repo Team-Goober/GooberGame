@@ -71,7 +71,7 @@ namespace Sprint.Characters
             // Only attack if not already attacking
             if (!attackTimer.Ended)
             {
-                objectManager.Remove(swordCollision, false);
+                
                 return;
             }
 
@@ -85,25 +85,25 @@ namespace Sprint.Characters
             {
                 case Directions.RIGHT:
                     sprite.SetAnimation("swordRight");
-                    swordRec = new Rectangle((int)physics.Position.X + 10, (int)physics.Position.Y, sideLength, sideLength);
+                    swordRec = new Rectangle((int)physics.Position.X + 12, (int)physics.Position.Y + sideLength/2 - 5, 40, 12);
                     break;
                 case Directions.LEFT:
                     sprite.SetAnimation("swordLeft");
-                    swordRec = new Rectangle((int)physics.Position.X - 10, (int)physics.Position.Y, sideLength, sideLength);
+                    swordRec = new Rectangle((int)physics.Position.X - 12, (int)physics.Position.Y + sideLength / 2 - 5, 40, 12);
                     break;
                 case Directions.UP:
                     sprite.SetAnimation("swordUp");
-                    swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - 10, sideLength, sideLength);
+                    swordRec = new Rectangle((int)physics.Position.X + sideLength / 2 - 5, (int)physics.Position.Y - 12, 12, 40);
                     break;
                 case Directions.DOWN:
                     sprite.SetAnimation("swordDown");
-                    swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y + 10, sideLength, sideLength);
+                    swordRec = new Rectangle((int)physics.Position.X + sideLength / 2 - 5, (int)physics.Position.Y + 12, 12, 40);
                     break;
                 default:
                     break;
             }
 
-
+            
             swordCollision = new SwordCollision(swordRec, this);
             
             objectManager.Add(swordCollision, false);
@@ -267,6 +267,7 @@ namespace Sprint.Characters
             attackTimer.Update(gameTime);
             if (attackTimer.JustEnded)
             {
+                objectManager.Remove(swordCollision, false);
                 returnToBaseAnim();
             }
 

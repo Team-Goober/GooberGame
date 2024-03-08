@@ -10,6 +10,7 @@ namespace Sprint.Levels
 
         private Rectangle bounds;
         private Player player;
+        private float moveScale = 0.07f;
 
         public SwordCollision(Rectangle boundBox, Player player)
         {
@@ -29,9 +30,11 @@ namespace Sprint.Levels
         }
 
 
+
+
         public void Move(Vector2 distance)
         {
-            player.Move(distance);
+            player.Move(distance * moveScale);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
