@@ -44,11 +44,13 @@ namespace Sprint.Levels
 
         public void Add(IGameObject gameObject)
         {
+            Debug.Assert(!objects.Contains(gameObject), "\nThe object \"" + gameObject + "\" to be added is already in Object Manager!\n");
             addQueue.Enqueue(gameObject);
         }
 
         public void Remove(IGameObject gameObject)
         {
+            Debug.Assert(objects.Contains(gameObject), "\nThe object \"" + gameObject + "\" to be removed is not in Object Manager!\n");
             removeQueue.Enqueue(gameObject);
         }
 
@@ -66,48 +68,36 @@ namespace Sprint.Levels
             {
                 // Adds a new game object to the list
                 IGameObject gameObject = addQueue.Dequeue();
-                if (!objects.Contains(gameObject))
+                Debug.Assert(!objects.Contains(gameObject), "\nThe added object \"" + gameObject + "\" is already in Object Manager!\n");
+                objects.Add(gameObject);
+                // add to collision if needed
+                if (gameObject is IMovingCollidable)
                 {
-                    objects.Add(gameObject);
-                    // add to collision if needed
-                    if (gameObject is IMovingCollidable)
-                    {
-                        IMovingCollidable mc = gameObject as IMovingCollidable;
-                        movingColliders.Add(mc);
-                    }
-                    else if (gameObject is ICollidable)
-                    {
-                        ICollidable c = gameObject as ICollidable;
-                        staticColliders.Add(c);
-                    }
+                    IMovingCollidable mc = gameObject as IMovingCollidable;
+                    movingColliders.Add(mc);
                 }
-                else
-                {   // Error message if object is not found
-                    System.Diagnostics.Debug.WriteLine("\nThe added object \"" + gameObject + "\" is already in Object Manager!\n");
+                else if (gameObject is ICollidable)
+                {
+                    ICollidable c = gameObject as ICollidable;
+                    staticColliders.Add(c);
                 }
             }
             while (removeQueue.Count > 0)
             {
                 // Removes an existing game object from the list
                 IGameObject gameObject = removeQueue.Dequeue();
-                if (objects.Contains(gameObject))
+                Debug.Assert(objects.Contains(gameObject), "\nThe removed object \"" + gameObject + "\" is not in Object Manager!\n");
+                objects.Remove(gameObject);
+                // remove from collision if needed
+                if (gameObject is IMovingCollidable)
                 {
-                    objects.Remove(gameObject);
-                    // remove from collision if needed
-                    if (gameObject is IMovingCollidable)
-                    {
-                        IMovingCollidable mc = gameObject as IMovingCollidable;
-                        movingColliders.Remove(mc);
-                    }
-                    else if (gameObject is ICollidable)
-                    {
-                        ICollidable c = gameObject as ICollidable;
-                        staticColliders.Remove(c);
-                    }
+                    IMovingCollidable mc = gameObject as IMovingCollidable;
+                    movingColliders.Remove(mc);
                 }
-                else
-                {   // Error message if object is not found
-                    System.Diagnostics.Debug.WriteLine("\nThe removed object \"" + gameObject + "\" is not in Object Manager!\n");
+                else if (gameObject is ICollidable)
+                {
+                    ICollidable c = gameObject as ICollidable;
+                    staticColliders.Remove(c);
                 }
 
             }

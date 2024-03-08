@@ -33,6 +33,7 @@ namespace Sprint.Characters
         private const float speed = 200;
 
         private Timer attackTimer;
+        private Timer castTimer;
         private Timer damageTimer;
         private GameObjectManager objectManager;
 
@@ -57,6 +58,7 @@ namespace Sprint.Characters
 
             // Duration of one sword swing or item use
             attackTimer = new Timer(0.5);
+            castTimer = new Timer(0.5);
             // Duration of the damage state
             damageTimer = new Timer(0.3);
 
@@ -89,6 +91,7 @@ namespace Sprint.Characters
 
             // Start timer for attack
             attackTimer.Start();
+            castTimer.Start();
 
             //Creates animations and bounds for the sword for collision
             switch (Facing)
@@ -126,7 +129,7 @@ namespace Sprint.Characters
         {
 
             // Only attack if not already attacking
-            if (!attackTimer.Ended)
+            if (!castTimer.Ended)
             {
                 return;
             }
@@ -135,7 +138,7 @@ namespace Sprint.Characters
             StopMoving();
 
             // Start timer for attack
-            attackTimer.Start();
+            castTimer.Start();
 
             switch (Facing)
             {
@@ -278,6 +281,11 @@ namespace Sprint.Characters
             if (attackTimer.JustEnded)
             {
                 objectManager.Remove(swordCollision, false);
+                returnToBaseAnim();
+            }
+            castTimer.Update(gameTime);
+            if (castTimer.JustEnded)
+            {
                 returnToBaseAnim();
             }
 
