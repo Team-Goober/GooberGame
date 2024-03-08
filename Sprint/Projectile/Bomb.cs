@@ -8,21 +8,12 @@ using Sprint.Levels;
 
 namespace Sprint.Projectile
 {
-    internal class Bomb : IProjectile, IMovingCollidable
+    internal class Bomb : DissipatingProjectile
     {
-        ISprite sprite;
-        Vector2 position;
 
-        Timer countdownTimer;
         Timer explosionTimer;
 
-        GameObjectManager objManager;
-
-        public Rectangle BoundingBox => new((int)(position.X - 4 * 3),
-            (int)(position.Y - 4 * 3),
-            8, 8);
-
-        public CollisionTypes[] CollisionType
+        public override CollisionTypes[] CollisionType
         {
             get
             {
@@ -38,51 +29,41 @@ namespace Sprint.Projectile
             }
         }
 
-        public Bomb(ISprite sprite, Vector2 startPos)
-        {
-            this.position = startPos;
-            
-            this.sprite = sprite;
+        private const int SPEED = 150;
+        private const int TRAVEL = 50;
 
-            countdownTimer = new Timer(1);
+        public Bomb(ISprite sprite, Vector2 startPos, Vector2 direction, GameObjectManager objManager) :
+            base(sprite, startPos, direction, SPEED, TRAVEL, objManager)
+        {
             explosionTimer = new Timer(1);
-
-            countdownTimer.Start();
-
         }
 
-        public void SetObjManagement(GameObjectManager newObjManager)
+        public override void Dissipate()
         {
-            this.objManager = newObjManager;
+            if (explosionTimer.Ended)
+            {
+                sprite.SetAnimation("explosion");
+                explosionTimer.Start();
+                velocity = Vector2.Zero;
+            }
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             // Handle timers for detonation
-            countdownTimer.Update(gameTime);
-            if (countdownTimer.JustEnded)
-            {
-                sprite.SetAnimation("explosion");
-                explosionTimer.Start();
-            }
             explosionTimer.Update(gameTime);
             if (explosionTimer.JustEnded)
             {
                 objManager.Remove(this);
             }
 
-            sprite.Update(gameTime);
+            base.Update(gameTime);
 
-        }
-
-        public void Move(Vector2 distance)
-        {
-            position += distance;
         }
     }
 }

@@ -8,19 +8,16 @@ namespace Sprint.Commands.SecondaryItem
     {
 
         private SimpleProjectileFactory factory;
-        private GameObjectManager objManager;
 
-        public ShootArrowCommand(SimpleProjectileFactory newFactory, GameObjectManager newObjManager)
+        public ShootArrowCommand(SimpleProjectileFactory newFactory)
         {
             this.factory = newFactory;
-            this.objManager = newObjManager;
         }
 
         public void Execute()
         {
             Arrow projectile = factory.CreateArrow();
-            projectile.GetObjManagement(objManager);
-            objManager.Add(projectile);
+            projectile.Create();
         }
     }
 }

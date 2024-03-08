@@ -7,8 +7,10 @@ using Microsoft.Xna.Framework;
 using Sprint.Characters;
 using Sprint.Commands.Collision;
 using Sprint.Factory.Door;
+using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
 using Sprint.Levels;
+using Sprint.Projectile;
 
 
 namespace Sprint.Collision
@@ -38,7 +40,10 @@ namespace Sprint.Collision
             {
                 {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.WALL), pushOut},
                 {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.GAP), pushOut},
-                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.CLOSED_DOOR), pushOut}
+                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.CLOSED_DOOR), pushOut},
+                {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.GAP), pushOut},
+                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(DissipatingProjectile), typeof(Vector2) })}
+
             };
 
         //Made assuming that ICollidable can access the objects native type

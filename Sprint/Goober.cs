@@ -169,10 +169,13 @@ namespace Sprint
             foreach (IGameObject obj in objects)
                 obj.Update(gameTime);
 
+
             objectManager.EndCycle();
 
             collisionDetector.Update(gameTime, objectManager.GetMovers(), objectManager.GetStatics());
-            
+
+            objectManager.EndCycle();
+
             base.Update(gameTime);
         }
 

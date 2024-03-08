@@ -1,31 +1,41 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Collision;
 using Sprint.Interfaces;
+using Sprint.Levels;
 using Sprint.Sprite;
 using System;
 
 namespace Sprint.Projectile
 {
-    internal class Smoke : IProjectile
+    internal class Smoke : SimpleProjectile
     {
-        ISprite sprite;
-        Vector2 position;
 
-        public Smoke(ISprite sprite, Vector2 startPos) 
+        private Timer smokeTimer;
+
+        public override CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PARTICLE };
+
+        public Smoke(ISprite sprite, Vector2 startPos, GameObjectManager objManager) : base(sprite, startPos, objManager)
         {
-            this.position = startPos;
-
-            this.sprite = sprite;
+            smokeTimer = new Timer(0.5);
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Create()
         {
-            sprite.Draw(spriteBatch, position, gameTime);
+            smokeTimer.Start();
+            base.Create();
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            sprite.Update(gameTime);
+            smokeTimer.Update(gameTime);
+
+            base.Update(gameTime);
+
+            if (smokeTimer.JustEnded)
+            {
+                Delete();
+            }
         }
     }
 }

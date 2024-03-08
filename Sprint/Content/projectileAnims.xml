@@ -60,13 +60,13 @@
           <Item>
             <Key>default</Key>
             <Value Type="XMLData.AutoAtlasData">
-              <SheetArea>3 18 54 8</SheetArea>
+              <SheetArea>1 18 56 9</SheetArea>
               <Rows>1</Rows>
               <Cols>4</Cols>
               <Padding>10</Padding>
               <CenterPoint>3 4</CenterPoint>
               <Loop>true</Loop>
-              <Framerate>50</Framerate>
+              <Framerate>18</Framerate>
             </Value>
           </Item>
         </Animations>
@@ -109,7 +109,7 @@
         <Texture>Items/boomerangs</Texture>
         <Animations>
           <Item>
-            <Key>boomarang</Key>
+            <Key>boomerang</Key>
             <Value Type="XMLData.AutoAtlasData">
               <SheetArea>1 2 56 9</SheetArea>
               <Rows>1</Rows>
@@ -122,29 +122,29 @@
           </Item>
         </Animations>
         <Scale>4</Scale>
-        <InitialAnimation>boomarang</InitialAnimation>
+        <InitialAnimation>boomerang</InitialAnimation>
       </Value>
     </Item>
     <Item>
       <Key>fireball</Key>
       <Value>
-        <Texture>Items/boomerangs</Texture>
+        <Texture>Items/FireBall</Texture>
         <Animations>
           <Item>
-            <Key>boomarang</Key>
+            <Key>fireball</Key>
             <Value Type="XMLData.AutoAtlasData">
-              <SheetArea>1 2 56 9</SheetArea>
+              <SheetArea>0 0 33 16</SheetArea>
               <Rows>1</Rows>
-              <Cols>4</Cols>
-              <Padding>10</Padding>
-              <CenterPoint>3 4</CenterPoint>
+              <Cols>2</Cols>
+              <Padding>1</Padding>
+              <CenterPoint>8 8</CenterPoint>
               <Loop>true</Loop>
-              <Framerate>18</Framerate>
+              <Framerate>9</Framerate>
             </Value>
           </Item>
         </Animations>
         <Scale>4</Scale>
-        <InitialAnimation>boomarang</InitialAnimation>
+        <InitialAnimation>fireball</InitialAnimation>
       </Value>
     </Item>
   </Asset>

@@ -15,6 +15,7 @@ namespace Sprint.Collision
         PROJECTILE,
         BOMB,
         EXPLOSION,
+        PARTICLE,
 
         WALL,
         GAP,

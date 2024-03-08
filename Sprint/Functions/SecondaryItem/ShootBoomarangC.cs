@@ -7,18 +7,16 @@ namespace Sprint.Commands.SecondaryItem
     internal class ShootBoomarangC : ICommand
     {
         private SimpleProjectileFactory factory;
-        private GameObjectManager objManager;
 
-        public ShootBoomarangC(SimpleProjectileFactory newFactory, GameObjectManager newObjManager)
+        public ShootBoomarangC(SimpleProjectileFactory newFactory)
         {
             this.factory = newFactory;
-            this.objManager = newObjManager;
         }
 
         public void Execute()
         {
             IProjectile projectile = factory.CreateBoomarang();
-            objManager.Add(projectile);
+            projectile.Create();
         }
     }
 }

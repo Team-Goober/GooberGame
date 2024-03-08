@@ -9,15 +9,15 @@ using Sprint.Levels;
 
 namespace Sprint.Projectile
 {
-    internal class BlueBoomerang : DissipatingProjectile
+    internal class Boomerang : DissipatingProjectile
     {
-        private const int SPEED = 200;
+        private const int SPEED = 400;
         private const int TRAVEL = 600;
         private const int RETURN_TRAVEL = 200;
         private bool returned;
         private PlaceSmoke smoke;
 
-        public BlueBoomerang(ISprite sprite, Vector2 startPos, Vector2 direction, GameObjectManager objManager) :
+        public Boomerang(ISprite sprite, Vector2 startPos, Vector2 direction, GameObjectManager objManager) :
             base(sprite, startPos, direction, SPEED, TRAVEL, objManager)
         {
             returned = false;
