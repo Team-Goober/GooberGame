@@ -23,6 +23,7 @@ namespace Sprint.Collision
         OPEN_DOOR,
         CLOSED_DOOR,
         HIDDEN_DOOR,
+        LOCKED_DOOR,
 
         SWORD,
 

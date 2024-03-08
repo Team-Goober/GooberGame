@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
+using Sprint.Collision;
 
 namespace Sprint.Factory.Door
 {
@@ -10,6 +11,10 @@ namespace Sprint.Factory.Door
         Vector2 position;
         Rectangle bounds;
         int otherSide;
+
+        public Rectangle BoundingBox => bounds;
+
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.CLOSED_DOOR, CollisionTypes.DOOR };
 
         public WallDoor(ISprite sprite, Vector2 position, Vector2 size, int otherSide)
         {

@@ -31,11 +31,13 @@ namespace Sprint.Factory.Door
             switch(type)
             {
                 case "open":
-                    return new Door(sprite, position, size, otherSide);
+                    return new OpenDoor(sprite, position, size, otherSide);
                 case "wall":
                     return new WallDoor(sprite, position, size, otherSide);
                 case "lock":
                     return new LockDoor(sprite, position, size, otherSide);
+                case "hidden":
+                    return new HiddenDoor(sprite, position, size, otherSide);
                 default:
                     break;
             }

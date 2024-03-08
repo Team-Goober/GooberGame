@@ -1,22 +1,46 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Sprint.Collision;
 
 namespace Sprint.Factory.Door
 {
-    internal class Door : IDoor, ICollidable
+    internal class HiddenDoor: IDoor, ICollidable
     {
         ISprite sprite;
         Vector2 position;
         Rectangle bounds;
         int otherSide;
+        bool isOpen;
 
-        public Door(ISprite sprite, Vector2 position, Vector2 size, int otherSide)
+        public Rectangle BoundingBox => bounds;
+
+        public CollisionTypes[] CollisionType {
+            get
+            {
+                if (isOpen)
+                {
+                    return new CollisionTypes[] { CollisionTypes.OPEN_DOOR, CollisionTypes.DOOR };
+                }
+                else
+                {
+                    return new CollisionTypes[] { CollisionTypes.HIDDEN_DOOR, CollisionTypes.CLOSED_DOOR, CollisionTypes.DOOR };
+                }
+            }
+        }
+
+        public HiddenDoor(ISprite sprite, Vector2 position, Vector2 size, int otherSide)
         {
             this.sprite = sprite;
             this.position = position;
             bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
             this.otherSide = otherSide;
+            isOpen = false;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -39,6 +63,5 @@ namespace Sprint.Factory.Door
         {
             return otherSide;
         }
-
     }
 }
