@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using Sprint.Sprite;
 using Sprint.Loader;
 using Sprint.Levels;
+using Sprint.Functions;
 
 namespace Sprint
 {
@@ -38,8 +39,6 @@ namespace Sprint
         private SpriteLoader spriteLoader;
         public static int gameWidth = 1024;
         public static readonly int gameHeight = 700;
-
-        private Level currLevel;
 
         public Goober()
         {
@@ -74,7 +73,7 @@ namespace Sprint
             //tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
 
             LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader);
-            currLevel = loader.LoadXML("LevelOne/Level1");
+            loader.LoadLevelXML("LevelOne/Level1");
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -131,11 +130,11 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
 
+            // Switching rooms
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.B), new NextRoomCommand(objectManager));
 
-
-
-            currLevel.Start();
-            objectManager.Add(player);
+            // Add player as persistent object
+            objectManager.Add(player, true);
         }
 
         //clears input dictionary and object manager

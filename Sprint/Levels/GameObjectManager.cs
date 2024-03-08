@@ -2,113 +2,96 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Sprint.Levels
 {
     public class GameObjectManager
     {
 
-        private List<ICollidable> staticColliders;
-        private List<IMovingCollidable> movingColliders;
-        private List<IGameObject> objects;
-
-        private Queue<IGameObject> removeQueue;
-        private Queue<IGameObject> addQueue;
+        private List<RoomObjectManager> rooms;
+        private RoomObjectManager persistentObjects;
+        private int currentRoom = 0;
 
         public GameObjectManager()
         {
-            objects = new List<IGameObject>();
-            staticColliders = new List<ICollidable>();
-            movingColliders = new List<IMovingCollidable>();
-            removeQueue = new Queue<IGameObject>();
-            addQueue = new Queue<IGameObject>();
+            persistentObjects = new RoomObjectManager();
+            rooms = new List<RoomObjectManager>();
+        }
+
+
+        public RoomObjectManager GetRoomObjManager(bool persistent)
+        {
+            if (persistent)
+            {
+                return persistentObjects;
+            }
+            else
+            {
+                return rooms[currentRoom];
+            }
+        }
+
+        public void AddRoom(RoomObjectManager room)
+        {
+            rooms.Add(room);
+        }
+
+        public void SwitchRoom(int idx)
+        {
+            currentRoom = idx;
+        }
+
+        public int RoomIndex()
+        {
+            return currentRoom;
+        }
+
+        public int NumRooms()
+        {
+            return rooms.Count;
+        }
+
+        public void ClearRooms()
+        {
+            rooms.Clear();
         }
 
         public List<IGameObject> GetObjects()
         {
-            return objects;
+            return GetRoomObjManager(false).GetObjects().Concat(GetRoomObjManager(true).GetObjects()).ToList();
         }
 
         public List<ICollidable> GetStatics()
         {
-            return staticColliders;
+            return GetRoomObjManager(false).GetStatics().Concat(GetRoomObjManager(true).GetStatics()).ToList();
         }
 
         public List<IMovingCollidable> GetMovers()
         {
-            return movingColliders;
+            return GetRoomObjManager(false).GetMovers().Concat(GetRoomObjManager(true).GetMovers()).ToList();
         }
 
-        public void Add(IGameObject gameObject)
+        public void Add(IGameObject gameObject, bool persistent = false)
         {
-            addQueue.Enqueue(gameObject);
+            GetRoomObjManager(persistent).Add(gameObject);
         }
 
-        public void Remove(IGameObject gameObject)
+        public void Remove(IGameObject gameObject, bool persistent = false)
         {
-            removeQueue.Enqueue(gameObject);
+            GetRoomObjManager(persistent).Remove(gameObject);
         }
 
-        // completes all queued changes
+        public void ClearObjects(bool persistent = false)
+        {
+            GetRoomObjManager(persistent).ClearObjects();
+        }
+
         public void EndCycle()
         {
-            while (addQueue.Count > 0)
-            {
-                // Adds a new game object to the list
-                IGameObject gameObject = addQueue.Dequeue();
-                if (!objects.Contains(gameObject))
-                {
-                    objects.Add(gameObject);
-                    // add to collision if needed
-                    if (gameObject is IMovingCollidable)
-                    {
-                        IMovingCollidable mc = gameObject as IMovingCollidable;
-                        movingColliders.Add(mc);
-                    }
-                    else if (gameObject is ICollidable)
-                    {
-                        ICollidable c = gameObject as ICollidable;
-                        staticColliders.Add(c);
-                    }
-                }
-                else
-                {   // Error message if object is not found
-                    System.Diagnostics.Debug.WriteLine("\nThe added object \"" + gameObject + "\" is already in Object Manager!\n");
-                }
-            }
-            while (removeQueue.Count > 0)
-            {
-                // Removes an existing game object from the list
-                IGameObject gameObject = removeQueue.Dequeue();
-                if (objects.Contains(gameObject))
-                {
-                    objects.Remove(gameObject);
-                    // remove from collision if needed
-                    if (gameObject is IMovingCollidable)
-                    {
-                        IMovingCollidable mc = gameObject as IMovingCollidable;
-                        movingColliders.Remove(mc);
-                    }
-                    else if (gameObject is ICollidable)
-                    {
-                        ICollidable c = gameObject as ICollidable;
-                        staticColliders.Remove(c);
-                    }
-                }
-                else
-                {   // Error message if object is not found
-                    System.Diagnostics.Debug.WriteLine("\nThe removed object \"" + gameObject + "\" is not in Object Manager!\n");
-                }
-
-            }
-        }
-
-        // clears all the objects in the array
-        public void ClearObjects()
-        {
-            objects.Clear();
-            staticColliders.Clear();
-            movingColliders.Clear();
+            GetRoomObjManager(false).EndCycle();
+            GetRoomObjManager(true).EndCycle();
         }
 
     }
