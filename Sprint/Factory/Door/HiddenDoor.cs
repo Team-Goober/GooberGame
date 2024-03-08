@@ -11,19 +11,10 @@ using Sprint.Levels;
 
 namespace Sprint.Factory.Door
 {
-    internal class HiddenDoor: IDoor, ICollidable
+    internal class HiddenDoor: Door
     {
-        ISprite sprite;
-        Vector2 position;
-        Rectangle bounds;
-        int otherSide;
-        bool isOpen;
 
-        GameObjectManager objManager;
-
-        public Rectangle BoundingBox => bounds;
-
-        public CollisionTypes[] CollisionType {
+        public override CollisionTypes[] CollisionType {
             get
             {
                 if (isOpen)
@@ -37,41 +28,10 @@ namespace Sprint.Factory.Door
             }
         }
 
-        public HiddenDoor(ISprite sprite, Vector2 position, Vector2 size, int otherSide, GameObjectManager objManager)
+        public HiddenDoor(ISprite sprite, Vector2 position, Vector2 size, Vector2 openSize, int otherSide, GameObjectManager objManager) : 
+            base(sprite, false, position, size, openSize, otherSide, objManager)
         {
-            this.sprite = sprite;
-            this.position = position;
-            bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
-            this.otherSide = otherSide;
-            isOpen = false;
-            this.objManager = objManager;
-        }
 
-        public void SwitchRoom()
-        {
-            if(otherSide >= 0)
-                objManager.SwitchRoom(otherSide);
-        }
-
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            sprite.Draw(spriteBatch, position, gameTime);
-        }
-
-        public Rectangle GetBoundingBox()
-        {
-            return bounds;
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            sprite.Update(gameTime);
-        }
-
-        // Returns index in Level's room array of the Room this leads to
-        public int GetAdjacentRoomIndex()
-        {
-            return otherSide;
         }
     }
 }

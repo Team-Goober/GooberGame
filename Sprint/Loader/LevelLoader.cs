@@ -118,7 +118,7 @@ namespace Sprint.Loader
         {
             DoorReference doorRef = lvl.DoorReferences[exit.Door];
             //Parameter list is too long
-            IDoor door = doorFactory.MakeDoor(doorRef.Type, lvl.SpriteFile, doorRef.SpriteName, position, lvl.DoorSize, exit.AdjacentRoom);
+            IDoor door = doorFactory.MakeDoor(doorRef.Type, lvl.SpriteFile, doorRef.SpriteName, position, lvl.DoorSize, lvl.OpenDoorSize, exit.AdjacentRoom);
             return door;
         }
 

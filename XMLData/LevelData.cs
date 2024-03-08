@@ -17,6 +17,7 @@ namespace XMLData
         public Dictionary<string, TileReference> TileReferences; // Mapping of labels to tile data so rooms can reuse the same tile types
 
         public Vector2 DoorSize; // World dimensions of each door
+        public Vector2 OpenDoorSize; // Size of door collider (trigger for next room) when its open
         public Vector2 TopDoorPos; // Positions of each door in every room
         public Vector2 BottomDoorPos;
         public Vector2 LeftDoorPos;
