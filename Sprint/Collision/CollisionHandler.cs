@@ -4,6 +4,7 @@ using System.Reflection;
 using Microsoft.Xna.Framework;
 using Sprint.Characters;
 using Sprint.Commands.Collision;
+using Sprint.Factory.Door;
 using Sprint.Interfaces;
 using Sprint.Levels;
 
@@ -33,8 +34,11 @@ namespace Sprint.Collision
             {
                 {new TypePairKey(typeof(Player), typeof(WallTile)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
                 {new TypePairKey(typeof(Player), typeof(GapTile)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
-                {new TypePairKey(typeof(Player), typeof(InvisibleWall)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})}
-
+                {new TypePairKey(typeof(Player), typeof(InvisibleWall)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
+                {new TypePairKey(typeof(Player), typeof(Door)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
+                {new TypePairKey(typeof(Player), typeof(WallDoor)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
+                {new TypePairKey(typeof(Player), typeof(LockDoor)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
+                {new TypePairKey(typeof(Player), typeof(HiddenWall)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})}
             };
 
         //Made assuming that ICollidable can access the objects native type
