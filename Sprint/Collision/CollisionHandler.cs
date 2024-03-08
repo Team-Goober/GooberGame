@@ -67,6 +67,16 @@ namespace Sprint.Collision
                 CreateAndRun(commandDictionary[key2], object2, -overlap);
             }
 
+            //if(object1 is SwordCollision collision)
+            //{
+            //    collision.Move(-overlap);
+            //}
+
+            //if (object2 is SwordCollision collisionTwo)
+            //{
+            //    collisionTwo.Move(overlap);
+            //}
+
 
         }
 
