@@ -17,7 +17,8 @@ namespace Sprint.Commands.SecondaryItem
 
         public void Execute()
         {
-            IProjectile projectile = factory.CreateBomb();
+            Bomb projectile = factory.CreateBomb();
+            projectile.SetObjManagement(objManager);
             objManager.Add(projectile);
         }
     }

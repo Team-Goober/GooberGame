@@ -5,10 +5,11 @@ using Sprint.Sprite;
 using Sprint.Commands;
 using System;
 using Sprint.Levels;
+using Sprint.Collision;
 
 namespace Sprint.Projectile
 {
-    internal class FireBall : IProjectile
+    internal class FireBall : IProjectile, IMovingCollidable
     {
         ISprite sprite;
         Vector2 position;
@@ -21,6 +22,12 @@ namespace Sprint.Projectile
         GameObjectManager objManager;
 
         const float speed = 300;
+
+        public Rectangle BoundingBox => new((int)(position.X - 4 * 3),
+            (int)(position.Y - 4 * 3),
+            8, 8);
+
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PROJECTILE };
 
         public FireBall(ISprite sprite, Vector2 startPos, Vector2 newDirection)
         {
@@ -79,6 +86,11 @@ namespace Sprint.Projectile
             }
             
             sprite.Update(gameTime);
+        }
+
+        public void Move(Vector2 distance)
+        {
+            position += distance;
         }
     }
 }

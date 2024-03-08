@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
+using Sprint.Collision;
 
 namespace Sprint.Projectile
 {
-    internal class BlueBoomerang : IProjectile
+    internal class BlueBoomerang : IProjectile, IMovingCollidable
     {
         ISprite sprite;
         Vector2 position;
@@ -16,6 +17,12 @@ namespace Sprint.Projectile
 
         const float speed = 200;
         const float backSpeed = -200;
+
+        public Rectangle BoundingBox => new((int)(position.X - 4 * 3),
+            (int)(position.Y - 4 * 3),
+            8, 8);
+
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PROJECTILE };
 
         public BlueBoomerang(ISprite sprite, Vector2 startPos, Vector2 newDirection)
         {
@@ -58,6 +65,11 @@ namespace Sprint.Projectile
             position += velocity * (float)(gameTime.ElapsedGameTime.TotalSeconds);
 
             sprite.Update(gameTime);
+        }
+
+        public void Move(Vector2 distance)
+        {
+            position += distance;
         }
     }
 }

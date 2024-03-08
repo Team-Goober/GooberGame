@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Collision;
 using Sprint.Commands;
 using Sprint.Interfaces;
 using Sprint.Levels;
@@ -8,7 +9,7 @@ using System;
 
 namespace Sprint.Projectile
 {
-    internal class BlueArrow : IProjectile
+    internal class BlueArrow : IProjectile, IMovingCollidable
     {
         ISprite sprite;
         ISprite smoke;
@@ -22,6 +23,12 @@ namespace Sprint.Projectile
 
         const float speed = 300;
         const float travel = 400;
+
+        public Rectangle BoundingBox => new((int)(position.X - 4 * 3),
+            (int)(position.Y - 4 * 3),
+            8, 8);
+
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PROJECTILE };
 
         public BlueArrow(ISprite sprite, ISprite smoke, Vector2 startPos, Vector2 direction)
         {
@@ -89,6 +96,11 @@ namespace Sprint.Projectile
             }
 
             sprite.Update(gameTime);
+        }
+
+        public void Move(Vector2 distance)
+        {
+            position += distance;
         }
     }
 }

@@ -5,10 +5,11 @@ using Sprint.Sprite;
 using Sprint.Commands;
 using System;
 using Sprint.Levels;
+using Sprint.Collision;
 
 namespace Sprint.Projectile
 {
-    internal class Arrow : IProjectile
+    internal class Arrow : IProjectile, IMovingCollidable
     {
 
         ISprite sprite;
@@ -23,6 +24,12 @@ namespace Sprint.Projectile
 
         const float speed = 300;
         const float travel = 200;
+
+        public Rectangle BoundingBox => new((int)(position.X - 4 * 3),
+            (int)(position.Y - 4 * 3),
+            8, 8);
+
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PROJECTILE };
 
         public Arrow(ISprite sprite, ISprite smoke, Vector2 startPos, Vector2 direction)
         {
@@ -89,6 +96,11 @@ namespace Sprint.Projectile
             }
 
             sprite.Update(gameTime);
+        }
+
+        public void Move(Vector2 distance)
+        {
+            position += distance;
         }
     }
 }
