@@ -13,7 +13,7 @@ namespace Sprint.Functions.SecondaryItem
 
         private DissipatingProjectile receiver;
 
-        public DissipateProjectile(IMovingCollidable receiver, Vector2 overlap)
+        public DissipateProjectile(ICollidable receiver, Vector2 overlap)
         {
             this.receiver = (DissipatingProjectile)receiver;
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
+using Sprint.Levels;
 using Sprint.Sprite;
 
 namespace Sprint.Factory.Door
@@ -7,10 +8,12 @@ namespace Sprint.Factory.Door
     internal class DoorFactory
     {
         private SpriteLoader spriteLoader;
+        private GameObjectManager objManager;
 
-        public DoorFactory(SpriteLoader spriteLoader)
+        public DoorFactory(SpriteLoader spriteLoader, GameObjectManager objManager)
         {
             this.spriteLoader = spriteLoader;
+            this.objManager = objManager;
         }
 
         /// <summary>
@@ -31,13 +34,13 @@ namespace Sprint.Factory.Door
             switch(type)
             {
                 case "open":
-                    return new OpenDoor(sprite, position, size, otherSide);
+                    return new OpenDoor(sprite, position, size, otherSide, objManager);
                 case "wall":
-                    return new WallDoor(sprite, position, size, otherSide);
+                    return new WallDoor(sprite, position, size, otherSide, objManager);
                 case "lock":
-                    return new LockDoor(sprite, position, size, otherSide);
+                    return new LockDoor(sprite, position, size, otherSide, objManager);
                 case "hidden":
-                    return new HiddenDoor(sprite, position, size, otherSide);
+                    return new HiddenDoor(sprite, position, size, otherSide, objManager);
                 default:
                     break;
             }

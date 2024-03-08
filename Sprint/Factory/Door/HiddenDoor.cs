@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sprint.Collision;
+using Sprint.Levels;
 
 namespace Sprint.Factory.Door
 {
@@ -17,6 +18,8 @@ namespace Sprint.Factory.Door
         Rectangle bounds;
         int otherSide;
         bool isOpen;
+
+        GameObjectManager objManager;
 
         public Rectangle BoundingBox => bounds;
 
@@ -34,13 +37,20 @@ namespace Sprint.Factory.Door
             }
         }
 
-        public HiddenDoor(ISprite sprite, Vector2 position, Vector2 size, int otherSide)
+        public HiddenDoor(ISprite sprite, Vector2 position, Vector2 size, int otherSide, GameObjectManager objManager)
         {
             this.sprite = sprite;
             this.position = position;
             bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
             this.otherSide = otherSide;
             isOpen = false;
+            this.objManager = objManager;
+        }
+
+        public void SwitchRoom()
+        {
+            if(otherSide >= 0)
+                objManager.SwitchRoom(otherSide);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

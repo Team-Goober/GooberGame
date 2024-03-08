@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Collision;
+using Sprint.Levels;
 
 namespace Sprint.Factory.Door
 {
@@ -11,18 +12,26 @@ namespace Sprint.Factory.Door
         Vector2 position;
         Rectangle bounds;
         int otherSide;
+        GameObjectManager objManager;
 
         public Rectangle BoundingBox => bounds;
 
         public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.OPEN_DOOR, CollisionTypes.DOOR };
 
 
-        public OpenDoor(ISprite sprite, Vector2 position, Vector2 size, int otherSide)
+        public OpenDoor(ISprite sprite, Vector2 position, Vector2 size, int otherSide, GameObjectManager objManager)
         {
             this.sprite = sprite;
             this.position = position;
             bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
             this.otherSide = otherSide;
+            this.objManager = objManager;
+        }
+
+        public void SwitchRoom()
+        {
+            if (otherSide >= 0)
+                objManager.SwitchRoom(otherSide);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

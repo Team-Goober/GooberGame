@@ -126,22 +126,22 @@
 	  
     <Rooms>		
       <Item>
-		  <TopExit>
-			  <Door>LockTop</Door>
-			  <AdjacentRoom>1</AdjacentRoom>
-		  </TopExit>
-		  <BottomExit>
-			  <Door>LockRight</Door>
-			  <AdjacentRoom>2</AdjacentRoom>
-		  </BottomExit>
-		  <LeftExit>
-			  <Door>LockLeft</Door>
-			  <AdjacentRoom>3</AdjacentRoom>
-		  </LeftExit>
-		  <RightExit>
-			  <Door>LockDown</Door>
-			  <AdjacentRoom>4</AdjacentRoom>
-		  </RightExit>
+				<TopExit>
+					<Door>WallTop</Door>
+					<AdjacentRoom>-1</AdjacentRoom>
+				</TopExit>
+				<BottomExit>
+					<Door>OpenRight</Door>
+					<AdjacentRoom>1</AdjacentRoom>
+				</BottomExit>
+				<LeftExit>
+					<Door>WallLeft</Door>
+					<AdjacentRoom>-1</AdjacentRoom>
+				</LeftExit>
+				<RightExit>
+					<Door>WallDown</Door>
+					<AdjacentRoom>-1</AdjacentRoom>
+				</RightExit>
         <TileGrid>
           <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
           <Item>0 2 2 1 0 0 0 0 0 0 0 0</Item>
@@ -165,6 +165,35 @@
             <Column>3</Column>
           </Item>
         </Enemies>
+      </Item>
+      <Item>
+        <TopExit>
+          <Door>WallTop</Door>
+          <AdjacentRoom>-1</AdjacentRoom>
+        </TopExit>
+        <BottomExit>
+          <Door>WallRight</Door>
+          <AdjacentRoom>-1</AdjacentRoom>
+        </BottomExit>
+        <LeftExit>
+          <Door>OpenLeft</Door>
+          <AdjacentRoom>0</AdjacentRoom>
+        </LeftExit>
+        <RightExit>
+          <Door>WallDown</Door>
+          <AdjacentRoom>-1</AdjacentRoom>
+        </RightExit>
+        <TileGrid>
+          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+          <Item>0 2 2 2 2 2 2 2 2 0 0 0</Item>
+          <Item>0 2 0 0 0 0 0 0 2 0 0 0</Item>
+          <Item>0 0 0 0 1 1 0 0 0 0 0 0</Item>
+          <Item>0 2 0 0 0 0 0 0 2 0 0 0</Item>
+          <Item>0 2 2 2 2 2 2 2 2 0 0 0</Item>
+          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+        </TileGrid>
+        <Items />
+        <Enemies />
       </Item>
     </Rooms>
 	  

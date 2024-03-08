@@ -29,7 +29,7 @@ namespace Sprint.Loader
             this.spriteLoader = spriteLoader;
             
             tileFactory = new(spriteLoader);
-            doorFactory = new(spriteLoader);
+            doorFactory = new(spriteLoader, objectManager);
             itemFactory = new();
             enemyFactory = new();
 
