@@ -34,8 +34,7 @@ namespace Sprint.Collision
                 {new TypePairKey(typeof(Player), typeof(WallTile)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
                 {new TypePairKey(typeof(Player), typeof(GapTile)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
                 {new TypePairKey(typeof(Player), typeof(InvisibleWall)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
-                {new TypePairKey(typeof(SwordCollision), typeof(InvisibleWall)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
-                {new TypePairKey(typeof(SwordCollision), typeof(WallTile)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})}
+
 
             };
 

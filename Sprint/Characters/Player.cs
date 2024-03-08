@@ -81,11 +81,12 @@ namespace Sprint.Characters
             // Start timer for attack
             attackTimer.Start();
 
+            //Creates animations and bounds for the sword for collision
             switch (Facing)
             {
                 case Directions.RIGHT:
                     sprite.SetAnimation("swordRight");
-                    swordRec = new Rectangle((int)physics.Position.X + 12, (int)physics.Position.Y + sideLength/2 - 5, 40, 12);
+                    swordRec = new Rectangle((int)physics.Position.X+12, (int)physics.Position.Y + sideLength/2 - 5,40,12);
                     break;
                 case Directions.LEFT:
                     sprite.SetAnimation("swordLeft");
@@ -93,11 +94,11 @@ namespace Sprint.Characters
                     break;
                 case Directions.UP:
                     sprite.SetAnimation("swordUp");
-                    swordRec = new Rectangle((int)physics.Position.X + sideLength / 2 - 5, (int)physics.Position.Y - 12, 12, 40);
+                    swordRec = new Rectangle((int)physics.Position.X + sideLength/2 -5, (int)physics.Position.Y -12,12,40);
                     break;
                 case Directions.DOWN:
                     sprite.SetAnimation("swordDown");
-                    swordRec = new Rectangle((int)physics.Position.X + sideLength / 2 - 5, (int)physics.Position.Y + 12, 12, 40);
+                    swordRec = new Rectangle((int)physics.Position.X +sideLength /2-5, (int)physics.Position.Y + 12, 12, 40);
                     break;
                 default:
                     break;
