@@ -33,7 +33,9 @@ namespace Sprint.Collision
             {
                 {new TypePairKey(typeof(Player), typeof(WallTile)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
                 {new TypePairKey(typeof(Player), typeof(GapTile)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
-                {new TypePairKey(typeof(Player), typeof(InvisibleWall)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})}
+                {new TypePairKey(typeof(Player), typeof(InvisibleWall)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
+                {new TypePairKey(typeof(SwordCollision), typeof(InvisibleWall)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})},
+                {new TypePairKey(typeof(SwordCollision), typeof(WallTile)), typeof(PushMoverOut).GetConstructor(new Type[] {typeof(IMovingCollidable), typeof(Vector2)})}
 
             };
 
@@ -62,6 +64,16 @@ namespace Sprint.Collision
             {
                 CreateAndRun(commandDictionary[key2], object2, -overlap);
             }
+
+            //if(object1 is SwordCollision collision)
+            //{
+            //    collision.Move(-overlap);
+            //}
+
+            //if (object2 is SwordCollision collisionTwo)
+            //{
+            //    collisionTwo.Move(overlap);
+            //}
 
 
         }
