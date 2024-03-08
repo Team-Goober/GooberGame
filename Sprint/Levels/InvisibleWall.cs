@@ -13,7 +13,6 @@ namespace Sprint.Levels
     {
 
         Rectangle bounds;
-        private const string ANIM_FILE = "tileAnims";
 
         public InvisibleWall(Rectangle bounds)
         {

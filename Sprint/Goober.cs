@@ -38,7 +38,6 @@ namespace Sprint
         private SpriteLoader spriteLoader;
         public static int gameWidth = 1024;
         public static readonly int gameHeight = 700;
-        private InvisibleWall invisibleWall;
 
         private Level currLevel;
 
