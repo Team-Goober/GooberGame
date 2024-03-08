@@ -21,6 +21,13 @@
           <Type>wall</Type>
         </Value>
       </Item>
+      <Item>
+        <Key>2</Key>
+        <Value>
+          <SpriteName>lightTile</SpriteName>
+          <Type>gap</Type>
+        </Value>
+      </Item>
     </TileReferences>
     <DoorSize>128 128</DoorSize>
     <TopDoorPos>448 0</TopDoorPos>
@@ -80,11 +87,11 @@
         <RightExit Null="true" />
         <TileGrid>
           <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-          <Item>0 0 0 1 0 0 0 0 0 0 0 0</Item>
-          <Item>0 0 0 0 0 0 0 0 1 0 0 0</Item>
+          <Item>0 2 2 1 0 0 0 0 0 0 0 0</Item>
+          <Item>0 2 2 0 0 0 0 0 1 0 0 0</Item>
           <Item>0 0 1 0 0 0 0 0 1 1 0 0</Item>
-          <Item>0 0 0 0 0 0 0 0 1 0 0 0</Item>
-          <Item>0 0 0 1 0 0 0 0 0 0 0 0</Item>
+          <Item>0 2 2 0 0 0 0 0 1 0 0 0</Item>
+          <Item>0 2 2 1 0 0 0 0 0 0 0 0</Item>
           <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
         </TileGrid>
         <Items>
