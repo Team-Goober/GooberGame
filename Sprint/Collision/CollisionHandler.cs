@@ -39,11 +39,11 @@ namespace Sprint.Collision
         // TODO: Read this from file
         Dictionary<TypePairKey, ConstructorInfo> commandDictionary = new Dictionary<TypePairKey, ConstructorInfo>()
             {
-                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.WALL), pushOut},
-                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.GAP), pushOut},
-                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.CLOSED_DOOR), pushOut},
+                {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.WALL), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.GAP), pushOut},
+                {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.DOOR), pushOut},
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(ICollidable), typeof(Vector2) })},
+                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(ICollidable), typeof(Vector2) })},
                 {new TypePairKey(CollisionTypes.OPEN_DOOR, CollisionTypes.PLAYER), typeof(SwitchRoomCommand).GetConstructor(new Type[] { typeof(ICollidable), typeof(Vector2) })}
             };
 
