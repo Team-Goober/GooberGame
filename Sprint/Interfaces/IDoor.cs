@@ -2,7 +2,7 @@
 
 namespace Sprint.Interfaces
 {
-    internal interface IDoor : IGameObject
+    internal interface IDoor : IGameObject, ICollidable
     {
 
         public void SwitchRoom();
