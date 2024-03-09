@@ -17,23 +17,18 @@ namespace Sprint.Projectile
         {
             get
             {
-                if (!explosionTimer.Ended)
-                {
-                    return new CollisionTypes[] { CollisionTypes.EXPLOSION, CollisionTypes.PROJECTILE };
-                }
-                else
-                {
-
-                    return new CollisionTypes[] { CollisionTypes.BOMB, CollisionTypes.PROJECTILE };
-                }
+                CollisionTypes[] types = new CollisionTypes[2];
+                types[0] = explosionTimer.Ended ? CollisionTypes.BOMB : CollisionTypes.EXPLOSION;
+                types[1] = isEnemy ? CollisionTypes.ENEMY_PROJECTILE : CollisionTypes.PROJECTILE;
+                return types;
             }
         }
 
         private const int SPEED = 150;
         private const int TRAVEL = 50;
 
-        public Bomb(ISprite sprite, Vector2 startPos, Vector2 direction, GameObjectManager objManager) :
-            base(sprite, startPos, direction, SPEED, TRAVEL, objManager)
+        public Bomb(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, GameObjectManager objManager) :
+            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objManager)
         {
             explosionTimer = new Timer(1);
         }

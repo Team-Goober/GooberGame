@@ -15,7 +15,7 @@ namespace Sprint.Projectile
 
         public override CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PARTICLE };
 
-        public Smoke(ISprite sprite, Vector2 startPos, GameObjectManager objManager) : base(sprite, startPos, objManager)
+        public Smoke(ISprite sprite, Vector2 startPos, GameObjectManager objManager) : base(sprite, startPos, false, objManager)
         {
             smokeTimer = new Timer(0.5);
         }
