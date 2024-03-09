@@ -131,7 +131,8 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
 
             // Switching rooms
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.B), new NextRoomCommand(objectManager));
+            inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Right), new NextRoomCommand(objectManager));
+            inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Left), new PrevRoomCommand(objectManager));
 
             // Add player as persistent object
             objectManager.Add(player, true);
