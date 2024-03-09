@@ -48,20 +48,6 @@ namespace Sprint.Characters
         public override void Update(GameTime gameTime)
         {
 
-            timeAttack.Update(gameTime);
-
-            //uses timer to shoot arrows ever 3 seconds
-            if (timeAttack.JustEnded)
-            {
-                itemFactory.SetStartPosition(physics.Position);
-
-                itemFactory.SetDirection(moveDirection);
-
-                projectileCommand.Execute();
-
-                timeAttack.Start();
-
-            }
 
 
             // Calculate movement based on elapsed time for the random pattern
@@ -93,29 +79,11 @@ namespace Sprint.Characters
             // Move in the current direction
             Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            CheckBounds(newPosition, 3);
 
             physics.SetPosition(newPosition);
         }
 
-        //ensures that the enemy always stays within windows of the game
-        private void CheckBounds(Vector2 pos, float scale)
-        {
-            //int gameX = Goober.gameWidth;
-            //int gameY = Goober.gameHeight;
 
-            //makes the enemy go to the other direction when it reaches a certain distance so that it doesnt go over window
-            //if (pos.X + scale > gameX)
-            //{
-            //    moveDirection.X = -moveDirection.X;
-
-            //}
-
-            //if (pos.Y + scale > gameY)
-            //{
-            //    moveDirection.Y = -moveDirection.Y;
-            //}
-        }
 
         // Generate a random movement direction
         private void RandomizeMoveDirection()
