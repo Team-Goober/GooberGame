@@ -72,7 +72,7 @@ namespace Sprint
             //enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
             //tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
 
-            LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader);
+            LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader, inputTable);
             loader.LoadLevelXML("LevelOne/Level1");
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
@@ -131,7 +131,10 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
 
             // Switching rooms
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.B), new NextRoomCommand(objectManager));
+            inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Right), new NextRoomCommand(objectManager));
+            inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Left), new PrevRoomCommand(objectManager));
+
+
 
             // Add player as persistent object
             objectManager.Add(player, true);
@@ -142,6 +145,7 @@ namespace Sprint
         {
             inputTable.ClearDictionary();
             objectManager.ClearObjects();
+            objectManager.Remove(player, true);
         }
 
 

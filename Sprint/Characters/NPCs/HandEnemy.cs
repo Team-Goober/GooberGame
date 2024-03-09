@@ -6,6 +6,7 @@ using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
+using System.Diagnostics;
 
 
 
@@ -50,6 +51,8 @@ namespace Sprint.Characters
         // Set the current animation for HandEnemy sprite
         public void SetAnimation(string animationLabel)
         {
+            Debug.WriteLine("Break");
+            Debug.WriteLine(animationLabel);
             sprite.SetAnimation(animationLabel);
         }
 
@@ -88,16 +91,12 @@ namespace Sprint.Characters
         private void SetAnimationBasedOnDirection()
         {
 
-            string newAnim = "";
-            if (Math.Abs(moveDirection.X) > Math.Abs(moveDirection.Y))
-            {
+            string newAnim = "leftFacing";
 
-                if (moveDirection.X > 0)
-                    newAnim = "rightFacing";
-                else
-                    newAnim = "leftFacing";
-
-            }
+            if (moveDirection.X > 0)
+                newAnim = "rightFacing";
+            else
+                newAnim = "leftFacing";
 
             if(newAnim != lastAnimationName)
             {
