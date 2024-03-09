@@ -30,7 +30,7 @@ namespace Sprint
         private CycleEnemy enemies;
         private CycleTile tiles;
         private SpriteFont font;
-        private Vector2 characterLoc = new Vector2(400, 500);
+        private Vector2 characterLoc = new Vector2(gameWidth/2, gameHeight/2);
         private bool resetGame = false;
 
         private IInputMap inputTable;

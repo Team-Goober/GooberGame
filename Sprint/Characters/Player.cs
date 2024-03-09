@@ -5,6 +5,7 @@ using Sprint.Sprite;
 using Sprint.Projectile;
 using Sprint.Levels;
 using Sprint.Collision;
+using System.Diagnostics;
 
 namespace Sprint.Characters
 {
@@ -318,6 +319,12 @@ namespace Sprint.Characters
             physics.SetPosition(physics.Position + distance);
         }
         
+        // Moves player to set position
+        // Should be in Characters?
+        public void MoveTo(Vector2 pos)
+        {
+            physics.SetPosition(pos);
+        }
 
     }
 }

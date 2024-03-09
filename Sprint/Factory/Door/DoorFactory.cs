@@ -24,7 +24,7 @@ namespace Sprint.Factory.Door
         /// <param name="spriteLabel">Label for sprite to use</param>
         /// <param name="position">Position in world space for this door</param>
         /// <returns></returns>
-        public IDoor MakeDoor(string type, string spriteFile, string spriteLabel, Vector2 position, Vector2 size, int otherSide)
+        public IDoor MakeDoor(string type, string spriteFile, string spriteLabel, Vector2 position, Vector2 size, Vector2 openSize, Vector2 spawnPosition, int otherSide)
         {
             // TODO: Implement this function
             // Consider storing doors in file with reflection
@@ -34,13 +34,13 @@ namespace Sprint.Factory.Door
             switch(type)
             {
                 case "open":
-                    return new OpenDoor(sprite, position, size, otherSide, objManager);
+                    return new OpenDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager);
                 case "wall":
-                    return new WallDoor(sprite, position, size, otherSide, objManager);
+                    return new WallDoor(sprite, position, size, objManager);
                 case "lock":
-                    return new LockDoor(sprite, position, size, otherSide, objManager);
+                    return new LockDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager);
                 case "hidden":
-                    return new HiddenDoor(sprite, position, size, otherSide, objManager);
+                    return new HiddenDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager);
                 default:
                     break;
             }

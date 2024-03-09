@@ -6,53 +6,14 @@ using Sprint.Levels;
 
 namespace Sprint.Factory.Door
 {
-    internal class WallDoor: IDoor, ICollidable
+    internal class WallDoor: Door
     {
-        ISprite sprite;
-        Vector2 position;
-        Rectangle bounds;
-        int otherSide;
-
-        GameObjectManager objManager;
-
-        public Rectangle BoundingBox => bounds;
-
-        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.CLOSED_DOOR, CollisionTypes.DOOR };
-
-        public WallDoor(ISprite sprite, Vector2 position, Vector2 size, int otherSide, GameObjectManager objManager)
+        
+        public WallDoor(ISprite sprite, Vector2 position, Vector2 size, GameObjectManager objManager) :
+            base(sprite, false, position, size, Vector2.Zero, -1, Vector2.Zero, objManager)
         {
-            this.sprite = sprite;
-            this.position = position;
-            bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
-            this.otherSide = otherSide;
-            this.objManager = objManager;
+
         }
 
-        public void SwitchRoom()
-        {
-            if (otherSide >= 0)
-                objManager.SwitchRoom(otherSide);
-        }
-
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            sprite.Draw(spriteBatch, position, gameTime);
-        }
-
-        public Rectangle GetBoundingBox()
-        {
-            return bounds;
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            sprite.Update(gameTime);
-        }
-
-        // Returns index in Level's room array of the Room this leads to
-        public int GetAdjacentRoomIndex()
-        {
-            return otherSide;
-        }
     }
 }
