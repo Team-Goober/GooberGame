@@ -570,6 +570,184 @@
 				</Item>
 			</Enemies>
 		</Item>
+
+		<!--Row 4 Col 3 Room Index 11-->
+		<!--Item Key-->
+		<Item>
+			<TopExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>7</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>OpenRight</Door>
+				<AdjacentRoom>12</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>OpenLeft</Door>
+				<AdjacentRoom>10</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>OpenDown</Door>
+				<AdjacentRoom>13</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 1 0 0 0 0 0 0 1 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 1 0 0 0 0 0 0 1 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>1</Row>
+					<Column>9</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>2</Row>
+					<Column>8</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>3</Row>
+					<Column>4</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>4</Row>
+					<Column>8</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>5</Row>
+					<Column>9</Column>
+				</Item>
+			</Enemies>
+		</Item>
+
+		<!--Row 4 Col 4 Room Index 12-->
+		<!--Hidden Wall Top. Missing an Item-->
+		<Item>
+			<TopExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>8</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>WallRight</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>OpenLeft</Door>
+				<AdjacentRoom>11</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>WallDown</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 1 0 0 0 0 0 0 1 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 1 0 0 0 0 0 0 1 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>bat</Type>
+					<Row>1</Row>
+					<Column>4</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>7</Row>
+					<Column>4</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>5</Row>
+					<Column>7</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>5</Row>
+					<Column>9</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>3</Row>
+					<Column>9</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>2</Row>
+					<Column>10</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>4</Row>
+					<Column>12</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>6</Row>
+					<Column>11</Column>
+				</Item>
+			</Enemies>
+		</Item>
+
+		<!--Row 5 Col 3 Room Index 13-->
+		<Item>
+			<TopExit>
+				<Door>OpenTop</Door>
+				<AdjacentRoom>11</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>WallRight</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>WallLeft</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>LockDown</Door>
+				<AdjacentRoom>15</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 1 1 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 1 1 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 1 1 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>3</Row>
+					<Column>5</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>5</Row>
+					<Column>4</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>5</Row>
+					<Column>8</Column>
+				</Item>
+			</Enemies>
+		</Item>
     </Rooms>
   </Asset>
 </XnaContent>
