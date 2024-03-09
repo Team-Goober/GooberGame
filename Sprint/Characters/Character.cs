@@ -11,6 +11,7 @@ namespace Sprint.Characters
 
         public abstract void Update(GameTime gameTime);
 
+        public abstract void Die();
 
         public enum Directions
         {

@@ -4,6 +4,7 @@ using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;
 using System;
+using System.Runtime.Serialization;
 
 namespace Sprint.Characters
 {
@@ -13,7 +14,7 @@ namespace Sprint.Characters
         private Vector2 initialPosition;
 
         public JellyfishEnemy(ISprite sprite, Vector2 initialPosition, GameObjectManager objManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition)
+            : base(sprite, initialPosition, objManager)
         {
 
             // Store the initial position for reference
