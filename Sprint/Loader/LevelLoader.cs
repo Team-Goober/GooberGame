@@ -38,7 +38,7 @@ namespace Sprint.Loader
             
             tileFactory = new(spriteLoader);
             doorFactory = new(spriteLoader, objectManager);
-            itemFactory = new();
+            itemFactory = new(spriteLoader);
             enemyFactory = new(objectManager, spriteLoader);
 
         }
@@ -137,20 +137,20 @@ namespace Sprint.Loader
             //Load enemies
             foreach (EnemySpawnData spawn in rd.Enemies)
             {
-                float xP = lvl.FloorGridPos.X + spawn.Column * lvl.TileSize.X;
-                float yP = lvl.FloorGridPos.Y + spawn.Row * lvl.TileSize.Y;
+                float xP = lvl.FloorGridPos.X + (spawn.Column + 0.5f) * lvl.TileSize.X;
+                float yP = lvl.FloorGridPos.Y + (spawn.Row + 0.5f) * lvl.TileSize.Y;
                 rom.Add(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP)));
             }
 
-            /*
+
             //Load items
             foreach (ItemSpawnData spawn in rd.Items)
             {
-                float xP = lvl.FloorGridPos.X + spawn.Column * lvl.TileSize.X;
-                float yP = lvl.FloorGridPos.Y + spawn.Row * lvl.TileSize.Y;
+                float xP = lvl.FloorGridPos.X + (spawn.Column + 0.5f) * lvl.TileSize.X;
+                float yP = lvl.FloorGridPos.Y + (spawn.Row + 0.5f) * lvl.TileSize.Y;
                 rom.Add(itemFactory.MakeItem(spawn.Type, new System.Numerics.Vector2(xP, yP)));
             }
-            */
+
             return rom;
         }
 
