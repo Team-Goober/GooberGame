@@ -431,5 +431,47 @@
 				<InitialAnimation>cake</InitialAnimation>
 			</Value>
 		</Item>
+
+		<Item>
+			<Key>fireball</Key>
+			<Value>
+				<Texture>Items/FireBall</Texture>
+				<Animations>
+					<Item>
+						<Key>fireball</Key>
+						<Value Type="XMLData.AutoAtlasData">
+							<SheetArea>0 0 33 16</SheetArea>
+							<Rows>1</Rows>
+							<Cols>2</Cols>
+							<Padding>1</Padding>
+							<CenterPoint>8 8</CenterPoint>
+							<Loop>true</Loop>
+							<Framerate>9</Framerate>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>fireball</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>oldmanText</Key>
+			<Value>
+				<Texture>LevelOne/RoomOne/Text</Texture>
+				<Animations>
+					<Item>
+						<Key>oldmanText</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>0 0 1164 150</Rectangle>
+							<CenterPoint>582 75</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>0.5</Scale>
+				<InitialAnimation>oldmanText</InitialAnimation>
+			</Value>
+		</Item>
+		
 	</Asset>
 </XnaContent>
