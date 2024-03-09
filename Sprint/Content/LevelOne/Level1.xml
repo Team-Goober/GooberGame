@@ -265,23 +265,23 @@
 			<Enemies>
 				<Item>
 					<Type>spike</Type>
-					<Row>1</Row>
+					<Row>0</Row>
 					<Column>1</Column>
 				</Item>
 				<Item>
 					<Type>spike</Type>
-					<Row>1</Row>
-					<Column>12</Column>
+					<Row>0</Row>
+					<Column>11</Column>
 				</Item>
 				<Item>
 					<Type>spike</Type>
-					<Row>7</Row>
+					<Row>6</Row>
 					<Column>1</Column>
 				</Item>
 				<Item>
 					<Type>spike</Type>
-					<Row>7</Row>
-					<Column>12</Column>
+					<Row>6</Row>
+					<Column>11</Column>
 				</Item>
 			</Enemies>
 	</Item>
@@ -314,7 +314,13 @@
 				<Item>0 2 2 2 0 0 0 0 2 2 2 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
-			<Items />
+			<Items>
+				<Item>
+					<Type>key</Type>
+					<Row>2</Row>
+					<Column>7</Column>
+				</Item>
+			</Items>
 			<Enemies>
 				<Item>
 					<Type>dog</Type>
@@ -457,14 +463,13 @@
 				<Item>
 					<Type>triforce</Type>
 					<Row>3</Row>
-					<Column>10</Column>
+					<Column>6</Column>
 				</Item>
 			</Items>
 			<Enemies/>
 		</Item>
 
 		<!--Row 3 Col 1 Room Index 5-->
-		<!--Need NPC, Static FireBall, and Text-->
 		<Item>
 			<TopExit>
 				<Door>WallTop</Door>
@@ -593,7 +598,13 @@
 				<Item>0 1 1 0 0 0 0 0 0 1 1 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
-			<Items/>
+			<Items>
+				<Item>
+					<Type>paper</Type>
+					<Row>3</Row>
+					<Column>10</Column>
+				</Item>
+			</Items>
 			<Enemies>
 				<Item>
 					<Type>slime</Type>
@@ -651,7 +662,13 @@
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
-			<Items/>
+			<Items>
+				<Item>
+					<Type>boomerang</Type>
+					<Row>1</Row>
+					<Column>6</Column>
+				</Item>
+			</Items>
 			<Enemies>
 				<Item>
 					<Type>dog</Type>
@@ -699,7 +716,13 @@
 				<Item>0 1 0 1 0 1 1 0 1 0 1 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
-			<Items/>
+			<Items>
+				<Item>
+					<Type>key</Type>
+					<Row>6</Row>
+					<Column>8</Column>
+				</Item>
+			</Items>
 			<Enemies>
 				<Item>
 					<Type>hand</Type>
@@ -804,7 +827,13 @@
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
-			<Items/>
+			<Items>
+				<Item>
+					<Type>key</Type>
+					<Row>1</Row>
+					<Column>6</Column>
+				</Item>
+			</Items>
 			<Enemies>
 				<Item>
 					<Type>skeleton</Type>
@@ -862,7 +891,13 @@
 				<Item>0 0 1 0 0 0 0 0 0 1 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
-			<Items/>
+			<Items>
+				<Item>
+					<Type>compass</Type>
+					<Row>3</Row>
+					<Column>10</Column>
+				</Item>
+			</Items>
 			<Enemies>
 				<Item>
 					<Type>bat</Type>
@@ -984,9 +1019,9 @@
 			</TileGrid>
 			<Items>
 				<Item>
-					<Type>specialKey</Type>
+					<Type>key</Type>
 					<Row>6</Row>
-					<Column>1</Column>
+					<Column>8</Column>
 				</Item>
 			</Items>
 			<Enemies>
