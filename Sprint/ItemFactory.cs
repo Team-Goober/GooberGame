@@ -19,7 +19,7 @@ namespace Sprint.Characters
                 { "arrow", ItemType.Arrow },
                 { "heart", ItemType.Heart },
                 { "specialKey", ItemType.SpecialKey },
-                { "rupee", ItemType.Rupee },
+                { "rupy", ItemType.Rupee },
                 { "triforce", ItemType.Triforce },
                 { "shield", ItemType.Shield },
                 { "clock", ItemType.Clock },
@@ -40,6 +40,8 @@ namespace Sprint.Characters
                 { "shieldRed", ItemType.ShieldRed },
                 { "potion", ItemType.Potion },
                 { "cake", ItemType.Cake },
+                { "fireball", ItemType.FireBall },
+                { "oldmanText", ItemType.OldmManText }
             };
         }
 

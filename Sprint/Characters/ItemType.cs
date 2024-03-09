@@ -25,5 +25,7 @@ public enum ItemType
     Citem,
     ShieldRed,
     Potion,
-    Cake
+    Cake,
+    FireBall,
+    OldmManText
 }
