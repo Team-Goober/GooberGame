@@ -50,7 +50,8 @@ namespace Sprint.Loader
                 objectManager.AddRoom(BuildRoomManager(data, i));
             }
 
-            objectManager.SwitchRoom(data.BottomSpawnPos, 0);
+            // TODO: replace this with loaded value from file
+            objectManager.SwitchRoom(data.BottomSpawnPos, 15);
 
         }
 

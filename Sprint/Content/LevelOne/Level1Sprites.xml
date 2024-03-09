@@ -315,6 +315,96 @@
         <Scale>4</Scale>
         <InitialAnimation>tile</InitialAnimation>
       </Value>
+		
     </Item>
+	  <Item>
+		  <Key>stairTile</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>tile</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>51 17 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>tile</InitialAnimation>
+		  </Value>
+	  </Item>
+	  
+	  <Item>
+		  <Key>fishStatue</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>tile</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>34 0 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>tile</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>dragStatue</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>tile</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>51 0 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>tile</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>blackTile</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>tile</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>0 17 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>tile</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>spotTile</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>tile</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>17 17 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>tile</InitialAnimation>
+		  </Value>
+	  </Item>
   </Asset>
 </XnaContent>
