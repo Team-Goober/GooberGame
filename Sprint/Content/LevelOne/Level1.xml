@@ -432,7 +432,7 @@
 		<Item>
 			<TopExit>
 				<Door>OpenTop</Door>
-				<AdjacentRoom>3</AdjacentRoom>
+				<AdjacentRoom>2</AdjacentRoom>
 			</TopExit>
 			<BottomExit>
         <Door>WallDown</Door>
@@ -444,7 +444,7 @@
       </LeftExit>
       <RightExit>
         <Door>LockRight</Door>
-        <AdjacentRoom>5</AdjacentRoom>
+        <AdjacentRoom>8</AdjacentRoom>
 			</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -472,7 +472,7 @@
       </BottomExit>
       <LeftExit>
         <Door>LockLeft</Door>
-        <AdjacentRoom>-1</AdjacentRoom>
+        <AdjacentRoom>7</AdjacentRoom>
       </LeftExit>
       <RightExit>
         <Door>OpenRight</Door>
@@ -536,11 +536,11 @@
       </BottomExit>
       <LeftExit>
         <Door>WallLeft</Door>
-        <AdjacentRoom>11</AdjacentRoom>
+        <AdjacentRoom>-1</AdjacentRoom>
       </LeftExit>
       <RightExit>
         <Door>LockRight</Door>
-        <AdjacentRoom>-1</AdjacentRoom>
+        <AdjacentRoom>11</AdjacentRoom>
 			</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
