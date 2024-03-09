@@ -77,7 +77,7 @@ namespace Sprint.Factory.Door
             return otherSide;
         }
 
-        public void SetOpen(bool open)
+        public virtual void SetOpen(bool open)
         {
             isOpen = open;
             if (isOpen)
@@ -86,7 +86,7 @@ namespace Sprint.Factory.Door
             }
             else
             {
-                sprite.SetAnimation("closed");
+                sprite.SetAnimation("close");
             }
         }
     }
