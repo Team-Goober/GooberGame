@@ -23,18 +23,22 @@
 - Dead Code
 - Data Clumps
 - Long Parameter List
-- Inappropriate Intamacy
+- Inappropriate Intamacy, and Variable Naming
+- Missing Method Headers
 - Temporary Field
 - Large Class
 - Large Method
 - Excessive or Unclear Comments
+- File Organization
 
 ## Known Bugs
--Dragon is having collision issues
--Spike flys off the map
+- On some machines you have to write "dotnet restore" in the terminal to run the game
+- Dragon is having collision issues
+- Spike flys off the map
 
 
 ## Extra Tools and Processes Used
-- Photoshop for frame rotation
-- MS Paint for sprites
+- Adobe Photoshop for frame rotation
+- Tiled website for assisted tile building
+- MS Paint for spritess
 
