@@ -51,8 +51,6 @@ namespace Sprint.Characters
         // Set the current animation for HandEnemy sprite
         public void SetAnimation(string animationLabel)
         {
-            Debug.WriteLine("Break");
-            Debug.WriteLine(animationLabel);
             sprite.SetAnimation(animationLabel);
         }
 

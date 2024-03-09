@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Collision;
 using Sprint.Levels;
+using System.Diagnostics;
 
 namespace Sprint.Factory.Door
 {
@@ -17,7 +18,8 @@ namespace Sprint.Factory.Door
 
         public override void SetOpen(bool open)
         {
-            // can't open this door
+            Debug.Assert(!open); // cant close this door
+            isOpen = false;
         }
 
     }

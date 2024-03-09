@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
 using Sprint.Factory.Door;
 using Sprint.Functions;
+using Sprint.Functions.RoomTransition;
 using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
