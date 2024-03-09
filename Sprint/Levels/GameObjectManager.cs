@@ -41,9 +41,6 @@ namespace Sprint.Levels
 
         public void SwitchRoom(Vector2 spawn, int idx)
         {
-            //TODO: REMOVE THIS!!! only here as workaround until collision commands take both objects
-            if(persistentObjects.GetMovers().Count > 0)
-                ((Player)persistentObjects.GetMovers()[0]).MoveTo(spawn);
             currentRoom = idx;
         }
 
