@@ -275,5 +275,24 @@
 			  <InitialAnimation>moving</InitialAnimation>
 		  </Value>
 	  </Item>
+	  
+	  <!--NPC-->
+	  <Item>
+		  <Key>oldMan</Key>
+		  <Value>
+			  <Texture>oldMan</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>static</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>0 0 16 16</Rectangle>
+						  <CenterPoint>8 8</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>static</InitialAnimation>
+		  </Value>
+	  </Item>
   </Asset>
 </XnaContent>
