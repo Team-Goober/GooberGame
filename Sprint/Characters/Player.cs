@@ -339,8 +339,11 @@ namespace Sprint.Characters
         public void PickupItem(Item item)
         {
             ItemType itemType = item.GetItemType();
-            inventory.PickupItem(itemType);
-            objectManager.Remove(item);
+            if(item.GetColliable())
+            {
+                inventory.PickupItem(itemType);
+                objectManager.Remove(item);
+            }
         }
 
         /// <summary>

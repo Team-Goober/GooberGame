@@ -470,11 +470,27 @@
 				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
 				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
 			</TileGrid>
-			<Items/>
+			<Items>
+				<Item>
+					<Type>oldmanText</Type>
+					<Row>1</Row>
+					<Column>5</Column>
+				</Item>
+				<Item>
+					<Type>fireball</Type>
+					<Row>3</Row>
+					<Column>3</Column>
+				</Item>
+				<Item>
+					<Type>fireball</Type>
+					<Row>3</Row>
+					<Column>7</Column>
+				</Item>
+			</Items>
 			<Enemies>
 				<Item>
 					<Type>oldman</Type>
-					<Row>2</Row>
+					<Row>3</Row>
 					<Column>5</Column>
 				</Item>
 			</Enemies>

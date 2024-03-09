@@ -289,7 +289,7 @@
 						  <Rows>1</Rows>
 						  <Cols>1</Cols>
 						  <Padding>0</Padding>
-						  <CenterPoint>0 0</CenterPoint>
+						  <CenterPoint>8 8</CenterPoint>
 						  <Loop>true</Loop>
 						  <Framerate>10</Framerate>
 					  </Value>
