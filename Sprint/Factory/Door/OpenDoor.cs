@@ -14,6 +14,9 @@ namespace Sprint.Factory.Door
         {
 
         }
-
+        public override void SetOpen(bool open)
+        {
+            // can't close this door
+        }
     }
 }

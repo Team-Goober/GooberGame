@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Sprint.Factory.Door
 {
-    internal abstract class Door: IDoor, ICollidable
+    internal abstract class Door: IDoor
     {
         protected ISprite sprite;
         protected Vector2 position;
@@ -77,7 +77,7 @@ namespace Sprint.Factory.Door
             return otherSide;
         }
 
-        public void SetOpen(bool open)
+        public virtual void SetOpen(bool open)
         {
             isOpen = open;
             if (isOpen)
@@ -86,7 +86,7 @@ namespace Sprint.Factory.Door
             }
             else
             {
-                sprite.SetAnimation("closed");
+                sprite.SetAnimation("close");
             }
         }
     }
