@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Collision;
 using Sprint.Interfaces;
+using Sprint.Levels;
+using System.Runtime.Serialization;
 
 namespace Sprint.Characters
 {
@@ -9,11 +11,13 @@ namespace Sprint.Characters
     {
         protected ISprite sprite;
         protected Physics physics;
+        GameObjectManager objManager;
 
-        public Enemy(ISprite sprite, Vector2 position)
+        public Enemy(ISprite sprite, Vector2 position, GameObjectManager objManager)
         {
             this.sprite = sprite;
             physics = new Physics(position);
+            this.objManager = objManager;
         }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
@@ -37,6 +41,12 @@ namespace Sprint.Characters
         {
             physics.Update(gameTime);
             sprite.Update(gameTime);
+        }
+
+        // Remove enemy from game
+        public override void Die()
+        {
+            objManager.Remove(this);
         }
     }
 }

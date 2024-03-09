@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Sprint.Projectile;
 using System.Diagnostics;
-using static Sprint.Characters.Character;
 
 namespace Sprint.Functions.SecondaryItem
 {

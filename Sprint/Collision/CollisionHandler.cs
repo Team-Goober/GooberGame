@@ -8,6 +8,7 @@ using Sprint.Characters;
 using Sprint.Factory.Door;
 using Sprint.Functions;
 using Sprint.Functions.Collision;
+using Sprint.Functions.RoomTransition;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
 using Sprint.Levels;
@@ -33,7 +34,8 @@ namespace Sprint.Collision
 
         }
 
-        static ConstructorInfo pushOut = typeof(PushMoverOut).GetConstructor(new Type[] { typeof(ICollidable), typeof(ICollidable), typeof(Vector2) });
+        static Type[] constructorParams = new Type[] { typeof(ICollidable), typeof(ICollidable), typeof(Vector2) };
+        static ConstructorInfo pushOut = typeof(PushMoverOut).GetConstructor( constructorParams );
 
         // Dictionary mapping two collider types, where the first one is passed as a receiver to the command value
         // TODO: Read this from file
@@ -42,10 +44,21 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.WALL), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.GAP), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.DOOR), pushOut},
-                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(ICollidable),typeof(ICollidable),  typeof(Vector2) })},
-                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(ICollidable),typeof(ICollidable), typeof(Vector2) })},
-                {new TypePairKey(CollisionTypes.OPEN_DOOR, CollisionTypes.PLAYER), typeof(SwitchRoomCommand).GetConstructor(new Type[] { typeof(ICollidable),typeof(ICollidable), typeof(Vector2) })},
-                {new TypePairKey(CollisionTypes.PLAYER,CollisionTypes.ITEM), typeof(PickUpItem).GetConstructor(new Type[] { typeof(ICollidable), typeof(ICollidable), typeof(Vector2)})}
+                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
+
+                {new TypePairKey(CollisionTypes.OPEN_DOOR, CollisionTypes.PLAYER), typeof(SwitchRoomCommand).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.HIDDEN_DOOR, CollisionTypes.EXPLOSION), typeof(OpenDoorCommand).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.PLAYER,CollisionTypes.LOCKED_DOOR), typeof(OpenLockedDoorCommand).GetConstructor(constructorParams)},
+
+                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ITEM), typeof(PickUpItem).GetConstructor( constructorParams ) },
+
+                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.SWORD), typeof(KillCommand).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY_PROJECTILE), typeof(KillCommand).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY), typeof(KillCommand).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(KillCommand).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.ENEMY), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.PLAYER), typeof(DissipateProjectile).GetConstructor( constructorParams ) }
             };
 
         //Made assuming that ICollidable can access the objects native type
@@ -82,7 +95,7 @@ namespace Sprint.Collision
             {
                 for (int j = 0; j < effector.CollisionType.Length; j++)
                 {
-                    TypePairKey key = new TypePairKey(receiver.CollisionType[i], effector.CollisionType[j]);
+                    CollisionHandler.TypePairKey key = new CollisionHandler.TypePairKey(receiver.CollisionType[i], effector.CollisionType[j]);
                     // test if key exists
                     if (commandDictionary.ContainsKey(key))
                     {
@@ -107,7 +120,7 @@ namespace Sprint.Collision
             }
 
             // The first item in the array should have the lowest i and therefore be most precise
-            TypePairKey preciseKey = new TypePairKey(receiver.CollisionType[possibleInteractions[0][0]], effector.CollisionType[possibleInteractions[0][1]]);
+            CollisionHandler.TypePairKey preciseKey = new CollisionHandler.TypePairKey(receiver.CollisionType[possibleInteractions[0][0]], effector.CollisionType[possibleInteractions[0][1]]);
 
             CreateAndRun(commandDictionary[preciseKey], receiver, effector, overlap);
 
@@ -126,6 +139,5 @@ namespace Sprint.Collision
             ICommand c = commandConstructor.Invoke(new object[] { receiver, effector, overlap }) as ICommand;
             c.Execute();
         }
-
     }
 }

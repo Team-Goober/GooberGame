@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Characters;
 using Sprint.Collision;
 using Sprint.Interfaces;
+using System;
 
 namespace Sprint.Levels
 {
@@ -13,9 +14,15 @@ namespace Sprint.Levels
         Vector2 position;
         private Rectangle bounds;
         private ItemType itemType;
+        private bool isColliable;
 
         public Item(ISprite sprite, Vector2 position, ItemType itemType)
         {
+            this.isColliable = true;
+            if(itemType == ItemType.FireBall || itemType == ItemType.OldmManText)
+            {
+                this.isColliable = false;
+            }
             this.itemType = itemType;
             this.sprite = sprite;
             this.position = position;
@@ -33,6 +40,12 @@ namespace Sprint.Levels
                 }
             }
         }
+
+        public bool GetColliable()
+        {
+            return this.isColliable;
+        }
+
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
