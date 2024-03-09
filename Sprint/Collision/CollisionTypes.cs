@@ -13,6 +13,7 @@ namespace Sprint.Collision
         ENEMY,
 
         PROJECTILE,
+        ENEMY_PROJECTILE,
         BOMB,
         EXPLOSION,
         PARTICLE,

@@ -31,7 +31,7 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, objectManager);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
 
             projectileCommand = new ShootBombC(itemFactory);
 

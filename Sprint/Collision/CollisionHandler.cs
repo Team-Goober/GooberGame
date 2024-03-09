@@ -46,12 +46,19 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.DOOR), pushOut},
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
+
                 {new TypePairKey(CollisionTypes.OPEN_DOOR, CollisionTypes.PLAYER), typeof(SwitchRoomCommand).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.HIDDEN_DOOR, CollisionTypes.EXPLOSION), typeof(OpenDoorCommand).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.PLAYER,CollisionTypes.LOCKED_DOOR), typeof(OpenLockedDoorCommand).GetConstructor(constructorParams)},
+
                 {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ITEM), typeof(PickUpItem).GetConstructor( constructorParams ) },
+
                 {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.SWORD), typeof(KillCommand).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.PROJECTILE), typeof(KillCommand).GetConstructor( constructorParams ) }
-                {new TypePairKey(CollisionTypes.PLAYER,CollisionTypes.LOCKED_DOOR), typeof(OpenLockedDoorCommand).GetConstructor(constructorParams)}
+                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY_PROJECTILE), typeof(KillCommand).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY), typeof(KillCommand).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(KillCommand).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.ENEMY), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.PLAYER), typeof(DissipateProjectile).GetConstructor( constructorParams ) }
             };
 
         //Made assuming that ICollidable can access the objects native type

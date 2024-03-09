@@ -46,7 +46,7 @@ namespace Sprint.Characters
         // Remove enemy from game
         public override void Die()
         {
-            objManager.Remove(this, true);
+            objManager.Remove(this);
         }
     }
 }

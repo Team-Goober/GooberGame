@@ -17,8 +17,8 @@ namespace Sprint.Projectile
         private bool returned;
         private PlaceSmoke smoke;
 
-        public BlueBoomerang(ISprite sprite, Vector2 startPos, Vector2 direction, GameObjectManager objManager) :
-            base(sprite, startPos, direction, SPEED, TRAVEL, objManager)
+        public BlueBoomerang(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, GameObjectManager objManager) :
+            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objManager)
         {
             returned = false;
         }
