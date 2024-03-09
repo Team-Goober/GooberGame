@@ -42,6 +42,7 @@ namespace Sprint.Characters
                 { "cake", ItemType.Cake },
                 { "key", ItemType.Key },
                 { "paper", ItemType.Paper },
+                { "compass", ItemType.Compass },
                 { "fireball", ItemType.FireBall },
                 { "oldmanText", ItemType.OldmManText }
             };

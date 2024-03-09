@@ -37,6 +37,7 @@ public class Inventory
             { ItemType.Potion, 0 },
             { ItemType.Cake, 0 },
             { ItemType.Key, 0 },
+            { ItemType.Compass, 0 },
             { ItemType.Paper, 0}
         };
     }

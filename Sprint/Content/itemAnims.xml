@@ -469,6 +469,24 @@
 		</Item>
 
 		<Item>
+			<Key>compass</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>compass</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>82 42 11 12</Rectangle>
+							<CenterPoint>5 6</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>compass</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
 			<Key>fireball</Key>
 			<Value>
 				<Texture>Items/FireBall</Texture>

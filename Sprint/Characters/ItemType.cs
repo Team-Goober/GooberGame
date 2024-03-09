@@ -28,6 +28,7 @@ public enum ItemType
     Cake,
     Key,
     Paper,
+    Compass,
     FireBall,
     OldmManText
 }
