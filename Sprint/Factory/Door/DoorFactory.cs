@@ -41,6 +41,8 @@ namespace Sprint.Factory.Door
                     return new LockDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager);
                 case "hidden":
                     return new HiddenDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager);
+                case "puzzle":
+                    return new PuzzleDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager);
                 default:
                     break;
             }

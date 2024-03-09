@@ -165,6 +165,69 @@
 				<Type>lock</Type>
 			</Value>
 		</Item>
+		
+		<!--Puzzle Door-->
+		<Item>
+			<Key>PuzzleTop</Key>
+			<Value>
+				<SpriteName>PuzzleTopDoor</SpriteName>
+				<Type>puzzle</Type>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>PuzzleLeft</Key>
+			<Value>
+				<SpriteName>PuzzleLeftDoor</SpriteName>
+				<Type>puzzle</Type>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>PuzzleRight</Key>
+			<Value>
+				<SpriteName>PuzzleRightDoor</SpriteName>
+				<Type>puzzle</Type>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>PuzzleDown</Key>
+			<Value>
+				<SpriteName>PuzzleDownDoor</SpriteName>
+				<Type>puzzle</Type>
+			</Value>
+		</Item>
+		
+		<!--Hidden Door-->
+		<Item>
+			<Key>HiddenTop</Key>
+			<Value>
+				<SpriteName>HiddenTopDoor</SpriteName>
+				<Type>hidden</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>HiddenLeft</Key>
+			<Value>
+				<SpriteName>HiddenLeftDoor</SpriteName>
+				<Type>hidden</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>HiddenRight</Key>
+			<Value>
+				<SpriteName>HiddenRightDoor</SpriteName>
+				<Type>hidden</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>HiddenDown</Key>
+			<Value>
+				<SpriteName>HiddenDownDoor</SpriteName>
+				<Type>hidden</Type>
+			</Value>
+		</Item>
     </DoorReferences>
 	  
     <Rooms>	
@@ -296,7 +359,7 @@
 				<AdjacentRoom>-1</AdjacentRoom>
 			</LeftExit>
 			<RightExit>
-        <Door>LockRight</Door>
+        <Door>PuzzleRight</Door>
         <AdjacentRoom>4</AdjacentRoom>
 			</RightExit>
 			<TileGrid>
@@ -899,6 +962,37 @@
 					<Column>11</Column>
 				</Item>
 			</Enemies>
+		</Item>
+
+		<!--Test Room Index 17-->
+		<Item>
+			<TopExit>
+				<Door>HiddenTop</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>HiddenDown</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>HiddenLeft</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>HiddenRight</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 4 0 0 4 0 0 5 0 0 5 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 4 0 0 4 0 0 5 0 0 5 0</Item>
+				<Item>0 0 0 0 0 7 7 0 0 0 0 0</Item>
+				<Item>0 4 0 7 4 7 7 5 7 0 5 0</Item>
+				<Item>0 0 0 7 7 7 7 7 7 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies/>
 		</Item>
     </Rooms>
   </Asset>
