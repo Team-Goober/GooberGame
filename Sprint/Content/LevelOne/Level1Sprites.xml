@@ -315,6 +315,24 @@
         <Scale>4</Scale>
         <InitialAnimation>tile</InitialAnimation>
       </Value>
+		
     </Item>
+	  <Item>
+		  <Key>stairTile</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>tile</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>51 17 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>tile</InitialAnimation>
+		  </Value>
+	  </Item>
   </Asset>
 </XnaContent>

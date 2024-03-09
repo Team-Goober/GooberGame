@@ -50,7 +50,7 @@ namespace Sprint.Loader
                 objectManager.AddRoom(BuildRoomManager(data, i));
             }
 
-            objectManager.SwitchRoom(0);
+            objectManager.SwitchRoom(3);
 
         }
 

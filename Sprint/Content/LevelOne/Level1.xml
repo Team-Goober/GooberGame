@@ -29,6 +29,13 @@
           <Type>gap</Type>
         </Value>
       </Item>
+		<Item>
+			<Key>3</Key>
+			<Value>
+				<SpriteName>stairTile</SpriteName>
+				<Type>floor</Type>
+			</Value>
+		</Item>
     </TileReferences>
 	  
     <DoorSize>128 128</DoorSize>
@@ -124,78 +131,162 @@
 		</Item>
     </DoorReferences>
 	  
-    <Rooms>		
-      <Item>
-				<TopExit>
-					<Door>WallTop</Door>
-					<AdjacentRoom>-1</AdjacentRoom>
-				</TopExit>
-				<BottomExit>
-					<Door>OpenRight</Door>
-					<AdjacentRoom>1</AdjacentRoom>
-				</BottomExit>
-				<LeftExit>
-					<Door>WallLeft</Door>
-					<AdjacentRoom>-1</AdjacentRoom>
-				</LeftExit>
-				<RightExit>
-					<Door>WallDown</Door>
-					<AdjacentRoom>-1</AdjacentRoom>
-				</RightExit>
-        <TileGrid>
-          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-          <Item>0 2 2 1 0 0 0 0 0 0 0 0</Item>
-          <Item>0 2 2 0 0 0 0 0 1 0 0 0</Item>
-          <Item>0 0 1 0 0 0 0 0 1 1 0 0</Item>
-          <Item>0 2 2 0 0 0 0 0 1 0 0 0</Item>
-          <Item>0 2 2 1 0 0 0 0 0 0 0 0</Item>
-          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-        </TileGrid>
-        <Items>
-          <Item>
-            <Type>triforce</Type>
-            <Row>6</Row>
-            <Column>3</Column>
-          </Item>
-        </Items>
-        <Enemies>
-          <Item>
-            <Type>skeleton</Type>
-            <Row>5</Row>
-            <Column>3</Column>
-          </Item>
-        </Enemies>
-      </Item>
-      <Item>
-        <TopExit>
-          <Door>WallTop</Door>
-          <AdjacentRoom>-1</AdjacentRoom>
-        </TopExit>
-        <BottomExit>
-          <Door>WallRight</Door>
-          <AdjacentRoom>-1</AdjacentRoom>
-        </BottomExit>
-        <LeftExit>
-          <Door>OpenLeft</Door>
-          <AdjacentRoom>0</AdjacentRoom>
-        </LeftExit>
-        <RightExit>
-          <Door>WallDown</Door>
-          <AdjacentRoom>-1</AdjacentRoom>
-        </RightExit>
-        <TileGrid>
-          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-          <Item>0 2 2 2 2 2 2 2 2 0 0 0</Item>
-          <Item>0 2 0 0 0 0 0 0 2 0 0 0</Item>
-          <Item>0 0 0 0 1 1 0 0 0 0 0 0</Item>
-          <Item>0 2 0 0 0 0 0 0 2 0 0 0</Item>
-          <Item>0 2 2 2 2 2 2 2 2 0 0 0</Item>
-          <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-        </TileGrid>
-        <Items />
-        <Enemies />
-      </Item>
+    <Rooms>	
+		
+		<!--Row 1 Col 2 Room Index 0-->
+		<!--Need Bow Item and another mystery item. Missing one orange tile-->
+		<Item>
+		<TopExit>
+			<Door>WallTop</Door>
+			<AdjacentRoom>-1</AdjacentRoom>
+		</TopExit>
+		<BottomExit>
+			<Door>LockRight</Door>
+			<AdjacentRoom>1</AdjacentRoom>
+		</BottomExit>
+		<LeftExit>
+			<Door>WallLeft</Door>
+			<AdjacentRoom>-1</AdjacentRoom>
+		</LeftExit>
+		<RightExit>
+			<Door>WallDown</Door>
+			<AdjacentRoom>-1</AdjacentRoom>
+		</RightExit>
+		<TileGrid>
+			<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			<Item>0 0 0 0 0 0 1 0 0 0 0 0</Item>
+			<Item>0 0 0 0 0 1 0 1 0 0 0 0</Item>
+			<Item>0 0 0 0 1 0 3 0 1 0 0 0</Item>
+			<Item>0 0 0 0 0 1 0 1 0 0 0 0</Item>
+			<Item>0 0 0 0 0 0 1 0 0 0 0 0</Item>
+			<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+		</TileGrid>
+		<Items />
+		<Enemies />
+	</Item>
+
+		<!--Row 1 Col 3 Room Index 1-->
+		<!--Missing Enemies and Key Item-->
+		<Item>
+			<TopExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>WallRight</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>LockLeft</Door>
+				<AdjacentRoom>0</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>LockDown</Door>
+				<AdjacentRoom>2</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 2 2 2 0 0 0 0 2 2 2 0</Item>
+				<Item>0 2 0 0 0 0 0 0 0 0 2 0</Item>
+				<Item>0 2 0 2 2 2 2 2 2 0 2 0</Item>
+				<Item>0 2 0 0 0 0 0 0 0 0 2 0</Item>
+				<Item>0 2 2 2 0 0 0 0 2 2 2 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items />
+			<Enemies />
+		</Item>
+
+		<!--Row 2 Col 3 Room Index 2-->
+		<Item>
+			<TopExit>
+				<Door>LockTop</Door>
+				<AdjacentRoom>1</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>WallRight</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>WallLeft</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>OpenDown</Door>
+				<AdjacentRoom>7</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>2 2 2 2 2 0 0 2 2 2 2 2</Item>
+				<Item>2 0 0 0 2 0 0 0 0 2 0 2</Item>
+				<Item>2 0 2 0 2 0 2 2 0 2 0 2</Item>
+				<Item>0 0 2 0 2 0 0 2 0 2 0 0</Item>
+				<Item>2 0 2 0 2 2 0 2 0 2 0 2</Item>
+				<Item>2 0 2 0 0 0 0 2 0 0 0 2</Item>
+				<Item>2 2 2 2 2 0 0 2 2 2 2 2</Item>
+			</TileGrid>
+			<Items />
+			<Enemies>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>2</Row>
+					<Column>2</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>2</Row>
+					<Column>11</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>5</Row>
+					<Column>9</Column>
+				</Item>
+			</Enemies>
+		</Item>
+
+		<!--Row 2 Col 5 Room Index 3-->
+		<!--Right Door is not correct. Heart is not spawning. Dragon row and column doesn't make sense-->
+		<Item>
+			<TopExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>LockRight</Door>
+				<AdjacentRoom>4</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>WallLeft</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>OpenDown</Door>
+				<AdjacentRoom>9</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 1 1 1 1 1</Item>
+				<Item>0 0 0 0 0 0 0 0 0 1 1 1</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 1 1</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 1 1</Item>
+				<Item>0 0 0 0 0 0 0 0 0 1 1 1</Item>
+				<Item>0 0 0 0 0 0 0 1 1 1 1 1</Item>
+			</TileGrid>
+			<Items>
+				<Item>
+					<Type>heart</Type>
+					<Row>3</Row>
+					<Column>10</Column>
+				</Item>
+			</Items>
+			<Enemies>
+				<Item>
+					<Type>dragonmov</Type>
+					<Row>2</Row>
+					<Column>10</Column>
+				</Item>
+			</Enemies>
+		</Item>
     </Rooms>
-	  
   </Asset>
 </XnaContent>
