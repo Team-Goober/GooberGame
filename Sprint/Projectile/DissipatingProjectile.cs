@@ -15,7 +15,8 @@ namespace Sprint.Projectile
         protected Vector2 startPos;
         protected Vector2 velocity;
 
-        public DissipatingProjectile(ISprite sprite, Vector2 startPos, Vector2 direction, int speed, int travel, GameObjectManager objManager) : base(sprite, startPos, objManager)
+        public DissipatingProjectile(ISprite sprite, Vector2 startPos, Vector2 direction, int speed, int travel, bool isEnemy, GameObjectManager objManager) : 
+            base(sprite, startPos, isEnemy, objManager)
         {
             this.travel = travel;
             this.startPos = startPos;

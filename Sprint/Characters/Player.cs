@@ -354,6 +354,12 @@ namespace Sprint.Characters
         {
             inventory.ConsumeItem(item);
         }
+
+        // Remove player from game
+        public override void Die()
+        {
+            objectManager.Remove(this, true);
+        }
     }
 }
 

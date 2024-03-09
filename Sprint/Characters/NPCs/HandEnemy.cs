@@ -23,7 +23,7 @@ namespace Sprint.Characters
         private string lastAnimationName;
 
         public HandEnemy(ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition)
+            : base(sprite, initialPosition, objectManager)
         {
 
             // Store the initial position for reference
@@ -32,7 +32,7 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, objectManager);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
 
             projectileCommand = new ShootBombC(itemFactory);
 
