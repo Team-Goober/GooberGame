@@ -27,9 +27,6 @@ namespace Sprint
         private SpriteBatch _spriteBatch;
         private Player player;
 
-        private CycleItem items;
-        private CycleEnemy enemies;
-        private CycleTile tiles;
         private SpriteFont font;
         private Vector2 characterLoc = new Vector2(gameWidth/2, gameHeight/2);
         private bool resetGame = false;
@@ -69,15 +66,8 @@ namespace Sprint
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //items = new CycleItem(this, new Vector2(500, 100), objectManager, spriteLoader);
-            //enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
-            //tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
-
             LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader, inputTable);
             loader.LoadLevelXML("LevelOne/Level1");
-
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
 
             font = Content.Load<SpriteFont>("Font");
 
@@ -97,14 +87,6 @@ namespace Sprint
 
             Keys[] moveKeys = { Keys.A, Keys.D, Keys.W, Keys.S, Keys.Left, Keys.Right, Keys.Up, Keys.Down };
             inputTable.RegisterMapping(new MultipleKeyReleaseTrigger(moveKeys), new StopMoving(player));
-
-            //Enemy cycling
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemies));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemies));
-
-            //Tile Cycling
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.T), new PreviousTileCommand(tiles));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Y), new NextTileCommand(tiles));
 
             //Melee Regular Sword Attack
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Melee(player));
