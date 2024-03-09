@@ -2,34 +2,63 @@
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
+using Sprint.Collision;
+using System.Runtime.Serialization;
+using Sprint.Levels;
 
 namespace Sprint.Projectile
 {
-    internal class Bomb : IProjectile
+    internal class Bomb : DissipatingProjectile
     {
-        ISprite sprite;
-        Vector2 position;
 
-        public Bomb(Texture2D sheet, Vector2 startPos)
+        Timer explosionTimer;
+
+        public override CollisionTypes[] CollisionType
         {
-            this.position = startPos;
-            
-            sprite = new AnimatedSprite(sheet);
-            IAtlas bomb = new AutoAtlas(new Rectangle(0, 0, 85, 16), 1, 5, 1, new Vector2(8, 8), false, 3);
-            sprite.RegisterAnimation("bomb", bomb);
-            sprite.SetAnimation("bomb");
-            sprite.SetScale(4);
+            get
+            {
+                CollisionTypes[] types = new CollisionTypes[2];
+                types[0] = explosionTimer.Ended ? CollisionTypes.BOMB : CollisionTypes.EXPLOSION;
+                types[1] = isEnemy ? CollisionTypes.ENEMY_PROJECTILE : CollisionTypes.PROJECTILE;
+                return types;
+            }
         }
 
+        private const int SPEED = 150;
+        private const int TRAVEL = 50;
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public Bomb(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, GameObjectManager objManager) :
+            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objManager)
+        {
+            explosionTimer = new Timer(1);
+        }
+
+        public override void Dissipate()
+        {
+            if (explosionTimer.Ended)
+            {
+                sprite.SetAnimation("explosion");
+                explosionTimer.Start();
+                velocity = Vector2.Zero;
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            sprite.Update(gameTime);
+            // Handle timers for detonation
+            explosionTimer.Update(gameTime);
+            if (explosionTimer.JustEnded)
+            {
+                objManager.Remove(this);
+            }
+
+            base.Update(gameTime);
+
         }
     }
 }

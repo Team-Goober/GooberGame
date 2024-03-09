@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Input;
 using Sprint.Commands.SecondaryItem;
 using Sprint.Input;
 using Sprint.Characters;
+using Sprint.Sprite;
+using Sprint.Levels;
 
 namespace Sprint.Projectile
 {
@@ -14,34 +16,33 @@ namespace Sprint.Projectile
 
         private const float spawnDistance = 40;
 
-        public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager, ContentManager contManager)
+        public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
 
-            this.itemFactory = new SimpleProjectileFactory(spawnDistance);
-            itemFactory.LoadAllTextures(contManager);
+            this.itemFactory = new SimpleProjectileFactory(spriteLoader, spawnDistance, false,objManager);
             itemFactory.SetDirection(new Vector2(1, 90));
             itemFactory.SetStartPosition(startPos);
 
             //Arrow
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootArrowCommand(itemFactory, objManager));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootArrowCommand(itemFactory));
             
 
             //Blue Arrow
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootBlueArrowC(itemFactory, objManager));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootBlueArrowC(itemFactory));
 
           
             //Bomb
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootBombC(itemFactory, objManager));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootBombC(itemFactory));
 
 
             //Boomarang
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootBoomarangC(itemFactory, objManager));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootBoomarangC(itemFactory));
 
             //FireBall
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D5), new ShootFireBallC(itemFactory, objManager));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D5), new ShootFireBallC(itemFactory));
 
             //Blue Boomerang
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D6), new ShootBlueBoomerangC(itemFactory, objManager));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D6), new ShootBlueBoomerangC(itemFactory));
 
 
 

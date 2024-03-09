@@ -3,25 +3,42 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using Sprint.Projectile;
+using Sprint.Levels;
+using Sprint.Collision;
+using System.Diagnostics;
 
 namespace Sprint.Characters
 {
 
-    internal class Player : Character
+    internal class Player : Character, IMovingCollidable
     {
+        public Inventory inventory;
 
         private ISprite sprite;
 
         private Physics physics;
 
+        private int sideLength = 3 * 16;
+
         private ProjectileSystem secondaryItems;
+        private SwordCollision swordCollision;
+        private const int swordWidth = 40, swordLength = 90;
 
         public Directions Facing { get; private set; }
+
+        public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
+                (int) (physics.Position.Y - sideLength / 2.0),
+                sideLength,
+                sideLength);
+
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
 
         private const float speed = 200;
 
         private Timer attackTimer;
+        private Timer castTimer;
         private Timer damageTimer;
+        private GameObjectManager objectManager;
 
         // TODO: replace this with state machine
         // Animation to return to as base after a played animation ends
@@ -34,111 +51,46 @@ namespace Sprint.Characters
 
 
         //declares the move systems for the main character sprite
-        public Player(Goober game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager)
+        public Player(Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
 
-            physics = new Physics(game, pos);
+            //Initialize physics and objectManager
+            physics = new Physics(pos);
 
-            //Loads sprite sheet for link
-            Texture2D zeldaSheet = game.Content.Load<Texture2D>("zelda_links");
-            sprite = new AnimatedSprite(zeldaSheet);
+            inventory = new Inventory();
+
+            objectManager = objManager;
+
+            //Loads sprite for link
+            sprite = spriteLoader.BuildSprite("playerAnims", "player");
 
             // Duration of one sword swing or item use
             attackTimer = new Timer(0.5);
+            castTimer = new Timer(0.5);
             // Duration of the damage state
             damageTimer = new Timer(0.3);
 
-            //declares autoatlas on the location of animation down
-            //0, 0, 16, 47 is the coordinates of the x, y for down animation in sprite sheet
-            //Important: the second part 16, 47 is the width and height of sprite. For instance is the sprite size is 
-            //22x47, then you have to state that in the second part of the rectangle
-            //the next 2, 1 is the rows and cols of the sprites
-            //the next 2 is the padding between sprites
-            //true (boolean) is whether animation should loop
-            //5 is the speed 
-            Vector2 centerOffset = new Vector2(8, 8);
-
-            IAtlas downAtlas = new AutoAtlas(new Rectangle(0, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
-            sprite.RegisterAnimation("down", downAtlas);
-
-            IAtlas leftAtlas = new AutoAtlas(new Rectangle(30, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
-            sprite.RegisterAnimation("left", leftAtlas);
-
-            IAtlas rightAtlas = new AutoAtlas(new Rectangle(90, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
-            sprite.RegisterAnimation("right", rightAtlas);
-
-            IAtlas upAtlas = new AutoAtlas(new Rectangle(60, 0, 16, 46), 2, 1, 14, centerOffset, true, 5);
-            sprite.RegisterAnimation("up", upAtlas);
-
-            IAtlas stillAtlas = new SingleAtlas(new Rectangle(0, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("still", stillAtlas);
-
-            IAtlas downStill = new SingleAtlas(new Rectangle(0, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("downStill", downStill);
-
-            IAtlas leftStill = new SingleAtlas(new Rectangle(30, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("leftStill", leftStill);
-
-            IAtlas upStill = new SingleAtlas(new Rectangle(60, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("upStill", upStill);
-
-            IAtlas rightStill = new SingleAtlas(new Rectangle(90, 0, 16, 16), centerOffset);
-            sprite.RegisterAnimation("rightStill", rightStill);
-
-            sprite.SetAnimation("still");
-            Facing = Directions.STILL;
-            sprite.SetScale(3);
-
-            //Set up damage atlas
-            IAtlas damage = new SingleAtlas(new Rectangle(0, 150, 16, 16), centerOffset);
-            sprite.RegisterAnimation("damage", damage);
-
-            // sword animations RIGHT 
-            IAtlas swordRightAtlas = new SingleAtlas(new Rectangle(84, 90, 27, 15), new Vector2(9, 7));
-            sprite.RegisterAnimation("swordRight", swordRightAtlas);
-
-            // sword animations LEFT 
-            IAtlas swordLeftAtlas = new SingleAtlas(new Rectangle(24, 90, 27, 15), new Vector2(18, 7));
-            sprite.RegisterAnimation("swordLeft", swordLeftAtlas);
-
-            // sword animations UP 
-            IAtlas swordUpAtlas = new SingleAtlas(new Rectangle(60, 84, 16, 28), new Vector2(8, 21));
-            sprite.RegisterAnimation("swordUp", swordUpAtlas);
-
-            // sword animations DOWN 
-            IAtlas swordDownAtlas = new SingleAtlas(new Rectangle(0, 84, 16, 27), new Vector2(8, 7));
-            sprite.RegisterAnimation("swordDown", swordDownAtlas);
-
-            // casting animations
-            IAtlas castRightAtlas = new SingleAtlas(new Rectangle(90, 60, 16, 16), centerOffset);
-            sprite.RegisterAnimation("castRight", castRightAtlas);
-
-            IAtlas castLeftAtlas = new SingleAtlas(new Rectangle(30, 60, 16, 16), centerOffset);
-            sprite.RegisterAnimation("castLeft", castLeftAtlas);
-
-            IAtlas castUpAtlas = new SingleAtlas(new Rectangle(60, 60, 16, 16), centerOffset);
-            sprite.RegisterAnimation("castUp", castUpAtlas);
-
-            IAtlas castDownAtlas = new SingleAtlas(new Rectangle(0, 60, 16, 16), centerOffset);
-            sprite.RegisterAnimation("castDown", castDownAtlas);
+            
 
             // Start out idle
+            Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
 
+            physics = new Physics(pos);
 
             // Set up projectiles
-            secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, game.Content);
-
-
+            secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, spriteLoader);
         }
 
         //Melee attack according to direction
         public void Attack()
         {
+            Rectangle swordRec  = new Rectangle();
 
             // Only attack if not already attacking
             if (!attackTimer.Ended)
             {
+                
                 return;
             }
 
@@ -147,24 +99,37 @@ namespace Sprint.Characters
 
             // Start timer for attack
             attackTimer.Start();
+            castTimer.Start();
 
+            //Creates animations and bounds for the sword for collision
             switch (Facing)
             {
                 case Directions.RIGHT:
                     sprite.SetAnimation("swordRight");
+                    swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
                     break;
                 case Directions.LEFT:
                     sprite.SetAnimation("swordLeft");
+                    swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
                     break;
                 case Directions.UP:
                     sprite.SetAnimation("swordUp");
+                    swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
                     break;
                 case Directions.DOWN:
                     sprite.SetAnimation("swordDown");
+                    swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
                     break;
                 default:
                     break;
             }
+
+            
+            swordCollision = new SwordCollision(swordRec, this);
+            
+            objectManager.Add(swordCollision, false);
+            
+            
         }
 
         //Cast according to direction
@@ -172,7 +137,7 @@ namespace Sprint.Characters
         {
 
             // Only attack if not already attacking
-            if (!attackTimer.Ended)
+            if (!castTimer.Ended)
             {
                 return;
             }
@@ -181,7 +146,7 @@ namespace Sprint.Characters
             StopMoving();
 
             // Start timer for attack
-            attackTimer.Start();
+            castTimer.Start();
 
             switch (Facing)
             {
@@ -323,6 +288,12 @@ namespace Sprint.Characters
             attackTimer.Update(gameTime);
             if (attackTimer.JustEnded)
             {
+                objectManager.Remove(swordCollision, false);
+                returnToBaseAnim();
+            }
+            castTimer.Update(gameTime);
+            if (castTimer.JustEnded)
+            {
                 returnToBaseAnim();
             }
 
@@ -348,6 +319,48 @@ namespace Sprint.Characters
 
         }
 
+        // Moves the player by a set distance
+        public void Move(Vector2 distance)
+        {
+            // teleport player in displacement specified
+            physics.SetPosition(physics.Position + distance);
+        }
+        
+        // Moves player to set position
+        // Should be in Characters?
+        public void MoveTo(Vector2 pos)
+        {
+            physics.SetPosition(pos);
+        }
+
+        /// <summary>
+        /// Pickup Item off the ground
+        /// </summary>
+        /// <param name="item"> ItemType to pickup</param>
+        public void PickupItem(Item item)
+        {
+            ItemType itemType = item.GetItemType();
+            if(item.GetColliable())
+            {
+                inventory.PickupItem(itemType);
+                objectManager.Remove(item);
+            }
+        }
+
+        /// <summary>
+        /// Subtract item from inventory
+        /// </summary>
+        /// <param name="item">ItemType to decrement</param>
+        public void UseItem(ItemType item)
+        {
+            inventory.ConsumeItem(item);
+        }
+
+        // Remove player from game
+        public override void Die()
+        {
+            objectManager.Remove(this, true);
+        }
     }
 }
 

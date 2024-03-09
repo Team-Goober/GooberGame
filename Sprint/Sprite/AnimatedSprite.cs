@@ -42,6 +42,7 @@ namespace Sprint.Sprite
             return currentLabel;
         }
 
+
         public void Update(GameTime gameTime)
         {
 
@@ -58,7 +59,8 @@ namespace Sprint.Sprite
         public void Draw(SpriteBatch spriteBatch, Vector2 location, GameTime gameTime, float rotation = 0f)
         {
             // No animation set, so don't draw
-            if (currentAnimation == null) {
+            if (currentAnimation == null)
+            {
                 return;
             }
 

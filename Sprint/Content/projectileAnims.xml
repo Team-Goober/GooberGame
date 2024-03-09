@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+  <Asset Type="Generic:Dictionary[string,XMLData.SpriteData]">
+    <Item>
+      <Key>smoke</Key>
+      <Value>
+        <Texture>Items/EndArrow</Texture>
+        <Animations>
+          <Item>
+            <Key>smoke</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 7 8</Rectangle>
+              <CenterPoint>3.5 4</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>smoke</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>arrow</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>right</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 45 16 5</Rectangle>
+              <CenterPoint>6 2.5</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>right</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>bluearrow</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>right</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 125 16 5</Rectangle>
+              <CenterPoint>6 2.5</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>right</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>blueboomerang</Key>
+      <Value>
+        <Texture>Items/boomerangs</Texture>
+        <Animations>
+          <Item>
+            <Key>default</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>1 18 56 9</SheetArea>
+              <Rows>1</Rows>
+              <Cols>4</Cols>
+              <Padding>10</Padding>
+              <CenterPoint>3 4</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>18</Framerate>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>default</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>bomb</Key>
+      <Value>
+        <Texture>Items/Bomb</Texture>
+        <Animations>
+          <Item>
+            <Key>bomb</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>explosion</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>17 0 68 16</SheetArea>
+              <Rows>1</Rows>
+              <Cols>4</Cols>
+              <Padding>1</Padding>
+              <CenterPoint>8 8</CenterPoint>
+              <Loop>false</Loop>
+              <Framerate>3</Framerate>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>bomb</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>boomerang</Key>
+      <Value>
+        <Texture>Items/boomerangs</Texture>
+        <Animations>
+          <Item>
+            <Key>boomerang</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>1 2 56 9</SheetArea>
+              <Rows>1</Rows>
+              <Cols>4</Cols>
+              <Padding>10</Padding>
+              <CenterPoint>3 4</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>18</Framerate>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>boomerang</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>fireball</Key>
+      <Value>
+        <Texture>Items/FireBall</Texture>
+        <Animations>
+          <Item>
+            <Key>fireball</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>0 0 33 16</SheetArea>
+              <Rows>1</Rows>
+              <Cols>2</Cols>
+              <Padding>1</Padding>
+              <CenterPoint>16.5 8</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>9</Framerate>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>fireball</InitialAnimation>
+      </Value>
+    </Item>
+  </Asset>
+</XnaContent>

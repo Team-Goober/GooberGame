@@ -10,8 +10,38 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\XMLData\bin\Debug\net6.0\XMLData.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin boss_zelda.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:boss_zelda.png
+
+#begin dragon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:dragon.png
+
+#begin enemyAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:enemyAnims.xml
 
 #begin Font.spritefont
 /importer:FontDescriptionImporter
@@ -19,6 +49,11 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Font.spritefont
+
+#begin itemAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:itemAnims.xml
 
 #begin Items/Bomb.png
 /importer:TextureImporter
@@ -128,6 +163,88 @@
 /processorParam:TextureFormat=Color
 /build:Items/ZeldaSpriteMagicalShield.png
 
+#begin LevelOne/Level1.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:LevelOne/Level1.xml
+
+#begin LevelOne/Level1Sprites.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:LevelOne/Level1Sprites.xml
+
+#begin LevelOne/roomDoors.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LevelOne/roomDoors.png
+
+#begin LevelOne/RoomOne/roomOneExterior.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LevelOne/RoomOne/roomOneExterior.png
+
+#begin LevelOne/RoomOne/roomOneFloor.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LevelOne/RoomOne/roomOneFloor.png
+
+
+#begin LevelOne/RoomOne/Text.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LevelOne/RoomOne/Text.png
+
+
+#begin oldMan.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:oldMan.png
+
+#begin playerAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:playerAnims.xml
+
+#begin projectileAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:projectileAnims.xml
+
 #begin smb_luigi_sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -152,6 +269,11 @@
 /processorParam:TextureFormat=Color
 /build:Sprite/ZeldaSpriteLinkLeft.gif
 
+#begin tileAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:tileAnims.xml
+
 #begin tiles.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -163,6 +285,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tiles.png
+
+#begin zelda_boss.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:zelda_boss.png
 
 #begin zelda_enemies.png
 /importer:TextureImporter
