@@ -133,6 +133,8 @@ namespace Sprint
             // Switching rooms
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.B), new NextRoomCommand(objectManager));
 
+
+
             // Add player as persistent object
             objectManager.Add(player, true);
         }
@@ -142,6 +144,7 @@ namespace Sprint
         {
             inputTable.ClearDictionary();
             objectManager.ClearObjects();
+            objectManager.Remove(player, true);
         }
 
 
