@@ -44,7 +44,8 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.DOOR), pushOut},
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(ICollidable), typeof(Vector2) })},
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(ICollidable), typeof(Vector2) })},
-                {new TypePairKey(CollisionTypes.OPEN_DOOR, CollisionTypes.PLAYER), typeof(SwitchRoomCommand).GetConstructor(new Type[] { typeof(ICollidable), typeof(Vector2) })}
+                {new TypePairKey(CollisionTypes.OPEN_DOOR, CollisionTypes.PLAYER), typeof(SwitchRoomCommand).GetConstructor(new Type[] { typeof(ICollidable), typeof(Vector2) })},
+                {new TypePairKey(CollisionTypes.HIDDEN_DOOR, CollisionTypes.EXPLOSION), typeof(OpenDoorCommand).GetConstructor(new Type[] { typeof(ICollidable), typeof(Vector2) })}
             };
 
         //Made assuming that ICollidable can access the objects native type
