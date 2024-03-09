@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Sprint.Characters;
-using Sprint.Commands.Collision;
 using Sprint.Factory.Door;
 using Sprint.Functions;
+using Sprint.Functions.Collision;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
 using Sprint.Levels;
@@ -33,7 +33,7 @@ namespace Sprint.Collision
 
         }
 
-        static ConstructorInfo pushOut = typeof(PushMoverOut).GetConstructor(new Type[] { typeof(IMovingCollidable), typeof(Vector2) });
+        static ConstructorInfo pushOut = typeof(PushMoverOut).GetConstructor(new Type[] { typeof(ICollidable), typeof(ICollidable), typeof(Vector2) });
 
         // Dictionary mapping two collider types, where the first one is passed as a receiver to the command value
         // TODO: Read this from file
@@ -42,9 +42,10 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.WALL), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.GAP), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.DOOR), pushOut},
-                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(ICollidable), typeof(Vector2) })},
-                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(ICollidable), typeof(Vector2) })},
-                {new TypePairKey(CollisionTypes.OPEN_DOOR, CollisionTypes.PLAYER), typeof(SwitchRoomCommand).GetConstructor(new Type[] { typeof(ICollidable), typeof(Vector2) })}
+                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(ICollidable),typeof(ICollidable),  typeof(Vector2) })},
+                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(ICollidable),typeof(ICollidable), typeof(Vector2) })},
+                {new TypePairKey(CollisionTypes.OPEN_DOOR, CollisionTypes.PLAYER), typeof(SwitchRoomCommand).GetConstructor(new Type[] { typeof(ICollidable),typeof(ICollidable), typeof(Vector2) })},
+                {new TypePairKey(CollisionTypes.PLAYER,CollisionTypes.ITEM), typeof(PickUpItem).GetConstructor(new Type[] { typeof(ICollidable), typeof(ICollidable), typeof(Vector2)})}
             };
 
         //Made assuming that ICollidable can access the objects native type
@@ -63,8 +64,6 @@ namespace Sprint.Collision
 
             // Handle object2 reaction
             FindInteraction(object2, object1, -overlap);
-
-
         }
 
         /// <summary>
@@ -110,7 +109,7 @@ namespace Sprint.Collision
             // The first item in the array should have the lowest i and therefore be most precise
             TypePairKey preciseKey = new TypePairKey(receiver.CollisionType[possibleInteractions[0][0]], effector.CollisionType[possibleInteractions[0][1]]);
 
-            CreateAndRun(commandDictionary[preciseKey], receiver, overlap);
+            CreateAndRun(commandDictionary[preciseKey], receiver, effector, overlap);
 
         }
 
@@ -119,14 +118,14 @@ namespace Sprint.Collision
         /// </summary>
         /// <param name="commandConstructor">Constructor for command to execute</param>
         /// <param name="receiver">Collidable to execute the command on</param>
+        /// <param name="effector">Collidable to receive the command.</param>
         /// <param name="overlap">Overlap distance, measured out from receiver</param>
-        public void CreateAndRun(ConstructorInfo commandConstructor, ICollidable receiver, Vector2 overlap)
+        public void CreateAndRun(ConstructorInfo commandConstructor, ICollidable receiver, ICollidable effector, Vector2 overlap)
         {
             // Construct command then execute
-            ICommand c = commandConstructor.Invoke(new object[] { receiver, overlap }) as ICommand;
+            ICommand c = commandConstructor.Invoke(new object[] { receiver, effector, overlap }) as ICommand;
             c.Execute();
         }
-
 
     }
 }

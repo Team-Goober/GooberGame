@@ -12,6 +12,7 @@ namespace Sprint.Characters
 
     internal class Player : Character, IMovingCollidable
     {
+        private Inventory inventory;
 
         private ISprite sprite;
 
@@ -51,8 +52,13 @@ namespace Sprint.Characters
         //declares the move systems for the main character sprite
         public Player(Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
-        
-            this.objectManager = objManager;    
+
+            //Initialize physics and objectManager
+            physics = new Physics(pos);
+
+            inventory = new Inventory();
+
+            objectManager = objManager;
 
             //Loads sprite for link
             sprite = spriteLoader.BuildSprite("playerAnims", "player");
@@ -326,6 +332,25 @@ namespace Sprint.Characters
             physics.SetPosition(pos);
         }
 
+        /// <summary>
+        /// Pickup Item off the ground
+        /// </summary>
+        /// <param name="item"> ItemType to pickup</param>
+        public void PickupItem(Item item)
+        {
+            ItemType itemType = item.GetItemType();
+            inventory.PickupItem(itemType);
+            objectManager.Remove(item);
+        }
+
+        /// <summary>
+        /// Subtract item from inventory
+        /// </summary>
+        /// <param name="item">ItemType to decrement</param>
+        public void UseItem(ItemType item)
+        {
+            inventory.ConsumeItem(item);
+        }
     }
 }
 
