@@ -379,12 +379,12 @@
 		</Item>
 
 		<Item>
-			<Key>shield_red</Key>
+			<Key>shieldRed</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
-						<Key>shield_red</Key>
+						<Key>shieldRed</Key>
 						<Value Type="XMLData.SingleAtlasData">
 							<Rectangle>241 0 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
@@ -392,7 +392,7 @@
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>shield_red</InitialAnimation>
+				<InitialAnimation>shieldRed</InitialAnimation>
 			</Value>
 		</Item>
 
