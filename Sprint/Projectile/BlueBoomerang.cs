@@ -3,61 +3,45 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
+using Sprint.Collision;
+using Sprint.Functions.SecondaryItem;
+using Sprint.Levels;
 
 namespace Sprint.Projectile
 {
-    internal class BlueBoomerang : IProjectile
+    internal class BlueBoomerang : DissipatingProjectile
     {
-        ISprite sprite;
-        Vector2 position;
-        Vector2 originalPosition;
-        Vector2 velocity;
-        Vector2 direction;
+        private const int SPEED = 200;
+        private const int TRAVEL = 600;
+        private const int RETURN_TRAVEL = 200;
+        private bool returned;
+        private PlaceSmoke smoke;
 
-        const float speed = 200;
-        const float backSpeed = -200;
-
-        public BlueBoomerang(ISprite sprite, Vector2 startPos, Vector2 newDirection)
+        public BlueBoomerang(ISprite sprite, Vector2 startPos, Vector2 direction, GameObjectManager objManager) :
+            base(sprite, startPos, direction, SPEED, TRAVEL, objManager)
         {
-            this.position = startPos;
-            this.originalPosition = this.position;
-            this.direction = newDirection;
-
-            if (direction.Length() == 0)
-            {
-                velocity = Vector2.Zero;
-            }
-            else
-            {
-                velocity = Vector2.Normalize(direction) * speed;
-            }
-
-            this.sprite = sprite;
+            returned = false;
         }
 
-        private void returnBack(Vector2 currentPosition)
+        public void SetSmokeCommand(PlaceSmoke smoke)
         {
-            float difX = Math.Abs(currentPosition.X - this.originalPosition.X);
-            float difY = Math.Abs(currentPosition.Y - this.originalPosition.Y);
-            if(difX > 200 || difY > 200)
-            {
-                velocity = Vector2.Normalize(direction) * backSpeed;
-            }
+            this.smoke = smoke;
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Dissipate()
         {
-            float rotation = (float)Math.Atan2(velocity.Y, velocity.X);
-            sprite.Draw(spriteBatch, position, gameTime, rotation);
+            smoke.Execute();
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             // Move linearly one way, then flip and come back the other way
-            returnBack(position);
-            position += velocity * (float)(gameTime.ElapsedGameTime.TotalSeconds);
-
-            sprite.Update(gameTime);
+            if (!returned && (position - startPos).Length() > RETURN_TRAVEL)
+            {
+                velocity *= -1;
+                returned = true;
+            }
+            base.Update(gameTime);
         }
     }
 }

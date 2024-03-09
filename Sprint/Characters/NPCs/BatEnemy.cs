@@ -8,6 +8,7 @@ using Sprint.Input;
 using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
+using Sprint.Levels;
 
 namespace Sprint.Characters
 {
@@ -24,8 +25,8 @@ namespace Sprint.Characters
         private Timer timeAttack;
 
 
-        public BatEnemy(Goober game, ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(game, sprite, initialPosition)
+        public BatEnemy(ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
+            : base(sprite, initialPosition)
         {
 
             // Store the initial position for reference
@@ -34,9 +35,9 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, objectManager);
 
-            projectileCommand = new ShootArrowCommand(itemFactory, objectManager);
+            projectileCommand = new ShootArrowCommand(itemFactory);
 
 
             // Initialize the move direction randomly
@@ -100,20 +101,20 @@ namespace Sprint.Characters
         //ensures that the enemy always stays within windows of the game
         private void CheckBounds(Vector2 pos, float scale)
         {
-            int gameX = Goober.gameWidth;
-            int gameY = Goober.gameHeight;
+            //int gameX = Goober.gameWidth;
+            //int gameY = Goober.gameHeight;
 
             //makes the enemy go to the other direction when it reaches a certain distance so that it doesnt go over window
-            if (pos.X + scale > gameX)
-            {
-                moveDirection.X = -moveDirection.X;
+            //if (pos.X + scale > gameX)
+            //{
+            //    moveDirection.X = -moveDirection.X;
 
-            }
+            //}
 
-            if (pos.Y + scale > gameY)
-            {
-                moveDirection.Y = -moveDirection.Y;
-            }
+            //if (pos.Y + scale > gameY)
+            //{
+            //    moveDirection.Y = -moveDirection.Y;
+            //}
         }
 
         // Generate a random movement direction

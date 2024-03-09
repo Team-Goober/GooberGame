@@ -14,8 +14,9 @@ using System.Diagnostics;
 using System.Security;
 using System.Collections.Generic;
 using Sprint.Sprite;
-using Sprint.Level;
 using Sprint.Loader;
+using Sprint.Levels;
+using Sprint.Functions;
 
 namespace Sprint
 {
@@ -29,7 +30,7 @@ namespace Sprint
         private CycleEnemy enemies;
         private CycleTile tiles;
         private SpriteFont font;
-        private Vector2 characterLoc = new Vector2(400, 500);
+        private Vector2 characterLoc = new Vector2(gameWidth/2, gameHeight/2);
         private bool resetGame = false;
 
         private IInputMap inputTable;
@@ -38,8 +39,6 @@ namespace Sprint
         private SpriteLoader spriteLoader;
         public static int gameWidth = 1024;
         public static readonly int gameHeight = 700;
-
-        private Room currentRoom;
 
         public Goober()
         {
@@ -58,23 +57,23 @@ namespace Sprint
             inputTable = new InputTable();
             collisionDetector = new CollisionDetector();
             spriteLoader = new SpriteLoader(Content);
-            
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             // Uncomment in order to write an XML file
-            //SpriteGroupSaver.WriteFile();
+            //new TempLevelSaver("Level1.xml");
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            items = new CycleItem(this, new Vector2(500, 100), objectManager, spriteLoader);
-            enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
+            //items = new CycleItem(this, new Vector2(500, 100), objectManager, spriteLoader);
+            //enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
             //tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
 
-            currentRoom = new Room(this, Content, spriteLoader);
-            currentRoom.LoadIn(objectManager);
+            LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader);
+            loader.LoadLevelXML("LevelOne/Level1");
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
@@ -83,8 +82,7 @@ namespace Sprint
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
 
-            player = new Player(this, characterLoc, inputTable, objectManager, spriteLoader);
-            objectManager.Add(player);
+            player = new Player(characterLoc, inputTable, objectManager, spriteLoader);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
@@ -131,6 +129,12 @@ namespace Sprint
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
+
+            // Switching rooms
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.B), new NextRoomCommand(objectManager));
+
+            // Add player as persistent object
+            objectManager.Add(player, true);
         }
 
         //clears input dictionary and object manager
@@ -165,10 +169,13 @@ namespace Sprint
             foreach (IGameObject obj in objects)
                 obj.Update(gameTime);
 
+
             objectManager.EndCycle();
 
             collisionDetector.Update(gameTime, objectManager.GetMovers(), objectManager.GetStatics());
-            
+
+            objectManager.EndCycle();
+
             base.Update(gameTime);
         }
 

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
+using Sprint.Levels;
 using Sprint.Sprite;
 using System;
 
@@ -11,8 +12,8 @@ namespace Sprint.Characters
         private float elapsedTime;
         private Vector2 initialPosition;
 
-        public JellyfishEnemy(Goober game, ISprite sprite, Vector2 initialPosition)
-            : base(game, sprite, initialPosition)
+        public JellyfishEnemy(ISprite sprite, Vector2 initialPosition, GameObjectManager objManager, SpriteLoader spriteLoader)
+            : base(sprite, initialPosition)
         {
 
             // Store the initial position for reference

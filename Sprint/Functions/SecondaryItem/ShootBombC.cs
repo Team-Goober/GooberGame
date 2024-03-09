@@ -1,4 +1,5 @@
 ﻿using Sprint.Interfaces;
+using Sprint.Levels;
 using Sprint.Projectile;
 
 namespace Sprint.Commands.SecondaryItem
@@ -6,18 +7,16 @@ namespace Sprint.Commands.SecondaryItem
     internal class ShootBombC : ICommand
     {
         private SimpleProjectileFactory factory;
-        private GameObjectManager objManager;
 
-        public ShootBombC(SimpleProjectileFactory newFactory, GameObjectManager newObjManager)
+        public ShootBombC(SimpleProjectileFactory newFactory)
         {
             this.factory = newFactory;
-            this.objManager = newObjManager;
         }
 
         public void Execute()
         {
-            IProjectile projectile = factory.CreateBomb();
-            objManager.Add(projectile);
+            Bomb projectile = factory.CreateBomb();
+            projectile.Create();
         }
     }
 }

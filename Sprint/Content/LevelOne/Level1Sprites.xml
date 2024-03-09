@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+  <Asset Type="Generic:Dictionary[string,XMLData.SpriteData]">
+    <Item>
+      <Key>roomOneExterior</Key>
+      <Value>
+        <Texture>LevelOne/RoomOne/roomOneExterior</Texture>
+        <Animations>
+          <Item>
+            <Key>wall</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 256 176</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>wall</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>OpenTopDoor</Key>
+      <Value>
+        <Texture>LevelOne/roomDoors</Texture>
+        <Animations>
+          <Item>
+            <Key>door</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>33 0 32 32</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>door</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>OpenLeftDoor</Key>
+      <Value>
+        <Texture>LevelOne/roomDoors</Texture>
+        <Animations>
+          <Item>
+            <Key>door</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>33 33 32 32</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>door</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>OpenRightDoor</Key>
+      <Value>
+        <Texture>LevelOne/roomDoors</Texture>
+        <Animations>
+          <Item>
+            <Key>door</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>33 66 32 32</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>door</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>OpenDownDoor</Key>
+      <Value>
+        <Texture>LevelOne/roomDoors</Texture>
+        <Animations>
+          <Item>
+            <Key>door</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>33 99 32 32</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>door</InitialAnimation>
+      </Value>
+    </Item>
+
+	  <Item>
+		  <Key>WallTopDoor</Key>
+		  <Value>
+			  <Texture>LevelOne/roomDoors</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>door</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>0 0 32 32</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>door</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>WallLeftDoor</Key>
+		  <Value>
+			  <Texture>LevelOne/roomDoors</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>door</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>0 33 32 32</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>door</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>WallRightDoor</Key>
+		  <Value>
+			  <Texture>LevelOne/roomDoors</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>door</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>0 66 32 32</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>door</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>WallDownDoor</Key>
+		  <Value>
+			  <Texture>LevelOne/roomDoors</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>door</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>0 99 32 32</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>door</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>LockTopDoor</Key>
+		  <Value>
+			  <Texture>LevelOne/roomDoors</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>close</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>66 0 32 32</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+				  <Item>
+					  <Key>open</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>33 0 32 32</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>close</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>LockLeftDoor</Key>
+		  <Value>
+			  <Texture>LevelOne/roomDoors</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>close</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>66 33 32 32</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+				  <Item>
+					  <Key>open</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>33 33 32 32</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>close</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>LockRightDoor</Key>
+		  <Value>
+			  <Texture>LevelOne/roomDoors</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>close</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>66 66 32 32</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+				  <Item>
+					  <Key>open</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>33 66 32 32</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>close</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>LockDownDoor</Key>
+		  <Value>
+			  <Texture>LevelOne/roomDoors</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>close</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>66 99 32 32</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+				  <Item>
+					  <Key>open</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>33 99 32 32</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>close</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+      <Key>flatTile</Key>
+      <Value>
+        <Texture>tiles</Texture>
+        <Animations>
+          <Item>
+            <Key>tile</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 16 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>tile</InitialAnimation>
+      </Value>
+    </Item>
+    
+    <Item>
+      <Key>bevelTile</Key>
+      <Value>
+        <Texture>tiles</Texture>
+        <Animations>
+          <Item>
+            <Key>tile</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>17 0 16 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>tile</InitialAnimation>
+      </Value>
+    </Item>
+  
+    <Item>
+      <Key>lightTile</Key>
+      <Value>
+        <Texture>tiles</Texture>
+        <Animations>
+          <Item>
+            <Key>tile</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>34 17 16 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>tile</InitialAnimation>
+      </Value>
+		
+    </Item>
+	  <Item>
+		  <Key>stairTile</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>tile</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>51 17 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>tile</InitialAnimation>
+		  </Value>
+	  </Item>
+	  
+	  <Item>
+		  <Key>fishStatue</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>tile</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>34 0 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>tile</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>dragStatue</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>tile</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>51 0 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>tile</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>blackTile</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>tile</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>0 17 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>tile</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>spotTile</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>tile</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>17 17 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>tile</InitialAnimation>
+		  </Value>
+	  </Item>
+  </Asset>
+</XnaContent>

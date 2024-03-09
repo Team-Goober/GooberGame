@@ -1,33 +1,25 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using Sprint.Characters;
 
-namespace Sprint
+namespace Sprint.Levels
 {
-    internal class Tiles : IGameObject, ICollidable
+    internal class FloorTile : ITile
     {
         ISprite sprite;
         Vector2 position;
         Rectangle bounds;
 
-        public Tiles(Goober game, ISprite sprite, Vector2 position)
+        public FloorTile(ISprite sprite, Vector2 position, Vector2 size)
         {
             this.sprite = sprite;
             this.position = position;
-            // TODO: replace with value from files
-            float size = 16;
-            bounds = new Rectangle((int)(position.X - size/2), (int)(position.Y - size/2), (int)size, (int)size);
+            bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
-        }
-
-        public Rectangle GetBoundingBox()
-        {
-            return bounds;
         }
 
         public void Update(GameTime gameTime)
