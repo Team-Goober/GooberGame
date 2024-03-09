@@ -33,9 +33,8 @@
 
 ## Known Bugs
 - On some machines you have to write "dotnet restore" in the terminal to run the game
-- If you launch the game and press 'O' on the keyboard twice the game crashes
 - Dragon is having collision issues
--Spike flys off the map
+- Spike flys off the map
 
 
 ## Extra Tools and Processes Used
