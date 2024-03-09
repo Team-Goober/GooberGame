@@ -253,5 +253,27 @@
 			  <InitialAnimation>moving</InitialAnimation>
 		  </Value>
 	  </Item>
+	  <Item>
+		  <Key>spike</Key>
+		  <Value>
+			  <Texture>zelda_enemies</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>moving</Key>
+					  <Value Type="XMLData.AutoAtlasData">
+						  <SheetArea>270 330 15 16</SheetArea>
+						  <Rows>1</Rows>
+						  <Cols>1</Cols>
+						  <Padding>0</Padding>
+						  <CenterPoint>0 0</CenterPoint>
+						  <Loop>true</Loop>
+						  <Framerate>10</Framerate>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>moving</InitialAnimation>
+		  </Value>
+	  </Item>
   </Asset>
 </XnaContent>
