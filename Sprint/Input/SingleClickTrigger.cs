@@ -49,6 +49,9 @@ namespace Sprint.Input
                 case MouseButton.Middle:
                     pressed = mouse.MiddleButton == ButtonState.Pressed;
                     break;
+                default:
+                    pressed = false;
+                    break;
             }
 
             // Trigger only when press is begun

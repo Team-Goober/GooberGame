@@ -25,6 +25,7 @@ namespace Sprint.Loader
         private ItemFactory itemFactory;
         private EnemyFactory enemyFactory;
 
+        // Array to generate click-through-door commands
         private Rectangle[] doorBounds;
         private IDoor[,] doorsPerSide;
 
@@ -53,7 +54,8 @@ namespace Sprint.Loader
             objectManager.ClearRooms();
 
 
-            // make commands for moving between rooms
+            // Make commands for moving between rooms
+            // Should be a list of bounding boxes for doors on each side of the room, so that they can be clicked
             doorBounds = new Rectangle[] { new Rectangle((int)data.TopDoorPos.X, (int)data.TopDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y),
                 new Rectangle((int)data.BottomDoorPos.X, (int)data.BottomDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y),
                 new Rectangle((int)data.LeftDoorPos.X, (int)data.LeftDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y),
@@ -83,9 +85,10 @@ namespace Sprint.Loader
 
         }
 
-        /* Loads Position from the given XML file
+        /* Creates a room from given data
         * 
-        * @param path      Path to the XML file
+        * @param lvl        LevelData to pull info from
+        * @param roomIndex  index of room in LevelData.Rooms to be made
         */
         public RoomObjectManager BuildRoomManager(LevelData lvl, int roomIndex)
         {
