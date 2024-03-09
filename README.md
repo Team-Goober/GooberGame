@@ -1,4 +1,4 @@
-# Team Goobers Sprint 2
+# Team Goobers Sprint 3
 
 ## Team Members:
 - Pavan Rauch
@@ -10,14 +10,12 @@
 
 ## Program Controls
 - WASD to move the character
-- E to take damage
 - R to reset the game
 - Q to quit the game
-- T/Y to cycle tile objects
-- U/I to cycle item objects
-- O/P to cycle enemy/npc shown
 - Z/N to make Link Attck with his sword
 - 1,2,3,4,5,6 to make Link use weapons
+- Left/Right click to change rooms sequentially
+- Middle click on a door to go into that door directly
 
 ## Code Smells to check for:
 - Shotgun Surgery
@@ -32,7 +30,12 @@
 - Excessive or Unclear Comments
 
 ## Known Bugs
+-Dragon is having collision issues
+-Spike flys off the map
+-Walking through a locked door with the key leads to an unintended graphical flash
+
 
 ## Extra Tools and Processes Used
 - Photoshop for frame rotation
+- MS Paint for sprites
 
