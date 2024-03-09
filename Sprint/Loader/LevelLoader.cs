@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
 using Sprint.Factory.Door;
+using Sprint.Functions;
+using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;
@@ -16,17 +18,19 @@ namespace Sprint.Loader
         private ContentManager content;
         private GameObjectManager objectManager;
         private SpriteLoader spriteLoader;
+        private IInputMap inputTable;
 
         private TileFactory tileFactory;
         private DoorFactory doorFactory;
         private ItemFactory itemFactory;
         private EnemyFactory enemyFactory;
 
-        public LevelLoader(ContentManager newContent, GameObjectManager objectManager, SpriteLoader spriteLoader)
+        public LevelLoader(ContentManager newContent, GameObjectManager objectManager, SpriteLoader spriteLoader, IInputMap inputTable)
         {
             this.content = newContent;
             this.objectManager = objectManager;
             this.spriteLoader = spriteLoader;
+            this.inputTable = inputTable;
             
             tileFactory = new(spriteLoader);
             doorFactory = new(spriteLoader, objectManager);
@@ -121,6 +125,10 @@ namespace Sprint.Loader
             DoorReference doorRef = lvl.DoorReferences[exit.Door];
             //Parameter list is too long
             IDoor door = doorFactory.MakeDoor(doorRef.Type, lvl.SpriteFile, doorRef.SpriteName, position, lvl.DoorSize, lvl.OpenDoorSize, spawnPosition, exit.AdjacentRoom);
+
+            //TODO: find a better place for this
+            inputTable.RegisterMapping(new ClickCollidableTrigger(ClickCollidableTrigger.MouseButton.Middle, door, objectManager),
+                new SwitchRoomCommand(door, Vector2.Zero));
             return door;
         }
 

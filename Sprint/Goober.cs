@@ -72,7 +72,7 @@ namespace Sprint
             //enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
             //tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
 
-            LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader);
+            LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader, inputTable);
             loader.LoadLevelXML("LevelOne/Level1");
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));

@@ -17,7 +17,7 @@ namespace Sprint.Input
         private bool triggered; // Whether all requirements have been satisfied this cycle
 
         private ICollidable target;
-        private GameObjectManager objmanager;
+        private GameObjectManager objManager;
 
         public enum MouseButton
         {
@@ -31,7 +31,7 @@ namespace Sprint.Input
             this.button = button;
             this.heldPreviously = false;
             this.triggered = false;
-            this.objmanager = objManager;
+            this.objManager = objManager;
             this.target = collidable;
         }
 
@@ -60,7 +60,8 @@ namespace Sprint.Input
             // Trigger only when press is begun
             if (pressed && !heldPreviously)
             {
-                triggered = target.GetBoundingBox().Contains(mouse.X, mouse.Y);
+                triggered = target.BoundingBox.Contains(mouse.X, mouse.Y) &&
+                    objManager.GetStatics().Contains(target);
             }
             else
             {
