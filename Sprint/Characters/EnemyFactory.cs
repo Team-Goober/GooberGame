@@ -55,6 +55,10 @@ namespace Sprint.Characters
                     return new HandEnemy(enemySprite, position, objectManager, spriteLoader);
                 case "dragonmov":
                     return new DragonEnemy(enemySprite, position, objectManager, spriteLoader);
+                case "slime":
+                    return new SlimeEnemy(enemySprite, position, objectManager, spriteLoader);
+                case "spike":
+                    return new SpikeEnemy(enemySprite, position, objectManager, spriteLoader);
                 default:
                     return null;
             }
