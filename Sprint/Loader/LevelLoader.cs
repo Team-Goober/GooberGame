@@ -36,7 +36,7 @@ namespace Sprint.Loader
             this.objectManager = objectManager;
             this.spriteLoader = spriteLoader;
             this.inputTable = inputTable;
-            
+
             tileFactory = new(spriteLoader);
             doorFactory = new(spriteLoader, objectManager);
             itemFactory = new(spriteLoader);
