@@ -265,7 +265,7 @@
 	</Item>
 
 		<!--Row 1 Col 3 Room Index 1-->
-		<!--Missing Enemies and Key Item-->
+		<!--Key Item-->
 		<Item>
 			<TopExit>
 				<Door>WallTop</Door>
@@ -293,7 +293,23 @@
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
 			<Items />
-			<Enemies />
+			<Enemies>
+				<Item>
+					<Type>dog</Type>
+					<Row>1</Row>
+					<Column>9</Column>
+				</Item>
+				<Item>
+					<Type>dog</Type>
+					<Row>3</Row>
+					<Column>5</Column>
+				</Item>
+				<Item>
+					<Type>dog</Type>
+					<Row>3</Row>
+					<Column>8</Column>
+				</Item>
+			</Enemies>
 		</Item>
 
 		<!--Row 2 Col 3 Room Index 2-->
@@ -551,7 +567,13 @@
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
 			<Items/>
-			<Enemies/>
+			<Enemies>
+				<Item>
+					<Type>dog</Type>
+					<Row></Row>
+					<Column></Column>
+				</Item>
+			</Enemies>
 		</Item>
 
 		<!--Row 3 Col 5 Room Index 9-->
@@ -598,7 +620,6 @@
 		</Item>
 
 		<!--Row 4 Col 2 Room Index 10-->
-		<!--Right door is not correct-->
 		<Item>
 			<TopExit>
 				<Door>LockTop</Door>
