@@ -22,6 +22,7 @@ namespace Sprint.Characters
 
         private ProjectileSystem secondaryItems;
         private SwordCollision swordCollision;
+        private const int swordWidth = 40, swordLength = 90;
 
         public Directions Facing { get; private set; }
 
@@ -105,19 +106,19 @@ namespace Sprint.Characters
             {
                 case Directions.RIGHT:
                     sprite.SetAnimation("swordRight");
-                    swordRec = new Rectangle((int)physics.Position.X+12, (int)physics.Position.Y + sideLength/2 - 5,40,12);
+                    swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
                     break;
                 case Directions.LEFT:
                     sprite.SetAnimation("swordLeft");
-                    swordRec = new Rectangle((int)physics.Position.X - 12, (int)physics.Position.Y + sideLength / 2 - 5, 40, 12);
+                    swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
                     break;
                 case Directions.UP:
                     sprite.SetAnimation("swordUp");
-                    swordRec = new Rectangle((int)physics.Position.X + sideLength/2 -5, (int)physics.Position.Y -12,12,40);
+                    swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
                     break;
                 case Directions.DOWN:
                     sprite.SetAnimation("swordDown");
-                    swordRec = new Rectangle((int)physics.Position.X +sideLength /2-5, (int)physics.Position.Y + 12, 12, 40);
+                    swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
                     break;
                 default:
                     break;
