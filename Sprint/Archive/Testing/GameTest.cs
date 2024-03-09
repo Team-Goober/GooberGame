@@ -35,8 +35,6 @@ namespace Sprint.Testing
             // create input mapping object
             inputTable = new InputTable();
 
-            // register quit command
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new QuitCommand(this));
 
             // register print commands
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Space), new DebugPrintCommand("Press"));

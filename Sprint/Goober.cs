@@ -75,6 +75,16 @@ namespace Sprint
 
             player = new Player(characterLoc, inputTable, objectManager, spriteLoader);
 
+
+            MakeCommands();
+
+
+            // Add player as persistent object
+            objectManager.Add(player, true);
+        }
+
+        public void MakeCommands()
+        {
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new MoveUp(player));
@@ -116,12 +126,8 @@ namespace Sprint
             // Switching rooms
             inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Right), new NextRoomCommand(objectManager));
             inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Left), new PrevRoomCommand(objectManager));
-
-
-
-            // Add player as persistent object
-            objectManager.Add(player, true);
         }
+
 
         //clears input dictionary and object manager
         public void ResetGame()
@@ -133,11 +139,20 @@ namespace Sprint
 
             objectManager.ClearRooms();
 
-            // Clear commands
             inputTable.ClearDictionary();
 
-            // Reload
-            LoadContent();
+
+            // reload the level
+            LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader, inputTable);
+            loader.LoadLevelXML("LevelOne/Level1");
+
+            // new player
+            player = new Player(characterLoc, inputTable, objectManager, spriteLoader);
+
+            // remake commands
+            MakeCommands();
+
+            objectManager.Add(player, true);
         }
 
 
@@ -154,7 +169,6 @@ namespace Sprint
             if(resetGame)
             {
                 ResetGame();
-                LoadContent();
                 resetGame=false;
             }
 
