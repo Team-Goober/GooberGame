@@ -9,8 +9,8 @@ namespace Sprint.Factory.Door
     internal class WallDoor: Door
     {
         
-        public WallDoor(ISprite sprite, Vector2 position, Vector2 size, Vector2 openSize, int otherSide, GameObjectManager objManager) :
-            base(sprite, false, position, size, openSize, otherSide, objManager)
+        public WallDoor(ISprite sprite, Vector2 position, Vector2 size, GameObjectManager objManager) :
+            base(sprite, false, position, size, Vector2.Zero, -1, Vector2.Zero, objManager)
         {
 
         }

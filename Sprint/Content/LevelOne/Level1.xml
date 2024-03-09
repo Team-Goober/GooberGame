@@ -37,6 +37,11 @@
     <BottomDoorPos>896 288</BottomDoorPos>
     <LeftDoorPos>0 288</LeftDoorPos>
     <RightDoorPos>448 576</RightDoorPos>
+    
+    <TopSpawnPos>512 200</TopSpawnPos>
+    <BottomSpawnPos>512 500</BottomSpawnPos>
+    <LeftSpawnPos>200 350</LeftSpawnPos>
+    <RightSpawnPos>824 350</RightSpawnPos>
 	  
     <DoorReferences>
         <Item>
@@ -198,5 +203,6 @@
       </Item>
     </Rooms>
 	  
-  </Asset>
+  
+</Asset>
 </XnaContent>

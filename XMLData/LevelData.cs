@@ -22,6 +22,10 @@ namespace XMLData
         public Vector2 BottomDoorPos;
         public Vector2 LeftDoorPos;
         public Vector2 RightDoorPos;
+        public Vector2 TopSpawnPos; // Positions of where each door should place player in the next room. Direction represents the side of the room
+        public Vector2 BottomSpawnPos; // the player should end up on, not the side the entrance door was on
+        public Vector2 LeftSpawnPos;
+        public Vector2 RightSpawnPos;
         public Dictionary<string, DoorReference> DoorReferences; // Mapping of labels to door data so rooms can reuse the same door types
 
         public List<RoomData> Rooms; // All rooms in this level. First index is the starting room.

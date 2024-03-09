@@ -14,6 +14,7 @@ namespace Sprint.Factory.Door
         protected Rectangle openBounds;
         protected int otherSide;
         protected bool isOpen;
+        protected Vector2 spawnPosition;
 
         GameObjectManager objManager;
 
@@ -35,7 +36,7 @@ namespace Sprint.Factory.Door
             }
         }
 
-        public Door(ISprite sprite, bool isOpen, Vector2 position, Vector2 size, Vector2 openSize, int otherSide, GameObjectManager objManager)
+        public Door(ISprite sprite, bool isOpen, Vector2 position, Vector2 size, Vector2 openSize, int otherSide, Vector2 spawnPosition, GameObjectManager objManager)
         {
             this.sprite = sprite;
             this.position = position;
@@ -45,12 +46,18 @@ namespace Sprint.Factory.Door
             this.otherSide = otherSide;
             this.isOpen = isOpen;
             this.objManager = objManager;
+            this.spawnPosition = spawnPosition;
         }
 
         public void SwitchRoom()
         {
             if (otherSide >= 0)
                 objManager.SwitchRoom(otherSide);
+        }
+
+        public Vector2 PlayerSpawnPosition()
+        {
+            return spawnPosition;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

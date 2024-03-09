@@ -7,5 +7,7 @@ namespace Sprint.Interfaces
 
         public void SwitchRoom();
 
+        public Vector2 PlayerSpawnPosition();
+
     }
 }
