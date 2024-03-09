@@ -539,7 +539,7 @@
 		</Item>
 
 		<!--Row 3 Col 4 Room Index 8-->
-		<!--Enemies needed. Item Needed-->
+		<!--Item Needed-->
 		<Item>
 			<TopExit>
 				<Door>WallTop</Door>
@@ -570,14 +570,24 @@
 			<Enemies>
 				<Item>
 					<Type>dog</Type>
-					<Row></Row>
-					<Column></Column>
+					<Row>2</Row>
+					<Column>11</Column>
+				</Item>
+				<Item>
+					<Type>dog</Type>
+					<Row>3</Row>
+					<Column>9</Column>
+				</Item>
+				<Item>
+					<Type>dog</Type>
+					<Row>5</Row>
+					<Column>9</Column>
 				</Item>
 			</Enemies>
 		</Item>
 
 		<!--Row 3 Col 5 Room Index 9-->
-		<!--Enemies needed. Item Key needed-->
+		<!--Item Key needed-->
 		<Item>
 			<TopExit>
 				<Door>LockTop</Door>
