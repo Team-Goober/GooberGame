@@ -134,6 +134,8 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Right), new NextRoomCommand(objectManager));
             inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Left), new PrevRoomCommand(objectManager));
 
+
+
             // Add player as persistent object
             objectManager.Add(player, true);
         }
@@ -143,6 +145,7 @@ namespace Sprint
         {
             inputTable.ClearDictionary();
             objectManager.ClearObjects();
+            objectManager.Remove(player, true);
         }
 
 

@@ -31,7 +31,8 @@ namespace Sprint
             ISprite batSprite = spriteLoader.BuildSprite(ANIM_FILE, "bat");
             ISprite handSprite = spriteLoader.BuildSprite(ANIM_FILE, "hand");
             ISprite dragonSprite = spriteLoader.BuildSprite(ANIM_FILE, "dragonmov");
-          
+            ISprite slimeSprite = spriteLoader.BuildSprite(ANIM_FILE, "slime");
+
             enemies.Add(new JellyfishEnemy(jellyfishSprite, position, objectManager, spriteLoader));
             enemies.Add(new BluebubbleEnemy(bluebubbleSprite, position, objectManager, spriteLoader));
             enemies.Add(new SkeletonEnemy(skeletonSprite, position, objectManager, spriteLoader));
@@ -39,6 +40,7 @@ namespace Sprint
             enemies.Add(new BatEnemy(batSprite, position, objectManager, spriteLoader));
             enemies.Add(new HandEnemy(handSprite, position, objectManager, spriteLoader));
             enemies.Add(new DragonEnemy(dragonSprite, position, objectManager, spriteLoader));
+            enemies.Add(new SlimeEnemy(slimeSprite, position, objectManager, spriteLoader));
 
             // Add more enemies as needed
 
