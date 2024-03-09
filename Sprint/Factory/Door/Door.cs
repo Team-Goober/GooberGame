@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Sprint.Factory.Door
 {
-    internal abstract class Door: IDoor, ICollidable
+    internal abstract class Door: IDoor
     {
         protected ISprite sprite;
         protected Vector2 position;

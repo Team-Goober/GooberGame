@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
 using Sprint.Factory.Door;
+using Sprint.Functions;
+using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;
@@ -16,17 +18,23 @@ namespace Sprint.Loader
         private ContentManager content;
         private GameObjectManager objectManager;
         private SpriteLoader spriteLoader;
+        private IInputMap inputTable;
 
         private TileFactory tileFactory;
         private DoorFactory doorFactory;
         private ItemFactory itemFactory;
         private EnemyFactory enemyFactory;
 
-        public LevelLoader(ContentManager newContent, GameObjectManager objectManager, SpriteLoader spriteLoader)
+        // Array to generate click-through-door commands
+        private Rectangle[] doorBounds;
+        private IDoor[,] doorsPerSide;
+
+        public LevelLoader(ContentManager newContent, GameObjectManager objectManager, SpriteLoader spriteLoader, IInputMap inputTable)
         {
             this.content = newContent;
             this.objectManager = objectManager;
             this.spriteLoader = spriteLoader;
+            this.inputTable = inputTable;
             
             tileFactory = new(spriteLoader);
             doorFactory = new(spriteLoader, objectManager);
@@ -45,9 +53,31 @@ namespace Sprint.Loader
 
             objectManager.ClearRooms();
 
+
+            // Make commands for moving between rooms
+            // Should be a list of bounding boxes for doors on each side of the room, so that they can be clicked
+            doorBounds = new Rectangle[] { new Rectangle((int)data.TopDoorPos.X, (int)data.TopDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y),
+                new Rectangle((int)data.BottomDoorPos.X, (int)data.BottomDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y),
+                new Rectangle((int)data.LeftDoorPos.X, (int)data.LeftDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y),
+                new Rectangle((int)data.RightDoorPos.X, (int)data.RightDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y)};
+
+            doorsPerSide = new IDoor[4, data.Rooms.Count];
+
             // Load all rooms by index using RoomLoader
             for (int i = 0; i < data.Rooms.Count; i++) {
                 objectManager.AddRoom(BuildRoomManager(data, i));
+            }
+
+            // Make a command that checks all doors at its position for switching rooms when middle clicked
+            for (int i=0; i<4; i++)
+            {
+                IDoor[] slice = new IDoor[data.Rooms.Count];
+                for (int j=0; j < slice.Length; j++)
+                {
+                    slice[j] = doorsPerSide[i, j];
+                }
+                inputTable.RegisterMapping(new ClickInBoundsTrigger(ClickInBoundsTrigger.MouseButton.Middle, doorBounds[i]),
+                    new SwitchRoomFromDoorsCommand(slice, objectManager));
             }
 
             // TODO: replace this with loaded value from file
@@ -55,9 +85,10 @@ namespace Sprint.Loader
 
         }
 
-        /* Loads Position from the given XML file
+        /* Creates a room from given data
         * 
-        * @param path      Path to the XML file
+        * @param lvl        LevelData to pull info from
+        * @param roomIndex  index of room in LevelData.Rooms to be made
         */
         public RoomObjectManager BuildRoomManager(LevelData lvl, int roomIndex)
         {
@@ -77,10 +108,17 @@ namespace Sprint.Loader
             }
 
             // spawn player on other side of room
-            rom.Add(MakeDoor(lvl, rd.TopExit, lvl.TopDoorPos, lvl.BottomSpawnPos));
-            rom.Add(MakeDoor(lvl, rd.BottomExit, lvl.BottomDoorPos, lvl.TopSpawnPos));
-            rom.Add(MakeDoor(lvl, rd.LeftExit, lvl.LeftDoorPos, lvl.RightSpawnPos));
-            rom.Add(MakeDoor(lvl, rd.RightExit, lvl.RightDoorPos, lvl.LeftSpawnPos));
+            IDoor[] doors = { MakeDoor(lvl, rd.TopExit, lvl.TopDoorPos, lvl.BottomSpawnPos),
+                MakeDoor(lvl, rd.BottomExit, lvl.BottomDoorPos, lvl.TopSpawnPos),
+                MakeDoor(lvl, rd.LeftExit, lvl.LeftDoorPos, lvl.RightSpawnPos),
+                MakeDoor(lvl, rd.RightExit, lvl.RightDoorPos, lvl.LeftSpawnPos) };
+
+            for(int i=0; i<doors.Length; i++)
+            {
+                rom.Add(doors[i]);
+                // make commands if clicked
+                doorsPerSide[i, roomIndex] = doors[i];
+            }
 
             //Load Floor tile 
             float x = lvl.FloorGridPos.X; float y = lvl.FloorGridPos.Y;
