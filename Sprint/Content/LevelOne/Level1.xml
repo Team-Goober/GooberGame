@@ -901,43 +901,43 @@
 			<Enemies>
 				<Item>
 					<Type>bat</Type>
-					<Row>1</Row>
-					<Column>4</Column>
-				</Item>
-				<Item>
-					<Type>bat</Type>
-					<Row>7</Row>
-					<Column>4</Column>
-				</Item>
-				<Item>
-					<Type>bat</Type>
-					<Row>5</Row>
-					<Column>7</Column>
-				</Item>
-				<Item>
-					<Type>bat</Type>
-					<Row>5</Row>
-					<Column>9</Column>
-				</Item>
-				<Item>
-					<Type>bat</Type>
-					<Row>3</Row>
-					<Column>9</Column>
-				</Item>
-				<Item>
-					<Type>bat</Type>
-					<Row>2</Row>
-					<Column>10</Column>
-				</Item>
-				<Item>
-					<Type>bat</Type>
-					<Row>4</Row>
-					<Column>12</Column>
+					<Row>0</Row>
+					<Column>3</Column>
 				</Item>
 				<Item>
 					<Type>bat</Type>
 					<Row>6</Row>
+					<Column>3</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>4</Row>
+					<Column>6</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>4</Row>
+					<Column>8</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>2</Row>
+					<Column>8</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>1</Row>
+					<Column>9</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>4</Row>
 					<Column>11</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>5</Row>
+					<Column>10</Column>
 				</Item>
 			</Enemies>
 		</Item>
@@ -1112,28 +1112,28 @@
 			<Enemies>
 				<Item>
 					<Type>skeleton</Type>
-					<Row>1</Row>
+					<Row>0</Row>
+					<Column>2</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>6</Row>
 					<Column>3</Column>
 				</Item>
 				<Item>
 					<Type>skeleton</Type>
-					<Row>7</Row>
-					<Column>4</Column>
-				</Item>
-				<Item>
-					<Type>skeleton</Type>
-					<Row>3</Row>
-					<Column>7</Column>
-				</Item>
-				<Item>
-					<Type>skeleton</Type>
-					<Row>5</Row>
-					<Column>7</Column>
-				</Item>
-				<Item>
-					<Type>skeleton</Type>
 					<Row>2</Row>
-					<Column>11</Column>
+					<Column>6</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>4</Row>
+					<Column>6</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>1</Row>
+					<Column>10</Column>
 				</Item>
 			</Enemies>
 		</Item>
