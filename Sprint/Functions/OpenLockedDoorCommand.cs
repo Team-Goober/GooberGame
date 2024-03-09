@@ -21,10 +21,10 @@ public class OpenLockedDoorCommand: ICommand
     public void Execute()
     {
         // Moves receiver by displacement
-        if (receiver.inventory.HasItem(ItemType.SpecialKey))
+        if (receiver.inventory.HasItem(ItemType.Key))
         {
             effector.SetOpen(true);
-            receiver.inventory.ConsumeItem(ItemType.SpecialKey);
+            receiver.inventory.ConsumeItem(ItemType.Key);
         }
         else
         {
