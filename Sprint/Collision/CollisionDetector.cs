@@ -12,12 +12,7 @@ namespace Sprint.Collision
 {
     internal class CollisionDetector
     {
-        CollisionHandler collisionHandler;
-
-        public CollisionDetector() {
-        
-            collisionHandler = new CollisionHandler();
-        }
+        CollisionHandler collisionHandler = new();
 
         /// <summary>
         /// Iterates game objects to check for collision

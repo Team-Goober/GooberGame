@@ -1,11 +1,47 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 using Sprint.Levels;
+using Sprint.Sprite;
 
 namespace Sprint.Characters
 {
-    internal class ItemFactory
+    public class ItemFactory
     {
+        private readonly Dictionary<string, ItemType> itemTypeConverter;
+        private const string ANIM_FILE = "itemAnims";
+        private SpriteLoader spriteLoader;
+        public ItemFactory(SpriteLoader spriteLoader)
+        {
+            this.spriteLoader = spriteLoader;
+            itemTypeConverter = new Dictionary<string, ItemType>()
+            {
+                { "arrow", ItemType.Arrow },
+                { "heart", ItemType.Heart },
+                { "specialKey", ItemType.SpecialKey },
+                { "rupee", ItemType.Rupee },
+                { "triforce", ItemType.Triforce },
+                { "shield", ItemType.Shield },
+                { "clock", ItemType.Clock },
+                { "bow", ItemType.Bow },
+                { "fence", ItemType.Fence },
+                { "ladder", ItemType.Ladder },
+                { "blueArrow", ItemType.BlueArrow },
+                { "fairy", ItemType.Fairy },
+                { "blueOrb", ItemType.BlueOrb },
+                { "blueRing", ItemType.BlueRing },
+                { "redRing", ItemType.RedRing },
+                { "blueBoomerang", ItemType.BlueBoomerang },
+                { "boomerang", ItemType.Boomerang },
+                { "blueHeart", ItemType.BlueHeart },
+                { "blueTorch", ItemType.BlueTorch },
+                { "sword", ItemType.Sword },
+                { "citem", ItemType.Citem },
+                { "shieldRed", ItemType.ShieldRed },
+                { "potion", ItemType.Potion },
+                { "cake", ItemType.Cake },
+            };
+        }
 
         /// <summary>
         /// Builds item from string name
@@ -15,11 +51,7 @@ namespace Sprint.Characters
         /// <returns></returns>
         public Item MakeItem(String name, Vector2 position)
         {
-            // TODO: Implement this function
-            // Consider storing items in file with reflection, and having items load their own sprites
-            // This would make dealing with items much easier
-            return null;
+            return new Item(spriteLoader.BuildSprite(ANIM_FILE, name), position, itemTypeConverter[name]);
         }
-
     }
 }

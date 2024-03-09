@@ -9,7 +9,7 @@ namespace Sprint.Functions
 
         private IDoor receiver;
 
-        public SwitchRoomCommand(ICollidable receiver, Vector2 overlap) { 
+        public SwitchRoomCommand(ICollidable receiver, ICollidable effector, Vector2 overlap) {
             this.receiver = (IDoor)receiver;
         }
 
