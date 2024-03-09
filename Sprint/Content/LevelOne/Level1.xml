@@ -344,7 +344,7 @@
 		</Item>
 
 		<!--Row 2 Col 5 Room Index 3-->
-		<!--Right Door is not correct. Heart is not spawning. Dragon row and column doesn't make sense-->
+		<!--Heart is not spawning. Dragon row and column doesn't make sense-->
 		<Item>
 			<TopExit>
 				<Door>WallTop</Door>
@@ -458,7 +458,7 @@
 		</Item>
 
 		<!--Row 3 Col 2 Room Index 6-->
-		<!--Left door is not correct. There are enemies on the floor. But I have no idea what they are. Picture is too blurry-->
+		<!--There are enemies on the floor. But I have no idea what they are. Picture is too blurry-->
 		<!--Some Orange tile missing.-->
 		<Item>
 			<TopExit>
@@ -470,7 +470,7 @@
         <AdjacentRoom>10</AdjacentRoom>
       </BottomExit>
       <LeftExit>
-        <Door>LockLeft</Door>
+        <Door>PuzzleLeft</Door>
         <AdjacentRoom>5</AdjacentRoom>
       </LeftExit>
       <RightExit>
@@ -491,14 +491,14 @@
 		</Item>
 
 		<!--Row 3 Col 3 Room Index 7-->
-		<!--Need Hidden Wall Bottom. Enemies needed-->
+		<!--Enemies needed-->
 		<Item>
 			<TopExit>
 				<Door>OpenTop</Door>
 				<AdjacentRoom>3</AdjacentRoom>
 			</TopExit>
 			<BottomExit>
-        <Door>WallDown</Door>
+        <Door>HiddenDown</Door>
         <AdjacentRoom>11</AdjacentRoom>
       </BottomExit>
       <LeftExit>
@@ -523,14 +523,14 @@
 		</Item>
 
 		<!--Row 3 Col 4 Room Index 8-->
-		<!--Need Hidden Wall Bottom. Enemies needed. Item Needed-->
+		<!--Enemies needed. Item Needed-->
 		<Item>
 			<TopExit>
 				<Door>WallTop</Door>
 				<AdjacentRoom>-1</AdjacentRoom>
 			</TopExit>
 			<BottomExit>
-        <Door>WallDown</Door>
+        <Door>HiddenDown</Door>
         <AdjacentRoom>12</AdjacentRoom>
       </BottomExit>
       <LeftExit>
@@ -602,7 +602,7 @@
         <AdjacentRoom>11</AdjacentRoom>
       </LeftExit>
       <RightExit>
-        <Door>LockRight</Door>
+        <Door>PuzzleRight</Door>
         <AdjacentRoom>-1</AdjacentRoom>
 			</RightExit>
 			<TileGrid>
@@ -653,7 +653,7 @@
 		<!--Item Key-->
 		<Item>
 			<TopExit>
-				<Door>WallTop</Door>
+				<Door>HiddenTop</Door>
 				<AdjacentRoom>7</AdjacentRoom>
 			</TopExit>
 			<BottomExit>
@@ -708,10 +708,10 @@
 		</Item>
 
 		<!--Row 4 Col 4 Room Index 12-->
-		<!--Hidden Wall Top. Missing an Item-->
+		<!--Missing an Item-->
 		<Item>
 			<TopExit>
-				<Door>WallTop</Door>
+				<Door>HiddenTop</Door>
 				<AdjacentRoom>8</AdjacentRoom>
 			</TopExit>
 			<BottomExit>
