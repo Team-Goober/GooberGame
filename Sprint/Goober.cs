@@ -126,9 +126,18 @@ namespace Sprint
         //clears input dictionary and object manager
         public void ResetGame()
         {
+            // delete all game objects
+            objectManager.ClearObjects(true);
+
+            objectManager.EndCycle();
+
+            objectManager.ClearRooms();
+
+            // Clear commands
             inputTable.ClearDictionary();
-            objectManager.ClearObjects();
-            objectManager.Remove(player, true);
+
+            // Reload
+            LoadContent();
         }
 
 
