@@ -17,6 +17,8 @@ namespace Sprint.Factory.Door
         protected bool isOpen;
         protected Vector2 spawnPosition;
 
+        protected bool queueOpen; //to prevent glitching when hitting a newly opened door
+
         GameObjectManager objManager;
 
         // Bounds depends on if this door is open
@@ -48,6 +50,7 @@ namespace Sprint.Factory.Door
             SetOpen(isOpen);
             this.objManager = objManager;
             this.spawnPosition = spawnPosition;
+            queueOpen = false;
         }
 
         public void SwitchRoom()
@@ -68,6 +71,11 @@ namespace Sprint.Factory.Door
 
         public void Update(GameTime gameTime)
         {
+            if (queueOpen)
+            {
+                isOpen = true;
+                queueOpen = false;
+            }
             sprite.Update(gameTime);
         }
 
@@ -79,14 +87,16 @@ namespace Sprint.Factory.Door
 
         public virtual void SetOpen(bool open)
         {
-            isOpen = open;
-            if (isOpen)
+            
+            if (open)
             {
                 sprite.SetAnimation("open");
+                queueOpen = true;
             }
             else
             {
                 sprite.SetAnimation("close");
+                isOpen = false;
             }
         }
     }
