@@ -32,7 +32,6 @@
 ## Known Bugs
 -Dragon is having collision issues
 -Spike flys off the map
--Walking through a locked door with the key leads to an unintended graphical flash
 
 
 ## Extra Tools and Processes Used
