@@ -26,6 +26,8 @@ public enum ItemType
     ShieldRed,
     Potion,
     Cake,
+    Key,
+    Paper,
     FireBall,
     OldmManText
 }

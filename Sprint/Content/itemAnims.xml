@@ -81,7 +81,7 @@
 							<Rows>1</Rows>
 							<Cols>2</Cols>
 							<Padding>4</Padding>
-							<CenterPoint>5 5</CenterPoint>
+							<CenterPoint>12 5</CenterPoint>
 							<Loop>true</Loop>
 							<Framerate>10</Framerate>
 						</Value>
@@ -429,6 +429,42 @@
 				</Animations>
 				<Scale>4</Scale>
 				<InitialAnimation>cake</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>key</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>key</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>284 40 8 16</Rectangle>
+							<CenterPoint>4 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>key</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>paper</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>paper</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>244 80 8 16</Rectangle>
+							<CenterPoint>4 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>paper</InitialAnimation>
 			</Value>
 		</Item>
 
