@@ -57,6 +57,14 @@
 				<Type>floor</Type>
 			</Value>
 		</Item>
+
+		<Item>
+			<Key>7</Key>
+			<Value>
+				<SpriteName>spotTile</SpriteName>
+				<Type>floor</Type>
+			</Value>
+		</Item>
     </TileReferences>
 	  
     <DoorSize>128 128</DoorSize>
@@ -745,6 +753,143 @@
 					<Type>skeleton</Type>
 					<Row>5</Row>
 					<Column>8</Column>
+				</Item>
+			</Enemies>
+		</Item>
+
+		<!--Row 6 Col 2 Room Index 14-->
+		<!--Key missing-->
+		<Item>
+			<TopExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>OpenRight</Door>
+				<AdjacentRoom>15</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>WallLeft</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>WallDown</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>bat</Type>
+					<Row>3</Row>
+					<Column>4</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>5</Row>
+					<Column>4</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>6</Row>
+					<Column>2</Column>
+				</Item>
+			</Enemies>
+		</Item>
+
+		<!--Row 6 Col 3 Room Index 15-->
+		<!--Blue Statues?? Missing Floor Tiles??-->
+		<Item>
+			<TopExit>
+				<Door>LockTop</Door>
+				<AdjacentRoom>13</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>OpenRight</Door>
+				<AdjacentRoom>16</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>OpenLeft</Door>
+				<AdjacentRoom>14</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>OpenDown</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 4 0 0 4 0 0 5 0 0 5 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 4 0 0 4 0 0 5 0 0 5 0</Item>
+				<Item>0 0 0 0 0 7 7 0 0 0 0 0</Item>
+				<Item>0 4 0 7 4 7 7 5 7 0 5 0</Item>
+				<Item>0 0 0 7 7 7 7 7 7 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies/>
+		</Item>
+
+		<!--Row 6 Col 4 Room Index 16-->
+		<Item>
+			<TopExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>WallRight</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>OpenLeft</Door>
+				<AdjacentRoom>15</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>WallDown</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 1 1 0 0 0 0 1 1 0 0</Item>
+				<Item>0 0 1 1 0 0 0 0 1 1 0 0</Item>
+				<Item>0 0 1 1 0 0 0 0 1 1 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>1</Row>
+					<Column>3</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>7</Row>
+					<Column>4</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>3</Row>
+					<Column>7</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>5</Row>
+					<Column>7</Column>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>2</Row>
+					<Column>11</Column>
 				</Item>
 			</Enemies>
 		</Item>

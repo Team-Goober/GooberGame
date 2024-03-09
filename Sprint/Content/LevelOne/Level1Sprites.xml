@@ -379,7 +379,25 @@
 				  <Item>
 					  <Key>tile</Key>
 					  <Value Type="XMLData.SingleAtlasData">
-						  <Rectangle>34 34 16 16</Rectangle>
+						  <Rectangle>0 17 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>tile</InitialAnimation>
+		  </Value>
+	  </Item>
+
+	  <Item>
+		  <Key>spotTile</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>tile</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>17 17 16 16</Rectangle>
 						  <CenterPoint>0 0</CenterPoint>
 					  </Value>
 				  </Item>
