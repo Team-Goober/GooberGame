@@ -36,6 +36,27 @@
 				<Type>floor</Type>
 			</Value>
 		</Item>
+		<Item>
+			<Key>4</Key>
+			<Value>
+				<SpriteName>fishStatue</SpriteName>
+				<Type>wall</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>5</Key>
+			<Value>
+				<SpriteName>dragStatue</SpriteName>
+				<Type>wall</Type>
+			</Value>
+		</Item>
+		<Item>
+			<Key>6</Key>
+			<Value>
+				<SpriteName>blackTile</SpriteName>
+				<Type>floor</Type>
+			</Value>
+		</Item>
     </TileReferences>
 	  
     <DoorSize>128 128</DoorSize>
@@ -286,6 +307,109 @@
 					<Column>10</Column>
 				</Item>
 			</Enemies>
+		</Item>
+
+		<!--Row 2 Col 6 Room Index 4-->
+		<!--Triforce is not spawning-->
+		<Item>
+			<TopExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>WallRight</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>OpenLeft</Door>
+				<AdjacentRoom>3</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>WallDown</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 1 1 1 1 1 1 1 1 1 1 0</Item>
+				<Item>0 1 0 0 4 0 0 5 0 0 1 0</Item>
+				<Item>0 1 0 4 0 0 0 0 5 0 1 0</Item>
+				<Item>0 1 0 0 0 0 0 0 0 0 1 0</Item>
+				<Item>0 1 1 1 1 0 0 1 1 1 1 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items>
+				<Item>
+					<Type>triforce</Type>
+					<Row>3</Row>
+					<Column>10</Column>
+				</Item>
+			</Items>
+			<Enemies/>
+		</Item>
+
+		<!--Row 3 Col 1 Room Index 5-->
+		<!--Need NPC, Static FireBall, and Text-->
+		<Item>
+			<TopExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>OpenRight</Door>
+				<AdjacentRoom>6</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>WallLeft</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>WallDown</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
+				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
+				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
+				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
+				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
+				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
+				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies/>
+		</Item>
+
+		<!--Row 3 Col 2 Room Index 6-->
+		<!--Left door is not correct. There are enemies on the floor. But I have no idea what they are. Picture is too blurry-->
+		<!--Some Orange tile missing.-->
+		<Item>
+			<TopExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>WallRight</Door>
+				<AdjacentRoom>5</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>LockLeft</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>LockDown</Door>
+				<AdjacentRoom>10</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies/>
 		</Item>
     </Rooms>
   </Asset>
