@@ -33,15 +33,16 @@
 	  
     <DoorSize>128 128</DoorSize>
     <OpenDoorSize>64 64</OpenDoorSize>
-    <TopDoorPos>448 0</TopDoorPos>
-    <BottomDoorPos>896 288</BottomDoorPos>
-    <LeftDoorPos>0 288</LeftDoorPos>
-    <RightDoorPos>448 576</RightDoorPos>
     
-    <TopSpawnPos>512 200</TopSpawnPos>
-    <BottomSpawnPos>512 500</BottomSpawnPos>
-    <LeftSpawnPos>200 350</LeftSpawnPos>
-    <RightSpawnPos>824 350</RightSpawnPos>
+    <TopDoorPos>448 0</TopDoorPos>
+    <BottomDoorPos>448 576</BottomDoorPos>
+    <LeftDoorPos>0 288</LeftDoorPos>
+    <RightDoorPos>896 288</RightDoorPos>
+    
+    <TopSpawnPos>512 128</TopSpawnPos>
+    <BottomSpawnPos>512 572</BottomSpawnPos>
+    <LeftSpawnPos>128 350</LeftSpawnPos>
+    <RightSpawnPos>896 350</RightSpawnPos>
 	  
     <DoorReferences>
         <Item>
@@ -133,20 +134,20 @@
     <Rooms>		
       <Item>
 				<TopExit>
-					<Door>WallTop</Door>
-					<AdjacentRoom>-1</AdjacentRoom>
+					<Door>OpenTop</Door>
+					<AdjacentRoom>1</AdjacentRoom>
 				</TopExit>
 				<BottomExit>
-					<Door>OpenRight</Door>
+					<Door>OpenDown</Door>
 					<AdjacentRoom>1</AdjacentRoom>
 				</BottomExit>
 				<LeftExit>
-					<Door>WallLeft</Door>
-					<AdjacentRoom>-1</AdjacentRoom>
+					<Door>OpenLeft</Door>
+					<AdjacentRoom>1</AdjacentRoom>
 				</LeftExit>
 				<RightExit>
-					<Door>WallDown</Door>
-					<AdjacentRoom>-1</AdjacentRoom>
+					<Door>OpenRight</Door>
+					<AdjacentRoom>1</AdjacentRoom>
 				</RightExit>
         <TileGrid>
           <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -174,20 +175,20 @@
       </Item>
       <Item>
         <TopExit>
-          <Door>WallTop</Door>
-          <AdjacentRoom>-1</AdjacentRoom>
+          <Door>OpenTop</Door>
+          <AdjacentRoom>0</AdjacentRoom>
         </TopExit>
         <BottomExit>
-          <Door>WallRight</Door>
-          <AdjacentRoom>-1</AdjacentRoom>
+          <Door>OpenDown</Door>
+          <AdjacentRoom>0</AdjacentRoom>
         </BottomExit>
         <LeftExit>
           <Door>OpenLeft</Door>
           <AdjacentRoom>0</AdjacentRoom>
         </LeftExit>
         <RightExit>
-          <Door>WallDown</Door>
-          <AdjacentRoom>-1</AdjacentRoom>
+          <Door>OpenRight</Door>
+          <AdjacentRoom>0</AdjacentRoom>
         </RightExit>
         <TileGrid>
           <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>

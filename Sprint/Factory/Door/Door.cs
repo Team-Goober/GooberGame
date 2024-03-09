@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Collision;
 using Sprint.Levels;
+using System.Diagnostics;
 
 namespace Sprint.Factory.Door
 {
@@ -52,7 +53,7 @@ namespace Sprint.Factory.Door
         public void SwitchRoom()
         {
             if (otherSide >= 0)
-                objManager.SwitchRoom(otherSide);
+                objManager.SwitchRoom(PlayerSpawnPosition(), otherSide);
         }
 
         public Vector2 PlayerSpawnPosition()
