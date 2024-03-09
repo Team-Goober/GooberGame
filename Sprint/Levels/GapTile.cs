@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
+using Sprint.Collision;
 
 namespace Sprint.Levels
 {
@@ -9,6 +10,10 @@ namespace Sprint.Levels
         ISprite sprite;
         Vector2 position;
         Rectangle bounds;
+
+        public Rectangle BoundingBox => bounds;
+
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.GAP };
 
         public GapTile(ISprite sprite, Vector2 position, Vector2 size)
         {

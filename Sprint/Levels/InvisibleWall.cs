@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Collision;
 using Sprint.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,10 @@ namespace Sprint.Levels
     {
 
         Rectangle bounds;
+
+        public Rectangle BoundingBox => bounds;
+
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.WALL };
 
         public InvisibleWall(Rectangle bounds)
         {

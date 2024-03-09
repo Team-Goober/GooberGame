@@ -1,5 +1,6 @@
 ﻿using Sprint.Interfaces;
 using Sprint.Levels;
+using Microsoft.Xna.Framework;
 
 namespace Sprint.Functions
 {
@@ -14,7 +15,7 @@ namespace Sprint.Functions
 
         public void Execute()
         {
-            receiver.SwitchRoom(( receiver.RoomIndex() + 1) % receiver.NumRooms());
+            receiver.SwitchRoom(new Vector2(512, 350), ( receiver.RoomIndex() + 1) % receiver.NumRooms());
         }
 
     }

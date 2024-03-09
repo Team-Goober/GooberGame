@@ -4,5 +4,10 @@ namespace Sprint.Interfaces
 {
     internal interface IDoor : IGameObject
     {
+
+        public void SwitchRoom();
+
+        public Vector2 PlayerSpawnPosition();
+
     }
 }

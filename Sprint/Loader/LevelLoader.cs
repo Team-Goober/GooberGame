@@ -29,7 +29,7 @@ namespace Sprint.Loader
             this.spriteLoader = spriteLoader;
             
             tileFactory = new(spriteLoader);
-            doorFactory = new(spriteLoader);
+            doorFactory = new(spriteLoader, objectManager);
             itemFactory = new();
             enemyFactory = new(objectManager, spriteLoader);
 
@@ -50,7 +50,8 @@ namespace Sprint.Loader
                 objectManager.AddRoom(BuildRoomManager(data, i));
             }
 
-            objectManager.SwitchRoom(0);
+            // TODO: replace this with loaded value from file
+            objectManager.SwitchRoom(data.BottomSpawnPos, 15);
 
         }
 
@@ -75,10 +76,11 @@ namespace Sprint.Loader
                 rom.Add(ow);
             }
 
-            rom.Add(MakeDoor(lvl, rd.TopExit, lvl.TopDoorPos));
-            rom.Add(MakeDoor(lvl, rd.BottomExit, lvl.BottomDoorPos));
-            rom.Add(MakeDoor(lvl, rd.LeftExit, lvl.LeftDoorPos));
-            rom.Add(MakeDoor(lvl, rd.RightExit, lvl.RightDoorPos));
+            // spawn player on other side of room
+            rom.Add(MakeDoor(lvl, rd.TopExit, lvl.TopDoorPos, lvl.BottomSpawnPos));
+            rom.Add(MakeDoor(lvl, rd.BottomExit, lvl.BottomDoorPos, lvl.TopSpawnPos));
+            rom.Add(MakeDoor(lvl, rd.LeftExit, lvl.LeftDoorPos, lvl.RightSpawnPos));
+            rom.Add(MakeDoor(lvl, rd.RightExit, lvl.RightDoorPos, lvl.LeftSpawnPos));
 
             //Load Floor tile 
             float x = lvl.FloorGridPos.X; float y = lvl.FloorGridPos.Y;
@@ -114,11 +116,11 @@ namespace Sprint.Loader
             return rom;
         }
 
-        public IDoor MakeDoor(LevelData lvl, ExitData exit, Vector2 position)
+        public IDoor MakeDoor(LevelData lvl, ExitData exit, Vector2 position, Vector2 spawnPosition)
         {
             DoorReference doorRef = lvl.DoorReferences[exit.Door];
             //Parameter list is too long
-            IDoor door = doorFactory.MakeDoor(doorRef.Type, lvl.SpriteFile, doorRef.SpriteName, position, lvl.DoorSize, exit.AdjacentRoom);
+            IDoor door = doorFactory.MakeDoor(doorRef.Type, lvl.SpriteFile, doorRef.SpriteName, position, lvl.DoorSize, lvl.OpenDoorSize, spawnPosition, exit.AdjacentRoom);
             return door;
         }
 

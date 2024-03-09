@@ -7,19 +7,16 @@ namespace Sprint.Commands.SecondaryItem
     internal class ShootFireBallC : ICommand
     {
         private SimpleProjectileFactory factory;
-        private GameObjectManager objManager;
 
-        public ShootFireBallC(SimpleProjectileFactory newFactory, GameObjectManager newObjManager)
+        public ShootFireBallC(SimpleProjectileFactory newFactory)
         {
             this.factory = newFactory;
-            this.objManager = newObjManager;
         }
 
         public void Execute()
         {
             FireBall projectile = factory.CreateFireBall();
-            projectile.GetObjManagement(objManager);
-            objManager.Add(projectile);
+            projectile.Create();
         }
     }
 }

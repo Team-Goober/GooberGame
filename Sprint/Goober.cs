@@ -30,7 +30,7 @@ namespace Sprint
         private CycleEnemy enemies;
         private CycleTile tiles;
         private SpriteFont font;
-        private Vector2 characterLoc = new Vector2(400, 500);
+        private Vector2 characterLoc = new Vector2(gameWidth/2, gameHeight/2);
         private bool resetGame = false;
 
         private IInputMap inputTable;
@@ -82,7 +82,7 @@ namespace Sprint
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
 
-            player = new Player(this, characterLoc, inputTable, objectManager, spriteLoader);
+            player = new Player(characterLoc, inputTable, objectManager, spriteLoader);
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
@@ -169,10 +169,13 @@ namespace Sprint
             foreach (IGameObject obj in objects)
                 obj.Update(gameTime);
 
+
             objectManager.EndCycle();
 
             collisionDetector.Update(gameTime, objectManager.GetMovers(), objectManager.GetStatics());
-            
+
+            objectManager.EndCycle();
+
             base.Update(gameTime);
         }
 

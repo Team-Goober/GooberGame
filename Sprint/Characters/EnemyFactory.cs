@@ -32,7 +32,6 @@ namespace Sprint.Characters
         /// <returns></returns>
         public Enemy MakeEnemy(String name, Vector2 position)
         {
-            // TODO: Implement this function
             // Consider storing enemies in file with reflection, and having enemies load their own sprites
             // This would make dealing with enemies much easier
 

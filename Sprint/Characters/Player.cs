@@ -4,6 +4,8 @@ using Sprint.Interfaces;
 using Sprint.Sprite;
 using Sprint.Projectile;
 using Sprint.Levels;
+using Sprint.Collision;
+using System.Diagnostics;
 
 namespace Sprint.Characters
 {
@@ -22,9 +24,17 @@ namespace Sprint.Characters
 
         public Directions Facing { get; private set; }
 
+        public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
+                (int) (physics.Position.Y - sideLength / 2.0),
+                sideLength,
+                sideLength);
+
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
+
         private const float speed = 200;
 
         private Timer attackTimer;
+        private Timer castTimer;
         private Timer damageTimer;
         private GameObjectManager objectManager;
 
@@ -39,7 +49,7 @@ namespace Sprint.Characters
 
 
         //declares the move systems for the main character sprite
-        public Player(Goober game, Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
+        public Player(Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
         
             this.objectManager = objManager;    
@@ -49,6 +59,7 @@ namespace Sprint.Characters
 
             // Duration of one sword swing or item use
             attackTimer = new Timer(0.5);
+            castTimer = new Timer(0.5);
             // Duration of the damage state
             damageTimer = new Timer(0.3);
 
@@ -58,6 +69,7 @@ namespace Sprint.Characters
             Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
 
+            physics = new Physics(pos);
 
             // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, spriteLoader);
@@ -80,6 +92,7 @@ namespace Sprint.Characters
 
             // Start timer for attack
             attackTimer.Start();
+            castTimer.Start();
 
             //Creates animations and bounds for the sword for collision
             switch (Facing)
@@ -117,7 +130,7 @@ namespace Sprint.Characters
         {
 
             // Only attack if not already attacking
-            if (!attackTimer.Ended)
+            if (!castTimer.Ended)
             {
                 return;
             }
@@ -126,7 +139,7 @@ namespace Sprint.Characters
             StopMoving();
 
             // Start timer for attack
-            attackTimer.Start();
+            castTimer.Start();
 
             switch (Facing)
             {
@@ -271,6 +284,11 @@ namespace Sprint.Characters
                 objectManager.Remove(swordCollision, false);
                 returnToBaseAnim();
             }
+            castTimer.Update(gameTime);
+            if (castTimer.JustEnded)
+            {
+                returnToBaseAnim();
+            }
 
             secondaryItems.UpdateDirection(Facing);
             secondaryItems.UpdatePostion(physics.Position);
@@ -300,20 +318,13 @@ namespace Sprint.Characters
             // teleport player in displacement specified
             physics.SetPosition(physics.Position + distance);
         }
-
-        // Returns current bounds of player on screen
-        public Rectangle GetBoundingBox()
+        
+        // Moves player to set position
+        // Should be in Characters?
+        public void MoveTo(Vector2 pos)
         {
-            // compute current rectangle bounds of player in world space
-            return new Rectangle((int)(physics.Position.X - sideLength / 2.0),
-                (int)(physics.Position.Y - sideLength / 2.0),
-                sideLength,
-                sideLength);
+            physics.SetPosition(pos);
         }
-
-        
-
-        
 
     }
 }

@@ -30,9 +30,9 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, objectManager);
 
-            projectileCommand = new ShootBombC(itemFactory, objectManager);
+            projectileCommand = new ShootBombC(itemFactory);
 
             // Initialize the move direction randomly
             RandomizeMoveDirection();

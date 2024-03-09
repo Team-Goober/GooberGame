@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Characters;
+using Sprint.Collision;
 
 namespace Sprint.Levels
 {
@@ -12,16 +13,14 @@ namespace Sprint.Levels
         private Player player;
         private float moveScale = 0.07f;
 
+        public Rectangle BoundingBox => bounds;
+
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.SWORD };
+
         public SwordCollision(Rectangle boundBox, Player player)
         {
             this.bounds = boundBox;
             this.player = player;
-        }
-
-
-        public Rectangle GetBoundingBox()
-        {
-            return bounds;
         }
 
         public void Update(GameTime gameTime)

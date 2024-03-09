@@ -35,7 +35,7 @@
             </Value>
           </Item>
         </Animations>
-        <Scale>2</Scale>
+        <Scale>4</Scale>
         <InitialAnimation>upFacing</InitialAnimation>
       </Value>
     </Item>
@@ -73,7 +73,7 @@
             </Value>
           </Item>
         </Animations>
-        <Scale>2</Scale>
+        <Scale>4</Scale>
         <InitialAnimation>upFacing</InitialAnimation>
       </Value>
 	</Item>
@@ -95,7 +95,7 @@
             </Value>
           </Item>
         </Animations>
-        <Scale>2</Scale>
+        <Scale>4</Scale>
         <InitialAnimation>moving</InitialAnimation>
        </Value>
 	</Item>
@@ -153,7 +153,7 @@
 					  </Value>
 				  </Item>
 			  </Animations>
-			  <Scale>2</Scale>
+			  <Scale>4</Scale>
 			  <InitialAnimation>upFacing</InitialAnimation>
 		  </Value>
 	  </Item>
@@ -175,7 +175,7 @@
 					  </Value>
 				  </Item>
 			  </Animations>
-			  <Scale>2</Scale>
+			  <Scale>4</Scale>
 			  <InitialAnimation>moving</InitialAnimation>
 		  </Value>
 	  </Item>
@@ -209,7 +209,7 @@
 					  </Value>
 				  </Item>
 			  </Animations>
-			  <Scale>2</Scale>
+			  <Scale>4</Scale>
 			  <InitialAnimation>leftFacing</InitialAnimation>
 		  </Value>
 	  </Item>
@@ -227,7 +227,7 @@
 				  </Item>
 				  
 			  </Animations>
-			  <Scale>2</Scale>
+			  <Scale>4</Scale>
 			  <InitialAnimation>dragmoving</InitialAnimation>
 		  </Value>
 	  </Item>
