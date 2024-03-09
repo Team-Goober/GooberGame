@@ -12,7 +12,7 @@ namespace Sprint.Characters
 
     internal class Player : Character, IMovingCollidable
     {
-        private Inventory inventory;
+        public Inventory inventory;
 
         private ISprite sprite;
 

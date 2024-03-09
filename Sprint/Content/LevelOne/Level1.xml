@@ -898,7 +898,13 @@
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
-			<Items/>
+			<Items>
+				<Item>
+					<Type>specialKey</Type>
+					<Row>6</Row>
+					<Column>1</Column>
+				</Item>
+			</Items>
 			<Enemies>
 				<Item>
 					<Type>bat</Type>
@@ -977,7 +983,13 @@
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
-			<Items/>
+			<Items>
+				<Item>
+					<Type>specialKey</Type>
+					<Row>6</Row>
+					<Column>1</Column>
+				</Item>
+			</Items>
 			<Enemies>
 				<Item>
 					<Type>skeleton</Type>

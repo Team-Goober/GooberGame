@@ -45,7 +45,8 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(ICollidable),typeof(ICollidable),  typeof(Vector2) })},
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor(new Type[] { typeof(ICollidable),typeof(ICollidable), typeof(Vector2) })},
                 {new TypePairKey(CollisionTypes.OPEN_DOOR, CollisionTypes.PLAYER), typeof(SwitchRoomCommand).GetConstructor(new Type[] { typeof(ICollidable),typeof(ICollidable), typeof(Vector2) })},
-                {new TypePairKey(CollisionTypes.PLAYER,CollisionTypes.ITEM), typeof(PickUpItem).GetConstructor(new Type[] { typeof(ICollidable), typeof(ICollidable), typeof(Vector2)})}
+                {new TypePairKey(CollisionTypes.PLAYER,CollisionTypes.ITEM), typeof(PickUpItem).GetConstructor(new Type[] { typeof(ICollidable), typeof(ICollidable), typeof(Vector2)})},
+                {new TypePairKey(CollisionTypes.PLAYER,CollisionTypes.LOCKED_DOOR), typeof(OpenLockedDoorCommand).GetConstructor(new Type[] { typeof(ICollidable), typeof(ICollidable), typeof(Vector2)})}
             };
 
         //Made assuming that ICollidable can access the objects native type
@@ -126,6 +127,5 @@ namespace Sprint.Collision
             ICommand c = commandConstructor.Invoke(new object[] { receiver, effector, overlap }) as ICommand;
             c.Execute();
         }
-
     }
 }
