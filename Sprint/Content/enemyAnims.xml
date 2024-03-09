@@ -276,22 +276,28 @@
 		  </Value>
 	  </Item>
 	  
+	  
 	  <!--NPC-->
 	  <Item>
-		  <Key>oldMan</Key>
+		  <Key>oldman</Key>
 		  <Value>
 			  <Texture>oldMan</Texture>
 			  <Animations>
 				  <Item>
-					  <Key>static</Key>
-					  <Value Type="XMLData.SingleAtlasData">
-						  <Rectangle>0 0 16 16</Rectangle>
-						  <CenterPoint>8 8</CenterPoint>
+					  <Key>moving</Key>
+					  <Value Type="XMLData.AutoAtlasData">
+						  <SheetArea>0 0 16 16</SheetArea>
+						  <Rows>1</Rows>
+						  <Cols>1</Cols>
+						  <Padding>0</Padding>
+						  <CenterPoint>0 0</CenterPoint>
+						  <Loop>true</Loop>
+						  <Framerate>10</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
 			  <Scale>4</Scale>
-			  <InitialAnimation>static</InitialAnimation>
+			  <InitialAnimation>moving</InitialAnimation>
 		  </Value>
 	  </Item>
   </Asset>

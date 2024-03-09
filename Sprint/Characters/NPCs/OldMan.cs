@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sprint.Characters.NPCs
+namespace Sprint.Characters
 {
     internal class OldMan : Enemy
     {
@@ -61,10 +61,10 @@ namespace Sprint.Characters.NPCs
 
         }
 
-        // Move Spike randomly within the game area
+        // Move OldMan randomly within the game area
         private void MoveRandomly(GameTime gameTime)
         {
-            float speed = 50; // Adjust the speed as needed
+            float speed = 0; // Adjust the speed as needed
             float moveTime = 2; // Time before changing direction (in seconds)
 
             if (elapsedTime > moveTime)
