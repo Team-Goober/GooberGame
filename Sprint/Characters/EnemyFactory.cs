@@ -5,6 +5,7 @@ using Sprint.Loader;
 using Sprint.Input;
 using Sprint.Levels;
 using Sprint.Interfaces;
+using System.Diagnostics;
 
 namespace Sprint.Characters
 {
