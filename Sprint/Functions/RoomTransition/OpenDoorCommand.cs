@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 
-namespace Sprint.Functions
+namespace Sprint.Functions.RoomTransition
 {
     internal class OpenDoorCommand : ICommand
     {

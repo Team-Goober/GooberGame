@@ -10,5 +10,6 @@ namespace Sprint.Interfaces
         public Vector2 PlayerSpawnPosition();
 
         public void SetOpen(bool open);
+
     }
 }

@@ -26,7 +26,7 @@ namespace Sprint.Factory.Door
         {
             get
             {
-                if (isOpen)
+                if (isOpen && otherSide >= 0)
                 {
                     return new CollisionTypes[] { CollisionTypes.OPEN_DOOR, CollisionTypes.DOOR };
                 }
