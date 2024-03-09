@@ -583,7 +583,18 @@
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
 			<Items/>
-			<Enemies/>
+			<Enemies>
+				<Item>
+					<Type>hand</Type>
+					<Row>1</Row>
+					<Column>3</Column>
+				</Item>
+				<Item>
+					<Type>hand</Type>
+					<Row>4</Row>
+					<Column>1</Column>
+				</Item>
+			</Enemies>
 		</Item>
 
 		<!--Row 4 Col 2 Room Index 10-->
@@ -992,7 +1003,13 @@
 				<Item>0 0 0 7 7 7 7 7 7 0 0 0</Item>
 			</TileGrid>
 			<Items/>
-			<Enemies/>
+			<Enemies>
+				<Item>
+					<Type>skeleton</Type>
+					<Row>1</Row>
+					<Column>1</Column>
+				</Item>
+			</Enemies>
 		</Item>
     </Rooms>
   </Asset>
