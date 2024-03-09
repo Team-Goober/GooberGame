@@ -17,6 +17,7 @@ using Sprint.Sprite;
 using Sprint.Loader;
 using Sprint.Levels;
 using Sprint.Functions;
+using Sprint.Functions.RoomTransition;
 
 namespace Sprint
 {

@@ -209,6 +209,7 @@
 /processorParam:TextureFormat=Color
 /build:LevelOne/RoomOne/roomOneFloor.png
 
+
 #begin LevelOne/RoomOne/Text.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -220,6 +221,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:LevelOne/RoomOne/Text.png
+
 
 #begin oldMan.png
 /importer:TextureImporter

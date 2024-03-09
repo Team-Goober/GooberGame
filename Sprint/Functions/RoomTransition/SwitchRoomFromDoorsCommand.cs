@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 
-namespace Sprint.Functions
+namespace Sprint.Functions.RoomTransition
 {
     internal class SwitchRoomFromDoorsCommand : ICommand
     {
@@ -12,8 +12,9 @@ namespace Sprint.Functions
         private IDoor[] receivers;
         private GameObjectManager objManager;
 
-        public SwitchRoomFromDoorsCommand(IDoor[] doors, GameObjectManager objManager) { 
-            this.receivers = doors;
+        public SwitchRoomFromDoorsCommand(IDoor[] doors, GameObjectManager objManager)
+        {
+            receivers = doors;
             this.objManager = objManager;
         }
 

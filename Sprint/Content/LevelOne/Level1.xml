@@ -262,7 +262,28 @@
 			<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 		</TileGrid>
 		<Items />
-		<Enemies />
+			<Enemies>
+				<Item>
+					<Type>spike</Type>
+					<Row>1</Row>
+					<Column>1</Column>
+				</Item>
+				<Item>
+					<Type>spike</Type>
+					<Row>1</Row>
+					<Column>12</Column>
+				</Item>
+				<Item>
+					<Type>spike</Type>
+					<Row>7</Row>
+					<Column>1</Column>
+				</Item>
+				<Item>
+					<Type>spike</Type>
+					<Row>7</Row>
+					<Column>12</Column>
+				</Item>
+			</Enemies>
 	</Item>
 
 		<!--Row 1 Col 3 Room Index 1-->
@@ -470,6 +491,7 @@
 				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
 				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
 			</TileGrid>
+      
 			<Items>
 				<Item>
 					<Type>oldmanText</Type>
@@ -497,7 +519,6 @@
 		</Item>
 
 		<!--Row 3 Col 2 Room Index 6-->
-		<!--There are enemies on the floor. But I have no idea what they are. Picture is too blurry-->
 		<!--Some Orange tile missing.-->
 		<Item>
 			<TopExit>
@@ -520,17 +541,32 @@
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 1 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
 			<Items/>
-			<Enemies/>
+			<Enemies>
+				<Item>
+					<Type>slime</Type>
+					<Row>1</Row>
+					<Column>8</Column>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<Row>3</Row>
+					<Column>7</Column>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<Row>5</Row>
+					<Column>8</Column>
+				</Item>
+			</Enemies>
 		</Item>
 
 		<!--Row 3 Col 3 Room Index 7-->
-		<!--Enemies needed-->
 		<Item>
 			<TopExit>
 				<Door>OpenTop</Door>
@@ -558,7 +594,33 @@
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
 			<Items/>
-			<Enemies/>
+			<Enemies>
+				<Item>
+					<Type>slime</Type>
+					<Row>3</Row>
+					<Column>7</Column>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<Row>5</Row>
+					<Column>7</Column>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<Row>3</Row>
+					<Column>9</Column>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<Row>5</Row>
+					<Column>9</Column>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<Row>4</Row>
+					<Column>12</Column>
+				</Item>
+			</Enemies>
 		</Item>
 
 		<!--Row 3 Col 4 Room Index 8-->
