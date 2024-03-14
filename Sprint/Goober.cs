@@ -37,7 +37,7 @@ namespace Sprint
         private GameObjectManager objectManager;
         private CollisionDetector collisionDetector;
         private SpriteLoader spriteLoader;
-        public static int gameWidth = 1024;
+        public static readonly int gameWidth = 1024;
         public static readonly int gameHeight = 700;
 
         public Goober()
