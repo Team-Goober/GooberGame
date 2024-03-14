@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Sprint.Projectile;
 using System.Diagnostics;
-using static Sprint.Characters.Character;
 
 namespace Sprint.Functions.SecondaryItem
 {
@@ -13,7 +12,7 @@ namespace Sprint.Functions.SecondaryItem
 
         private DissipatingProjectile receiver;
 
-        public DissipateProjectile(ICollidable receiver, Vector2 overlap)
+        public DissipateProjectile(ICollidable receiver, ICollidable effector, Vector2 overlap)
         {
             this.receiver = (DissipatingProjectile)receiver;
         }

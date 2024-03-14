@@ -15,17 +15,19 @@ namespace Sprint.Projectile
 
         Vector2 position;
         Vector2 direction;
+        bool isEnemy;
 
         private float distanceOut;
 
         private const string ANIMS_FILE = "projectileAnims";
 
 
-        public SimpleProjectileFactory(SpriteLoader spriteLoader, float distanceOut, GameObjectManager objManager)
+        public SimpleProjectileFactory(SpriteLoader spriteLoader, float distanceOut, bool isEnemy, GameObjectManager objManager)
         {
             this.distanceOut = distanceOut;
             this.spriteLoader = spriteLoader;
             this.objManager = objManager;
+            this.isEnemy = isEnemy;
         }
 
         public Smoke CreateSmoke()
@@ -39,7 +41,7 @@ namespace Sprint.Projectile
         {
             Arrow proj = new Arrow(
                 spriteLoader.BuildSprite(ANIMS_FILE, "arrow"),
-                getSpawnPosition(), direction, objManager);
+                getSpawnPosition(), direction, isEnemy, objManager);
             proj.SetSmokeCommand(new PlaceSmoke(proj, CreateSmoke()));
             return proj;
         }
@@ -48,7 +50,7 @@ namespace Sprint.Projectile
         {
             BlueArrow proj = new BlueArrow(
                 spriteLoader.BuildSprite(ANIMS_FILE, "bluearrow"),
-                getSpawnPosition(), direction, objManager);
+                getSpawnPosition(), direction, isEnemy, objManager);
             proj.SetSmokeCommand(new PlaceSmoke(proj, CreateSmoke()));
             return proj;
         }
@@ -57,7 +59,7 @@ namespace Sprint.Projectile
         {
             Bomb proj = new Bomb(
                  spriteLoader.BuildSprite(ANIMS_FILE, "bomb"),
-                 getSpawnPosition(), direction, objManager);
+                 getSpawnPosition(), direction, isEnemy, objManager);
             return proj;
         }
         
@@ -65,7 +67,7 @@ namespace Sprint.Projectile
         {
             Boomerang proj = new Boomerang(
                 spriteLoader.BuildSprite(ANIMS_FILE, "boomerang"),
-                getSpawnPosition(), direction, objManager);
+                getSpawnPosition(), direction, isEnemy, objManager);
             proj.SetSmokeCommand(new PlaceSmoke(proj, CreateSmoke()));
             return proj;
         }
@@ -74,7 +76,7 @@ namespace Sprint.Projectile
         {
             BlueBoomerang proj = new BlueBoomerang(
                 spriteLoader.BuildSprite(ANIMS_FILE, "blueboomerang"),
-                getSpawnPosition(), direction, objManager);
+                getSpawnPosition(), direction, isEnemy, objManager);
             proj.SetSmokeCommand(new PlaceSmoke(proj, CreateSmoke()));
             return proj;
         }
@@ -83,7 +85,7 @@ namespace Sprint.Projectile
         {
             FireBall proj = new FireBall(
                 spriteLoader.BuildSprite(ANIMS_FILE, "fireball"),
-                getSpawnPosition(), direction, objManager);
+                getSpawnPosition(), direction, isEnemy, objManager);
             return proj;
         }
 

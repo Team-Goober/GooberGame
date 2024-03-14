@@ -17,6 +17,7 @@ using Sprint.Sprite;
 using Sprint.Loader;
 using Sprint.Levels;
 using Sprint.Functions;
+using Sprint.Functions.RoomTransition;
 
 namespace Sprint
 {
@@ -26,9 +27,6 @@ namespace Sprint
         private SpriteBatch _spriteBatch;
         private Player player;
 
-        private CycleItem items;
-        private CycleEnemy enemies;
-        private CycleTile tiles;
         private SpriteFont font;
         private Vector2 characterLoc = new Vector2(gameWidth/2, gameHeight/2);
         private bool resetGame = false;
@@ -68,15 +66,8 @@ namespace Sprint
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //items = new CycleItem(this, new Vector2(500, 100), objectManager, spriteLoader);
-            //enemies = new CycleEnemy(this, new Vector2(500, 300), objectManager, spriteLoader);
-            //tiles = new CycleTile(this, new Vector2(500, 200), objectManager, spriteLoader);
-
             LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader, inputTable);
             loader.LoadLevelXML("LevelOne/Level1");
-
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new NextItem(items));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.U), new BackItem(items));
 
             font = Content.Load<SpriteFont>("Font");
 
@@ -84,6 +75,16 @@ namespace Sprint
 
             player = new Player(characterLoc, inputTable, objectManager, spriteLoader);
 
+
+            MakeCommands();
+
+
+            // Add player as persistent object
+            objectManager.Add(player, true);
+        }
+
+        public void MakeCommands()
+        {
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new MoveUp(player));
@@ -96,14 +97,6 @@ namespace Sprint
 
             Keys[] moveKeys = { Keys.A, Keys.D, Keys.W, Keys.S, Keys.Left, Keys.Right, Keys.Up, Keys.Down };
             inputTable.RegisterMapping(new MultipleKeyReleaseTrigger(moveKeys), new StopMoving(player));
-
-            //Enemy cycling
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.O), new PreviousEnemyCommand(enemies));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new NextEnemyCommand(enemies));
-
-            //Tile Cycling
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.T), new PreviousTileCommand(tiles));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Y), new NextTileCommand(tiles));
 
             //Melee Regular Sword Attack
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Melee(player));
@@ -133,19 +126,33 @@ namespace Sprint
             // Switching rooms
             inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Right), new NextRoomCommand(objectManager));
             inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Left), new PrevRoomCommand(objectManager));
-
-
-
-            // Add player as persistent object
-            objectManager.Add(player, true);
         }
+
 
         //clears input dictionary and object manager
         public void ResetGame()
         {
+            // delete all game objects
+            objectManager.ClearObjects(true);
+
+            objectManager.EndCycle();
+
+            objectManager.ClearRooms();
+
             inputTable.ClearDictionary();
-            objectManager.ClearObjects();
-            objectManager.Remove(player, true);
+
+
+            // reload the level
+            LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader, inputTable);
+            loader.LoadLevelXML("LevelOne/Level1");
+
+            // new player
+            player = new Player(characterLoc, inputTable, objectManager, spriteLoader);
+
+            // remake commands
+            MakeCommands();
+
+            objectManager.Add(player, true);
         }
 
 
@@ -162,7 +169,6 @@ namespace Sprint
             if(resetGame)
             {
                 ResetGame();
-                LoadContent();
                 resetGame=false;
             }
 

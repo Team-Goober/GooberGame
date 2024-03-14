@@ -81,7 +81,7 @@
 							<Rows>1</Rows>
 							<Cols>2</Cols>
 							<Padding>4</Padding>
-							<CenterPoint>5 5</CenterPoint>
+							<CenterPoint>12 5</CenterPoint>
 							<Loop>true</Loop>
 							<Framerate>10</Framerate>
 						</Value>
@@ -379,12 +379,12 @@
 		</Item>
 
 		<Item>
-			<Key>shield_red</Key>
+			<Key>shieldRed</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
-						<Key>shield_red</Key>
+						<Key>shieldRed</Key>
 						<Value Type="XMLData.SingleAtlasData">
 							<Rectangle>241 0 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
@@ -392,7 +392,7 @@
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>shield_red</InitialAnimation>
+				<InitialAnimation>shieldRed</InitialAnimation>
 			</Value>
 		</Item>
 
@@ -431,5 +431,101 @@
 				<InitialAnimation>cake</InitialAnimation>
 			</Value>
 		</Item>
+
+		<Item>
+			<Key>key</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>key</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>284 40 8 16</Rectangle>
+							<CenterPoint>4 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>key</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>paper</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>paper</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>244 80 8 16</Rectangle>
+							<CenterPoint>4 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>paper</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>compass</Key>
+			<Value>
+				<Texture>zelda_items</Texture>
+				<Animations>
+					<Item>
+						<Key>compass</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>82 42 11 12</Rectangle>
+							<CenterPoint>5 6</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>compass</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>fireball</Key>
+			<Value>
+				<Texture>Items/FireBall</Texture>
+				<Animations>
+					<Item>
+						<Key>fireball</Key>
+						<Value Type="XMLData.AutoAtlasData">
+							<SheetArea>0 0 33 16</SheetArea>
+							<Rows>1</Rows>
+							<Cols>2</Cols>
+							<Padding>1</Padding>
+							<CenterPoint>8 8</CenterPoint>
+							<Loop>true</Loop>
+							<Framerate>9</Framerate>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>fireball</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>oldmanText</Key>
+			<Value>
+				<Texture>LevelOne/RoomOne/Text</Texture>
+				<Animations>
+					<Item>
+						<Key>oldmanText</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>0 0 1164 150</Rectangle>
+							<CenterPoint>582 75</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>0.5</Scale>
+				<InitialAnimation>oldmanText</InitialAnimation>
+			</Value>
+		</Item>
+		
 	</Asset>
 </XnaContent>

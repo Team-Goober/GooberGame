@@ -12,6 +12,7 @@ namespace Sprint.Characters
 
     internal class Player : Character, IMovingCollidable
     {
+        public Inventory inventory;
 
         private ISprite sprite;
 
@@ -21,6 +22,7 @@ namespace Sprint.Characters
 
         private ProjectileSystem secondaryItems;
         private SwordCollision swordCollision;
+        private const int swordWidth = 40, swordLength = 90;
 
         public Directions Facing { get; private set; }
 
@@ -51,8 +53,13 @@ namespace Sprint.Characters
         //declares the move systems for the main character sprite
         public Player(Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
-        
-            this.objectManager = objManager;    
+
+            //Initialize physics and objectManager
+            physics = new Physics(pos);
+
+            inventory = new Inventory();
+
+            objectManager = objManager;
 
             //Loads sprite for link
             sprite = spriteLoader.BuildSprite("playerAnims", "player");
@@ -99,19 +106,19 @@ namespace Sprint.Characters
             {
                 case Directions.RIGHT:
                     sprite.SetAnimation("swordRight");
-                    swordRec = new Rectangle((int)physics.Position.X+12, (int)physics.Position.Y + sideLength/2 - 5,40,12);
+                    swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
                     break;
                 case Directions.LEFT:
                     sprite.SetAnimation("swordLeft");
-                    swordRec = new Rectangle((int)physics.Position.X - 12, (int)physics.Position.Y + sideLength / 2 - 5, 40, 12);
+                    swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
                     break;
                 case Directions.UP:
                     sprite.SetAnimation("swordUp");
-                    swordRec = new Rectangle((int)physics.Position.X + sideLength/2 -5, (int)physics.Position.Y -12,12,40);
+                    swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
                     break;
                 case Directions.DOWN:
                     sprite.SetAnimation("swordDown");
-                    swordRec = new Rectangle((int)physics.Position.X +sideLength /2-5, (int)physics.Position.Y + 12, 12, 40);
+                    swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
                     break;
                 default:
                     break;
@@ -326,6 +333,34 @@ namespace Sprint.Characters
             physics.SetPosition(pos);
         }
 
+        /// <summary>
+        /// Pickup Item off the ground
+        /// </summary>
+        /// <param name="item"> ItemType to pickup</param>
+        public void PickupItem(Item item)
+        {
+            ItemType itemType = item.GetItemType();
+            if(item.GetColliable())
+            {
+                inventory.PickupItem(itemType);
+                objectManager.Remove(item);
+            }
+        }
+
+        /// <summary>
+        /// Subtract item from inventory
+        /// </summary>
+        /// <param name="item">ItemType to decrement</param>
+        public void UseItem(ItemType item)
+        {
+            inventory.ConsumeItem(item);
+        }
+
+        // Remove player from game
+        public override void Die()
+        {
+            objectManager.Remove(this, true);
+        }
     }
 }
 

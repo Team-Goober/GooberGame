@@ -19,7 +19,7 @@ namespace Sprint.Projectile
         public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
 
-            this.itemFactory = new SimpleProjectileFactory(spriteLoader, spawnDistance, objManager);
+            this.itemFactory = new SimpleProjectileFactory(spriteLoader, spawnDistance, false,objManager);
             itemFactory.SetDirection(new Vector2(1, 90));
             itemFactory.SetStartPosition(startPos);
 

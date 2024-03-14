@@ -59,6 +59,8 @@ namespace Sprint.Characters
                     return new SlimeEnemy(enemySprite, position, objectManager, spriteLoader);
                 case "spike":
                     return new SpikeEnemy(enemySprite, position, objectManager, spriteLoader);
+                case "oldman":
+                    return new OldMan(enemySprite, position, objectManager, spriteLoader);
                 default:
                     return null;
             }
