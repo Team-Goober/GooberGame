@@ -47,7 +47,7 @@ namespace XMLData
 
     public class RoomData
     {
-        public bool NeedWall = true; // Determined if walls will be loaded for a room 
+        public bool NeedWall; // Determined if walls will be loaded for a room 
         public ExitData TopExit; // Each exit for the room. Corresponds to one door each
         public ExitData BottomExit;
         public ExitData LeftExit;
