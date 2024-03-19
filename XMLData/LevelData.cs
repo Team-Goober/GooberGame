@@ -13,6 +13,7 @@ namespace XMLData
         public string BackgroundSprite; // is drawn at 0,0 and should show the background walls
 
         public Vector2 FloorGridPos; // World position of where the floor starts
+        public Vector2 ZeroZeroPos; // If there are no walls. The floor position will be this instead.
         public Vector2 TileSize; // World dimensions of each tile on the floor
         public Dictionary<string, TileReference> TileReferences; // Mapping of labels to tile data so rooms can reuse the same tile types
 
@@ -46,6 +47,7 @@ namespace XMLData
 
     public class RoomData
     {
+        public bool NeedWall = true; // Determined if walls will be loaded for a room 
         public ExitData TopExit; // Each exit for the room. Corresponds to one door each
         public ExitData BottomExit;
         public ExitData LeftExit;

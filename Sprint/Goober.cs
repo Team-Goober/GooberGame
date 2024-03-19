@@ -60,9 +60,7 @@ namespace Sprint
         }
 
         protected override void LoadContent()
-        {
-            // Uncomment in order to write an XML file
-            //new TempLevelSaver("Level1.xml");
+        { 
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -191,7 +189,7 @@ namespace Sprint
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Aquamarine);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
@@ -199,10 +197,6 @@ namespace Sprint
             foreach (IGameObject obj in objects)
                 obj.Draw(_spriteBatch, gameTime);
 
-            //Remove
-            //_spriteBatch.DrawString(font, "Credit", new Vector2(10, 300), Color.Black);
-            //_spriteBatch.DrawString(font, "Program Made By: Team Goobers", new Vector2(10, 330), Color.Black);
-            //_spriteBatch.DrawString(font, "Sprites from: www.mariomayhem.com/downloads/sprites/the_legend_of_zelda_sprites.php", new Vector2(10, 360), Color.Black);
             _spriteBatch.End();
 
             base.Draw(gameTime);

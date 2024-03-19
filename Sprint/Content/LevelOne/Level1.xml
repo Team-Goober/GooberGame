@@ -6,6 +6,7 @@
     <OuterWalls>0 0 480 128 0 0 128 320 544 0 480 128 896 0 128 320 544 576 480 128 896 384 128 320 0 576 480 128 0 384 128 320</OuterWalls>
     <BackgroundSprite>roomOneExterior</BackgroundSprite>
     <FloorGridPos>128 128</FloorGridPos>
+	<ZeroZeroPos>34 34</ZeroZeroPos>
     <TileSize>64 64</TileSize>
 	  
     <TileReferences>
@@ -63,6 +64,22 @@
 			<Key>7</Key>
 			<Value>
 				<SpriteName>spotTile</SpriteName>
+				<Type>floor</Type>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>8</Key>
+			<Value>
+				<SpriteName>brickTile</SpriteName>
+				<Type>wall</Type>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>9</Key>
+			<Value>
+				<SpriteName>slatTile</SpriteName>
 				<Type>floor</Type>
 			</Value>
 		</Item>
@@ -232,13 +249,10 @@
     </DoorReferences>
 	  
     <Rooms>	
-		<!--Undergound Room. Index 19-->
-		
-		
-		
 		<!--Row 1 Col 2 Room Index 0-->
 		<!--Need Bow Item and another mystery item. Missing one orange tile-->
 		<Item>
+			<NeedWall>true</NeedWall>
 		<TopExit>
 			<Door>WallTop</Door>
 			<AdjacentRoom>-1</AdjacentRoom>
@@ -292,6 +306,7 @@
 		<!--Row 1 Col 3 Room Index 1-->
 		<!--Key Item-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>WallTop</Door>
 				<AdjacentRoom>-1</AdjacentRoom>
@@ -345,6 +360,7 @@
 
 		<!--Row 2 Col 3 Room Index 2-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>LockTop</Door>
 				<AdjacentRoom>1</AdjacentRoom>
@@ -393,6 +409,7 @@
 		<!--Row 2 Col 5 Room Index 3-->
 		<!--Heart is not spawning. Dragon row and column doesn't make sense-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>WallTop</Door>
 				<AdjacentRoom>-1</AdjacentRoom>
@@ -437,6 +454,7 @@
 		<!--Row 2 Col 6 Room Index 4-->
 		<!--Triforce is not spawning-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>WallTop</Door>
 				<AdjacentRoom>-1</AdjacentRoom>
@@ -474,6 +492,7 @@
 
 		<!--Row 3 Col 1 Room Index 5-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>WallTop</Door>
 				<AdjacentRoom>-1</AdjacentRoom>
@@ -529,6 +548,7 @@
 		<!--Row 3 Col 2 Room Index 6-->
 		<!--Some Orange tile missing.-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>WallTop</Door>
 				<AdjacentRoom>-1</AdjacentRoom>
@@ -576,6 +596,7 @@
 
 		<!--Row 3 Col 3 Room Index 7-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>OpenTop</Door>
 				<AdjacentRoom>2</AdjacentRoom>
@@ -640,6 +661,7 @@
 		<!--Row 3 Col 4 Room Index 8-->
 		<!--Item Needed-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>WallTop</Door>
 				<AdjacentRoom>-1</AdjacentRoom>
@@ -694,6 +716,7 @@
 		<!--Row 3 Col 5 Room Index 9-->
 		<!--Item Key needed-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>LockTop</Door>
 				<AdjacentRoom>3</AdjacentRoom>
@@ -742,6 +765,7 @@
 
 		<!--Row 4 Col 2 Room Index 10-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>LockTop</Door>
 				<AdjacentRoom>6</AdjacentRoom>
@@ -805,6 +829,7 @@
 		<!--Row 4 Col 3 Room Index 11-->
 		<!--Item Key-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>HiddenTop</Door>
 				<AdjacentRoom>7</AdjacentRoom>
@@ -869,6 +894,7 @@
 		<!--Row 4 Col 4 Room Index 12-->
 		<!--Missing an Item-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>HiddenTop</Door>
 				<AdjacentRoom>8</AdjacentRoom>
@@ -947,6 +973,7 @@
 
 		<!--Row 5 Col 3 Room Index 13-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>OpenTop</Door>
 				<AdjacentRoom>11</AdjacentRoom>
@@ -993,8 +1020,8 @@
 		</Item>
 
 		<!--Row 6 Col 2 Room Index 14-->
-		<!--Key missing-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>WallTop</Door>
 				<AdjacentRoom>-1</AdjacentRoom>
@@ -1046,25 +1073,27 @@
 			</Enemies>
 		</Item>
 
-		<!--Row 6 Col 3 Room Index 15-->
+		<!--Row 6 Col 3 Room Index 15 Starting Room-->
 		<!--Blue Statues?? Missing Floor Tiles??-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>LockTop</Door>
 				<AdjacentRoom>13</AdjacentRoom>
 			</TopExit>
 			<BottomExit>
-        <Door>OpenDown</Door>
-        <AdjacentRoom>-1</AdjacentRoom>
-      </BottomExit>
-      <LeftExit>
-        <Door>OpenLeft</Door>
-        <AdjacentRoom>14</AdjacentRoom>
-      </LeftExit>
-      <RightExit>
-        <Door>OpenRight</Door>
-        <AdjacentRoom>16</AdjacentRoom>
-			</RightExit>
+				<Door>OpenDown</Door>
+				<!--Need to Change to -1-->
+				<AdjacentRoom>19</AdjacentRoom>
+			</BottomExit>
+		  <LeftExit>
+			<Door>OpenLeft</Door>
+			<AdjacentRoom>14</AdjacentRoom>
+		  </LeftExit>
+		  <RightExit>
+			<Door>OpenRight</Door>
+			<AdjacentRoom>16</AdjacentRoom>
+		  </RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 4 0 0 4 0 0 5 0 0 5 0</Item>
@@ -1080,6 +1109,7 @@
 
 		<!--Row 6 Col 4 Room Index 16-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>WallTop</Door>
 				<AdjacentRoom>-1</AdjacentRoom>
@@ -1143,6 +1173,7 @@
 
 		<!--Test Room Index 17-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>HiddenTop</Door>
 				<AdjacentRoom>-1</AdjacentRoom>
@@ -1180,6 +1211,7 @@
 		
 		<!--Magic Room Index 18-->
 		<Item>
+			<NeedWall>true</NeedWall>
 			<TopExit>
 				<Door>WallTop</Door>
 				<AdjacentRoom>-1</AdjacentRoom>
@@ -1343,6 +1375,69 @@
 				</Item>
 			</Items>
 			<Enemies/>
+		</Item>
+
+		<!--Undergound Room. Index 19-->
+		<Item>
+			<NeedWall>false</NeedWall>
+			<TopExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</TopExit>
+			<BottomExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</BottomExit>
+			<LeftExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</LeftExit>
+			<RightExit>
+				<Door>WallTop</Door>
+				<AdjacentRoom>-1</AdjacentRoom>
+			</RightExit>
+			<TileGrid>
+				<Item>8 8 8 9 8 8 8 8 8 8 8 8 8 8 8 8</Item>
+				<Item>8 8 8 9 8 8 8 8 8 8 8 8 8 8 8 8</Item>
+				<Item>8 8 8 9 8 8 8 8 8 8 8 8 8 8 8 8</Item>
+				<Item>8 8 8 9 8 8 8 6 6 6 6 6 6 6 8 8</Item>
+				<Item>8 8 8 9 8 8 8 6 6 6 6 6 6 6 8 8</Item>
+				<Item>8 8 8 9 8 8 8 6 6 6 6 6 6 6 8 8</Item>
+				<Item>8 8 8 9 8 8 8 8 8 8 8 9 8 8 8 8</Item>
+				<Item>8 8 6 9 6 6 6 6 6 6 6 9 6 6 8 8</Item>
+				<Item>8 8 6 9 6 6 6 6 6 6 6 9 6 6 8 8</Item>
+				<Item>8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8</Item>
+				<Item>8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8</Item>
+			</TileGrid>
+			<Items>
+				<Item>
+					<Type>bow</Type>
+					<Row>2</Row>
+					<Column>6</Column>
+				</Item>
+			</Items>
+			<Enemies>
+				<Item>
+					<Type>bat</Type>
+					<Row>6</Row>
+					<Column>2</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>6</Row>
+					<Column>2</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>6</Row>
+					<Column>2</Column>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<Row>6</Row>
+					<Column>2</Column>
+				</Item>
+			</Enemies>
 		</Item>
     </Rooms>
   </Asset>
