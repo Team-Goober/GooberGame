@@ -1424,18 +1424,18 @@
 				</Item>
 				<Item>
 					<Type>bat</Type>
-					<Row>6</Row>
+					<Row>2</Row>
 					<Column>2</Column>
 				</Item>
 				<Item>
 					<Type>bat</Type>
 					<Row>6</Row>
-					<Column>2</Column>
+					<Column>6</Column>
 				</Item>
 				<Item>
 					<Type>bat</Type>
-					<Row>6</Row>
-					<Column>2</Column>
+					<Row>2</Row>
+					<Column>6</Column>
 				</Item>
 			</Enemies>
 		</Item>
