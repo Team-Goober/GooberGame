@@ -96,33 +96,49 @@ namespace Sprint.Loader
             RoomData rd = lvl.Rooms[roomIndex];
             RoomObjectManager rom = new RoomObjectManager();
 
-            //Load Wall texture
-            ISprite bgSprite = spriteLoader.BuildSprite(lvl.SpriteFile, lvl.BackgroundSprite);
-            BackgroundTexture bg = new BackgroundTexture(bgSprite, Vector2.Zero);
-            rom.Add(bg);
-
-            //Load Wall colliders
-            foreach (Rectangle rect in lvl.OuterWalls)
+            //If the rooms need walls. Load Wall sprite, Door sprite, and wall colliders.
+            if (lvl.Rooms[roomIndex].NeedWall)
             {
-                InvisibleWall ow = new InvisibleWall(rect);
-                rom.Add(ow);
-            }
+                //Load Wall texture
+                ISprite bgSprite = spriteLoader.BuildSprite(lvl.SpriteFile, lvl.BackgroundSprite);
+                BackgroundTexture bg = new BackgroundTexture(bgSprite, Vector2.Zero);
+                rom.Add(bg);
 
-            // spawn player on other side of room
-            IDoor[] doors = { MakeDoor(lvl, rd.TopExit, lvl.TopDoorPos, lvl.BottomSpawnPos),
+                //Load Wall colliders
+                foreach (Rectangle rect in lvl.OuterWalls)
+                {
+                    InvisibleWall ow = new InvisibleWall(rect);
+                    rom.Add(ow);
+                }
+
+                // spawn player on other side of room
+                IDoor[] doors = { MakeDoor(lvl, rd.TopExit, lvl.TopDoorPos, lvl.BottomSpawnPos),
                 MakeDoor(lvl, rd.BottomExit, lvl.BottomDoorPos, lvl.TopSpawnPos),
                 MakeDoor(lvl, rd.LeftExit, lvl.LeftDoorPos, lvl.RightSpawnPos),
                 MakeDoor(lvl, rd.RightExit, lvl.RightDoorPos, lvl.LeftSpawnPos) };
 
-            for(int i=0; i<doors.Length; i++)
-            {
-                rom.Add(doors[i]);
-                // make commands if clicked
-                doorsPerSide[i, roomIndex] = doors[i];
+                for (int i = 0; i < doors.Length; i++)
+                {
+                    rom.Add(doors[i]);
+                    // make commands if clicked
+                    doorsPerSide[i, roomIndex] = doors[i];
+                }
             }
 
             //Load Floor tile 
-            float x = lvl.FloorGridPos.X; float y = lvl.FloorGridPos.Y;
+            float x, y, xChange;
+            if (lvl.Rooms[roomIndex].NeedWall)
+            {
+                x = lvl.FloorGridPos.X;
+                y = lvl.FloorGridPos.Y;
+                xChange = lvl.FloorGridPos.X;
+            } else
+            {
+                x = lvl.ZeroZeroPos.X;
+                y = lvl.ZeroZeroPos.Y;
+                xChange = lvl.ZeroZeroPos.X;
+            }
+            
             foreach (string row in rd.TileGrid)
             {
                 string[] str = row.Split(' ');
@@ -131,7 +147,7 @@ namespace Sprint.Loader
                     rom.Add(MakeTile(lvl, tile, new Vector2(x, y)));
                     x += lvl.TileSize.X;
                 }
-                x = lvl.FloorGridPos.X;
+                x = xChange;
                 y += lvl.TileSize.Y;
             }
 
