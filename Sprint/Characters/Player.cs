@@ -122,6 +122,15 @@ namespace Sprint.Characters
             // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, spriteLoader);
 
+
+    }
+
+
+
+        //Melee attack according to direction
+        public void Attack()
+        {
+
             //Saves rectangles for sword collision
             FindSwordRec = new Dictionary<Directions, Rectangle>
             {
@@ -131,13 +140,7 @@ namespace Sprint.Characters
                 { Directions.DOWN, new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength) }
 
             };
-    }
 
-
-
-        //Melee attack according to direction
-        public void Attack()
-        {
             Rectangle swordRec  = new Rectangle();
 
             // Only attack if not already attacking
@@ -155,8 +158,9 @@ namespace Sprint.Characters
             castTimer.Start();
 
 
-            if (AttackAnimDict.TryGetValue(Facing, out string direction) && FindSwordRec.TryGetValue(Facing, out swordRec))
+            if (AttackAnimDict.TryGetValue(Facing, out string direction))
             {
+                FindSwordRec.TryGetValue(Facing, out swordRec);
                 sprite.SetAnimation(direction);
 
             }
