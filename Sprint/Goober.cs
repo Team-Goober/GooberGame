@@ -31,14 +31,14 @@ namespace Sprint
         private IInputMap inputTable;
 
 
-        public IGameState gameState;
+        public IGameState GameState;
 
-        public IGameState dungeonState;
-        public IGameState inventoryState;
-        public IGameState gameOverState;
+        public IGameState DungeonState;
+        public IGameState InventoryState;
+        public IGameState GameOverState;
 
         private SpriteLoader spriteLoader;
-        public static int gameWidth = 1024;
+        public static readonly int gameWidth = 1024;
         public static readonly int gameHeight = 700;
 
         public Goober()
@@ -67,8 +67,8 @@ namespace Sprint
 
             font = Content.Load<SpriteFont>("Font");
 
-            dungeonState = new DungeonState(spriteLoader, Content);
-            gameState = dungeonState;
+            DungeonState = new DungeonState(this, spriteLoader, Content);
+            GameState = DungeonState;
 
 
             //Quit game

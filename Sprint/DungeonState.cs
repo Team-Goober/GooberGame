@@ -19,6 +19,8 @@ namespace Sprint
 {
     internal class DungeonState : IGameState
     {
+
+        private Goober game;
         private ContentManager contentManager;
         private SpriteLoader spriteLoader;
         
@@ -32,8 +34,9 @@ namespace Sprint
         private SceneObjectManager hud;
         private Player player;
 
-        public DungeonState(SpriteLoader spriteLoader, ContentManager contentManager)
+        public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
         {
+            this.game = game;
             this.contentManager = contentManager;
             this.spriteLoader = spriteLoader;
 
