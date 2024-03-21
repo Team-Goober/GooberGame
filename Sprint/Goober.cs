@@ -25,15 +25,18 @@ namespace Sprint
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Player player;
 
         private SpriteFont font;
-        private Vector2 characterLoc = new Vector2(gameWidth/2, gameHeight/2);
-        private bool resetGame = false;
 
         private IInputMap inputTable;
-        private GameObjectManager objectManager;
-        private CollisionDetector collisionDetector;
+
+
+        public IGameState gameState;
+
+        public IGameState dungeonState;
+        public IGameState inventoryState;
+        public IGameState gameOverState;
+
         private SpriteLoader spriteLoader;
         public static int gameWidth = 1024;
         public static readonly int gameHeight = 700;
@@ -51,10 +54,8 @@ namespace Sprint
             _graphics.PreferredBackBufferHeight = gameHeight;
             _graphics.ApplyChanges();
 
-            objectManager = new GameObjectManager();
-            inputTable = new InputTable();
-            collisionDetector = new CollisionDetector();
             spriteLoader = new SpriteLoader(Content);
+            inputTable = new InputTable();
 
             base.Initialize();
         }
@@ -64,125 +65,23 @@ namespace Sprint
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader, inputTable);
-            loader.LoadLevelXML("LevelOne/Level1");
-
             font = Content.Load<SpriteFont>("Font");
 
-            //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
+            dungeonState = new DungeonState(spriteLoader, Content);
+            gameState = dungeonState;
 
-            player = new Player(characterLoc, inputTable, objectManager, spriteLoader);
-
-
-            MakeCommands();
-
-
-            // Add player as persistent object
-            objectManager.Add(player, true);
-        }
-
-        public void MakeCommands()
-        {
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new MoveUp(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.S), new MoveDown(player));
-
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveLeft(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveRight(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Up), new MoveUp(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveDown(player));
-
-            Keys[] moveKeys = { Keys.A, Keys.D, Keys.W, Keys.S, Keys.Left, Keys.Right, Keys.Up, Keys.Down };
-            inputTable.RegisterMapping(new MultipleKeyReleaseTrigger(moveKeys), new StopMoving(player));
-
-            //Melee Regular Sword Attack
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Melee(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.N), new Melee(player));
-
-            //Player uses a cast move
-            // TODO: shouldnt bind separately from shoot commands
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D5), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D6), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D7), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D8), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D9), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D0), new Cast(player));
-
-
-            //Take Damage
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.E), new TakeDamageCommand(player));
 
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
 
-            // Switching rooms
-            inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Right), new NextRoomCommand(objectManager));
-            inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Left), new PrevRoomCommand(objectManager));
         }
-
-
-        //clears input dictionary and object manager
-        public void ResetGame()
-        {
-            // delete all game objects
-            objectManager.ClearObjects(true);
-
-            objectManager.EndCycle();
-
-            objectManager.ClearRooms();
-
-            inputTable.ClearDictionary();
-
-
-            // reload the level
-            LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader, inputTable);
-            loader.LoadLevelXML("LevelOne/Level1");
-
-            // new player
-            player = new Player(characterLoc, inputTable, objectManager, spriteLoader);
-
-            // remake commands
-            MakeCommands();
-
-            objectManager.Add(player, true);
-        }
-
-
-        //checks if the user requested a reset for game
-        public void ResetReq()
-        {
-            resetGame = true;
-        }
+ 
 
         protected override void Update(GameTime gameTime)
         {
             
-            //resets the game when user request a reset
-            if(resetGame)
-            {
-                ResetGame();
-                resetGame=false;
-            }
-
-
-            inputTable.Update(gameTime);
-
-            List<IGameObject> objects = objectManager.GetObjects();
-            foreach (IGameObject obj in objects)
-                obj.Update(gameTime);
-
-
-            objectManager.EndCycle();
-
-            collisionDetector.Update(gameTime, objectManager.GetMovers(), objectManager.GetStatics());
-
-            objectManager.EndCycle();
+            gameState.Update(gameTime);
+            
 
             base.Update(gameTime);
         }
@@ -191,13 +90,7 @@ namespace Sprint
         {
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-            List<IGameObject> objects = objectManager.GetObjects();
-            foreach (IGameObject obj in objects)
-                obj.Draw(_spriteBatch, gameTime);
-
-            _spriteBatch.End();
+            gameState.Draw(_spriteBatch, gameTime);
 
             base.Draw(gameTime);
         }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using Sprint.Commands;
 using Sprint.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprint.Input
 {
@@ -35,7 +36,9 @@ namespace Sprint.Input
                 input.UpdateInput(gameTime, keyState, mouseState);
                 // Exxecute command if requirements met
                 if (input.IsSatisfied())
+                {
                     command.Execute();
+                }
             }
         }
 

@@ -12,14 +12,15 @@ namespace Sprint.Projectile
 {
     internal class ProjectileSystem
     {
+
         private SimpleProjectileFactory itemFactory;
 
         private const float spawnDistance = 40;
 
-        public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
+        public ProjectileSystem(Vector2 startPos, IInputMap inputTable, SpriteLoader spriteLoader)
         {
 
-            this.itemFactory = new SimpleProjectileFactory(spriteLoader, spawnDistance, false,objManager);
+            this.itemFactory = new SimpleProjectileFactory(spriteLoader, spawnDistance, false, null);
             itemFactory.SetDirection(new Vector2(1, 90));
             itemFactory.SetStartPosition(startPos);
 
@@ -46,6 +47,12 @@ namespace Sprint.Projectile
 
 
 
+        }
+
+
+        public void SetScene(SceneObjectManager scene)
+        {
+            itemFactory.SetScene(scene);
         }
 
         public void UpdateDirection(Character.Directions dir)
