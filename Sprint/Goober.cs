@@ -80,7 +80,7 @@ namespace Sprint
         protected override void Update(GameTime gameTime)
         {
             
-            gameState.Update(gameTime);
+            GameState.Update(gameTime);
             
 
             base.Update(gameTime);
@@ -90,7 +90,7 @@ namespace Sprint
         {
             GraphicsDevice.Clear(Color.Black);
 
-            gameState.Draw(_spriteBatch, gameTime);
+            GameState.Draw(_spriteBatch, gameTime);
 
             base.Draw(gameTime);
         }

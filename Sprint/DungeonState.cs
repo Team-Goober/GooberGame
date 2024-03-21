@@ -179,12 +179,44 @@ namespace Sprint
 
         public void SwitchRoom(Vector2 spawn, int idx)
         {
+            // TODO: Replace this once doors are refactored
+            Character.Directions dir;
+            if (spawn.Y > 2 * Goober.gameHeight / 3)
+            {
+                dir = Character.Directions.UP;
+            }
+            else if (spawn.Y < Goober.gameHeight / 3)
+            {
+                dir = Character.Directions.DOWN;
+            }
+            else if (spawn.X > 2 * Goober.gameWidth / 3)
+            {
+                dir = Character.Directions.LEFT;
+            }
+            else if (spawn.X < Goober.gameWidth / 3)           
+            {
+                dir = Character.Directions.RIGHT;
+            }
+            else
+            {
+                dir = Character.Directions.STILL;
+            }
+
+            TransitionState scroll = new TransitionState(game, new List<SceneObjectManager> { rooms[currentRoom] }, 
+                new List<SceneObjectManager> { rooms[idx] }, new List<SceneObjectManager> { hud },
+                dir, 0.75f, this);
+
+            game.GameState = scroll;
+
+            rooms[idx].EndCycle();
 
             player.SetScene(rooms[idx]);
 
             currentRoom = idx;
 
             player.MoveTo(spawn);
+
+
         }
 
         public int RoomIndex()
