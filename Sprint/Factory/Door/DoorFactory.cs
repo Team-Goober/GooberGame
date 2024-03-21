@@ -16,6 +16,16 @@ namespace Sprint.Factory.Door
             this.objManager = objManager;
         }
 
+        //Dictinaries to replace switch statements
+        private Dictionary<string, IDoor> DoorAnimDict = new Dictionary<string, IDoor>
+        {
+            { "open", new OpenDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager) },
+            { "wall", new WallDoor(sprite, position, size, objManager) },
+            { "lock", new LockDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager) },
+            { "hidden", new HiddenDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager) },
+            { "puzzle", new PuzzleDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager) }
+        };
+
         /// <summary>
         /// Constructs a door with given parameters
         /// </summary>
@@ -30,21 +40,12 @@ namespace Sprint.Factory.Door
             // Consider storing doors in file with reflection
 
             ISprite sprite = spriteLoader.BuildSprite(spriteFile, spriteLabel);
-            
-            switch(type)
+
+
+
+            if (DoorAnimDict.TryGetValue(type, out IDoor returnDoor))
             {
-                case "open":
-                    return new OpenDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager);
-                case "wall":
-                    return new WallDoor(sprite, position, size, objManager);
-                case "lock":
-                    return new LockDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager);
-                case "hidden":
-                    return new HiddenDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager);
-                case "puzzle":
-                    return new PuzzleDoor(sprite, position, size, openSize, otherSide, spawnPosition, objManager);
-                default:
-                    break;
+                return returnDoor;
             }
 
             return null;
