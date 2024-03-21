@@ -14,6 +14,8 @@ namespace Sprint.Characters
     {
         public Inventory inventory;
 
+        private Goober gooberInstance;
+
         private ISprite sprite;
 
         private Physics physics;
@@ -51,7 +53,7 @@ namespace Sprint.Characters
 
 
         //declares the move systems for the main character sprite
-        public Player(Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
+        public Player(Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader, Goober goober)
         {
 
             //Initialize physics and objectManager
@@ -60,6 +62,8 @@ namespace Sprint.Characters
             inventory = new Inventory();
 
             objectManager = objManager;
+
+            gooberInstance = goober;
 
             //Loads sprite for link
             sprite = spriteLoader.BuildSprite("playerAnims", "player");
@@ -359,8 +363,10 @@ namespace Sprint.Characters
         // Remove player from game
         public override void Die()
         {
-            objectManager.Remove(this, true);
+            // Trigger reset request in Goober class
+            gooberInstance.ResetReq();
         }
+
     }
 }
 
