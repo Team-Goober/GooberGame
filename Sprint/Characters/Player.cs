@@ -6,6 +6,8 @@ using Sprint.Projectile;
 using Sprint.Levels;
 using Sprint.Collision;
 using System.Diagnostics;
+using System.Collections.Generic;
+using Sprint.Input;
 
 namespace Sprint.Characters
 {
@@ -39,6 +41,21 @@ namespace Sprint.Characters
         private Timer castTimer;
         private Timer damageTimer;
         private GameObjectManager objectManager;
+
+
+
+        //Dictinaries to replace switch statements
+        private Dictionary<Directions, string> AttackAnimDict = new Dictionary<Directions, string>
+        {
+            { Directions.RIGHT, "swordRight" },
+            { Directions.LEFT, "swordLeft" },
+            { Directions.UP, "swordUp" },
+            { Directions.DOWN, "swordDown" }
+        };
+
+
+        private Dictionary<Directions, Rectangle> FindSwordRec;
+
 
         // TODO: replace this with state machine
         // Animation to return to as base after a played animation ends
@@ -80,7 +97,19 @@ namespace Sprint.Characters
 
             // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, spriteLoader);
-        }
+
+            //Saves rectangles for sword collision
+            FindSwordRec = new Dictionary<Directions, Rectangle>
+            {
+                { Directions.RIGHT, new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth)},
+                { Directions.LEFT, new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth) },
+                { Directions.UP, new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength) },
+                { Directions.DOWN, new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength) }
+
+            };
+    }
+
+
 
         //Melee attack according to direction
         public void Attack()
@@ -101,28 +130,13 @@ namespace Sprint.Characters
             attackTimer.Start();
             castTimer.Start();
 
-            //Creates animations and bounds for the sword for collision
-            switch (Facing)
+
+            if (AttackAnimDict.TryGetValue(Facing, out string direction) && FindSwordRec.TryGetValue(Facing, out swordRec))
             {
-                case Directions.RIGHT:
-                    sprite.SetAnimation("swordRight");
-                    swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
-                    break;
-                case Directions.LEFT:
-                    sprite.SetAnimation("swordLeft");
-                    swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
-                    break;
-                case Directions.UP:
-                    sprite.SetAnimation("swordUp");
-                    swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
-                    break;
-                case Directions.DOWN:
-                    sprite.SetAnimation("swordDown");
-                    swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
-                    break;
-                default:
-                    break;
+                sprite.SetAnimation(direction);
+
             }
+
 
             
             swordCollision = new SwordCollision(swordRec, this);
@@ -131,6 +145,7 @@ namespace Sprint.Characters
             
             
         }
+
 
         //Cast according to direction
         public void Cast()
