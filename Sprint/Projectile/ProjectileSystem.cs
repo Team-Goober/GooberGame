@@ -7,6 +7,7 @@ using Sprint.Input;
 using Sprint.Characters;
 using Sprint.Sprite;
 using Sprint.Levels;
+using System.Collections.Generic;
 
 namespace Sprint.Projectile
 {
@@ -15,6 +16,15 @@ namespace Sprint.Projectile
         private SimpleProjectileFactory itemFactory;
 
         private const float spawnDistance = 40;
+
+        //Dictinaries to replace switch statements
+        private Dictionary<Character.Directions, Vector2> SwordAnimDict = new Dictionary<Character.Directions, Vector2>
+        {
+            { Character.Directions.RIGHT, new Vector2(1, 0) },
+            { Character.Directions.LEFT, new Vector2(-1, 0) },
+            { Character.Directions.UP, new Vector2(0, -1) },
+            { Character.Directions.DOWN, new Vector2(0, 1) }
+        };
 
         public ProjectileSystem(Vector2 startPos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader)
         {
@@ -30,7 +40,7 @@ namespace Sprint.Projectile
             //Blue Arrow
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootBlueArrowC(itemFactory));
 
-          
+            
             //Bomb
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootBombC(itemFactory));
 
@@ -50,24 +60,32 @@ namespace Sprint.Projectile
 
         public void UpdateDirection(Character.Directions dir)
         {
-            
 
-            switch (dir)
+
+            //switch (dir)
+            //{
+            //    case Character.Directions.LEFT:
+            //        itemFactory.SetDirection(new Vector2(-1, 0));
+            //        break;
+            //    case Character.Directions.RIGHT:
+            //        itemFactory.SetDirection(new Vector2(1, 0));
+            //        break;
+            //    case Character.Directions.UP:
+            //        itemFactory.SetDirection(new Vector2(0, -1));
+            //        break;
+            //    case Character.Directions.DOWN:
+            //        itemFactory.SetDirection(new Vector2(0, 1));
+            //        break;
+            //    default: break;
+            //}
+
+            if (SwordAnimDict.TryGetValue(dir, out Vector2 direction))
             {
-                case Character.Directions.LEFT:
-                    itemFactory.SetDirection(new Vector2(-1, 0));
-                    break;
-                case Character.Directions.RIGHT:
-                    itemFactory.SetDirection(new Vector2(1, 0));
-                    break;
-                case Character.Directions.UP:
-                    itemFactory.SetDirection(new Vector2(0, -1));
-                    break;
-                case Character.Directions.DOWN:
-                    itemFactory.SetDirection(new Vector2(0, 1));
-                    break;
-                default: break;
+
+                itemFactory.SetDirection(direction);
+
             }
+
         }
 
         public void UpdatePostion(Vector2 pos)
