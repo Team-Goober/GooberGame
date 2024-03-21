@@ -53,6 +53,30 @@ namespace Sprint.Characters
             { Directions.DOWN, "swordDown" }
         };
 
+        private Dictionary<Directions, string> CastAnimDict = new Dictionary<Directions, string>
+        {
+            { Directions.RIGHT, "castRight" },
+            { Directions.LEFT, "castLeft" },
+            { Directions.UP, "castUp" },
+            { Directions.DOWN, "castDown" }
+        };
+
+        private Dictionary<Directions, string> BaseIdleAnimDict = new Dictionary<Directions, string>
+        {
+            { Directions.RIGHT, "rightStill" },
+            { Directions.LEFT, "leftStill" },
+            { Directions.UP, "upStill" },
+            { Directions.DOWN, "downStill" }
+        };
+
+        private Dictionary<Directions, string> BaseWalkAnimDict = new Dictionary<Directions, string>
+        {
+            { Directions.RIGHT, "right" },
+            { Directions.LEFT, "left" },
+            { Directions.UP, "up" },
+            { Directions.DOWN, "down" }
+        };
+
 
         private Dictionary<Directions, Rectangle> FindSwordRec;
 
@@ -163,22 +187,11 @@ namespace Sprint.Characters
             // Start timer for attack
             castTimer.Start();
 
-            switch (Facing)
+
+            if (CastAnimDict.TryGetValue(Facing, out string direction))
             {
-                case Directions.RIGHT:
-                    sprite.SetAnimation("castRight");
-                    break;
-                case Directions.LEFT:
-                    sprite.SetAnimation("castLeft");
-                    break;
-                case Directions.UP:
-                    sprite.SetAnimation("castUp");
-                    break;
-                case Directions.DOWN:
-                    sprite.SetAnimation("castDown");
-                    break;
-                default:
-                    break;
+                sprite.SetAnimation(direction);
+
             }
         }
 
@@ -203,40 +216,18 @@ namespace Sprint.Characters
         {
             if (baseAnim == AnimationCycle.Idle)
             {
-                if (Facing == Directions.DOWN)
+                if (BaseIdleAnimDict.TryGetValue(Facing, out string direction))
                 {
-                    sprite.SetAnimation("downStill");
-                }
-                else if (Facing == Directions.LEFT)
-                {
-                    sprite.SetAnimation("leftStill");
-                }
-                else if (Facing == Directions.UP)
-                {
-                    sprite.SetAnimation("upStill");
-                }
-                else if (Facing == Directions.RIGHT)
-                {
-                    sprite.SetAnimation("rightStill");
+                    sprite.SetAnimation(direction);
+
                 }
             }
             else if (baseAnim == AnimationCycle.Walk)
             {
-                if (Facing == Directions.DOWN)
+                if (BaseWalkAnimDict.TryGetValue(Facing, out string direction))
                 {
-                    sprite.SetAnimation("down");
-                }
-                else if (Facing == Directions.LEFT)
-                {
-                    sprite.SetAnimation("left");
-                }
-                else if (Facing == Directions.UP)
-                {
-                    sprite.SetAnimation("up");
-                }
-                else if (Facing == Directions.RIGHT)
-                {
-                    sprite.SetAnimation("right");
+                    sprite.SetAnimation(direction);
+
                 }
             }
 
