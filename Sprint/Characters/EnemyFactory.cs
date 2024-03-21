@@ -6,6 +6,7 @@ using Sprint.Input;
 using Sprint.Levels;
 using Sprint.Interfaces;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Sprint.Characters
 {
@@ -19,11 +20,13 @@ namespace Sprint.Characters
 
         public EnemyFactory(GameObjectManager objectManager, SpriteLoader spriteLoader)
         {
-    
+
             this.objectManager = objectManager;
             this.spriteLoader = spriteLoader;
         }
 
+        //Dictinaries to replace switch statements
+        private Dictionary<string, Enemy> EnemyDict;
 
         /// <summary>
         /// Builds enemy from string name
@@ -39,31 +42,28 @@ namespace Sprint.Characters
 
             ISprite enemySprite = spriteLoader.BuildSprite(ANIM_FILE, name);
 
-            switch (name)
+            //Replaces the switch statements into Dict
+            EnemyDict = new Dictionary<string, Enemy>
             {
-                case "jellyfish":
-                    return new JellyfishEnemy(enemySprite, position, objectManager, spriteLoader);
-                case "bluebubble":
-                    return new BluebubbleEnemy(enemySprite, position, objectManager, spriteLoader);
-                case "skeleton":
-                    return new SkeletonEnemy(enemySprite, position, objectManager, spriteLoader);
-                case "dog":
-                    return new DogEnemy(enemySprite, position, objectManager, spriteLoader);
-                case "bat":
-                    return new BatEnemy(enemySprite, position, objectManager, spriteLoader);
-                case "hand":
-                    return new HandEnemy(enemySprite, position, objectManager, spriteLoader);
-                case "dragonmov":
-                    return new DragonEnemy(enemySprite, position, objectManager, spriteLoader);
-                case "slime":
-                    return new SlimeEnemy(enemySprite, position, objectManager, spriteLoader);
-                case "spike":
-                    return new SpikeEnemy(enemySprite, position, objectManager, spriteLoader);
-                case "oldman":
-                    return new OldMan(enemySprite, position, objectManager, spriteLoader);
-                default:
-                    return null;
+                { "jellyfish", new JellyfishEnemy(enemySprite, position, objectManager, spriteLoader) },
+                { "bluebubble", new BluebubbleEnemy(enemySprite, position, objectManager, spriteLoader) },
+                { "skeleton", new SkeletonEnemy(enemySprite, position, objectManager, spriteLoader) },
+                { "dog", new DogEnemy(enemySprite, position, objectManager, spriteLoader) },
+                { "bat", new BatEnemy(enemySprite, position, objectManager, spriteLoader) },
+                { "hand", new HandEnemy(enemySprite, position, objectManager, spriteLoader) },
+                { "dragonmov", new DragonEnemy(enemySprite, position, objectManager, spriteLoader) },
+                { "slime", new SlimeEnemy(enemySprite, position, objectManager, spriteLoader) },
+                { "spike", new SpikeEnemy(enemySprite, position, objectManager, spriteLoader) },
+                { "oldman", new OldMan(enemySprite, position, objectManager, spriteLoader) }
+            };
+
+
+            if (EnemyDict.TryGetValue(name, out Enemy returnEnemy))
+            {
+                return returnEnemy;
             }
+
+            return null;
 
 
 
