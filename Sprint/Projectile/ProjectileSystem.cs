@@ -62,22 +62,6 @@ namespace Sprint.Projectile
         {
 
 
-            //switch (dir)
-            //{
-            //    case Character.Directions.LEFT:
-            //        itemFactory.SetDirection(new Vector2(-1, 0));
-            //        break;
-            //    case Character.Directions.RIGHT:
-            //        itemFactory.SetDirection(new Vector2(1, 0));
-            //        break;
-            //    case Character.Directions.UP:
-            //        itemFactory.SetDirection(new Vector2(0, -1));
-            //        break;
-            //    case Character.Directions.DOWN:
-            //        itemFactory.SetDirection(new Vector2(0, 1));
-            //        break;
-            //    default: break;
-            //}
 
             if (SwordAnimDict.TryGetValue(dir, out Vector2 direction))
             {

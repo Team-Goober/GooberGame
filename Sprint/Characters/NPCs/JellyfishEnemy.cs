@@ -5,6 +5,7 @@ using Sprint.Levels;
 using Sprint.Sprite;
 using System;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace Sprint.Characters
 {
@@ -21,26 +22,24 @@ namespace Sprint.Characters
             this.initialPosition = initialPosition;
         }
 
+        private Dictionary<Directions, string> JellyAnimDict = new Dictionary<Directions, string>
+        {
+            { Directions.RIGHT, "rightFacing" },
+            { Directions.LEFT, "leftFacing" },
+            { Directions.UP, "upFacing" },
+            { Directions.DOWN, "downFacing" }
+        };
+
+
         // Set the direction and update the animation accordingly
         public void SetDirection(Directions direction)
         {
-            switch (direction)
+
+
+            if (JellyAnimDict.TryGetValue(direction, out string facing))
             {
-                case Directions.UP:
-                    SetAnimation("upFacing");
-                    break;
-                case Directions.LEFT:
-                    SetAnimation("leftFacing");
-                    break;
-                case Directions.DOWN:
-                    SetAnimation("downFacing");
-                    break;
-                case Directions.RIGHT:
-                    SetAnimation("rightFacing");
-                    break;
-                default:
-                    SetAnimation("default");
-                    break;
+                sprite.SetAnimation(facing);
+
             }
         }
 
