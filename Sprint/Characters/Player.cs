@@ -94,6 +94,7 @@ namespace Sprint.Characters
             objectManager = scene;
             secondaryItems.SetScene(objectManager);
             objectManager.Add(this);
+            StopMoving();
         }
 
         //Melee attack according to direction

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using System;
@@ -88,8 +89,13 @@ namespace Sprint
             if (offset.Length() >= max.Length())
             {
                 offset = max;
-                game.GameState = nextState;
+                PassToState(nextState);
             }
+        }
+
+        public void PassToState(IGameState newState)
+        {
+            game.GameState = newState;
         }
     }
 }

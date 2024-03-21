@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Sprint.Characters;
 using Sprint.Collision;
 using Sprint.Commands;
+using Sprint.Functions;
 using Sprint.Functions.RoomTransition;
 using Sprint.Input;
 using Sprint.Interfaces;
@@ -14,6 +15,7 @@ using Sprint.Sprite;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Sprint
 {
@@ -96,6 +98,10 @@ namespace Sprint
             // Switching rooms
             inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Right), new NextRoomCommand(this));
             inputTable.RegisterMapping(new SingleClickTrigger(SingleClickTrigger.MouseButton.Left), new PrevRoomCommand(this));
+
+            // Switching to new pause state
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Escape), new PauseCommand(game, this));
+
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -147,6 +153,12 @@ namespace Sprint
 
             // Complete additions and deletions resulting from collisions
             currRoom.EndCycle();
+        }
+
+        public void PassToState(IGameState newState)
+        {
+            game.GameState = newState;
+            inputTable.Sleep();
         }
 
         //checks if the user requested a reset for game
@@ -215,7 +227,7 @@ namespace Sprint
                 new List<SceneObjectManager> { rooms[idx] }, new List<SceneObjectManager> { hud },
                 dir, 0.75f, this);
 
-            game.GameState = scroll;
+            PassToState(scroll);
 
 
             // Clean up previous room changes
