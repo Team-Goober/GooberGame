@@ -42,7 +42,6 @@ namespace Sprint.Factory.Door
             ISprite sprite = spriteLoader.BuildSprite(spriteFile, spriteLabel);
 
 
-
             if (DoorAnimDict.TryGetValue(type, out IDoor returnDoor))
             {
                 return returnDoor;
