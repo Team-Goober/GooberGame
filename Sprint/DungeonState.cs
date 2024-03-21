@@ -27,12 +27,12 @@ namespace Sprint
         private IInputMap inputTable;
         private CollisionDetector collisionDetector;
 
-        private bool resetGame = false;
+        private bool resetGame = false; // Set to true to queue a reset on next update
 
-        private List<SceneObjectManager> rooms;
-        private int currentRoom;
-        private SceneObjectManager hud;
-        private Player player;
+        private List<SceneObjectManager> rooms; // Object managers for each room. Accessed by index
+        private int currentRoom; // Index of currently updated room
+        private SceneObjectManager hud; // Object manager for HUD that should persist between rooms
+        private Player player; // The player
 
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
         {
@@ -49,13 +49,14 @@ namespace Sprint
 
             hud = new SceneObjectManager();
 
+            // Load all rooms in the level from XML file
             LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, inputTable);
             loader.LoadLevelXML("LevelOne/Level1");
-
 
             makeCommands();
         }
 
+        // Generates all commands available while the player is moving in a room
         private void makeCommands()
         {
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
@@ -89,7 +90,7 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D9), new Cast(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D0), new Cast(player));
 
-
+            // Reset command
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
 
             // Switching rooms
@@ -101,10 +102,12 @@ namespace Sprint
         {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
+            // Draw current room's objects
             SceneObjectManager currRoom = rooms[currentRoom];
             foreach (IGameObject obj in currRoom.GetObjects())
                 obj.Draw(spriteBatch, gameTime);
 
+            // Draw HUD
             foreach (IGameObject obj in hud.GetObjects())
                 obj.Draw(spriteBatch, gameTime);
 
@@ -114,30 +117,35 @@ namespace Sprint
         public void Update(GameTime gameTime)
         {
 
-            //resets the game when user request a reset
+            // Resets the game when requested
             if (resetGame)
             {
                 ResetGame();
                 resetGame = false;
+                // End cycle to complete additions and deletions
                 rooms[currentRoom].EndCycle();
             }
 
             SceneObjectManager currRoom = rooms[currentRoom];
 
+            // Detect inputs and execute commands
             inputTable.Update(gameTime);
 
+            // Update room objects
             foreach (IGameObject obj in currRoom.GetObjects())
                 obj.Update(gameTime);
-
+            // Update HUD
             foreach (IGameObject obj in hud.GetObjects())
                 obj.Update(gameTime);
 
-
+            // Complete additions and deletions
             currRoom.EndCycle();
             hud.EndCycle();
 
+            // Test for collisions in room
             collisionDetector.Update(gameTime, currRoom.GetMovers(), currRoom.GetStatics());
 
+            // Complete additions and deletions resulting from collisions
             currRoom.EndCycle();
         }
 
@@ -166,7 +174,6 @@ namespace Sprint
             LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, inputTable);
             loader.LoadLevelXML("LevelOne/Level1");
 
- 
 
             // remake commands
             makeCommands();
@@ -179,6 +186,7 @@ namespace Sprint
 
         public void SwitchRoom(Vector2 spawn, int idx)
         {
+            // Find direction of scroll based on spawn position
             // TODO: Replace this once doors are refactored
             Character.Directions dir;
             if (spawn.Y > 2 * Goober.gameHeight / 3)
@@ -202,20 +210,20 @@ namespace Sprint
                 dir = Character.Directions.STILL;
             }
 
+            // Create new GameState to scroll and then set back to this state
             TransitionState scroll = new TransitionState(game, new List<SceneObjectManager> { rooms[currentRoom] }, 
                 new List<SceneObjectManager> { rooms[idx] }, new List<SceneObjectManager> { hud },
                 dir, 0.75f, this);
 
             game.GameState = scroll;
 
+
+            // Clean up previous room changes
             rooms[idx].EndCycle();
-
+            // Move player to new room
             player.SetScene(rooms[idx]);
-
             currentRoom = idx;
-
             player.MoveTo(spawn);
-
 
         }
 

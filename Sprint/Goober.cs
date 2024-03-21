@@ -28,16 +28,17 @@ namespace Sprint
 
         private SpriteFont font;
 
-        private IInputMap inputTable;
+        private IInputMap inputTable; // Table of commands available no matter what state the game is loaded
 
 
-        public IGameState GameState;
+        public IGameState GameState; // Current state of the game
 
-        public IGameState DungeonState;
-        public IGameState InventoryState;
-        public IGameState GameOverState;
+        public IGameState DungeonState; // State where player can move in a room
+        public IGameState InventoryState; // State where player can see map and select items
+        public IGameState GameOverState; // State where player died and can restart game
 
-        private SpriteLoader spriteLoader;
+        private SpriteLoader spriteLoader; // Loads sprites from file and caches them for reuse
+        // Dimensions of window
         public static readonly int gameWidth = 1024;
         public static readonly int gameHeight = 700;
 
@@ -70,7 +71,6 @@ namespace Sprint
             DungeonState = new DungeonState(this, spriteLoader, Content);
             GameState = DungeonState;
 
-
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
 
@@ -79,9 +79,8 @@ namespace Sprint
 
         protected override void Update(GameTime gameTime)
         {
-            
+
             GameState.Update(gameTime);
-            
 
             base.Update(gameTime);
         }
