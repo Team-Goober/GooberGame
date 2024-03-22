@@ -17,6 +17,7 @@ namespace Sprint.Functions
 
         public void Execute()
         {
+            // Create new pause state and set as current game state
             receiver.GameState = new PauseState(receiver, returnState);
         }
     }

@@ -49,12 +49,13 @@ namespace Sprint.Projectile
 
         }
 
-
+        // Sets the scene that factory places porjectiles into
         public void SetScene(SceneObjectManager scene)
         {
             itemFactory.SetScene(scene);
         }
 
+        // Update direction of shot projectiles
         public void UpdateDirection(Character.Directions dir)
         {
             
@@ -77,6 +78,7 @@ namespace Sprint.Projectile
             }
         }
 
+        // Updates location to place projectiles at
         public void UpdatePostion(Vector2 pos)
         {
             itemFactory.SetStartPosition(pos);

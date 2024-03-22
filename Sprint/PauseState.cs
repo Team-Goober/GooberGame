@@ -4,12 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using Sprint.Functions;
 using Sprint.Input;
 using Sprint.Interfaces;
-using Sprint.Levels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sprint
 {

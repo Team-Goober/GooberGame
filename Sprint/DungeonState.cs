@@ -13,9 +13,6 @@ using Sprint.Levels;
 using Sprint.Loader;
 using Sprint.Sprite;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.Serialization;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Sprint
 {
@@ -34,7 +31,7 @@ namespace Sprint
         private List<SceneObjectManager> rooms; // Object managers for each room. Accessed by index
         private int currentRoom; // Index of currently updated room
         private SceneObjectManager hud; // Object manager for HUD that should persist between rooms
-        private Player player; // The player
+        private Player player; // Player game object to be moved as rooms switch
 
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
         {
@@ -196,6 +193,7 @@ namespace Sprint
             rooms.Add(room);
         }
 
+        // Switches current room to a different one by index
         public void SwitchRoom(Vector2 spawn, int idx)
         {
             // Find direction of scroll based on spawn position

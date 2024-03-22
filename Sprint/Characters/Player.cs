@@ -83,7 +83,7 @@ namespace Sprint.Characters
             this.reset = reset;
         }
 
-
+        // Moves the player from current scene into a new one
         public void SetScene(SceneObjectManager scene)
         {
             if (objectManager != null)
@@ -182,17 +182,10 @@ namespace Sprint.Characters
             }
         }
 
+        // Removes velocity and changes animation to match lack of movement
         public void StopMoving()
         {
             physics.SetVelocity(new Vector2(0, 0));
-            /*            // TODO: replace these checks once we have a state machine
-                        string currAnim = sprite.GetCurrentAnimation();
-
-                        // If the current animation is movement, stop it
-                        if (currAnim.Equals("left") || currAnim.Equals("right") || currAnim.Equals("up") || currAnim.Equals("down"))
-                        {
-                            animateStill();
-                        }*/
             baseAnim = AnimationCycle.Idle;
             returnToBaseAnim();
         }

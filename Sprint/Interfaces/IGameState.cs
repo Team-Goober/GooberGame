@@ -7,6 +7,8 @@ namespace Sprint.Interfaces
     {
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, GameTime gameTime);
+
+        // Close out this state and set game to a new state
         void PassToState(IGameState newState);
 
     }

@@ -1,13 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Sprint.Characters.Character;
 
 namespace Sprint
@@ -51,6 +46,9 @@ namespace Sprint
                     break;
                 case Directions.RIGHT:
                     max = new Vector2(- Goober.gameWidth, 0);
+                    break;
+                default:
+                    max = new Vector2(0, 0);
                     break;
             }
 

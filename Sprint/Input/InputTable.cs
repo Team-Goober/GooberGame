@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Sprint.Commands;
 using Sprint.Interfaces;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Sprint.Input
 {

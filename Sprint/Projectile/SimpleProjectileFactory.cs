@@ -1,11 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Levels;
 using Sprint.Sprite;
-using System.Net.Http.Headers;
-using System.Runtime.Serialization;
 
 namespace Sprint.Projectile
 {
@@ -31,6 +27,7 @@ namespace Sprint.Projectile
             this.isEnemy = isEnemy;
         }
 
+        // Change the scene that projectiles are placed in
         public void SetScene(SceneObjectManager scene)
         {
             objectManager = scene;
