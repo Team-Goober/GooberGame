@@ -19,6 +19,7 @@ namespace Sprint.Input
         private ICollidable target;
         private GameObjectManager objManager;
 
+
         public enum MouseButton
         {
             Left,
@@ -42,6 +43,14 @@ namespace Sprint.Input
 
         public void UpdateInput(GameTime gameTime, KeyboardState keys, MouseState mouse)
         {
+
+            //ClickAnimDict = new Dictionary<MouseButton, bool>
+            //{
+            //    { MouseButton.Left, mouse.LeftButton == ButtonState.Pressed },
+            //    { MouseButton.Right, mouse.RightButton == ButtonState.Pressed },
+            //    { MouseButton.Middle, mouse.MiddleButton == ButtonState.Pressed },
+            //};
+
             bool pressed = false;
 
             switch (button)
@@ -59,6 +68,12 @@ namespace Sprint.Input
                     pressed = false;
                     break;
             }
+
+            //if (ClickAnimDict.TryGetValue(button, out bool trueFalse))
+            //{
+            //    pressed = trueFalse;
+
+            //}
 
             // Trigger only when press is begun
             if (pressed && !heldPreviously)
