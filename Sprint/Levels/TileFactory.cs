@@ -2,6 +2,7 @@
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
+using System.Collections.Generic;
 
 namespace Sprint.Levels
 {
@@ -9,6 +10,8 @@ namespace Sprint.Levels
     {
 
         private SpriteLoader spriteLoader;
+
+        private Dictionary<string, ITile> TileAnimDict;
 
         public TileFactory(SpriteLoader spriteLoader)
         {
@@ -25,26 +28,31 @@ namespace Sprint.Levels
         /// <returns></returns>
         public ITile MakeTile(string type, string spriteFile, string spriteLabel, Vector2 position, Vector2 size)
         {
-            // TODO: Store this in a better way
+
 
             ISprite sprite = spriteLoader.BuildSprite(spriteFile, spriteLabel);
 
-            if (type.Equals("floor"))
+
+            // TODO: Store this in a better way
+            TileAnimDict = new Dictionary<string, ITile>
             {
-                return new FloorTile(sprite, position, size);
-            }
-            else if (type.Equals("wall"))
+                { "floor", new FloorTile(sprite, position, size) },
+                { "wall", new WallTile(sprite, position, size) },
+                { "gap", new GapTile(sprite, position, size) }
+                
+            };
+
+            
+
+
+            if(TileAnimDict.TryGetValue(type, out ITile tile))
             {
-                return new WallTile(sprite, position, size);
+                return tile;
             }
-            else if (type.Equals("gap"))
-            {
-                return new GapTile(sprite, position, size);
-            }
-            else
-            {
-                return null;
-            }
+
+            return null;
+
+
         }
 
     }
