@@ -60,8 +60,7 @@ namespace Sprint
         }
 
         protected override void LoadContent()
-        { 
-
+        {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             LevelLoader loader = new LevelLoader(Content, objectManager, spriteLoader, inputTable);
@@ -69,17 +68,15 @@ namespace Sprint
 
             font = Content.Load<SpriteFont>("Font");
 
-            //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
-
-            player = new Player(characterLoc, inputTable, objectManager, spriteLoader);
-
+            // Pass the Goober instance to the Player constructor
+            player = new Player(characterLoc, inputTable, objectManager, spriteLoader, this); // 'this' refers to the current instance of Goober
 
             MakeCommands();
 
-
-            // Add player as persistent object
+            // Add player as a persistent object
             objectManager.Add(player, true);
         }
+
 
         public void MakeCommands()
         {
@@ -145,7 +142,7 @@ namespace Sprint
             loader.LoadLevelXML("LevelOne/Level1");
 
             // new player
-            player = new Player(characterLoc, inputTable, objectManager, spriteLoader);
+            player = new Player(characterLoc, inputTable, objectManager, spriteLoader, this);
 
             // remake commands
             MakeCommands();
@@ -162,12 +159,12 @@ namespace Sprint
 
         protected override void Update(GameTime gameTime)
         {
-            
-            //resets the game when user request a reset
-            if(resetGame)
+
+            // Check if the user requested a reset for the game
+            if (resetGame)
             {
                 ResetGame();
-                resetGame=false;
+                resetGame = false;
             }
 
 
