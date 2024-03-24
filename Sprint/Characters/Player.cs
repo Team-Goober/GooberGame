@@ -6,6 +6,8 @@ using Sprint.Projectile;
 using Sprint.Levels;
 using Sprint.Collision;
 using System.Diagnostics;
+using Sprint.Testing;
+using Sprint.Commands;
 
 namespace Sprint.Characters
 {
@@ -13,8 +15,6 @@ namespace Sprint.Characters
     internal class Player : Character, IMovingCollidable
     {
         public Inventory inventory;
-
-        private Goober gooberInstance;
 
         private ISprite sprite;
 
@@ -40,7 +40,8 @@ namespace Sprint.Characters
         private Timer attackTimer;
         private Timer castTimer;
         private Timer damageTimer;
-        private GameObjectManager objectManager;
+        private SceneObjectManager objectManager;
+        private Reset reset;
 
         // TODO: replace this with state machine
         // Animation to return to as base after a played animation ends
@@ -53,17 +54,13 @@ namespace Sprint.Characters
 
 
         //declares the move systems for the main character sprite
-        public Player(Vector2 pos, IInputMap inputTable, GameObjectManager objManager, SpriteLoader spriteLoader, Goober goober)
+        public Player(IInputMap inputTable, SpriteLoader spriteLoader, Reset reset)
         {
 
             //Initialize physics and objectManager
-            physics = new Physics(pos);
+            physics = new Physics(Vector2.Zero);
 
             inventory = new Inventory();
-
-            objectManager = objManager;
-
-            gooberInstance = goober;
 
             //Loads sprite for link
             sprite = spriteLoader.BuildSprite("playerAnims", "player");
@@ -74,16 +71,30 @@ namespace Sprint.Characters
             // Duration of the damage state
             damageTimer = new Timer(0.3);
 
-            
+            objectManager = null;
 
             // Start out idle
             Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
 
-            physics = new Physics(pos);
-
             // Set up projectiles
-            secondaryItems = new ProjectileSystem(physics.Position, inputTable, objManager, spriteLoader);
+            secondaryItems = new ProjectileSystem(physics.Position, inputTable, spriteLoader);
+
+            this.reset = reset;
+        }
+
+        // Moves the player from current scene into a new one
+        public void SetScene(SceneObjectManager scene)
+        {
+            if (objectManager != null)
+            {
+                objectManager.Remove(this);
+            }
+
+            objectManager = scene;
+            secondaryItems.SetScene(objectManager);
+            objectManager.Add(this);
+            StopMoving();
         }
 
         //Melee attack according to direction
@@ -131,7 +142,7 @@ namespace Sprint.Characters
             
             swordCollision = new SwordCollision(swordRec, this);
             
-            objectManager.Add(swordCollision, false);
+            objectManager.Add(swordCollision);
             
             
         }
@@ -171,17 +182,10 @@ namespace Sprint.Characters
             }
         }
 
+        // Removes velocity and changes animation to match lack of movement
         public void StopMoving()
         {
             physics.SetVelocity(new Vector2(0, 0));
-            /*            // TODO: replace these checks once we have a state machine
-                        string currAnim = sprite.GetCurrentAnimation();
-
-                        // If the current animation is movement, stop it
-                        if (currAnim.Equals("left") || currAnim.Equals("right") || currAnim.Equals("up") || currAnim.Equals("down"))
-                        {
-                            animateStill();
-                        }*/
             baseAnim = AnimationCycle.Idle;
             returnToBaseAnim();
         }
@@ -292,7 +296,7 @@ namespace Sprint.Characters
             attackTimer.Update(gameTime);
             if (attackTimer.JustEnded)
             {
-                objectManager.Remove(swordCollision, false);
+                objectManager.Remove(swordCollision);
                 returnToBaseAnim();
             }
             castTimer.Update(gameTime);
@@ -363,10 +367,8 @@ namespace Sprint.Characters
         // Remove player from game
         public override void Die()
         {
-            // Trigger reset request in Goober class
-            gooberInstance.ResetReq();
+            reset.Execute();
         }
-
     }
 }
 

@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Sprint.Levels
 {
-    public class RoomObjectManager
+    public class SceneObjectManager
     {
 
         private List<ICollidable> staticColliders;
@@ -17,7 +17,7 @@ namespace Sprint.Levels
         private Queue<IGameObject> addQueue;
         private bool clear;
 
-        public RoomObjectManager()
+        public SceneObjectManager()
         {
             objects = new List<IGameObject>();
             staticColliders = new List<ICollidable>();
