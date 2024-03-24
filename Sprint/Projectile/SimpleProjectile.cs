@@ -11,7 +11,7 @@ namespace Sprint.Projectile
     abstract class SimpleProjectile : IProjectile, IMovingCollidable
     {
 
-        protected GameObjectManager objManager;
+        protected SceneObjectManager objectManager;
         protected Vector2 position;
         protected ISprite sprite;
         protected bool isEnemy;
@@ -34,9 +34,9 @@ namespace Sprint.Projectile
             }
         }
 
-        public SimpleProjectile(ISprite sprite, Vector2 startPos, bool isEnemy, GameObjectManager objManager)
+        public SimpleProjectile(ISprite sprite, Vector2 startPos, bool isEnemy, SceneObjectManager objectManager)
         {
-            this.objManager = objManager;
+            this.objectManager = objectManager;
             this.sprite = sprite;
             this.position = startPos;
             this.isEnemy = isEnemy;
@@ -45,12 +45,12 @@ namespace Sprint.Projectile
 
         public virtual void Create()
         {
-            objManager.Add(this);
+            objectManager.Add(this);
         }
 
         public virtual void Delete()
         {
-            objManager.Remove(this);
+            objectManager.Remove(this);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)

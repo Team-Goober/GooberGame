@@ -25,7 +25,7 @@ namespace Sprint.Characters
         private Timer timeAttack;
 
 
-        public SkeletonEnemy(ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
+        public SkeletonEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
             : base(sprite, initialPosition, objectManager)
         {
 

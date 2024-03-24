@@ -17,7 +17,7 @@ namespace Sprint.Loader
     internal class LevelLoader
     {
         private ContentManager content;
-        private GameObjectManager objectManager;
+        private DungeonState dungeon;
         private SpriteLoader spriteLoader;
         private IInputMap inputTable;
 
@@ -30,17 +30,17 @@ namespace Sprint.Loader
         private Rectangle[] doorBounds;
         private IDoor[,] doorsPerSide;
 
-        public LevelLoader(ContentManager newContent, GameObjectManager objectManager, SpriteLoader spriteLoader, IInputMap inputTable)
+        public LevelLoader(ContentManager newContent, DungeonState dungeon, SpriteLoader spriteLoader, IInputMap inputTable)
         {
             this.content = newContent;
-            this.objectManager = objectManager;
+            this.dungeon = dungeon;
             this.spriteLoader = spriteLoader;
             this.inputTable = inputTable;
 
             tileFactory = new(spriteLoader);
-            doorFactory = new(spriteLoader, objectManager);
+            doorFactory = new(spriteLoader);
             itemFactory = new(spriteLoader);
-            enemyFactory = new(objectManager, spriteLoader);
+            enemyFactory = new(spriteLoader);
 
         }
 
@@ -52,7 +52,7 @@ namespace Sprint.Loader
         {
             LevelData data = content.Load<LevelData>(path);
 
-            objectManager.ClearRooms();
+            dungeon.ClearRooms();
 
 
             // Make commands for moving between rooms
@@ -66,7 +66,7 @@ namespace Sprint.Loader
 
             // Load all rooms by index using RoomLoader
             for (int i = 0; i < data.Rooms.Count; i++) {
-                objectManager.AddRoom(BuildRoomManager(data, i));
+                dungeon.AddRoom(BuildRoomManager(data, i));
             }
 
             // Make a command that checks all doors at its position for switching rooms when middle clicked
@@ -78,11 +78,10 @@ namespace Sprint.Loader
                     slice[j] = doorsPerSide[i, j];
                 }
                 inputTable.RegisterMapping(new ClickInBoundsTrigger(ClickInBoundsTrigger.MouseButton.Middle, doorBounds[i]),
-                    new SwitchRoomFromDoorsCommand(slice, objectManager));
+                    new SwitchRoomFromDoorsCommand(slice, dungeon));
             }
 
-            // TODO: replace this with loaded value from file
-            objectManager.SwitchRoom(data.BottomSpawnPos, data.StartLevel);
+            dungeon.SwitchRoom(data.BottomSpawnPos, data.StartLevel);
 
         }
 
@@ -91,10 +90,10 @@ namespace Sprint.Loader
         * @param lvl        LevelData to pull info from
         * @param roomIndex  index of room in LevelData.Rooms to be made
         */
-        public RoomObjectManager BuildRoomManager(LevelData lvl, int roomIndex)
+        public SceneObjectManager BuildRoomManager(LevelData lvl, int roomIndex)
         {
             RoomData rd = lvl.Rooms[roomIndex];
-            RoomObjectManager rom = new RoomObjectManager();
+            SceneObjectManager rom = new SceneObjectManager();
 
             //If the rooms need walls. Load Wall sprite, Door sprite, and wall colliders.
             if (lvl.Rooms[roomIndex].NeedWall)
@@ -156,7 +155,7 @@ namespace Sprint.Loader
             {
                 float xP = lvl.FloorGridPos.X + (spawn.Column + 0.5f) * lvl.TileSize.X;
                 float yP = lvl.FloorGridPos.Y + (spawn.Row + 0.5f) * lvl.TileSize.Y;
-                rom.Add(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP)));
+                rom.Add(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP), rom));
             }
 
 
@@ -177,7 +176,7 @@ namespace Sprint.Loader
         {
             DoorReference doorRef = lvl.DoorReferences[exit.Door];
             //Parameter list is too long
-            IDoor door = doorFactory.MakeDoor(doorRef.Type, lvl.SpriteFile, doorRef.SpriteName, position, lvl.DoorSize, lvl.OpenDoorSize, spawnPosition, exit.AdjacentRoom);
+            IDoor door = doorFactory.MakeDoor(doorRef.Type, lvl.SpriteFile, doorRef.SpriteName, position, lvl.DoorSize, lvl.OpenDoorSize, spawnPosition, exit.AdjacentRoom, dungeon);
             return door;
         }
 
