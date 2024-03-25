@@ -98,7 +98,7 @@ namespace Sprint.Loader
             {
                 //Load Wall texture
                 ISprite bgSprite = spriteLoader.BuildSprite(lvl.SpriteFile, lvl.BackgroundSprite);
-                BackgroundTexture bg = new BackgroundTexture(bgSprite, Vector2.Zero);
+                BackgroundTexture bg = new BackgroundTexture(bgSprite, lvl.WallPos);
                 rom.Add(bg);
 
                 //Load Wall colliders
