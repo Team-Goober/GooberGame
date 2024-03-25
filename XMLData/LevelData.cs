@@ -6,7 +6,7 @@ namespace XMLData
 {
     public class LevelData
     {
-        public int StartLevel;
+        public Point StartLevel; // Column, Row pair for room to start player in
         public string SpriteFile; // Path to file holding all room sprites for this level
 
         public Rectangle[] OuterWalls; // Collision bounds of walls on the outside of the room
@@ -29,7 +29,7 @@ namespace XMLData
         public Vector2 RightSpawnPos;
         public Dictionary<string, DoorReference> DoorReferences; // Mapping of labels to door data so rooms can reuse the same door types
 
-        public List<RoomData> Rooms; // All rooms in this level. First index is the starting room.
+        public RoomData[][] Rooms; // All rooms in this level. First index is the starting room.
 
     }
 
@@ -41,26 +41,23 @@ namespace XMLData
 
     public class DoorReference
     {
-        public string SpriteName; // Name of sprite to draw. Name is used in the Level's SpriteFile. Should have animations named "open" and "closed"
+        public string TopSprite; // Name of sprite to draw. Name is used in the Level's SpriteFile. Should have animations named "open" and "closed"
+        public string BottomSprite;
+        public string LeftSprite;
+        public string RightSprite;
         public string Type; // Door type to construct. Used by DoorFactory
     }
 
     public class RoomData
     {
-        public bool NeedWall; // Determined if walls will be loaded for a room 
-        public ExitData TopExit; // Each exit for the room. Corresponds to one door each
-        public ExitData BottomExit;
-        public ExitData LeftExit;
-        public ExitData RightExit;
+        public bool NeedWall; // Determines if walls will be loaded for a room 
+        public string TopExit; // Each exit for the room. Corresponds to one door each
+        public string BottomExit;
+        public string LeftExit;
+        public string RightExit;
         public List<string> TileGrid; // Grid of tiles. Each string is a row of tiles separated by spaces. Usees LevelData.TileReferences keys
         public List<ItemSpawnData> Items; // Spawn data for every item in the room
         public List<EnemySpawnData> Enemies; // Spawn data for every enemy in the room
-    }
-
-    public class ExitData
-    {
-        public string Door; // The type of door to place. Uses LevelData.DoorReferences keys
-        public int AdjacentRoom; // Index in LevelData.Rooms of the Room on the other side of this exit. -1 if none
     }
 
     public class ItemSpawnData
