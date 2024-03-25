@@ -8,8 +8,6 @@ using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;
-using System.Diagnostics;
-using System.Runtime.Serialization;
 using XMLData;
 
 namespace Sprint.Loader
@@ -158,7 +156,6 @@ namespace Sprint.Loader
                 rom.Add(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP), rom));
             }
 
-
             //Load items
             foreach (ItemSpawnData spawn in rd.Items)
             {
@@ -169,8 +166,6 @@ namespace Sprint.Loader
 
             return rom;
         }
-
-
 
         public IDoor MakeDoor(LevelData lvl, ExitData exit, Vector2 position, Vector2 spawnPosition)
         {
@@ -186,6 +181,5 @@ namespace Sprint.Loader
             ITile tile = tileFactory.MakeTile(tRef.Type, lvl.SpriteFile, tRef.SpriteName, position, lvl.TileSize);
             return tile;
         }
-
     }
 }

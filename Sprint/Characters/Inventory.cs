@@ -73,4 +73,14 @@ public class Inventory
     {
         return itemDictionary[item] > 0;
     }
+
+    /// <summary>
+    /// Check the amount of items that the player has.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns>The amount of item</returns>
+    public int getItemAmount(ItemType item)
+    {
+        return itemDictionary[item];
+    }
 }

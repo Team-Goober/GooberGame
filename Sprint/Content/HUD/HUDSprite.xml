@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+	<Asset Type="Generic:Dictionary[string,XMLData.SpriteData]">
+		<Item>
+			<Key>HUDFrame</Key>
+			<Value>
+				<Texture>HUD/HUDTop</Texture>
+				<Animations>
+					<Item>
+						<Key>HUD</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>0 0 256 56</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>HUD</InitialAnimation>
+			</Value>
+		</Item>
+	</Asset>
+</XnaContent>

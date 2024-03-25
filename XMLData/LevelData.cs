@@ -6,8 +6,10 @@ namespace XMLData
 {
     public class LevelData
     {
+        public int Level;
         public int StartLevel;
         public string SpriteFile; // Path to file holding all room sprites for this level
+        public string HUBFile;
 
         public Rectangle[] OuterWalls; // Collision bounds of walls on the outside of the room
         public string BackgroundSprite; // is drawn at 0,0 and should show the background walls

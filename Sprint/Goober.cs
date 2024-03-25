@@ -1,23 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
 using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Commands;
-using Sprint.Characters;
-using System.Collections.Generic;
-using Sprint.Collision;
-using System.Xml;
-using XMLData;
-using System.Diagnostics;
-using System.Security;
-using System.Collections.Generic;
 using Sprint.Sprite;
-using Sprint.Loader;
-using Sprint.Levels;
-using Sprint.Functions;
-using Sprint.Functions.RoomTransition;
+
 
 namespace Sprint
 {
@@ -40,7 +28,7 @@ namespace Sprint
         private SpriteLoader spriteLoader; // Loads sprites from file and caches them for reuse
         // Dimensions of window
         public static readonly int gameWidth = 1024;
-        public static readonly int gameHeight = 700;
+        public static readonly int gameHeight = 956;
 
         public Goober()
         {
@@ -65,8 +53,6 @@ namespace Sprint
         { 
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            font = Content.Load<SpriteFont>("Font");
 
             DungeonState = new DungeonState(this, spriteLoader, Content);
             GameState = DungeonState;
