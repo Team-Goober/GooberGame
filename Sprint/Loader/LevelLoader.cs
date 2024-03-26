@@ -7,6 +7,7 @@ using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;
+using System.Diagnostics;
 using XMLData;
 
 namespace Sprint.Loader
@@ -54,9 +55,9 @@ namespace Sprint.Loader
             // Make commands for moving between rooms
             // Should be a list of bounding boxes for doors on each side of the room, so that they can be clicked
             doorBounds = new Rectangle[] { new Rectangle((int)data.TopDoorPos.X, (int)data.TopDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y),
+                new Rectangle((int)data.RightDoorPos.X, (int)data.RightDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y),
                 new Rectangle((int)data.BottomDoorPos.X, (int)data.BottomDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y),
-                new Rectangle((int)data.LeftDoorPos.X, (int)data.LeftDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y),
-                new Rectangle((int)data.RightDoorPos.X, (int)data.RightDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y)};
+                new Rectangle((int)data.LeftDoorPos.X, (int)data.LeftDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y)};
 
             doorsPerSide = new IDoor[4, data.LayoutRows, data.LayoutColumns];
 
@@ -72,6 +73,29 @@ namespace Sprint.Loader
                 }
             }
 
+            // Link together doors on opposing sides
+            for (int r = 0; r < data.LayoutRows; r++)
+            {
+                for (int c = 0; c < data.LayoutColumns; c++)
+                {
+                    if (data.Rooms[r][c] != null && data.Rooms[r][c].NeedWall)
+                    {
+                        // Link top exit
+                        if (r > 0)
+                            doorsPerSide[0, r, c].SetOtherFace(doorsPerSide[2, r - 1, c]);
+                        // Link right exit
+                        if (c < data.LayoutColumns - 1)
+                            doorsPerSide[1, r, c].SetOtherFace(doorsPerSide[3, r, c + 1]);
+                        // Link bottom exit
+                        if (r < data.LayoutRows - 1)
+                            doorsPerSide[2, r, c].SetOtherFace(doorsPerSide[0, r + 1, c]);
+                        // Link left exit
+                        if (c > 0)
+                            doorsPerSide[3, r, c].SetOtherFace(doorsPerSide[1, r, c - 1]);
+                    }
+                }
+            }
+
             // Make a command that checks all doors at its position for switching rooms when middle clicked
             for (int i=0; i<4; i++)
             {
@@ -80,7 +104,7 @@ namespace Sprint.Loader
                 {
                     for (int c = 0; c < data.LayoutColumns; c++)
                     {
-                        if (data.Rooms[r][c] != null)
+                        if (data.Rooms[r][c] != null && data.Rooms[r][c].NeedWall)
                         {
                             slice[r, c] = doorsPerSide[i, r, c];
                         }
@@ -122,9 +146,10 @@ namespace Sprint.Loader
                 // spawn player on other side of room
                 // parameter list is way too long
                 IDoor[] doors = { MakeDoor(lvl, rd.TopExit, lvl.DoorReferences[rd.TopExit].TopSprite, lvl.TopDoorPos, lvl.BottomSpawnPos, Directions.UP, roomIndices),
+                MakeDoor(lvl, rd.RightExit, lvl.DoorReferences[rd.RightExit].RightSprite, lvl.RightDoorPos, lvl.LeftSpawnPos, Directions.RIGHT, roomIndices),
                 MakeDoor(lvl, rd.BottomExit, lvl.DoorReferences[rd.BottomExit].BottomSprite, lvl.BottomDoorPos, lvl.TopSpawnPos, Directions.DOWN, roomIndices),
-                MakeDoor(lvl, rd.LeftExit, lvl.DoorReferences[rd.LeftExit].LeftSprite, lvl.LeftDoorPos, lvl.RightSpawnPos, Directions.LEFT, roomIndices),
-                MakeDoor(lvl, rd.RightExit, lvl.DoorReferences[rd.RightExit].RightSprite, lvl.RightDoorPos, lvl.LeftSpawnPos, Directions.RIGHT, roomIndices)};
+                MakeDoor(lvl, rd.LeftExit, lvl.DoorReferences[rd.LeftExit].LeftSprite, lvl.LeftDoorPos, lvl.RightSpawnPos, Directions.LEFT, roomIndices) };
+
 
                 for (int i = 0; i < doors.Length; i++)
                 {

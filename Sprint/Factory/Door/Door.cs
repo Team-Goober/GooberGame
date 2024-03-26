@@ -15,7 +15,6 @@ namespace Sprint.Factory.Door
         protected Rectangle bounds;
         protected Rectangle openBounds;
         protected Point roomIndices;
-        protected Point otherSide;
         protected Vector2 sideOfRoom;
         protected bool isOpen;
         protected Vector2 spawnPosition;
@@ -33,7 +32,7 @@ namespace Sprint.Factory.Door
             get
             {
                 // Only treat as open door if the next room is valid
-                if (isOpen && otherSide.X >= 0)
+                if (isOpen && otherFace != null)
                 {
                     return new CollisionTypes[] { CollisionTypes.OPEN_DOOR, CollisionTypes.DOOR };
                 }
@@ -53,11 +52,6 @@ namespace Sprint.Factory.Door
                 (int)openSize.X, (int)openSize.Y);
             this.roomIndices = roomIndices;
             this.sideOfRoom = sideOfRoom;
-            this.otherSide = roomIndices + new Point((int)sideOfRoom.X, (int)sideOfRoom.Y);
-            if (otherSide.X < 0 || otherSide.X >= dungeon.RoomColumns() || otherSide.Y < 0 || otherSide.Y >= dungeon.RoomRows())
-            {
-                this.otherSide = new Point(-1, -1);
-            }
             SetOpen(isOpen);
             this.dungeon = dungeon;
             this.spawnPosition = spawnPosition;
@@ -66,8 +60,8 @@ namespace Sprint.Factory.Door
 
         public void SwitchRoom()
         {
-            if (otherSide.X >= 0)
-                dungeon.SwitchRoom(PlayerSpawnPosition(), otherSide, sideOfRoom);
+            if (otherFace != null)
+                dungeon.SwitchRoom(PlayerSpawnPosition(), otherFace.GetRoomIndices(), sideOfRoom);
         }
 
         public Vector2 PlayerSpawnPosition()
@@ -90,10 +84,10 @@ namespace Sprint.Factory.Door
             sprite.Update(gameTime);
         }
 
-        // Returns index in Level's room array of the Room this leads to
-        public Point GetAdjacentRoomIndices()
+        // Returns current room index
+        public Point GetRoomIndices()
         {
-            return otherSide;
+            return roomIndices;
         }
 
         public virtual void SetOpen(bool open)

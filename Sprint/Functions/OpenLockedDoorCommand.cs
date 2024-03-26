@@ -20,10 +20,13 @@ public class OpenLockedDoorCommand: ICommand
 
     public void Execute()
     {
-        // Moves receiver by displacement
+        // Unlock if able to
         if (receiver.inventory.HasItem(ItemType.Key))
         {
             effector.SetOpen(true);
+            // Open other side of the door
+            effector.GetOtherFace().SetOpen(true);
+            // Use up a key
             receiver.inventory.ConsumeItem(ItemType.Key);
         }
         else

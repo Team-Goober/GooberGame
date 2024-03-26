@@ -18,5 +18,7 @@ namespace Sprint.Interfaces
 
         public Vector2 SideOfRoom();
 
+        public Point GetRoomIndices();
+
     }
 }
