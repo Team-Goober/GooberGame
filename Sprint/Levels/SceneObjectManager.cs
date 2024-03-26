@@ -15,8 +15,6 @@ namespace Sprint.Levels
         private Queue<IGameObject> addQueue;
         private bool clear;
 
-        int size = 0;
-
         public SceneObjectManager()
         {
             objects = new List<IGameObject>();
@@ -25,11 +23,6 @@ namespace Sprint.Levels
             removeQueue = new Queue<IGameObject>();
             addQueue = new Queue<IGameObject>();
             clear = false;
-        }
-
-        public int GetSize()
-        {
-            return size;
         }
 
         public List<IGameObject> GetObjects()
@@ -55,7 +48,6 @@ namespace Sprint.Levels
                 // Íf already in added queue, make sure only one add makes it in
                 return;
             }
-            size++;
             addQueue.Enqueue(gameObject);
         }
 

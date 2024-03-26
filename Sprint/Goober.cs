@@ -14,8 +14,6 @@ namespace Sprint
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private SpriteFont font;
-
         private IInputMap inputTable; // Table of commands available no matter what state the game is loaded
 
 
