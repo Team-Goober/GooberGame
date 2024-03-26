@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
+using Sprint.Levels;
+using Sprint.Characters;
 
 namespace Sprint.Functions.Collision
 {
@@ -13,6 +15,8 @@ namespace Sprint.Functions.Collision
             this.receiver = (IMovingCollidable)receiver;
             // overlap is directed into the static collider; we want to move outwards
             distance = -overlap;
+
+
         }
 
         public void Execute()

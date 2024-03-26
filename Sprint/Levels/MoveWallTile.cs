@@ -8,7 +8,7 @@ namespace Sprint.Levels
 {
 
     //Moves when player collides with them
-    internal class MoveWallTile : ITile, ICollidable
+    internal class MoveWallTile : ITile, ICollidable, IMovingCollidable
     {
         ISprite sprite;
         Vector2 position;
@@ -41,12 +41,11 @@ namespace Sprint.Levels
         }
 
 
-        public void MoveCollision(ICollidable detectColl)
+        // Moves the player by a set distance
+        public void Move(Vector2 distance)
         {
-            if(detectColl is Player link)
-            {
-                
-            }
+            //// teleport player in displacement specified
+            //physics.SetPosition(position + distance);
         }
     }
 }
