@@ -1,10 +1,8 @@
 ﻿using Sprint.Interfaces;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Commands.SecondaryItem;
 using Sprint.Input;
-using Sprint.Characters;
 using Sprint.Sprite;
 using Sprint.Levels;
 
@@ -56,26 +54,9 @@ namespace Sprint.Projectile
         }
 
         // Update direction of shot projectiles
-        public void UpdateDirection(Character.Directions dir)
+        public void UpdateDirection(Vector2 dir)
         {
-            
-
-            switch (dir)
-            {
-                case Character.Directions.LEFT:
-                    itemFactory.SetDirection(new Vector2(-1, 0));
-                    break;
-                case Character.Directions.RIGHT:
-                    itemFactory.SetDirection(new Vector2(1, 0));
-                    break;
-                case Character.Directions.UP:
-                    itemFactory.SetDirection(new Vector2(0, -1));
-                    break;
-                case Character.Directions.DOWN:
-                    itemFactory.SetDirection(new Vector2(0, 1));
-                    break;
-                default: break;
-            }
+            itemFactory.SetDirection(dir); 
         }
 
         // Updates location to place projectiles at

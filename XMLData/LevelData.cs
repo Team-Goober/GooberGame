@@ -29,6 +29,8 @@ namespace XMLData
         public Vector2 RightSpawnPos;
         public Dictionary<string, DoorReference> DoorReferences; // Mapping of labels to door data so rooms can reuse the same door types
 
+        public int LayoutColumns; // Dimensions of room layout grid
+        public int LayoutRows;
         public RoomData[][]? Rooms; // All rooms in this level. First index is the starting room.
 
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprint.Characters;
 
 namespace Sprint.Interfaces
 {
@@ -10,6 +11,12 @@ namespace Sprint.Interfaces
         public Vector2 PlayerSpawnPosition();
 
         public void SetOpen(bool open);
+
+        public IDoor GetOtherFace();
+
+        public void SetOtherFace(IDoor other);
+
+        public Vector2 SideOfRoom();
 
     }
 }

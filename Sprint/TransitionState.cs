@@ -14,43 +14,24 @@ namespace Sprint
         private List<SceneObjectManager> awayScenes; // Scenes that should be scrolled away from
         private List<SceneObjectManager> towardScenes; // Scenes that should be scrolled into
         private List<SceneObjectManager> fixedScenes; // Scenes that shouldn't move in the scroll
-        private Directions direction; // Direction to move camera towards. Scenes move in opposite direction
         private Vector2 velocity; // Amount to move the scenes per second
         private Vector2 offset; // Current distance of scenes from starting positions
         private Vector2 max; // Total distance that scenes should be moved
         private IGameState nextState; // State to go to after this one ends
 
         public TransitionState(Goober game, List<SceneObjectManager> away, List<SceneObjectManager> toward, List<SceneObjectManager> fix, 
-            Directions direction, float duration, IGameState next)
+            Vector2 direction, float duration, IGameState next)
         {
             this.game = game;
             this.nextState = next;
             this.awayScenes = away;
             this.towardScenes = toward;
             this.fixedScenes = fix;
-            this.direction = direction;
 
             offset = Vector2.Zero;
 
             // Determine velocities based on scroll direction, scroll duration, and window dimensions
-            switch (this.direction)
-            {
-                case Directions.UP:
-                    max = new Vector2(0, Goober.gameHeight);
-                    break;
-                case Directions.DOWN:
-                    max = new Vector2(0, - Goober.gameHeight);
-                    break;
-                case Directions.LEFT:
-                    max = new Vector2(Goober.gameWidth, 0);
-                    break;
-                case Directions.RIGHT:
-                    max = new Vector2(- Goober.gameWidth, 0);
-                    break;
-                default:
-                    max = new Vector2(0, 0);
-                    break;
-            }
+            max = - direction * new Vector2(Goober.gameWidth, Goober.gameHeight);
 
             velocity = max / duration;
 

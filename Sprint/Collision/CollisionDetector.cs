@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Sprint.Characters;
 using Sprint.Interfaces;
-using Sprint.Sprite;
-using static Sprint.Characters.Character;
 
 namespace Sprint.Collision
 {
@@ -68,7 +62,7 @@ namespace Sprint.Collision
 
             // Get Intersection of boxes
             Rectangle intersection = Rectangle.Intersect(movingElementBoundingBox, elementBoundingBox);
-            Directions collisionDirection = new();
+            Vector2 collisionDirection = new();
             Vector2 overlap;
 
 

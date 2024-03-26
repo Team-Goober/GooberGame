@@ -152,7 +152,8 @@
         </Value>
       </Item>
     </DoorReferences>
-	  
+    <LayoutColumns>6</LayoutColumns>
+    <LayoutRows>6</LayoutRows>
     <Rooms>
       <Item>
         <Item>
@@ -288,6 +289,7 @@
               </Item>
             </Enemies>
         </Item>
+        <Item Null="true" />
         <Item Null="true" />
         <Item Null="true" />
       </Item>
