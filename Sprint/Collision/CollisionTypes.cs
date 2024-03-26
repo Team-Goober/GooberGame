@@ -29,7 +29,9 @@ namespace Sprint.Collision
 
         SWORD,
 
-        ITEM
+        ITEM,
+
+        MOVEWALL
 
     }
 }

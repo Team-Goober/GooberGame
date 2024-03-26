@@ -44,9 +44,10 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.WALL), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.GAP), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.DOOR), pushOut},
+                
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
-
+                
                 {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
 
