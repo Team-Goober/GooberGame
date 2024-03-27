@@ -19,7 +19,7 @@ namespace Sprint.Factory.Door
 
         protected bool queueOpen; //to prevent glitching when hitting a newly opened door
 
-        GameObjectManager objManager;
+        DungeonState dungeon;
 
         // Bounds depends on if this door is open
         public Rectangle BoundingBox => isOpen ? openBounds : bounds;
@@ -39,7 +39,7 @@ namespace Sprint.Factory.Door
             }
         }
 
-        public Door(ISprite sprite, bool isOpen, Vector2 position, Vector2 size, Vector2 openSize, int otherSide, Vector2 spawnPosition, GameObjectManager objManager)
+        public Door(ISprite sprite, bool isOpen, Vector2 position, Vector2 size, Vector2 openSize, int otherSide, Vector2 spawnPosition, DungeonState dungeon)
         {
             this.sprite = sprite;
             this.position = position;
@@ -48,7 +48,7 @@ namespace Sprint.Factory.Door
                 (int)openSize.X, (int)openSize.Y);
             this.otherSide = otherSide;
             SetOpen(isOpen);
-            this.objManager = objManager;
+            this.dungeon = dungeon;
             this.spawnPosition = spawnPosition;
             queueOpen = false;
         }
@@ -56,7 +56,7 @@ namespace Sprint.Factory.Door
         public void SwitchRoom()
         {
             if (otherSide >= 0)
-                objManager.SwitchRoom(PlayerSpawnPosition(), otherSide);
+                dungeon.SwitchRoom(PlayerSpawnPosition(), otherSide);
         }
 
         public Vector2 PlayerSpawnPosition()

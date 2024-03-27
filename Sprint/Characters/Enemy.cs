@@ -11,13 +11,13 @@ namespace Sprint.Characters
     {
         protected ISprite sprite;
         protected Physics physics;
-        GameObjectManager objManager;
+        SceneObjectManager objectManager;
 
-        public Enemy(ISprite sprite, Vector2 position, GameObjectManager objManager)
+        public Enemy(ISprite sprite, Vector2 position, SceneObjectManager objectManager)
         {
             this.sprite = sprite;
             physics = new Physics(position);
-            this.objManager = objManager;
+            this.objectManager = objectManager;
         }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
@@ -46,7 +46,7 @@ namespace Sprint.Characters
         // Remove enemy from game
         public override void Die()
         {
-            objManager.Remove(this);
+            objectManager.Remove(this);
         }
     }
 }

@@ -20,7 +20,6 @@ namespace Sprint.Functions.RoomTransition
         public void Execute()
         {
             receiver.SwitchRoom();
-            effector.MoveTo(receiver.PlayerSpawnPosition());
         }
 
     }

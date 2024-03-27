@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Sprint.Commands;
 using Sprint.Interfaces;
 using System.Collections.Generic;
 
@@ -10,6 +9,7 @@ namespace Sprint.Input
     {
 
         private Dictionary<IInputTrigger, ICommand> inputMapping;
+        private bool awake; // Whether the table is being passed updates
 
         public InputTable()
         {
@@ -25,6 +25,7 @@ namespace Sprint.Input
 
         public void Update(GameTime gameTime)
         {
+
             KeyboardState keyState = Keyboard.GetState();
             MouseState mouseState = Mouse.GetState();
 
@@ -33,10 +34,22 @@ namespace Sprint.Input
             {
                 // Update state for input trigger
                 input.UpdateInput(gameTime, keyState, mouseState);
-                // Exxecute command if requirements met
-                if (input.IsSatisfied())
+                // Execute command if requirements met
+                // Make sure that first cycle doesn't trigger commands, so rising/falling detectors aren't falsely triggered
+                if (awake && input.IsSatisfied())
+                {
                     command.Execute();
+                }
             }
+
+            awake = true;
+
+        }
+    
+        // Used to mark that the input table stopped checking for inputs
+        public void Sleep()
+        {
+            awake = false;
         }
 
         public void ClearDictionary()

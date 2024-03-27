@@ -7,9 +7,9 @@ namespace Sprint.Functions.RoomTransition
     internal class PrevRoomCommand : ICommand
     {
 
-        private GameObjectManager receiver;
+        private DungeonState receiver;
 
-        public PrevRoomCommand(GameObjectManager receiver)
+        public PrevRoomCommand(DungeonState receiver)
         {
             this.receiver = receiver;
         }

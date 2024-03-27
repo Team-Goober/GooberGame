@@ -10,17 +10,17 @@ namespace Sprint.Functions.RoomTransition
     {
 
         private IDoor[] receivers;
-        private GameObjectManager objManager;
+        private DungeonState dungeon;
 
-        public SwitchRoomFromDoorsCommand(IDoor[] doors, GameObjectManager objManager)
+        public SwitchRoomFromDoorsCommand(IDoor[] doors, DungeonState dungeon)
         {
             receivers = doors;
-            this.objManager = objManager;
+            this.dungeon = dungeon;
         }
 
         public void Execute()
         {
-            receivers[objManager.RoomIndex()].SwitchRoom();
+            receivers[dungeon.RoomIndex()].SwitchRoom();
         }
 
     }

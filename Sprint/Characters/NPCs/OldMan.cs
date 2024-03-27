@@ -20,7 +20,7 @@ namespace Sprint.Characters
         private Timer timeAttack;
 
 
-        public OldMan(ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
+        public OldMan(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
             : base(sprite, initialPosition, objectManager)
         {
 
