@@ -62,18 +62,6 @@
 /processorParam:TextureFormat=Color
 /build:Damaged/tiles.png
 
-#begin Damaged/zelda_boss.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Damaged/zelda_boss.png
-
 #begin Damaged/zelda_enemies.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -85,18 +73,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Damaged/zelda_enemies.png
-
-#begin Damaged/zelda_items.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Damaged/zelda_items.png
 
 #begin Damaged/zelda_links.png
 /importer:TextureImporter
@@ -356,18 +332,6 @@
 /processorParam:TextureFormat=Color
 /build:tiles.png
 
-#begin zelda_boss.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:zelda_boss.png
-
 #begin zelda_enemies.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -379,18 +343,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:zelda_enemies.png
-
-#begin zelda_items.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:zelda_items.png
 
 #begin zelda_links.png
 /importer:TextureImporter
