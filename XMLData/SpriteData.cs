@@ -4,7 +4,6 @@ namespace XMLData
 {
     public class SpriteData
     {
-
         public string Texture;
         public Dictionary<string, AtlasData> Animations;
         public float Scale;
