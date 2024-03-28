@@ -20,8 +20,8 @@ namespace Sprint.Characters
         private Timer timeAttack;
 
 
-        public OldMan(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, objectManager)
+        public OldMan(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, objectManager)
         {
 
             // Store the initial position for reference

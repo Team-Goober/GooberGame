@@ -21,7 +21,7 @@ namespace Sprint.Characters
         private Vector2 initialPosition;
 
         public BluebubbleEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, objectManager)
+            : base(sprite, damagedSprite, initialPosition, objectManager)
         {
 
             // Store the initial position for reference

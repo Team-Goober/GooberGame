@@ -14,7 +14,7 @@ namespace Sprint.Characters
         private Vector2 initialPosition;
 
         public JellyfishEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, SceneObjectManager objManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, objManager)
+            : base(sprite, damagedSprite, initialPosition, objManager)
         {
 
             // Store the initial position for reference

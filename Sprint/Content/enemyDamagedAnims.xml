@@ -280,7 +280,7 @@
 	  <Item>
 		  <Key>oldman</Key>
 		  <Value>
-			  <Texture>oldMan</Texture>
+			  <Texture>Damaged/oldMan</Texture>
 			  <Animations>
 				  <Item>
 					  <Key>moving</Key>
