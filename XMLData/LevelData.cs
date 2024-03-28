@@ -6,12 +6,15 @@ namespace XMLData
 {
     public class LevelData
     {
+        public int Level;
         public Point StartLevel; // Column, Row pair for room to start player in
         public string SpriteFile; // Path to file holding all room sprites for this level
+        public string HUBFile;
 
         public Rectangle[] OuterWalls; // Collision bounds of walls on the outside of the room
         public string BackgroundSprite; // is drawn at 0,0 and should show the background walls
 
+        public Vector2 WallPos; //Position of where walls will spawn
         public Vector2 FloorGridPos; // World position of where the floor starts
         public Vector2 ZeroZeroPos; // If there are no walls. The floor position will be this instead.
         public Vector2 TileSize; // World dimensions of each tile on the floor
