@@ -30,10 +30,13 @@ namespace Sprint
 
         private bool resetGame = false; // Set to true to queue a reset on next update
 
+        private Vector2 arenaPosition = Vector2.Zero; // Top left corner of the playable area on the screen
+
         private SceneObjectManager[][] rooms; // Object managers for each room. Accessed by index
         private Point currentRoom; // Index of currently updated room
         private SceneObjectManager hud; // Object manager for HUD that should persist between rooms
         private Player player; // Player game object to be moved as rooms switch
+
 
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
         {
@@ -104,13 +107,20 @@ namespace Sprint
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+            // Translate the game arena to the correct location on screen
+            Matrix translateMat = Matrix.CreateTranslation(new Vector3(arenaPosition.X, arenaPosition.Y, 0));
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: translateMat);
 
             // Draw current room's objects
             SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X];
             foreach (IGameObject obj in currRoom.GetObjects())
                 obj.Draw(spriteBatch, gameTime);
 
+
+            spriteBatch.End();
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+   
             // Draw HUD
             foreach (IGameObject obj in hud.GetObjects())
                 obj.Draw(spriteBatch, gameTime);
@@ -203,7 +213,7 @@ namespace Sprint
             // Create new GameState to scroll and then set back to this state
             TransitionState scroll = new TransitionState(game, new List<SceneObjectManager> { rooms[currentRoom.Y][currentRoom.X] }, 
                 new List<SceneObjectManager> { rooms[idx.Y][idx.X] }, new List<SceneObjectManager> { hud },
-                dir, 0.75f, this);
+                dir, 0.75f, arenaPosition, this);
 
             PassToState(scroll);
 
@@ -272,6 +282,11 @@ namespace Sprint
             {
                 rooms[i] = new SceneObjectManager[cols];
             }
+        }
+
+        public void SetArenaPosition(Vector2 pos)
+        {
+            arenaPosition = pos;
         }
     }
 }

@@ -14,7 +14,8 @@ namespace XMLData
         public Rectangle[] OuterWalls; // Collision bounds of walls on the outside of the room
         public string BackgroundSprite; // is drawn at 0,0 and should show the background walls
 
-        public Vector2 WallPos; //Position of where walls will spawn
+        public Vector2 ArenaOffset; // Position of the playable area on screen. Wall and floor are relative to this position
+        public Vector2 WallPos; // Position of where walls will spawn
         public Vector2 FloorGridPos; // World position of where the floor starts
         public Vector2 ZeroZeroPos; // If there are no walls. The floor position will be this instead.
         public Vector2 TileSize; // World dimensions of each tile on the floor

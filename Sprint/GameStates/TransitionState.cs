@@ -17,21 +17,23 @@ namespace Sprint
         private Vector2 velocity; // Amount to move the scenes per second
         private Vector2 offset; // Current distance of scenes from starting positions
         private Vector2 max; // Total distance that scenes should be moved
+        private Vector2 transitionScreenPos; // Offset of the scenes that are moving from the top left corner of the screen
         private IGameState nextState; // State to go to after this one ends
 
         public TransitionState(Goober game, List<SceneObjectManager> away, List<SceneObjectManager> toward, List<SceneObjectManager> fix, 
-            Vector2 direction, float duration, IGameState next)
+            Vector2 direction, float duration, Vector2 transitionScreenPos, IGameState next)
         {
             this.game = game;
             this.nextState = next;
             this.awayScenes = away;
             this.towardScenes = toward;
             this.fixedScenes = fix;
+            this.transitionScreenPos = transitionScreenPos;
 
             offset = Vector2.Zero;
 
             // Determine velocities based on scroll direction, scroll duration, and window dimensions
-            max = - direction * new Vector2(Goober.gameWidth, Goober.gameHeight);
+            max = - direction * (new Vector2(Goober.gameWidth, Goober.gameHeight) - transitionScreenPos);
 
             velocity = max / duration;
 
@@ -40,8 +42,8 @@ namespace Sprint
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             // Draw scenes at proper translations
-            DrawScenes(awayScenes, spriteBatch, gameTime, offset); // Scenes that scroll away
-            DrawScenes(towardScenes, spriteBatch, gameTime, -max + offset); // Scenes that scroll in
+            DrawScenes(awayScenes, spriteBatch, gameTime, offset + transitionScreenPos); // Scenes that scroll away
+            DrawScenes(towardScenes, spriteBatch, gameTime, -max + offset + transitionScreenPos); // Scenes that scroll in
             DrawScenes(fixedScenes, spriteBatch, gameTime, Vector2.Zero); // Scenes that stay put
 
         }

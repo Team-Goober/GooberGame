@@ -49,6 +49,8 @@ namespace Sprint.Loader
         {
             LevelData data = content.Load<LevelData>(path);
 
+            dungeon.SetArenaPosition(data.ArenaOffset);
+
             dungeon.ClearRooms(data.LayoutRows, data.LayoutColumns);
 
             // Make commands for moving between rooms
@@ -57,6 +59,10 @@ namespace Sprint.Loader
                 new Rectangle((int)data.RightDoorPos.X, (int)data.RightDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y),
                 new Rectangle((int)data.BottomDoorPos.X, (int)data.BottomDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y),
                 new Rectangle((int)data.LeftDoorPos.X, (int)data.LeftDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y)};
+
+            // Offset each door bound area so they fall inside the arena on screen
+            for(int i=0; i<doorBounds.Length; i++)
+                doorBounds[i].Offset(data.ArenaOffset);
 
             doorsPerSide = new IDoor[4, data.LayoutRows, data.LayoutColumns];
 
