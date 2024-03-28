@@ -20,19 +20,40 @@ namespace Sprint.Factory.HUD
             this.spriteLoader = spriteLoader;
         }
 
-        public IHUD MakeHUD(string type, string spriteFile, string spriteLabel, Vector2 position)
+        public IHUD MakeHUD(string spriteFile, string spriteLabel, Vector2 position)
         {
             ISprite sprite = spriteLoader.BuildSprite(spriteFile, spriteLabel);
 
+            return new Frame(sprite, position);
+        }
 
-            switch(type)
+        public List<IHUD> MakeNumber(string level, string spriteFile, Vector2 position)
+        {
+            List<IHUD> nums = new List<IHUD>();
+            char[] charArr = level.ToCharArray();
+            float x = position.X;
+            for(int i = 0; i < charArr.Length; i++)
             {
-                case "HUDFrame":
-                    return new HUDFrame(sprite, position);
-                default:
-                    break;
+                ISprite sprite = spriteLoader.BuildSprite(spriteFile, charArr[i].ToString());
+                nums.Add(new Number(sprite, new Vector2(x, position.Y)));
+                x += 32;
             }
 
+            return nums; 
+        }
+
+        public List<IHUD> MakeFullHeart()
+        {
+            return null;
+        }
+
+        public List<IHUD> MakeEmptyHeart()
+        {
+            return null;
+        }
+
+        public List<IHUD> MakeHalfHeart()
+        {
             return null;
         }
     }

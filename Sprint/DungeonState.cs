@@ -46,14 +46,15 @@ namespace Sprint
 
             rooms = new List<SceneObjectManager>();
 
-            //Load the hud
-            HUDLoader hudLoader = new HUDLoader(contentManager, spriteLoader);
-            hud = hudLoader.GetScenes();
-
             // Load all rooms in the level from XML file
             LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, inputTable);
             loader.LoadLevelXML("LevelOne/Level1");
             makeCommands();
+
+            //Load the hud
+            HUDLoader hudLoader = new HUDLoader(contentManager, spriteLoader);
+            hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel());
+            hud = hudLoader.GetScenes();
         }
 
         // Generates all commands available while the player is moving in a room
@@ -180,13 +181,14 @@ namespace Sprint
             // new player
             player = new Player(inputTable, spriteLoader, new Reset(this));
 
-            //reload the hud
-            HUDLoader hudLoader = new HUDLoader(contentManager, spriteLoader);
-            hud = hudLoader.GetScenes();
-
             // reload the level
             LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, inputTable);
             loader.LoadLevelXML("LevelOne/Level1");
+
+            //reload the hud
+            HUDLoader hudLoader = new HUDLoader(contentManager, spriteLoader);
+            hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel());
+            hud = hudLoader.GetScenes();
 
             // remake commands
             makeCommands();
