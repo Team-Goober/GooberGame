@@ -38,30 +38,6 @@
 /processorParam:TextureFormat=Color
 /build:Damaged/boss_zelda.png
 
-#begin Damaged/boss_zelda.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Damaged/boss_zelda.png
-
-#begin Damaged/dragon.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Damaged/dragon.png
-
 #begin Damaged/dragon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -98,18 +74,6 @@
 /processorParam:TextureFormat=Color
 /build:Damaged/tiles.png
 
-#begin Damaged/tiles.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Damaged/tiles.png
-
 #begin Damaged/zelda_enemies.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -121,30 +85,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Damaged/zelda_enemies.png
-
-#begin Damaged/zelda_enemies.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Damaged/zelda_enemies.png
-
-#begin Damaged/zelda_links.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Damaged/zelda_links.png
 
 #begin Damaged/zelda_links.png
 /importer:TextureImporter
@@ -174,6 +114,11 @@
 /importer:XmlImporter
 /processor:PassThroughProcessor
 /build:enemyAnims.xml
+
+#begin enemyDamagedAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:enemyDamagedAnims.xml
 
 #begin Font.spritefont
 /importer:FontDescriptionImporter
