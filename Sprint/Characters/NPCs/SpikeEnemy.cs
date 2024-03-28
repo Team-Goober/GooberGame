@@ -25,7 +25,7 @@ namespace Sprint.Characters
         private Timer timeAttack;
 
 
-        public SpikeEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
+        public SpikeEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
             : base(sprite, initialPosition, objectManager)
         {
 

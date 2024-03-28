@@ -21,7 +21,7 @@ namespace Sprint.Characters
         private Vector2 initialPosition;
         private string lastAnimationName;
 
-        public DragonEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
+        public DragonEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
             : base(sprite, initialPosition, objectManager)
         {
 

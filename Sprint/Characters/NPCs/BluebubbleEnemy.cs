@@ -20,7 +20,7 @@ namespace Sprint.Characters
         private SimpleProjectileFactory itemFactory;
         private Vector2 initialPosition;
 
-        public BluebubbleEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
+        public BluebubbleEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
             : base(sprite, initialPosition, objectManager)
         {
 

@@ -19,7 +19,7 @@ namespace Sprint.Characters
         private Vector2 initialPosition;
         private string lastAnimationName;
 
-        public DogEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
+        public DogEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
             : base(sprite, initialPosition, objectManager)
         {
 

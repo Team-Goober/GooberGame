@@ -13,7 +13,7 @@ namespace Sprint.Characters
         protected Physics physics;
         SceneObjectManager objectManager;
 
-        public Enemy(ISprite sprite, Vector2 position, SceneObjectManager objectManager)
+        public Enemy(ISprite sprite,ISprite damagedSprite, Vector2 position, SceneObjectManager objectManager)
         {
             this.sprite = sprite;
             physics = new Physics(position);

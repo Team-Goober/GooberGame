@@ -22,7 +22,7 @@ namespace Sprint.Characters
         private Vector2 initialPosition;
         private string lastAnimationName;
 
-        public HandEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
+        public HandEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
             : base(sprite, initialPosition, objectManager)
         {
 
