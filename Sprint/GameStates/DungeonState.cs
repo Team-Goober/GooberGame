@@ -320,5 +320,10 @@ namespace Sprint
             mapUI = new HUDMap(map, new Vector2(16 * 4, 8 * 4));
             hud.Add(mapUI);
         }
+
+        public MapModel GetMap()
+        {
+            return map;
+        }
     }
 }

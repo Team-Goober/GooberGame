@@ -100,6 +100,12 @@ namespace Sprint.Factory.Door
             
             if (open)
             {
+                if (!isOpen)
+                {
+                    // Update map for opened door
+                    dungeon.GetMap().OpenDoor(this);
+                }
+
                 sprite.SetAnimation("open");
                 queueOpen = true;
             }

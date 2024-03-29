@@ -41,7 +41,38 @@ namespace Sprint.Factory.HUD
                     {
                         spriteBatch.Draw(roomFill, new Rectangle((int)(position.X + (roomRects.X + padding) * c),
                             (int)(position.Y + (roomRects.Y + padding) * r), 
-                            (int)roomRects.X, (int)roomRects.Y), Color.White);
+                            (int)roomRects.X, (int)roomRects.Y), 
+                            Color.White);
+                    }
+                }
+            }
+
+            // Draw hallways for visible doors
+            bool[,] verts = model.GetVerticalDoors();
+            for (int r = 0; r < verts.GetLength(0); r++)
+            {
+                for (int c = 0; c < verts.GetLength(1); c++)
+                {
+                    if (verts[r, c])
+                    {
+                        spriteBatch.Draw(roomFill, new Rectangle((int)(position.X + (roomRects.X + padding) * c + (roomRects.X - padding) / 2),
+                            (int)(position.Y + (roomRects.Y + padding) * r - padding),
+                            padding, padding), 
+                            Color.White);
+                    }
+                }
+            }
+            bool[,] horis = model.GetHorizontalDoors();
+            for (int r = 0; r < horis.GetLength(0); r++)
+            {
+                for (int c = 0; c < horis.GetLength(1); c++)
+                {
+                    if (horis[r, c])
+                    {
+                        spriteBatch.Draw(roomFill, new Rectangle((int)(position.X + (roomRects.X + padding) * c - padding),
+                            (int)(position.Y + (roomRects.Y + padding) * r + (roomRects.Y - padding) / 2),
+                            padding, padding),
+                            Color.White);
                     }
                 }
             }
@@ -54,7 +85,8 @@ namespace Sprint.Factory.HUD
             Point playerPos = model.GetPlayerPosition();
             spriteBatch.Draw(playerPointer, new Rectangle((int)(position.X + (roomRects.X + padding) * playerPos.X + (roomRects.X - roomRects.Y) / 2),
                             (int)(position.Y + (roomRects.Y + padding) * playerPos.Y),
-                            (int)roomRects.Y, (int)roomRects.Y), Color.White);
+                            (int)roomRects.Y, (int)roomRects.Y), 
+                            Color.White);
 
         }
 

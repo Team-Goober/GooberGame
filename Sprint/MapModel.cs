@@ -45,7 +45,7 @@ namespace Sprint
         public void MovePlayer(Point newPos)
         {
             playerPos = newPos;
-            rooms[newPos.Y, newPos.X] = true;
+            revealRoom(newPos.Y, newPos.X);
         }
 
         // React to a door opening by making it visible
@@ -83,34 +83,8 @@ namespace Sprint
                     // Only show existing and non-hidden rooms
                     if (dungeon.GetRoomAt(new Point(j, i)) != null && !dungeon.IsHidden(new Point(j, i)))
                     {
-                        // set each room visible
-                        rooms[i, j] = true;
+                        revealRoom(i, j);
 
-                        // Don't add doors if no door room
-                        if (doorReference[0, i, j] != null)
-                        {
-                            // reveal any open doors in the room
-                            // top
-                            if (doorReference[0, i, j].IsOpen())
-                            {
-                                vertDoors[i, j] = true;
-                            }
-                            // right
-                            if (doorReference[1, i, j].IsOpen())
-                            {
-                                horizDoors[i, j + 1] = true;
-                            }
-                            // bottom
-                            if (doorReference[2, i, j].IsOpen())
-                            {
-                                vertDoors[i + 1, j] = true;
-                            }
-                            // left
-                            if (doorReference[3, i, j].IsOpen())
-                            {
-                                horizDoors[i, j] = true;
-                            }
-                        }
                     }
 
                 }
@@ -118,6 +92,42 @@ namespace Sprint
             
             allShown = true;
 
+        }
+
+        // Reveals a room and its doors if currently nto visible
+        private void revealRoom(int r, int c)
+        {
+            // already revealed, no need to change anything
+            if (rooms[r, c])
+                return;
+
+            rooms[r, c] = true;
+
+            // Don't add doors if no door room
+            if (doorReference[0, r, c] != null)
+            {
+                // reveal any open doors in the room
+                // top
+                if (doorReference[0, r, c].IsOpen())
+                {
+                    vertDoors[r, c] = true;
+                }
+                // right
+                if (doorReference[1, r, c].IsOpen())
+                {
+                    horizDoors[r, c + 1] = true;
+                }
+                // bottom
+                if (doorReference[2, r, c].IsOpen())
+                {
+                    vertDoors[r + 1, c] = true;
+                }
+                // left
+                if (doorReference[3, r, c].IsOpen())
+                {
+                    horizDoors[r, c] = true;
+                }
+            }
         }
 
         /*
