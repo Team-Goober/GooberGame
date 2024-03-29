@@ -18,7 +18,7 @@ namespace Sprint.Factory.HUD
             this.spriteLoader = spriteLoader;
         }
 
-        public IHUD MakeHUD(string spriteLabel, Vector2 position)
+        public IHUD MakeHUDSprite(string spriteLabel, Vector2 position)
         {
             ISprite sprite = spriteLoader.BuildSprite(LOCATION, spriteLabel);
 
@@ -39,7 +39,6 @@ namespace Sprint.Factory.HUD
 
             return nums; 
         }
-
 
         public List<IHUD> MakeHearts(int amount, string spriteLabel, Vector2 position, int spriteSize)
         {

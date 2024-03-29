@@ -16,7 +16,6 @@ namespace Sprint.Loader
     {
         private ContentManager content;
         private HUDFactory hudFactory;
-        private ItemFactory itemFactory;
         private SceneObjectManager som;
 
         private string gemAmount;
@@ -42,40 +41,35 @@ namespace Sprint.Loader
             UpdateHeartAmount(2.5);
             UpdateMaxHeartAmount(3);
 
-            //UpdateBWeapon("shield");
-            //UpdateAWeapon("sword");
+            UpdateBWeapon("Boomerang");
+            UpdateAWeapon("Sword");
         }
 
         public void LoadHUD(string path, int levelNum)
         {
             HUDData data = content.Load<HUDData>(path);
 
-            MakeHUDframe("HUDFrame", data.HUDFrame);
-            MakeHUDframe("LevelFrame", data.LevelFrame);
+            //Frame
+            MakeHUDSprite("HUDFrame", data.HUDFrame);
+            MakeHUDSprite("LevelFrame", data.LevelFrame);
+
+            //Numbers
             MakeLevelNumber(levelNum.ToString(), data.LevelNumPos, data.NumSpriteSize);
             MakeNumber(gemAmount, data.GemNumPos, data.NumSpriteSize);
             MakeNumber(keyAmount, data.KeyNumPos, data.NumSpriteSize);
             MakeNumber(bombAmount, data.BombNumPos, data.NumSpriteSize);
+
+            //Health
             MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
 
-            //MakeBWeapon(data.BWeapon);
-            //MakeAWeapon(data.AWeapon);
+            // Weapons
+            MakeHUDSprite(bWeapon, data.BWeapon);
+            MakeHUDSprite(aWeapon, data.AWeapon);
         }
 
         public SceneObjectManager GetScenes()
         {
             return som;
-        }
-
-        public void MakeBWeapon(Vector2 position)
-        {
-            som.Add(itemFactory.MakeItem(bWeapon, position));
-
-        }
-
-        public void MakeAWeapon(Vector2 position) 
-        {
-            som.Add(itemFactory.MakeItem(aWeapon, position));
         }
 
         public void MakeLifeHeart(Vector2 position, int spriteSize)
@@ -117,7 +111,7 @@ namespace Sprint.Loader
                 num = "00";
             }
 
-            som.Add(hudFactory.MakeHUD("X", position));
+            som.Add(hudFactory.MakeHUDSprite("X", position));
             List<IHUD> levelNum = hudFactory.MakeNumber(num, new Vector2(position.X + spriteSize, position.Y), spriteSize);
             foreach (IHUD h in levelNum)
             {
@@ -125,9 +119,9 @@ namespace Sprint.Loader
             }
         }
 
-        public void MakeHUDframe(string spriteLabel, Vector2 position)
+        public void MakeHUDSprite(string spriteLabel, Vector2 position)
         {
-            som.Add(hudFactory.MakeHUD(spriteLabel, position));
+            som.Add(hudFactory.MakeHUDSprite(spriteLabel, position));
         }
 
         public void UpdateGemAmount(int newGemAmount)

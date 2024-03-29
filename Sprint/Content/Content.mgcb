@@ -84,6 +84,18 @@
 /processorParam:TextureFormat=Color
 /build:HUD/HUDTop.png
 
+#begin HUD/HUDWeapons.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HUD/HUDWeapons.png
+
 #begin HUD/LevelFrame.png
 /importer:TextureImporter
 /processor:TextureProcessor

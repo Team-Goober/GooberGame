@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:XMLData="XMLData">
   <Asset Type="XMLData:LevelData">
-	  <Level>123</Level>
+	  <Level>1</Level>
 	<StartLevel>15</StartLevel>
     <SpriteFile>LevelOne/Level1Sprites</SpriteFile>
 	  <HUBFile>HUB/HUBSprites</HUBFile>

@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:Generic="System.Collections.Generic">
 	<Asset Type="Generic:Dictionary[string,XMLData.SpriteData]">
+		
+		<!-- HUD Sprites -->
+		
 		<Item>
 			<Key>HUDFrame</Key>
 			<Value>
@@ -272,6 +275,162 @@
 				<Scale>4</Scale>
 				<InitialAnimation>FullHeart</InitialAnimation>
 			</Value>
+		</Item>
+		
+		<!-- Weapons And Items -->
+
+		<Item>
+			<Key>Sword</Key>
+			<Value>
+				<Texture>HUD/HUDWeapons</Texture>
+				<Animations>
+					<Item>
+						<Key>Sword</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>36 0 8 16</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>Sword</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>BlueSword</Key>
+			<Value>
+				<Texture>HUD/HUDWeapons</Texture>
+				<Animations>
+					<Item>
+						<Key>BlueSword</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>45 0 8 16</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>BlueSword</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>SlantSword</Key>
+			<Value>
+				<Texture>HUD/HUDWeapons</Texture>
+				<Animations>
+					<Item>
+						<Key>SlantSword</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>54 0 8 16</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>SlantSword</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>Boomerang</Key>
+			<Value>
+				<Texture>HUD/HUDWeapons</Texture>
+				<Animations>
+					<Item>
+						<Key>Boomerang</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>65 0 8 16</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>Boomerang</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>BlueBoomerang</Key>
+			<Value>
+				<Texture>HUD/HUDWeapons</Texture>
+				<Animations>
+					<Item>
+						<Key>BlueBoomerang</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>74 0 8 16</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>BlueBoomerang</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>Bomb</Key>
+			<Value>
+				<Texture>HUD/HUDWeapons</Texture>
+				<Animations>
+					<Item>
+						<Key>Bomb</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>85 0 8 16</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>Bomb</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>Arrow</Key>
+			<Value>
+				<Texture>HUD/HUDWeapons</Texture>
+				<Animations>
+					<Item>
+						<Key>Arrow</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>96 0 8 16</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>Arrow</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>BlueArrow</Key>
+			<Value>
+				<Texture>HUD/HUDWeapons</Texture>
+				<Animations>
+					<Item>
+						<Key>BlueArrow</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>105 0 8 16</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>BlueArrow</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+		<Key>Bow</Key>
+		<Value>
+			<Texture>HUD/HUDWeapons</Texture>
+			<Animations>
+				<Item>
+					<Key>Bow</Key>
+					<Value Type="XMLData.SingleAtlasData">
+						<Rectangle>114 0 8 16</Rectangle>
+						<CenterPoint>0 0</CenterPoint>
+					</Value>
+				</Item>
+			</Animations>
+			<Scale>4</Scale>
+			<InitialAnimation>Bow</InitialAnimation>
+		</Value>
 		</Item>
 	</Asset>
 </XnaContent>
