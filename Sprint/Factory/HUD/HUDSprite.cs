@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Sprint.Factory.HUD
 {
-    internal class Number : IHUD
+    internal class HUDSprite : IHUD
     {
         protected ISprite sprite;
         protected Vector2 position;
 
-        public Number(ISprite sprite, Vector2 position)
+        public HUDSprite(ISprite sprite, Vector2 position)
         {
             this.sprite = sprite;
             this.position = position;
