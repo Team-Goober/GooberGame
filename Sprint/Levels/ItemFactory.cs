@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Sprint.Levels;
+using Sprint.Characters;
 using Sprint.Sprite;
 
-namespace Sprint.Characters
+namespace Sprint.Levels
 {
     public class ItemFactory
     {
@@ -54,7 +54,7 @@ namespace Sprint.Characters
         /// <param name="name">Name of item to make</param>
         /// <param name="position">World position to spawn at</param>
         /// <returns></returns>
-        public Item MakeItem(String name, Vector2 position)
+        public Item MakeItem(string name, Vector2 position)
         {
             return new Item(spriteLoader.BuildSprite(ANIM_FILE, name), position, itemTypeConverter[name]);
         }

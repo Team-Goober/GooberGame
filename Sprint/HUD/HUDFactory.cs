@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Sprint.Factory.Door;
+using Sprint.Door;
+using Sprint.HUD;
 using Sprint.Interfaces;
 using Sprint.Sprite;
 using System;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sprint.Factory.HUD
+namespace Sprint.HUD
 {
     internal class HUDFactory
     {
@@ -25,7 +26,7 @@ namespace Sprint.Factory.HUD
             ISprite sprite = spriteLoader.BuildSprite(spriteFile, spriteLabel);
 
 
-            switch(type)
+            switch (type)
             {
                 case "HUDFrame":
                     return new HUDFrame(sprite, position);

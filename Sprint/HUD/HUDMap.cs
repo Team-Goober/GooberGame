@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using System;
 
-namespace Sprint.Factory.HUD
+namespace Sprint.HUD
 {
     internal class HUDMap : IHUD
     {
@@ -40,8 +40,8 @@ namespace Sprint.Factory.HUD
                     if (rooms[r, c])
                     {
                         spriteBatch.Draw(roomFill, new Rectangle((int)(position.X + (roomRects.X + padding) * c),
-                            (int)(position.Y + (roomRects.Y + padding) * r), 
-                            (int)roomRects.X, (int)roomRects.Y), 
+                            (int)(position.Y + (roomRects.Y + padding) * r),
+                            (int)roomRects.X, (int)roomRects.Y),
                             Color.White);
                     }
                 }
@@ -57,7 +57,7 @@ namespace Sprint.Factory.HUD
                     {
                         spriteBatch.Draw(roomFill, new Rectangle((int)(position.X + (roomRects.X + padding) * c + (roomRects.X - padding) / 2),
                             (int)(position.Y + (roomRects.Y + padding) * r - padding),
-                            padding, padding), 
+                            padding, padding),
                             Color.White);
                     }
                 }
@@ -85,7 +85,7 @@ namespace Sprint.Factory.HUD
             Point playerPos = model.GetPlayerPosition();
             spriteBatch.Draw(playerPointer, new Rectangle((int)(position.X + (roomRects.X + padding) * playerPos.X + (roomRects.X - roomRects.Y) / 2),
                             (int)(position.Y + (roomRects.Y + padding) * playerPos.Y),
-                            (int)roomRects.Y, (int)roomRects.Y), 
+                            (int)roomRects.Y, (int)roomRects.Y),
                             Color.White);
 
         }

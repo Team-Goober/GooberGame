@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Microsoft.Xna.Framework;
-using Sprint.Functions;
+using Sprint.Door;
 using Sprint.Functions.Collision;
 using Sprint.Functions.RoomTransition;
 using Sprint.Functions.SecondaryItem;

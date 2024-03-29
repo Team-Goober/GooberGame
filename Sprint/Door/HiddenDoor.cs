@@ -1,12 +1,17 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Sprint.Collision;
 using Sprint.Levels;
 
-namespace Sprint.Factory.Door
+namespace Sprint.Door
 {
-    internal class LockDoor: Door
+    internal class HiddenDoor : Door
     {
 
         public override CollisionTypes[] CollisionType
@@ -19,12 +24,12 @@ namespace Sprint.Factory.Door
                 }
                 else
                 {
-                    return new CollisionTypes[] { CollisionTypes.LOCKED_DOOR, CollisionTypes.CLOSED_DOOR, CollisionTypes.DOOR };
+                    return new CollisionTypes[] { CollisionTypes.HIDDEN_DOOR, CollisionTypes.CLOSED_DOOR, CollisionTypes.DOOR };
                 }
             }
         }
 
-        public LockDoor(ISprite sprite, Vector2 position, Vector2 size, Vector2 openSize, Vector2 sideOfRoom, Point roomIndices, Vector2 spawnPosition, DungeonState dungeon) :
+        public HiddenDoor(ISprite sprite, Vector2 position, Vector2 size, Vector2 openSize, Vector2 sideOfRoom, Point roomIndices, Vector2 spawnPosition, DungeonState dungeon) :
             base(sprite, false, position, size, openSize, sideOfRoom, roomIndices, spawnPosition, dungeon)
         {
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Sprint.Factory.HUD;
+using Sprint.HUD;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;

@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprint.Door;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;
 
-namespace Sprint.Factory.Door
+namespace Sprint.Door
 {
     internal class DoorFactory
     {
@@ -28,8 +29,8 @@ namespace Sprint.Factory.Door
             // Consider storing doors in file with reflection
 
             ISprite sprite = spriteLoader.BuildSprite(spriteFile, spriteLabel);
-            
-            switch(type)
+
+            switch (type)
             {
                 case "open":
                     return new OpenDoor(sprite, position, size, openSize, sideOfRoom, roomIndices, spawnPosition, dungeon);

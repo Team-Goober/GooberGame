@@ -4,14 +4,14 @@ using Sprint.Interfaces;
 using System;
 using System.Diagnostics;
 
-namespace Sprint.Factory.HUD
+namespace Sprint.HUD
 {
     internal class HUDFrame : IHUD
     {
         protected ISprite sprite;
         protected Vector2 position;
 
-        public HUDFrame(ISprite sprite, Vector2 position) 
+        public HUDFrame(ISprite sprite, Vector2 position)
         {
             this.sprite = sprite;
             this.position = position;

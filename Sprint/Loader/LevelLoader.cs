@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
-using Sprint.Factory.Door;
+using Sprint.Door;
 using Sprint.Functions.RoomTransition;
 using Sprint.Input;
 using Sprint.Interfaces;
