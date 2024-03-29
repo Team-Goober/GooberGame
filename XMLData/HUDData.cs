@@ -11,6 +11,8 @@ namespace XMLData
         public Vector2 KeyNumPos;
         public Vector2 BombNumPos;
         public Vector2 HeartNumPos;
+        public Vector2 BWeapon;
+        public Vector2 AWeapon;
 
         public int NumSpriteSize;
     }

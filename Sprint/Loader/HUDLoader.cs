@@ -1,14 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Sprint.Characters;
 using Sprint.Factory.HUD;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection.Emit;
-using System.Transactions;
 using XMLData;
 
 
@@ -18,6 +16,7 @@ namespace Sprint.Loader
     {
         private ContentManager content;
         private HUDFactory hudFactory;
+        private ItemFactory itemFactory;
         private SceneObjectManager som;
 
         private string gemAmount;
@@ -25,6 +24,9 @@ namespace Sprint.Loader
         private string bombAmount;
         private int maxHearts;
         private double heartLeft;
+
+        private string bWeapon;
+        private string aWeapon;
 
         public HUDLoader(ContentManager newContent, SpriteLoader spriteLoader)
         { 
@@ -39,6 +41,9 @@ namespace Sprint.Loader
             UpdateBombAmount(0);
             UpdateHeartAmount(2.5);
             UpdateMaxHeartAmount(3);
+
+            //UpdateBWeapon("shield");
+            //UpdateAWeapon("sword");
         }
 
         public void LoadHUD(string path, int levelNum)
@@ -52,11 +57,25 @@ namespace Sprint.Loader
             MakeNumber(keyAmount, data.KeyNumPos, data.NumSpriteSize);
             MakeNumber(bombAmount, data.BombNumPos, data.NumSpriteSize);
             MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
+
+            //MakeBWeapon(data.BWeapon);
+            //MakeAWeapon(data.AWeapon);
         }
 
         public SceneObjectManager GetScenes()
         {
             return som;
+        }
+
+        public void MakeBWeapon(Vector2 position)
+        {
+            som.Add(itemFactory.MakeItem(bWeapon, position));
+
+        }
+
+        public void MakeAWeapon(Vector2 position) 
+        {
+            som.Add(itemFactory.MakeItem(aWeapon, position));
         }
 
         public void MakeLifeHeart(Vector2 position, int spriteSize)
@@ -69,7 +88,6 @@ namespace Sprint.Loader
             heartList.AddRange(hudFactory.MakeHearts(fullHeart, "FullHeart", position, spriteSize));
 
             double half = heartLeft - Math.Truncate(heartLeft);
-            bool x = true;
 
             if(half !=  0)
             {
@@ -138,12 +156,16 @@ namespace Sprint.Loader
             maxHearts = newHeartAmount;
         }
 
-        //Load Minimap
-        //B Weapon
-        //A Weapon
-        //Amount Life
+        public void UpdateBWeapon(string newWeapon)
+        {
+            bWeapon = newWeapon;
+        }
 
-        //Update B Weapon
-        //Update A Weapon
+        public void UpdateAWeapon(string newWeapon)
+        {
+            aWeapon = newWeapon;
+        }
+
+        //Load Minimap
     }
 }

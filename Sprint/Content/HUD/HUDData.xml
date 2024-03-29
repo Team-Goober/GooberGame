@@ -9,6 +9,8 @@
 	  <BombNumPos>384 160</BombNumPos>
 	  <!--128-->
 	  <HeartNumPos>704 160</HeartNumPos>
+	  <BWeapon>540 128</BWeapon>
+	  <AWeapon>636 128</AWeapon>
 	  <NumSpriteSize>32</NumSpriteSize>
   </Asset>
 </XnaContent>
