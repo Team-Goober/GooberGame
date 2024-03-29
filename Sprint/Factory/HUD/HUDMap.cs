@@ -17,17 +17,17 @@ namespace Sprint.Factory.HUD
         {
             this.position = position;
             this.model = model;
-            model.RevealAll();
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-
+            // Draw black background box for minimap
             Texture2D backingColor;
             backingColor = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             backingColor.SetData(new Color[] { Color.Black });
             spriteBatch.Draw(backingColor, new Rectangle((int)position.X, (int)position.Y, 64 * 4, 40 * 4), Color.White);
 
+            // Draw blue rectangle for every visible room
             Texture2D roomFill;
             roomFill = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             roomFill.SetData(new Color[] { Color.Blue });
@@ -46,6 +46,15 @@ namespace Sprint.Factory.HUD
                 }
             }
 
+            // Draw player pointer in current room
+            Texture2D playerPointer;
+            playerPointer = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+            playerPointer.SetData(new Color[] { Color.LimeGreen });
+
+            Point playerPos = model.GetPlayerPosition();
+            spriteBatch.Draw(playerPointer, new Rectangle((int)(position.X + (roomRects.X + padding) * playerPos.X + (roomRects.X - roomRects.Y) / 2),
+                            (int)(position.Y + (roomRects.Y + padding) * playerPos.Y),
+                            (int)roomRects.Y, (int)roomRects.Y), Color.White);
 
         }
 

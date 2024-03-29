@@ -237,6 +237,8 @@ namespace Sprint
             currentRoom = idx;
             player.MoveTo(spawn);
 
+            // Update map for change
+            map.MovePlayer(idx);
         }
 
         // Finds the next room to the right or down 
