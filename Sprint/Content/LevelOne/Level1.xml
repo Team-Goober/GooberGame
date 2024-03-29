@@ -172,6 +172,7 @@
         <Item>
           <!--Undergound Room. Index 19-->
             <NeedWall>false</NeedWall>
+            <Hidden>true</Hidden>
             <TopExit>Wall</TopExit>
             <BottomExit>Wall</BottomExit>
             <LeftExit>Wall</LeftExit>
@@ -223,6 +224,7 @@
           <!--Row 1 Col 2 Room Index 0-->
           <!--Need Bow Item and another mystery item. Missing one orange tile-->
             <NeedWall>true</NeedWall>
+            <Hidden>false</Hidden>
             <TopExit>Wall</TopExit>
             <BottomExit>Wall</BottomExit>
             <LeftExit>Wall</LeftExit>
@@ -264,6 +266,7 @@
           <!--Row 1 Col 3 Room Index 1-->
           <!--Key Item-->
             <NeedWall>true</NeedWall>
+            <Hidden>false</Hidden>
             <TopExit>Wall</TopExit>
             <BottomExit>Lock</BottomExit>
             <LeftExit>Lock</LeftExit>
@@ -312,6 +315,7 @@
         <Item>
           <!--Row 2 Col 3 Room Index 2-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Lock</TopExit>
           <BottomExit>Open</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -349,6 +353,7 @@
           <!--Row 2 Col 5 Room Index 3-->
           <!--Heart is not spawning. Dragon row and column doesn't make sense-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Open</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -381,6 +386,7 @@
           <!--Row 2 Col 6 Room Index 4-->
           <!--Triforce is not spawning-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -408,6 +414,7 @@
         <Item>
           <!--Row 3 Col 1 Room Index 5-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -451,6 +458,7 @@
           <!--Row 3 Col 2 Room Index 6-->
           <!--Some Orange tile missing.-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Lock</BottomExit>
           <LeftExit>Puzzle</LeftExit>
@@ -486,6 +494,7 @@
         <Item>
           <!--Row 3 Col 3 Room Index 7-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Open</TopExit>
           <BottomExit>Hidden</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -538,6 +547,7 @@
           <!--Row 3 Col 4 Room Index 8-->
           <!--Item Needed-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Hidden</BottomExit>
           <LeftExit>Lock</LeftExit>
@@ -580,6 +590,7 @@
           <!--Row 3 Col 5 Room Index 9-->
           <!--Item Key needed-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Lock</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -620,6 +631,7 @@
         <Item>
           <!--Row 4 Col 2 Room Index 10-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Lock</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -671,6 +683,7 @@
           <!--Row 4 Col 3 Room Index 11-->
           <!--Item Key-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Hidden</TopExit>
           <BottomExit>Open</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -723,6 +736,7 @@
           <!--Row 4 Col 4 Room Index 12-->
           <!--Missing an Item-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Hidden</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -795,6 +809,7 @@
         <Item>
           <!--Row 5 Col 3 Room Index 13-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Open</TopExit>
           <BottomExit>Lock</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -832,6 +847,7 @@
         <Item>
           <!--Test Room Index 17-->
           <NeedWall>true</NeedWall>
+          <Hidden>true</Hidden>
           <TopExit>Hidden</TopExit>
           <BottomExit>Hidden</BottomExit>
           <LeftExit>Hidden</LeftExit>
@@ -860,6 +876,7 @@
         <Item>
           <!--Row 6 Col 2 Room Index 14-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -902,6 +919,7 @@
           <!--Row 6 Col 3 Room Index 15 Starting Room-->
           <!--Blue Statues?? Missing Floor Tiles??-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Lock</TopExit>
           <BottomExit>Open</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -921,6 +939,7 @@
         <Item>
           <!--Row 6 Col 4 Room Index 16-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -973,6 +992,7 @@
         <Item>
           <!--Magic Room Index 18-->
           <NeedWall>true</NeedWall>
+          <Hidden>true</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Wall</LeftExit>

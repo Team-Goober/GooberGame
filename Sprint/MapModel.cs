@@ -80,7 +80,8 @@ namespace Sprint
             {
                 for (int j = 0; j < dungeon.RoomColumns(); j++)
                 {
-                    if (dungeon.GetRoomAt(new Point(j, i)) != null)
+                    // Only show existing and non-hidden rooms
+                    if (dungeon.GetRoomAt(new Point(j, i)) != null && !dungeon.IsHidden(new Point(j, i)))
                     {
                         // set each room visible
                         rooms[i, j] = true;

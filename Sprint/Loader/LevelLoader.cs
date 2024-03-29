@@ -73,7 +73,7 @@ namespace Sprint.Loader
                     Point loc = new Point(c, r);
                     if (data.Rooms[r][c] != null)
                     {
-                        dungeon.AddRoom(loc, BuildRoomManager(data, loc));
+                        dungeon.AddRoom(loc, BuildRoomManager(data, loc), data.Rooms[loc.Y][loc.X].Hidden);
                     }
                 }
             }

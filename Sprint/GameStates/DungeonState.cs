@@ -16,6 +16,7 @@ using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Sprint
 {
@@ -34,6 +35,7 @@ namespace Sprint
         private Vector2 arenaPosition = Vector2.Zero; // Top left corner of the playable area on the screen
 
         private SceneObjectManager[][] rooms; // Object managers for each room. Accessed by index
+        private List<Point> hiddenRooms; // Room indices not visible on map
         private Point currentRoom; // Index of currently updated room
         private SceneObjectManager hud; // Object manager for HUD that should persist between rooms
         private Player player; // Player game object to be moved as rooms switch
@@ -52,6 +54,8 @@ namespace Sprint
             collisionDetector = new CollisionDetector();
 
             player = new Player(inputTable, spriteLoader, new Reset(this));
+
+            hiddenRooms = new List<Point>();
 
             //Load the hud
             HUDLoader hudLoader = new HUDLoader(contentManager, spriteLoader);
@@ -206,9 +210,14 @@ namespace Sprint
             makeCommands();
         }
 
-        public void AddRoom(Point loc, SceneObjectManager room)
+        public void AddRoom(Point loc, SceneObjectManager room, bool hidden = false)
         {
             rooms[loc.Y][loc.X] = room;
+            // Hide from map if requested
+            if (hidden)
+            {
+                hiddenRooms.Add(loc);
+            }
         }
 
         // Switches current room to a different one by index
@@ -272,6 +281,11 @@ namespace Sprint
         public SceneObjectManager GetRoomAt(Point p)
         {
             return rooms[p.Y][p.X];
+        }
+
+        public bool IsHidden(Point p)
+        {
+            return hiddenRooms.Contains(p);
         }
 
         public int RoomColumns()
