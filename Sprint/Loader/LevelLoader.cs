@@ -119,6 +119,10 @@ namespace Sprint.Loader
                     new SwitchRoomFromDoorsCommand(slice, dungeon));
             }
 
+
+            MapModel map = new MapModel(dungeon, doorsPerSide);
+            dungeon.CreateMap(map);
+
             dungeon.SwitchRoom(data.BottomSpawnPos, data.StartLevel, Directions.STILL);
 
         }

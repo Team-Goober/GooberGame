@@ -2,6 +2,8 @@
 
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
+using System;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace Sprint
@@ -25,8 +27,8 @@ namespace Sprint
             this.doorReference = doorReference;
 
             rooms = new bool[dungeon.RoomRows(), dungeon.RoomColumns()];
-            horizDoors = new bool[dungeon.RoomRows(), dungeon.RoomColumns() - 1];
-            vertDoors = new bool[dungeon.RoomRows() - 1, dungeon.RoomColumns()];
+            horizDoors = new bool[dungeon.RoomRows(), dungeon.RoomColumns()+1];
+            vertDoors = new bool[dungeon.RoomRows()+1, dungeon.RoomColumns()];
             playerPos = dungeon.RoomIndex();
             compassPos = new Point(-1, -1);
             allShown = false;
@@ -83,32 +85,76 @@ namespace Sprint
                         // set each room visible
                         rooms[i, j] = true;
 
-                        // reveal any open doors in the room
-                        // top
-                        if (doorReference[0, i, j].IsOpen())
+                        // Don't add doors if no door room
+                        if (doorReference[0, i, j] != null)
                         {
-                            vertDoors[i, j] = true;
-                        }
-                        // right
-                        if (doorReference[1, i, j].IsOpen())
-                        {
-                            horizDoors[i, j + 1] = true;
-                        }
-                        // bottom
-                        if (doorReference[2, i, j].IsOpen())
-                        {
-                            vertDoors[i + 1, j] = true;
-                        }
-                        // left
-                        if (doorReference[3, i, j].IsOpen())
-                        {
-                            horizDoors[i, j] = true;
+                            // reveal any open doors in the room
+                            // top
+                            if (doorReference[0, i, j].IsOpen())
+                            {
+                                vertDoors[i, j] = true;
+                            }
+                            // right
+                            if (doorReference[1, i, j].IsOpen())
+                            {
+                                horizDoors[i, j + 1] = true;
+                            }
+                            // bottom
+                            if (doorReference[2, i, j].IsOpen())
+                            {
+                                vertDoors[i + 1, j] = true;
+                            }
+                            // left
+                            if (doorReference[3, i, j].IsOpen())
+                            {
+                                horizDoors[i, j] = true;
+                            }
                         }
                     }
 
                 }
             }
+            
+            allShown = true;
 
+        }
+
+        /*
+         *         private bool[,] rooms; // 2D array of rooms. boolean value represents visibility
+        private bool[,] horizDoors; // 2D array of doors facing left and right. boolean value represents visibility
+        private bool[,] vertDoors; // 2D array of doors facing up and down. boolean value represents visibility
+        private Point playerPos; // indices of player in the rooms matrix
+        private Point compassPos; // indices of the compass pointer. if negative, don't show
+        private bool allShown; // true if map was acquired and everything should be visible. hidden doors and rooms aren't revealed */
+
+        public bool[,] GetRooms()
+        {
+            return rooms;
+        }
+
+        public bool[,] GetHorizontalDoors()
+        {
+            return horizDoors;
+        }
+
+        public bool[,] GetVerticalDoors()
+        {
+            return vertDoors;
+        }
+
+        public Point GetPlayerPosition()
+        {
+            return playerPos;
+        }
+
+        public Point GetCompassPosition()
+        {
+            return compassPos;
+        }
+
+        public bool GetAllShown()
+        {
+            return allShown;
         }
 
     }

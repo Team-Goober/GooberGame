@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Sprint.Characters;
 using Sprint.Collision;
 using Sprint.Commands;
+using Sprint.Factory.HUD;
 using Sprint.Functions;
 using Sprint.Functions.RoomTransition;
 using Sprint.Input;
@@ -36,6 +37,9 @@ namespace Sprint
         private Point currentRoom; // Index of currently updated room
         private SceneObjectManager hud; // Object manager for HUD that should persist between rooms
         private Player player; // Player game object to be moved as rooms switch
+
+        private MapModel map; // Tracks revealing of rooms for UI
+        private HUDMap mapUI; // UI element displaying map
 
 
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
@@ -292,6 +296,13 @@ namespace Sprint
         public void SetArenaPosition(Vector2 pos)
         {
             arenaPosition = pos;
+        }
+
+        public void CreateMap(MapModel newMap)
+        {
+            map = newMap;
+            mapUI = new HUDMap(map, new Vector2(16 * 4, 8 * 4));
+            hud.Add(mapUI);
         }
     }
 }
