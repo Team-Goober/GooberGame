@@ -123,6 +123,8 @@ namespace Sprint.Loader
             MapModel map = new MapModel(dungeon, doorsPerSide);
             dungeon.CreateMap(map);
 
+            dungeon.SetCompassPointer(data.CompassPoint);
+
             dungeon.SwitchRoom(data.BottomSpawnPos, data.StartLevel, Directions.STILL);
 
         }

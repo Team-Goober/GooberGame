@@ -4,12 +4,16 @@ using Sprint.Levels;
 
 namespace Sprint.Characters;
 
-public class Inventory
+internal class Inventory
 {
 
     private Dictionary<ItemType, int> itemDictionary;
-    public Inventory()
+    private DungeonState dungeon;
+
+    public Inventory(DungeonState dungeon)
     {
+        this.dungeon = dungeon;
+
         itemDictionary = new Dictionary<ItemType, int>()
         {
             { ItemType.Arrow, 0 },
@@ -49,6 +53,20 @@ public class Inventory
     public void PickupItem(ItemType item)
     {
         itemDictionary[item]++;
+
+        // Handle map-updating items
+        switch (item)
+        {
+            case ItemType.Paper:
+                dungeon.GetMap().RevealAll();
+                break;
+            case ItemType.Compass:
+                dungeon.GetMap().PlaceCompass();
+                break;
+            default:
+                break;
+        }
+
     }
 
     /// <summary>

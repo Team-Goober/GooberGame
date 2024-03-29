@@ -2,7 +2,8 @@
 <XnaContent xmlns:XMLData="XMLData">
   <Asset Type="XMLData:LevelData">
     <Level>1</Level>
-	<StartLevel>2 5</StartLevel>
+	  <StartLevel>2 5</StartLevel>
+    <CompassPoint>5 1</CompassPoint>
     <SpriteFile>LevelOne/Level1Sprites</SpriteFile>
 	  <HUBFile>HUB/HUBSprites</HUBFile>
     <OuterWalls>

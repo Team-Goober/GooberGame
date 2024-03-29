@@ -42,6 +42,7 @@ namespace Sprint
 
         private MapModel map; // Tracks revealing of rooms for UI
         private HUDMap mapUI; // UI element displaying map
+        private Point compassPointer; // Room indices for triforce location
 
 
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
@@ -53,7 +54,7 @@ namespace Sprint
             inputTable = new InputTable();
             collisionDetector = new CollisionDetector();
 
-            player = new Player(inputTable, spriteLoader, new Reset(this));
+            player = new Player(inputTable, spriteLoader, this);
 
             hiddenRooms = new List<Point>();
 
@@ -196,7 +197,7 @@ namespace Sprint
             inputTable.ClearDictionary();
 
             // new player
-            player = new Player(inputTable, spriteLoader, new Reset(this));
+            player = new Player(inputTable, spriteLoader, this);
 
             //reload the hud
             HUDLoader hudLoader = new HUDLoader(contentManager, spriteLoader);
@@ -324,6 +325,16 @@ namespace Sprint
         public MapModel GetMap()
         {
             return map;
+        }
+
+        public void SetCompassPointer(Point room)
+        {
+            compassPointer = room;
+        }
+
+        public Point GetCompassPointer()
+        {
+            return compassPointer;
         }
     }
 }

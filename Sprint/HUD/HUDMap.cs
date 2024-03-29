@@ -76,13 +76,29 @@ namespace Sprint.HUD
                     }
                 }
             }
+            // Draw compass pointer in triforce room
+            Point compassPos = model.GetCompassPosition();
+            // Only draw if posiiton is placed (x value is positive)
+            if(compassPos.X >= 0)
+            {
+                Texture2D compassPointer;
+                compassPointer = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                compassPointer.SetData(new Color[] { Color.Red });
+
+                spriteBatch.Draw(compassPointer, new Rectangle((int)(position.X + (roomRects.X + padding) * compassPos.X + (roomRects.X - roomRects.Y) / 2),
+                                (int)(position.Y + (roomRects.Y + padding) * compassPos.Y),
+                                (int)roomRects.Y, (int)roomRects.Y),
+                                Color.White);
+            }
+
 
             // Draw player pointer in current room
+            Point playerPos = model.GetPlayerPosition();
+
             Texture2D playerPointer;
             playerPointer = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             playerPointer.SetData(new Color[] { Color.LimeGreen });
 
-            Point playerPos = model.GetPlayerPosition();
             spriteBatch.Draw(playerPointer, new Rectangle((int)(position.X + (roomRects.X + padding) * playerPos.X + (roomRects.X - roomRects.Y) / 2),
                             (int)(position.Y + (roomRects.Y + padding) * playerPos.Y),
                             (int)roomRects.Y, (int)roomRects.Y),

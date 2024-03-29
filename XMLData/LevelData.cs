@@ -8,6 +8,7 @@ namespace XMLData
     {
         public int Level;
         public Point StartLevel; // Column, Row pair for room to start player in
+        public Point CompassPoint; // Column, Row pair for room to place a compass signal in
         public string SpriteFile; // Path to file holding all room sprites for this level
         public string HUBFile;
 

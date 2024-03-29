@@ -54,13 +54,13 @@ namespace Sprint.Characters
 
 
         //declares the move systems for the main character sprite
-        public Player(IInputMap inputTable, SpriteLoader spriteLoader, Reset reset)
+        public Player(IInputMap inputTable, SpriteLoader spriteLoader, DungeonState dungeon)
         {
 
             //Initialize physics and objectManager
             physics = new Physics(Vector2.Zero);
 
-            inventory = new Inventory();
+            inventory = new Inventory(dungeon);
 
             //Loads sprite for link
             sprite = spriteLoader.BuildSprite("playerAnims", "player");
@@ -80,7 +80,7 @@ namespace Sprint.Characters
             // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, inputTable, spriteLoader);
 
-            this.reset = reset;
+            this.reset = new Reset(dungeon);
         }
 
         // Moves the player from current scene into a new one

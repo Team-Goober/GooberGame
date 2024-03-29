@@ -36,9 +36,9 @@ namespace Sprint
         }
 
         // Place the compass pointer at a room index
-        public void PlaceCompass(Point pos)
+        public void PlaceCompass()
         {
-            compassPos = pos;
+            compassPos = dungeon.GetCompassPointer();
         }
 
         // Move the player pointer to a room index and update room visibility
