@@ -2,12 +2,9 @@
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Collision;
-using Sprint.Characters;
 
 namespace Sprint.Levels
 {
-
-    //Moves when player collides with them
     internal class MoveWallTile : ITile, ICollidable, IMovingCollidable
     {
         ISprite sprite;
@@ -41,11 +38,12 @@ namespace Sprint.Levels
         }
 
 
-        // Moves the player by a set distance
+        // TEST!! Moves the player by a set distance
         public void Move(Vector2 distance)
         {
-            //// teleport player in displacement specified
-            //physics.SetPosition(position + distance);
+            position = position + distance;
+            bounds.X = (int)position.X;
+            bounds.Y = (int)position.Y;
         }
     }
 }
