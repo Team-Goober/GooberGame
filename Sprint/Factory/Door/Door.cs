@@ -90,6 +90,11 @@ namespace Sprint.Factory.Door
             return roomIndices;
         }
 
+        public bool IsOpen()
+        {
+            return isOpen;
+        }
+
         public virtual void SetOpen(bool open)
         {
             

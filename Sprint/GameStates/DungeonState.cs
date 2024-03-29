@@ -265,6 +265,11 @@ namespace Sprint
             return currentRoom;
         }
 
+        public SceneObjectManager GetRoomAt(Point p)
+        {
+            return rooms[p.Y][p.X];
+        }
+
         public int RoomColumns()
         {
             return rooms[0].Length;
