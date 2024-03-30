@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
+using Sprint.Events;
 using Sprint.Factory.HUD;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using XMLData;
 
 
@@ -26,6 +28,8 @@ namespace Sprint.Loader
 
         private string bWeapon;
         private string aWeapon;
+
+        HUDData data;
 
         public HUDLoader(ContentManager newContent, SpriteLoader spriteLoader)
         { 
@@ -47,7 +51,7 @@ namespace Sprint.Loader
 
         public void LoadHUD(string path, int levelNum)
         {
-            HUDData data = content.Load<HUDData>(path);
+            data = content.Load<HUDData>(path);
 
             //Frame
             MakeHUDSprite("HUDFrame", data.HUDFrame);
@@ -106,10 +110,6 @@ namespace Sprint.Loader
 
         public void MakeNumber(string num, Vector2 position, int spriteSize)
         {
-            if(num.Equals("0"))
-            {
-                num = "00";
-            }
 
             som.Add(hudFactory.MakeHUDSprite("X", position));
             List<IHUD> levelNum = hudFactory.MakeNumber(num, new Vector2(position.X + spriteSize, position.Y), spriteSize);
@@ -117,6 +117,13 @@ namespace Sprint.Loader
             {
                 som.Add(h);
             }
+        }
+
+        // TEST EVENT
+        public void UpdateKeyAmount(int num)
+        {
+            Debug.WriteLine("Here: " + num);
+            keyAmount = num.ToString();
         }
 
         public void MakeHUDSprite(string spriteLabel, Vector2 position)
@@ -127,11 +134,6 @@ namespace Sprint.Loader
         public void UpdateGemAmount(int newGemAmount)
         {
             gemAmount = newGemAmount.ToString();
-        }
-
-        public void UpdateKeyAmount(int newKeyAmount)
-        {
-            keyAmount = newKeyAmount.ToString();
         }
 
         public void UpdateBombAmount(int newBombAmount)
@@ -160,6 +162,19 @@ namespace Sprint.Loader
             aWeapon = newWeapon;
         }
 
+        public void Update()
+        {
+            MakeNumber(gemAmount, data.GemNumPos, data.NumSpriteSize);
+            MakeNumber(keyAmount, data.KeyNumPos, data.NumSpriteSize);
+            MakeNumber(bombAmount, data.BombNumPos, data.NumSpriteSize);
+
+            //Health
+            MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
+
+            // Weapons
+            MakeHUDSprite(bWeapon, data.BWeapon);
+            MakeHUDSprite(aWeapon, data.AWeapon);
+        }
         //Load Minimap
     }
 }
