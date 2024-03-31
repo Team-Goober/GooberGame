@@ -21,6 +21,7 @@ namespace Sprint.Characters
         private Vector2 moveDirection; // Movement direction for the random pattern
         private SimpleProjectileFactory itemFactory;
         private ICommand projectileCommand;
+        private MoveVert moveVert;
 
         private Timer timeAttack;
 
@@ -38,6 +39,8 @@ namespace Sprint.Characters
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
 
             projectileCommand = new ShootArrowCommand(itemFactory);
+
+            moveVert = new MoveVert(physics);
 
 
             // Initialize the move direction randomly

@@ -15,7 +15,7 @@ namespace Sprint.Characters
         private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
 
-
+        
         private Vector2 initialPosition;
 
         Physics physics;
@@ -65,25 +65,25 @@ namespace Sprint.Characters
 
 
 
-        // Set the direction and update the animation accordingly
+        // Set the direction of the move AI
         public void SetDirection(Directions direction)
         {
             switch (direction)
             {
                 case Directions.UP:
-                    
+                    moveDirection = new Vector2(0, -1);
                     break;
                 case Directions.LEFT:
-                    
+                    moveDirection = new Vector2(-1, 0);
                     break;
                 case Directions.DOWN:
-                    
+                    moveDirection = new Vector2(0, 1);
                     break;
                 case Directions.RIGHT:
-                    
+                    moveDirection = new Vector2(1, 0);
                     break;
                 default:
-                    
+                    moveDirection = Vector2.Zero;
                     break;
             }
 
