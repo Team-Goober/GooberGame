@@ -9,7 +9,8 @@ using System.Diagnostics;
 using Sprint.Testing;
 using Sprint.Commands;
 using System.Security.Cryptography.X509Certificates;
-using Sprint.Events;
+using Sprint.Items;
+using Sprint.HUD;
 
 namespace Sprint.Characters
 {

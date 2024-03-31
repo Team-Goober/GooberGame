@@ -11,7 +11,6 @@ using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
-using Sprint.Loader;
 using Sprint.Sprite;
 using System;
 using System.Collections.Generic;

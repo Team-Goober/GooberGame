@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
-using Sprint.Events;
-using Sprint.HUD;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;
@@ -12,7 +10,7 @@ using System.Diagnostics;
 using XMLData;
 
 
-namespace Sprint.Loader
+namespace Sprint.HUD
 {
     internal class HUDLoader
     {
@@ -32,11 +30,11 @@ namespace Sprint.Loader
         HUDData data;
 
         public HUDLoader(ContentManager newContent, SpriteLoader spriteLoader)
-        { 
-            this.content = newContent;
-            this.som = new SceneObjectManager();
+        {
+            content = newContent;
+            som = new SceneObjectManager();
 
-            this.hudFactory = new(spriteLoader);
+            hudFactory = new(spriteLoader);
 
             //Default Item Amount
             UpdateGemAmount(0);
@@ -87,9 +85,9 @@ namespace Sprint.Loader
 
             double half = heartLeft - Math.Truncate(heartLeft);
 
-            if(half !=  0)
+            if (half != 0)
             {
-                float newX = position.X + (fullHeart * spriteSize);
+                float newX = position.X + fullHeart * spriteSize;
                 heartList.AddRange(hudFactory.MakeHearts(1, "HalfHeart", new Vector2(newX, position.Y), spriteSize));
             }
 
@@ -102,7 +100,7 @@ namespace Sprint.Loader
         public void MakeLevelNumber(string level, Vector2 position, int spriteSize)
         {
             List<IHUD> levelNum = hudFactory.MakeNumber(level, position, spriteSize);
-            foreach(IHUD h in levelNum)
+            foreach (IHUD h in levelNum)
             {
                 som.Add(h);
             }

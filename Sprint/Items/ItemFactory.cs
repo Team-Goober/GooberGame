@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Sprint.Levels;
 using Sprint.Sprite;
 
-namespace Sprint.Levels
+namespace Sprint.Items
 {
     public class ItemFactory
     {

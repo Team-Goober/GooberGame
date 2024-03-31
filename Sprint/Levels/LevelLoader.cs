@@ -5,11 +5,11 @@ using Sprint.Door;
 using Sprint.Functions.RoomTransition;
 using Sprint.Input;
 using Sprint.Interfaces;
-using Sprint.Levels;
+using Sprint.Items;
 using Sprint.Sprite;
 using XMLData;
 
-namespace Sprint.Loader
+namespace Sprint.Levels
 {
     internal class LevelLoader
     {
@@ -31,7 +31,7 @@ namespace Sprint.Loader
 
         public LevelLoader(ContentManager newContent, DungeonState dungeon, SpriteLoader spriteLoader, IInputMap inputTable)
         {
-            this.content = newContent;
+            content = newContent;
             this.dungeon = dungeon;
             this.spriteLoader = spriteLoader;
             this.inputTable = inputTable;
@@ -54,7 +54,7 @@ namespace Sprint.Loader
             dungeon.SetArenaPosition(data.ArenaOffset);
 
             dungeon.ClearRooms(data.LayoutRows, data.LayoutColumns);
-          
+
             levelNumber = data.Level;
 
             // Make commands for moving between rooms
@@ -65,13 +65,14 @@ namespace Sprint.Loader
                 new Rectangle((int)data.LeftDoorPos.X, (int)data.LeftDoorPos.Y, (int)data.DoorSize.X, (int)data.DoorSize.Y)};
 
             // Offset each door bound area so they fall inside the arena on screen
-            for(int i=0; i<doorBounds.Length; i++)
+            for (int i = 0; i < doorBounds.Length; i++)
                 doorBounds[i].Offset(data.ArenaOffset);
 
             doorsPerSide = new IDoor[4, data.LayoutRows, data.LayoutColumns];
 
             // Load all rooms by index using RoomLoader
-            for (int r = 0; r < data.LayoutRows; r++) {
+            for (int r = 0; r < data.LayoutRows; r++)
+            {
                 for (int c = 0; c < data.LayoutColumns; c++)
                 {
                     Point loc = new Point(c, r);
@@ -106,7 +107,7 @@ namespace Sprint.Loader
             }
 
             // Make a command that checks all doors at its position for switching rooms when middle clicked
-            for (int i=0; i<4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 IDoor[,] slice = new IDoor[data.LayoutColumns, data.LayoutRows];
                 for (int r = 0; r < data.LayoutRows; r++)
@@ -181,13 +182,14 @@ namespace Sprint.Loader
                 x = lvl.FloorGridPos.X;
                 y = lvl.FloorGridPos.Y;
                 xChange = lvl.FloorGridPos.X;
-            } else
+            }
+            else
             {
                 x = lvl.ZeroZeroPos.X;
                 y = lvl.ZeroZeroPos.Y;
                 xChange = lvl.ZeroZeroPos.X;
             }
-            
+
             foreach (string row in rd.TileGrid)
             {
                 string[] str = row.Split(' ');
@@ -234,7 +236,8 @@ namespace Sprint.Loader
             return tile;
         }
 
-        public int GetLevel() {
+        public int GetLevel()
+        {
 
             return levelNumber;
         }

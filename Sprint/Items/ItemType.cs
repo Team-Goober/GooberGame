@@ -1,4 +1,4 @@
-﻿namespace Sprint.Levels;
+﻿namespace Sprint.Items;
 
 public enum ItemType
 {

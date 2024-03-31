@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Sprint.Events
+namespace Sprint.HUD
 {
     public delegate void HUDHandler(int number);
 
