@@ -8,6 +8,8 @@ using Sprint.Collision;
 using System.Diagnostics;
 using Sprint.Testing;
 using Sprint.Commands;
+using System.Security.Cryptography.X509Certificates;
+using Sprint.Events;
 
 namespace Sprint.Characters
 {
@@ -341,13 +343,28 @@ namespace Sprint.Characters
             physics.SetPosition(pos);
         }
 
+        ////////////////////////////////////////////////////////
+        public HUDHandler handler = HUDUpdate.UpdateKey;
+
+        protected virtual void OnKeyPickedUp(int keys)
+        {
+            handler(keys);
+        }
+        ////////////////////////////////////////////////////////
         /// <summary>
         /// Pickup Item off the ground
         /// </summary>
         /// <param name="item"> ItemType to pickup</param>
         public void PickupItem(Item item)
         {
+            // Test
             ItemType itemType = item.GetItemType();
+
+            if(itemType == ItemType.Key)
+            {
+                OnKeyPickedUp(inventory.getItemAmount(itemType) + 1);
+            }
+
             if(item.GetColliable())
             {
                 inventory.PickupItem(itemType);

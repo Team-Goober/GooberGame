@@ -28,6 +28,8 @@ namespace Sprint.Loader
         private Rectangle[] doorBounds;
         private IDoor[,] doorsPerSide;
 
+        private int levelNumber;
+
         public LevelLoader(ContentManager newContent, DungeonState dungeon, SpriteLoader spriteLoader, IInputMap inputTable)
         {
             this.content = newContent;
@@ -52,6 +54,7 @@ namespace Sprint.Loader
 
             dungeon.ClearRooms();
 
+            levelNumber = data.Level;
 
             // Make commands for moving between rooms
             // Should be a list of bounding boxes for doors on each side of the room, so that they can be clicked
@@ -180,6 +183,11 @@ namespace Sprint.Loader
             TileReference tRef = lvl.TileReferences[dictLabel];
             ITile tile = tileFactory.MakeTile(tRef.Type, lvl.SpriteFile, tRef.SpriteName, position, lvl.TileSize);
             return tile;
+        }
+
+        public int GetLevel() {
+
+            return levelNumber;
         }
     }
 }
