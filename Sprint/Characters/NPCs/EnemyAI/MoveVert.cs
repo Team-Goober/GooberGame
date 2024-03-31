@@ -14,14 +14,13 @@ namespace Sprint.Characters
         private float elapsedTime;
         private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
-        private ICommand projectileCommand;
-        private SimpleProjectileFactory itemFactory;
+
+
         private Vector2 initialPosition;
-        private string lastAnimationName;
+
         Physics physics;
 
         public MoveVert(Physics physics)
-           
         {
 
             this.physics = physics;
@@ -34,7 +33,7 @@ namespace Sprint.Characters
 
 
         // Move AI for MoveVert
-        private void MoveAI(GameTime gameTime)
+        public override void MoveAI(GameTime gameTime)
         {
             float speed = 50; // Adjust the speed as needed
             float moveTime = 2; // Time before changing direction (in seconds)
@@ -53,17 +52,41 @@ namespace Sprint.Characters
 
 
 
-        // Generate a random movement direction for DogEnemy
+        // Choose a random direction to move
         private void RandomizeMoveDirection()
         {
             // Generate a random movement direction
             Random random = new Random();
-            float angle = (float)random.NextDouble() * MathHelper.TwoPi;
-            moveDirection = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+            int indDir = random.Next(4);
+            Directions direction = (Directions)indDir;
+            SetDirection(direction);
 
-            // Normalize the moveDirection vector
-            moveDirection.Normalize();
         }
 
+
+
+        // Set the direction and update the animation accordingly
+        public void SetDirection(Directions direction)
+        {
+            switch (direction)
+            {
+                case Directions.UP:
+                    
+                    break;
+                case Directions.LEFT:
+                    
+                    break;
+                case Directions.DOWN:
+                    
+                    break;
+                case Directions.RIGHT:
+                    
+                    break;
+                default:
+                    
+                    break;
+            }
+
+        }
     }
 }

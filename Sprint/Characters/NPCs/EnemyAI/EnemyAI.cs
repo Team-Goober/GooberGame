@@ -8,7 +8,7 @@ namespace Sprint.Characters
     public abstract class EnemyAI
     {
 
-        MoveAI(GameTime gameTime);
+        public abstract void MoveAI(GameTime gameTime);
 
         public enum Directions
         {
