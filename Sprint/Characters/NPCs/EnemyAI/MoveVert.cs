@@ -9,7 +9,7 @@ using Sprint.Levels;
 
 namespace Sprint.Characters
 {
-    public class MoveVert
+    public class MoveVert : EnemyAI
     {
         private float elapsedTime;
         private Timer timeAttack;
