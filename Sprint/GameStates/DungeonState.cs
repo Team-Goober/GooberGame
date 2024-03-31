@@ -43,6 +43,7 @@ namespace Sprint
         private MapModel map; // Tracks revealing of rooms for UI
         private HUDMap mapUI; // UI element displaying map
         private Point compassPointer; // Room indices for triforce location
+        HUDLoader hudLoader;
 
 
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
@@ -58,14 +59,20 @@ namespace Sprint
 
             hiddenRooms = new List<Point>();
 
-            //Load the hud
-            HUDLoader hudLoader = new HUDLoader(contentManager, spriteLoader);
-            hud = hudLoader.GetScenes();
-
             // Load all rooms in the level from XML file
             LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, inputTable);
             loader.LoadLevelXML("LevelOne/Level1");
             makeCommands();
+
+            //Load the hud
+            hudLoader = new HUDLoader(contentManager, spriteLoader);
+            hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel());
+            hud = hudLoader.GetScenes();
+
+            hud.Add(mapUI);
+
+            //Event Test
+            player.handler += hudLoader.UpdateKeyAmount;
         }
 
         // Generates all commands available while the player is moving in a room
@@ -157,9 +164,13 @@ namespace Sprint
             // Update room objects
             foreach (IGameObject obj in currRoom.GetObjects())
                 obj.Update(gameTime);
+
             // Update HUD
             foreach (IGameObject obj in hud.GetObjects())
                 obj.Update(gameTime);
+
+            hudLoader.Update();
+            hud = hudLoader.GetScenes();
 
             // Complete additions and deletions
             currRoom.EndCycle();
@@ -199,13 +210,16 @@ namespace Sprint
             // new player
             player = new Player(inputTable, spriteLoader, this);
 
-            //reload the hud
-            HUDLoader hudLoader = new HUDLoader(contentManager, spriteLoader);
-            hud = hudLoader.GetScenes();
-
             // reload the level
             LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, inputTable);
             loader.LoadLevelXML("LevelOne/Level1");
+
+            //reload the hud
+            hudLoader = new HUDLoader(contentManager, spriteLoader);
+            hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel());
+            hud = hudLoader.GetScenes();
+
+            player.handler += hudLoader.UpdateKeyAmount;
 
             // remake commands
             makeCommands();
@@ -319,7 +333,6 @@ namespace Sprint
         {
             map = newMap;
             mapUI = new HUDMap(map, new Vector2(16 * 4, 8 * 4));
-            hud.Add(mapUI);
         }
 
         public MapModel GetMap()

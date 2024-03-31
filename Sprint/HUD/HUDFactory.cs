@@ -3,12 +3,9 @@ using Sprint.Door;
 using Sprint.HUD;
 using Sprint.Interfaces;
 using Sprint.Sprite;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection.Emit;
+
 
 namespace Sprint.HUD
 {
@@ -16,25 +13,48 @@ namespace Sprint.HUD
     {
         private SpriteLoader spriteLoader;
 
+        const string LOCATION = "HUD/HUDSprite";
+
         public HUDFactory(SpriteLoader spriteLoader)
         {
             this.spriteLoader = spriteLoader;
         }
 
-        public IHUD MakeHUD(string type, string spriteFile, string spriteLabel, Vector2 position)
+        public IHUD MakeHUDSprite(string spriteLabel, Vector2 position)
         {
-            ISprite sprite = spriteLoader.BuildSprite(spriteFile, spriteLabel);
+            ISprite sprite = spriteLoader.BuildSprite(LOCATION, spriteLabel);
 
+            return new HUDSprite(sprite, position);
+        }
 
-            switch (type)
+        public List<IHUD> MakeNumber(string level, Vector2 position, int spriteSize)
+        {
+            List<IHUD> nums = new List<IHUD>();
+            char[] charArr = level.ToCharArray();
+            float x = position.X;
+            for(int i = 0; i < charArr.Length; i++)
             {
-                case "HUDFrame":
-                    return new HUDFrame(sprite, position);
-                default:
-                    break;
+                ISprite sprite = spriteLoader.BuildSprite(LOCATION, charArr[i].ToString());
+                nums.Add(new HUDSprite(sprite, new Vector2(x, position.Y)));
+                x += spriteSize;
             }
 
-            return null;
+            return nums; 
+        }
+
+        public List<IHUD> MakeHearts(int amount, string spriteLabel, Vector2 position, int spriteSize)
+        {
+            List<IHUD> hearts = new List<IHUD>();
+
+            float x = position.X;
+            for (int i = 0; i < amount; i++)
+            {
+                ISprite sprite = spriteLoader.BuildSprite(LOCATION, spriteLabel);
+                hearts.Add(new HUDSprite(sprite, new Vector2(x, position.Y)));
+                x += spriteSize;
+            }
+
+            return hearts;
         }
     }
 }

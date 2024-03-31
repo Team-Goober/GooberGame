@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
-using Sprint.Characters;
+using Microsoft.Xna.Framework;
+using Sprint.Levels;
 using Sprint.Sprite;
 
 namespace Sprint.Levels
