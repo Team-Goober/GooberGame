@@ -3,16 +3,17 @@ using Sprint.Levels;
 using Microsoft.Xna.Framework;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprint.Functions.RoomTransition
 {
     internal class SwitchRoomFromDoorsCommand : ICommand
     {
 
-        private IDoor[] receivers;
+        private IDoor[,] receivers;
         private DungeonState dungeon;
 
-        public SwitchRoomFromDoorsCommand(IDoor[] doors, DungeonState dungeon)
+        public SwitchRoomFromDoorsCommand(IDoor[,] doors, DungeonState dungeon)
         {
             receivers = doors;
             this.dungeon = dungeon;
@@ -20,7 +21,7 @@ namespace Sprint.Functions.RoomTransition
 
         public void Execute()
         {
-            receivers[dungeon.RoomIndex()].SwitchRoom();
+            receivers[dungeon.RoomIndex().Y, dungeon.RoomIndex().X].SwitchRoom();
         }
 
     }
