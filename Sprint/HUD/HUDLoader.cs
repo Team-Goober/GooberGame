@@ -47,7 +47,7 @@ namespace Sprint.HUD
             UpdateAWeapon("Sword");
         }
 
-        public void LoadHUD(string path, int levelNum)
+        public void LoadHUD(string path, int levelNum, MapModel map)
         {
             data = content.Load<HUDData>(path);
 
@@ -67,6 +67,9 @@ namespace Sprint.HUD
             // Weapons
             MakeHUDSprite(bWeapon, data.BWeapon);
             MakeHUDSprite(aWeapon, data.AWeapon);
+
+
+            MakeMinimap(map, data.MinimapPos, data.MinimapRoomSize, data.MinimapPadding);
         }
 
         public SceneObjectManager GetScenes()
@@ -115,6 +118,11 @@ namespace Sprint.HUD
             {
                 som.Add(h);
             }
+        }
+
+        public void MakeMinimap(MapModel map, Vector2 position, Vector2 roomSize, int padding)
+        {
+            som.Add(new HUDMap(map, position, roomSize, padding));
         }
 
         // TEST EVENT

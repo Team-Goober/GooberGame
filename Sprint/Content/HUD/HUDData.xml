@@ -11,6 +11,9 @@
 	  <HeartNumPos>704 160</HeartNumPos>
 	  <BWeapon>512 96</BWeapon>
 	  <AWeapon>608 96</AWeapon>
+    <MinimapPos>64 32</MinimapPos>
+    <MinimapRoomSize>28 12</MinimapRoomSize>
+    <MinimapPadding>4</MinimapPadding>
 	  <NumSpriteSize>32</NumSpriteSize>
   </Asset>
 </XnaContent>

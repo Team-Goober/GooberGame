@@ -40,7 +40,6 @@ namespace Sprint
         private Player player; // Player game object to be moved as rooms switch
 
         private MapModel map; // Tracks revealing of rooms for UI
-        private HUDMap mapUI; // UI element displaying map
         private Point compassPointer; // Room indices for triforce location
         HUDLoader hudLoader;
 
@@ -65,10 +64,8 @@ namespace Sprint
 
             //Load the hud
             hudLoader = new HUDLoader(contentManager, spriteLoader);
-            hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel());
+            hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
             hud = hudLoader.GetScenes();
-
-            hud.Add(mapUI);
 
             //Event Test
             player.handler += hudLoader.UpdateKeyAmount;
@@ -215,7 +212,7 @@ namespace Sprint
 
             //reload the hud
             hudLoader = new HUDLoader(contentManager, spriteLoader);
-            hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel());
+            hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
             hud = hudLoader.GetScenes();
 
             player.handler += hudLoader.UpdateKeyAmount;
@@ -331,7 +328,6 @@ namespace Sprint
         public void CreateMap(MapModel newMap)
         {
             map = newMap;
-            mapUI = new HUDMap(map, new Vector2(16 * 4, 8 * 4));
         }
 
         public MapModel GetMap()

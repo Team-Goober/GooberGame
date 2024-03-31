@@ -10,13 +10,15 @@ namespace Sprint.HUD
 
         private Vector2 position;
         private MapModel model;
-        private Vector2 roomRects = new Vector2(14 * 2, 6 * 2);
-        private int padding = 2 * 2;
+        private Vector2 roomRects;
+        private int padding;
 
-        public HUDMap(MapModel model, Vector2 position)
+        public HUDMap(MapModel model, Vector2 position, Vector2 roomSize, int padding)
         {
             this.position = position;
             this.model = model;
+            this.roomRects = roomSize;
+            this.padding = padding;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

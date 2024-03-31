@@ -14,6 +14,10 @@ namespace XMLData
         public Vector2 BWeapon;
         public Vector2 AWeapon;
 
+        public Vector2 MinimapPos;
+        public Vector2 MinimapRoomSize;
+        public int MinimapPadding;
+
         public int NumSpriteSize;
     }
 }
