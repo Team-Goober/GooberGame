@@ -219,6 +219,7 @@ namespace Sprint
                 obj.Update(gameTime);
             hud.EndCycle();
 
+
             // Complete additions and deletions
             currRoom.EndCycle();
 

@@ -19,15 +19,16 @@ namespace Sprint.HUD
         private HUDFactory hudFactory;
         private SceneObjectManager som;
 
-        private List<HUDNumber> GemNumber;
-        private List<HUDNumber> KeyNumber;
-        private List<HUDNumber> BombNumber;
+        private List<HUDAnimSprite> GemNumber;
+        private List<HUDAnimSprite> KeyNumber;
+        private List<HUDAnimSprite> BombNumber;
+
+        private List<HUDAnimSprite> LifeForce;
 
         private int maxHearts;
-        private double heartLeft;
 
-        private string bWeapon;
-        private string aWeapon;
+        private HUDAnimSprite bWeapon;
+        private HUDAnimSprite aWeapon;
 
         HUDData data;
 
@@ -38,12 +39,8 @@ namespace Sprint.HUD
 
             hudFactory = new(spriteLoader);
 
-            //Default Item Amount
-            UpdateHeartAmount(2.5);
+            //Default Heart Amount
             UpdateMaxHeartAmount(3);
-
-            UpdateBWeapon("Boomerang");
-            UpdateAWeapon("Sword");
         }
 
         public void LoadHUD(string path, int levelNum, MapModel map)
@@ -64,9 +61,12 @@ namespace Sprint.HUD
             MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
 
             // Weapons
-            MakeHUDSprite(bWeapon, data.BWeapon);
-            MakeHUDSprite(aWeapon, data.AWeapon);
+            bWeapon = MakeSlotItem("Item", data.BWeapon);
+            aWeapon = MakeSlotItem("Item", data.AWeapon);
 
+            //Remove below or change later
+            UpdateBWeapon("Sword");
+            UpdateAWeapon("Bow");
 
             MakeMinimap(map, data.MinimapPos, data.MinimapRoomSize, data.MinimapPadding);
         }
@@ -78,22 +78,16 @@ namespace Sprint.HUD
 
         public void MakeLifeHeart(Vector2 position, int spriteSize)
         {
-            List<IHUD> heartList = new List<IHUD>();
+            // Make the hearts
+            LifeForce = hudFactory.MakeHearts(maxHearts, "Heart", position, spriteSize);
 
-            heartList.AddRange(hudFactory.MakeHearts(maxHearts, "EmptyHeart", position, spriteSize));
-
-            int fullHeart = (int)Math.Floor(heartLeft);
-            heartList.AddRange(hudFactory.MakeHearts(fullHeart, "FullHeart", position, spriteSize));
-
-            double half = heartLeft - Math.Truncate(heartLeft);
-
-            if (half != 0)
+            // How many can the player use?
+            for(int i = 0; i < maxHearts; i++)
             {
-                float newX = position.X + fullHeart * spriteSize;
-                heartList.AddRange(hudFactory.MakeHearts(1, "HalfHeart", new Vector2(newX, position.Y), spriteSize));
+                LifeForce[i].SetSprite("FullHeart");
             }
 
-            foreach (IHUD h in heartList)
+            foreach(HUDAnimSprite h in LifeForce)
             {
                 som.Add(h);
             }
@@ -101,19 +95,19 @@ namespace Sprint.HUD
 
         public void MakeLevelNumber(string level, Vector2 position, int spriteSize)
         {
-            List<HUDNumber> levelNum = hudFactory.MakeNumber(level + "B", position, spriteSize);
-            foreach(HUDNumber h in levelNum)
+            List<HUDAnimSprite> levelNum = hudFactory.MakeNumber(level + "B", position, spriteSize);
+            foreach(HUDAnimSprite h in levelNum)
             {
                 som.Add(h);
             }
         }
 
-        public List<HUDNumber> MakeNumber(string num, Vector2 position, int spriteSize)
+        public List<HUDAnimSprite> MakeNumber(string num, Vector2 position, int spriteSize)
         {
             som.Add(hudFactory.MakeHUDSprite("X", position));
-            List<HUDNumber> levelNum = hudFactory.MakeNumber(num, new Vector2(position.X + spriteSize, position.Y), spriteSize);
+            List<HUDAnimSprite> levelNum = hudFactory.MakeNumber(num, new Vector2(position.X + spriteSize, position.Y), spriteSize);
 
-            foreach (HUDNumber h in levelNum)
+            foreach (HUDAnimSprite h in levelNum)
             {
                 som.Add(h);
             }
@@ -130,6 +124,13 @@ namespace Sprint.HUD
             som.Add(hudFactory.MakeHUDSprite(spriteLabel, position));
         }
 
+        public HUDAnimSprite MakeSlotItem(string spriteLabel, Vector2 position)
+        {
+            HUDAnimSprite sprite = hudFactory.MakeHUDItem(spriteLabel, position);
+            som.Add(sprite);
+            return sprite;
+        }
+
         public void UpdateGemAmount(int nums)
         {
             String strNum = nums.ToString() + "B";
@@ -138,12 +139,11 @@ namespace Sprint.HUD
             int pos = 1;
             while (pos > -1)
             {
-                GemNumber[pos].SetNumber(arr[pos].ToString());
+                GemNumber[pos].SetSprite(arr[pos].ToString());
                 pos--;
             }
         }
 
-        // TEST EVENT
         public void UpdateKeyAmount(int nums)
         {
             String strNum = nums.ToString() + "B";
@@ -152,7 +152,7 @@ namespace Sprint.HUD
             int pos = 1;
             while (pos > -1)
             {
-                KeyNumber[pos].SetNumber(arr[pos].ToString());
+                KeyNumber[pos].SetSprite(arr[pos].ToString());
                 pos--;
             }
         }
@@ -165,15 +165,34 @@ namespace Sprint.HUD
             int pos = 1;
             while (pos > -1)
             {
-                BombNumber[pos].SetNumber(arr[pos].ToString());
+                BombNumber[pos].SetSprite(arr[pos].ToString());
                 pos--;
             }
         }
 
-        public void UpdateHeartAmount(double newHeartAmount)
+        public void UpdateHeartAmount(double heartLeft)
         {
+            int halfHeartPos = (int)Math.Floor(heartLeft);
 
-            heartLeft = newHeartAmount;
+            double half = heartLeft - Math.Truncate(heartLeft);
+
+            if (half != 0)
+            {
+                LifeForce[halfHeartPos].SetSprite("HalfHeart");
+
+                //Everything after will be empty hearts
+                for (int i = halfHeartPos + 1; i < maxHearts; i++)
+                {
+                    LifeForce[i].SetSprite("EmptyHeart");
+                }
+            }
+            else
+            {
+                for (int i = halfHeartPos; i < maxHearts; i++)
+                {
+                    LifeForce[i].SetSprite("EmptyHeart");
+                }
+            }
         }
 
         public void UpdateMaxHeartAmount(int newHeartAmount)
@@ -181,25 +200,16 @@ namespace Sprint.HUD
             maxHearts = newHeartAmount;
         }
 
-        public void UpdateBWeapon(string newWeapon)
+        public void UpdateBWeapon(string item)
         {
-            bWeapon = newWeapon;
+            bWeapon.SetSprite(item);
         }
 
-        public void UpdateAWeapon(string newWeapon)
+        public void UpdateAWeapon(string item)
         {
-            aWeapon = newWeapon;
+            aWeapon.SetSprite(item);
         }
 
-        public void Update()
-        {
-            //Health
-            MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
-
-            // Weapons
-            MakeHUDSprite(bWeapon, data.BWeapon);
-            MakeHUDSprite(aWeapon, data.AWeapon);
-        }
         //Load Minimap
     }
 }
