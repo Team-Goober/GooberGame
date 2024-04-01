@@ -5,7 +5,7 @@ using Sprint.Collision;
 
 namespace Sprint.Levels
 {
-    internal class WallTile : ITile, ICollidable
+    internal class MoveWallTile : ITile, ICollidable, IMovingCollidable
     {
         ISprite sprite;
         Vector2 position;
@@ -13,9 +13,9 @@ namespace Sprint.Levels
 
         public Rectangle BoundingBox => bounds;
 
-        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.WALL };
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.MOVEWALL };
 
-        public WallTile(ISprite sprite, Vector2 position, Vector2 size)
+        public MoveWallTile(ISprite sprite, Vector2 position, Vector2 size)
         {
             this.sprite = sprite;
             this.position = position;
@@ -35,6 +35,15 @@ namespace Sprint.Levels
         public void Update(GameTime gameTime)
         {
             sprite.Update(gameTime);
+        }
+
+
+        // TEST!! Moves the player by a set distance
+        public void Move(Vector2 distance)
+        {
+            position = position + distance;
+            bounds.X = (int)position.X;
+            bounds.Y = (int)position.Y;
         }
     }
 }
