@@ -38,6 +38,12 @@
 /processorParam:TextureFormat=Color
 /build:dragon.png
 
+#begin Dungeon Song.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Dungeon Song.mp3
+
 #begin enemyAnims.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
@@ -78,6 +84,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:HUD/HUDTop.png
+
+#begin Item Pickup.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Item Pickup.mp3
 
 #begin itemAnims.xml
 /importer:XmlImporter
@@ -272,6 +284,12 @@
 /processor:PassThroughProcessor
 /build:projectileAnims.xml
 
+#begin Run Into Wall.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Run Into Wall.wav
+
 #begin Sprite/ZeldaSpriteLinkLeft.gif
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -283,6 +301,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprite/ZeldaSpriteLinkLeft.gif
+
+#begin Sword Swing.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sword Swing.mp3
 
 #begin tileAnims.xml
 /importer:XmlImporter
@@ -300,6 +324,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tiles.png
+
+#begin Unlock Door.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Unlock Door.wav
 
 #begin zelda_boss.png
 /importer:TextureImporter

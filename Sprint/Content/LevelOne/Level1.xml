@@ -5,6 +5,21 @@
 	<StartLevel>15</StartLevel>
     <SpriteFile>LevelOne/Level1Sprites</SpriteFile>
 	  <HUBFile>HUB/HUBSprites</HUBFile>
+	<Song>Dungeon Song</Song>
+	<Sfxs>
+		  <Item>
+			  <SoundName>Item Pickup</SoundName>
+		  </Item>
+		<Item>
+			<SoundName>Sword Swing</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Unlock Door</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Run Into Wall</SoundName>
+		</Item>
+	</Sfxs>
     <OuterWalls>
 		0 256 480 128
 		0 256 128 320

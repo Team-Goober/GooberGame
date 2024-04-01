@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Input;
@@ -13,7 +14,7 @@ namespace Sprint
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
+        
         private IInputMap inputTable; // Table of commands available no matter what state the game is loaded
 
 
@@ -35,6 +36,7 @@ namespace Sprint
             IsMouseVisible = true;
         }
 
+        public static ContentManager content;
         protected override void Initialize()
         {
             _graphics.PreferredBackBufferWidth = gameWidth;
@@ -43,15 +45,16 @@ namespace Sprint
 
             spriteLoader = new SpriteLoader(Content);
             inputTable = new InputTable();
+            content = Content;
 
             base.Initialize();
         }
 
         protected override void LoadContent()
-        { 
+        {
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
             DungeonState = new DungeonState(this, spriteLoader, Content);
             GameState = DungeonState;
 
