@@ -19,8 +19,10 @@ namespace Sprint.Characters
         public Enemy(ISprite sprite,ISprite damagedSprite, Vector2 position, SceneObjectManager objectManager)
         {
             this.sprite = sprite;
+            this.damagedSprite = damagedSprite;
             physics = new Physics(position);
             this.objectManager = objectManager;
+
         }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
@@ -40,10 +42,24 @@ namespace Sprint.Characters
             physics.SetPosition(physics.Position + distance);
         }
 
+        public void TakeDamage()
+        {
+            damageTimer.Start();
+            this.sprite = damagedSprite;
+        }
+
         public override void Update(GameTime gameTime)
         {
             physics.Update(gameTime);
             sprite.Update(gameTime);
+
+            // damage timer to switch between sprites
+            damageTimer.Update(gameTime);
+            if (damageTimer.JustEnded)
+            {
+                // switch back to default sprite (non-damaged)
+                this.sprite = sprite;
+            }
         }
 
         // Remove enemy from game
