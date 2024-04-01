@@ -29,7 +29,9 @@ namespace Sprint.Collision
 
         SWORD,
 
-        ITEM
+        ITEM,
+        FLYING_ENEMY,
+        PHASING_WALL
 
     }
 }

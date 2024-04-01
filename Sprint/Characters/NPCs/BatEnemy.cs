@@ -9,6 +9,7 @@ using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
+using Sprint.Collision;
 
 namespace Sprint.Characters
 {
@@ -24,6 +25,8 @@ namespace Sprint.Characters
 
         private Timer timeAttack;
 
+        public override CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.FLYING_ENEMY, CollisionTypes.ENEMY, CollisionTypes.CHARACTER };
+
 
         public BatEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
             : base(sprite, initialPosition, objectManager)
@@ -38,7 +41,7 @@ namespace Sprint.Characters
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
 
             projectileCommand = new ShootArrowCommand(itemFactory);
-
+       
 
             // Initialize the move direction randomly
             RandomizeMoveDirection();
