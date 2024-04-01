@@ -56,6 +56,42 @@
 			</Value>
 		</Item>
 		
+    <!-- Inventory Screen -->
+    <Item>
+			<Key>Inventory</Key>
+			<Value>
+				<Texture>HUD/HUD</Texture>
+				<Animations>
+					<Item>
+						<Key>default</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>1 11 256 88</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>default</InitialAnimation>
+			</Value>
+		</Item>
+    <Item>
+      <Key>DungeonMap</Key>
+      <Value>
+        <Texture>HUD/HUD</Texture>
+        <Animations>
+          <Item>
+            <Key>default</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>258 112 256 88</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>default</InitialAnimation>
+      </Value>
+    </Item>
+    
 		<!-- Numbers -->
 		
 		<Item>

@@ -26,17 +26,9 @@ namespace Sprint.GameStates
 
         private Vector2 hudPosition;
 
-        public InventoryState(Goober game, SpriteLoader spriteLoader)
+        public InventoryState(Goober game)
         {
             this.game = game;
-
-            HUDFactory factory = new HUDFactory(spriteLoader);
-
-            inventoryUI = new SceneObjectManager();
-            foreach (IGameObject num in factory.MakeNumber("25", new Vector2(300, 300), 4))
-                inventoryUI.Add(num);
-
-            inventoryUI.EndCycle();
         }
 
         public List<SceneObjectManager> AllObjectManagers()
@@ -94,10 +86,11 @@ namespace Sprint.GameStates
 
 
 
-        public void SetHUD(SceneObjectManager hud, Vector2 pos)
+        public void SetHUD(HUDLoader hudLoader, Vector2 pos)
         {
-            this.hud = hud;
             hudPosition = pos;
+            hud = hudLoader.GetTopDisplay();
+            inventoryUI = hudLoader.GetInventoryScreen();
         }
 
         public SceneObjectManager GetScene()

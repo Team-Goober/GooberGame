@@ -5,7 +5,7 @@ using System;
 
 namespace Sprint.HUD
 {
-    internal class HUDMap : IHUD
+    internal class HUDMiniMap : IHUD
     {
 
         private Vector2 position;
@@ -13,7 +13,7 @@ namespace Sprint.HUD
         private Vector2 roomRects;
         private int padding;
 
-        public HUDMap(MapModel model, Vector2 position, Vector2 roomSize, int padding)
+        public HUDMiniMap(MapModel model, Vector2 position, Vector2 roomSize, int padding)
         {
             this.position = position;
             this.model = model;

@@ -73,7 +73,7 @@ namespace Sprint
             //Load the hud
             hudLoader = new HUDLoader(contentManager, spriteLoader);
             hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
-            hud = hudLoader.GetScenes();
+            hud = hudLoader.GetTopDisplay();
 
             loadDelegates();
 
@@ -91,7 +91,7 @@ namespace Sprint
         // Generates all commands available while the player is moving in a room
         public void MakeCommands()
         {
-            ((InventoryState)game.InventoryState).SetHUD(hud, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
+            ((InventoryState)game.InventoryState).SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
 
             inputTable = new InputTable();
 
