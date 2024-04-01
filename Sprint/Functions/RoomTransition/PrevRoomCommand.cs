@@ -16,7 +16,7 @@ namespace Sprint.Functions.RoomTransition
 
         public void Execute()
         {
-            receiver.SwitchRoom(new Vector2(512, 350), (receiver.RoomIndex() - 1 + receiver.NumRooms()) % receiver.NumRooms());
+            receiver.SwitchToPrevious();
         }
 
     }

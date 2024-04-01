@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using System.Xml.Linq;
 using Microsoft.Xna.Framework;
-using Sprint.Characters;
-using Sprint.Factory.Door;
 using Sprint.Functions;
 using Sprint.Functions.Collision;
 using Sprint.Functions.RoomTransition;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
-using Sprint.Levels;
-using Sprint.Projectile;
 
 
 namespace Sprint.Collision
