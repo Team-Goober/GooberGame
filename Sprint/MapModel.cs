@@ -19,12 +19,10 @@ namespace Sprint
         private bool allShown; // true if map was acquired and everything should be visible. hidden doors and rooms aren't revealed
 
         private DungeonState dungeon;
-        private IDoor[,,] doorReference; // reference for doors per room side. first dimension is Up/Right/Down/Left, and other two represent room matrix 
 
-        public MapModel(DungeonState dungeon, IDoor[,,] doorReference) {
+        public MapModel(DungeonState dungeon) {
 
             this.dungeon = dungeon;
-            this.doorReference = doorReference;
 
             rooms = new bool[dungeon.RoomRows(), dungeon.RoomColumns()];
             horizDoors = new bool[dungeon.RoomRows(), dungeon.RoomColumns()+1];
@@ -103,6 +101,8 @@ namespace Sprint
 
             rooms[r, c] = true;
 
+            IDoor[,,] doorReference = dungeon.GetDoors();
+
             // Don't add doors if no door room
             if (doorReference[0, r, c] != null)
             {
@@ -130,13 +130,6 @@ namespace Sprint
             }
         }
 
-        /*
-         *         private bool[,] rooms; // 2D array of rooms. boolean value represents visibility
-        private bool[,] horizDoors; // 2D array of doors facing left and right. boolean value represents visibility
-        private bool[,] vertDoors; // 2D array of doors facing up and down. boolean value represents visibility
-        private Point playerPos; // indices of player in the rooms matrix
-        private Point compassPos; // indices of the compass pointer. if negative, don't show
-        private bool allShown; // true if map was acquired and everything should be visible. hidden doors and rooms aren't revealed */
 
         public bool[,] GetRooms()
         {

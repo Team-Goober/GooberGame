@@ -5,6 +5,7 @@ using Sprint.Door;
 using Sprint.Functions.RoomTransition;
 using Sprint.Input;
 using Sprint.Interfaces;
+using Sprint.Items;
 using Sprint.Levels;
 using Sprint.Sprite;
 using XMLData;
@@ -16,7 +17,6 @@ namespace Sprint.Loader
         private ContentManager content;
         private DungeonState dungeon;
         private SpriteLoader spriteLoader;
-        private IInputMap inputTable;
 
         private TileFactory tileFactory;
         private DoorFactory doorFactory;
@@ -29,12 +29,11 @@ namespace Sprint.Loader
 
         private int levelNumber;
 
-        public LevelLoader(ContentManager newContent, DungeonState dungeon, SpriteLoader spriteLoader, IInputMap inputTable)
+        public LevelLoader(ContentManager newContent, DungeonState dungeon, SpriteLoader spriteLoader)
         {
             this.content = newContent;
             this.dungeon = dungeon;
             this.spriteLoader = spriteLoader;
-            this.inputTable = inputTable;
 
             tileFactory = new(spriteLoader);
             doorFactory = new(spriteLoader);
@@ -106,7 +105,7 @@ namespace Sprint.Loader
             }
 
             // Make a command that checks all doors at its position for switching rooms when middle clicked
-            for (int i=0; i<4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 IDoor[,] slice = new IDoor[data.LayoutColumns, data.LayoutRows];
                 for (int r = 0; r < data.LayoutRows; r++)
@@ -119,17 +118,13 @@ namespace Sprint.Loader
                         }
                     }
                 }
-                inputTable.RegisterMapping(new ClickInBoundsTrigger(ClickInBoundsTrigger.MouseButton.Middle, doorBounds[i]),
-                    new SwitchRoomFromDoorsCommand(slice, dungeon));
             }
 
-
-            MapModel map = new MapModel(dungeon, doorsPerSide);
-            dungeon.CreateMap(map);
+            dungeon.SetDoors(doorsPerSide, doorBounds);
 
             dungeon.SetCompassPointer(data.CompassPoint);
 
-            dungeon.SwitchRoom(data.BottomSpawnPos, data.StartLevel, Directions.STILL);
+            dungeon.SetStart(data.BottomSpawnPos, data.StartLevel);
 
         }
 

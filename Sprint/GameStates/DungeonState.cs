@@ -14,11 +14,10 @@ using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Items;
 using Sprint.Levels;
+using Sprint.Loader;
 using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
 namespace Sprint
 {
@@ -39,9 +38,14 @@ namespace Sprint
         private SceneObjectManager[][] rooms; // Object managers for each room. Accessed by index
         private List<Point> hiddenRooms; // Room indices not visible on map
         private Point currentRoom; // Index of currently updated room
+        private Vector2 roomStartPosition; // Location in room to begin at when not going through door
+        private Point firstRoom; // Room to start the level in
+
         private SceneObjectManager hud; // Object manager for HUD that should persist between rooms
         private Player player; // Player game object to be moved as rooms switch
 
+        private IDoor[,,] doorReference;
+        private Rectangle[] doorBounds;
         private MapModel map; // Tracks revealing of rooms for UI
         private Point compassPointer; // Room indices for triforce location
         HUDLoader hudLoader;
@@ -61,8 +65,10 @@ namespace Sprint
             hiddenRooms = new List<Point>();
 
             // Load all rooms in the level from XML file
-            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, inputTable);
+            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader);
             loader.LoadLevelXML("LevelOne/Level1");
+
+            map = new MapModel(this);
 
             //Load the hud
             hudLoader = new HUDLoader(contentManager, spriteLoader);
@@ -70,6 +76,9 @@ namespace Sprint
             hud = hudLoader.GetScenes();
 
             loadDelegates();
+
+            // enter first room
+            SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
         }
 
         private void loadDelegates ()
@@ -142,7 +151,22 @@ namespace Sprint
             // Switching to the inventory state
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new ScrollStatesCommand(game, this, game.InventoryState, Directions.UP));
 
-        }
+            // Middle click through doors
+            for (int i = 0; i < doorReference.GetLength(0); i++)
+            {
+                IDoor[,] slice = new IDoor[doorReference.GetLength(1), doorReference.GetLength(2)];
+                for (int r = 0; r < doorReference.GetLength(1); r++)
+                {
+                    for (int c = 0; c < doorReference.GetLength(2); c++)
+                    {
+                        slice[r, c] = doorReference[i, r, c];
+                    }
+                }
+                inputTable.RegisterMapping(new ClickInBoundsTrigger(ClickInBoundsTrigger.MouseButton.Middle, doorBounds[i]),
+                    new SwitchRoomFromDoorsCommand(slice, this));
+            }
+
+            }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -191,13 +215,10 @@ namespace Sprint
             // Update HUD
             foreach (IGameObject obj in hud.GetObjects())
                 obj.Update(gameTime);
-
-            hudLoader.Update();
-            hud = hudLoader.GetScenes();
+            hud.EndCycle();
 
             // Complete additions and deletions
             currRoom.EndCycle();
-            hud.EndCycle();
 
             // Test for collisions in room
             collisionDetector.Update(gameTime, currRoom.GetMovers(), currRoom.GetStatics());
@@ -209,7 +230,8 @@ namespace Sprint
         public void PassToState(IGameState newState)
         {
             game.GameState = newState;
-            inputTable.Sleep();
+            if (inputTable != null)
+                inputTable.Sleep();
         }
 
         //checks if the user requested a reset for game
@@ -233,9 +255,13 @@ namespace Sprint
             // new player
             player = new Player(spriteLoader, this);
 
+            hiddenRooms = new List<Point>();
+
             // reload the level
-            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, inputTable);
+            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader);
             loader.LoadLevelXML("LevelOne/Level1");
+
+            map = new MapModel(this);
 
             //reload the hud
             hudLoader = new HUDLoader(contentManager, spriteLoader);
@@ -246,6 +272,9 @@ namespace Sprint
 
             // remake commands
             MakeCommands();
+
+            // enter first room
+            SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
         }
 
         public void AddRoom(Point loc, SceneObjectManager room, bool hidden = false)
@@ -293,7 +322,7 @@ namespace Sprint
                     target = new Point(0, (target.Y + 1) % rooms.Length);
                 }
             }
-            SwitchRoom(new Vector2(512, 572), target, Directions.STILL);
+            SwitchRoom(roomStartPosition, target, Directions.STILL);
         }
 
         // Finds the next room to the left or up
@@ -310,7 +339,7 @@ namespace Sprint
                     target = new Point(rooms[0].Length - 1, (target.Y - 1 + rooms.Length) % rooms.Length);
                 }
             }
-            SwitchRoom(new Vector2(512, 572), target, Directions.STILL);
+            SwitchRoom(roomStartPosition, target, Directions.STILL);
         }
 
         public Point RoomIndex()
@@ -352,9 +381,14 @@ namespace Sprint
             arenaPosition = pos;
         }
 
-        public void CreateMap(MapModel newMap)
+        public void SetDoors(IDoor[,,] doors, Rectangle[] bounds)
         {
-            map = newMap;
+            doorReference = doors;
+            doorBounds = bounds;
+        }
+        public IDoor[,,] GetDoors()
+        {
+            return doorReference;
         }
 
         public MapModel GetMap()
@@ -365,6 +399,12 @@ namespace Sprint
         public void SetCompassPointer(Point room)
         {
             compassPointer = room;
+        }
+
+        public void SetStart(Vector2 posInRoom, Point firstRoom)
+        {
+            this.firstRoom = firstRoom;
+            this.roomStartPosition = posInRoom;
         }
 
         public Point GetCompassPointer()
