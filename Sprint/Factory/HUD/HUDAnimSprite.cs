@@ -1,23 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprint.Characters;
 using Sprint.Interfaces;
 using System;
 
 namespace Sprint.Loader
 {
-    internal class HUDNumber : IHUD
+    internal class HUDAnimSprite : IHUD
     {
         private ISprite sprite;
         private Vector2 position;
 
-        public HUDNumber(ISprite sprite, Vector2 position)
+        public HUDAnimSprite(ISprite sprite, Vector2 position)
         {
             this.sprite = sprite;
             this.position = position;
         }
 
-        public void SetNumber(string number)
+        public void SetSprite(string number)
         {
             sprite.SetAnimation(number);
         }

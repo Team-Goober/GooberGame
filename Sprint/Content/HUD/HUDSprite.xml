@@ -146,8 +146,10 @@
 			</Value>
 		</Item>
 	
+		<!-- Hearts -->
+		
 		<Item>
-			<Key>EmptyHeart</Key>
+			<Key>Heart</Key>
 			<Value>
 				<Texture>HUD/NumAndHeart</Texture>
 				<Animations>
@@ -158,16 +160,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>EmptyHeart</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>HalfHeart</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>HalfHeart</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -175,16 +167,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>HalfHeart</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>FullHeart</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>FullHeart</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -192,11 +174,19 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
+					<Item>
+						<Key>B</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>135 0 8 8</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>FullHeart</InitialAnimation>
+				<InitialAnimation>B</InitialAnimation>
 			</Value>
 		</Item>
+		
 		
 		<!-- Weapons And Items -->
 

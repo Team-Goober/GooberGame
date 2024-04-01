@@ -26,32 +26,33 @@ namespace Sprint.Factory.HUD
             return new HUDSprite(sprite, position);
         }
 
-        public List<HUDNumber> MakeNumber(string level, Vector2 position, int spriteSize)
+        public List<HUDAnimSprite> MakeNumber(string level, Vector2 position, int spriteSize)
         {
-            List<HUDNumber> nums = new List<HUDNumber>();
+            List<HUDAnimSprite> nums = new List<HUDAnimSprite>();
             float x = position.X;
             for(int i = 0; i < 2; i++)
             {
                 ISprite sprite = spriteLoader.BuildSprite(LOCATION, "Numbers");
-                nums.Add(new HUDNumber(sprite, new Vector2(x, position.Y)));
+                nums.Add(new HUDAnimSprite(sprite, new Vector2(x, position.Y)));
                 x += spriteSize;
             }
             char[] arr = level.ToCharArray();
-            nums[0].SetNumber(arr[0].ToString());
-            nums[1].SetNumber(arr[1].ToString());
+            nums[0].SetSprite(arr[0].ToString());
+            nums[1].SetSprite(arr[1].ToString());
 
             return nums; 
         }
 
-        public List<IHUD> MakeHearts(int amount, string spriteLabel, Vector2 position, int spriteSize)
+        // The game has a max of 16 hearts. For now only 8 will do.
+        public List<HUDAnimSprite> MakeHearts(int amount, string spriteLabel, Vector2 position, int spriteSize)
         {
-            List<IHUD> hearts = new List<IHUD>();
+            List<HUDAnimSprite> hearts = new List<HUDAnimSprite>();
 
             float x = position.X;
-            for (int i = 0; i < amount; i++)
+            for (int i = 0; i < 8; i++)
             {
                 ISprite sprite = spriteLoader.BuildSprite(LOCATION, spriteLabel);
-                hearts.Add(new HUDSprite(sprite, new Vector2(x, position.Y)));
+                hearts.Add(new HUDAnimSprite(sprite, new Vector2(x, position.Y)));
                 x += spriteSize;
             }
 
