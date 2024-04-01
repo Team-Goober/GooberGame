@@ -17,7 +17,8 @@ namespace Sprint.HUD
     {
         private ContentManager content;
         private HUDFactory hudFactory;
-        private SceneObjectManager som;
+        private SceneObjectManager topDisplay;
+        private SceneObjectManager inventoryScreen;
 
         private List<HUDAnimSprite> GemNumber;
         private List<HUDAnimSprite> KeyNumber;
@@ -35,7 +36,8 @@ namespace Sprint.HUD
         public HUDLoader(ContentManager newContent, SpriteLoader spriteLoader)
         {
             content = newContent;
-            som = new SceneObjectManager();
+            topDisplay = new SceneObjectManager();
+            inventoryScreen = new SceneObjectManager();
 
             hudFactory = new(spriteLoader);
 
@@ -48,35 +50,53 @@ namespace Sprint.HUD
             data = content.Load<HUDData>(path);
 
             //Frame
-            MakeHUDSprite("HUDFrame", data.HUDFrame);
-            MakeHUDSprite("LevelFrame", data.LevelFrame);
+            topDisplay.Add(MakeHUDSprite("HUDFrame", data.HUDFrame));
+            topDisplay.Add(MakeHUDSprite("LevelFrame", data.LevelFrame));
 
             //Numbers
-            MakeLevelNumber(levelNum.ToString(), data.LevelNumPos, data.NumSpriteSize);
+            List<HUDAnimSprite> nums = MakeLevelNumber(levelNum.ToString(), data.LevelNumPos, data.NumSpriteSize);
             GemNumber = MakeNumber("0B", data.GemNumPos, data.NumSpriteSize);
             KeyNumber = MakeNumber("0B", data.KeyNumPos, data.NumSpriteSize);
             BombNumber = MakeNumber("0B", data.BombNumPos, data.NumSpriteSize);
+            nums.AddRange(GemNumber);
+            nums.AddRange(KeyNumber);
+            nums.AddRange(BombNumber);
+            foreach (HUDAnimSprite sprite in nums)
+            {
+                topDisplay.Add(sprite);
+            }
 
             //Health
-            MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
+            List<HUDAnimSprite> hearts = MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
+            foreach (HUDAnimSprite sprite in hearts)
+            {
+                topDisplay.Add(sprite);
+            }
 
             // Weapons
             bWeapon = MakeSlotItem("Item", data.BWeapon);
             aWeapon = MakeSlotItem("Item", data.AWeapon);
+            topDisplay.Add(bWeapon);
+            topDisplay.Add(aWeapon);
 
             //Remove below or change later
             UpdateBWeapon("Sword");
             UpdateAWeapon("Bow");
 
-            MakeMinimap(map, data.MinimapPos, data.MinimapRoomSize, data.MinimapPadding);
+            // Minimap
+            topDisplay.Add(MakeMinimap(map, data.MinimapPos, data.MinimapRoomSize, data.MinimapPadding));
         }
 
-        public SceneObjectManager GetScenes()
+        public SceneObjectManager GetTopDisplay()
         {
-            return som;
+            return topDisplay;
+        }
+        public SceneObjectManager GetInventoryScreen()
+        {
+            return inventoryScreen;
         }
 
-        public void MakeLifeHeart(Vector2 position, int spriteSize)
+        public List<HUDAnimSprite> MakeLifeHeart(Vector2 position, int spriteSize)
         {
             // Make the hearts
             LifeForce = hudFactory.MakeHearts(maxHearts, "Heart", position, spriteSize);
@@ -87,47 +107,36 @@ namespace Sprint.HUD
                 LifeForce[i].SetSprite("FullHeart");
             }
 
-            foreach(HUDAnimSprite h in LifeForce)
-            {
-                som.Add(h);
-            }
+            return LifeForce;
         }
 
-        public void MakeLevelNumber(string level, Vector2 position, int spriteSize)
+        public List<HUDAnimSprite> MakeLevelNumber(string level, Vector2 position, int spriteSize)
         {
             List<HUDAnimSprite> levelNum = hudFactory.MakeNumber(level + "B", position, spriteSize);
-            foreach(HUDAnimSprite h in levelNum)
-            {
-                som.Add(h);
-            }
+            return levelNum;
         }
 
         public List<HUDAnimSprite> MakeNumber(string num, Vector2 position, int spriteSize)
         {
-            som.Add(hudFactory.MakeHUDSprite("X", position));
+            //som.Add(hudFactory.MakeHUDSprite("X", position));
             List<HUDAnimSprite> levelNum = hudFactory.MakeNumber(num, new Vector2(position.X + spriteSize, position.Y), spriteSize);
 
-            foreach (HUDAnimSprite h in levelNum)
-            {
-                som.Add(h);
-            }
             return levelNum;
         }
 
-        public void MakeMinimap(MapModel map, Vector2 position, Vector2 roomSize, int padding)
+        public IHUD MakeMinimap(MapModel map, Vector2 position, Vector2 roomSize, int padding)
         {
-            som.Add(new HUDMap(map, position, roomSize, padding));
+            return new HUDMiniMap(map, position, roomSize, padding);
         }
 
-        public void MakeHUDSprite(string spriteLabel, Vector2 position)
+        public IHUD MakeHUDSprite(string spriteLabel, Vector2 position)
         {
-            som.Add(hudFactory.MakeHUDSprite(spriteLabel, position));
+            return hudFactory.MakeHUDSprite(spriteLabel, position);
         }
 
         public HUDAnimSprite MakeSlotItem(string spriteLabel, Vector2 position)
         {
             HUDAnimSprite sprite = hudFactory.MakeHUDItem(spriteLabel, position);
-            som.Add(sprite);
             return sprite;
         }
 

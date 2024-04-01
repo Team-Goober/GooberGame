@@ -269,7 +269,7 @@ namespace Sprint
             //reload the hud
             hudLoader = new HUDLoader(contentManager, spriteLoader);
             hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
-            hud = hudLoader.GetScenes();
+            hud = hudLoader.GetTopDisplay();
 
             loadDelegates();
 
