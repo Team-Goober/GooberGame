@@ -7,11 +7,11 @@ using static Sprint.Characters.Character;
 
 namespace Sprint.Functions.Collision
 {
-	internal class EnemyProjectile : ICommand
+	internal class EnemyDamaged : ICommand
 	{
 		private Enemy enemy;
 
-		public EnemyProjectile(ICollidable enemy, Vector2 uselessValue)
+		public EnemyDamaged(ICollidable enemy, Vector2 uselessValue)
 		{
 			this.enemy = (Enemy)enemy;
 		}
