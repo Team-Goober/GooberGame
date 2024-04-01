@@ -24,8 +24,6 @@ namespace Sprint.Loader
         private List<HUDNumber> KeyNumber;
         private List<HUDNumber> BombNumber;
 
-        private string keyAmount;
-        private string bombAmount;
         private int maxHearts;
         private double heartLeft;
 
@@ -189,9 +187,6 @@ namespace Sprint.Loader
 
         public void Update()
         {
-            //MakeNumber("0B", data.KeyNumPos, data.NumSpriteSize);
-            //MakeNumber("0B", data.BombNumPos, data.NumSpriteSize);
-
             //Health
             MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
 
