@@ -1086,7 +1086,6 @@
 		</Item>
 
 		<!--Row 6 Col 3 Room Index 15 Starting Room-->
-		<!--Blue Statues?? Missing Floor Tiles??-->
 		<Item>
 			<NeedWall>true</NeedWall>
 			<TopExit>

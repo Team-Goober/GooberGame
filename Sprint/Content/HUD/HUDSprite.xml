@@ -55,8 +55,11 @@
 				<InitialAnimation>X</InitialAnimation>
 			</Value>
 		</Item>
+		
+		<!-- Numbers -->
+		
 		<Item>
-			<Key>0</Key>
+			<Key>Numbers</Key>
 			<Value>
 				<Texture>HUD/NumAndHeart</Texture>
 				<Animations>
@@ -67,16 +70,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>0</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>1</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>1</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -84,16 +77,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>1</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>2</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>2</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -101,16 +84,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>2</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>3</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>3</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -118,16 +91,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>3</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>4</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>4</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -135,16 +98,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>4</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>5</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>5</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -152,16 +105,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>5</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>6</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>6</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -169,16 +112,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>6</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>7</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>7</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -186,16 +119,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>7</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>8</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>8</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -203,16 +126,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>8</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>9</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>9</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -220,11 +133,19 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
+					<Item>
+						<Key>B</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>135 0 8 8</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>9</InitialAnimation>
+				<InitialAnimation>0</InitialAnimation>
 			</Value>
 		</Item>
+	
 		<Item>
 			<Key>EmptyHeart</Key>
 			<Value>

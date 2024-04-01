@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
+using Sprint.Loader;
 using Sprint.Sprite;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -25,17 +26,19 @@ namespace Sprint.Factory.HUD
             return new HUDSprite(sprite, position);
         }
 
-        public List<IHUD> MakeNumber(string level, Vector2 position, int spriteSize)
+        public List<HUDNumber> MakeNumber(string level, Vector2 position, int spriteSize)
         {
-            List<IHUD> nums = new List<IHUD>();
-            char[] charArr = level.ToCharArray();
+            List<HUDNumber> nums = new List<HUDNumber>();
             float x = position.X;
-            for(int i = 0; i < charArr.Length; i++)
+            for(int i = 0; i < 2; i++)
             {
-                ISprite sprite = spriteLoader.BuildSprite(LOCATION, charArr[i].ToString());
-                nums.Add(new HUDSprite(sprite, new Vector2(x, position.Y)));
+                ISprite sprite = spriteLoader.BuildSprite(LOCATION, "Numbers");
+                nums.Add(new HUDNumber(sprite, new Vector2(x, position.Y)));
                 x += spriteSize;
             }
+            char[] arr = level.ToCharArray();
+            nums[0].SetNumber(arr[0].ToString());
+            nums[1].SetNumber(arr[1].ToString());
 
             return nums; 
         }

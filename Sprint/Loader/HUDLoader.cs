@@ -20,7 +20,10 @@ namespace Sprint.Loader
         private HUDFactory hudFactory;
         private SceneObjectManager som;
 
-        private string gemAmount;
+        private List<HUDNumber> GemNumber;
+        private List<HUDNumber> KeyNumber;
+        private List<HUDNumber> BombNumber;
+
         private string keyAmount;
         private string bombAmount;
         private int maxHearts;
@@ -39,9 +42,6 @@ namespace Sprint.Loader
             this.hudFactory = new(spriteLoader);
 
             //Default Item Amount
-            UpdateGemAmount(0);
-            UpdateKeyAmount(0);
-            UpdateBombAmount(0);
             UpdateHeartAmount(2.5);
             UpdateMaxHeartAmount(3);
 
@@ -59,9 +59,9 @@ namespace Sprint.Loader
 
             //Numbers
             MakeLevelNumber(levelNum.ToString(), data.LevelNumPos, data.NumSpriteSize);
-            MakeNumber(gemAmount, data.GemNumPos, data.NumSpriteSize);
-            MakeNumber(keyAmount, data.KeyNumPos, data.NumSpriteSize);
-            MakeNumber(bombAmount, data.BombNumPos, data.NumSpriteSize);
+            GemNumber = MakeNumber("0B", data.GemNumPos, data.NumSpriteSize);
+            KeyNumber = MakeNumber("0B", data.KeyNumPos, data.NumSpriteSize);
+            BombNumber = MakeNumber("0B", data.BombNumPos, data.NumSpriteSize);
 
             //Health
             MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
@@ -101,29 +101,24 @@ namespace Sprint.Loader
 
         public void MakeLevelNumber(string level, Vector2 position, int spriteSize)
         {
-            List<IHUD> levelNum = hudFactory.MakeNumber(level, position, spriteSize);
-            foreach(IHUD h in levelNum)
+            List<HUDNumber> levelNum = hudFactory.MakeNumber(level + "B", position, spriteSize);
+            foreach(HUDNumber h in levelNum)
             {
                 som.Add(h);
             }
         }
 
-        public void MakeNumber(string num, Vector2 position, int spriteSize)
+        public List<HUDNumber> MakeNumber(string num, Vector2 position, int spriteSize)
         {
-
             som.Add(hudFactory.MakeHUDSprite("X", position));
-            List<IHUD> levelNum = hudFactory.MakeNumber(num, new Vector2(position.X + spriteSize, position.Y), spriteSize);
-            foreach (IHUD h in levelNum)
+            List<HUDNumber> levelNum = hudFactory.MakeNumber(num, new Vector2(position.X + spriteSize, position.Y), spriteSize);
+
+            foreach (HUDNumber h in levelNum)
             {
                 som.Add(h);
             }
-        }
 
-        // TEST EVENT
-        public void UpdateKeyAmount(int num)
-        {
-            Debug.WriteLine("Here: " + num);
-            keyAmount = num.ToString();
+            return levelNum;
         }
 
         public void MakeHUDSprite(string spriteLabel, Vector2 position)
@@ -131,14 +126,44 @@ namespace Sprint.Loader
             som.Add(hudFactory.MakeHUDSprite(spriteLabel, position));
         }
 
-        public void UpdateGemAmount(int newGemAmount)
+        public void UpdateGemAmount(int nums)
         {
-            gemAmount = newGemAmount.ToString();
+            String strNum = nums.ToString() + "B";
+            char[] arr = strNum.ToCharArray();
+
+            int pos = 1;
+            while (pos > -1)
+            {
+                GemNumber[pos].SetNumber(arr[pos].ToString());
+                pos--;
+            }
         }
 
-        public void UpdateBombAmount(int newBombAmount)
+        // TEST EVENT
+        public void UpdateKeyAmount(int nums)
         {
-            bombAmount = newBombAmount.ToString();
+            String strNum = nums.ToString() + "B";
+            char[] arr = strNum.ToCharArray();
+
+            int pos = 1;
+            while (pos > -1)
+            {
+                KeyNumber[pos].SetNumber(arr[pos].ToString());
+                pos--;
+            }
+        }
+
+        public void UpdateBombAmount(int nums)
+        {
+            String strNum = nums.ToString() + "B";
+            char[] arr = strNum.ToCharArray();
+
+            int pos = 1;
+            while (pos > -1)
+            {
+                BombNumber[pos].SetNumber(arr[pos].ToString());
+                pos--;
+            }
         }
 
         public void UpdateHeartAmount(double newHeartAmount)
@@ -164,9 +189,8 @@ namespace Sprint.Loader
 
         public void Update()
         {
-            MakeNumber(gemAmount, data.GemNumPos, data.NumSpriteSize);
-            MakeNumber(keyAmount, data.KeyNumPos, data.NumSpriteSize);
-            MakeNumber(bombAmount, data.BombNumPos, data.NumSpriteSize);
+            //MakeNumber("0B", data.KeyNumPos, data.NumSpriteSize);
+            //MakeNumber("0B", data.BombNumPos, data.NumSpriteSize);
 
             //Health
             MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);

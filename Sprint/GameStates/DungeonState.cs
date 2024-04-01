@@ -58,8 +58,14 @@ namespace Sprint
             hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel());
             hud = hudLoader.GetScenes();
 
-            //Event Test
-            player.handler += hudLoader.UpdateKeyAmount;
+            loadDelegates();
+        }
+
+        private void loadDelegates ()
+        {
+            Inventory.keyHandler += hudLoader.UpdateKeyAmount;
+            Inventory.gemHandler += hudLoader.UpdateGemAmount;
+            Inventory.bombHandler += hudLoader.UpdateBombAmount;
         }
 
         // Generates all commands available while the player is moving in a room
@@ -199,7 +205,7 @@ namespace Sprint
             hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel());
             hud = hudLoader.GetScenes();
 
-            player.handler += hudLoader.UpdateKeyAmount;
+            loadDelegates();
 
             // remake commands
             makeCommands();
