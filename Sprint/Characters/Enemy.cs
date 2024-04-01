@@ -10,8 +10,11 @@ namespace Sprint.Characters
     public class Enemy : Character, IMovingCollidable
     {
         protected ISprite sprite;
+        protected ISprite damagedSprite;
         protected Physics physics;
         SceneObjectManager objectManager;
+        private float timer = 0;
+        private Timer damageTimer;
 
         public Enemy(ISprite sprite,ISprite damagedSprite, Vector2 position, SceneObjectManager objectManager)
         {
