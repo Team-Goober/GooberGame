@@ -155,8 +155,6 @@ namespace Sprint
             foreach (IGameObject obj in hud.GetObjects())
                 obj.Update(gameTime);
 
-            hudLoader.Update();
-            hud = hudLoader.GetScenes();
 
             // Complete additions and deletions
             currRoom.EndCycle();

@@ -28,8 +28,8 @@ namespace Sprint.Loader
 
         private int maxHearts;
 
-        private string bWeapon;
-        private string aWeapon;
+        private HUDAnimSprite bWeapon;
+        private HUDAnimSprite aWeapon;
 
         HUDData data;
 
@@ -40,11 +40,8 @@ namespace Sprint.Loader
 
             this.hudFactory = new(spriteLoader);
 
-            //Default Item Amount
+            //Default Heart Amount
             UpdateMaxHeartAmount(3);
-
-            UpdateBWeapon("Boomerang");
-            UpdateAWeapon("Sword");
         }
 
         public void LoadHUD(string path, int levelNum)
@@ -65,8 +62,12 @@ namespace Sprint.Loader
             MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
 
             // Weapons
-            MakeHUDSprite(bWeapon, data.BWeapon);
-            MakeHUDSprite(aWeapon, data.AWeapon);
+            bWeapon = MakeSlotItem("Item", data.BWeapon);
+            aWeapon = MakeSlotItem("Item", data.AWeapon);
+
+            //Remove below or change later
+            UpdateBWeapon("Sword");
+            UpdateAWeapon("Bow");
         }
 
         public SceneObjectManager GetScenes()
@@ -116,6 +117,13 @@ namespace Sprint.Loader
         public void MakeHUDSprite(string spriteLabel, Vector2 position)
         {
             som.Add(hudFactory.MakeHUDSprite(spriteLabel, position));
+        }
+
+        public HUDAnimSprite MakeSlotItem(string spriteLabel, Vector2 position)
+        {
+            HUDAnimSprite sprite = hudFactory.MakeHUDItem(spriteLabel, position);
+            som.Add(sprite);
+            return sprite;
         }
 
         public void UpdateGemAmount(int nums)
@@ -187,22 +195,16 @@ namespace Sprint.Loader
             maxHearts = newHeartAmount;
         }
 
-        public void UpdateBWeapon(string newWeapon)
+        public void UpdateBWeapon(string item)
         {
-            bWeapon = newWeapon;
+            bWeapon.SetSprite(item);
         }
 
-        public void UpdateAWeapon(string newWeapon)
+        public void UpdateAWeapon(string item)
         {
-            aWeapon = newWeapon;
+            aWeapon.SetSprite(item);
         }
 
-        public void Update()
-        {
-            // Weapons
-            MakeHUDSprite(bWeapon, data.BWeapon);
-            MakeHUDSprite(aWeapon, data.AWeapon);
-        }
         //Load Minimap
     }
 }

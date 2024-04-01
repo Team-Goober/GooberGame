@@ -26,6 +26,13 @@ namespace Sprint.Factory.HUD
             return new HUDSprite(sprite, position);
         }
 
+        public HUDAnimSprite MakeHUDItem(string spriteLabel, Vector2 position)
+        {
+            ISprite sprite = spriteLoader.BuildSprite(LOCATION, spriteLabel);
+
+            return new HUDAnimSprite(sprite, position);
+        }
+
         public List<HUDAnimSprite> MakeNumber(string level, Vector2 position, int spriteSize)
         {
             List<HUDAnimSprite> nums = new List<HUDAnimSprite>();
