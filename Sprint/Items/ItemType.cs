@@ -30,5 +30,7 @@ public enum ItemType
     Paper,
     Compass,
     FireBall,
-    OldmManText
+    OldmManText,
+    Gem,
+    Bomb
 }

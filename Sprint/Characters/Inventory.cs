@@ -42,8 +42,29 @@ internal class Inventory
             { ItemType.Cake, 0 },
             { ItemType.Key, 0 },
             { ItemType.Compass, 0 },
-            { ItemType.Paper, 0}
+            { ItemType.Paper, 0},
+            { ItemType.Gem, 0 },
+            { ItemType.Bomb, 0 }
         };
+    }
+
+    public static HUDHandler keyHandler = HUDUpdate.UpdateKey;
+    public static HUDHandler gemHandler = HUDUpdate.UpdateGem;
+    public static HUDHandler bombHandler = HUDUpdate.UpdateBomb;
+
+    protected virtual void OnKeyPickedUp(int num)
+    {
+        keyHandler(num);
+    }
+
+    protected virtual void OnGemPickedUp(int num)
+    {
+        gemHandler(num);
+    }
+
+    protected virtual void OnBombPickedUp(int num)
+    {
+        bombHandler(num);
     }
 
     /// <summary>
@@ -66,7 +87,16 @@ internal class Inventory
             default:
                 break;
         }
-
+        
+        if (item == ItemType.Key)
+        {
+            OnKeyPickedUp(itemDictionary[item]);
+        } else if (item == ItemType.Gem) {
+            OnGemPickedUp(itemDictionary[item]);
+        } else if (item == ItemType.Bomb)
+        {
+            OnBombPickedUp(itemDictionary[item]);
+        }
     }
 
     /// <summary>

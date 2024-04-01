@@ -10,17 +10,22 @@ namespace Sprint.HUD
     {
 
         static int keyAmount = 0;
+        static int gemAmount = 0;
+        static int bombAmount = 0;
 
         public static void UpdateKey(int keys)
         {
             keyAmount = keys;
         }
 
-        static int gemAmount = 0;
-
         public static void UpdateGem(int gem)
         {
             gemAmount = gem;
+        }
+
+        public static void UpdateBomb(int bomb)
+        {
+            bombAmount = bomb;
         }
     }
 }

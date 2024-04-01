@@ -1,23 +1,25 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Sprint.Characters;
 using Sprint.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sprint.HUD
+namespace Sprint.Loader
 {
-    internal class HUDSprite : IHUD
+    internal class HUDNumber : IHUD
     {
         private ISprite sprite;
         private Vector2 position;
 
-        public HUDSprite(ISprite sprite, Vector2 position)
+        public HUDNumber(ISprite sprite, Vector2 position)
         {
             this.sprite = sprite;
             this.position = position;
+        }
+
+        public void SetNumber(string number)
+        {
+            sprite.SetAnimation(number);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -27,7 +29,7 @@ namespace Sprint.HUD
 
         public void Update(GameTime gameTime)
         {
-            //Nothing
+            // Nothing Here
         }
     }
 }
