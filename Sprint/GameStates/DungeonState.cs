@@ -91,6 +91,8 @@ namespace Sprint
         // Generates all commands available while the player is moving in a room
         public void MakeCommands()
         {
+            ((InventoryState)game.InventoryState).SetHUD(hud, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
+
             inputTable = new InputTable();
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
@@ -149,7 +151,7 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Escape), new PauseCommand(game, this));
 
             // Switching to the inventory state
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new ScrollStatesCommand(game, this, game.InventoryState, Directions.UP));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new OpenInventoryCommand(this));
 
             // Middle click through doors
             for (int i = 0; i < doorReference.GetLength(0); i++)
@@ -290,10 +292,20 @@ namespace Sprint
         // Switches current room to a different one by index
         public void SwitchRoom(Vector2 spawn, Point idx, Vector2 dir)
         {
+
+            // Terminal position for a fully scrolled arena
+            Vector2 max = -dir * (new Vector2(Goober.gameWidth, Goober.gameHeight) - arenaPosition);
+            
+            // Set all the start and end positions for the scenes
+            Dictionary<SceneObjectManager, Vector4> scrollScenes = new()
+            {
+                { rooms[currentRoom.Y][currentRoom.X], new Vector4(arenaPosition.X, arenaPosition.Y, max.X + arenaPosition.X, max.Y + arenaPosition.Y) },
+                { rooms[idx.Y][idx.X], new Vector4(-max.X + arenaPosition.X, -max.Y + arenaPosition.Y, arenaPosition.X, arenaPosition.Y) },
+                { hud, Vector4.Zero }
+            };
+
             // Create new GameState to scroll and then set back to this state
-            TransitionState scroll = new TransitionState(game, new List<SceneObjectManager> { rooms[currentRoom.Y][currentRoom.X] }, 
-                new List<SceneObjectManager> { rooms[idx.Y][idx.X] }, new List<SceneObjectManager> { hud },
-                dir, 0.75f, arenaPosition, this);
+            TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, this);
 
             PassToState(scroll);
 
@@ -340,6 +352,22 @@ namespace Sprint
                 }
             }
             SwitchRoom(roomStartPosition, target, Directions.STILL);
+        }
+
+        public void OpenInventory()
+        {
+            // Set all the start and end positions for the scenes
+            Dictionary<SceneObjectManager, Vector4> scrollScenes = new()
+            {
+                { rooms[currentRoom.Y][currentRoom.X], new Vector4(arenaPosition.X, arenaPosition.Y, arenaPosition.X, Goober.gameHeight) },
+                { ((InventoryState)game.InventoryState).GetScene(), new Vector4(-arenaPosition.X, -Goober.gameHeight + arenaPosition.Y, -arenaPosition.X, 0) },
+                { hud, new Vector4(0, 0, 0, Goober.gameHeight - arenaPosition.Y) }
+            };
+
+            // Create new GameState to scroll and then set back to this state
+            TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, game.InventoryState);
+
+            PassToState(scroll);
         }
 
         public Point RoomIndex()

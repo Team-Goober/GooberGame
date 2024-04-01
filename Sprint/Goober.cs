@@ -54,7 +54,7 @@ namespace Sprint
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             DungeonState = new DungeonState(this, spriteLoader, Content);
-            InventoryState = new InventoryState(this);
+            InventoryState = new InventoryState(this, spriteLoader);
             DungeonState.MakeCommands();
             InventoryState.MakeCommands();
             GameState = DungeonState;

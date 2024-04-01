@@ -2,9 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Functions;
+using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
+using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +21,22 @@ namespace Sprint.GameStates
 
         private Goober game;
         private IInputMap input;
+        private SceneObjectManager hud;
+        private SceneObjectManager inventoryUI;
 
-        public InventoryState(Goober game)
+        private Vector2 hudPosition;
+
+        public InventoryState(Goober game, SpriteLoader spriteLoader)
         {
             this.game = game;
 
-            
+            HUDFactory factory = new HUDFactory(spriteLoader);
+
+            inventoryUI = new SceneObjectManager();
+            foreach (IGameObject num in factory.MakeNumber("25", new Vector2(300, 300), 4))
+                inventoryUI.Add(num);
+
+            inventoryUI.EndCycle();
         }
 
         public List<SceneObjectManager> AllObjectManagers()
@@ -34,14 +46,44 @@ namespace Sprint.GameStates
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            //
+            Matrix translateMat = Matrix.CreateTranslation(new Vector3(hudPosition.X, hudPosition.Y, 0));
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: translateMat);
+
+            // Draw HUD
+            foreach (IGameObject obj in hud.GetObjects())
+                obj.Draw(spriteBatch, gameTime);
+
+            spriteBatch.End();
+
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+            // Draw inventory
+            foreach (IGameObject obj in inventoryUI.GetObjects())
+                obj.Draw(spriteBatch, gameTime);
+
+            spriteBatch.End();
+        }
+        public void Update(GameTime gameTime)
+        {
+            // Update commands
+            input.Update(gameTime);
+
+            // Update HUD
+            foreach (IGameObject obj in hud.GetObjects())
+                obj.Update(gameTime);
+            hud.EndCycle();
+
+            // Update inventory
+            foreach (IGameObject obj in inventoryUI.GetObjects())
+                obj.Update(gameTime);
+            inventoryUI.EndCycle();
         }
 
         public void MakeCommands()
         {
             input = new InputTable();
             // Register command to return to game
-            input.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new ScrollStatesCommand(game, this, game.DungeonState, Directions.DOWN));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new CloseInventoryCommand(this));
         }
 
         public void PassToState(IGameState newState)
@@ -50,10 +92,36 @@ namespace Sprint.GameStates
             input.Sleep();
         }
 
-        public void Update(GameTime gameTime)
+
+
+        public void SetHUD(SceneObjectManager hud, Vector2 pos)
         {
-            // Update commands
-            input.Update(gameTime);
+            this.hud = hud;
+            hudPosition = pos;
         }
+
+        public SceneObjectManager GetScene()
+        {
+            return inventoryUI;
+        }
+
+        public void CloseInventory()
+        {
+            DungeonState dungeon = (DungeonState)game.DungeonState;
+
+            // Set all the start and end positions for the scenes
+            Dictionary<SceneObjectManager, Vector4> scrollScenes = new()
+            {
+                { dungeon.GetRoomAt(dungeon.RoomIndex()), new Vector4(hudPosition.X, Goober.gameHeight, hudPosition.X, Goober.gameHeight - hudPosition.Y) },
+                { inventoryUI, new Vector4(hudPosition.X, 0, -hudPosition.X, -hudPosition.Y) },
+                { hud, new Vector4(hudPosition.X, hudPosition.Y, hudPosition.X, 0) }
+            };
+
+            // Create new GameState to scroll and then set back to this state
+            TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, game.DungeonState);
+
+            PassToState(scroll);
+        }
+
     }
 }

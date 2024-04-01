@@ -12,65 +12,55 @@ namespace Sprint
     {
 
         private Goober game;
-        private List<SceneObjectManager> awayScenes; // Scenes that should be scrolled away from
-        private List<SceneObjectManager> towardScenes; // Scenes that should be scrolled into
-        private List<SceneObjectManager> fixedScenes; // Scenes that shouldn't move in the scroll
-        private Vector2 velocity; // Amount to move the scenes per second
-        private Vector2 offset; // Current distance of scenes from starting positions
-        private Vector2 max; // Total distance that scenes should be moved
-        private Vector2 transitionScreenPos; // Offset of the scenes that are moving from the top left corner of the screen
+        private Dictionary<SceneObjectManager, Vector4> scenes; // Keys are all scenes to be drawn. Values are vector of start and end position during transition
+        private float timePassed;
+        private float totalDuration;
         private IGameState nextState; // State to go to after this one ends
 
-        public TransitionState(Goober game, List<SceneObjectManager> away, List<SceneObjectManager> toward, List<SceneObjectManager> fix, 
-            Vector2 direction, float duration, Vector2 transitionScreenPos, IGameState next)
+        public TransitionState(Goober game, Dictionary<SceneObjectManager, Vector4> scenes, float duration, IGameState next)
         {
             this.game = game;
-            this.nextState = next;
-            this.awayScenes = away;
-            this.towardScenes = toward;
-            this.fixedScenes = fix;
-            this.transitionScreenPos = transitionScreenPos;
-
-            offset = Vector2.Zero;
-
-            // Determine velocities based on scroll direction, scroll duration, and window dimensions
-            max = - direction * (new Vector2(Goober.gameWidth, Goober.gameHeight) - transitionScreenPos);
-
-            velocity = max / duration;
-
+            nextState = next;
+            timePassed = 0;
+            totalDuration = duration;
+            this.scenes = scenes;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+
+            float proportion = timePassed / totalDuration;
+
             // Draw scenes at proper translations
-            DrawScenes(awayScenes, spriteBatch, gameTime, offset + transitionScreenPos); // Scenes that scroll away
-            DrawScenes(towardScenes, spriteBatch, gameTime, -max + offset + transitionScreenPos); // Scenes that scroll in
-            DrawScenes(fixedScenes, spriteBatch, gameTime, Vector2.Zero); // Scenes that stay put
+            foreach (KeyValuePair<SceneObjectManager, Vector4> p in scenes)
+            {
+                // Calculate translation as interpolation between start and end positions
+                Vector3 translation = new Vector3(p.Value.Z * proportion + p.Value.X * (1 - proportion),
+                    p.Value.W * proportion + p.Value.Y * (1 - proportion), 0);
+                DrawScene(p.Key, spriteBatch, gameTime, translation);
+            }
 
         }
 
         // Draws the list of scenes at the given translation by beginning the sprite batch again
-        public void DrawScenes(List<SceneObjectManager> scenes, SpriteBatch spriteBatch, GameTime gameTime, Vector2 translate)
+        public void DrawScene(SceneObjectManager scene, SpriteBatch spriteBatch, GameTime gameTime, Vector3 translate)
         {
-            Matrix translateMat = Matrix.CreateTranslation(new Vector3(translate.X, translate.Y, 0));
+            Matrix translateMat = Matrix.CreateTranslation(translate);
             spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: translateMat);
-            foreach (SceneObjectManager s in scenes)
-            {
-                foreach (IGameObject obj in s.GetObjects())
-                    obj.Draw(spriteBatch, gameTime);
-            }
+            foreach (IGameObject obj in scene.GetObjects())
+                obj.Draw(spriteBatch, gameTime);
             spriteBatch.End();
         }
 
         public void Update(GameTime gameTime)
         {
-            // Increase offset by needed amount
-            offset = offset + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            // Increase time
+            timePassed += (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             // Once end is reached, return game to a different state
-            if (offset.Length() >= max.Length())
+            if (timePassed >= totalDuration)
             {
-                offset = max;
+                timePassed = totalDuration;
                 PassToState(nextState);
             }
         }
@@ -82,10 +72,7 @@ namespace Sprint
 
         public List<SceneObjectManager> AllObjectManagers()
         {
-            List<SceneObjectManager> list = new();
-            list.AddRange(awayScenes);
-            list.AddRange(towardScenes);
-            list.AddRange(fixedScenes);
+            List<SceneObjectManager> list = scenes.Keys.ToList();
             return list;
         }
 
