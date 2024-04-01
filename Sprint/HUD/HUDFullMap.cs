@@ -5,7 +5,7 @@ using System;
 
 namespace Sprint.HUD
 {
-    internal class HUDMiniMap : IHUD
+    internal class HUDFullMap : IHUD
     {
 
         private Vector2 position;
@@ -14,7 +14,7 @@ namespace Sprint.HUD
         private int padding;
         private Vector2 bgSize;
 
-        public HUDMiniMap(MapModel model, Vector2 position, Vector2 roomSize, int padding, Vector2 bgSize)
+        public HUDFullMap(MapModel model, Vector2 position, Vector2 roomSize, int padding, Vector2 bgSize)
         {
             this.position = position;
             this.model = model;
@@ -28,13 +28,13 @@ namespace Sprint.HUD
             // Draw black background box for minimap
             Texture2D backingColor;
             backingColor = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-            backingColor.SetData(new Color[] { Color.Black });
+            backingColor.SetData(new Color[] { Color.Orange });
             spriteBatch.Draw(backingColor, new Rectangle((int)position.X, (int)position.Y, (int)bgSize.X, (int)bgSize.Y), Color.White);
 
             // Draw blue rectangle for every visible room
             Texture2D roomFill;
             roomFill = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-            roomFill.SetData(new Color[] { Color.Blue });
+            roomFill.SetData(new Color[] { Color.Black });
 
             bool[,] rooms = model.GetRooms();
             for (int r = 0; r < rooms.GetLength(0); r++)

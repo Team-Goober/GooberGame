@@ -11,9 +11,17 @@
 	  <HeartNumPos>704 160</HeartNumPos>
 	  <BWeapon>512 96</BWeapon>
 	  <AWeapon>608 96</AWeapon>
+    <InventoryFramePos>0 0</InventoryFramePos>
+    <MapFramePos>0 352</MapFramePos>
     <MinimapPos>64 32</MinimapPos>
     <MinimapRoomSize>28 12</MinimapRoomSize>
     <MinimapPadding>4</MinimapPadding>
+    <MinimapBackgroundSize>256 160</MinimapBackgroundSize>
+    <FullMapPos>512 384</FullMapPos>
+    <FullMapRoomSize>24 24</FullMapRoomSize>
+    <FullMapPadding>4</FullMapPadding>
+    <FullMapBackgroundSize>256 256</FullMapBackgroundSize>
 	  <NumSpriteSize>32</NumSpriteSize>
-  </Asset>
+  
+</Asset>
 </XnaContent>

@@ -84,7 +84,14 @@ namespace Sprint.HUD
             UpdateAWeapon("Bow");
 
             // Minimap
-            topDisplay.Add(MakeMinimap(map, data.MinimapPos, data.MinimapRoomSize, data.MinimapPadding));
+            topDisplay.Add(MakeMinimap(map, data.MinimapPos, data.MinimapRoomSize, data.MinimapPadding, data.MinimapBackgroundSize));
+
+            // Inventory Backgrounds
+            inventoryScreen.Add(MakeHUDSprite("Inventory", data.InventoryFramePos));
+            inventoryScreen.Add(MakeHUDSprite("DungeonMap", data.MapFramePos));
+
+            inventoryScreen.Add(MakeFullMap(map, data.FullMapPos, data.FullMapRoomSize, data.FullMapPadding, data.FullMapBackgroundSize));
+            inventoryScreen.EndCycle();
         }
 
         public SceneObjectManager GetTopDisplay()
@@ -124,9 +131,14 @@ namespace Sprint.HUD
             return levelNum;
         }
 
-        public IHUD MakeMinimap(MapModel map, Vector2 position, Vector2 roomSize, int padding)
+        public IHUD MakeMinimap(MapModel map, Vector2 position, Vector2 roomSize, int padding, Vector2 bgSize)
         {
-            return new HUDMiniMap(map, position, roomSize, padding);
+            return new HUDMiniMap(map, position, roomSize, padding, bgSize);
+        }
+
+        public IHUD MakeFullMap(MapModel map, Vector2 position, Vector2 roomSize, int padding, Vector2 bgSize)
+        {
+            return new HUDFullMap(map, position, roomSize, padding, bgSize);
         }
 
         public IHUD MakeHUDSprite(string spriteLabel, Vector2 position)
