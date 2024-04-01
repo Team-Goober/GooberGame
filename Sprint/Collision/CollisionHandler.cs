@@ -61,7 +61,9 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY), typeof(KillCommand).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(KillCommand).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.ENEMY), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.PLAYER), typeof(DissipateProjectile).GetConstructor( constructorParams ) }
+                {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.PLAYER), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
+
+                {new TypePairKey(CollisionTypes.MOVEVERT, CollisionTypes.WALL), typeof(ReverseDirCommand).GetConstructor( constructorParams ) },
             };
 
         //Made assuming that ICollidable can access the objects native type

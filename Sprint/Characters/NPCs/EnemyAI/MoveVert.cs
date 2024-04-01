@@ -6,6 +6,7 @@ using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
+using Sprint.Collision;
 
 namespace Sprint.Characters
 {
@@ -20,6 +21,7 @@ namespace Sprint.Characters
 
         Physics physics;
 
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.MOVEVERT, CollisionTypes.ENEMY };
         public MoveVert(Physics physics)
         {
 
@@ -35,8 +37,10 @@ namespace Sprint.Characters
         // Move AI for MoveVert
         public override void MoveAI(GameTime gameTime)
         {
-            float speed = 50; // Adjust the speed as needed
-            float moveTime = 2; // Time before changing direction (in seconds)
+            float speed = 100; // Adjust the speed as needed
+            float moveTime = 1; // Time before changing direction (in seconds)
+
+            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (elapsedTime > moveTime)
             {
@@ -87,6 +91,17 @@ namespace Sprint.Characters
                     break;
             }
 
+        }
+
+        //reverses move direction when collides with wall
+        public void ReverseHorDir()
+        {
+            moveDirection.X = -moveDirection.X;
+        }
+
+        public void ReverseVerDir()
+        {
+            moveDirection.Y = -moveDirection.Y;
         }
     }
 }
