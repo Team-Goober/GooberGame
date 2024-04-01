@@ -57,7 +57,7 @@ namespace Sprint.Characters
 
 
         //declares the move systems for the main character sprite
-        public Player(IInputMap inputTable, SpriteLoader spriteLoader, DungeonState dungeon)
+        public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
 
             //Initialize physics and objectManager
@@ -81,9 +81,14 @@ namespace Sprint.Characters
             baseAnim = AnimationCycle.Idle;
 
             // Set up projectiles
-            secondaryItems = new ProjectileSystem(physics.Position, inputTable, spriteLoader);
+            secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
 
             this.reset = new Reset(dungeon);
+        }
+
+        public SimpleProjectileFactory GetProjectileFactory()
+        {
+            return secondaryItems.ProjectileFactory;
         }
 
         // Moves the player from current scene into a new one

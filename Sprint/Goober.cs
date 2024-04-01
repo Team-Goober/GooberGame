@@ -5,6 +5,7 @@ using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Commands;
 using Sprint.Sprite;
+using Sprint.GameStates;
 
 
 namespace Sprint
@@ -53,6 +54,9 @@ namespace Sprint
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             DungeonState = new DungeonState(this, spriteLoader, Content);
+            InventoryState = new InventoryState(this);
+            DungeonState.MakeCommands();
+            InventoryState.MakeCommands();
             GameState = DungeonState;
 
             //Quit game

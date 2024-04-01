@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using System.Collections.Generic;
+using System.Linq;
 using static Sprint.Characters.Character;
 
 namespace Sprint
@@ -77,6 +78,20 @@ namespace Sprint
         public void PassToState(IGameState newState)
         {
             game.GameState = newState;
+        }
+
+        public List<SceneObjectManager> AllObjectManagers()
+        {
+            List<SceneObjectManager> list = new();
+            list.AddRange(awayScenes);
+            list.AddRange(towardScenes);
+            list.AddRange(fixedScenes);
+            return list;
+        }
+
+        public void MakeCommands()
+        {
+            // None
         }
     }
 }

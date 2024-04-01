@@ -5,11 +5,14 @@ using Microsoft.Xna.Framework.Input;
 using Sprint.Characters;
 using Sprint.Collision;
 using Sprint.Commands;
+using Sprint.Commands.SecondaryItem;
 using Sprint.Functions;
 using Sprint.Functions.RoomTransition;
+using Sprint.GameStates;
 using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
+using Sprint.Items;
 using Sprint.Levels;
 using Sprint.Sprite;
 using System;
@@ -50,17 +53,16 @@ namespace Sprint
             this.contentManager = contentManager;
             this.spriteLoader = spriteLoader;
 
-            inputTable = new InputTable();
+
             collisionDetector = new CollisionDetector();
 
-            player = new Player(inputTable, spriteLoader, this);
+            player = new Player(spriteLoader, this);
 
             hiddenRooms = new List<Point>();
 
             // Load all rooms in the level from XML file
             LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, inputTable);
             loader.LoadLevelXML("LevelOne/Level1");
-            makeCommands();
 
             //Load the hud
             hudLoader = new HUDLoader(contentManager, spriteLoader);
@@ -72,8 +74,10 @@ namespace Sprint
         }
 
         // Generates all commands available while the player is moving in a room
-        private void makeCommands()
+        public void MakeCommands()
         {
+            inputTable = new InputTable();
+
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
@@ -105,6 +109,20 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D9), new Cast(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D0), new Cast(player));
 
+            // Shooting items commands
+            //Arrow
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootArrowCommand(player.GetProjectileFactory()));
+            //Blue Arrow
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootBlueArrowC(player.GetProjectileFactory()));
+            //Bomb
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootBombC(player.GetProjectileFactory()));
+            //Boomarang
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootBoomarangC(player.GetProjectileFactory()));
+            //FireBall
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D5), new ShootFireBallC(player.GetProjectileFactory()));
+            //Blue Boomerang
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D6), new ShootBlueBoomerangC(player.GetProjectileFactory()));
+
             // Reset command
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
 
@@ -114,6 +132,9 @@ namespace Sprint
 
             // Switching to new pause state
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Escape), new PauseCommand(game, this));
+
+            // Switching to the inventory state
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new ScrollStatesCommand(game, this, game.InventoryState, Directions.UP));
 
         }
 
@@ -204,7 +225,7 @@ namespace Sprint
             inputTable.ClearDictionary();
 
             // new player
-            player = new Player(inputTable, spriteLoader, this);
+            player = new Player(spriteLoader, this);
 
             // reload the level
             LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, inputTable);
@@ -218,7 +239,7 @@ namespace Sprint
             player.handler += hudLoader.UpdateKeyAmount;
 
             // remake commands
-            makeCommands();
+            MakeCommands();
         }
 
         public void AddRoom(Point loc, SceneObjectManager room, bool hidden = false)
@@ -343,6 +364,16 @@ namespace Sprint
         public Point GetCompassPointer()
         {
             return compassPointer;
+        }
+
+        public List<SceneObjectManager> AllObjectManagers()
+        {
+            List<SceneObjectManager> list = new()
+            {
+                rooms[currentRoom.Y][currentRoom.X],
+                hud
+            };
+            return list;
         }
     }
 }
