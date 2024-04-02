@@ -5,6 +5,7 @@ using Sprint.Sprite;
 using Sprint.Collision;
 using System.Runtime.Serialization;
 using Sprint.Levels;
+using Sprint.Music.Sfx;
 
 namespace Sprint.Projectile
 {
@@ -12,6 +13,7 @@ namespace Sprint.Projectile
     {
 
         Timer explosionTimer;
+        private SfxFactory sfxFactory;
 
         public override CollisionTypes[] CollisionType
         {
@@ -31,12 +33,15 @@ namespace Sprint.Projectile
             base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objectManager)
         {
             explosionTimer = new Timer(1);
+            sfxFactory = new SfxFactory();
+            sfxFactory.PlaySoundEffect("Bomb Placement");
         }
 
         public override void Dissipate()
         {
             if (explosionTimer.Ended)
             {
+                sfxFactory.PlaySoundEffect("Bomb Explosion");
                 sprite.SetAnimation("explosion");
                 explosionTimer.Start();
                 velocity = Vector2.Zero;

@@ -8,6 +8,7 @@ using Sprint.Collision;
 using System.Diagnostics;
 using Sprint.Testing;
 using Sprint.Commands;
+using Sprint.Music.Sfx;
 
 namespace Sprint.Characters
 {
@@ -15,6 +16,8 @@ namespace Sprint.Characters
     internal class Player : Character, IMovingCollidable
     {
         public Inventory inventory;
+
+        private SfxFactory sfxFactory;
 
         private ISprite sprite;
 
@@ -81,6 +84,8 @@ namespace Sprint.Characters
             secondaryItems = new ProjectileSystem(physics.Position, inputTable, spriteLoader);
 
             this.reset = reset;
+
+            sfxFactory = new SfxFactory();
         }
 
         // Moves the player from current scene into a new one
@@ -282,7 +287,7 @@ namespace Sprint.Characters
 
         public void TakeDamage()
         {
-
+            sfxFactory.PlaySoundEffect("Player Hurt");
             sprite.SetAnimation("damage");
             damageTimer.Start();
 

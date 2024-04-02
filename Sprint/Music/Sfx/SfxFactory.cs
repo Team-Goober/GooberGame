@@ -59,5 +59,16 @@ namespace Sprint.Music.Sfx
             soundEffects[name].Play();
         }
 
+        /// <summary>
+        /// Return an instance of the sound effect that can be used multiple times
+        /// </summary>
+        /// <param name="name">Name of the sound effect instance to return</param>
+        /// <returns>An instance of the sound effect</returns>
+        public SoundEffectInstance GetSoundEffect(string name)
+        {
+            MakeSongs();
+            return soundEffects[name].CreateInstance();
+        }
+
     }
 }
