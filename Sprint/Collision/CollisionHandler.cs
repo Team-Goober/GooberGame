@@ -8,6 +8,7 @@ using Sprint.Functions.Collision;
 using Sprint.Functions.RoomTransition;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
+using Sprint.Characters;
 
 
 namespace Sprint.Collision
