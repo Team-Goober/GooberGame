@@ -141,11 +141,7 @@ namespace Sprint.Collision
                 ICommand c = commandConstructor.Invoke(new object[] { receiver, effector, overlap }) as ICommand;
                 c.Execute();
             }
-            else
-            {
-                // Log or handle the case when commandConstructor is null
-                Console.WriteLine("Command constructor is null. Cannot create and run command.");
-            }
+            
         }
 
     }
