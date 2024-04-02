@@ -14,7 +14,7 @@ namespace Sprint.Characters
         protected Physics physics;
         SceneObjectManager objectManager;
         private float timer = 0;
-        private Timer damageTimer;
+        private Timer damageTimer = new Timer(0.3);
 
         public Enemy(ISprite sprite,ISprite damagedSprite, Vector2 position, SceneObjectManager objectManager)
         {
@@ -22,6 +22,7 @@ namespace Sprint.Characters
             this.damagedSprite = damagedSprite;
             physics = new Physics(position);
             this.objectManager = objectManager;
+
 
         }
 
@@ -42,10 +43,15 @@ namespace Sprint.Characters
             physics.SetPosition(physics.Position + distance);
         }
 
-        public void TakeDamage()
+        public override void TakeDamage()
         {
             damageTimer.Start();
             this.sprite = damagedSprite;
+            if (damageTimer.JustEnded)
+            {
+                // switch back to default sprite (non-damaged)
+                this.sprite = sprite;
+            }
         }
 
         public override void Update(GameTime gameTime)

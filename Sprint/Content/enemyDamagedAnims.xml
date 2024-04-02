@@ -85,13 +85,13 @@
           <Item>
             <Key>moving</Key>
             <Value Type="XMLData.AutoAtlasData">
-              <SheetArea>420 120 15 46</SheetArea>
+              <SheetArea>420 119 15 46</SheetArea>
               <Rows>2</Rows>
               <Cols>1</Cols>
               <Padding>16</Padding>
               <CenterPoint>7.5 8</CenterPoint>
               <Loop>true</Loop>
-              <Framerate>10</Framerate>
+              <Framerate>9</Framerate>
             </Value>
           </Item>
         </Animations>

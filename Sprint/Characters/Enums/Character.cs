@@ -13,6 +13,9 @@ namespace Sprint.Characters
 
         public abstract void Die();
 
+        public abstract void TakeDamage();
+
+
         public enum Directions
         {
             UP,

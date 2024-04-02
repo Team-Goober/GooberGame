@@ -11,7 +11,7 @@ namespace Sprint.Functions.Collision
 	{
 		private Enemy enemy;
 
-		public EnemyDamaged(ICollidable enemy, Vector2 uselessValue)
+		public EnemyDamaged(ICollidable enemy, Vector2 uselessValue, Vector2 overlap)
 		{
 			this.enemy = (Enemy)enemy;
 		}

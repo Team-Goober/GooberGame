@@ -280,7 +280,7 @@ namespace Sprint.Characters
             return physics;
         }
 
-        public void TakeDamage()
+        public override void TakeDamage()
         {
 
             sprite.SetAnimation("damage");
