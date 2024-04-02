@@ -9,6 +9,8 @@ using System.Diagnostics;
 using Sprint.Testing;
 using Sprint.Commands;
 using Sprint.Music.Sfx;
+using System.Security.Cryptography.X509Certificates;
+using Sprint.Events;
 
 namespace Sprint.Characters
 {
@@ -29,7 +31,7 @@ namespace Sprint.Characters
         private SwordCollision swordCollision;
         private const int swordWidth = 40, swordLength = 90;
 
-        public Directions Facing { get; private set; }
+        public Vector2 Facing { get; private set; }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
                 (int) (physics.Position.Y - sideLength / 2.0),
@@ -122,26 +124,25 @@ namespace Sprint.Characters
             castTimer.Start();
 
             //Creates animations and bounds for the sword for collision
-            switch (Facing)
+            if (Facing == Directions.DOWN)
             {
-                case Directions.RIGHT:
-                    sprite.SetAnimation("swordRight");
-                    swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
-                    break;
-                case Directions.LEFT:
-                    sprite.SetAnimation("swordLeft");
-                    swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
-                    break;
-                case Directions.UP:
-                    sprite.SetAnimation("swordUp");
-                    swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
-                    break;
-                case Directions.DOWN:
-                    sprite.SetAnimation("swordDown");
-                    swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
-                    break;
-                default:
-                    break;
+                sprite.SetAnimation("swordDown");
+                swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
+            }
+            else if (Facing == Directions.LEFT)
+            {
+                sprite.SetAnimation("swordLeft");
+                swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
+            }
+            else if (Facing == Directions.UP)
+            {
+                sprite.SetAnimation("swordUp");
+                swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
+            }
+            else if (Facing == Directions.RIGHT)
+            {
+                sprite.SetAnimation("swordRight");
+                swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
 
             
@@ -168,22 +169,21 @@ namespace Sprint.Characters
             // Start timer for attack
             castTimer.Start();
 
-            switch (Facing)
+            if (Facing == Directions.DOWN)
             {
-                case Directions.RIGHT:
-                    sprite.SetAnimation("castRight");
-                    break;
-                case Directions.LEFT:
-                    sprite.SetAnimation("castLeft");
-                    break;
-                case Directions.UP:
-                    sprite.SetAnimation("castUp");
-                    break;
-                case Directions.DOWN:
-                    sprite.SetAnimation("castDown");
-                    break;
-                default:
-                    break;
+                sprite.SetAnimation("castDown");
+            }
+            else if (Facing == Directions.LEFT)
+            {
+                sprite.SetAnimation("castLeft");
+            }
+            else if (Facing == Directions.UP)
+            {
+                sprite.SetAnimation("castUp");
+            }
+            else if (Facing == Directions.RIGHT)
+            {
+                sprite.SetAnimation("castRight");
             }
         }
 
@@ -346,13 +346,28 @@ namespace Sprint.Characters
             physics.SetPosition(pos);
         }
 
+        ////////////////////////////////////////////////////////
+        public HUDHandler handler = HUDUpdate.UpdateKey;
+
+        protected virtual void OnKeyPickedUp(int keys)
+        {
+            handler(keys);
+        }
+        ////////////////////////////////////////////////////////
         /// <summary>
         /// Pickup Item off the ground
         /// </summary>
         /// <param name="item"> ItemType to pickup</param>
         public void PickupItem(Item item)
         {
+            // Test
             ItemType itemType = item.GetItemType();
+
+            if(itemType == ItemType.Key)
+            {
+                OnKeyPickedUp(inventory.getItemAmount(itemType) + 1);
+            }
+
             if(item.GetColliable())
             {
                 inventory.PickupItem(itemType);

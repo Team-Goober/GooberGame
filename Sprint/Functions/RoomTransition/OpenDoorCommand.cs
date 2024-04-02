@@ -22,7 +22,10 @@ namespace Sprint.Functions.RoomTransition
 
         public void Execute()
         {
+            // Open the door
             receiver.SetOpen(true);
+            // Open the other side of the door
+            receiver.GetOtherFace().SetOpen(true);
         }
     }
 }
