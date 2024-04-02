@@ -9,11 +9,13 @@ internal class Inventory
 {
 
     private Dictionary<ItemType, int> itemDictionary;
-    private DungeonState dungeon;
 
-    public Inventory(DungeonState dungeon)
+    public delegate void InventoryUpdateDelegate(ItemType it, int prev, int next);
+    public event InventoryUpdateDelegate InventoryEvent;
+
+
+    public Inventory()
     {
-        this.dungeon = dungeon;
 
         itemDictionary = new Dictionary<ItemType, int>()
         {
@@ -49,24 +51,6 @@ internal class Inventory
         };
     }
 
-    public static HUDHandler keyHandler = HUDUpdate.UpdateKey;
-    public static HUDHandler gemHandler = HUDUpdate.UpdateGem;
-    public static HUDHandler bombHandler = HUDUpdate.UpdateBomb;
-
-    protected virtual void OnKeyPickedUp(int num)
-    {
-        keyHandler(num);
-    }
-
-    protected virtual void OnGemPickedUp(int num)
-    {
-        gemHandler(num);
-    }
-
-    protected virtual void OnBombPickedUp(int num)
-    {
-        bombHandler(num);
-    }
 
     /// <summary>
     /// Adds item to object's inventory
@@ -75,29 +59,7 @@ internal class Inventory
     public void PickupItem(ItemType item)
     {
         itemDictionary[item]++;
-
-        // Handle map-updating items
-        switch (item)
-        {
-            case ItemType.Paper:
-                dungeon.GetMap().RevealAll();
-                break;
-            case ItemType.Compass:
-                dungeon.GetMap().PlaceCompass();
-                break;
-            default:
-                break;
-        }
-        
-        if (item == ItemType.Key)
-        {
-            OnKeyPickedUp(itemDictionary[item]);
-        } else if (item == ItemType.Gem) {
-            OnGemPickedUp(itemDictionary[item]);
-        } else if (item == ItemType.Bomb)
-        {
-            OnBombPickedUp(itemDictionary[item]);
-        }
+        InventoryEvent?.Invoke(item, itemDictionary[item] - 1, itemDictionary[item]);
     }
 
     /// <summary>
@@ -107,6 +69,7 @@ internal class Inventory
     public void ConsumeItem(ItemType item)
     {
         itemDictionary[item]--;
+        InventoryEvent?.Invoke(item, itemDictionary[item] + 1, itemDictionary[item]);
     }
 
     /// <summary>

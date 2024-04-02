@@ -63,7 +63,7 @@ namespace Sprint.Characters
             //Initialize physics and objectManager
             physics = new Physics(Vector2.Zero);
 
-            inventory = new Inventory(dungeon);
+            inventory = new Inventory();
 
             //Loads sprite for link
             sprite = spriteLoader.BuildSprite("playerAnims", "player");
@@ -89,6 +89,11 @@ namespace Sprint.Characters
         public SimpleProjectileFactory GetProjectileFactory()
         {
             return secondaryItems.ProjectileFactory;
+        }
+
+        public Inventory GetInventory()
+        {
+            return inventory;
         }
 
         // Moves the player from current scene into a new one

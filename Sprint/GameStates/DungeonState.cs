@@ -19,6 +19,7 @@ using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace Sprint
 {
@@ -85,9 +86,25 @@ namespace Sprint
 
         private void loadDelegates ()
         {
-            Inventory.keyHandler += hudLoader.UpdateKeyAmount;
-            Inventory.gemHandler += hudLoader.UpdateGemAmount;
-            Inventory.bombHandler += hudLoader.UpdateBombAmount;
+            Inventory inventory = player.GetInventory();
+            inventory.InventoryEvent += hudLoader.OnInventoryEvent;
+            inventory.InventoryEvent += this.OnInventoryEvent;
+
+        }
+
+        public void OnInventoryEvent(ItemType it, int prev, int next)
+        {
+            switch (it)
+            {
+                case ItemType.Paper:
+                    map.RevealAll();
+                    break;
+                case ItemType.Compass:
+                    map.PlaceCompass();
+                    break;
+                default:
+                    break;
+            }
         }
 
         // Generates all commands available while the player is moving in a room

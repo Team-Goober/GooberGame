@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
 using Sprint.Interfaces;
+using Sprint.Items;
 using Sprint.Levels;
 using Sprint.Loader;
 using Sprint.Sprite;
@@ -152,41 +153,34 @@ namespace Sprint.HUD
             return sprite;
         }
 
-        public void UpdateGemAmount(int nums)
-        {
-            String strNum = nums.ToString() + "B";
-            char[] arr = strNum.ToCharArray();
 
-            int pos = 1;
-            while (pos > -1)
+        public void OnInventoryEvent(ItemType it, int prev, int next)
+        {
+            switch (it)
             {
-                GemNumber[pos].SetSprite(arr[pos].ToString());
-                pos--;
+                case ItemType.Gem:
+                    UpdateItemAmount(GemNumber, next);
+                    break;
+                case ItemType.Key:
+                    UpdateItemAmount(KeyNumber, next);
+                    break;
+                case ItemType.Bomb:
+                    UpdateItemAmount(BombNumber, next);
+                    break;
+                default:
+                    break;
             }
         }
 
-        public void UpdateKeyAmount(int nums)
+        public void UpdateItemAmount(List<HUDAnimSprite> numSprites, int number)
         {
-            String strNum = nums.ToString() + "B";
+            String strNum = number.ToString() + "B";
             char[] arr = strNum.ToCharArray();
 
             int pos = 1;
             while (pos > -1)
             {
-                KeyNumber[pos].SetSprite(arr[pos].ToString());
-                pos--;
-            }
-        }
-
-        public void UpdateBombAmount(int nums)
-        {
-            String strNum = nums.ToString() + "B";
-            char[] arr = strNum.ToCharArray();
-
-            int pos = 1;
-            while (pos > -1)
-            {
-                BombNumber[pos].SetSprite(arr[pos].ToString());
+                numSprites[pos].SetSprite(arr[pos].ToString());
                 pos--;
             }
         }
@@ -231,6 +225,5 @@ namespace Sprint.HUD
             aWeapon.SetSprite(item);
         }
 
-        //Load Minimap
     }
 }
