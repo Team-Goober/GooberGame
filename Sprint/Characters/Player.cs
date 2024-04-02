@@ -17,6 +17,7 @@ namespace Sprint.Characters
 
     internal class Player : Character, IMovingCollidable
     {
+
         public Inventory inventory;
 
         private SfxFactory sfxFactory;
