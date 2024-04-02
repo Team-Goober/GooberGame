@@ -11,25 +11,26 @@ namespace Sprint
     internal class MapModel
     {
 
-        private bool[,] rooms; // 2D array of rooms. boolean value represents visibility
-        private bool[,] horizDoors; // 2D array of doors facing left and right. boolean value represents visibility
-        private bool[,] vertDoors; // 2D array of doors facing up and down. boolean value represents visibility
+        private bool[,] visitedRooms; // 2D array of rooms. boolean value represents if player has visited them
+        private bool[,] revealedRooms; // 2D array of rooms. boolean value represents if the map has revealed their locations
+        private bool[,,] doors; // Array of doors. First dimension is up, right, down, left. Second and third are room array. Boolean value is openness
         private Point playerPos; // indices of player in the rooms matrix
         private Point compassPos; // indices of the compass pointer. if negative, don't show
-        private bool allShown; // true if map was acquired and everything should be visible. hidden doors and rooms aren't revealed
 
         private DungeonState dungeon;
+
 
         public MapModel(DungeonState dungeon) {
 
             this.dungeon = dungeon;
 
-            rooms = new bool[dungeon.RoomRows(), dungeon.RoomColumns()];
-            horizDoors = new bool[dungeon.RoomRows(), dungeon.RoomColumns()+1];
-            vertDoors = new bool[dungeon.RoomRows()+1, dungeon.RoomColumns()];
+            visitedRooms = new bool[dungeon.RoomRows(), dungeon.RoomColumns()];
+            revealedRooms = new bool[dungeon.RoomRows(), dungeon.RoomColumns()];
+
+            doors = new bool[4, dungeon.RoomRows(), dungeon.RoomColumns()];
+
             playerPos = dungeon.RoomIndex();
             compassPos = new Point(-1, -1);
-            allShown = false;
 
         }
 
@@ -43,7 +44,7 @@ namespace Sprint
         public void MovePlayer(Point newPos)
         {
             playerPos = newPos;
-            revealRoom(newPos.Y, newPos.X);
+            enterRoom(newPos.Y, newPos.X);
         }
 
         // React to a door opening by making it visible
@@ -53,22 +54,7 @@ namespace Sprint
             Vector2 dir = door.SideOfRoom();
 
             // door found based on side of room it is in
-            if (dir == Directions.UP)
-            {
-                vertDoors[roomIdx.Y, roomIdx.X] = true;
-            }
-            else if (dir == Directions.RIGHT)
-            {
-                horizDoors[roomIdx.Y, roomIdx.X + 1] = true;
-            }
-            else if (dir == Directions.DOWN)
-            {
-                vertDoors[roomIdx.Y + 1, roomIdx.X] = true;
-            }
-            else if (dir == Directions.LEFT)
-            {
-                horizDoors[roomIdx.Y, roomIdx.X] = true;
-            }
+            doors[Directions.GetIndex(dir), roomIdx.Y, roomIdx.X] = true;
         }
 
         // Reveal all non-hidden information for the level
@@ -87,63 +73,49 @@ namespace Sprint
 
                 }
             }
-            
-            allShown = true;
-
         }
 
-        // Reveals a room and its doors if currently nto visible
-        private void revealRoom(int r, int c)
+        // Reveals a room and its doors if currently not visible
+        private void enterRoom(int r, int c)
         {
             // already revealed, no need to change anything
-            if (rooms[r, c])
+            if (visitedRooms[r, c])
                 return;
 
-            rooms[r, c] = true;
+            visitedRooms[r, c] = true;
 
             IDoor[,,] doorReference = dungeon.GetDoors();
 
-            // Don't add doors if no door room
-            if (doorReference[0, r, c] != null)
+            // Reveal all open doors
+            for (int i = 0; i < 4; i++)
             {
-                // reveal any open doors in the room
-                // top
-                if (doorReference[0, r, c].IsOpen())
+                if (doorReference[i, r, c] != null && doorReference[i, r, c].IsOpen())
                 {
-                    vertDoors[r, c] = true;
-                }
-                // right
-                if (doorReference[1, r, c].IsOpen())
-                {
-                    horizDoors[r, c + 1] = true;
-                }
-                // bottom
-                if (doorReference[2, r, c].IsOpen())
-                {
-                    vertDoors[r + 1, c] = true;
-                }
-                // left
-                if (doorReference[3, r, c].IsOpen())
-                {
-                    horizDoors[r, c] = true;
+                    doors[i, r, c] = true;
                 }
             }
         }
 
-
-        public bool[,] GetRooms()
+        // Reveals a room to the map
+        public void revealRoom(int r, int c)
         {
-            return rooms;
+            revealedRooms[r, c] = true;
         }
 
-        public bool[,] GetHorizontalDoors()
+
+        public bool[,] GetVisitedRooms()
         {
-            return horizDoors;
+            return visitedRooms;
         }
 
-        public bool[,] GetVerticalDoors()
+        public bool[,] GetRevealedRooms()
         {
-            return vertDoors;
+            return revealedRooms;
+        }
+
+        public bool[,,] GetDoors()
+        {
+            return doors;
         }
 
         public Point GetPlayerPosition()
@@ -154,11 +126,6 @@ namespace Sprint
         public Point GetCompassPosition()
         {
             return compassPos;
-        }
-
-        public bool GetAllShown()
-        {
-            return allShown;
         }
 
     }

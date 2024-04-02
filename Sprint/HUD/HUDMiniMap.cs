@@ -36,7 +36,7 @@ namespace Sprint.HUD
             roomFill = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             roomFill.SetData(new Color[] { Color.Blue });
 
-            bool[,] rooms = model.GetRooms();
+            bool[,] rooms = model.GetRevealedRooms();
             for (int r = 0; r < rooms.GetLength(0); r++)
             {
                 for (int c = 0; c < rooms.GetLength(1); c++)
@@ -51,35 +51,6 @@ namespace Sprint.HUD
                 }
             }
 
-            // Draw hallways for visible doors
-            bool[,] verts = model.GetVerticalDoors();
-            for (int r = 0; r < verts.GetLength(0); r++)
-            {
-                for (int c = 0; c < verts.GetLength(1); c++)
-                {
-                    if (verts[r, c])
-                    {
-                        spriteBatch.Draw(roomFill, new Rectangle((int)(position.X + (roomRects.X + padding) * c + (roomRects.X - padding) / 2),
-                            (int)(position.Y + (roomRects.Y + padding) * r - padding),
-                            padding, padding),
-                            Color.White);
-                    }
-                }
-            }
-            bool[,] horis = model.GetHorizontalDoors();
-            for (int r = 0; r < horis.GetLength(0); r++)
-            {
-                for (int c = 0; c < horis.GetLength(1); c++)
-                {
-                    if (horis[r, c])
-                    {
-                        spriteBatch.Draw(roomFill, new Rectangle((int)(position.X + (roomRects.X + padding) * c - padding),
-                            (int)(position.Y + (roomRects.Y + padding) * r + (roomRects.Y - padding) / 2),
-                            padding, padding),
-                            Color.White);
-                    }
-                }
-            }
             // Draw compass pointer in triforce room
             Point compassPos = model.GetCompassPosition();
             // Only draw if posiiton is placed (x value is positive)

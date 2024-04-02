@@ -18,6 +18,7 @@ using Sprint.Loader;
 using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprint
 {
@@ -63,6 +64,7 @@ namespace Sprint
             player = new Player(spriteLoader, this);
 
             hiddenRooms = new List<Point>();
+            currentRoom = new(-1, -1);
 
             // Load all rooms in the level from XML file
             LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader);
@@ -296,14 +298,13 @@ namespace Sprint
 
             // Terminal position for a fully scrolled arena
             Vector2 max = -dir * (new Vector2(Goober.gameWidth, Goober.gameHeight) - arenaPosition);
-            
+
             // Set all the start and end positions for the scenes
-            Dictionary<SceneObjectManager, Vector4> scrollScenes = new()
-            {
-                { rooms[currentRoom.Y][currentRoom.X], new Vector4(arenaPosition.X, arenaPosition.Y, max.X + arenaPosition.X, max.Y + arenaPosition.Y) },
-                { rooms[idx.Y][idx.X], new Vector4(-max.X + arenaPosition.X, -max.Y + arenaPosition.Y, arenaPosition.X, arenaPosition.Y) },
-                { hud, Vector4.Zero }
-            };
+            Dictionary<SceneObjectManager, Vector4> scrollScenes = new();
+            if (currentRoom.X >= 0)
+                scrollScenes.Add(rooms[currentRoom.Y][currentRoom.X], new Vector4(arenaPosition.X, arenaPosition.Y, max.X + arenaPosition.X, max.Y + arenaPosition.Y));
+            scrollScenes.Add(rooms[idx.Y][idx.X], new Vector4(-max.X + arenaPosition.X, -max.Y + arenaPosition.Y, arenaPosition.X, arenaPosition.Y));
+            scrollScenes.Add(hud, Vector4.Zero);
 
             // Create new GameState to scroll and then set back to this state
             TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, this);

@@ -2,8 +2,8 @@
 <XnaContent xmlns:XMLData="XMLData">
   <Asset Type="XMLData:LevelData">
     <Level>1</Level>
-	  <StartLevel>2 5</StartLevel>
-    <CompassPoint>5 1</CompassPoint>
+	  <StartLevel>3 7</StartLevel>
+    <CompassPoint>6 3</CompassPoint>
     <SpriteFile>LevelOne/Level1Sprites</SpriteFile>
 	  <HUBFile>HUB/HUBSprites</HUBFile>
     <OuterWalls>
@@ -166,10 +166,31 @@
         </Value>
       </Item>
     </DoorReferences>
-    <LayoutColumns>6</LayoutColumns>
-    <LayoutRows>6</LayoutRows>
+    <LayoutColumns>8</LayoutColumns>
+    <LayoutRows>8</LayoutRows>
     <Rooms>
       <Item>
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+      </Item>
+      <Item>
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+      </Item>
+      <Item>
+        <Item Null="true" />
         <Item>
           <!--Undergound Room. Index 19-->
             <NeedWall>false</NeedWall>
@@ -309,8 +330,10 @@
         <Item Null="true" />
         <Item Null="true" />
         <Item Null="true" />
+        <Item Null="true" />
       </Item>
       <Item>
+        <Item Null="true" />
         <Item Null="true" />
         <Item Null="true" />
         <Item>
@@ -410,8 +433,10 @@
           </Items>
           <Enemies/>
         </Item>
+        <Item Null="true" />
       </Item>
       <Item>
+        <Item Null="true" />
         <Item>
           <!--Row 3 Col 1 Room Index 5-->
           <NeedWall>true</NeedWall>
@@ -626,8 +651,10 @@
           </Enemies>
         </Item>
         <Item Null="true" />
+        <Item Null="true" />
       </Item>
       <Item>
+        <Item Null="true" />
         <Item Null="true" />
         <Item>
           <!--Row 4 Col 2 Room Index 10-->
@@ -803,8 +830,10 @@
         </Item>
         <Item Null="true" />
         <Item Null="true" />
+        <Item Null="true" />
       </Item>
       <Item>
+        <Item Null="true" />
         <Item Null="true" />
         <Item Null="true" />
         <Item>
@@ -871,8 +900,10 @@
             </Item>
           </Enemies>
         </Item>
+        <Item Null="true" />
       </Item>
       <Item>
+        <Item Null="true" />
         <Item Null="true" />
         <Item>
           <!--Row 6 Col 2 Room Index 14-->
@@ -1146,6 +1177,7 @@
           </Items>
           <Enemies/>
         </Item>
+        <Item Null="true" />
       </Item>
     </Rooms>
   </Asset>

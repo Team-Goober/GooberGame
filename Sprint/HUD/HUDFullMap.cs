@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using System;
+using System.IO;
 
 namespace Sprint.HUD
 {
@@ -28,7 +29,7 @@ namespace Sprint.HUD
             // Draw black background box for minimap
             Texture2D backingColor;
             backingColor = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-            backingColor.SetData(new Color[] { Color.Orange });
+            backingColor.SetData(new Color[] { new(252, 152, 56) });
             spriteBatch.Draw(backingColor, new Rectangle((int)position.X, (int)position.Y, (int)bgSize.X, (int)bgSize.Y), Color.White);
 
             // Draw blue rectangle for every visible room
@@ -36,7 +37,7 @@ namespace Sprint.HUD
             roomFill = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             roomFill.SetData(new Color[] { Color.Black });
 
-            bool[,] rooms = model.GetRooms();
+            bool[,] rooms = model.GetVisitedRooms();
             for (int r = 0; r < rooms.GetLength(0); r++)
             {
                 for (int c = 0; c < rooms.GetLength(1); c++)
@@ -52,34 +53,33 @@ namespace Sprint.HUD
             }
 
             // Draw hallways for visible doors
-            bool[,] verts = model.GetVerticalDoors();
-            for (int r = 0; r < verts.GetLength(0); r++)
+            bool[,,] doors = model.GetDoors();
+
+            for (int r = 0; r < doors.GetLength(1); r++)
             {
-                for (int c = 0; c < verts.GetLength(1); c++)
+                for (int c = 0; c < doors.GetLength(2); c++)
                 {
-                    if (verts[r, c])
+                    for (int d = 0; d < doors.GetLength(0); d++)
                     {
-                        spriteBatch.Draw(roomFill, new Rectangle((int)(position.X + (roomRects.X + padding) * c + (roomRects.X - padding) / 2),
-                            (int)(position.Y + (roomRects.Y + padding) * r - padding),
-                            padding, padding),
-                            Color.White);
+                        Vector2 roomCenter = new((int)(position.X + (roomRects.X + padding) * c + roomRects.X/2),
+                            (int)(position.Y + (roomRects.Y + padding) * r + roomRects.Y/2));
+                        
+                        // Draw if door is visible
+                        if (doors[d, r, c])
+                        {
+                            // Calculate position of the hallway and draw there
+                            Vector2 direction = Directions.GetDirectionFromIndex(d);
+                            Vector2 dimensions = new((int)(padding * (1 - Math.Abs(direction.X) / 2)),
+                                (int)(padding - (1 - Math.Abs(direction.Y) / 2)));
+                            spriteBatch.Draw(roomFill, new Rectangle((int)(roomCenter.X + direction.X * (roomRects.X+dimensions.X) /2 - dimensions.X/2 ),
+                                (int)(roomCenter.Y + direction.Y * (roomRects.Y+dimensions.Y) / 2 - dimensions.Y / 2),
+                                (int)dimensions.X, (int)dimensions.Y),
+                                Color.White);
+                        }
                     }
                 }
             }
-            bool[,] horis = model.GetHorizontalDoors();
-            for (int r = 0; r < horis.GetLength(0); r++)
-            {
-                for (int c = 0; c < horis.GetLength(1); c++)
-                {
-                    if (horis[r, c])
-                    {
-                        spriteBatch.Draw(roomFill, new Rectangle((int)(position.X + (roomRects.X + padding) * c - padding),
-                            (int)(position.Y + (roomRects.Y + padding) * r + (roomRects.Y - padding) / 2),
-                            padding, padding),
-                            Color.White);
-                    }
-                }
-            }
+
             // Draw compass pointer in triforce room
             Point compassPos = model.GetCompassPosition();
             // Only draw if posiiton is placed (x value is positive)
