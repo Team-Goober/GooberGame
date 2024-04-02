@@ -31,7 +31,8 @@ namespace Sprint.Collision
 
         ITEM,
         FLYING_ENEMY,
-        PHASING_WALL
+        PHASING_WALL,
+        MOVEWALL
 
     }
 }
