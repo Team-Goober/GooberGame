@@ -5,12 +5,12 @@ using Sprint.Projectile;
 
 namespace Sprint.Functions.SecondaryItem
 {
-    internal class KillCommand : ICommand
+    internal class TakeDamage : ICommand
     {
 
         private Character receiver;
 
-        public KillCommand(ICollidable receiver, ICollidable effector, Vector2 overlap)
+        public TakeDamage(ICollidable receiver, ICollidable effector, Vector2 overlap)
         {
             this.receiver = (Character)receiver;
         }

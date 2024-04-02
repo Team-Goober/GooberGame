@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Collision;
 using Sprint.Interfaces;
 using Sprint.Levels;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 
 namespace Sprint.Characters
@@ -10,6 +11,7 @@ namespace Sprint.Characters
     public class Enemy : Character, IMovingCollidable
     {
         protected ISprite sprite;
+        protected ISprite defaultSprite;
         protected ISprite damagedSprite;
         protected Physics physics;
         SceneObjectManager objectManager;
@@ -18,6 +20,7 @@ namespace Sprint.Characters
 
         public Enemy(ISprite sprite,ISprite damagedSprite, Vector2 position, SceneObjectManager objectManager)
         {
+            this.defaultSprite = sprite;
             this.sprite = sprite;
             this.damagedSprite = damagedSprite;
             physics = new Physics(position);
@@ -47,11 +50,6 @@ namespace Sprint.Characters
         {
             damageTimer.Start();
             this.sprite = damagedSprite;
-            if (damageTimer.JustEnded)
-            {
-                // switch back to default sprite (non-damaged)
-                this.sprite = sprite;
-            }
         }
 
         public override void Update(GameTime gameTime)
