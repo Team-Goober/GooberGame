@@ -10,6 +10,8 @@ namespace Sprint.Interfaces
 
         public Vector2 PlayerSpawnPosition();
 
+        public bool IsOpen();
+
         public void SetOpen(bool open);
 
         public IDoor GetOtherFace();

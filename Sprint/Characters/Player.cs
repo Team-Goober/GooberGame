@@ -9,7 +9,8 @@ using System.Diagnostics;
 using Sprint.Testing;
 using Sprint.Commands;
 using System.Security.Cryptography.X509Certificates;
-using Sprint.Events;
+using Sprint.Items;
+using Sprint.HUD;
 
 namespace Sprint.Characters
 {
@@ -56,7 +57,7 @@ namespace Sprint.Characters
 
 
         //declares the move systems for the main character sprite
-        public Player(IInputMap inputTable, SpriteLoader spriteLoader, Reset reset)
+        public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
 
             //Initialize physics and objectManager
@@ -80,9 +81,19 @@ namespace Sprint.Characters
             baseAnim = AnimationCycle.Idle;
 
             // Set up projectiles
-            secondaryItems = new ProjectileSystem(physics.Position, inputTable, spriteLoader);
+            secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
 
-            this.reset = reset;
+            this.reset = new Reset(dungeon);
+        }
+
+        public SimpleProjectileFactory GetProjectileFactory()
+        {
+            return secondaryItems.ProjectileFactory;
+        }
+
+        public Inventory GetInventory()
+        {
+            return inventory;
         }
 
         // Moves the player from current scene into a new one
@@ -341,27 +352,13 @@ namespace Sprint.Characters
             physics.SetPosition(pos);
         }
 
-        ////////////////////////////////////////////////////////
-        public HUDHandler handler = HUDUpdate.UpdateKey;
-
-        protected virtual void OnKeyPickedUp(int keys)
-        {
-            handler(keys);
-        }
-        ////////////////////////////////////////////////////////
         /// <summary>
         /// Pickup Item off the ground
         /// </summary>
         /// <param name="item"> ItemType to pickup</param>
         public void PickupItem(Item item)
         {
-            // Test
             ItemType itemType = item.GetItemType();
-
-            if(itemType == ItemType.Key)
-            {
-                OnKeyPickedUp(inventory.getItemAmount(itemType) + 1);
-            }
 
             if(item.GetColliable())
             {

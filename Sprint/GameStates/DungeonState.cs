@@ -5,16 +5,21 @@ using Microsoft.Xna.Framework.Input;
 using Sprint.Characters;
 using Sprint.Collision;
 using Sprint.Commands;
+using Sprint.Commands.SecondaryItem;
 using Sprint.Functions;
 using Sprint.Functions.RoomTransition;
+using Sprint.GameStates;
+using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
+using Sprint.Items;
 using Sprint.Levels;
 using Sprint.Loader;
 using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace Sprint
 {
@@ -33,11 +38,20 @@ namespace Sprint
         private Vector2 arenaPosition = Vector2.Zero; // Top left corner of the playable area on the screen
 
         private SceneObjectManager[][] rooms; // Object managers for each room. Accessed by index
+        private List<Point> hiddenRooms; // Room indices not visible on map
         private Point currentRoom; // Index of currently updated room
+        private Vector2 roomStartPosition; // Location in room to begin at when not going through door
+        private Point firstRoom; // Room to start the level in
+
         private SceneObjectManager hud; // Object manager for HUD that should persist between rooms
         private Player player; // Player game object to be moved as rooms switch
 
+        private IDoor[,,] doorReference;
+        private Rectangle[] doorBounds;
+        private MapModel map; // Tracks revealing of rooms for UI
+        private Point compassPointer; // Room indices for triforce location
         HUDLoader hudLoader;
+
 
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
         {
@@ -45,28 +59,61 @@ namespace Sprint
             this.contentManager = contentManager;
             this.spriteLoader = spriteLoader;
 
-            inputTable = new InputTable();
+
             collisionDetector = new CollisionDetector();
 
-            player = new Player(inputTable, spriteLoader, new Reset(this));
+            player = new Player(spriteLoader, this);
+
+            hiddenRooms = new List<Point>();
+            currentRoom = new(-1, -1);
 
             // Load all rooms in the level from XML file
-            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, inputTable);
+            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader);
             loader.LoadLevelXML("LevelOne/Level1");
-            makeCommands();
+
+            map = new MapModel(this);
 
             //Load the hud
             hudLoader = new HUDLoader(contentManager, spriteLoader);
-            hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel());
-            hud = hudLoader.GetScenes();
+            hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
+            hud = hudLoader.GetTopDisplay();
 
-            //Event Test
-            player.handler += hudLoader.UpdateKeyAmount;
+            loadDelegates();
+
+            // enter first room
+            SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
+        }
+
+        private void loadDelegates ()
+        {
+            Inventory inventory = player.GetInventory();
+            inventory.InventoryEvent += hudLoader.OnInventoryEvent;
+            inventory.InventoryEvent += this.OnInventoryEvent;
+
+        }
+
+        public void OnInventoryEvent(ItemType it, int prev, int next)
+        {
+            switch (it)
+            {
+                case ItemType.Paper:
+                    map.RevealAll();
+                    break;
+                case ItemType.Compass:
+                    map.PlaceCompass();
+                    break;
+                default:
+                    break;
+            }
         }
 
         // Generates all commands available while the player is moving in a room
-        private void makeCommands()
+        public void MakeCommands()
         {
+            ((InventoryState)game.InventoryState).SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
+
+            inputTable = new InputTable();
+
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
@@ -98,6 +145,20 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D9), new Cast(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D0), new Cast(player));
 
+            // Shooting items commands
+            //Arrow
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootArrowCommand(player.GetProjectileFactory()));
+            //Blue Arrow
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootBlueArrowC(player.GetProjectileFactory()));
+            //Bomb
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootBombC(player.GetProjectileFactory()));
+            //Boomarang
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootBoomarangC(player.GetProjectileFactory()));
+            //FireBall
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D5), new ShootFireBallC(player.GetProjectileFactory()));
+            //Blue Boomerang
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D6), new ShootBlueBoomerangC(player.GetProjectileFactory()));
+
             // Reset command
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
 
@@ -108,7 +169,25 @@ namespace Sprint
             // Switching to new pause state
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Escape), new PauseCommand(game, this));
 
-        }
+            // Switching to the inventory state
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new OpenInventoryCommand(this));
+
+            // Middle click through doors
+            for (int i = 0; i < doorReference.GetLength(0); i++)
+            {
+                IDoor[,] slice = new IDoor[doorReference.GetLength(1), doorReference.GetLength(2)];
+                for (int r = 0; r < doorReference.GetLength(1); r++)
+                {
+                    for (int c = 0; c < doorReference.GetLength(2); c++)
+                    {
+                        slice[r, c] = doorReference[i, r, c];
+                    }
+                }
+                inputTable.RegisterMapping(new ClickInBoundsTrigger(ClickInBoundsTrigger.MouseButton.Middle, doorBounds[i]),
+                    new SwitchRoomFromDoorsCommand(slice, this));
+            }
+
+            }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -157,13 +236,11 @@ namespace Sprint
             // Update HUD
             foreach (IGameObject obj in hud.GetObjects())
                 obj.Update(gameTime);
+            hud.EndCycle();
 
-            hudLoader.Update();
-            hud = hudLoader.GetScenes();
 
             // Complete additions and deletions
             currRoom.EndCycle();
-            hud.EndCycle();
 
             // Test for collisions in room
             collisionDetector.Update(gameTime, currRoom.GetMovers(), currRoom.GetStatics());
@@ -175,7 +252,8 @@ namespace Sprint
         public void PassToState(IGameState newState)
         {
             game.GameState = newState;
-            inputTable.Sleep();
+            if (inputTable != null)
+                inputTable.Sleep();
         }
 
         //checks if the user requested a reset for game
@@ -197,35 +275,56 @@ namespace Sprint
             inputTable.ClearDictionary();
 
             // new player
-            player = new Player(inputTable, spriteLoader, new Reset(this));
+            player = new Player(spriteLoader, this);
+
+            hiddenRooms = new List<Point>();
 
             // reload the level
-            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, inputTable);
+            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader);
             loader.LoadLevelXML("LevelOne/Level1");
+
+            map = new MapModel(this);
 
             //reload the hud
             hudLoader = new HUDLoader(contentManager, spriteLoader);
-            hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel());
-            hud = hudLoader.GetScenes();
+            hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
+            hud = hudLoader.GetTopDisplay();
 
-            player.handler += hudLoader.UpdateKeyAmount;
+            loadDelegates();
 
             // remake commands
-            makeCommands();
+            MakeCommands();
+
+            // enter first room
+            SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
         }
 
-        public void AddRoom(Point loc, SceneObjectManager room)
+        public void AddRoom(Point loc, SceneObjectManager room, bool hidden = false)
         {
             rooms[loc.Y][loc.X] = room;
+            // Hide from map if requested
+            if (hidden)
+            {
+                hiddenRooms.Add(loc);
+            }
         }
 
         // Switches current room to a different one by index
         public void SwitchRoom(Vector2 spawn, Point idx, Vector2 dir)
         {
+
+            // Terminal position for a fully scrolled arena
+            Vector2 max = -dir * (new Vector2(Goober.gameWidth, Goober.gameHeight) - arenaPosition);
+
+            // Set all the start and end positions for the scenes
+            Dictionary<SceneObjectManager, Vector4> scrollScenes = new();
+            if (currentRoom.X >= 0)
+                scrollScenes.Add(rooms[currentRoom.Y][currentRoom.X], new Vector4(arenaPosition.X, arenaPosition.Y, max.X + arenaPosition.X, max.Y + arenaPosition.Y));
+            scrollScenes.Add(rooms[idx.Y][idx.X], new Vector4(-max.X + arenaPosition.X, -max.Y + arenaPosition.Y, arenaPosition.X, arenaPosition.Y));
+            scrollScenes.Add(hud, Vector4.Zero);
+
             // Create new GameState to scroll and then set back to this state
-            TransitionState scroll = new TransitionState(game, new List<SceneObjectManager> { rooms[currentRoom.Y][currentRoom.X] }, 
-                new List<SceneObjectManager> { rooms[idx.Y][idx.X] }, new List<SceneObjectManager> { hud },
-                dir, 0.75f, arenaPosition, this);
+            TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, this);
 
             PassToState(scroll);
 
@@ -236,6 +335,8 @@ namespace Sprint
             currentRoom = idx;
             player.MoveTo(spawn);
 
+            // Update map for change
+            map.MovePlayer(idx);
         }
 
         // Finds the next room to the right or down 
@@ -252,7 +353,7 @@ namespace Sprint
                     target = new Point(0, (target.Y + 1) % rooms.Length);
                 }
             }
-            SwitchRoom(new Vector2(512, 572), target, Directions.STILL);
+            SwitchRoom(roomStartPosition, target, Directions.STILL);
         }
 
         // Finds the next room to the left or up
@@ -269,12 +370,38 @@ namespace Sprint
                     target = new Point(rooms[0].Length - 1, (target.Y - 1 + rooms.Length) % rooms.Length);
                 }
             }
-            SwitchRoom(new Vector2(512, 572), target, Directions.STILL);
+            SwitchRoom(roomStartPosition, target, Directions.STILL);
+        }
+
+        public void OpenInventory()
+        {
+            // Set all the start and end positions for the scenes
+            Dictionary<SceneObjectManager, Vector4> scrollScenes = new()
+            {
+                { rooms[currentRoom.Y][currentRoom.X], new Vector4(arenaPosition.X, arenaPosition.Y, arenaPosition.X, Goober.gameHeight) },
+                { ((InventoryState)game.InventoryState).GetScene(), new Vector4(-arenaPosition.X, -Goober.gameHeight + arenaPosition.Y, -arenaPosition.X, 0) },
+                { hud, new Vector4(0, 0, 0, Goober.gameHeight - arenaPosition.Y) }
+            };
+
+            // Create new GameState to scroll and then set back to this state
+            TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, game.InventoryState);
+
+            PassToState(scroll);
         }
 
         public Point RoomIndex()
         {
             return currentRoom;
+        }
+
+        public SceneObjectManager GetRoomAt(Point p)
+        {
+            return rooms[p.Y][p.X];
+        }
+
+        public bool IsHidden(Point p)
+        {
+            return hiddenRooms.Contains(p);
         }
 
         public int RoomColumns()
@@ -299,6 +426,47 @@ namespace Sprint
         public void SetArenaPosition(Vector2 pos)
         {
             arenaPosition = pos;
+        }
+
+        public void SetDoors(IDoor[,,] doors, Rectangle[] bounds)
+        {
+            doorReference = doors;
+            doorBounds = bounds;
+        }
+        public IDoor[,,] GetDoors()
+        {
+            return doorReference;
+        }
+
+        public MapModel GetMap()
+        {
+            return map;
+        }
+
+        public void SetCompassPointer(Point room)
+        {
+            compassPointer = room;
+        }
+
+        public void SetStart(Vector2 posInRoom, Point firstRoom)
+        {
+            this.firstRoom = firstRoom;
+            this.roomStartPosition = posInRoom;
+        }
+
+        public Point GetCompassPointer()
+        {
+            return compassPointer;
+        }
+
+        public List<SceneObjectManager> AllObjectManagers()
+        {
+            List<SceneObjectManager> list = new()
+            {
+                rooms[currentRoom.Y][currentRoom.X],
+                hud
+            };
+            return list;
         }
     }
 }

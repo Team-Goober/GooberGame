@@ -1,4 +1,4 @@
-﻿namespace Sprint.Characters;
+﻿namespace Sprint.Items;
 
 public enum ItemType
 {
@@ -30,5 +30,7 @@ public enum ItemType
     Paper,
     Compass,
     FireBall,
-    OldmManText
+    OldmManText,
+    Gem,
+    Bomb
 }

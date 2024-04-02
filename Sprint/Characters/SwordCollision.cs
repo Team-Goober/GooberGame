@@ -1,10 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using Sprint.Characters;
 using Sprint.Collision;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace Sprint.Levels
+namespace Sprint.Characters
 {
     internal class SwordCollision : IGameObject, IMovingCollidable
     {
@@ -19,7 +18,7 @@ namespace Sprint.Levels
 
         public SwordCollision(Rectangle boundBox, Player player)
         {
-            this.bounds = boundBox;
+            bounds = boundBox;
             this.player = player;
         }
 
@@ -40,6 +39,6 @@ namespace Sprint.Levels
         {
             //no draw needed
         }
-        
+
     }
 }

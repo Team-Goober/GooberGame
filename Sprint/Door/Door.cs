@@ -6,9 +6,9 @@ using Sprint.Levels;
 using System.Diagnostics;
 using Sprint.Characters;
 
-namespace Sprint.Factory.Door
+namespace Sprint.Door
 {
-    internal abstract class Door: IDoor
+    internal abstract class Door : IDoor
     {
         protected ISprite sprite;
         protected Vector2 position;
@@ -48,7 +48,7 @@ namespace Sprint.Factory.Door
             this.sprite = sprite;
             this.position = position;
             bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
-            openBounds = new Rectangle((int)(position.X + (size.X - openSize.X)/2), (int)(position.Y + (size.Y - openSize.Y) / 2), 
+            openBounds = new Rectangle((int)(position.X + (size.X - openSize.X) / 2), (int)(position.Y + (size.Y - openSize.Y) / 2),
                 (int)openSize.X, (int)openSize.Y);
             this.roomIndices = roomIndices;
             this.sideOfRoom = sideOfRoom;
@@ -90,11 +90,22 @@ namespace Sprint.Factory.Door
             return roomIndices;
         }
 
+        public bool IsOpen()
+        {
+            return isOpen;
+        }
+
         public virtual void SetOpen(bool open)
         {
-            
+
             if (open)
             {
+                if (!isOpen)
+                {
+                    // Update map for opened door
+                    dungeon.GetMap().OpenDoor(this);
+                }
+
                 sprite.SetAnimation("open");
                 queueOpen = true;
             }

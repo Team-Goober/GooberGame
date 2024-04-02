@@ -5,11 +5,11 @@ using Sprint.Collision;
 using Sprint.Levels;
 using System.Diagnostics;
 
-namespace Sprint.Factory.Door
+namespace Sprint.Door
 {
-    internal class WallDoor: Door
+    internal class WallDoor : Door
     {
-        
+
         public WallDoor(ISprite sprite, Vector2 position, Vector2 size, Vector2 sideOfRoom, Point roomIndices, DungeonState dungeon) :
             base(sprite, false, position, size, Vector2.Zero, sideOfRoom, roomIndices, Vector2.Zero, dungeon)
         {

@@ -1,4 +1,4 @@
-﻿using Sprint.Factory.Door;
+﻿using Sprint.Door;
 using Sprint.Interfaces;
 using System;
 using System.Collections.Generic;
