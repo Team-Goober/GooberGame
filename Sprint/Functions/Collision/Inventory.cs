@@ -49,10 +49,6 @@ public class Inventory
     public void PickupItem(ItemType item)
     {
         itemDictionary[item]++;
-        if (item == ItemType.Key)
-        {
-            itemDictionary[item]++;
-        }
     }
 
     /// <summary>

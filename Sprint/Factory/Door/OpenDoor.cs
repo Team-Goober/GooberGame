@@ -10,8 +10,8 @@ namespace Sprint.Factory.Door
     internal class OpenDoor : Door
     {
 
-        public OpenDoor(ISprite sprite, Vector2 position, Vector2 size, Vector2 openSize, int otherSide, Vector2 spawnPosition, DungeonState dungeon) :
-            base(sprite, true, position, size, openSize, otherSide, spawnPosition, dungeon)
+        public OpenDoor(ISprite sprite, Vector2 position, Vector2 size, Vector2 openSize, Vector2 sideOfRoom, Point roomIndices, Vector2 spawnPosition, DungeonState dungeon) :
+            base(sprite, true, position, size, openSize, sideOfRoom, roomIndices, spawnPosition, dungeon)
         {
 
         }

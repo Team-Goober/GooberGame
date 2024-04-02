@@ -4,6 +4,7 @@ using Sprint.Interfaces;
 using Sprint.Collision;
 using Sprint.Levels;
 using System.Diagnostics;
+using Sprint.Characters;
 
 namespace Sprint.Factory.Door
 {
@@ -13,13 +14,15 @@ namespace Sprint.Factory.Door
         protected Vector2 position;
         protected Rectangle bounds;
         protected Rectangle openBounds;
-        protected int otherSide;
+        protected Point roomIndices;
+        protected Vector2 sideOfRoom;
         protected bool isOpen;
         protected Vector2 spawnPosition;
 
         protected bool queueOpen; //to prevent glitching when hitting a newly opened door
 
         DungeonState dungeon;
+        protected IDoor otherFace;
 
         // Bounds depends on if this door is open
         public Rectangle BoundingBox => isOpen ? openBounds : bounds;
@@ -28,7 +31,8 @@ namespace Sprint.Factory.Door
         {
             get
             {
-                if (isOpen && otherSide >= 0)
+                // Only treat as open door if the next room is valid
+                if (isOpen && otherFace != null)
                 {
                     return new CollisionTypes[] { CollisionTypes.OPEN_DOOR, CollisionTypes.DOOR };
                 }
@@ -39,14 +43,15 @@ namespace Sprint.Factory.Door
             }
         }
 
-        public Door(ISprite sprite, bool isOpen, Vector2 position, Vector2 size, Vector2 openSize, int otherSide, Vector2 spawnPosition, DungeonState dungeon)
+        public Door(ISprite sprite, bool isOpen, Vector2 position, Vector2 size, Vector2 openSize, Vector2 sideOfRoom, Point roomIndices, Vector2 spawnPosition, DungeonState dungeon)
         {
             this.sprite = sprite;
             this.position = position;
             bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
             openBounds = new Rectangle((int)(position.X + (size.X - openSize.X)/2), (int)(position.Y + (size.Y - openSize.Y) / 2), 
                 (int)openSize.X, (int)openSize.Y);
-            this.otherSide = otherSide;
+            this.roomIndices = roomIndices;
+            this.sideOfRoom = sideOfRoom;
             SetOpen(isOpen);
             this.dungeon = dungeon;
             this.spawnPosition = spawnPosition;
@@ -55,8 +60,8 @@ namespace Sprint.Factory.Door
 
         public void SwitchRoom()
         {
-            if (otherSide >= 0)
-                dungeon.SwitchRoom(PlayerSpawnPosition(), otherSide);
+            if (otherFace != null)
+                dungeon.SwitchRoom(PlayerSpawnPosition(), otherFace.GetRoomIndices(), sideOfRoom);
         }
 
         public Vector2 PlayerSpawnPosition()
@@ -79,10 +84,10 @@ namespace Sprint.Factory.Door
             sprite.Update(gameTime);
         }
 
-        // Returns index in Level's room array of the Room this leads to
-        public int GetAdjacentRoomIndex()
+        // Returns current room index
+        public Point GetRoomIndices()
         {
-            return otherSide;
+            return roomIndices;
         }
 
         public virtual void SetOpen(bool open)
@@ -98,6 +103,21 @@ namespace Sprint.Factory.Door
                 sprite.SetAnimation("close");
                 isOpen = false;
             }
+        }
+
+        public IDoor GetOtherFace()
+        {
+            return otherFace;
+        }
+
+        public void SetOtherFace(IDoor other)
+        {
+            otherFace = other;
+        }
+
+        public Vector2 SideOfRoom()
+        {
+            return sideOfRoom;
         }
     }
 }

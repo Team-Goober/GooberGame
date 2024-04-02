@@ -31,7 +31,10 @@ namespace Sprint.Collision
 
         ITEM,
 
-        MOVEVERT
+        MOVEVERT,
+   
+
+        MOVEWALL
 
     }
 }

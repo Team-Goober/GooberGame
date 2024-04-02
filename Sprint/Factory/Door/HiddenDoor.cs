@@ -28,8 +28,8 @@ namespace Sprint.Factory.Door
             }
         }
 
-        public HiddenDoor(ISprite sprite, Vector2 position, Vector2 size, Vector2 openSize, int otherSide, Vector2 spawnPosition, DungeonState dungeon) : 
-            base(sprite, false, position, size, openSize, otherSide, spawnPosition, dungeon)
+        public HiddenDoor(ISprite sprite, Vector2 position, Vector2 size, Vector2 openSize, Vector2 sideOfRoom, Point roomIndices, Vector2 spawnPosition, DungeonState dungeon) : 
+            base(sprite, false, position, size, openSize, sideOfRoom, roomIndices, spawnPosition, dungeon)
         {
 
         }
