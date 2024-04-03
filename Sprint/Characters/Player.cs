@@ -8,6 +8,7 @@ using Sprint.Collision;
 using System.Diagnostics;
 using Sprint.Testing;
 using Sprint.Commands;
+using System;
 
 namespace Sprint.Characters
 {
@@ -20,6 +21,7 @@ namespace Sprint.Characters
         private ISprite defaultSprite;
         private SpriteLoader spriteLoader;
         private ISprite damagedSprite;
+        public event EventHandler OnPlayerDamaged;
 
         private Physics physics;
 
@@ -303,6 +305,7 @@ namespace Sprint.Characters
             defaultSprite = sprite;
             sprite = damagedSprite;
             damageTimer.Start();
+            OnPlayerDamaged?.Invoke(this, EventArgs.Empty);
         }
 
 

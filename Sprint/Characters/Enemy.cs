@@ -5,6 +5,7 @@ using Sprint.Interfaces;
 using Sprint.Levels;
 using System.Diagnostics;
 using System.Runtime.Serialization;
+using System;
 
 namespace Sprint.Characters
 {
@@ -16,6 +17,7 @@ namespace Sprint.Characters
         protected Physics physics;
         SceneObjectManager objectManager;
         private Timer damageTimer;
+        public event EventHandler OnEnemyDamaged;
 
         public Enemy(ISprite sprite,ISprite damagedSprite, Vector2 position, SceneObjectManager objectManager)
         {
@@ -48,6 +50,7 @@ namespace Sprint.Characters
         {
             damageTimer.Start();
             this.sprite = damagedSprite;
+            OnEnemyDamaged?.Invoke(this, EventArgs.Empty);
         }
 
         public override void Update(GameTime gameTime)
