@@ -315,6 +315,11 @@
 /processor:PassThroughProcessor
 /build:playerAnims.xml
 
+#begin playerDamagedAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:playerDamagedAnims.xml
+
 #begin projectileAnims.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
