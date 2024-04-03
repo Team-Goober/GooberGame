@@ -270,7 +270,10 @@ namespace Sprint
 
             hud.EndCycle();
 
-            ClearRooms(0, 0);
+            // Clear previous data
+            currentRoom = new Point(-1, -1);
+            ClearRooms(rooms.Length, rooms[0].Length);
+
 
             inputTable.ClearDictionary();
 
