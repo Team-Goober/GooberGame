@@ -15,8 +15,7 @@ namespace Sprint.Characters
         protected ISprite damagedSprite;
         protected Physics physics;
         SceneObjectManager objectManager;
-        private float timer = 0;
-        private Timer damageTimer = new Timer(0.3);
+        private Timer damageTimer;
 
         public Enemy(ISprite sprite,ISprite damagedSprite, Vector2 position, SceneObjectManager objectManager)
         {
@@ -25,8 +24,7 @@ namespace Sprint.Characters
             this.damagedSprite = damagedSprite;
             physics = new Physics(position);
             this.objectManager = objectManager;
-
-
+            damageTimer = new Timer(0.1);
         }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
@@ -57,12 +55,12 @@ namespace Sprint.Characters
             physics.Update(gameTime);
             sprite.Update(gameTime);
 
-            // damage timer to switch between sprites
             damageTimer.Update(gameTime);
+            // damage timer to switch between sprites
             if (damageTimer.JustEnded)
             {
                 // switch back to default sprite (non-damaged)
-                this.sprite = sprite;
+                this.sprite = this.defaultSprite;
             }
         }
 

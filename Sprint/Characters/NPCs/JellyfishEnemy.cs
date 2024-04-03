@@ -44,7 +44,7 @@ namespace Sprint.Characters
             }
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             // Calculate movement based on elapsed time
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;

@@ -61,7 +61,7 @@ namespace Sprint.Characters
         }
 
         // Update HandEnemy logic
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             timeAttack.Update(gameTime);
 

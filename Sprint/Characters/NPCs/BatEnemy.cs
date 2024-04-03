@@ -45,7 +45,7 @@ namespace Sprint.Characters
         }
 
         // Update logic
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
 
             timeAttack.Update(gameTime);
