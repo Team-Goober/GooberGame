@@ -91,7 +91,7 @@
               <Padding>16</Padding>
               <CenterPoint>7.5 8</CenterPoint>
               <Loop>true</Loop>
-              <Framerate>19</Framerate>
+              <Framerate>15</Framerate>
             </Value>
           </Item>
         </Animations>
@@ -113,7 +113,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>110</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 				  <Item>
@@ -125,7 +125,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>110</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 				  <Item>
@@ -137,7 +137,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>110</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 				  <Item>
@@ -149,7 +149,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>110</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -171,7 +171,7 @@
 						  <Padding>6</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>110</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -193,7 +193,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>110</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 				  <Item>
@@ -205,7 +205,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>110</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -245,7 +245,7 @@
 						  <Padding>16</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>110</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -267,7 +267,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>0 0</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>110</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -291,7 +291,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>8 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>110</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
