@@ -63,7 +63,8 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY), typeof(KillCommand).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(KillCommand).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.ENEMY), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.PLAYER), typeof(DissipateProjectile).GetConstructor( constructorParams ) }
+                {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.PLAYER), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
+                { new TypePairKey(CollisionTypes.FLYING_ENEMY, CollisionTypes.PHASING_WALL), null },
             };
 
         //Made assuming that ICollidable can access the objects native type
@@ -140,9 +141,15 @@ namespace Sprint.Collision
         /// <param name="overlap">Overlap distance, measured out from receiver</param>
         public void CreateAndRun(ConstructorInfo commandConstructor, ICollidable receiver, ICollidable effector, Vector2 overlap)
         {
-            // Construct command then execute
-            ICommand c = commandConstructor.Invoke(new object[] { receiver, effector, overlap }) as ICommand;
-            c.Execute();
+            // Check if commandConstructor is not null
+            if (commandConstructor != null)
+            {
+                // Construct command then execute
+                ICommand c = commandConstructor.Invoke(new object[] { receiver, effector, overlap }) as ICommand;
+                c.Execute();
+            }
+            
         }
+
     }
 }
