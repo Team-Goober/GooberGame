@@ -28,6 +28,8 @@ namespace XMLData
 
         public Vector2 MapItemPos;
         public Vector2 CompassItemPos;
+        public Vector2 FirstInventoryCell;
+        public Vector2 InventoryPadding;
 
         public int NumSpriteSize;
     }

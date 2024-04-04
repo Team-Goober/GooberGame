@@ -13,6 +13,9 @@ internal class Inventory
     public delegate void InventoryUpdateDelegate(ItemType it, int prev, int next);
     public event InventoryUpdateDelegate InventoryEvent;
 
+    // Array of slots to choose items with
+    // TODO: load dimensions from file
+    private ItemType[,] slots = new ItemType[2,4];
 
     public Inventory()
     {
@@ -90,5 +93,10 @@ internal class Inventory
     public int getItemAmount(ItemType item)
     {
         return itemDictionary[item];
+    }
+
+    public ItemType[,] GetSlots()
+    {
+        return slots;
     }
 }

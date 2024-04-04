@@ -24,8 +24,10 @@
 
     <MapItemPos>192 448</MapItemPos>
     <CompassItemPos>176 608</CompassItemPos>
-    
-	  <NumSpriteSize>32</NumSpriteSize>
+    <FirstInventoryCell>512 192</FirstInventoryCell>
+    <InventoryPadding>32 0</InventoryPadding>
+
+    <NumSpriteSize>32</NumSpriteSize>
   
 </Asset>
 </XnaContent>

@@ -34,6 +34,7 @@ namespace Sprint.HUD
 
         private IHUD mapItem;
         private IHUD compassItem;
+        private IHUD selector;
 
         HUDData data;
 
@@ -97,6 +98,9 @@ namespace Sprint.HUD
             // Visual displays for receiving map and compass. Don't display until acquired
             mapItem = MakeHUDSprite("map", data.MapItemPos);
             compassItem = MakeHUDSprite("compass", data.CompassItemPos);
+
+            // Selector for slots
+            inventoryScreen.Add(MakeHUDSprite("selector", data.FirstInventoryCell));
 
             inventoryScreen.Add(MakeFullMap(map, data.FullMapPos, data.FullMapRoomSize, data.FullMapPadding, data.FullMapBackgroundSize));
             inventoryScreen.EndCycle();
