@@ -98,14 +98,14 @@
         <Texture>HUD/HUDWeapons</Texture>
         <Animations>
           <Item>
-            <Key>red</Key>
+            <Key>inactive</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>0 0 16 16</Rectangle>
               <CenterPoint>0 0</CenterPoint>
             </Value>
           </Item>
           <Item>
-            <Key>blue</Key>
+            <Key>active</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>17 0 16 16</Rectangle>
               <CenterPoint>0 0</CenterPoint>
@@ -113,7 +113,7 @@
           </Item>
         </Animations>
         <Scale>4</Scale>
-        <InitialAnimation>red</InitialAnimation>
+        <InitialAnimation>inactive</InitialAnimation>
       </Value>
     </Item>
     

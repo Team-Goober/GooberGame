@@ -34,7 +34,7 @@ namespace Sprint.HUD
 
         private IHUD mapItem;
         private IHUD compassItem;
-        private IHUD selector;
+        private HUDSelector selector;
 
         HUDData data;
 
@@ -100,7 +100,8 @@ namespace Sprint.HUD
             compassItem = MakeHUDSprite("compass", data.CompassItemPos);
 
             // Selector for slots
-            inventoryScreen.Add(MakeHUDSprite("selector", data.FirstInventoryCell));
+            selector = MakeSelector("selector", data.FirstInventoryCell, data.InventoryPadding);
+            inventoryScreen.Add(selector);
 
             inventoryScreen.Add(MakeFullMap(map, data.FullMapPos, data.FullMapRoomSize, data.FullMapPadding, data.FullMapBackgroundSize));
             inventoryScreen.EndCycle();
@@ -164,6 +165,11 @@ namespace Sprint.HUD
             return sprite;
         }
 
+        public HUDSelector MakeSelector(string spriteLabel, Vector2 position, Vector2 padding)
+        {
+            return hudFactory.MakeSelector(spriteLabel, position, padding);
+        }
+
 
         public void OnInventoryEvent(ItemType it, int prev, int next)
         {
@@ -188,6 +194,11 @@ namespace Sprint.HUD
                     break;
             }
         }
+
+        public void OnSelectorMoveEvent(int r, int c) {
+            selector.SetLocation(r, c);
+        }
+
 
         public void UpdateItemAmount(List<HUDAnimSprite> numSprites, int number)
         {

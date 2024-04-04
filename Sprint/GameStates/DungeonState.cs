@@ -78,8 +78,6 @@ namespace Sprint
             hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
             hud = hudLoader.GetTopDisplay();
 
-            loadDelegates();
-
             // enter first room
             SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
         }
@@ -89,7 +87,7 @@ namespace Sprint
             Inventory inventory = player.GetInventory();
             inventory.InventoryEvent += hudLoader.OnInventoryEvent;
             inventory.InventoryEvent += this.OnInventoryEvent;
-
+            ((InventoryState)game.InventoryState).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
         }
 
         public void OnInventoryEvent(ItemType it, int prev, int next)
@@ -110,7 +108,10 @@ namespace Sprint
         // Generates all commands available while the player is moving in a room
         public void MakeCommands()
         {
+            // TODO: These are here because they refer to InventoryState, which may not exist yet. Should be moved
             ((InventoryState)game.InventoryState).SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
+            ((InventoryState)game.InventoryState).AttachPlayer(player);
+            loadDelegates();
 
             inputTable = new InputTable();
 

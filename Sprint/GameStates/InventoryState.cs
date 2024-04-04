@@ -1,18 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprint.Characters;
 using Sprint.Functions;
 using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
+using Sprint.Items;
 using Sprint.Levels;
-using Sprint.Sprite;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Sprint.GameStates
 {
@@ -23,12 +19,24 @@ namespace Sprint.GameStates
         private IInputMap input;
         private SceneObjectManager hud;
         private SceneObjectManager inventoryUI;
+        private Inventory playerInventory;
+        private Point slot;
 
         private Vector2 hudPosition;
+
+        public delegate void SelectorMoveDelegate(int row, int column);
+        public event SelectorMoveDelegate SelectorMoveEvent;
 
         public InventoryState(Goober game)
         {
             this.game = game;
+            slot = new Point(0, 0);
+        }
+
+        // Assign an inventory to modify
+        public void AttachPlayer(Player player)
+        {
+            playerInventory = player.GetInventory();
         }
 
         public List<SceneObjectManager> AllObjectManagers()
@@ -76,6 +84,15 @@ namespace Sprint.GameStates
             input = new InputTable();
             // Register command to return to game
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new CloseInventoryCommand(this));
+            // Register commands to move selector
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new MoveSelectorCommand(this, new Point(0, -1)));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveSelectorCommand(this, new Point(-1, 0)));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.S), new MoveSelectorCommand(this, new Point(0, 1)));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveSelectorCommand(this, new Point(1, 0)));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Up), new MoveSelectorCommand(this, new Point(0, -1)));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveSelectorCommand(this, new Point(-1, 0)));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveSelectorCommand(this, new Point(0, 1)));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveSelectorCommand(this, new Point(1, 0)));
         }
 
         public void PassToState(IGameState newState)
@@ -100,6 +117,9 @@ namespace Sprint.GameStates
 
         public void CloseInventory()
         {
+            // Move selector back to start location
+            TryMoveSelector(Point.Zero);
+
             DungeonState dungeon = (DungeonState)game.DungeonState;
 
             // Set all the start and end positions for the scenes
@@ -114,6 +134,18 @@ namespace Sprint.GameStates
             TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, game.DungeonState);
 
             PassToState(scroll);
+        }
+
+        public void TryMoveSelector(Point p)
+        {
+            ItemType[,] slotsArr = playerInventory.GetSlots();
+            Point newSlot = slot + p;
+            // Check if new slot is in bounds
+            if (newSlot.X >= 0 && newSlot.X < slotsArr.GetLength(1) && newSlot.Y >= 0 && newSlot.Y < slotsArr.GetLength(0))
+            {
+                slot = newSlot;
+                SelectorMoveEvent?.Invoke(slot.Y, slot.X);
+            }
         }
 
     }

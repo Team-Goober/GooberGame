@@ -67,5 +67,12 @@ namespace Sprint.HUD
 
             return hearts;
         }
+
+        public HUDSelector MakeSelector(string spriteLabel, Vector2 position, Vector2 padding)
+        {
+            return new HUDSelector(spriteLoader.BuildSprite(LOCATION, spriteLabel),
+                new Rectangle((int)position.X, (int)position.Y, (int)padding.X, (int)padding.Y),
+                "active", "inactive");
+        }
     }
 }

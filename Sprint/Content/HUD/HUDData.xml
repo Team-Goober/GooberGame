@@ -25,7 +25,7 @@
     <MapItemPos>192 448</MapItemPos>
     <CompassItemPos>176 608</CompassItemPos>
     <FirstInventoryCell>512 192</FirstInventoryCell>
-    <InventoryPadding>32 0</InventoryPadding>
+    <InventoryPadding>96 64</InventoryPadding>
 
     <NumSpriteSize>32</NumSpriteSize>
   
