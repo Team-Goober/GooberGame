@@ -1,15 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Sprint.Levels;
+using Sprint.HUD;
+using Sprint.Items;
 
 namespace Sprint.Characters;
 
-public class Inventory
+internal class Inventory
 {
 
     private Dictionary<ItemType, int> itemDictionary;
+
+    public delegate void InventoryUpdateDelegate(ItemType it, int prev, int next);
+    public event InventoryUpdateDelegate InventoryEvent;
+
+
     public Inventory()
     {
+
         itemDictionary = new Dictionary<ItemType, int>()
         {
             { ItemType.Arrow, 0 },
@@ -38,9 +45,12 @@ public class Inventory
             { ItemType.Cake, 0 },
             { ItemType.Key, 0 },
             { ItemType.Compass, 0 },
-            { ItemType.Paper, 0}
+            { ItemType.Paper, 0},
+            { ItemType.Gem, 0 },
+            { ItemType.Bomb, 0 }
         };
     }
+
 
     /// <summary>
     /// Adds item to object's inventory
@@ -49,6 +59,7 @@ public class Inventory
     public void PickupItem(ItemType item)
     {
         itemDictionary[item]++;
+        InventoryEvent?.Invoke(item, itemDictionary[item] - 1, itemDictionary[item]);
     }
 
     /// <summary>
@@ -58,6 +69,7 @@ public class Inventory
     public void ConsumeItem(ItemType item)
     {
         itemDictionary[item]--;
+        InventoryEvent?.Invoke(item, itemDictionary[item] + 1, itemDictionary[item]);
     }
 
     /// <summary>

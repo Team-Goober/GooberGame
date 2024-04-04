@@ -1,12 +1,11 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprint.Characters;
 using Sprint.Collision;
 using Sprint.Interfaces;
 using System;
 
-namespace Sprint.Levels
+namespace Sprint.Items
 {
     public class Item : IGameObject, ICollidable
     {
@@ -18,15 +17,15 @@ namespace Sprint.Levels
 
         public Item(ISprite sprite, Vector2 position, ItemType itemType)
         {
-            this.isColliable = true;
-            if(itemType == ItemType.FireBall || itemType == ItemType.OldmManText)
+            isColliable = true;
+            if (itemType == ItemType.FireBall || itemType == ItemType.OldmManText)
             {
-                this.isColliable = false;
+                isColliable = false;
             }
             this.itemType = itemType;
             this.sprite = sprite;
             this.position = position;
-            bounds = new Rectangle((int)position.X-24, (int)position.Y-24, 48, 48);
+            bounds = new Rectangle((int)position.X - 24, (int)position.Y - 24, 48, 48);
         }
 
         public Rectangle BoundingBox => bounds;
@@ -43,7 +42,7 @@ namespace Sprint.Levels
 
         public bool GetColliable()
         {
-            return this.isColliable;
+            return isColliable;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

@@ -1,18 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Characters;
-using Sprint.Factory.Door;
 using Sprint.Interfaces;
-using Sprint.Levels;
+using Sprint.Items;
 
-namespace Sprint.Functions;
+namespace Sprint.Door;
 
-public class OpenLockedDoorCommand: ICommand
+public class OpenLockedDoorCommand : ICommand
 {
     private Player receiver;
     private Door effector;
     private Vector2 distance; // displacement to push over
 
-    public OpenLockedDoorCommand(ICollidable receiver, ICollidable effector, Vector2 overlap) {
+    public OpenLockedDoorCommand(ICollidable receiver, ICollidable effector, Vector2 overlap)
+    {
         this.receiver = (Player)receiver;
         this.effector = (Door)effector;
         distance = -overlap;

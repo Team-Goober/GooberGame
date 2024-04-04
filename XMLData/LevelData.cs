@@ -8,6 +8,7 @@ namespace XMLData
     {
         public int Level;
         public Point StartLevel; // Column, Row pair for room to start player in
+        public Point CompassPoint; // Column, Row pair for room to place a compass signal in
         public string SpriteFile; // Path to file holding all room sprites for this level
         public string HUBFile;
 
@@ -60,6 +61,7 @@ namespace XMLData
     public class RoomData
     {
         public bool NeedWall; // Determines if walls will be loaded for a room 
+        public bool Hidden; // Determines whether room is hidden after receiving map
         public string TopExit; // Each exit for the room. Corresponds to one door each
         public string BottomExit;
         public string LeftExit;

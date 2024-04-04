@@ -4,6 +4,7 @@ using Sprint.Characters;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
+using Sprint.Items;
 
 namespace Sprint.Functions.Collision;
 

@@ -2,7 +2,7 @@
 using Sprint.Interfaces;
 using Sprint.Levels;
 
-namespace Sprint.Factory.Door
+namespace Sprint.Door
 {
     internal class PuzzleDoor : Door
     {

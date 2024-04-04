@@ -14,6 +14,18 @@ namespace XMLData
         public Vector2 BWeapon;
         public Vector2 AWeapon;
 
+        public Vector2 InventoryFramePos;
+        public Vector2 MapFramePos;
+
+        public Vector2 MinimapPos;
+        public Vector2 MinimapRoomSize;
+        public int MinimapPadding;
+        public Vector2 MinimapBackgroundSize;
+        public Vector2 FullMapPos;
+        public Vector2 FullMapRoomSize;
+        public int FullMapPadding;
+        public Vector2 FullMapBackgroundSize;
+
         public int NumSpriteSize;
     }
 }

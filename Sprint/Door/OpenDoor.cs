@@ -5,7 +5,7 @@ using Sprint.Collision;
 using Sprint.Levels;
 using System.Diagnostics;
 
-namespace Sprint.Factory.Door
+namespace Sprint.Door
 {
     internal class OpenDoor : Door
     {

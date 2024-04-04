@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Sprint.Levels;
 using Sprint.Sprite;
 
-namespace Sprint.Characters
+namespace Sprint.Items
 {
     public class ItemFactory
     {
@@ -44,7 +43,9 @@ namespace Sprint.Characters
                 { "paper", ItemType.Paper },
                 { "compass", ItemType.Compass },
                 { "fireball", ItemType.FireBall },
-                { "oldmanText", ItemType.OldmManText }
+                { "oldmanText", ItemType.OldmManText },
+                { "bomb", ItemType.Bomb },
+                { "gem", ItemType.Gem }
             };
         }
 
@@ -54,7 +55,7 @@ namespace Sprint.Characters
         /// <param name="name">Name of item to make</param>
         /// <param name="position">World position to spawn at</param>
         /// <returns></returns>
-        public Item MakeItem(String name, Vector2 position)
+        public Item MakeItem(string name, Vector2 position)
         {
             return new Item(spriteLoader.BuildSprite(ANIM_FILE, name), position, itemTypeConverter[name]);
         }

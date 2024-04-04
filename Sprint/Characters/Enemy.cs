@@ -28,7 +28,7 @@ namespace Sprint.Characters
             16 * 3,
             16 * 3);
 
-        public CollisionTypes[] CollisionType => new CollisionTypes[] {CollisionTypes.ENEMY, CollisionTypes.CHARACTER};
+        public virtual CollisionTypes[] CollisionType => new CollisionTypes[] {CollisionTypes.ENEMY, CollisionTypes.CHARACTER};
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {

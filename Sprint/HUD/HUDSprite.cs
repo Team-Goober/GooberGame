@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sprint.Factory.HUD
+namespace Sprint.HUD
 {
     internal class HUDSprite : IHUD
     {
-        protected ISprite sprite;
-        protected Vector2 position;
+        private ISprite sprite;
+        private Vector2 position;
 
         public HUDSprite(ISprite sprite, Vector2 position)
         {
