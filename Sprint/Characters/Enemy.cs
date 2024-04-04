@@ -54,6 +54,7 @@ namespace Sprint.Characters
         {
             physics.Update(gameTime);
             sprite.Update(gameTime);
+            
 
             damageTimer.Update(gameTime);
             // damage timer to switch between sprites

@@ -61,10 +61,10 @@ namespace Sprint.Characters
         }
 
         // Update HandEnemy logic
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             timeAttack.Update(gameTime);
-
+            base.Update(gameTime);
             // Uses timer to shoot projectiles every 2 seconds
             if (timeAttack.JustEnded)
             {

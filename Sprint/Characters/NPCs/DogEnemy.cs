@@ -56,9 +56,10 @@ namespace Sprint.Characters
         }
 
         // Update DogEnemy logic
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             timeAttack.Update(gameTime);
+            base.Update(gameTime);
 
             // Uses timer to shoot projectiles every 2 seconds
             if (timeAttack.JustEnded)
@@ -133,19 +134,7 @@ namespace Sprint.Characters
         // Ensure that the enemy always stays within the game bounds
         private void CheckBounds(Vector2 pos, float scale)
         {
-            //int gameX = Goober.gameWidth;
-            //int gameY = Goober.gameHeight;
-
-            // Make the enemy go to the other direction when it reaches a certain distance so that it doesn't go over the window
-            //    if (pos.X + scale > gameX)
-            //    {
-            //        moveDirection.X = -moveDirection.X;
-            //    }
-
-            //    if (pos.Y + scale > gameY)
-            //    {
-            //        moveDirection.Y = -moveDirection.Y;
-            //    }
+            // No longer needed
         }
 
         // Generate a random movement direction for DogEnemy

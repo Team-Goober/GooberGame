@@ -45,11 +45,11 @@ namespace Sprint.Characters
         }
 
         // Update logic
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
 
 
-
+            base.Update(gameTime);
             // Calculate movement based on elapsed time for the random pattern
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
