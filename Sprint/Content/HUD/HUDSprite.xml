@@ -306,5 +306,42 @@
 				<InitialAnimation>Empty</InitialAnimation>
 			</Value>
 		</Item>
+    
+    <!-- Map and Compass item displays -->
+    <Item>
+      <Key>map</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>map</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>244 80 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>map</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>compass</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>compass</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>82 42 11 12</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>compass</InitialAnimation>
+      </Value>
+    </Item>
 	</Asset>
 </XnaContent>

@@ -21,6 +21,10 @@
     <FullMapRoomSize>24 24</FullMapRoomSize>
     <FullMapPadding>4</FullMapPadding>
     <FullMapBackgroundSize>256 256</FullMapBackgroundSize>
+
+    <MapItemPos>192 448</MapItemPos>
+    <CompassItemPos>176 608</CompassItemPos>
+    
 	  <NumSpriteSize>32</NumSpriteSize>
   
 </Asset>

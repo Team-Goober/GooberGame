@@ -32,6 +32,9 @@ namespace Sprint.HUD
         private HUDAnimSprite bWeapon;
         private HUDAnimSprite aWeapon;
 
+        private IHUD mapItem;
+        private IHUD compassItem;
+
         HUDData data;
 
         public HUDLoader(ContentManager newContent, SpriteLoader spriteLoader)
@@ -90,6 +93,10 @@ namespace Sprint.HUD
             // Inventory Backgrounds
             inventoryScreen.Add(MakeHUDSprite("Inventory", data.InventoryFramePos));
             inventoryScreen.Add(MakeHUDSprite("DungeonMap", data.MapFramePos));
+
+            // Visual displays for receiving map and compass. Don't display until acquired
+            mapItem = MakeHUDSprite("map", data.MapItemPos);
+            compassItem = MakeHUDSprite("compass", data.CompassItemPos);
 
             inventoryScreen.Add(MakeFullMap(map, data.FullMapPos, data.FullMapRoomSize, data.FullMapPadding, data.FullMapBackgroundSize));
             inventoryScreen.EndCycle();
@@ -166,6 +173,12 @@ namespace Sprint.HUD
                     break;
                 case ItemType.Bomb:
                     UpdateItemAmount(BombNumber, next);
+                    break;
+                case ItemType.Paper:
+                    inventoryScreen.Add(mapItem);
+                    break;
+                case ItemType.Compass:
+                    inventoryScreen.Add(compassItem);
                     break;
                 default:
                     break;
