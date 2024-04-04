@@ -10,13 +10,6 @@ namespace Sprint.Characters
 
         public abstract void MoveAI(GameTime gameTime);
 
-        public enum Directions
-        {
-            UP,
-            DOWN,
-            LEFT,
-            RIGHT
-        }
 
     }
 }

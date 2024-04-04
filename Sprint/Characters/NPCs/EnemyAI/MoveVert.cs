@@ -7,6 +7,7 @@ using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
 using Sprint.Collision;
+using Sprint;
 
 namespace Sprint.Characters
 {
@@ -15,8 +16,10 @@ namespace Sprint.Characters
         private float elapsedTime;
         private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
+        public DirectionFace directionFace;
 
-        
+
+
         private Vector2 initialPosition;
 
         Physics physics;
@@ -57,39 +60,42 @@ namespace Sprint.Characters
 
 
         // Choose a random direction to move
-        private void RandomizeMoveDirection()
+        public void RandomizeMoveDirection()
         {
             // Generate a random movement direction
             Random random = new Random();
             int indDir = random.Next(4);
-            Directions direction = (Directions)indDir;
-            SetDirection(direction);
+            directionFace = (DirectionFace)indDir;
+            SetDirection(directionFace);
+            
 
         }
 
 
 
         // Set the direction of the move AI
-        public void SetDirection(Directions direction)
+        public void SetDirection(DirectionFace direction)
         {
             switch (direction)
             {
-                case Directions.UP:
+                case DirectionFace.UP:
                     moveDirection = new Vector2(0, -1);
                     break;
-                case Directions.LEFT:
+                case DirectionFace.LEFT:
                     moveDirection = new Vector2(-1, 0);
                     break;
-                case Directions.DOWN:
+                case DirectionFace.DOWN:
                     moveDirection = new Vector2(0, 1);
                     break;
-                case Directions.RIGHT:
+                case DirectionFace.RIGHT:
                     moveDirection = new Vector2(1, 0);
                     break;
                 default:
                     moveDirection = Vector2.Zero;
                     break;
             }
+
+            
 
         }
 

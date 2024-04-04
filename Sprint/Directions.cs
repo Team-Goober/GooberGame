@@ -7,6 +7,15 @@ using System.Threading.Tasks;
 
 namespace Sprint
 {
+
+    public enum DirectionFace
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
+
     public static class Directions
     {
 
@@ -23,6 +32,7 @@ namespace Sprint
         {
             return -direction;
         }
+
 
     }
 }
