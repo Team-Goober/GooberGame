@@ -24,7 +24,7 @@ namespace Sprint.Projectile
         public BlueBoomerang(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, SceneObjectManager objectManager) :
             base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objectManager)
         {
-            sfxFactory = new SfxFactory();
+            sfxFactory = SfxFactory.GetInstance();
             sfx = sfxFactory.GetSoundEffect("Magical Boomerang Thrown");
             returned = false;
             sfx.IsLooped = true;

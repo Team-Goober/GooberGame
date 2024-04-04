@@ -33,7 +33,7 @@ namespace Sprint.Projectile
             base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objectManager)
         {
             explosionTimer = new Timer(1);
-            sfxFactory = new SfxFactory();
+            sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Bomb Placement");
         }
 

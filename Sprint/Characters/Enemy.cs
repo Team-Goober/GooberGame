@@ -20,7 +20,7 @@ namespace Sprint.Characters
             this.sprite = sprite;
             physics = new Physics(position);
             this.objectManager = objectManager;
-            sfxFactory = new SfxFactory();
+            sfxFactory = SfxFactory.GetInstance();
         }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),

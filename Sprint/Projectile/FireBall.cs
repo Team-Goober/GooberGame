@@ -24,7 +24,7 @@ namespace Sprint.Projectile
             base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objectManager)
         {
             sitTimer = new Timer(1);
-            sfxFactory = new SfxFactory();
+            sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Flames Shot");
         }
 

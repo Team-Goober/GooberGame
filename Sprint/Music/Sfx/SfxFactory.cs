@@ -1,16 +1,8 @@
-﻿using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Media;
-using System;
+﻿using System;
+using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 using XMLData;
-using Sprint.Interfaces;
-using Sprint.Sprite;
-using System.IO;
 
 namespace Sprint.Music.Sfx
 {
@@ -19,10 +11,27 @@ namespace Sprint.Music.Sfx
 
         private Dictionary<string, SoundEffect> soundEffects;
         private LevelData levelData;
+        private static SfxFactory instance;
+        private float currentVolume;
+        private int volumeCounter;
+        private bool isMuted;
+
 
         public SfxFactory()
         {
             soundEffects = new Dictionary<string, SoundEffect>();
+            currentVolume = 0.1f;
+            volumeCounter = 1;
+            isMuted = false;
+        }
+
+        /// <summary>
+        /// Get an instance of the SfxFactory, create a new one on first run
+        /// </summary>
+        /// <returns>The instance of SfxFactory</returns>
+        public static SfxFactory GetInstance()
+        {
+            return instance ??= new SfxFactory();
         }
 
         /// <summary>
@@ -38,15 +47,20 @@ namespace Sprint.Music.Sfx
         /// <summary>
         /// Makes all songs and adds to soundEffect list
         /// </summary>
-        private void MakeSongs()
+        public void MakeSongs()
         {
+            //All song names loaded in
             List<SfxData> songNames = LoadXML();
 
+            //Add each song to the SFX dictionary
             foreach (var songName in songNames)
             {
                 if(!soundEffects.ContainsKey(songName.SoundName))
                     soundEffects.Add(songName.SoundName , Goober.content.Load<SoundEffect>(songName.SoundName)); 
             }
+
+            //Set base volume
+            SoundEffect.MasterVolume = currentVolume;
         }
 
         /// <summary>
@@ -55,7 +69,6 @@ namespace Sprint.Music.Sfx
         /// <param name="name">Name of the sound effect to play</param>
         public void PlaySoundEffect(string name)
         {
-            MakeSongs();
             soundEffects[name].Play();
         }
 
@@ -66,8 +79,54 @@ namespace Sprint.Music.Sfx
         /// <returns>An instance of the sound effect</returns>
         public SoundEffectInstance GetSoundEffect(string name)
         {
-            MakeSongs();
             return soundEffects[name].CreateInstance();
+        }
+
+        /// <summary>
+        /// Set SFX volume higher
+        /// </summary>
+        public void VolumeUp()
+        {
+            if (volumeCounter == 1)
+            {
+                return;
+            }
+
+            volumeCounter++;
+            currentVolume += .1f;
+            SoundEffect.MasterVolume = currentVolume;
+        }
+
+        /// <summary>
+        /// Set SFX volume Lower
+        /// </summary>
+        public void VolumeDown()
+        {
+            if (volumeCounter == 0)
+            {
+                return;
+            }
+
+            volumeCounter--;
+            currentVolume -= .1f;
+            SoundEffect.MasterVolume = currentVolume;
+        }
+
+        /// <summary>
+        /// Toggle mute for SFX
+        /// </summary>
+        public void MuteToggle()
+        {
+            if (!isMuted)
+            {
+                SoundEffect.MasterVolume = 0.0f;
+                isMuted = true;
+            }
+            else
+            {
+                SoundEffect.MasterVolume = currentVolume;
+                isMuted = false;
+            }
         }
 
     }

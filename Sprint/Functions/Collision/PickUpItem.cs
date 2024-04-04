@@ -18,7 +18,7 @@ internal class PickUpItem : ICommand
     public PickUpItem(ICollidable receiver, ICollidable effector, Vector2 overlap) {
         this.receiver = (Player)receiver;
         this.effector = (Item)effector;
-        sfxFactory = new SfxFactory();
+        sfxFactory = SfxFactory.GetInstance();
     }
 
     public void Execute()

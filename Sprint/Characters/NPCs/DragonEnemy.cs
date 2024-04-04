@@ -28,7 +28,7 @@ namespace Sprint.Characters
             : base(sprite, initialPosition, objectManager)
         {
 
-            sfxFactory = new SfxFactory();
+            sfxFactory = SfxFactory.GetInstance();
             this.objectManager = objectManager;
 
             // Store the initial position for reference

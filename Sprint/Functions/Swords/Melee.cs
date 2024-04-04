@@ -13,7 +13,7 @@ namespace Sprint.Commands
         public Melee(Player player)
         {
             this.player = player;
-            sfxFactory = new SfxFactory();
+            sfxFactory = SfxFactory.GetInstance();
         }
 
         public void Execute()

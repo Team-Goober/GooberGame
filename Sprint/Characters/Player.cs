@@ -63,6 +63,8 @@ namespace Sprint.Characters
         //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
+            //Initialize SFX player
+            sfxFactory = SfxFactory.GetInstance();
 
             //Initialize physics and objectManager
             physics = new Physics(Vector2.Zero);
@@ -98,9 +100,6 @@ namespace Sprint.Characters
         public Inventory GetInventory()
         {
             return inventory;
-            this.reset = reset;
-
-            sfxFactory = new SfxFactory();
         }
 
         // Moves the player from current scene into a new one

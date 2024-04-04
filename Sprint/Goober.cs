@@ -7,6 +7,7 @@ using Sprint.Interfaces;
 using Sprint.Commands;
 using Sprint.Sprite;
 using Sprint.GameStates;
+using Sprint.Music.Sfx;
 
 
 namespace Sprint
@@ -24,6 +25,7 @@ namespace Sprint
         public IGameState DungeonState; // State where player can move in a room
         public IGameState InventoryState; // State where player can see map and select items
         public IGameState GameOverState; // State where player died and can restart game
+        private SfxFactory sfxFactory;
 
         private SpriteLoader spriteLoader; // Loads sprites from file and caches them for reuse
         // Dimensions of window
@@ -48,6 +50,7 @@ namespace Sprint
             inputTable = new InputTable();
             content = Content;
 
+
             base.Initialize();
         }
 
@@ -61,6 +64,8 @@ namespace Sprint
             DungeonState.MakeCommands();
             InventoryState.MakeCommands();
             GameState = DungeonState;
+            sfxFactory = SfxFactory.GetInstance();
+            sfxFactory.MakeSongs();
 
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));

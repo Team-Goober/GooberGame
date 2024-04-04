@@ -23,7 +23,7 @@ namespace Sprint.Projectile
         public Arrow(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, SceneObjectManager objectManager) : 
             base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objectManager)
         {
-            sfxFactory = new SfxFactory();
+            sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Arrow Shot");
 
         }

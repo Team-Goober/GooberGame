@@ -43,7 +43,7 @@ namespace Sprint.Loader
             doorFactory = new(spriteLoader);
             itemFactory = new(spriteLoader);
             enemyFactory = new(spriteLoader);
-            songHandler = new SongHandler(newContent);
+            songHandler = SongHandler.GetInstance();
         }
 
         /* Loads Level data from given file
