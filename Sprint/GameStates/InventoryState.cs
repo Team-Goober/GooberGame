@@ -100,7 +100,7 @@ namespace Sprint.GameStates
 
         public void CloseInventory()
         {
-            DungeonState dungeon = (DungeonState)game.DungeonState;
+            DungeonState dungeon = (DungeonState)game.GetDungeonState();
 
             // Set all the start and end positions for the scenes
             Dictionary<SceneObjectManager, Vector4> scrollScenes = new()
@@ -111,7 +111,7 @@ namespace Sprint.GameStates
             };
 
             // Create new GameState to scroll and then set back to this state
-            TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, game.DungeonState);
+            TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, dungeon);
 
             PassToState(scroll);
         }

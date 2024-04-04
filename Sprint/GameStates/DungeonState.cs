@@ -110,7 +110,7 @@ namespace Sprint
         // Generates all commands available while the player is moving in a room
         public void MakeCommands()
         {
-            ((InventoryState)game.InventoryState).SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
+            ((InventoryState)game.GetInventoryState()).SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
 
             inputTable = new InputTable();
 
@@ -383,16 +383,17 @@ namespace Sprint
 
         public void OpenInventory()
         {
+            InventoryState inventory = (InventoryState)game.GetInventoryState();
             // Set all the start and end positions for the scenes
             Dictionary<SceneObjectManager, Vector4> scrollScenes = new()
             {
                 { rooms[currentRoom.Y][currentRoom.X], new Vector4(arenaPosition.X, arenaPosition.Y, arenaPosition.X, Goober.gameHeight) },
-                { ((InventoryState)game.InventoryState).GetScene(), new Vector4(-arenaPosition.X, -Goober.gameHeight + arenaPosition.Y, -arenaPosition.X, 0) },
+                { inventory.GetScene(), new Vector4(-arenaPosition.X, -Goober.gameHeight + arenaPosition.Y, -arenaPosition.X, 0) },
                 { hud, new Vector4(0, 0, 0, Goober.gameHeight - arenaPosition.Y) }
             };
 
             // Create new GameState to scroll and then set back to this state
-            TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, game.InventoryState);
+            TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, inventory);
 
             PassToState(scroll);
         }
