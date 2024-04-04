@@ -89,7 +89,7 @@ namespace Sprint
         {
             switch (it)
             {
-                case ItemType.Paper:
+                case ItemType.Map:
                     map.RevealAll();
                     break;
                 case ItemType.Compass:
