@@ -326,10 +326,15 @@ namespace Sprint
             scrollScenes.Add(rooms[idx.Y][idx.X], new Vector4(-max.X + arenaPosition.X, -max.Y + arenaPosition.Y, arenaPosition.X, arenaPosition.Y));
             scrollScenes.Add(hud, Vector4.Zero);
 
-            // Create new GameState to scroll and then set back to this state
-            TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, this);
+            // Only scroll if direction isn't still
+            // This is so the .75 seconds aren't spent pausing
+            if (dir != Directions.STILL)
+            {
+                // Create new GameState to scroll and then set back to this state
+                TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, this);
 
-            PassToState(scroll);
+                PassToState(scroll);
+            }
 
             // Clean up previous room changes
             rooms[idx.Y][idx.X].EndCycle();
