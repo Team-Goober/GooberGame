@@ -49,7 +49,7 @@ namespace Sprint.Characters
         {
 
             timeAttack.Update(gameTime);
-
+            base.Update(gameTime);
             //uses timer to shoot arrows ever 3 seconds
             if (timeAttack.JustEnded)
             {

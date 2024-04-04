@@ -332,7 +332,6 @@ namespace Sprint.Characters
             damageTimer.Update(gameTime);
             if (damageTimer.JustEnded)
             {
-                Debug.WriteLine("AWWWOOOGAA!!!");
                 sprite = spriteLoader.BuildSprite("playerAnims", "player");
                 returnToBaseAnim();
             }
