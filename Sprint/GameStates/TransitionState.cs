@@ -70,12 +70,6 @@ namespace Sprint
             game.GameState = newState;
         }
 
-        public List<SceneObjectManager> AllObjectManagers()
-        {
-            List<SceneObjectManager> list = scenes.Keys.ToList();
-            return list;
-        }
-
         public void MakeCommands()
         {
             // None

@@ -11,7 +11,7 @@ using Sprint.Levels;
 
 namespace Sprint.Characters
 {
-    public class DragonEnemy : Enemy
+    internal class DragonEnemy : Enemy
     {
         private float elapsedTime;
         private Timer timeAttack;
@@ -21,8 +21,8 @@ namespace Sprint.Characters
         private Vector2 initialPosition;
         private string lastAnimationName;
 
-        public DragonEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, objectManager)
+        public DragonEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -31,7 +31,7 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
             projectileCommand = new ShootBombC(itemFactory);
 

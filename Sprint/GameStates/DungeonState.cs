@@ -16,10 +16,7 @@ using Sprint.Items;
 using Sprint.Levels;
 using Sprint.Loader;
 using Sprint.Sprite;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Security.Cryptography;
 
 namespace Sprint
 {
@@ -37,20 +34,19 @@ namespace Sprint
 
         private Vector2 arenaPosition = Vector2.Zero; // Top left corner of the playable area on the screen
 
-        private SceneObjectManager[][] rooms; // Object managers for each room. Accessed by index
+        private Room[][] rooms; // Object managers for each room. Accessed by index
         private List<Point> hiddenRooms; // Room indices not visible on map
         private Point currentRoom; // Index of currently updated room
         private Vector2 roomStartPosition; // Location in room to begin at when not going through door
         private Point firstRoom; // Room to start the level in
 
-        private SceneObjectManager hud; // Object manager for HUD that should persist between rooms
         private Player player; // Player game object to be moved as rooms switch
 
         private IDoor[,,] doorReference;
         private Rectangle[] doorBounds;
         private MapModel map; // Tracks revealing of rooms for UI
         private Point compassPointer; // Room indices for triforce location
-        HUDLoader hudLoader;
+        private HUDLoader hudLoader;
 
 
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
@@ -76,7 +72,6 @@ namespace Sprint
             //Load the hud
             hudLoader = new HUDLoader(contentManager, spriteLoader);
             hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
-            hud = hudLoader.GetTopDisplay();
 
             loadDelegates();
 
@@ -197,7 +192,7 @@ namespace Sprint
             spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: translateMat);
 
             // Draw current room's objects
-            SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X];
+            SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X].GetScene();
             foreach (IGameObject obj in currRoom.GetObjects())
                 obj.Draw(spriteBatch, gameTime);
 
@@ -206,7 +201,7 @@ namespace Sprint
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
    
             // Draw HUD
-            foreach (IGameObject obj in hud.GetObjects())
+            foreach (IGameObject obj in hudLoader.GetTopDisplay().GetObjects())
                 obj.Draw(spriteBatch, gameTime);
 
             spriteBatch.End();
@@ -221,10 +216,10 @@ namespace Sprint
                 ResetGame();
                 resetGame = false;
                 // End cycle to complete additions and deletions
-                rooms[currentRoom.Y][currentRoom.X].EndCycle();
+                rooms[currentRoom.Y][currentRoom.X].GetScene().EndCycle();
             }
 
-            SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X];
+            SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X].GetScene();
 
             // Detect inputs and execute commands
             inputTable.Update(gameTime);
@@ -234,9 +229,9 @@ namespace Sprint
                 obj.Update(gameTime);
 
             // Update HUD
-            foreach (IGameObject obj in hud.GetObjects())
+            foreach (IGameObject obj in hudLoader.GetTopDisplay().GetObjects())
                 obj.Update(gameTime);
-            hud.EndCycle();
+            hudLoader.GetTopDisplay().EndCycle();
 
 
             // Complete additions and deletions
@@ -266,9 +261,9 @@ namespace Sprint
         public void ResetGame()
         {
             // delete all game objects
-            hud.ClearObjects();
+            hudLoader.GetTopDisplay().ClearObjects();
 
-            hud.EndCycle();
+            hudLoader.GetTopDisplay().EndCycle();
 
             // Clear previous data
             currentRoom = new Point(-1, -1);
@@ -291,7 +286,6 @@ namespace Sprint
             //reload the hud
             hudLoader = new HUDLoader(contentManager, spriteLoader);
             hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
-            hud = hudLoader.GetTopDisplay();
 
             loadDelegates();
 
@@ -302,7 +296,7 @@ namespace Sprint
             SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
         }
 
-        public void AddRoom(Point loc, SceneObjectManager room, bool hidden = false)
+        public void AddRoom(Point loc, Room room, bool hidden = false)
         {
             rooms[loc.Y][loc.X] = room;
             // Hide from map if requested
@@ -322,9 +316,9 @@ namespace Sprint
             // Set all the start and end positions for the scenes
             Dictionary<SceneObjectManager, Vector4> scrollScenes = new();
             if (currentRoom.X >= 0)
-                scrollScenes.Add(rooms[currentRoom.Y][currentRoom.X], new Vector4(arenaPosition.X, arenaPosition.Y, max.X + arenaPosition.X, max.Y + arenaPosition.Y));
-            scrollScenes.Add(rooms[idx.Y][idx.X], new Vector4(-max.X + arenaPosition.X, -max.Y + arenaPosition.Y, arenaPosition.X, arenaPosition.Y));
-            scrollScenes.Add(hud, Vector4.Zero);
+                scrollScenes.Add(rooms[currentRoom.Y][currentRoom.X].GetScene(), new Vector4(arenaPosition.X, arenaPosition.Y, max.X + arenaPosition.X, max.Y + arenaPosition.Y));
+            scrollScenes.Add(rooms[idx.Y][idx.X].GetScene(), new Vector4(-max.X + arenaPosition.X, -max.Y + arenaPosition.Y, arenaPosition.X, arenaPosition.Y));
+            scrollScenes.Add(hudLoader.GetTopDisplay(), Vector4.Zero);
 
             // Only scroll if direction isn't still
             // This is so the .75 seconds aren't spent pausing
@@ -337,9 +331,9 @@ namespace Sprint
             }
 
             // Clean up previous room changes
-            rooms[idx.Y][idx.X].EndCycle();
+            rooms[idx.Y][idx.X].GetScene().EndCycle();
             // Move player to new room
-            player.SetScene(rooms[idx.Y][idx.X]);
+            player.SetRoom(rooms[idx.Y][idx.X]);
             currentRoom = idx;
             player.MoveTo(spawn);
 
@@ -387,9 +381,9 @@ namespace Sprint
             // Set all the start and end positions for the scenes
             Dictionary<SceneObjectManager, Vector4> scrollScenes = new()
             {
-                { rooms[currentRoom.Y][currentRoom.X], new Vector4(arenaPosition.X, arenaPosition.Y, arenaPosition.X, Goober.gameHeight) },
+                { rooms[currentRoom.Y][currentRoom.X].GetScene(), new Vector4(arenaPosition.X, arenaPosition.Y, arenaPosition.X, Goober.gameHeight) },
                 { inventory.GetScene(), new Vector4(-arenaPosition.X, -Goober.gameHeight + arenaPosition.Y, -arenaPosition.X, 0) },
-                { hud, new Vector4(0, 0, 0, Goober.gameHeight - arenaPosition.Y) }
+                { hudLoader.GetTopDisplay(), new Vector4(0, 0, 0, Goober.gameHeight - arenaPosition.Y) }
             };
 
             // Create new GameState to scroll and then set back to this state
@@ -403,7 +397,7 @@ namespace Sprint
             return currentRoom;
         }
 
-        public SceneObjectManager GetRoomAt(Point p)
+        public Room GetRoomAt(Point p)
         {
             return rooms[p.Y][p.X];
         }
@@ -425,10 +419,10 @@ namespace Sprint
 
         public void ClearRooms(int rows, int cols)
         {
-            rooms = new SceneObjectManager[rows][];
+            rooms = new Room[rows][];
             for (int i = 0; i < rows; i++)
             {
-                rooms[i] = new SceneObjectManager[cols];
+                rooms[i] = new Room[cols];
             }
         }
 
@@ -468,14 +462,5 @@ namespace Sprint
             return compassPointer;
         }
 
-        public List<SceneObjectManager> AllObjectManagers()
-        {
-            List<SceneObjectManager> list = new()
-            {
-                rooms[currentRoom.Y][currentRoom.X],
-                hud
-            };
-            return list;
-        }
     }
 }
