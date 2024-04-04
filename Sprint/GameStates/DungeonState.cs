@@ -35,7 +35,6 @@ namespace Sprint
         private Vector2 arenaPosition = Vector2.Zero; // Top left corner of the playable area on the screen
 
         private Room[][] rooms; // Object managers for each room. Accessed by index
-        private List<Point> hiddenRooms; // Room indices not visible on map
         private Point currentRoom; // Index of currently updated room
         private Vector2 roomStartPosition; // Location in room to begin at when not going through door
         private Point firstRoom; // Room to start the level in
@@ -60,7 +59,6 @@ namespace Sprint
 
             player = new Player(spriteLoader, this);
 
-            hiddenRooms = new List<Point>();
             currentRoom = new(-1, -1);
 
             // Load all rooms in the level from XML file
@@ -275,8 +273,6 @@ namespace Sprint
             // new player
             player = new Player(spriteLoader, this);
 
-            hiddenRooms = new List<Point>();
-
             // reload the level
             LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader);
             loader.LoadLevelXML("LevelOne/Level1");
@@ -299,11 +295,6 @@ namespace Sprint
         public void AddRoom(Point loc, Room room, bool hidden = false)
         {
             rooms[loc.Y][loc.X] = room;
-            // Hide from map if requested
-            if (hidden)
-            {
-                hiddenRooms.Add(loc);
-            }
         }
 
         // Switches current room to a different one by index
@@ -400,11 +391,6 @@ namespace Sprint
         public Room GetRoomAt(Point p)
         {
             return rooms[p.Y][p.X];
-        }
-
-        public bool IsHidden(Point p)
-        {
-            return hiddenRooms.Contains(p);
         }
 
         public int RoomColumns()

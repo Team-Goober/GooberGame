@@ -13,13 +13,15 @@ namespace Sprint.Levels
         private List<IDoor> doors; // List of doors at start of room
         private List<Character> npcs; // List of enemies at start of room
         private List<Item> items; // List of items at start of room
+        private bool hidden; // Whether this room should stay hidden on the map
 
-        public Room()
+        public Room(bool hidden)
         {
             objectManager = new SceneObjectManager();
             this.doors = new();
             this.npcs = new();
             this.items = new();
+            this.hidden = hidden;
         }
 
         public List<IDoor> GetDoors()
@@ -40,6 +42,11 @@ namespace Sprint.Levels
         public SceneObjectManager GetScene()
         {
             return objectManager;
+        }
+        
+        public bool IsHidden()
+        {
+            return hidden;
         }
 
     }

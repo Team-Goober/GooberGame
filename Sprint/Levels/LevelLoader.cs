@@ -140,7 +140,7 @@ namespace Sprint.Loader
         {
             RoomData rd = lvl.Rooms[roomIndices.Y][roomIndices.X];
 
-            Room room = new();
+            Room room = new(rd.Hidden);
 
             List<IDoor> roomDoors = room.GetDoors();
             List<Character> roomNpcs = room.GetNpcs();

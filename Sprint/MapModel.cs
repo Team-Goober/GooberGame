@@ -3,6 +3,7 @@
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Items;
+using Sprint.Levels;
 using System;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -66,7 +67,8 @@ namespace Sprint
                 for (int j = 0; j < dungeon.RoomColumns(); j++)
                 {
                     // Only show existing and non-hidden rooms
-                    if (dungeon.GetRoomAt(new Point(j, i)) != null && !dungeon.IsHidden(new Point(j, i)))
+                    Room r = dungeon.GetRoomAt(new Point(j, i));
+                    if (r != null && !r.IsHidden())
                     {
                         revealRoom(i, j);
 
