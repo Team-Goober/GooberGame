@@ -29,11 +29,7 @@ namespace Sprint
             spriteBatch.DrawString(font, text, position, color);
         }
 
-        /*
-         * Example usage:
-            zeldaText = new ZeldaText("Font", "HELLO, ZELDA!", new Vector2(gameWidth / 2, gameHeight / 2), Color.White, Content);
-         */
-
+   
     }
 }
 
