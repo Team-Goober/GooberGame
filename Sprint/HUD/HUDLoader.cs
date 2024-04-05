@@ -8,6 +8,7 @@ using Sprint.Loader;
 using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Diagnostics;
 using XMLData;
 
@@ -32,8 +33,7 @@ namespace Sprint.HUD
         private HUDAnimSprite bWeapon;
         private HUDAnimSprite aWeapon;
 
-        private IHUD mapItem;
-        private IHUD compassItem;
+        private Dictionary<ItemType, IHUD> itemDisplays;
         private HUDSelector selector;
 
         HUDData data;
@@ -95,12 +95,33 @@ namespace Sprint.HUD
             inventoryScreen.Add(MakeHUDSprite("Inventory", data.InventoryFramePos));
             inventoryScreen.Add(MakeHUDSprite("DungeonMap", data.MapFramePos));
 
-            // Visual displays for receiving map and compass. Don't display until acquired
-            mapItem = MakeHUDSprite("map", data.MapItemPos);
-            compassItem = MakeHUDSprite("compass", data.CompassItemPos);
+            // Visual displays for receiving items. Don't display until acquired
+
+            itemDisplays = new()
+            {
+                { ItemType.Map, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Map), data.MapItemPos) },
+                { ItemType.Compass, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Compass), data.CompassItemPos) },
+
+                { ItemType.Raft, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Raft), data.RaftItemPos) },
+                { ItemType.Book, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Book), data.BookItemPos) },
+                { ItemType.RedRing, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.RedRing), data.RingItemPos) },
+                { ItemType.Ladder, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Ladder), data.LadderItemPos) },
+                { ItemType.SpecialKey, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.SpecialKey), data.SpecialKeyItemPos) },
+                { ItemType.Bracelet, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Bracelet), data.BraceletItemPos) },
+            };
+
+            // At the slot item displays
+            for(int i=0; i<Inventory.Slots.GetLength(0); i++)
+            {
+                for (int j = 0; j < Inventory.Slots.GetLength(1); j++)
+                {
+                    itemDisplays.Add(Inventory.Slots[i, j], MakeItemSprite(ItemFactory.GetSpriteName(Inventory.Slots[i, j]),
+                        (data.InventorySlotSize + data.InventoryPadding) * new Vector2(j, i) + data.FirstInventoryCell + data.InventorySlotSize / 2));
+                }
+            }
 
             // Selector for slots
-            selector = MakeSelector("selector", data.FirstInventoryCell, data.InventoryPadding);
+            selector = MakeSelector("selector", data.FirstInventoryCell, data.InventoryPadding + data.InventorySlotSize);
             inventoryScreen.Add(selector);
 
             inventoryScreen.Add(MakeFullMap(map, data.FullMapPos, data.FullMapRoomSize, data.FullMapPadding, data.FullMapBackgroundSize));
@@ -159,6 +180,11 @@ namespace Sprint.HUD
             return hudFactory.MakeHUDSprite(spriteLabel, position);
         }
 
+        public IHUD MakeItemSprite(string spriteLabel, Vector2 position)
+        {
+            return hudFactory.MakeItemSprite(spriteLabel, position);
+        }
+
         public HUDAnimSprite MakeSlotItem(string spriteLabel, Vector2 position)
         {
             HUDAnimSprite sprite = hudFactory.MakeHUDItem(spriteLabel, position);
@@ -173,6 +199,7 @@ namespace Sprint.HUD
 
         public void OnInventoryEvent(ItemType it, int prev, int next)
         {
+            // Update UI numbers for specific items
             switch (it)
             {
                 case ItemType.Rupee:
@@ -184,14 +211,21 @@ namespace Sprint.HUD
                 case ItemType.Bomb:
                     UpdateItemAmount(BombNumber, next);
                     break;
-                case ItemType.Map:
-                    inventoryScreen.Add(mapItem);
-                    break;
-                case ItemType.Compass:
-                    inventoryScreen.Add(compassItem);
-                    break;
                 default:
                     break;
+            }
+
+            // Add or remove displays for items that are gained or lost
+            if (itemDisplays.ContainsKey(it))
+            {
+                if(prev > 0 && next == 0)
+                {
+                    inventoryScreen.Remove(itemDisplays[it]);
+                }
+                else if (prev == 0 && next > 0)
+                {
+                    inventoryScreen.Add(itemDisplays[it]);
+                }
             }
         }
 

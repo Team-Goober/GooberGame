@@ -15,6 +15,7 @@ namespace Sprint.HUD
         private SpriteLoader spriteLoader;
 
         const string LOCATION = "HUD/HUDSprite";
+        const string ITEM_LOCATION = "itemAnims";
 
         public HUDFactory(SpriteLoader spriteLoader)
         {
@@ -24,6 +25,13 @@ namespace Sprint.HUD
         public IHUD MakeHUDSprite(string spriteLabel, Vector2 position)
         {
             ISprite sprite = spriteLoader.BuildSprite(LOCATION, spriteLabel);
+
+            return new HUDSprite(sprite, position);
+        }
+
+        public IHUD MakeItemSprite(string spriteLabel, Vector2 position)
+        {
+            ISprite sprite = spriteLoader.BuildSprite(ITEM_LOCATION, spriteLabel);
 
             return new HUDSprite(sprite, position);
         }

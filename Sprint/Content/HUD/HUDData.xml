@@ -22,10 +22,17 @@
     <FullMapPadding>4</FullMapPadding>
     <FullMapBackgroundSize>256 256</FullMapBackgroundSize>
 
-    <MapItemPos>192 448</MapItemPos>
-    <CompassItemPos>176 608</CompassItemPos>
+    <MapItemPos>208 480</MapItemPos>
+    <CompassItemPos>208 640</CompassItemPos>
     <FirstInventoryCell>512 192</FirstInventoryCell>
-    <InventoryPadding>96 64</InventoryPadding>
+    <InventorySlotSize>64 64</InventorySlotSize>
+    <InventoryPadding>32 0</InventoryPadding>
+    <RaftItemPos>544 128</RaftItemPos>
+    <BookItemPos>624 128</BookItemPos>
+    <RingItemPos>676 128</RingItemPos>
+    <LadderItemPos>736 128</LadderItemPos>
+    <SpecialKeyItemPos>800 128</SpecialKeyItemPos>
+    <BraceletItemPos>848 128</BraceletItemPos>
 
     <NumSpriteSize>32</NumSpriteSize>
   

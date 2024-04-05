@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Sprint.Sprite;
 
@@ -7,14 +8,7 @@ namespace Sprint.Items
 {
     public class ItemFactory
     {
-        private readonly Dictionary<string, ItemType> itemTypeConverter;
-        private const string ANIM_FILE = "itemAnims";
-        private SpriteLoader spriteLoader;
-        public ItemFactory(SpriteLoader spriteLoader)
-        {
-            this.spriteLoader = spriteLoader;
-            itemTypeConverter = new Dictionary<string, ItemType>()
-            {
+        private static readonly Dictionary<string, ItemType> itemTypeConverter = new(){
                 { "arrow", ItemType.Arrow },
                 { "heartPiece", ItemType.HeartPiece },
                 { "specialKey", ItemType.SpecialKey },
@@ -48,6 +42,11 @@ namespace Sprint.Items
                 { "fireball", ItemType.FireBall },
                 { "oldmanText", ItemType.OldManText }
             };
+        private const string ANIM_FILE = "itemAnims";
+        private SpriteLoader spriteLoader;
+        public ItemFactory(SpriteLoader spriteLoader)
+        {
+            this.spriteLoader = spriteLoader;
         }
 
         /// <summary>
@@ -59,6 +58,17 @@ namespace Sprint.Items
         public Item MakeItem(string name, Vector2 position)
         {
             return new Item(spriteLoader.BuildSprite(ANIM_FILE, name), position, itemTypeConverter[name]);
+        }
+
+        // Return string name used for given item
+        public static string GetSpriteName(ItemType item)
+        {
+            foreach (KeyValuePair<string, ItemType> sname in itemTypeConverter)
+            {
+                if (sname.Value == item)
+                    return sname.Key;
+            }
+            return null;
         }
     }
 }

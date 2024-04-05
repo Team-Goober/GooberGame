@@ -138,7 +138,7 @@ namespace Sprint.GameStates
         // Try to move the selector in the direction given by p
         public void TryMoveSelector(Point p)
         {
-            ItemType[,] slotsArr = playerInventory.GetSlots();
+            ItemType[,] slotsArr = Inventory.Slots;
             Point newSlot = slot + p;
             // Check if new slot is in bounds
             if (newSlot.X >= 0 && newSlot.X < slotsArr.GetLength(1) && newSlot.Y >= 0 && newSlot.Y < slotsArr.GetLength(0))
@@ -151,9 +151,12 @@ namespace Sprint.GameStates
         // Choose on the current slot
         public void SelectSlot()
         {
-            ItemType[,] slotsArr = playerInventory.GetSlots();
-            ItemType it = slotsArr[slot.Y, slot.X];
-            SelectorChooseEvent?.Invoke(it);
+            ItemType it = Inventory.Slots[slot.Y, slot.X];
+            // Only select items that the player does have
+            if(playerInventory.HasItem(it))
+            {
+                SelectorChooseEvent?.Invoke(it);
+            }
         }
 
     }

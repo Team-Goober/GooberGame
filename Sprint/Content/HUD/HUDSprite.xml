@@ -277,48 +277,48 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-					<Item>
-						<Key>Boomerang</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>65 0 8 16</Rectangle>
-							<CenterPoint>0 0</CenterPoint>
-						</Value>
-					</Item>
-					<Item>
-						<Key>BlueBoomerang</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>74 0 8 16</Rectangle>
-							<CenterPoint>0 0</CenterPoint>
-						</Value>
-					</Item>
-					<Item>
-						<Key>Bomb</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>85 0 8 16</Rectangle>
-							<CenterPoint>0 0</CenterPoint>
-						</Value>
-					</Item>
-					<Item>
-						<Key>Arrow</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>96 0 8 16</Rectangle>
-							<CenterPoint>0 0</CenterPoint>
-						</Value>
-					</Item>
-					<Item>
-						<Key>BlueArrow</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>105 0 8 16</Rectangle>
-							<CenterPoint>0 0</CenterPoint>
-						</Value>
-					</Item>
-					<Item>
-						<Key>Bow</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>114 0 8 16</Rectangle>
-							<CenterPoint>0 0</CenterPoint>
-						</Value>
-					</Item>
+          <Item>
+            <Key>Boomerang</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>65 0 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>BlueBoomerang</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>74 0 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>Bomb</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>85 0 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>Arrow</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>96 0 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>BlueArrow</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>105 0 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>Bow</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>114 0 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
 					<Item>
 						<Key>Empty</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -331,42 +331,5 @@
 				<InitialAnimation>Empty</InitialAnimation>
 			</Value>
 		</Item>
-    
-    <!-- Map and Compass item displays -->
-    <Item>
-      <Key>map</Key>
-      <Value>
-        <Texture>zelda_items</Texture>
-        <Animations>
-          <Item>
-            <Key>map</Key>
-            <Value Type="XMLData.SingleAtlasData">
-              <Rectangle>244 80 8 16</Rectangle>
-              <CenterPoint>0 0</CenterPoint>
-            </Value>
-          </Item>
-        </Animations>
-        <Scale>4</Scale>
-        <InitialAnimation>map</InitialAnimation>
-      </Value>
-    </Item>
-
-    <Item>
-      <Key>compass</Key>
-      <Value>
-        <Texture>zelda_items</Texture>
-        <Animations>
-          <Item>
-            <Key>compass</Key>
-            <Value Type="XMLData.SingleAtlasData">
-              <Rectangle>82 42 11 12</Rectangle>
-              <CenterPoint>0 0</CenterPoint>
-            </Value>
-          </Item>
-        </Animations>
-        <Scale>4</Scale>
-        <InitialAnimation>compass</InitialAnimation>
-      </Value>
-    </Item>
 	</Asset>
 </XnaContent>

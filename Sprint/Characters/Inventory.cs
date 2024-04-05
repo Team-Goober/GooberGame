@@ -14,7 +14,8 @@ internal class Inventory
     public event InventoryUpdateDelegate InventoryEvent;
 
     // Array of Items representing the item that fills each slot once picked up
-    private ItemType[,] slots = { { } };
+    public static readonly ItemType[,] Slots = { { ItemType.BlueBoomerang, ItemType.Bomb, ItemType.Bow, ItemType.Candle},
+        { ItemType.Flute, ItemType.Meat, ItemType.RedPotion, ItemType.BlueWand } };
     private ItemType selected;
 
     public Inventory()
@@ -94,10 +95,5 @@ internal class Inventory
     public int getItemAmount(ItemType item)
     {
         return itemDictionary[item];
-    }
-
-    public ItemType[,] GetSlots()
-    {
-        return slots;
     }
 }
