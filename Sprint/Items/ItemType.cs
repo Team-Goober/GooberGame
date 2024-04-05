@@ -30,8 +30,6 @@ public enum ItemType
     Key,
     Map,
     Compass,
-    FireBall,
-    OldManText,
     Bomb,
     RedCandle,
     BlueCandle,

@@ -39,9 +39,7 @@ namespace Sprint.Items
                 { "redCandle", ItemType.RedCandle },
                 { "blueCandle", ItemType.BlueCandle },
                 { "flute", ItemType.Flute },
-                { "meat", ItemType.Meat },
-                { "fireball", ItemType.FireBall },
-                { "oldmanText", ItemType.OldManText }
+                { "meat", ItemType.Meat }
             };
         private const string ANIM_FILE = "itemAnims";
         private SpriteLoader spriteLoader;

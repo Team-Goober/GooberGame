@@ -347,11 +347,11 @@
           <Enemies>
             <Item>
               <Type>skeleton</Type>
-              <TilePos>2 2</TilePos>
+              <TilePos>1 2</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <TilePos>11 2</TilePos>
+              <TilePos>11 3</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
@@ -414,7 +414,7 @@
           <Items>
             <Item>
               <Type>triforce</Type>
-              <TilePos>6 3</TilePos>
+              <TilePos>5.5 3</TilePos>
             </Item>
           </Items>
           <Enemies/>
@@ -445,7 +445,7 @@
           <Enemies>
             <Item>
               <Type>oldman</Type>
-              <TilePos>5 3</TilePos>
+              <TilePos>5.5 3</TilePos>
             </Item>
           </Enemies>
           <TextBoxes>
@@ -534,7 +534,7 @@
             </Item>
             <Item>
               <Type>slime</Type>
-              <TilePos>12 4</TilePos>
+              <TilePos>11 4</TilePos>
             </Item>
           </Enemies>
           <TextBoxes />
@@ -606,7 +606,7 @@
           <Enemies>
             <Item>
               <Type>hand</Type>
-              <TilePos>3 1</TilePos>
+              <TilePos>3 2</TilePos>
             </Item>
             <Item>
               <Type>hand</Type>
@@ -662,7 +662,7 @@
             </Item>
             <Item>
               <Type>bat</Type>
-              <TilePos>9 7</TilePos>
+              <TilePos>9 6</TilePos>
             </Item>
           </Enemies>
           <TextBoxes />
@@ -762,7 +762,7 @@
             </Item>
             <Item>
               <Type>bat</Type>
-              <TilePos>9 1</TilePos>
+              <TilePos>9 2</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
@@ -804,7 +804,7 @@
           <Enemies>
             <Item>
               <Type>skeleton</Type>
-              <TilePos>5 3</TilePos>
+              <TilePos>4 3</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
