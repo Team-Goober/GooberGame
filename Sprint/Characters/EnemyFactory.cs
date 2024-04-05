@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Sprite;
-using Sprint.Input;
 using Sprint.Levels;
 using Sprint.Interfaces;
-using System.Diagnostics;
+using Sprint.Characters.NPCs;
 
 namespace Sprint.Characters
 {
@@ -55,6 +54,8 @@ namespace Sprint.Characters
                     return new SpikeEnemy(enemySprite, position, room, spriteLoader);
                 case "oldman":
                     return new OldMan(enemySprite, position, room, spriteLoader);
+                case "fireball":
+                    return new FireBallEnemy(enemySprite, position, room, spriteLoader);
                 default:
                     return null;
             }

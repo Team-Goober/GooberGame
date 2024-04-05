@@ -447,6 +447,14 @@
               <Type>oldman</Type>
               <TilePos>5.5 3</TilePos>
             </Item>
+            <Item>
+              <Type>fireball</Type>
+              <TilePos>2.5 3</TilePos>
+            </Item>
+            <Item>
+              <Type>fireball</Type>
+              <TilePos>8.5 3</TilePos>
+            </Item>
           </Enemies>
           <TextBoxes>
             <Item>
