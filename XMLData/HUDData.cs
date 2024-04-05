@@ -37,6 +37,7 @@ namespace XMLData
         public Vector2 LadderItemPos;
         public Vector2 SpecialKeyItemPos;
         public Vector2 BraceletItemPos;
+        public Vector2 BSelection;
 
         public int NumSpriteSize;
     }

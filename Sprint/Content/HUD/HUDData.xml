@@ -33,7 +33,8 @@
     <LadderItemPos>736 128</LadderItemPos>
     <SpecialKeyItemPos>800 128</SpecialKeyItemPos>
     <BraceletItemPos>848 128</BraceletItemPos>
-
+    <BSelection>288 224</BSelection>
+    
     <NumSpriteSize>32</NumSpriteSize>
   
 </Asset>

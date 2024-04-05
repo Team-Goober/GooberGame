@@ -32,6 +32,7 @@ namespace Sprint.HUD
 
         private HUDInterchangeableSprite bWeapon;
         private HUDInterchangeableSprite aWeapon;
+        private HUDInterchangeableSprite bSelection;
 
         private Dictionary<ItemType, HUDInterchangeableSprite> itemDisplays;
         private HUDSelector selector;
@@ -119,6 +120,9 @@ namespace Sprint.HUD
             // Selector for slots
             selector = MakeSelector("selector", data.FirstInventoryCell, data.InventoryPadding + data.InventorySlotSize);
             inventoryScreen.Add(selector);
+
+            bSelection = MakeItemSprite(null, data.BSelection);
+            inventoryScreen.Add(bSelection);
 
             inventoryScreen.Add(MakeFullMap(map, data.FullMapPos, data.FullMapRoomSize, data.FullMapPadding, data.FullMapBackgroundSize));
             inventoryScreen.EndCycle();
@@ -220,12 +224,15 @@ namespace Sprint.HUD
         }
 
         public void OnSelectorMoveEvent(int r, int c) {
+            // Move selector sprite
             selector.SetLocation(r, c);
         }
 
         public void OnSelectorChooseEvent(ItemType item)
         {
+            // Exchange sprites for B item
             bWeapon.GiveSprite(itemDisplays[item].GetSprite());
+            bSelection.GiveSprite(itemDisplays[item].GetSprite());
         }
 
         public void UpdateItemAmount(List<HUDAnimSprite> numSprites, int number)
