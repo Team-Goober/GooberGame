@@ -86,7 +86,7 @@
 							<Rows>1</Rows>
 							<Cols>2</Cols>
 							<Padding>10</Padding>
-							<CenterPoint>5 5</CenterPoint>
+							<CenterPoint>13 5</CenterPoint>
 							<Loop>true</Loop>
 							<Framerate>10</Framerate>
 						</Value>
