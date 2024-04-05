@@ -26,6 +26,9 @@ namespace XMLData
         public int FullMapPadding;
         public Vector2 FullMapBackgroundSize;
 
+        public Vector2 GameOverPos;
+        public Vector2 DeathMenuPos;
+
         public int NumSpriteSize;
     }
 }

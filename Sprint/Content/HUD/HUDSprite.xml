@@ -55,6 +55,42 @@
 				<InitialAnimation>X</InitialAnimation>
 			</Value>
 		</Item>
+
+		<Item>
+			<Key>GameOver</Key>
+			<Value>
+				<Texture>HUD/GameOver</Texture>
+				<Animations>
+					<Item>
+						<Key>Over</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>0 0 365 37</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>1</Scale>
+				<InitialAnimation>Over</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>DeathScreenMenu</Key>
+			<Value>
+				<Texture>HUD/DeathScreenMenu</Texture>
+				<Animations>
+					<Item>
+						<Key>DMenu</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>0 0 407 224</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>1</Scale>
+				<InitialAnimation>DMenu</InitialAnimation>
+			</Value>
+		</Item>
 		
     <!-- Inventory Screen -->
     <Item>

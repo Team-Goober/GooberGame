@@ -61,7 +61,6 @@ namespace Sprint
 
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
-
         }
  
 

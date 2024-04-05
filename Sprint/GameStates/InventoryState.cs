@@ -84,8 +84,6 @@ namespace Sprint.GameStates
             input.Sleep();
         }
 
-
-
         public void SetHUD(HUDLoader hudLoader, Vector2 pos)
         {
             hudPosition = pos;

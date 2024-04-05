@@ -86,7 +86,7 @@ namespace Sprint.HUD
 
             // Minimap
             topDisplay.Add(MakeMinimap(map, data.MinimapPos, data.MinimapRoomSize, data.MinimapPadding, data.MinimapBackgroundSize));
-
+            
             // Inventory Backgrounds
             inventoryScreen.Add(MakeHUDSprite("Inventory", data.InventoryFramePos));
             inventoryScreen.Add(MakeHUDSprite("DungeonMap", data.MapFramePos));
@@ -126,9 +126,9 @@ namespace Sprint.HUD
 
         public List<HUDAnimSprite> MakeNumber(string num, Vector2 position, int spriteSize)
         {
-            //som.Add(hudFactory.MakeHUDSprite("X", position));
+            topDisplay.Add(hudFactory.MakeHUDSprite("X", position));
             List<HUDAnimSprite> levelNum = hudFactory.MakeNumber(num, new Vector2(position.X + spriteSize, position.Y), spriteSize);
-
+            
             return levelNum;
         }
 
@@ -153,6 +153,17 @@ namespace Sprint.HUD
             return sprite;
         }
 
+        public IHUD MakeGameOver()
+        {
+            IHUD sprite = hudFactory.MakeHUDSprite("GameOver", data.GameOverPos);
+            return sprite;
+        }
+
+        public IHUD MakeDeathMenu()
+        {
+            IHUD sprite = hudFactory.MakeHUDSprite("DeathScreenMenu", data.DeathMenuPos);
+            return sprite;
+        }
 
         public void OnInventoryEvent(ItemType it, int prev, int next)
         {

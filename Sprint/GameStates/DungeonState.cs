@@ -187,14 +187,16 @@ namespace Sprint
                     new SwitchRoomFromDoorsCommand(slice, this));
             }
 
-            }
+            // Death State TEST Remove or Change Later
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.M), new OpenDeath(this));
+
+        }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-
             // Translate the game arena to the correct location on screen
             Matrix translateMat = Matrix.CreateTranslation(new Vector3(arenaPosition.X, arenaPosition.Y, 0));
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: translateMat);
+            spriteBatch.Begin(SpriteSortMode.Immediate, samplerState: SamplerState.PointClamp, transformMatrix: translateMat);
 
             // Draw current room's objects
             SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X];
@@ -387,6 +389,17 @@ namespace Sprint
             TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, game.InventoryState);
 
             PassToState(scroll);
+        }
+
+        public void DeathScreen()
+        {
+            GameOverState death = new GameOverState(game, hudLoader);
+
+            SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X];
+
+            //death.GetRoomScene(currRoom);
+            death.GetHUDScene(hud);
+            PassToState(death);
         }
 
         public Point RoomIndex()
