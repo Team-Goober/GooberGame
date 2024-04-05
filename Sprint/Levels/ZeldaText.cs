@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-namespace Sprint
+namespace Sprint.Levels
 {
     public class ZeldaText
     {
@@ -22,14 +22,14 @@ namespace Sprint
             this.color = color;
         }
 
-        
+
         // Draw method
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(font, text, position, color);
         }
 
-   
+
     }
 }
 
