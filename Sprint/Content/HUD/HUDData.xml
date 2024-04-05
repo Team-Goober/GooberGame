@@ -13,7 +13,7 @@
 	  <AWeapon>624 128</AWeapon>
     <InventoryFramePos>0 0</InventoryFramePos>
     <MapFramePos>0 352</MapFramePos>
-    <MinimapPos>64 32</MinimapPos>
+    <MinimapPos>64 64</MinimapPos>
     <MinimapRoomSize>28 12</MinimapRoomSize>
     <MinimapPadding>4</MinimapPadding>
     <MinimapBackgroundSize>256 160</MinimapBackgroundSize>
