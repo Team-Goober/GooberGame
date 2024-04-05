@@ -15,7 +15,7 @@ namespace Sprint.Characters
     {
         private float elapsedTime;
         private Timer timeAttack;
-        private Vector2 moveDirection; // Movement direction for the random pattern
+        public Vector2 moveDirection; // Movement direction for the random pattern
         public DirectionFace directionFace;
 
 
