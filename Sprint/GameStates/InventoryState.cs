@@ -26,6 +26,8 @@ namespace Sprint.GameStates
 
         public delegate void SelectorMoveDelegate(int row, int column);
         public event SelectorMoveDelegate SelectorMoveEvent;
+        public delegate void SelectorChooseDelegate(ItemType item);
+        public event SelectorChooseDelegate SelectorChooseEvent;
 
         public InventoryState(Goober game)
         {
@@ -89,6 +91,7 @@ namespace Sprint.GameStates
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveSelectorCommand(this, new Point(-1, 0)));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveSelectorCommand(this, new Point(0, 1)));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveSelectorCommand(this, new Point(1, 0)));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new SelectSlotCommand(this));
         }
 
         public void PassToState(IGameState newState)
@@ -96,7 +99,6 @@ namespace Sprint.GameStates
             game.GameState = newState;
             input.Sleep();
         }
-
 
 
         public void SetHUD(HUDLoader hudLoader, Vector2 pos)
@@ -131,7 +133,9 @@ namespace Sprint.GameStates
 
             PassToState(scroll);
         }
+        
 
+        // Try to move the selector in the direction given by p
         public void TryMoveSelector(Point p)
         {
             ItemType[,] slotsArr = playerInventory.GetSlots();
@@ -142,6 +146,14 @@ namespace Sprint.GameStates
                 slot = newSlot;
                 SelectorMoveEvent?.Invoke(slot.Y, slot.X);
             }
+        }
+
+        // Choose on the current slot
+        public void SelectSlot()
+        {
+            ItemType[,] slotsArr = playerInventory.GetSlots();
+            ItemType it = slotsArr[slot.Y, slot.X];
+            SelectorChooseEvent?.Invoke(it);
         }
 
     }

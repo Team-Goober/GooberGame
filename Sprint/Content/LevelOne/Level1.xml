@@ -1150,7 +1150,7 @@
               <Column>4</Column>
             </Item>
             <Item>
-              <Type>potion</Type>
+              <Type>redPotion</Type>
               <Row>1</Row>
               <Column>5</Column>
             </Item>
@@ -1167,6 +1167,26 @@
             <Item>
               <Type>compass</Type>
               <Row>1</Row>
+              <Column>9</Column>
+            </Item>
+            <Item>
+              <Type>bluePotion</Type>
+              <Row>2</Row>
+              <Column>9</Column>
+            </Item>
+            <Item>
+              <Type>candle</Type>
+              <Row>3</Row>
+              <Column>9</Column>
+            </Item>
+            <Item>
+              <Type>meat</Type>
+              <Row>4</Row>
+              <Column>9</Column>
+            </Item>
+            <Item>
+              <Type>flute</Type>
+              <Row>5</Row>
               <Column>9</Column>
             </Item>
           </Items>

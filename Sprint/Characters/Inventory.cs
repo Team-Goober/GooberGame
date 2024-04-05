@@ -13,9 +13,9 @@ internal class Inventory
     public delegate void InventoryUpdateDelegate(ItemType it, int prev, int next);
     public event InventoryUpdateDelegate InventoryEvent;
 
-    // Array of slots to choose items with
-    // TODO: load dimensions from file
-    private ItemType[,] slots = new ItemType[2,4];
+    // Array of Items representing the item that fills each slot once picked up
+    private ItemType[,] slots = { { } };
+    private ItemType selected;
 
     public Inventory()
     {
@@ -44,10 +44,14 @@ internal class Inventory
             { ItemType.Sword, 0 },
             { ItemType.Bracelet, 0 },
             { ItemType.Book, 0 },
-            { ItemType.Potion, 0 },
+            { ItemType.BluePotion, 0 },
+            { ItemType.RedPotion, 0 },
             { ItemType.Key, 0 },
             { ItemType.Compass, 0 },
-            { ItemType.Map, 0}
+            { ItemType.Map, 0},
+            { ItemType.Candle, 0},
+            { ItemType.Flute, 0},
+            { ItemType.Meat, 0},
         };
     }
 

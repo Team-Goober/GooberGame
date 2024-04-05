@@ -37,10 +37,14 @@ namespace Sprint.Items
                 { "sword", ItemType.Sword },
                 { "bracelet", ItemType.Bracelet },
                 { "book", ItemType.Book },
-                { "potion", ItemType.Potion },
+                { "bluePotion", ItemType.BluePotion },
+                { "redPotion", ItemType.RedPotion },
                 { "key", ItemType.Key },
                 { "map", ItemType.Map },
                 { "compass", ItemType.Compass },
+                { "candle", ItemType.Candle },
+                { "flute", ItemType.Flute },
+                { "meat", ItemType.Meat },
                 { "fireball", ItemType.FireBall },
                 { "oldmanText", ItemType.OldManText }
             };

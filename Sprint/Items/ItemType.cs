@@ -23,11 +23,15 @@ public enum ItemType
     Sword,
     Bracelet,
     Book,
-    Potion,
+    BluePotion,
+    RedPotion,
     Key,
     Map,
     Compass,
     FireBall,
     OldManText,
-    Bomb
+    Bomb,
+    Candle,
+    Flute,
+    Meat
 }
