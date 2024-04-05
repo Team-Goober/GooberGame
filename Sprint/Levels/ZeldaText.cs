@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Sprint.Interfaces;
 
 namespace Sprint.Levels
 {
-    public class ZeldaText
+    public class ZeldaText : IGameObject
     {
         private SpriteFont font;
         private string text;
@@ -24,12 +25,15 @@ namespace Sprint.Levels
 
 
         // Draw method
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.DrawString(font, text, position, color);
         }
 
-
+        public void Update(GameTime gameTime)
+        {
+            // None
+        }
     }
 }
 
