@@ -149,12 +149,7 @@ namespace Sprint.GameStates
         // Choose on the current slot
         public void SelectSlot()
         {
-            ItemType it = Inventory.Slots[slot.Y, slot.X];
-            // Only select items that the player does have
-            if(playerInventory.HasItem(it))
-            {
-                playerInventory.Select(it);
-            }
+            playerInventory.Select(slot.Y, slot.X);
         }
 
     }

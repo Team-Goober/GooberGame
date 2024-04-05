@@ -492,7 +492,7 @@
 		</Item>
 
     <Item>
-      <Key>candle</Key>
+      <Key>redCandle</Key>
       <Value>
         <Texture>zelda_items</Texture>
         <Animations>
@@ -500,6 +500,24 @@
             <Key>candle</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>80 120 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>candle</InitialAnimation>
+      </Value>
+    </Item>
+    
+    <Item>
+      <Key>blueCandle</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>candle</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>120 0 16 16</Rectangle>
               <CenterPoint>8 8</CenterPoint>
             </Value>
           </Item>

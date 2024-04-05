@@ -38,15 +38,28 @@ namespace Sprint.Commands.SecondaryItem
                         inventory.ConsumeItem(ItemType.Bomb);
                     }
                     break;
-                case ItemType.Bow:
-                    if (inventory.HasItem(ItemType.Rupee))
+                case ItemType.Arrow:
+                    // Bow required to shoot
+                    if (inventory.HasItem(ItemType.Rupee) && inventory.HasItem(ItemType.Bow))
                     {
                         factory.CreateArrow().Create();
                         // Must use up a rupee
                         inventory.ConsumeItem(ItemType.Rupee);
                     }
                     break;
-                case ItemType.Candle:
+                case ItemType.BlueArrow:
+                    // Bow required to shoot
+                    if (inventory.HasItem(ItemType.Rupee) && inventory.HasItem(ItemType.Bow))
+                    {
+                        factory.CreateBlueArrow().Create();
+                        // Must use up a rupee
+                        inventory.ConsumeItem(ItemType.Rupee);
+                    }
+                    break;
+                case ItemType.BlueCandle:
+                    factory.CreateFireBall().Create();
+                    break;
+                case ItemType.RedCandle:
                     factory.CreateFireBall().Create();
                     break;
                 default:

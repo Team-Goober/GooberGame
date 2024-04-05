@@ -112,8 +112,18 @@ namespace Sprint.HUD
             {
                 for (int j = 0; j < Inventory.Slots.GetLength(1); j++)
                 {
-                    itemDisplays.Add(Inventory.Slots[i, j], MakeItemSprite(ItemFactory.GetSpriteName(Inventory.Slots[i, j]),
-                        (data.InventorySlotSize + data.InventoryPadding) * new Vector2(j, i) + data.FirstInventoryCell + data.InventorySlotSize / 2));
+                    ItemType slot = Inventory.Slots[i, j];
+                    List<ItemType> upgrades = new() { slot };
+                    if(Inventory.UpgradePaths.ContainsKey(slot))
+                        upgrades = Inventory.UpgradePaths[slot];
+
+                    // Add one sprite for every item in upgrade path
+                    for (int k = 0; k < upgrades.Count; k++)
+                    {
+                        itemDisplays.Add(upgrades[k], MakeItemSprite(ItemFactory.GetSpriteName(upgrades[k]),
+                            (data.InventorySlotSize + data.InventoryPadding) * new Vector2(j, i) + data.FirstInventoryCell + data.InventorySlotSize / 2));
+
+                    }
                 }
             }
 
@@ -191,7 +201,7 @@ namespace Sprint.HUD
         }
 
 
-        public void OnInventoryEvent(ItemType it, int prev, int next)
+        public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
         {
             // Update UI numbers for specific items
             switch (it)
@@ -208,19 +218,35 @@ namespace Sprint.HUD
                 default:
                     break;
             }
-
-            // Add or remove displays for items that are gained or lost
             if (itemDisplays.ContainsKey(it))
             {
-                if(prev > 0 && next == 0)
+                // Add or remove displays for items that are gained or lost
+                int k = ownedUpgrades.IndexOf(it);
+                // Only update UI if this item is the highest owned upgrade
+                if(k == ownedUpgrades.Count - 1)
                 {
-                    inventoryScreen.Remove(itemDisplays[it]);
+                    // Ran out
+                    if (prev > 0 && next == 0)
+                    {
+                        inventoryScreen.Remove(itemDisplays[it]);
+                        // Add in the next highest upgrade if it exists
+                        if(k > 0 && itemDisplays.ContainsKey(ownedUpgrades[k - 1]))
+                            inventoryScreen.Add(itemDisplays[ownedUpgrades[k - 1]]);
+                    }
+                    // Acquired
+                    else if (prev == 0 && next > 0)
+                    {
+                        inventoryScreen.Add(itemDisplays[it]);
+                        // Remove the next highest upgrade if it exists
+                        if (k > 0 && itemDisplays.ContainsKey(ownedUpgrades[k - 1]))
+                            inventoryScreen.Remove(itemDisplays[ownedUpgrades[k - 1]]);
+                    }
                 }
-                else if (prev == 0 && next > 0)
-                {
-                    inventoryScreen.Add(itemDisplays[it]);
-                }
+
+
             }
+
+
         }
 
         public void OnSelectorMoveEvent(int r, int c) {

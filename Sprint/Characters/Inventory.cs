@@ -10,15 +10,23 @@ internal class Inventory
 
     private Dictionary<ItemType, int> itemDictionary;
 
-    public delegate void InventoryUpdateDelegate(ItemType it, int prev, int next);
+    public delegate void InventoryUpdateDelegate(ItemType it, int prev, int next, List<ItemType> ownedUpgrades);
     public event InventoryUpdateDelegate InventoryEvent;
 
     public delegate void SelectorChooseDelegate(ItemType item);
     public event SelectorChooseDelegate SelectorChooseEvent;
 
     // Array of Items representing the item that fills each slot once picked up
-    public static readonly ItemType[,] Slots = { { ItemType.BlueBoomerang, ItemType.Bomb, ItemType.Bow, ItemType.Candle},
-        { ItemType.Flute, ItemType.Meat, ItemType.RedPotion, ItemType.BlueWand } };
+    public static readonly ItemType[,] Slots = { { ItemType.Boomerang, ItemType.Bomb, ItemType.Arrow, ItemType.BlueCandle},
+        { ItemType.Flute, ItemType.Meat, ItemType.BluePotion, ItemType.BlueWand } };
+
+    // TODO: Shield and sword upgrade not implemented
+    public static readonly Dictionary<ItemType, List<ItemType>> UpgradePaths = new() {
+        { ItemType.Boomerang, new() { ItemType.Boomerang, ItemType.BlueBoomerang } },
+        { ItemType.Arrow, new() { ItemType.Arrow, ItemType.BlueArrow } },
+        { ItemType.BlueCandle, new() { ItemType.BlueCandle, ItemType.RedCandle } },
+        { ItemType.BluePotion, new() { ItemType.BluePotion, ItemType.RedPotion } } };
+
     private ItemType selected;
 
     public Inventory()
@@ -53,7 +61,8 @@ internal class Inventory
             { ItemType.Key, 0 },
             { ItemType.Compass, 0 },
             { ItemType.Map, 0},
-            { ItemType.Candle, 0},
+            { ItemType.BlueCandle, 0},
+            { ItemType.RedCandle, 0},
             { ItemType.Flute, 0},
             { ItemType.Meat, 0},
         };
@@ -67,7 +76,7 @@ internal class Inventory
     public void PickupItem(ItemType item)
     {
         itemDictionary[item]++;
-        InventoryEvent?.Invoke(item, itemDictionary[item] - 1, itemDictionary[item]);
+        InventoryEvent?.Invoke(item, itemDictionary[item] - 1, itemDictionary[item], ownedUpgrades(item));
     }
 
     /// <summary>
@@ -77,7 +86,7 @@ internal class Inventory
     public void ConsumeItem(ItemType item)
     {
         itemDictionary[item]--;
-        InventoryEvent?.Invoke(item, itemDictionary[item] + 1, itemDictionary[item]);
+        InventoryEvent?.Invoke(item, itemDictionary[item] + 1, itemDictionary[item], ownedUpgrades(item));
     }
 
     /// <summary>
@@ -95,19 +104,53 @@ internal class Inventory
     /// </summary>
     /// <param name="item"></param>
     /// <returns>The amount of item</returns>
-    public int getItemAmount(ItemType item)
+    public int GetItemAmount(ItemType item)
     {
         return itemDictionary[item];
     }
 
-    public void Select(ItemType item)
+    public void Select(int r, int c)
     {
-        selected = item;
-        SelectorChooseEvent?.Invoke(item);
+        // Select the highest owned upgrade of the item
+        List<ItemType> upgrades = ownedUpgrades(Slots[r, c]);
+        // Check if any owned item was selected
+        if (upgrades.Count > 0)
+        {
+            selected = upgrades[upgrades.Count - 1];
+            SelectorChooseEvent?.Invoke(selected);
+        }
     }
 
     public ItemType GetSelection()
     {
         return selected;
+    }
+
+    private List<ItemType> ownedUpgrades(ItemType it)
+    {
+        // Track path of upgrade to only show the highest attained upgrade
+        // Default to just this item
+        List<ItemType> upgradePath = new() { it };
+        foreach (KeyValuePair<ItemType, List<ItemType>> upgradePair in UpgradePaths)
+        {
+            // Use upgrade path found
+            if (upgradePair.Value.Contains(it))
+            {
+                upgradePath = new(upgradePair.Value);
+                break;
+            }
+        }
+
+        // Remove items that arent owned 
+        for(int i = upgradePath.Count - 1; i>= 0; i--)
+        {
+            if (!HasItem(upgradePath[i]))
+            {
+                upgradePath.RemoveAt(i);
+            }
+        }
+
+        return upgradePath;
+        
     }
 }

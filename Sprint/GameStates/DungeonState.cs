@@ -84,7 +84,7 @@ namespace Sprint
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
         }
 
-        public void OnInventoryEvent(ItemType it, int prev, int next)
+        public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
         {
             switch (it)
             {

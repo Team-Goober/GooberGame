@@ -33,7 +33,8 @@ public enum ItemType
     FireBall,
     OldManText,
     Bomb,
-    Candle,
+    RedCandle,
+    BlueCandle,
     Flute,
     Meat
 }
