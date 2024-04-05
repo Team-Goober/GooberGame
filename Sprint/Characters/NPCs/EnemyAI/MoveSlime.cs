@@ -11,7 +11,7 @@ using Sprint;
 
 namespace Sprint.Characters
 {
-    public class MoveVert : EnemyAI
+    public class MoveSlime : EnemyAI
     {
         private float elapsedTime;
         private Timer timeAttack;
@@ -19,13 +19,13 @@ namespace Sprint.Characters
         public DirectionFace directionFace;
 
 
-
+        
         private Vector2 initialPosition;
-
+        
         Physics physics;
 
         public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.MOVEVERT, CollisionTypes.ENEMY };
-        public MoveVert(Physics physics)
+        public MoveSlime(Physics physics)
         {
 
             this.physics = physics;
@@ -41,7 +41,7 @@ namespace Sprint.Characters
         public override void MoveAI(GameTime gameTime)
         {
             float speed = 100; // Adjust the speed as needed
-            float moveTime = (float)1; // Time before changing direction (in seconds)
+            float moveTime = (float)0.5; // Time before changing direction (in seconds)
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 

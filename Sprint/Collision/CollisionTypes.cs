@@ -34,7 +34,9 @@ namespace Sprint.Collision
         MOVEVERT,
    
 
-        MOVEWALL
+        MOVEWALL,
+
+        MOVESPIKE
 
     }
 }

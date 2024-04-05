@@ -1,4 +1,7 @@
-﻿using Sprint.Interfaces;
+﻿
+
+
+using Sprint.Interfaces;
 using Sprint.Characters;
 using Microsoft.Xna.Framework;
 using System;
@@ -6,15 +9,15 @@ using System;
 namespace Sprint.Characters
 {
     //Command used for reversing direction of MoveVert when it collides with the Wall
-    internal class ReverseDirCommand : ICommand
+    internal class ReverseSpikeDirCommand : ICommand
     {
 
-        private MoveVert moveVert;
+        private MoveSpike moveSpike;
         private Vector2 overlap;
 
-        public ReverseDirCommand(ICollidable receiver, ICollidable effector, Vector2 overlap)
+        public ReverseSpikeDirCommand(ICollidable receiver, ICollidable effector, Vector2 overlap)
         {
-            this.moveVert = (MoveVert)receiver;
+            this.moveSpike = (MoveSpike)receiver;
             this.overlap = overlap;
         }
 
@@ -22,11 +25,11 @@ namespace Sprint.Characters
         {
             if (Math.Abs(overlap.X) > Math.Abs(overlap.Y))
             {
-                moveVert.ReverseHorDir();
+                moveSpike.ReverseHorDir();
             }
             else
             {
-                moveVert.ReverseVerDir();
+                moveSpike.ReverseVerDir();
             }
         }
     }

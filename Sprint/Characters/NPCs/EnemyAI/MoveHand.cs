@@ -11,11 +11,11 @@ using Sprint;
 
 namespace Sprint.Characters
 {
-    public class MoveVert : EnemyAI
+    public class MoveHand : EnemyAI
     {
         private float elapsedTime;
         private Timer timeAttack;
-        private Vector2 moveDirection; // Movement direction for the random pattern
+        public Vector2 moveDirection; // Movement direction for the random pattern
         public DirectionFace directionFace;
 
 
@@ -25,7 +25,7 @@ namespace Sprint.Characters
         Physics physics;
 
         public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.MOVEVERT, CollisionTypes.ENEMY };
-        public MoveVert(Physics physics)
+        public MoveHand(Physics physics)
         {
 
             this.physics = physics;
