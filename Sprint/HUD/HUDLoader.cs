@@ -184,7 +184,7 @@ namespace Sprint.HUD
                 case ItemType.Bomb:
                     UpdateItemAmount(BombNumber, next);
                     break;
-                case ItemType.Paper:
+                case ItemType.Map:
                     inventoryScreen.Add(mapItem);
                     break;
                 case ItemType.Compass:
