@@ -29,18 +29,19 @@ namespace Sprint.HUD
             return new HUDSprite(sprite, position);
         }
 
-        public IHUD MakeItemSprite(string spriteLabel, Vector2 position)
+        public HUDInterchangeableSprite MakeItemSprite(string spriteLabel, Vector2 position)
         {
-            ISprite sprite = spriteLoader.BuildSprite(ITEM_LOCATION, spriteLabel);
+            ISprite sprite;
+            if (spriteLabel != null)
+            {
+                sprite = spriteLoader.BuildSprite(ITEM_LOCATION, spriteLabel);
+            }
+            else
+            {
+                sprite = null;
+            }
 
-            return new HUDSprite(sprite, position);
-        }
-
-        public HUDAnimSprite MakeHUDItem(string spriteLabel, Vector2 position)
-        {
-            ISprite sprite = spriteLoader.BuildSprite(LOCATION, spriteLabel);
-
-            return new HUDAnimSprite(sprite, position);
+            return new HUDInterchangeableSprite(sprite, position);
         }
 
         public List<HUDAnimSprite> MakeNumber(string level, Vector2 position, int spriteSize)

@@ -30,10 +30,10 @@ namespace Sprint.HUD
 
         private int maxHearts;
 
-        private HUDAnimSprite bWeapon;
-        private HUDAnimSprite aWeapon;
+        private HUDInterchangeableSprite bWeapon;
+        private HUDInterchangeableSprite aWeapon;
 
-        private Dictionary<ItemType, IHUD> itemDisplays;
+        private Dictionary<ItemType, HUDInterchangeableSprite> itemDisplays;
         private HUDSelector selector;
 
         HUDData data;
@@ -79,14 +79,10 @@ namespace Sprint.HUD
             }
 
             // Weapons
-            bWeapon = MakeSlotItem("Item", data.BWeapon);
-            aWeapon = MakeSlotItem("Item", data.AWeapon);
+            bWeapon = MakeItemSprite(null, data.BWeapon);
+            aWeapon = MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Sword), data.AWeapon);
             topDisplay.Add(bWeapon);
             topDisplay.Add(aWeapon);
-
-            //Remove below or change later
-            UpdateBWeapon("Sword");
-            UpdateAWeapon("Bow");
 
             // Minimap
             topDisplay.Add(MakeMinimap(map, data.MinimapPos, data.MinimapRoomSize, data.MinimapPadding, data.MinimapBackgroundSize));
@@ -180,15 +176,9 @@ namespace Sprint.HUD
             return hudFactory.MakeHUDSprite(spriteLabel, position);
         }
 
-        public IHUD MakeItemSprite(string spriteLabel, Vector2 position)
+        public HUDInterchangeableSprite MakeItemSprite(string spriteLabel, Vector2 position)
         {
             return hudFactory.MakeItemSprite(spriteLabel, position);
-        }
-
-        public HUDAnimSprite MakeSlotItem(string spriteLabel, Vector2 position)
-        {
-            HUDAnimSprite sprite = hudFactory.MakeHUDItem(spriteLabel, position);
-            return sprite;
         }
 
         public HUDSelector MakeSelector(string spriteLabel, Vector2 position, Vector2 padding)
@@ -233,6 +223,10 @@ namespace Sprint.HUD
             selector.SetLocation(r, c);
         }
 
+        public void OnSelectorChooseEvent(ItemType item)
+        {
+            bWeapon.GiveSprite(itemDisplays[item].GetSprite());
+        }
 
         public void UpdateItemAmount(List<HUDAnimSprite> numSprites, int number)
         {
@@ -275,16 +269,6 @@ namespace Sprint.HUD
         public void UpdateMaxHeartAmount(int newHeartAmount)
         {
             maxHearts = newHeartAmount;
-        }
-
-        public void UpdateBWeapon(string item)
-        {
-            bWeapon.SetSprite(item);
-        }
-
-        public void UpdateAWeapon(string item)
-        {
-            aWeapon.SetSprite(item);
         }
 
     }

@@ -26,8 +26,6 @@ namespace Sprint.GameStates
 
         public delegate void SelectorMoveDelegate(int row, int column);
         public event SelectorMoveDelegate SelectorMoveEvent;
-        public delegate void SelectorChooseDelegate(ItemType item);
-        public event SelectorChooseDelegate SelectorChooseEvent;
 
         public InventoryState(Goober game)
         {
@@ -155,7 +153,7 @@ namespace Sprint.GameStates
             // Only select items that the player does have
             if(playerInventory.HasItem(it))
             {
-                SelectorChooseEvent?.Invoke(it);
+                playerInventory.Select(it);
             }
         }
 

@@ -80,6 +80,7 @@ namespace Sprint
             Inventory inventory = player.GetInventory();
             inventory.InventoryEvent += hudLoader.OnInventoryEvent;
             inventory.InventoryEvent += this.OnInventoryEvent;
+            inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
         }
 

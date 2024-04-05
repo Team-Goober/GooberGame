@@ -13,6 +13,9 @@ internal class Inventory
     public delegate void InventoryUpdateDelegate(ItemType it, int prev, int next);
     public event InventoryUpdateDelegate InventoryEvent;
 
+    public delegate void SelectorChooseDelegate(ItemType item);
+    public event SelectorChooseDelegate SelectorChooseEvent;
+
     // Array of Items representing the item that fills each slot once picked up
     public static readonly ItemType[,] Slots = { { ItemType.BlueBoomerang, ItemType.Bomb, ItemType.Bow, ItemType.Candle},
         { ItemType.Flute, ItemType.Meat, ItemType.RedPotion, ItemType.BlueWand } };
@@ -95,5 +98,11 @@ internal class Inventory
     public int getItemAmount(ItemType item)
     {
         return itemDictionary[item];
+    }
+
+    public void Select(ItemType item)
+    {
+        selected = item;
+        SelectorChooseEvent?.Invoke(item);
     }
 }

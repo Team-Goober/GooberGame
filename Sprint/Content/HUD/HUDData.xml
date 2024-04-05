@@ -9,8 +9,8 @@
 	  <BombNumPos>384 160</BombNumPos>
 	  <!--128-->
 	  <HeartNumPos>704 160</HeartNumPos>
-	  <BWeapon>512 96</BWeapon>
-	  <AWeapon>608 96</AWeapon>
+	  <BWeapon>528 128</BWeapon>
+	  <AWeapon>624 128</AWeapon>
     <InventoryFramePos>0 0</InventoryFramePos>
     <MapFramePos>0 352</MapFramePos>
     <MinimapPos>64 32</MinimapPos>
