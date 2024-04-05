@@ -21,7 +21,7 @@ namespace Sprint.HUD
         private SceneObjectManager topDisplay;
         private SceneObjectManager inventoryScreen;
 
-        private List<HUDAnimSprite> GemNumber;
+        private List<HUDAnimSprite> RupeeNumber;
         private List<HUDAnimSprite> KeyNumber;
         private List<HUDAnimSprite> BombNumber;
 
@@ -60,10 +60,10 @@ namespace Sprint.HUD
 
             //Numbers
             List<HUDAnimSprite> nums = MakeLevelNumber(levelNum.ToString(), data.LevelNumPos, data.NumSpriteSize);
-            GemNumber = MakeNumber("0B", data.GemNumPos, data.NumSpriteSize);
+            RupeeNumber = MakeNumber("0B", data.GemNumPos, data.NumSpriteSize);
             KeyNumber = MakeNumber("0B", data.KeyNumPos, data.NumSpriteSize);
             BombNumber = MakeNumber("0B", data.BombNumPos, data.NumSpriteSize);
-            nums.AddRange(GemNumber);
+            nums.AddRange(RupeeNumber);
             nums.AddRange(KeyNumber);
             nums.AddRange(BombNumber);
             foreach (HUDAnimSprite sprite in nums)
@@ -175,8 +175,8 @@ namespace Sprint.HUD
         {
             switch (it)
             {
-                case ItemType.Gem:
-                    UpdateItemAmount(GemNumber, next);
+                case ItemType.Rupee:
+                    UpdateItemAmount(RupeeNumber, next);
                     break;
                 case ItemType.Key:
                     UpdateItemAmount(KeyNumber, next);

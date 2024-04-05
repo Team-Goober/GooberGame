@@ -7,17 +7,17 @@ using System.Runtime.Serialization;
 
 namespace Sprint.Characters
 {
-    public class Enemy : Character, IMovingCollidable
+    internal class Enemy : Character, IMovingCollidable
     {
         protected ISprite sprite;
         protected Physics physics;
-        SceneObjectManager objectManager;
+        protected Room room;
 
-        public Enemy(ISprite sprite, Vector2 position, SceneObjectManager objectManager)
+        public Enemy(ISprite sprite, Vector2 position, Room room)
         {
             this.sprite = sprite;
             physics = new Physics(position);
-            this.objectManager = objectManager;
+            this.room = room;
         }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
@@ -46,7 +46,7 @@ namespace Sprint.Characters
         // Remove enemy from game
         public override void Die()
         {
-            objectManager.Remove(this);
+            room.GetScene().Remove(this);
         }
     }
 }

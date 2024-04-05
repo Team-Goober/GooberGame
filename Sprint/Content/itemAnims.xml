@@ -2,12 +2,12 @@
 <XnaContent xmlns:Generic="System.Collections.Generic">
 	<Asset Type="Generic:Dictionary[string,XMLData.SpriteData]">
 		<Item>
-			<Key>rupy</Key>
+			<Key>rupee</Key>
 			<Value>
 				<Texture>Items/ZeldaSprite5Rupies</Texture>
 				<Animations>
 					<Item>
-						<Key>rupy</Key>
+						<Key>rupee</Key>
 						<Value Type="XMLData.SingleAtlasData">
 							<Rectangle>0 0 8 16</Rectangle>
 							<CenterPoint>4 8</CenterPoint>
@@ -15,7 +15,7 @@
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>rupy</InitialAnimation>
+				<InitialAnimation>rupee</InitialAnimation>
 			</Value>
 		</Item>
 		<Item>
@@ -36,12 +36,12 @@
 			</Value>
 		</Item>
 		<Item>
-			<Key>heart</Key>
+			<Key>heartPiece</Key>
 			<Value>
 				<Texture>Items/ZeldaSpriteHeartContainer</Texture>
 				<Animations>
 					<Item>
-						<Key>heartCon</Key>
+						<Key>heartPiece</Key>
 						<Value Type="XMLData.SingleAtlasData">
 							<Rectangle>0 0 13 13</Rectangle>
 							<CenterPoint>5 5</CenterPoint>
@@ -49,7 +49,7 @@
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>heartCon</InitialAnimation>
+				<InitialAnimation>heartPiece</InitialAnimation>
 			</Value>
 		</Item>
 		<Item>
@@ -164,12 +164,12 @@
 		</Item>
 
 		<Item>
-			<Key>fence</Key>
+			<Key>raft</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
-						<Key>fence</Key>
+						<Key>raft</Key>
 						<Value Type="XMLData.SingleAtlasData">
 							<Rectangle>320 80 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
@@ -177,7 +177,7 @@
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>fence</InitialAnimation>
+				<InitialAnimation>raft</InitialAnimation>
 			</Value>
 		</Item>
 
@@ -218,12 +218,12 @@
 		</Item>
 
 		<Item>
-			<Key>blueOrb</Key>
+			<Key>bomb</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
-						<Key>blueOrb</Key>
+						<Key>bomb</Key>
 						<Value Type="XMLData.SingleAtlasData">
 							<Rectangle>203 4 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
@@ -231,7 +231,7 @@
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>blueOrb</InitialAnimation>
+				<InitialAnimation>bomb</InitialAnimation>
 			</Value>
 		</Item>
 
@@ -308,12 +308,12 @@
 		</Item>
 
 		<Item>
-			<Key>blueHeart</Key>
+			<Key>heart</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
-						<Key>blueHeart</Key>
+						<Key>heart</Key>
 						<Value Type="XMLData.SingleAtlasData">
 							<Rectangle>243 123 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
@@ -321,17 +321,17 @@
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>blueHeart</InitialAnimation>
+				<InitialAnimation>heart</InitialAnimation>
 			</Value>
 		</Item>
 
 		<Item>
-			<Key>blueTorch</Key>
+			<Key>blueWand</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
-						<Key>blueTorch</Key>
+						<Key>blueWand</Key>
 						<Value Type="XMLData.SingleAtlasData">
 							<Rectangle>204 80 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
@@ -339,7 +339,7 @@
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>blueTorch</InitialAnimation>
+				<InitialAnimation>blueWand</InitialAnimation>
 			</Value>
 		</Item>
 		<Item>
@@ -361,12 +361,12 @@
 		</Item>
 
 		<Item>
-			<Key>citem</Key>
+			<Key>bracelet</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
-						<Key>citem</Key>
+						<Key>bracelet</Key>
 						<Value Type="XMLData.SingleAtlasData">
 							<Rectangle>282 80 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
@@ -374,17 +374,17 @@
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>citem</InitialAnimation>
+				<InitialAnimation>bracelet</InitialAnimation>
 			</Value>
 		</Item>
 
 		<Item>
-			<Key>shieldRed</Key>
+			<Key>book</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
-						<Key>shieldRed</Key>
+						<Key>book</Key>
 						<Value Type="XMLData.SingleAtlasData">
 							<Rectangle>241 0 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
@@ -392,7 +392,7 @@
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>shieldRed</InitialAnimation>
+				<InitialAnimation>book</InitialAnimation>
 			</Value>
 		</Item>
 
@@ -415,24 +415,6 @@
 		</Item>
 
 		<Item>
-			<Key>cake</Key>
-			<Value>
-				<Texture>zelda_items</Texture>
-				<Animations>
-					<Item>
-						<Key>cake</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>82 42 16 16</Rectangle>
-							<CenterPoint>8 8</CenterPoint>
-						</Value>
-					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>cake</InitialAnimation>
-			</Value>
-		</Item>
-
-		<Item>
 			<Key>key</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
@@ -451,12 +433,12 @@
 		</Item>
 
 		<Item>
-			<Key>paper</Key>
+			<Key>map</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
-						<Key>paper</Key>
+						<Key>map</Key>
 						<Value Type="XMLData.SingleAtlasData">
 							<Rectangle>244 80 8 16</Rectangle>
 							<CenterPoint>4 8</CenterPoint>
@@ -464,7 +446,7 @@
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>paper</InitialAnimation>
+				<InitialAnimation>map</InitialAnimation>
 			</Value>
 		</Item>
 

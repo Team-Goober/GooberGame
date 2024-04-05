@@ -43,7 +43,7 @@ namespace Sprint.Characters
         private Timer attackTimer;
         private Timer castTimer;
         private Timer damageTimer;
-        private SceneObjectManager objectManager;
+        private Room room;
         private Reset reset;
 
         // TODO: replace this with state machine
@@ -74,7 +74,7 @@ namespace Sprint.Characters
             // Duration of the damage state
             damageTimer = new Timer(0.3);
 
-            objectManager = null;
+            room = null;
 
             // Start out idle
             Facing = Directions.STILL;
@@ -97,16 +97,16 @@ namespace Sprint.Characters
         }
 
         // Moves the player from current scene into a new one
-        public void SetScene(SceneObjectManager scene)
+        public void SetRoom(Room room)
         {
-            if (objectManager != null)
+            if (this.room != null)
             {
-                objectManager.Remove(this);
+                this.room.GetScene().Remove(this);
             }
 
-            objectManager = scene;
-            secondaryItems.SetScene(objectManager);
-            objectManager.Add(this);
+            this.room = room;
+            secondaryItems.SetRoom(this.room);
+            this.room.GetScene().Add(this);
             StopMoving();
         }
 
@@ -154,7 +154,7 @@ namespace Sprint.Characters
             
             swordCollision = new SwordCollision(swordRec, this);
             
-            objectManager.Add(swordCollision);
+            room.GetScene().Add(swordCollision);
             
             
         }
@@ -307,7 +307,7 @@ namespace Sprint.Characters
             attackTimer.Update(gameTime);
             if (attackTimer.JustEnded)
             {
-                objectManager.Remove(swordCollision);
+                room.GetScene().Remove(swordCollision);
                 returnToBaseAnim();
             }
             castTimer.Update(gameTime);
@@ -363,7 +363,7 @@ namespace Sprint.Characters
             if(item.GetColliable())
             {
                 inventory.PickupItem(itemType);
-                objectManager.Remove(item);
+                room.GetScene().Remove(item);
             }
         }
 

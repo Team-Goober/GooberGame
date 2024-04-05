@@ -393,7 +393,7 @@
           </TileGrid>
           <Items>
             <Item>
-              <Type>heart</Type>
+              <Type>heartPiece</Type>
               <Row>3</Row>
               <Column>10</Column>
             </Item>
@@ -536,7 +536,7 @@
           </TileGrid>
           <Items>
             <Item>
-              <Type>paper</Type>
+              <Type>map</Type>
               <Row>3</Row>
               <Column>10</Column>
             </Item>
@@ -1045,7 +1045,7 @@
               <Column>0</Column>
             </Item>
             <Item>
-              <Type>heart</Type>
+              <Type>heartPiece</Type>
               <Row>1</Row>
               <Column>0</Column>
             </Item>
@@ -1055,7 +1055,7 @@
               <Column>0</Column>
             </Item>
             <Item>
-              <Type>rupy</Type>
+              <Type>rupee</Type>
               <Row>3</Row>
               <Column>0</Column>
             </Item>
@@ -1080,7 +1080,7 @@
               <Column>1</Column>
             </Item>
             <Item>
-              <Type>fence</Type>
+              <Type>raft</Type>
               <Row>0</Row>
               <Column>2</Column>
             </Item>
@@ -1100,7 +1100,7 @@
               <Column>5</Column>
             </Item>
             <Item>
-              <Type>blueOrb</Type>
+              <Type>bomb</Type>
               <Row>0</Row>
               <Column>6</Column>
             </Item>
@@ -1125,12 +1125,12 @@
               <Column>10</Column>
             </Item>
             <Item>
-              <Type>blueHeart</Type>
+              <Type>heart</Type>
               <Row>0</Row>
               <Column>11</Column>
             </Item>
             <Item>
-              <Type>blueTorch</Type>
+              <Type>blueWand</Type>
               <Row>1</Row>
               <Column>1</Column>
             </Item>
@@ -1140,12 +1140,12 @@
               <Column>2</Column>
             </Item>
             <Item>
-              <Type>citem</Type>
+              <Type>bracelet</Type>
               <Row>1</Row>
               <Column>3</Column>
             </Item>
             <Item>
-              <Type>shieldRed</Type>
+              <Type>book</Type>
               <Row>1</Row>
               <Column>4</Column>
             </Item>
@@ -1155,17 +1155,12 @@
               <Column>5</Column>
             </Item>
             <Item>
-              <Type>cake</Type>
-              <Row>1</Row>
-              <Column>6</Column>
-            </Item>
-            <Item>
               <Type>key</Type>
               <Row>1</Row>
               <Column>7</Column>
             </Item>
             <Item>
-              <Type>paper</Type>
+              <Type>map</Type>
               <Row>1</Row>
               <Column>8</Column>
             </Item>

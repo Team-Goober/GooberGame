@@ -20,9 +20,8 @@ namespace Sprint
 
         public IGameState GameState; // Current state of the game
 
-        public IGameState DungeonState; // State where player can move in a room
-        public IGameState InventoryState; // State where player can see map and select items
-        public IGameState GameOverState; // State where player died and can restart game
+        private DungeonState dungeonState; // State where player can move in a room
+        private InventoryState inventoryState; // State where player can see map and select items
 
         private SpriteLoader spriteLoader; // Loads sprites from file and caches them for reuse
         // Dimensions of window
@@ -53,11 +52,11 @@ namespace Sprint
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            DungeonState = new DungeonState(this, spriteLoader, Content);
-            InventoryState = new InventoryState(this);
-            DungeonState.MakeCommands();
-            InventoryState.MakeCommands();
-            GameState = DungeonState;
+            dungeonState = new DungeonState(this, spriteLoader, Content);
+            inventoryState = new InventoryState(this);
+            dungeonState.MakeCommands();
+            inventoryState.MakeCommands();
+            GameState = dungeonState;
 
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
@@ -80,6 +79,16 @@ namespace Sprint
             GameState.Draw(_spriteBatch, gameTime);
 
             base.Draw(gameTime);
+        }
+
+        public IGameState GetDungeonState()
+        {
+            return dungeonState;
+        }
+
+        public IGameState GetInventoryState()
+        {
+            return inventoryState;
         }
 
     }

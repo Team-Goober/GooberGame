@@ -16,8 +16,6 @@ namespace Sprint.Interfaces
         // Generate all commands
         void MakeCommands();
 
-        // Return all the object managers of the state
-        List<SceneObjectManager> AllObjectManagers();
 
     }
 }

@@ -24,10 +24,10 @@ namespace Sprint.Projectile
 
         }
 
-        // Sets the scene that factory places porjectiles into
-        public void SetScene(SceneObjectManager scene)
+        // Sets the room that factory places projectiles into
+        public void SetRoom(Room room)
         {
-            ProjectileFactory.SetScene(scene);
+            ProjectileFactory.SetRoom(room);
         }
 
         // Update direction of shot projectiles
