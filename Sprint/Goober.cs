@@ -66,7 +66,7 @@ namespace Sprint
 
         protected override void Update(GameTime gameTime)
         {
-
+            inputTable.Update(gameTime);
             GameState.Update(gameTime);
 
             base.Update(gameTime);
