@@ -279,9 +279,7 @@ namespace Sprint
 
             ((InventoryState)game.GetInventoryState()).Reset();
 
-            loadDelegates();
-
-            // remake commands
+            // remake commands and delegates
             MakeCommands();
 
             // enter first room

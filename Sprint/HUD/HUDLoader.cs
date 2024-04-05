@@ -121,9 +121,9 @@ namespace Sprint.HUD
                     // Calculate position of slot and place sprite there
                     Vector2 slotPos = (data.InventorySlotSize + data.InventoryPadding) * new Vector2(j, i) + data.FirstInventoryCell + data.InventorySlotSize / 2;
 
-                    // Arrow slots is offset by a quarter
+                    // Arrow slots are offset by a quarter
                     if (slot == ItemType.Arrow)
-                        slotPos.X += data.InventorySlotSize.X / 4;
+                        slotPos.X -= data.InventorySlotSize.X / 4;
 
                     // Add one sprite for every item in upgrade path
                     for (int k = 0; k < upgrades.Count; k++)
@@ -210,7 +210,6 @@ namespace Sprint.HUD
 
         public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
         {
-            Debug.WriteLine(it+":"+GetHashCode());
             // Update UI numbers for specific items
             switch (it)
             {
