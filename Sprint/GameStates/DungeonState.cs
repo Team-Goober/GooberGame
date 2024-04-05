@@ -129,30 +129,10 @@ namespace Sprint
 
             //Player uses a cast move
             // TODO: shouldnt bind separately from shoot commands
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D5), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D6), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D7), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D8), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D9), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D0), new Cast(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new Cast(player));
 
-            // Shooting items commands
-            //Arrow
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootArrowCommand(player.GetProjectileFactory()));
-            //Blue Arrow
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootBlueArrowC(player.GetProjectileFactory()));
-            //Bomb
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootBombC(player.GetProjectileFactory()));
-            //Boomarang
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootBoomarangC(player.GetProjectileFactory()));
-            //FireBall
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D5), new ShootFireBallC(player.GetProjectileFactory()));
-            //Blue Boomerang
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D6), new ShootBlueBoomerangC(player.GetProjectileFactory()));
+            // Using item slot B
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseBWeaponCommand(player.GetProjectileFactory(), player.GetInventory()));
 
             // Reset command
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));

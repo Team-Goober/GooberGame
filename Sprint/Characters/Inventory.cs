@@ -105,4 +105,9 @@ internal class Inventory
         selected = item;
         SelectorChooseEvent?.Invoke(item);
     }
+
+    public ItemType GetSelection()
+    {
+        return selected;
+    }
 }
