@@ -83,10 +83,11 @@ namespace XMLData
 
     public class TextBoxData
     {
-        public string FontName;
-        public string Text;
-        public Vector2 Position;
-        public Color Color;
+        public string FontName; // Name of font to draw with
+        public List<string> Text; // Lines of text to draw
+        public Vector2 CharacterDimensions; // Average size of a single character
+        public Vector2 Position; // Position of center of top line of text
+        public Color Color; // Color mask for text
     }
 
 }

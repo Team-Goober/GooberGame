@@ -459,9 +459,13 @@
           <TextBoxes>
             <Item>
               <FontName>nintendo</FontName>
-              <Text>EASTMOST PENNINSULA\nIS THE SECRET.</Text>
-              <Position>328 268</Position>
-              <Color>255 255 255</Color>
+              <Text>
+                <Item>EASTMOST PENNINSULA</Item>
+                <Item>IS THE SECRET.</Item>
+              </Text>
+              <CharacterDimensions>32 32</CharacterDimensions>
+              <Position>512 250</Position>
+              <Color>FFFFFF</Color>
             </Item>
           </TextBoxes>
         </Item>

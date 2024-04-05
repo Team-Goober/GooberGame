@@ -219,6 +219,17 @@ namespace Sprint.Loader
                 roomItems.Add(itemFactory.MakeItem(spawn.Type, position));
             }
 
+            //Load textboxes
+            foreach (TextBoxData box in rd.TextBoxes)
+            {
+                for (int i=0; i<box.Text.Count; i++)
+                {
+                    Vector2 position = new Vector2(box.Position.X - (box.Text[i].Length - 0.5f) * box.CharacterDimensions.X / 2,
+                        box.Position.Y + (i - 0.5f) * box.CharacterDimensions.Y);
+                    scene.Add(new ZeldaText(box.FontName, box.Text[i], position, box.Color, content));
+                }
+            }
+
             foreach (IDoor d in roomDoors)
                 scene.Add(d);
             foreach (Character n in roomNpcs)

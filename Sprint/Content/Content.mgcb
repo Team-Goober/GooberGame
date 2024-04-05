@@ -48,7 +48,7 @@
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Font.spritefont
+/build:Font.spritefont;nintendo.spritefont
 
 #begin HUD/HUD.png
 /importer:TextureImporter
@@ -278,18 +278,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:LevelOne/RoomOne/roomOneFloor.png
-
-#begin LevelOne/RoomOne/Text.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:LevelOne/RoomOne/Text.png
 
 #begin oldMan.png
 /importer:TextureImporter
