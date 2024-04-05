@@ -92,6 +92,22 @@ namespace Sprint.GameStates
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new SelectSlotCommand(this));
         }
 
+        public void Reset()
+        {
+            input.ClearDictionary();
+
+            slot = new Point(0, 0);
+
+            playerInventory = null;
+
+            hudPosition = Vector2.Zero;
+            hud = null;
+            inventoryUI = null;
+
+            MakeCommands();
+
+        }
+
         public void PassToState(IGameState newState)
         {
             game.GameState = newState;

@@ -210,6 +210,7 @@ namespace Sprint.HUD
 
         public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
         {
+            Debug.WriteLine(it+":"+GetHashCode());
             // Update UI numbers for specific items
             switch (it)
             {
@@ -238,7 +239,9 @@ namespace Sprint.HUD
                         inventoryScreen.Remove(itemDisplays[it]);
                         // Add in the next highest upgrade if it exists
                         if(k > 0 && itemDisplays.ContainsKey(ownedUpgrades[k - 1]))
+                        {
                             inventoryScreen.Add(itemDisplays[ownedUpgrades[k - 1]]);
+                        }
                     }
                     // Acquired
                     else if (prev == 0 && next > 0)
@@ -246,7 +249,9 @@ namespace Sprint.HUD
                         inventoryScreen.Add(itemDisplays[it]);
                         // Remove the next highest upgrade if it exists
                         if (k > 0 && itemDisplays.ContainsKey(ownedUpgrades[k - 1]))
+                        {
                             inventoryScreen.Remove(itemDisplays[ownedUpgrades[k - 1]]);
+                        }
                     }
 
                     // process changes

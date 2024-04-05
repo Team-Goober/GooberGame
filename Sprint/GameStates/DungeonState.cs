@@ -277,6 +277,8 @@ namespace Sprint
             hudLoader = new HUDLoader(contentManager, spriteLoader);
             hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
 
+            ((InventoryState)game.GetInventoryState()).Reset();
+
             loadDelegates();
 
             // remake commands
