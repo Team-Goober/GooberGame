@@ -105,6 +105,7 @@ namespace Sprint.HUD
                 { ItemType.Ladder, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Ladder), data.LadderItemPos) },
                 { ItemType.SpecialKey, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.SpecialKey), data.SpecialKeyItemPos) },
                 { ItemType.Bracelet, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Bracelet), data.BraceletItemPos) },
+                { ItemType.Bow, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Bow), data.BowItemPos) }
             };
 
             // At the slot item displays
@@ -117,11 +118,17 @@ namespace Sprint.HUD
                     if(Inventory.UpgradePaths.ContainsKey(slot))
                         upgrades = Inventory.UpgradePaths[slot];
 
+                    // Calculate position of slot and place sprite there
+                    Vector2 slotPos = (data.InventorySlotSize + data.InventoryPadding) * new Vector2(j, i) + data.FirstInventoryCell + data.InventorySlotSize / 2;
+
+                    // Arrow slots is offset by a quarter
+                    if (slot == ItemType.Arrow)
+                        slotPos.X += data.InventorySlotSize.X / 4;
+
                     // Add one sprite for every item in upgrade path
                     for (int k = 0; k < upgrades.Count; k++)
                     {
-                        itemDisplays.Add(upgrades[k], MakeItemSprite(ItemFactory.GetSpriteName(upgrades[k]),
-                            (data.InventorySlotSize + data.InventoryPadding) * new Vector2(j, i) + data.FirstInventoryCell + data.InventorySlotSize / 2));
+                        itemDisplays.Add(upgrades[k], MakeItemSprite(ItemFactory.GetSpriteName(upgrades[k]), slotPos));
 
                     }
                 }
@@ -241,9 +248,10 @@ namespace Sprint.HUD
                         if (k > 0 && itemDisplays.ContainsKey(ownedUpgrades[k - 1]))
                             inventoryScreen.Remove(itemDisplays[ownedUpgrades[k - 1]]);
                     }
+
+                    // process changes
+                    inventoryScreen.EndCycle();
                 }
-
-
             }
 
 

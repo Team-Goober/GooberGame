@@ -84,6 +84,15 @@ namespace Sprint
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
         }
 
+        private void unloadDelegates()
+        {
+            Inventory inventory = player.GetInventory();
+            inventory.InventoryEvent -= hudLoader.OnInventoryEvent;
+            inventory.InventoryEvent -= this.OnInventoryEvent;
+            inventory.SelectorChooseEvent -= hudLoader.OnSelectorChooseEvent;
+            ((InventoryState)game.GetInventoryState()).SelectorMoveEvent -= hudLoader.OnSelectorMoveEvent;
+        }
+
         public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
         {
             switch (it)
@@ -240,6 +249,9 @@ namespace Sprint
         //clears input dictionary and object manager
         public void ResetGame()
         {
+            // remove events
+            unloadDelegates();
+
             // delete all game objects
             hudLoader.GetTopDisplay().ClearObjects();
 
