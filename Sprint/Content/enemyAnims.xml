@@ -220,9 +220,14 @@
 			  <Animations>
 				  <Item>
 					  <Key>dragmoving</Key>
-					  <Value Type="XMLData.SingleAtlasData">
-						  <Rectangle>0 0 30 30</Rectangle>
-						  <CenterPoint>0 0</CenterPoint>
+					  <Value Type="XMLData.AutoAtlasData">
+						  <SheetArea>4 0 24 32</SheetArea>
+						  <Rows>1</Rows>
+						  <Cols>4</Cols>
+						  <Padding>0</Padding>
+						  <CenterPoint>8 7</CenterPoint>
+						  <Loop>true</Loop>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 				  

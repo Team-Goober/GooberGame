@@ -119,7 +119,6 @@ namespace Sprint.Characters
 
             // Move in the current direction
             Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            CheckBounds(newPosition, 3); // Ensure enemy stays within game bounds
             physics.SetPosition(newPosition);
         }
 

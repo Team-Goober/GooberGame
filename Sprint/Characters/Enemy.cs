@@ -29,6 +29,7 @@ namespace Sprint.Characters
             physics = new Physics(position);
             this.room = room;
             sfxFactory = SfxFactory.GetInstance();
+            damageTimer = new Timer(0.1);
         }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
@@ -50,9 +51,9 @@ namespace Sprint.Characters
 
         public override void TakeDamage()
         {
-            damageTimer.Start();
-            this.sprite = damagedSprite;
-            OnEnemyDamaged?.Invoke(this, EventArgs.Empty);
+                damageTimer.Start();
+                this.sprite = damagedSprite;
+                OnEnemyDamaged?.Invoke(this, EventArgs.Empty);
         }
 
         public override void Update(GameTime gameTime)
@@ -61,9 +62,9 @@ namespace Sprint.Characters
             sprite.Update(gameTime);
             
 
-            damageTimer.Update(gameTime);
+            damageTimer?.Update(gameTime);
             // damage timer to switch between sprites
-            if (damageTimer.JustEnded)
+            if (damageTimer.JustEnded && damageTimer != null)
             {
                 // switch back to default sprite (non-damaged)
                 this.sprite = this.defaultSprite;

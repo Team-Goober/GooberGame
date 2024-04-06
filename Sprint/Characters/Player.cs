@@ -84,7 +84,7 @@ namespace Sprint.Characters
             attackTimer = new Timer(0.5);
             castTimer = new Timer(0.5);
             // Duration of the damage state
-            damageTimer = new Timer(0.1);
+            damageTimer = new Timer(0.5);
 
             room = null;
 
@@ -319,6 +319,11 @@ namespace Sprint.Characters
 
         public override void TakeDamage()
         {
+            // Invincible until timer goes down
+            if (!damageTimer.Ended)
+            {
+                return;
+            }
             // sound playing
             sfxFactory.PlaySoundEffect("Player Hurt");
             // switching sprites
