@@ -9,12 +9,13 @@ using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
+using Sprint.Collision;
 
 namespace Sprint.Characters
 {
 
     //Code based on the BluebubbleEnemy.cs file
-    public class SpikeEnemy : Enemy
+    internal class SpikeEnemy : Enemy
     {
         private float elapsedTime;
         private Vector2 initialPosition;
@@ -24,9 +25,13 @@ namespace Sprint.Characters
 
         private Timer timeAttack;
 
+        private MoveSpike moveSpike;
 
-        public SpikeEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(sprite, damagedSprite, initialPosition, objectManager)
+
+
+
+        public SpikeEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -35,13 +40,12 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
-            projectileCommand = new ShootArrowCommand(itemFactory);
+            moveSpike = new MoveSpike(physics);
 
 
-            // Initialize the move direction randomly
-            RandomizeMoveDirection();
+
         }
 
         // Update logic
@@ -53,8 +57,7 @@ namespace Sprint.Characters
             // Calculate movement based on elapsed time for the random pattern
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // Move randomly within a specified area
-            MoveRandomly(gameTime);
+            moveSpike.MoveAI(gameTime);
 
             // Update the sprite and physics
             sprite.Update(gameTime);
@@ -63,36 +66,5 @@ namespace Sprint.Characters
 
         }
 
-        // Move Spike randomly within the game area
-        private void MoveRandomly(GameTime gameTime)
-        {
-            float speed = 50; // Adjust the speed as needed
-            float moveTime = 2; // Time before changing direction (in seconds)
-
-            if (elapsedTime > moveTime)
-            {
-                // Change direction after the specified time
-                RandomizeMoveDirection();
-                elapsedTime = 0;
-            }
-
-            // Move in the current direction
-            Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-
-            physics.SetPosition(newPosition);
-        }
-
-
-
-        // Generate a random movement direction
-        private void RandomizeMoveDirection()
-        {
-            // Generate a random movement direction
-            Random random = new Random();
-            float angle = (float)random.NextDouble() * MathHelper.TwoPi;
-            moveDirection = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-
-        }
     }
 }

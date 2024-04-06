@@ -300,5 +300,28 @@
 		  </Value>
 	  </Item>
 
+    <Item>
+      <Key>fireball</Key>
+      <Value>
+        <Texture>Items/FireBall</Texture>
+        <Animations>
+          <Item>
+            <Key>fireball</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>0 0 33 16</SheetArea>
+              <Rows>1</Rows>
+              <Cols>2</Cols>
+              <Padding>1</Padding>
+              <CenterPoint>8 8</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>9</Framerate>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>fireball</InitialAnimation>
+      </Value>
+    </Item>
+
   </Asset>
 </XnaContent>

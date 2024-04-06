@@ -9,13 +9,19 @@ using System.Diagnostics;
 using Sprint.Testing;
 using Sprint.Commands;
 using System;
+using Sprint.Music.Sfx;
+using Sprint.Items;
+using Sprint.HUD;
 
 namespace Sprint.Characters
 {
 
     internal class Player : Character, IMovingCollidable
     {
+
         public Inventory inventory;
+
+        private SfxFactory sfxFactory;
 
         private ISprite sprite;
         private ISprite defaultSprite;
@@ -31,7 +37,7 @@ namespace Sprint.Characters
         private SwordCollision swordCollision;
         private const int swordWidth = 40, swordLength = 90;
 
-        public Directions Facing { get; private set; }
+        public Vector2 Facing { get; private set; }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
                 (int) (physics.Position.Y - sideLength / 2.0),
@@ -45,7 +51,7 @@ namespace Sprint.Characters
         private Timer attackTimer;
         private Timer castTimer;
         private Timer damageTimer;
-        private SceneObjectManager objectManager;
+        private Room room;
         private Reset reset;
 
         // TODO: replace this with state machine
@@ -59,8 +65,10 @@ namespace Sprint.Characters
 
 
         //declares the move systems for the main character sprite
-        public Player(IInputMap inputTable, SpriteLoader spriteLoader, Reset reset)
+        public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
+            //Initialize SFX player
+            sfxFactory = SfxFactory.GetInstance();
 
             //Initialize physics and objectManager
             physics = new Physics(Vector2.Zero);
@@ -78,29 +86,39 @@ namespace Sprint.Characters
             // Duration of the damage state
             damageTimer = new Timer(0.1);
 
-            objectManager = null;
+            room = null;
 
             // Start out idle
             Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
 
             // Set up projectiles
-            secondaryItems = new ProjectileSystem(physics.Position, inputTable, spriteLoader);
+            secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
 
-            this.reset = reset;
+            this.reset = new Reset(dungeon);
+        }
+
+        public SimpleProjectileFactory GetProjectileFactory()
+        {
+            return secondaryItems.ProjectileFactory;
+        }
+
+        public Inventory GetInventory()
+        {
+            return inventory;
         }
 
         // Moves the player from current scene into a new one
-        public void SetScene(SceneObjectManager scene)
+        public void SetRoom(Room room)
         {
-            if (objectManager != null)
+            if (this.room != null)
             {
-                objectManager.Remove(this);
+                this.room.GetScene().Remove(this);
             }
 
-            objectManager = scene;
-            secondaryItems.SetScene(objectManager);
-            objectManager.Add(this);
+            this.room = room;
+            secondaryItems.SetRoom(this.room);
+            this.room.GetScene().Add(this);
             StopMoving();
         }
 
@@ -124,35 +142,36 @@ namespace Sprint.Characters
             castTimer.Start();
 
             //Creates animations and bounds for the sword for collision
-            switch (Facing)
+            if (Facing == Directions.DOWN)
             {
-                case Directions.RIGHT:
-                    sprite.SetAnimation("swordRight");
-                    damagedSprite.SetAnimation("swordRight");
-                    swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
-                    break;
-                case Directions.LEFT:
-                    sprite.SetAnimation("swordLeft");
-                    damagedSprite.SetAnimation("swordLeft");
-                    swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
-                    break;
-                case Directions.UP:
-                    sprite.SetAnimation("swordUp");
-                    damagedSprite.SetAnimation("swordUp");
-                    swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
-                    break;
-                case Directions.DOWN:
-                    sprite.SetAnimation("swordDown");
-                    damagedSprite.SetAnimation("swordDown");
-                    swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
-                    break;
-                default:
-                    break;
+                sprite.SetAnimation("swordDown");
+                damagedSprite.SetAnimation("swordRight");
+                swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
+            }
+            else if (Facing == Directions.LEFT)
+            {
+                sprite.SetAnimation("swordLeft");
+                damagedSprite.SetAnimation("swordLeft");
+                swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
+            }
+            else if (Facing == Directions.UP)
+            {
+                sprite.SetAnimation("swordUp");
+                damagedSprite.SetAnimation("swordUp");
+                swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
+            }
+            else if (Facing == Directions.RIGHT)
+            {
+                sprite.SetAnimation("swordRight");
+                damagedSprite.SetAnimation("swordDown");
+                swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
 
             swordCollision = new SwordCollision(swordRec, this);
             
-            objectManager.Add(swordCollision);
+            room.GetScene().Add(swordCollision);
+            
+            
         }
 
         //Cast according to direction
@@ -171,26 +190,25 @@ namespace Sprint.Characters
             // Start timer for attack
             castTimer.Start();
 
-            switch (Facing)
+            if (Facing == Directions.DOWN)
             {
-                case Directions.RIGHT:
-                    sprite.SetAnimation("castRight");
-                    damagedSprite.SetAnimation("castRight");
-                    break;
-                case Directions.LEFT:
-                    sprite.SetAnimation("castLeft");
-                    damagedSprite.SetAnimation("castLeft");
-                    break;
-                case Directions.UP:
-                    sprite.SetAnimation("castUp");
-                    damagedSprite.SetAnimation("castUp");
-                    break;
-                case Directions.DOWN:
-                    sprite.SetAnimation("castDown");
-                    damagedSprite.SetAnimation("castDown");
-                    break;
-                default:
-                    break;
+                sprite.SetAnimation("castDown");
+                damagedSprite.SetAnimation("castDown");
+            }
+            else if (Facing == Directions.LEFT)
+            {
+                sprite.SetAnimation("castLeft");
+                damagedSprite.SetAnimation("castLeft");
+            }
+            else if (Facing == Directions.UP)
+            {
+                sprite.SetAnimation("castUp");
+                damagedSprite.SetAnimation("castUp");
+            }
+            else if (Facing == Directions.RIGHT)
+            {
+                sprite.SetAnimation("castRight");
+                damagedSprite.SetAnimation("castRight");
             }
         }
 
@@ -301,7 +319,9 @@ namespace Sprint.Characters
 
         public override void TakeDamage()
         {
-            // ATTENTION
+            // sound playing
+            sfxFactory.PlaySoundEffect("Player Hurt");
+            // switching sprites
             defaultSprite = sprite;
             sprite = damagedSprite;
             damageTimer.Start();
@@ -316,7 +336,7 @@ namespace Sprint.Characters
             attackTimer.Update(gameTime);
             if (attackTimer.JustEnded)
             {
-                objectManager.Remove(swordCollision);
+                room.GetScene().Remove(swordCollision);
                 returnToBaseAnim();
             }
             castTimer.Update(gameTime);
@@ -367,10 +387,11 @@ namespace Sprint.Characters
         public void PickupItem(Item item)
         {
             ItemType itemType = item.GetItemType();
+
             if(item.GetColliable())
             {
                 inventory.PickupItem(itemType);
-                objectManager.Remove(item);
+                room.GetScene().Remove(item);
             }
         }
 

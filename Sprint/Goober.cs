@@ -1,23 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
 using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Commands;
-using Sprint.Characters;
-using System.Collections.Generic;
-using Sprint.Collision;
-using System.Xml;
-using XMLData;
-using System.Diagnostics;
-using System.Security;
-using System.Collections.Generic;
 using Sprint.Sprite;
-using Sprint.Loader;
-using Sprint.Levels;
-using Sprint.Functions;
-using Sprint.Functions.RoomTransition;
+using Sprint.GameStates;
+using Sprint.Music.Sfx;
+
 
 namespace Sprint
 {
@@ -25,22 +16,20 @@ namespace Sprint
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
-        private SpriteFont font;
-
+        
         private IInputMap inputTable; // Table of commands available no matter what state the game is loaded
 
 
         public IGameState GameState; // Current state of the game
 
-        public IGameState DungeonState; // State where player can move in a room
-        public IGameState InventoryState; // State where player can see map and select items
-        public IGameState GameOverState; // State where player died and can restart game
+        private DungeonState dungeonState; // State where player can move in a room
+        private InventoryState inventoryState; // State where player can see map and select items
+        private SfxFactory sfxFactory;
 
         private SpriteLoader spriteLoader; // Loads sprites from file and caches them for reuse
         // Dimensions of window
         public static readonly int gameWidth = 1024;
-        public static readonly int gameHeight = 700;
+        public static readonly int gameHeight = 956;
 
         public Goober()
         {
@@ -49,6 +38,7 @@ namespace Sprint
             IsMouseVisible = true;
         }
 
+        public static ContentManager content;
         protected override void Initialize()
         {
             _graphics.PreferredBackBufferWidth = gameWidth;
@@ -57,19 +47,24 @@ namespace Sprint
 
             spriteLoader = new SpriteLoader(Content);
             inputTable = new InputTable();
+            content = Content;
+
 
             base.Initialize();
         }
 
         protected override void LoadContent()
-        { 
+        {
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            font = Content.Load<SpriteFont>("Font");
-
-            DungeonState = new DungeonState(this, spriteLoader, Content);
-            GameState = DungeonState;
+            dungeonState = new DungeonState(this, spriteLoader, Content);
+            inventoryState = new InventoryState(this);
+            dungeonState.MakeCommands();
+            inventoryState.MakeCommands();
+            GameState = dungeonState;
+            sfxFactory = SfxFactory.GetInstance();
+            sfxFactory.MakeSongs();
 
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
@@ -79,7 +74,7 @@ namespace Sprint
 
         protected override void Update(GameTime gameTime)
         {
-
+            inputTable.Update(gameTime);
             GameState.Update(gameTime);
 
             base.Update(gameTime);
@@ -92,6 +87,16 @@ namespace Sprint
             GameState.Draw(_spriteBatch, gameTime);
 
             base.Draw(gameTime);
+        }
+
+        public IGameState GetDungeonState()
+        {
+            return dungeonState;
+        }
+
+        public IGameState GetInventoryState()
+        {
+            return inventoryState;
         }
 
     }

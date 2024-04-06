@@ -11,7 +11,7 @@ using Sprint.Levels;
 
 namespace Sprint.Characters
 {
-    public class BluebubbleEnemy : Enemy
+    internal class BluebubbleEnemy : Enemy
     {
         private float elapsedTime;
         private Timer timeAttack;
@@ -20,8 +20,8 @@ namespace Sprint.Characters
         private SimpleProjectileFactory itemFactory;
         private Vector2 initialPosition;
 
-        public BluebubbleEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(sprite, damagedSprite, initialPosition, objectManager)
+        public BluebubbleEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -30,7 +30,7 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
             projectileCommand = new ShootBombC(itemFactory);
 
@@ -123,11 +123,6 @@ namespace Sprint.Characters
             physics.SetPosition(newPosition);
         }
 
-        // Ensure that the enemy always stays within the game bounds
-        private void CheckBounds(Vector2 pos, float scale)
-        {
-            // nothing here 
-        }
 
         // Generate a random movement direction for BluebubbleEnemy
         private void RandomizeMoveDirection()

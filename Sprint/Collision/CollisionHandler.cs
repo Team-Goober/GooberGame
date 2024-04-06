@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using System.Xml.Linq;
 using Microsoft.Xna.Framework;
-using Sprint.Characters;
-using Sprint.Factory.Door;
-using Sprint.Functions;
+using Sprint.Door;
 using Sprint.Functions.Collision;
 using Sprint.Functions.RoomTransition;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
-using Sprint.Levels;
-using Sprint.Projectile;
+using Sprint.Characters;
 
 
 namespace Sprint.Collision
@@ -36,6 +32,7 @@ namespace Sprint.Collision
 
         static Type[] constructorParams = new Type[] { typeof(ICollidable), typeof(ICollidable), typeof(Vector2) };
         static ConstructorInfo pushOut = typeof(PushMoverOut).GetConstructor( constructorParams );
+        static ConstructorInfo pushBlockOut = typeof(PushMoverBlock).GetConstructor(constructorParams);
 
         // Dictionary mapping two collider types, where the first one is passed as a receiver to the command value
         // TODO: Read this from file
@@ -45,13 +42,19 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.WALL), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.GAP), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.DOOR), pushOut},
+                {new TypePairKey(CollisionTypes.MOVEWALL, CollisionTypes.CHARACTER), pushOut},
+                {new TypePairKey(CollisionTypes.MOVEWALL, CollisionTypes.WALL), pushOut},
+                {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.CHARACTER), pushOut},
+                {new TypePairKey(CollisionTypes.FLYING_ENEMY, CollisionTypes.PHASING_WALL), null},
 
-                // Collision for all Projectiles with map
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
+                
                 {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
+
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.ENEMY), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.PLAYER), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
 
 
                 // Collision for Player and doors
@@ -67,7 +70,9 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY_PROJECTILE), typeof(TakeDamage).GetConstructor( constructorParams ) },
                 // Collision Enemy Damage
                 {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.SWORD), typeof(TakeDamage).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(TakeDamage).GetConstructor( constructorParams ) }
+                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(TakeDamage).GetConstructor( constructorParams ) },
+
+                
             };
 
         //Made assuming that ICollidable can access the objects native type

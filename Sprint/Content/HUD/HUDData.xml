@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:XMLData="XMLData">
+  <Asset Type="XMLData:HUDData">
+	  <HUDFrame>0 0</HUDFrame>
+	  <LevelFrame>64 32</LevelFrame>
+	  <LevelNumPos>256 32</LevelNumPos>
+	  <GemNumPos>384 64</GemNumPos>
+	  <KeyNumPos>384 128</KeyNumPos>
+	  <BombNumPos>384 160</BombNumPos>
+	  <!--128-->
+	  <HeartNumPos>704 160</HeartNumPos>
+	  <BWeapon>528 128</BWeapon>
+	  <AWeapon>624 128</AWeapon>
+    <InventoryFramePos>0 0</InventoryFramePos>
+    <MapFramePos>0 352</MapFramePos>
+    <MinimapPos>64 64</MinimapPos>
+    <MinimapRoomSize>28 12</MinimapRoomSize>
+    <MinimapPadding>4</MinimapPadding>
+    <MinimapBackgroundSize>256 160</MinimapBackgroundSize>
+    <FullMapPos>512 384</FullMapPos>
+    <FullMapRoomSize>24 24</FullMapRoomSize>
+    <FullMapPadding>4</FullMapPadding>
+    <FullMapBackgroundSize>256 256</FullMapBackgroundSize>
+
+    <MapItemPos>208 480</MapItemPos>
+    <CompassItemPos>208 640</CompassItemPos>
+    <FirstInventoryCell>512 192</FirstInventoryCell>
+    <InventorySlotSize>64 64</InventorySlotSize>
+    <InventoryPadding>32 0</InventoryPadding>
+    <RaftItemPos>544 128</RaftItemPos>
+    <BookItemPos>624 128</BookItemPos>
+    <RingItemPos>676 128</RingItemPos>
+    <LadderItemPos>736 128</LadderItemPos>
+    <SpecialKeyItemPos>800 128</SpecialKeyItemPos>
+    <BraceletItemPos>848 128</BraceletItemPos>
+    <BowItemPos>752 224</BowItemPos>
+    <BSelection>288 224</BSelection>
+    
+    <NumSpriteSize>32</NumSpriteSize>
+  
+</Asset>
+</XnaContent>

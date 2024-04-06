@@ -3,30 +3,32 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Collision;
 using Sprint.Interfaces;
 using Sprint.Levels;
-using System.Diagnostics;
+using Sprint.Music.Sfx;
 using System.Runtime.Serialization;
 using System;
 
 namespace Sprint.Characters
 {
-    public class Enemy : Character, IMovingCollidable
+    internal class Enemy : Character, IMovingCollidable
     {
         protected ISprite sprite;
         protected ISprite defaultSprite;
         protected ISprite damagedSprite;
         protected Physics physics;
-        SceneObjectManager objectManager;
+
         private Timer damageTimer;
         public event EventHandler OnEnemyDamaged;
+        protected Room room;
+        private SfxFactory sfxFactory;
 
-        public Enemy(ISprite sprite,ISprite damagedSprite, Vector2 position, SceneObjectManager objectManager)
+        public Enemy(ISprite sprite, ISprite damagedSprite, Vector2 position, Room room)
         {
             this.defaultSprite = sprite;
             this.sprite = sprite;
             this.damagedSprite = damagedSprite;
             physics = new Physics(position);
-            this.objectManager = objectManager;
-            damageTimer = new Timer(0.1);
+            this.room = room;
+            sfxFactory = SfxFactory.GetInstance();
         }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
@@ -34,7 +36,7 @@ namespace Sprint.Characters
             16 * 3,
             16 * 3);
 
-        public CollisionTypes[] CollisionType => new CollisionTypes[] {CollisionTypes.ENEMY, CollisionTypes.CHARACTER};
+        public virtual CollisionTypes[] CollisionType => new CollisionTypes[] {CollisionTypes.ENEMY, CollisionTypes.CHARACTER};
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -71,7 +73,8 @@ namespace Sprint.Characters
         // Remove enemy from game
         public override void Die()
         {
-            objectManager.Remove(this);
+            room.GetScene().Remove(this);
+            sfxFactory.PlaySoundEffect("Enemy Death");
         }
     }
 }
