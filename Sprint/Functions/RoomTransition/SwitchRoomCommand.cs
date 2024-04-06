@@ -2,6 +2,7 @@
 using Sprint.Levels;
 using Microsoft.Xna.Framework;
 using Sprint.Characters;
+using System.Diagnostics;
 
 namespace Sprint.Functions.RoomTransition
 {

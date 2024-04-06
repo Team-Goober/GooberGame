@@ -50,5 +50,10 @@ namespace Sprint.Door
 
         }
 
+        public IDoor MakeStair(Vector2 position, Vector2 size, Vector2 spawnPosition, Point roomIndices, DungeonState dungeon) {
+            // Extra door has different parameters and is not stored in same place in data file, so it has its own factory method
+            return new Stair(position, size, roomIndices, spawnPosition, dungeon);
+        }
+
     }
 }
