@@ -199,18 +199,39 @@ namespace Sprint.Loader
                 y = lvl.ZeroZeroPos.Y;
                 xChange = lvl.ZeroZeroPos.X;
             }
+
+            List<ITile> normTiles = new List<ITile>();
+            List<ITile> moveTiles = new List<ITile>();
             
             foreach (string row in rd.TileGrid)
             {
                 string[] str = row.Split(' ');
                 foreach (string tile in str)
                 {
-                    scene.Add(MakeTile(lvl, tile, new Vector2(x, y)));
+                    if (tile.Equals("X"))
+                    {
+                        moveTiles.Add(MakeTile(lvl, tile, new Vector2(x, y)));
+                    }
+                    else
+                    {
+                        normTiles.Add(MakeTile(lvl, tile, new Vector2(x, y)));
+                    }
                     x += lvl.TileSize.X;
                 }
                 x = xChange;
                 y += lvl.TileSize.Y;
             }
+            
+            foreach (ITile t in normTiles)
+            {
+                scene.Add(t);
+            }
+
+            foreach (ITile t in moveTiles)
+            {
+                scene.Add(t);
+            }
+
 
             //Load enemies
             foreach (EnemySpawnData spawn in rd.Enemies)
