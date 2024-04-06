@@ -29,6 +29,13 @@ public class OpenLockedDoorCommand : ICommand
             // Use up a key
             receiver.inventory.ConsumeItem(ItemType.Key);
         }
+        // Master key bypasses all locks
+        else if (receiver.inventory.HasItem(ItemType.SpecialKey))
+        {
+            effector.SetOpen(true);
+            // Open other side of the door
+            effector.GetOtherFace().SetOpen(true);
+        }
         else
         {
             // Moves receiver by displacement

@@ -391,12 +391,12 @@
               <Item>
                 <Type>dog</Type>
                 <TilePos>9 1</TilePos>
-                <ItemDrop Null="true" />
+                <ItemDrop>bomb</ItemDrop>
               </Item>
               <Item>
                 <Type>dog</Type>
                 <TilePos>5 3</TilePos>
-                <ItemDrop Null="true" />
+                <ItemDrop>heart</ItemDrop>
               </Item>
               <Item>
                 <Type>dog</Type>
@@ -443,12 +443,12 @@
             <Item>
               <Type>skeleton</Type>
               <TilePos>11 3</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>blueArrow</ItemDrop>
             </Item>
             <Item>
               <Type>skeleton</Type>
               <TilePos>9 5</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>rupee</ItemDrop>
             </Item>
           </Enemies>
           <TextBoxes />
@@ -543,7 +543,7 @@
             <Item>
               <Type>oldman</Type>
               <TilePos>5.5 3</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>meat</ItemDrop>
             </Item>
             <Item>
               <Type>fireball</Type>
@@ -598,7 +598,7 @@
             <Item>
               <Type>slime</Type>
               <TilePos>7 3</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>rupee</ItemDrop>
             </Item>
             <Item>
               <Type>slime</Type>
@@ -646,7 +646,7 @@
             <Item>
               <Type>slime</Type>
               <TilePos>9 3</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>rupee</ItemDrop>
             </Item>
             <Item>
               <Type>slime</Type>
@@ -690,7 +690,7 @@
             <Item>
               <Type>dog</Type>
               <TilePos>11 2</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>heart</ItemDrop>
             </Item>
             <Item>
               <Type>dog</Type>
@@ -700,7 +700,7 @@
             <Item>
               <Type>dog</Type>
               <TilePos>9 5</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>bomb</ItemDrop>
             </Item>
           </Enemies>
           <TextBoxes />
@@ -783,12 +783,12 @@
             <Item>
               <Type>bat</Type>
               <TilePos>4 3</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>rupee</ItemDrop>
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>1 4</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>rupee</ItemDrop>
             </Item>
             <Item>
               <Type>bat</Type>
@@ -842,12 +842,12 @@
             <Item>
               <Type>skeleton</Type>
               <TilePos>4 3</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>rupee</ItemDrop>
             </Item>
             <Item>
               <Type>skeleton</Type>
               <TilePos>8 4</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>arrow</ItemDrop>
             </Item>
             <Item>
               <Type>skeleton</Type>
@@ -891,7 +891,7 @@
             <Item>
               <Type>bat</Type>
               <TilePos>3 6</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>heart</ItemDrop>
             </Item>
             <Item>
               <Type>bat</Type>
@@ -962,7 +962,7 @@
             <Item>
               <Type>skeleton</Type>
               <TilePos>4 5</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>rupee</ItemDrop>
             </Item>
             <Item>
               <Type>skeleton</Type>
@@ -1025,12 +1025,7 @@
             <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
             <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
           </TileGrid>
-          <Items>
-            <Item>
-              <Type>key</Type>
-              <TilePos>8 6</TilePos>
-            </Item>
-          </Items>
+          <Items />
           <Enemies>
             <Item>
               <Type>bat</Type>
@@ -1040,7 +1035,7 @@
             <Item>
               <Type>bat</Type>
               <TilePos>4 5</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>key</ItemDrop>
             </Item>
             <Item>
               <Type>bat</Type>
@@ -1091,17 +1086,12 @@
             <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
             <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
           </TileGrid>
-          <Items>
-            <Item>
-              <Type>specialKey</Type>
-              <TilePos>1 6</TilePos>
-            </Item>
-          </Items>
+          <Items />
           <Enemies>
             <Item>
               <Type>skeleton</Type>
               <TilePos>2 0</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>heart</ItemDrop>
             </Item>
             <Item>
               <Type>skeleton</Type>
@@ -1111,7 +1101,7 @@
             <Item>
               <Type>skeleton</Type>
               <TilePos>6 2</TilePos>
-              <ItemDrop Null="true" />
+              <ItemDrop>specialKey</ItemDrop>
             </Item>
             <Item>
               <Type>skeleton</Type>
