@@ -9,6 +9,7 @@ using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
+using Sprint.Collision;
 
 namespace Sprint.Characters
 {
@@ -25,6 +26,8 @@ namespace Sprint.Characters
         private Timer timeAttack;
 
         private MoveSpike moveSpike;
+
+
 
 
         public SpikeEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)

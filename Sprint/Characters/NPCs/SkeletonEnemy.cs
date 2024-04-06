@@ -9,10 +9,12 @@ using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
+using Sprint.Collision;
 
 namespace Sprint.Characters
 {
 
+    
     //Code based on the BluebubbleEnemy.cs file
     public class SkeletonEnemy : Enemy
     {
@@ -22,6 +24,7 @@ namespace Sprint.Characters
         private SimpleProjectileFactory itemFactory;
         private ICommand projectileCommand;
         private MoveVert moveVert;
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.MOVEVERT, CollisionTypes.ENEMY };
 
         private Timer timeAttack;
 

@@ -24,7 +24,6 @@ namespace Sprint.Characters
 
         Physics physics;
 
-        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.MOVEVERT, CollisionTypes.ENEMY };
         public MoveRandom(Physics physics)
         {
 
