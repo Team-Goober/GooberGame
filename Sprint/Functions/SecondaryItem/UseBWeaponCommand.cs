@@ -10,11 +10,13 @@ namespace Sprint.Commands.SecondaryItem
 
         private SimpleProjectileFactory factory;
         private Inventory inventory;
+        private Player player;
 
-        public UseBWeaponCommand(SimpleProjectileFactory factory, Inventory inventory)
+        public UseBWeaponCommand(Player player)
         {
-            this.factory = factory;
-            this.inventory = inventory;
+            this.factory = player.GetProjectileFactory();
+            this.inventory = player.GetInventory();
+            this.player = player;
         }
 
         public void Execute()
@@ -60,6 +62,28 @@ namespace Sprint.Commands.SecondaryItem
                     break;
                 case ItemType.RedCandle:
                     factory.CreateFireBall().Create();
+                    break;
+                // Healing items: consume and do negative damage to player
+                case ItemType.Meat:
+                    if (inventory.HasItem(ItemType.Meat))
+                    {
+                        player.TakeDamage(-1);
+                        inventory.ConsumeItem(ItemType.Meat);
+                    }
+                    break;
+                case ItemType.BluePotion:
+                    if (inventory.HasItem(ItemType.BluePotion))
+                    {
+                        player.TakeDamage(-1);
+                        inventory.ConsumeItem(ItemType.BluePotion);
+                    }
+                    break;
+                case ItemType.RedPotion:
+                    if (inventory.HasItem(ItemType.RedPotion))
+                    {
+                        player.TakeDamage(-3);
+                        inventory.ConsumeItem(ItemType.RedPotion);
+                    }
                     break;
                 default:
                     break;

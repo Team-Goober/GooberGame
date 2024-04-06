@@ -12,6 +12,8 @@ using System;
 using Sprint.Music.Sfx;
 using Sprint.Items;
 using Sprint.HUD;
+using Sprint.Functions.DeathState;
+using System.Collections.Generic;
 
 namespace Sprint.Characters
 {
@@ -29,15 +31,19 @@ namespace Sprint.Characters
         private ISprite damagedSprite;
 
         public event EventHandler OnPlayerDied;
-        protected double health = 3;
-        protected double swordDmg = 1; 
 
-        public delegate void HealthUpdateDelegate(double health);
-        public event HealthUpdateDelegate OnPlayerDamaged;
+
+        public delegate void HealthUpdateDelegate(double prev, double next);
+        public event HealthUpdateDelegate OnPlayerHealthChange;
+        public delegate void MaxHealthUpdateDelegate(int prev, int next, double health);
+        public event MaxHealthUpdateDelegate OnPlayerMaxHealthChange;
 
         private Physics physics;
 
+        // Player variables
         private int sideLength = 3 * 16;
+        private int maxHealth = 3;
+        private double health = 3;
 
         private ProjectileSystem secondaryItems;
         private SwordCollision swordCollision;
@@ -58,7 +64,7 @@ namespace Sprint.Characters
         private Timer castTimer;
         private Timer damageTimer;
         private Room room;
-        private Reset reset;
+        private OpenDeath gameOver;
 
         // TODO: replace this with state machine
         // Animation to return to as base after a played animation ends
@@ -101,7 +107,7 @@ namespace Sprint.Characters
             // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
 
-            this.reset = new Reset(dungeon);
+            this.gameOver = new OpenDeath(dungeon);
         }
 
         public SimpleProjectileFactory GetProjectileFactory()
@@ -152,7 +158,7 @@ namespace Sprint.Characters
             if (Facing == Directions.DOWN)
             {
                 sprite.SetAnimation("swordDown");
-                damagedSprite.SetAnimation("swordRight");
+                damagedSprite.SetAnimation("swordDown");
                 swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
             }
             else if (Facing == Directions.LEFT)
@@ -170,7 +176,7 @@ namespace Sprint.Characters
             else if (Facing == Directions.RIGHT)
             {
                 sprite.SetAnimation("swordRight");
-                damagedSprite.SetAnimation("swordDown");
+                damagedSprite.SetAnimation("swordRight");
                 swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
 
@@ -342,17 +348,20 @@ namespace Sprint.Characters
             defaultSprite = sprite;
             sprite = damagedSprite;
             damageTimer.Start();
-
-            health -= 0.5;
+            double prevHealth = health;
+            health -= dmg;
             // Trigger death when health is at or below 0
             if (health <= 0.0)
             {
                 this.Die();
             }
-            else
+            // If negative damage (healing), don't go over max health
+            else if (health > maxHealth)
             {
-                OnPlayerDamaged?.Invoke(health);
+                health = maxHealth;
             }
+
+            OnPlayerHealthChange?.Invoke(prevHealth, health);
         }
 
 
@@ -432,11 +441,37 @@ namespace Sprint.Characters
             inventory.ConsumeItem(item);
         }
 
-        // Remove player from game
+        // Send to a game over
         public override void Die()
         {
             OnPlayerDied?.Invoke(this, EventArgs.Empty);
+            gameOver.Execute();
         }
+
+        public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
+        {
+            switch (it)
+            {
+                case ItemType.HeartPiece:
+                    int prevMax = maxHealth;
+                    if(maxHealth < 16)
+                        maxHealth += 1;
+                    OnPlayerMaxHealthChange?.Invoke(prevMax, maxHealth, health);
+                    break;
+                case ItemType.Heart:
+                    double prevHealth = health;
+                    health += 1;
+                    if(health > maxHealth)
+                    {
+                        health = maxHealth;
+                    }
+                    OnPlayerHealthChange?.Invoke(prevHealth, health);
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 }
 

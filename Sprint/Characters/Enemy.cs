@@ -7,6 +7,7 @@ using Sprint.Music.Sfx;
 using System.Runtime.Serialization;
 using System;
 using System.Threading.Tasks.Dataflow;
+using Sprint.Items;
 using System.Diagnostics;
 
 namespace Sprint.Characters
@@ -23,6 +24,8 @@ namespace Sprint.Characters
         protected Room room;
         private SfxFactory sfxFactory;
         protected double health;
+
+        private Item drop = null; // Item to drop upon death
 
         public Enemy(ISprite sprite, ISprite damagedSprite, Vector2 position, Room room)
         {
@@ -57,14 +60,22 @@ namespace Sprint.Characters
 
         public override void TakeDamage(double dmg)
         {
-            damageTimer.Start();
-            this.sprite = damagedSprite;
-            health -= dmg;
-            // Trigger death when health is at or below 0
-            if (health <= 0.0)
+            // Only take damage if not in invulnerable frames
+            if (damageTimer.Ended)
             {
-                EnemyDeathEvent?.Invoke();
-                Die();
+                damageTimer.Start();
+                this.sprite = damagedSprite;
+                health -= dmg;
+                // Trigger death when health is at or below 0
+                if (health <= 0.0)
+                {
+                    EnemyDeathEvent?.Invoke();
+                    Die();
+                }
+                else
+                {
+                    OnEnemyDamaged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -84,12 +95,23 @@ namespace Sprint.Characters
             }
         }
 
+        public void GiveDrop(Item drop)
+        {
+            this.drop = drop;
+        }
 
         // Remove enemy from game
         public override void Die()
         {
             room.GetScene().Remove(this);
+            // Handle scene
             sfxFactory.PlaySoundEffect("Enemy Death");
+            // Handle item drop
+            if(drop != null)
+            {
+                drop.SetPosition(physics.Position);
+                room.GetScene().Add(drop);
+            }
         }
     }
 }

@@ -258,7 +258,13 @@ namespace Sprint.Loader
             foreach (EnemySpawnData spawn in rd.Enemies)
             {
                 Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
-                roomNpcs.Add(enemyFactory.MakeEnemy(spawn.Type, position, room));
+                Enemy en = enemyFactory.MakeEnemy(spawn.Type, position, room);
+                // Give item drop
+                if(spawn.ItemDrop != null)
+                {
+                    en.GiveDrop(itemFactory.MakeItem(spawn.ItemDrop, position));
+                }
+                roomNpcs.Add(en);
             }
 
             //Load items

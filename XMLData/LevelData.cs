@@ -83,6 +83,7 @@ namespace XMLData
     {
         public string Type; // Type of enemy to construct. Used by EnemyFactory
         public Vector2 TilePos; // Grid coordinates of tile to spawn on. Not in world coordinates
+        public string? ItemDrop; // Item to drop on enemy death
     }
 
     public class TextBoxData

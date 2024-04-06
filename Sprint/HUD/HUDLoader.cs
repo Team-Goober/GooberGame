@@ -46,7 +46,7 @@ namespace Sprint.HUD
             hudFactory = new(spriteLoader);
 
             //Default Heart Amount
-            UpdateMaxHeartAmount(3);
+            maxHearts = 3;
         }
 
         public void LoadHUD(string path, int levelNum, MapModel map)
@@ -76,6 +76,7 @@ namespace Sprint.HUD
             {
                 topDisplay.Add(sprite);
             }
+            SetHearts(maxHearts);
 
             // Weapons
             bWeapon = MakeItemSprite(null, data.BWeapon);
@@ -304,34 +305,42 @@ namespace Sprint.HUD
             }
         }
 
-        public void UpdateHeartAmount(double heartLeft)
+        public void UpdateHeartAmount(double prevHeart, double newHeart)
         {
-            int halfHeartPos = (int)Math.Floor(heartLeft);
-
-            double half = heartLeft - Math.Truncate(heartLeft);
-
-            if (half != 0)
-            {
-                LifeForce[halfHeartPos].SetSprite("HalfHeart");
-
-                //Everything after will be empty hearts
-                for (int i = halfHeartPos + 1; i < maxHearts; i++)
-                {
-                    LifeForce[i].SetSprite("EmptyHeart");
-                }
-            }
-            else
-            {
-                for (int i = halfHeartPos; i < maxHearts; i++)
-                {
-                    LifeForce[i].SetSprite("EmptyHeart");
-                }
-            }
+            SetHearts(newHeart);
         }
 
-        public void UpdateMaxHeartAmount(int newHeartAmount)
+        public void UpdateMaxHeartAmount(int prevMax, int newMax, double health)
         {
-            maxHearts = newHeartAmount;
+            maxHearts = newMax;
+            SetHearts(health);
+        }
+
+        public void SetHearts(double health)
+        {
+            for (int i = 0; i < LifeForce.Count; i++)
+            {
+                // Heart is full
+                if (i <= health - 1)
+                {
+                    LifeForce[i].SetSprite("FullHeart");
+                    // Heart is half (only one can be)
+                }
+                else if (i == (int)health && i != health)
+                {
+                    LifeForce[i].SetSprite("HalfHeart");
+                }
+                // Heart is empty container
+                else if (i <= maxHearts - 1)
+                {
+                    LifeForce[i].SetSprite("EmptyHeart");
+                }
+                // Container not received, hide heart
+                else
+                {
+                    LifeForce[i].SetSprite("B");
+                }
+            }
         }
 
     }
