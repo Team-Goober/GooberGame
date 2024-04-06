@@ -6,6 +6,57 @@
     <CompassPoint>6 3</CompassPoint>
     <SpriteFile>LevelOne/Level1Sprites</SpriteFile>
 	  <HUBFile>HUB/HUBSprites</HUBFile>
+	<Song>Dungeon Song</Song>
+	<Sfxs>
+		  <Item>
+			  <SoundName>Item Pickup</SoundName>
+		  </Item>
+		<Item>
+			<SoundName>Sword Swing</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Unlock Door</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Run Into Wall</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Enemy Death</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Flames Shot</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Magical Boomerang Thrown</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Upgraded Magical Boomerang Thrown</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Arrow Shot</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Arrow Hit</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Bomb Placement</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Bomb Explosion</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Boss Defeated</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Boss Roaring</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Health Heart</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Player Hurt</SoundName>
+		</Item>
+	</Sfxs>
     <OuterWalls>
 		0 0 480 128
 		0 0 128 320
