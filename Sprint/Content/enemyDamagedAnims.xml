@@ -221,13 +221,13 @@
 				  <Item>
 					  <Key>dragmoving</Key>
 					  <Value Type="XMLData.AutoAtlasData">
-						  <SheetArea>4 0 24 32</SheetArea>
+						  <SheetArea>4 0 163 32</SheetArea>
 						  <Rows>1</Rows>
 						  <Cols>4</Cols>
 						  <Padding>0</Padding>
-						  <CenterPoint>8 7</CenterPoint>
+						  <CenterPoint>14 23</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>15</Framerate>
+						  <Framerate>5</Framerate>
 					  </Value>
 				  </Item>
 				  
