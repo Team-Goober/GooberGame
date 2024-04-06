@@ -12,6 +12,7 @@ using System;
 using Sprint.Music.Sfx;
 using Sprint.Items;
 using Sprint.HUD;
+using Sprint.Functions.DeathState;
 
 namespace Sprint.Characters
 {
@@ -59,6 +60,7 @@ namespace Sprint.Characters
         private Timer damageTimer;
         private Room room;
         private Reset reset;
+        private OpenDeath gameOver;
 
         // TODO: replace this with state machine
         // Animation to return to as base after a played animation ends
@@ -102,6 +104,7 @@ namespace Sprint.Characters
             secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
 
             this.reset = new Reset(dungeon);
+            this.gameOver = new OpenDeath(dungeon);
         }
 
         public SimpleProjectileFactory GetProjectileFactory()
@@ -342,7 +345,6 @@ namespace Sprint.Characters
             defaultSprite = sprite;
             sprite = damagedSprite;
             damageTimer.Start();
-
             health -= 0.5;
             // Trigger death when health is at or below 0
             if (health <= 0.0)
@@ -432,10 +434,11 @@ namespace Sprint.Characters
             inventory.ConsumeItem(item);
         }
 
-        // Remove player from game
+        // Send to a game over
         public override void Die()
         {
             OnPlayerDied?.Invoke(this, EventArgs.Empty);
+            gameOver.Execute();
         }
     }
 }

@@ -187,7 +187,7 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.J), new MusicDown());
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.K), new MusicMuteToggle());
 
-            // Death State TEST Remove or Change Later
+            // Press m to die
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.M), new OpenDeath(this));
 
         }
