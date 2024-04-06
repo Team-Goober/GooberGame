@@ -40,6 +40,10 @@ namespace XMLData
         public Vector2 BowItemPos;
         public Vector2 BSelection;
 
+        public Vector2 GameOverPos;
+        public Vector2 DeathMenuPos;
+        public Vector2 MenuHeartPos;
+
         public int NumSpriteSize;
     }
 }

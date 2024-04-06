@@ -21,6 +21,16 @@ namespace Sprint.Loader
             sprite.SetAnimation(number);
         }
 
+        public Vector2 GetPosition()
+        {
+            return position;
+        }
+
+        public void SetPosition(Vector2 position)
+        {
+            this.position = position;
+        }
+
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
