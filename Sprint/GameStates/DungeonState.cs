@@ -184,7 +184,6 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.J), new MusicDown());
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.K), new MusicMuteToggle());
 
-            }
             // Death State TEST Remove or Change Later
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.M), new OpenDeath(this));
 
@@ -427,10 +426,10 @@ namespace Sprint
         {
             GameOverState death = new GameOverState(game, hudLoader);
 
-            SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X];
+            SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X].GetScene();
 
             //death.GetRoomScene(currRoom);
-            death.GetHUDScene(hud);
+            death.GetHUDScene(hudLoader.GetTopDisplay());
             PassToState(death);
         }
 

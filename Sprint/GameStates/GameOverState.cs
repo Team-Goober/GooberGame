@@ -140,8 +140,8 @@ namespace Sprint.GameStates
 
         public void CloseDeathMenu()
         {
-            ((DungeonState)game.DungeonState).ResetGame();
-            PassToState(game.DungeonState);
+            ((DungeonState)game.GetDungeonState()).ResetGame();
+            PassToState(game.GetDungeonState());
         }
     }
 }
