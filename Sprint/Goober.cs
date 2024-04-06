@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Input;
@@ -6,6 +7,7 @@ using Sprint.Interfaces;
 using Sprint.Commands;
 using Sprint.Sprite;
 using Sprint.GameStates;
+using Sprint.Music.Sfx;
 
 
 namespace Sprint
@@ -14,7 +16,7 @@ namespace Sprint
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
+        
         private IInputMap inputTable; // Table of commands available no matter what state the game is loaded
 
 
@@ -22,6 +24,7 @@ namespace Sprint
 
         private DungeonState dungeonState; // State where player can move in a room
         private InventoryState inventoryState; // State where player can see map and select items
+        private SfxFactory sfxFactory;
 
         private SpriteLoader spriteLoader; // Loads sprites from file and caches them for reuse
         // Dimensions of window
@@ -35,6 +38,7 @@ namespace Sprint
             IsMouseVisible = true;
         }
 
+        public static ContentManager content;
         protected override void Initialize()
         {
             _graphics.PreferredBackBufferWidth = gameWidth;
@@ -43,12 +47,14 @@ namespace Sprint
 
             spriteLoader = new SpriteLoader(Content);
             inputTable = new InputTable();
+            content = Content;
+
 
             base.Initialize();
         }
 
         protected override void LoadContent()
-        { 
+        {
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -57,6 +63,8 @@ namespace Sprint
             dungeonState.MakeCommands();
             inventoryState.MakeCommands();
             GameState = dungeonState;
+            sfxFactory = SfxFactory.GetInstance();
+            sfxFactory.MakeSongs();
 
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));

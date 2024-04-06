@@ -12,6 +12,9 @@ namespace XMLData
         public string SpriteFile; // Path to file holding all room sprites for this level
         public string HUBFile;
 
+        public string Song;    //Song for the level
+        public List<SfxData> Sfxs; //All sound effects in the level
+
         public Rectangle[] OuterWalls; // Collision bounds of walls on the outside of the room
         public string BackgroundSprite; // is drawn at 0,0 and should show the background walls
 
@@ -90,4 +93,8 @@ namespace XMLData
         public Color Color; // Color mask for text
     }
 
+    public class SfxData
+    {
+        public string SoundName;
+    }
 }

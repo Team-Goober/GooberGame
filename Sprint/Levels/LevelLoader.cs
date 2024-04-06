@@ -7,6 +7,8 @@ using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Items;
 using Sprint.Levels;
+using Sprint.Music.Sfx;
+using Sprint.Music.Songs;
 using Sprint.Sprite;
 using System.Collections.Generic;
 using XMLData;
@@ -23,6 +25,8 @@ namespace Sprint.Loader
         private DoorFactory doorFactory;
         private ItemFactory itemFactory;
         private EnemyFactory enemyFactory;
+        private SongHandler songHandler;
+        private SfxFactory sfxFactory;
 
         // Array to generate click-through-door commands
         private Rectangle[] doorBounds;
@@ -40,7 +44,7 @@ namespace Sprint.Loader
             doorFactory = new(spriteLoader);
             itemFactory = new(spriteLoader);
             enemyFactory = new(spriteLoader);
-
+            songHandler = SongHandler.GetInstance();
         }
 
         /* Loads Level data from given file
@@ -128,6 +132,9 @@ namespace Sprint.Loader
             dungeon.SetCompassPointer(data.CompassPoint);
 
             dungeon.SetStart(data.BottomSpawnPos, data.StartLevel);
+
+            //Load Song
+            songHandler.PlaySong(data.Song);
 
         }
 
