@@ -90,6 +90,8 @@ namespace Sprint
             inventory.InventoryEvent += this.OnInventoryEvent;
             inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
+
+            player.OnPlayerDamaged += hudLoader.UpdateHeartAmount;
         }
 
         private void unloadDelegates()
