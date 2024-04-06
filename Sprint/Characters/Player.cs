@@ -13,6 +13,7 @@ using Sprint.Music.Sfx;
 using Sprint.Items;
 using Sprint.HUD;
 using Sprint.Functions.DeathState;
+using System.Collections.Generic;
 
 namespace Sprint.Characters
 {
@@ -30,15 +31,19 @@ namespace Sprint.Characters
         private ISprite damagedSprite;
 
         public event EventHandler OnPlayerDied;
-        protected double health = 3;
-        protected double swordDmg = 1; 
 
-        public delegate void HealthUpdateDelegate(double health);
-        public event HealthUpdateDelegate OnPlayerDamaged;
+
+        public delegate void HealthUpdateDelegate(double prev, double next);
+        public event HealthUpdateDelegate OnPlayerHealthChange;
+        public delegate void MaxHealthUpdateDelegate(int prev, int next, double health);
+        public event MaxHealthUpdateDelegate OnPlayerMaxHealthChange;
 
         private Physics physics;
 
+        // Player variables
         private int sideLength = 3 * 16;
+        private int maxHealth = 3;
+        private double health = 3;
 
         private ProjectileSystem secondaryItems;
         private SwordCollision swordCollision;
@@ -59,7 +64,6 @@ namespace Sprint.Characters
         private Timer castTimer;
         private Timer damageTimer;
         private Room room;
-        private Reset reset;
         private OpenDeath gameOver;
 
         // TODO: replace this with state machine
@@ -103,7 +107,6 @@ namespace Sprint.Characters
             // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
 
-            this.reset = new Reset(dungeon);
             this.gameOver = new OpenDeath(dungeon);
         }
 
@@ -345,6 +348,7 @@ namespace Sprint.Characters
             defaultSprite = sprite;
             sprite = damagedSprite;
             damageTimer.Start();
+            double prevHealth = health;
             health -= 0.5;
             // Trigger death when health is at or below 0
             if (health <= 0.0)
@@ -353,7 +357,7 @@ namespace Sprint.Characters
             }
             else
             {
-                OnPlayerDamaged?.Invoke(health);
+                OnPlayerHealthChange?.Invoke(prevHealth, health);
             }
         }
 
@@ -440,6 +444,31 @@ namespace Sprint.Characters
             OnPlayerDied?.Invoke(this, EventArgs.Empty);
             gameOver.Execute();
         }
+
+        public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
+        {
+            switch (it)
+            {
+                case ItemType.HeartPiece:
+                    int prevMax = maxHealth;
+                    if(maxHealth < 16)
+                        maxHealth += 1;
+                    OnPlayerMaxHealthChange?.Invoke(prevMax, maxHealth, health);
+                    break;
+                case ItemType.Heart:
+                    double prevHealth = health;
+                    health += 1;
+                    if(health > maxHealth)
+                    {
+                        health = maxHealth;
+                    }
+                    OnPlayerHealthChange?.Invoke(prevHealth, health);
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 }
 
