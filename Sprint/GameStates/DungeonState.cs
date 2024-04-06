@@ -93,8 +93,9 @@ namespace Sprint
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
 
             inventory.WinEvent += this.WinScreen;
-            player.OnPlayerDamaged += hudLoader.UpdateHeartAmount;
-
+            player.OnPlayerHealthChange += hudLoader.UpdateHeartAmount;
+            player.OnPlayerMaxHealthChange += hudLoader.UpdateMaxHeartAmount;
+            inventory.InventoryEvent += player.OnInventoryEvent;
         }
 
         private void unloadDelegates()
@@ -104,6 +105,11 @@ namespace Sprint
             inventory.InventoryEvent -= this.OnInventoryEvent;
             inventory.SelectorChooseEvent -= hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent -= hudLoader.OnSelectorMoveEvent;
+
+            inventory.WinEvent -= this.WinScreen;
+            player.OnPlayerHealthChange -= hudLoader.UpdateHeartAmount;
+            player.OnPlayerMaxHealthChange -= hudLoader.UpdateMaxHeartAmount;
+            inventory.InventoryEvent -= player.OnInventoryEvent;
         }
 
         public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
@@ -154,7 +160,7 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new Cast(player));
 
             // Using item slot B
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseBWeaponCommand(player.GetProjectileFactory(), player.GetInventory()));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseBWeaponCommand(player));
 
             // Reset command
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
@@ -189,7 +195,7 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.J), new MusicDown());
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.K), new MusicMuteToggle());
 
-            // Death State TEST Remove or Change Later
+            // Press m to die
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.M), new OpenDeath(this));
 
         }
