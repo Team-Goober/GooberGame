@@ -199,6 +199,11 @@ namespace Sprint.Characters
             }
         }
 
+        public void WinPose()
+        {
+            sprite.SetAnimation("holdItem");
+        }
+
         // Removes velocity and changes animation to match lack of movement
         public void StopMoving()
         {

@@ -84,6 +84,8 @@ namespace Sprint
             inventory.InventoryEvent += this.OnInventoryEvent;
             inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
+
+            inventory.WinEvent += this.WinScreen;
         }
 
         private void unloadDelegates()
@@ -382,6 +384,12 @@ namespace Sprint
             TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, inventory);
 
             PassToState(scroll);
+        }
+
+        public void WinScreen()
+        {
+            WinState win = new WinState(game, hudLoader.GetTopDisplay(), rooms[currentRoom.Y][currentRoom.X].GetScene(), player, spriteLoader, arenaPosition);
+            PassToState(win);
         }
 
         public Point RoomIndex()

@@ -13,6 +13,10 @@ internal class Inventory
     public delegate void InventoryUpdateDelegate(ItemType it, int prev, int next, List<ItemType> ownedUpgrades);
     public event InventoryUpdateDelegate InventoryEvent;
 
+    public delegate void WinDelegate();
+    public event WinDelegate WinEvent;
+
+
     public delegate void SelectorChooseDelegate(ItemType item);
     public event SelectorChooseDelegate SelectorChooseEvent;
 
@@ -81,6 +85,11 @@ internal class Inventory
     /// <param name="item">ItemType to increment</param>
     public void PickupItem(ItemType item)
     {
+        if(ItemType.Triforce == item)
+        {
+            WinEvent?.Invoke();
+        }
+
         int quantity = 1;
         if (BundleSize.ContainsKey(item))
         {
