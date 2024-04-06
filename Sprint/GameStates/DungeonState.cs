@@ -159,7 +159,7 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new Cast(player));
 
             // Using item slot B
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseBWeaponCommand(player.GetProjectileFactory(), player.GetInventory()));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseBWeaponCommand(player));
 
             // Reset command
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));

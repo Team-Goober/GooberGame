@@ -349,16 +349,19 @@ namespace Sprint.Characters
             sprite = damagedSprite;
             damageTimer.Start();
             double prevHealth = health;
-            health -= 0.5;
+            health -= dmg;
             // Trigger death when health is at or below 0
             if (health <= 0.0)
             {
                 this.Die();
             }
-            else
+            // If negative damage (healing), don't go over max health
+            else if (health > maxHealth)
             {
-                OnPlayerHealthChange?.Invoke(prevHealth, health);
+                health = maxHealth;
             }
+
+            OnPlayerHealthChange?.Invoke(prevHealth, health);
         }
 
 
