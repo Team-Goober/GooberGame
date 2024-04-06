@@ -6,12 +6,13 @@ using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
-
+using Sprint.Music.Sfx;
+using System.Runtime.Serialization;
 
 
 namespace Sprint.Characters
 {
-    public class DragonEnemy : Enemy
+    internal class DragonEnemy : Enemy
     {
         private float elapsedTime;
         private Timer timeAttack;
@@ -20,11 +21,16 @@ namespace Sprint.Characters
         private SimpleProjectileFactory itemFactory;
         private Vector2 initialPosition;
         private string lastAnimationName;
+        private SfxFactory sfxFactory;
+        private SceneObjectManager objectManager;
         private MoveVert moveVert;
 
-        public DragonEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, objectManager)
+        public DragonEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, initialPosition, room)
         {
+
+            sfxFactory = SfxFactory.GetInstance();
+            this.objectManager = objectManager;
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
@@ -32,7 +38,7 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
 
             moveVert = new MoveVert(physics);
@@ -106,6 +112,13 @@ namespace Sprint.Characters
         }
 
 
+
+        // Remove enemy from game
+        public override void Die()
+        {
+            objectManager.Remove(this);
+            sfxFactory.PlaySoundEffect("Boss Defeated");
+        }
 
     }
 }

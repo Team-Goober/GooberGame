@@ -2,9 +2,61 @@
 <XnaContent xmlns:XMLData="XMLData">
   <Asset Type="XMLData:LevelData">
     <Level>1</Level>
-	<StartLevel>2 5</StartLevel>
+	  <StartLevel>3 7</StartLevel>
+    <CompassPoint>6 3</CompassPoint>
     <SpriteFile>LevelOne/Level1Sprites</SpriteFile>
 	  <HUBFile>HUB/HUBSprites</HUBFile>
+	<Song>Dungeon Song</Song>
+	<Sfxs>
+		  <Item>
+			  <SoundName>Item Pickup</SoundName>
+		  </Item>
+		<Item>
+			<SoundName>Sword Swing</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Unlock Door</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Run Into Wall</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Enemy Death</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Flames Shot</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Magical Boomerang Thrown</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Upgraded Magical Boomerang Thrown</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Arrow Shot</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Arrow Hit</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Bomb Placement</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Bomb Explosion</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Boss Defeated</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Boss Roaring</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Health Heart</SoundName>
+		</Item>
+		<Item>
+			<SoundName>Player Hurt</SoundName>
+		</Item>
+	</Sfxs>
     <OuterWalls>
 		0 0 480 128
 		0 0 128 320
@@ -165,13 +217,35 @@
         </Value>
       </Item>
     </DoorReferences>
-    <LayoutColumns>6</LayoutColumns>
-    <LayoutRows>6</LayoutRows>
+    <LayoutColumns>8</LayoutColumns>
+    <LayoutRows>8</LayoutRows>
     <Rooms>
       <Item>
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+      </Item>
+      <Item>
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+        <Item Null="true" />
+      </Item>
+      <Item>
+        <Item Null="true" />
         <Item>
           <!--Undergound Room. Index 19-->
             <NeedWall>false</NeedWall>
+            <Hidden>true</Hidden>
             <TopExit>Wall</TopExit>
             <BottomExit>Wall</BottomExit>
             <LeftExit>Wall</LeftExit>
@@ -192,37 +266,34 @@
             <Items>
               <Item>
                 <Type>bow</Type>
-                <Row>2</Row>
-                <Column>6</Column>
+                <TilePos>6 2</TilePos>
               </Item>
             </Items>
             <Enemies>
               <Item>
                 <Type>bat</Type>
-                <Row>6</Row>
-                <Column>2</Column>
+                <TilePos>2 6</TilePos>
               </Item>
               <Item>
                 <Type>bat</Type>
-                <Row>2</Row>
-                <Column>2</Column>
+                <TilePos>2 2</TilePos>
               </Item>
               <Item>
                 <Type>bat</Type>
-                <Row>6</Row>
-                <Column>6</Column>
+                <TilePos>6 6</TilePos>
               </Item>
               <Item>
                 <Type>bat</Type>
-                <Row>2</Row>
-                <Column>6</Column>
+                <TilePos>6 2</TilePos>
               </Item>
             </Enemies>
+            <TextBoxes />
         </Item>
         <Item>
           <!--Row 1 Col 2 Room Index 0-->
           <!--Need Bow Item and another mystery item. Missing one orange tile-->
             <NeedWall>true</NeedWall>
+            <Hidden>false</Hidden>
             <TopExit>Wall</TopExit>
             <BottomExit>Wall</BottomExit>
             <LeftExit>Wall</LeftExit>
@@ -240,30 +311,28 @@
             <Enemies>
               <Item>
                 <Type>spike</Type>
-                <Row>0</Row>
-                <Column>1</Column>
+                <TilePos>1 0</TilePos>
               </Item>
               <Item>
                 <Type>spike</Type>
-                <Row>0</Row>
-                <Column>11</Column>
+                <TilePos>11 0</TilePos>
               </Item>
               <Item>
                 <Type>spike</Type>
-                <Row>6</Row>
-                <Column>1</Column>
+                <TilePos>1 6</TilePos>
               </Item>
               <Item>
                 <Type>spike</Type>
-                <Row>6</Row>
-                <Column>11</Column>
+                <TilePos>11 6</TilePos>
               </Item>
             </Enemies>
+            <TextBoxes />
         </Item>
         <Item>
           <!--Row 1 Col 3 Room Index 1-->
           <!--Key Item-->
             <NeedWall>true</NeedWall>
+            <Hidden>false</Hidden>
             <TopExit>Wall</TopExit>
             <BottomExit>Lock</BottomExit>
             <LeftExit>Lock</LeftExit>
@@ -280,28 +349,26 @@
             <Items>
               <Item>
                 <Type>key</Type>
-                <Row>2</Row>
-                <Column>7</Column>
+                <TilePos>7 2</TilePos>
               </Item>
             </Items>
             <Enemies>
               <Item>
                 <Type>dog</Type>
-                <Row>1</Row>
-                <Column>9</Column>
+                <TilePos>9 1</TilePos>
               </Item>
               <Item>
                 <Type>dog</Type>
-                <Row>3</Row>
-                <Column>5</Column>
+                <TilePos>5 3</TilePos>
               </Item>
               <Item>
                 <Type>dog</Type>
-                <Row>3</Row>
-                <Column>8</Column>
+                <TilePos>8 3</TilePos>
               </Item>
             </Enemies>
+            <TextBoxes />
         </Item>
+        <Item Null="true" />
         <Item Null="true" />
         <Item Null="true" />
         <Item Null="true" />
@@ -309,9 +376,11 @@
       <Item>
         <Item Null="true" />
         <Item Null="true" />
+        <Item Null="true" />
         <Item>
           <!--Row 2 Col 3 Room Index 2-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Lock</TopExit>
           <BottomExit>Open</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -329,26 +398,25 @@
           <Enemies>
             <Item>
               <Type>skeleton</Type>
-              <Row>2</Row>
-              <Column>2</Column>
+              <TilePos>1 2</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <Row>2</Row>
-              <Column>11</Column>
+              <TilePos>11 3</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <Row>5</Row>
-              <Column>9</Column>
+                <TilePos>9 5</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
         <Item Null="true" />
         <Item>
           <!--Row 2 Col 5 Room Index 3-->
           <!--Heart is not spawning. Dragon row and column doesn't make sense-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Open</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -364,23 +432,23 @@
           </TileGrid>
           <Items>
             <Item>
-              <Type>heart</Type>
-              <Row>3</Row>
-              <Column>10</Column>
+              <Type>heartPiece</Type>
+              <TilePos>10 3</TilePos>
             </Item>
           </Items>
           <Enemies>
             <Item>
               <Type>dragonmov</Type>
-              <Row>2</Row>
-              <Column>10</Column>
+              <TilePos>10 2</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
         <Item>
           <!--Row 2 Col 6 Room Index 4-->
           <!--Triforce is not spawning-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -397,17 +465,20 @@
           <Items>
             <Item>
               <Type>triforce</Type>
-              <Row>3</Row>
-              <Column>6</Column>
+              <TilePos>5.5 3</TilePos>
             </Item>
           </Items>
           <Enemies/>
+          <TextBoxes />
         </Item>
+        <Item Null="true" />
       </Item>
       <Item>
+        <Item Null="true" />
         <Item>
           <!--Row 3 Col 1 Room Index 5-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -421,36 +492,39 @@
             <Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
             <Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
           </TileGrid>
-
-          <Items>
-            <Item>
-              <Type>oldmanText</Type>
-              <Row>1</Row>
-              <Column>5</Column>
-            </Item>
-            <Item>
-              <Type>fireball</Type>
-              <Row>3</Row>
-              <Column>3</Column>
-            </Item>
-            <Item>
-              <Type>fireball</Type>
-              <Row>3</Row>
-              <Column>7</Column>
-            </Item>
-          </Items>
+          <Items />
           <Enemies>
             <Item>
               <Type>oldman</Type>
-              <Row>3</Row>
-              <Column>5</Column>
+              <TilePos>5.5 3</TilePos>
+            </Item>
+            <Item>
+              <Type>fireball</Type>
+              <TilePos>2.5 3</TilePos>
+            </Item>
+            <Item>
+              <Type>fireball</Type>
+              <TilePos>8.5 3</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes>
+            <Item>
+              <FontName>nintendo</FontName>
+              <Text>
+                <Item>EASTMOST PENNINSULA</Item>
+                <Item>IS THE SECRET.</Item>
+              </Text>
+              <CharacterDimensions>32 32</CharacterDimensions>
+              <Position>512 250</Position>
+              <Color>FFFFFF</Color>
+            </Item>
+          </TextBoxes>
         </Item>
         <Item>
           <!--Row 3 Col 2 Room Index 6-->
           <!--Some Orange tile missing.-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Lock</BottomExit>
           <LeftExit>Puzzle</LeftExit>
@@ -468,24 +542,23 @@
           <Enemies>
             <Item>
               <Type>slime</Type>
-              <Row>1</Row>
-              <Column>8</Column>
+              <TilePos>8 1</TilePos>
             </Item>
             <Item>
               <Type>slime</Type>
-              <Row>3</Row>
-              <Column>7</Column>
+              <TilePos>7 3</TilePos>
             </Item>
             <Item>
               <Type>slime</Type>
-              <Row>5</Row>
-              <Column>8</Column>
+              <TilePos>8 5</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
         <Item>
           <!--Row 3 Col 3 Room Index 7-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Open</TopExit>
           <BottomExit>Hidden</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -501,43 +574,39 @@
           </TileGrid>
           <Items>
             <Item>
-              <Type>paper</Type>
-              <Row>3</Row>
-              <Column>10</Column>
+              <Type>map</Type>
+              <TilePos>10 3</TilePos>
             </Item>
           </Items>
           <Enemies>
             <Item>
               <Type>slime</Type>
-              <Row>3</Row>
-              <Column>7</Column>
+              <TilePos>7 3</TilePos>
             </Item>
             <Item>
               <Type>slime</Type>
-              <Row>5</Row>
-              <Column>7</Column>
+              <TilePos>7 5</TilePos>
             </Item>
             <Item>
               <Type>slime</Type>
-              <Row>3</Row>
-              <Column>9</Column>
+              <TilePos>9 3</TilePos>
             </Item>
             <Item>
               <Type>slime</Type>
-              <Row>5</Row>
-              <Column>9</Column>
+              <TilePos>9 5</TilePos>
             </Item>
             <Item>
               <Type>slime</Type>
-              <Row>4</Row>
-              <Column>12</Column>
+              <TilePos>11 4</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
         <Item>
           <!--Row 3 Col 4 Room Index 8-->
           <!--Item Needed-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Hidden</BottomExit>
           <LeftExit>Lock</LeftExit>
@@ -554,32 +623,30 @@
           <Items>
             <Item>
               <Type>boomerang</Type>
-              <Row>1</Row>
-              <Column>6</Column>
+              <TilePos>6 1</TilePos>
             </Item>
           </Items>
           <Enemies>
             <Item>
               <Type>dog</Type>
-              <Row>2</Row>
-              <Column>11</Column>
+              <TilePos>11 2</TilePos>
             </Item>
             <Item>
               <Type>dog</Type>
-              <Row>3</Row>
-              <Column>9</Column>
+              <TilePos>9 3</TilePos>
             </Item>
             <Item>
               <Type>dog</Type>
-              <Row>5</Row>
-              <Column>9</Column>
+              <TilePos>9 5</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
         <Item>
           <!--Row 3 Col 5 Room Index 9-->
           <!--Item Key needed-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Lock</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -596,30 +663,31 @@
           <Items>
             <Item>
               <Type>key</Type>
-              <Row>6</Row>
-              <Column>8</Column>
+              <TilePos>8 6</TilePos>
             </Item>
           </Items>
           <Enemies>
             <Item>
               <Type>hand</Type>
-              <Row>1</Row>
-              <Column>3</Column>
+              <TilePos>3 2</TilePos>
             </Item>
             <Item>
               <Type>hand</Type>
-              <Row>4</Row>
-              <Column>1</Column>
+              <TilePos>1 4</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
+        <Item Null="true" />
         <Item Null="true" />
       </Item>
       <Item>
         <Item Null="true" />
+        <Item Null="true" />
         <Item>
           <!--Row 4 Col 2 Room Index 10-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Lock</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -637,40 +705,36 @@
           <Enemies>
             <Item>
               <Type>bat</Type>
-              <Row>1</Row>
-              <Column>9</Column>
+              <TilePos>9 1</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>2</Row>
-              <Column>2</Column>
+              <TilePos>2 2</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>3</Row>
-              <Column>4</Column>
+              <TilePos>4 3</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>4</Row>
-              <Column>1</Column>
+              <TilePos>1 4</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>5</Row>
-              <Column>4</Column>
+              <TilePos>4 5</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>7</Row>
-              <Column>9</Column>
+              <TilePos>9 6</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
         <Item>
           <!--Row 4 Col 3 Room Index 11-->
           <!--Item Key-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Hidden</TopExit>
           <BottomExit>Open</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -687,42 +751,38 @@
           <Items>
             <Item>
               <Type>key</Type>
-              <Row>1</Row>
-              <Column>6</Column>
+              <TilePos>6 1</TilePos>
             </Item>
           </Items>
           <Enemies>
             <Item>
               <Type>skeleton</Type>
-              <Row>1</Row>
-              <Column>9</Column>
+              <TilePos>9 1</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <Row>2</Row>
-              <Column>8</Column>
+                <TilePos>8 2</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <Row>3</Row>
-              <Column>4</Column>
+              <TilePos>4 3</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <Row>4</Row>
-              <Column>8</Column>
+              <TilePos>8 4</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <Row>5</Row>
-              <Column>9</Column>
+              <TilePos>9 5</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
         <Item>
           <!--Row 4 Col 4 Room Index 12-->
           <!--Missing an Item-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Hidden</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -739,62 +799,57 @@
           <Items>
             <Item>
               <Type>compass</Type>
-              <Row>3</Row>
-              <Column>10</Column>
+              <TilePos>10 3</TilePos>
             </Item>
           </Items>
           <Enemies>
             <Item>
               <Type>bat</Type>
-              <Row>0</Row>
-              <Column>3</Column>
+              <TilePos>3 0</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>6</Row>
-              <Column>3</Column>
+              <TilePos>3 6</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>4</Row>
-              <Column>6</Column>
+              <TilePos>6 4</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>4</Row>
-              <Column>8</Column>
+              <TilePos>8 4</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>2</Row>
-              <Column>8</Column>
+              <TilePos>8 2</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>1</Row>
-              <Column>9</Column>
+              <TilePos>9 2</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>4</Row>
-              <Column>11</Column>
+              <TilePos>11 4</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>5</Row>
-              <Column>10</Column>
+              <TilePos>10 5</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
+        <Item Null="true" />
         <Item Null="true" />
         <Item Null="true" />
       </Item>
       <Item>
         <Item Null="true" />
         <Item Null="true" />
+        <Item Null="true" />
         <Item>
           <!--Row 5 Col 3 Room Index 13-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Open</TopExit>
           <BottomExit>Lock</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -812,26 +867,25 @@
           <Enemies>
             <Item>
               <Type>skeleton</Type>
-              <Row>3</Row>
-              <Column>5</Column>
+              <TilePos>4 3</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <Row>5</Row>
-              <Column>4</Column>
+              <TilePos>4 5</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <Row>5</Row>
-              <Column>8</Column>
+              <TilePos>8 5</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
         <Item Null="true" />
         <Item Null="true" />
         <Item>
           <!--Test Room Index 17-->
           <NeedWall>true</NeedWall>
+          <Hidden>true</Hidden>
           <TopExit>Hidden</TopExit>
           <BottomExit>Hidden</BottomExit>
           <LeftExit>Hidden</LeftExit>
@@ -849,17 +903,20 @@
           <Enemies>
             <Item>
               <Type>skeleton</Type>
-              <Row>1</Row>
-              <Column>1</Column>
+              <TilePos>1 1</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
+        <Item Null="true" />
       </Item>
       <Item>
+        <Item Null="true" />
         <Item Null="true" />
         <Item>
           <!--Row 6 Col 2 Room Index 14-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -876,32 +933,30 @@
           <Items>
             <Item>
               <Type>key</Type>
-              <Row>6</Row>
-              <Column>8</Column>
+              <TilePos>8 6</TilePos>
             </Item>
           </Items>
           <Enemies>
             <Item>
               <Type>bat</Type>
-              <Row>3</Row>
-              <Column>4</Column>
+              <TilePos>4 3</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>5</Row>
-              <Column>4</Column>
+              <TilePos>4 5</TilePos>
             </Item>
             <Item>
               <Type>bat</Type>
-              <Row>6</Row>
-              <Column>2</Column>
+              <TilePos>2 6</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
         <Item>
           <!--Row 6 Col 3 Room Index 15 Starting Room-->
           <!--Blue Statues?? Missing Floor Tiles??-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Lock</TopExit>
           <BottomExit>Open</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -917,10 +972,12 @@
           </TileGrid>
           <Items/>
           <Enemies/>
+          <TextBoxes />
         </Item>
         <Item>
           <!--Row 6 Col 4 Room Index 16-->
           <NeedWall>true</NeedWall>
+          <Hidden>false</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Open</LeftExit>
@@ -937,42 +994,38 @@
           <Items>
             <Item>
               <Type>specialKey</Type>
-              <Row>6</Row>
-              <Column>1</Column>
+              <TilePos>1 6</TilePos>
             </Item>
           </Items>
           <Enemies>
             <Item>
               <Type>skeleton</Type>
-              <Row>0</Row>
-              <Column>2</Column>
+              <TilePos>2 0</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <Row>6</Row>
-              <Column>3</Column>
+              <TilePos>3 6</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <Row>2</Row>
-              <Column>6</Column>
+              <TilePos>6 2</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <Row>4</Row>
-              <Column>6</Column>
+              <TilePos>6 4</TilePos>
             </Item>
             <Item>
               <Type>skeleton</Type>
-              <Row>1</Row>
-              <Column>10</Column>
+              <TilePos>10 1</TilePos>
             </Item>
           </Enemies>
+          <TextBoxes />
         </Item>
         <Item Null="true" />
         <Item>
           <!--Magic Room Index 18-->
           <NeedWall>true</NeedWall>
+          <Hidden>true</Hidden>
           <TopExit>Wall</TopExit>
           <BottomExit>Wall</BottomExit>
           <LeftExit>Wall</LeftExit>
@@ -989,142 +1042,133 @@
           <Items>
             <Item>
               <Type>arrow</Type>
-              <Row>0</Row>
-              <Column>0</Column>
+              <TilePos>0 0</TilePos>
             </Item>
             <Item>
-              <Type>heart</Type>
-              <Row>1</Row>
-              <Column>0</Column>
+              <Type>heartPiece</Type>
+              <TilePos>0 1</TilePos>
             </Item>
             <Item>
               <Type>specialKey</Type>
-              <Row>2</Row>
-              <Column>0</Column>
+              <TilePos>0 2</TilePos>
             </Item>
             <Item>
-              <Type>rupy</Type>
-              <Row>3</Row>
-              <Column>0</Column>
+              <Type>rupee</Type>
+              <TilePos>0 3</TilePos>
             </Item>
             <Item>
               <Type>triforce</Type>
-              <Row>4</Row>
-              <Column>0</Column>
+              <TilePos>0 4</TilePos>
             </Item>
             <Item>
               <Type>shield</Type>
-              <Row>5</Row>
-              <Column>0</Column>
+              <TilePos>0 5</TilePos>
             </Item>
             <Item>
               <Type>clock</Type>
-              <Row>6</Row>
-              <Column>0</Column>
+              <TilePos>0 6</TilePos>
             </Item>
             <Item>
               <Type>bow</Type>
-              <Row>0</Row>
-              <Column>1</Column>
+              <TilePos>1 0</TilePos>
             </Item>
             <Item>
-              <Type>fence</Type>
-              <Row>0</Row>
-              <Column>2</Column>
+              <Type>raft</Type>
+              <TilePos>2 0</TilePos>
             </Item>
             <Item>
               <Type>ladder</Type>
-              <Row>0</Row>
-              <Column>3</Column>
+              <TilePos>3 0</TilePos>
             </Item>
             <Item>
               <Type>blueArrow</Type>
-              <Row>0</Row>
-              <Column>4</Column>
+              <TilePos>4 0</TilePos>
             </Item>
             <Item>
               <Type>fairy</Type>
-              <Row>0</Row>
-              <Column>5</Column>
+              <TilePos>5 0</TilePos>
             </Item>
             <Item>
-              <Type>blueOrb</Type>
-              <Row>0</Row>
-              <Column>6</Column>
+              <Type>bomb</Type>
+              <TilePos>6 0</TilePos>
             </Item>
             <Item>
               <Type>blueRing</Type>
-              <Row>0</Row>
-              <Column>7</Column>
+              <TilePos>7 0</TilePos>
             </Item>
             <Item>
               <Type>redRing</Type>
-              <Row>0</Row>
-              <Column>8</Column>
+              <TilePos>8 0</TilePos>
             </Item>
             <Item>
               <Type>blueBoomerang</Type>
-              <Row>0</Row>
-              <Column>9</Column>
+              <TilePos>9 0</TilePos>
             </Item>
             <Item>
               <Type>boomerang</Type>
-              <Row>0</Row>
-              <Column>10</Column>
+              <TilePos>10 0</TilePos>
             </Item>
             <Item>
-              <Type>blueHeart</Type>
-              <Row>0</Row>
-              <Column>11</Column>
+              <Type>heart</Type>
+                <TilePos>11 0</TilePos>
             </Item>
             <Item>
-              <Type>blueTorch</Type>
-              <Row>1</Row>
-              <Column>1</Column>
+              <Type>blueWand</Type>
+                <TilePos>1 1</TilePos>
             </Item>
             <Item>
               <Type>sword</Type>
-              <Row>1</Row>
-              <Column>2</Column>
+              <TilePos>2 1</TilePos>
             </Item>
             <Item>
-              <Type>citem</Type>
-              <Row>1</Row>
-              <Column>3</Column>
+              <Type>bracelet</Type>
+              <TilePos>3 1</TilePos>
             </Item>
             <Item>
-              <Type>shieldRed</Type>
-              <Row>1</Row>
-              <Column>4</Column>
+              <Type>book</Type>
+              <TilePos>4 1</TilePos>
             </Item>
             <Item>
-              <Type>potion</Type>
-              <Row>1</Row>
-              <Column>5</Column>
-            </Item>
-            <Item>
-              <Type>cake</Type>
-              <Row>1</Row>
-              <Column>6</Column>
+              <Type>redPotion</Type>
+              <TilePos>5 1</TilePos>
             </Item>
             <Item>
               <Type>key</Type>
-              <Row>1</Row>
-              <Column>7</Column>
+              <TilePos>7 1</TilePos>
             </Item>
             <Item>
-              <Type>paper</Type>
-              <Row>1</Row>
-              <Column>8</Column>
+              <Type>map</Type>
+              <TilePos>8 1</TilePos>
             </Item>
             <Item>
               <Type>compass</Type>
-              <Row>1</Row>
-              <Column>9</Column>
+              <TilePos>9 1</TilePos>
+            </Item>
+            <Item>
+              <Type>bluePotion</Type>
+              <TilePos>9 2</TilePos>
+            </Item>
+            <Item>
+              <Type>redCandle</Type>
+              <TilePos>9 3</TilePos>
+            </Item>
+            <Item>
+              <Type>meat</Type>
+              <TilePos>9 4</TilePos>
+            </Item>
+            <Item>
+              <Type>flute</Type>
+              <TilePos>9 5</TilePos>
+            </Item>
+            <Item>
+              <Type>blueCandle</Type>
+              <TilePos>9 6</TilePos>
             </Item>
           </Items>
           <Enemies/>
+          <TextBoxes />
         </Item>
+        <Item Null="true" />
       </Item>
     </Rooms>
   </Asset>

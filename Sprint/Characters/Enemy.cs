@@ -3,21 +3,24 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Collision;
 using Sprint.Interfaces;
 using Sprint.Levels;
+using Sprint.Music.Sfx;
 using System.Runtime.Serialization;
 
 namespace Sprint.Characters
 {
-    public class Enemy : Character, IMovingCollidable
+    internal class Enemy : Character, IMovingCollidable
     {
         protected ISprite sprite;
         protected Physics physics;
-        SceneObjectManager objectManager;
+        protected Room room;
+        private SfxFactory sfxFactory;
 
-        public Enemy(ISprite sprite, Vector2 position, SceneObjectManager objectManager)
+        public Enemy(ISprite sprite, Vector2 position, Room room)
         {
             this.sprite = sprite;
             physics = new Physics(position);
-            this.objectManager = objectManager;
+            this.room = room;
+            sfxFactory = SfxFactory.GetInstance();
         }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
@@ -25,7 +28,7 @@ namespace Sprint.Characters
             16 * 3,
             16 * 3);
 
-        public CollisionTypes[] CollisionType => new CollisionTypes[] {CollisionTypes.ENEMY, CollisionTypes.CHARACTER};
+        public virtual CollisionTypes[] CollisionType => new CollisionTypes[] {CollisionTypes.ENEMY, CollisionTypes.CHARACTER};
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -46,7 +49,8 @@ namespace Sprint.Characters
         // Remove enemy from game
         public override void Die()
         {
-            objectManager.Remove(this);
+            room.GetScene().Remove(this);
+            sfxFactory.PlaySoundEffect("Enemy Death");
         }
     }
 }

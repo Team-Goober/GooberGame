@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Levels;
+using System.Collections.Generic;
 
 namespace Sprint.Interfaces
 {
@@ -10,6 +12,10 @@ namespace Sprint.Interfaces
 
         // Close out this state and set game to a new state
         void PassToState(IGameState newState);
+
+        // Generate all commands
+        void MakeCommands();
+
 
     }
 }

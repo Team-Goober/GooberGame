@@ -9,12 +9,13 @@ using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
+using Sprint.Collision;
 
 namespace Sprint.Characters
 {
 
     //Code based on the BluebubbleEnemy.cs file
-    public class BatEnemy : Enemy
+    internal class BatEnemy : Enemy
     {
         private float elapsedTime;
         private Vector2 initialPosition;
@@ -25,9 +26,11 @@ namespace Sprint.Characters
 
         private Timer timeAttack;
 
+        public override CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.FLYING_ENEMY, CollisionTypes.ENEMY, CollisionTypes.CHARACTER };
 
-        public BatEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, objectManager)
+
+        public BatEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -36,7 +39,7 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
 
             moveRandom = new MoveRandom(physics);

@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Input;
 using Sprint.Functions;
 using Sprint.Input;
 using Sprint.Interfaces;
+using Sprint.Levels;
+using System.Collections.Generic;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Sprint
 {
@@ -16,9 +19,7 @@ namespace Sprint
 
         public PauseState(Goober game, IGameState next)
         {
-            input = new InputTable();
-            // Register command to return to game
-            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Escape), new SwitchStatesCommand(this, next));
+
             returnState = next;
             this.game = game;
         }
@@ -41,6 +42,13 @@ namespace Sprint
         {
             game.GameState = newState;
             input.Sleep();
+        }
+
+        public void MakeCommands()
+        {
+            input = new InputTable();
+            // Register command to return to game
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Escape), new SwitchStatesCommand(this, returnState));
         }
     }
 }

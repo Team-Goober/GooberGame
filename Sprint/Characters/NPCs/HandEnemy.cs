@@ -12,7 +12,7 @@ using System.Diagnostics;
 
 namespace Sprint.Characters
 {
-    public class HandEnemy : Enemy
+    internal class HandEnemy : Enemy
     {
         private float elapsedTime;
         private Timer timeAttack;
@@ -22,8 +22,8 @@ namespace Sprint.Characters
         private string lastAnimationName;
         private MoveHand moveHand;
 
-        public HandEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, objectManager)
+        public HandEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -32,7 +32,7 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
 
 

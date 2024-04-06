@@ -55,8 +55,72 @@
 				<InitialAnimation>X</InitialAnimation>
 			</Value>
 		</Item>
+		
+    <!-- Inventory Screen -->
+    <Item>
+			<Key>Inventory</Key>
+			<Value>
+				<Texture>HUD/HUD</Texture>
+				<Animations>
+					<Item>
+						<Key>default</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>1 11 256 88</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>default</InitialAnimation>
+			</Value>
+		</Item>
+    <Item>
+      <Key>DungeonMap</Key>
+      <Value>
+        <Texture>HUD/HUD</Texture>
+        <Animations>
+          <Item>
+            <Key>default</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>258 112 256 88</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>default</InitialAnimation>
+      </Value>
+    </Item>
+    
+    <Item>
+      <Key>selector</Key>
+      <Value>
+        <Texture>HUD/HUDWeapons</Texture>
+        <Animations>
+          <Item>
+            <Key>inactive</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 16 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>active</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>17 0 16 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>inactive</InitialAnimation>
+      </Value>
+    </Item>
+    
+		<!-- Numbers -->
+		
 		<Item>
-			<Key>0</Key>
+			<Key>Numbers</Key>
 			<Value>
 				<Texture>HUD/NumAndHeart</Texture>
 				<Animations>
@@ -67,16 +131,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>0</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>1</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>1</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -84,16 +138,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>1</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>2</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>2</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -101,16 +145,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>2</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>3</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>3</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -118,16 +152,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>3</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>4</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>4</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -135,16 +159,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>4</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>5</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>5</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -152,16 +166,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>5</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>6</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>6</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -169,16 +173,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>6</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>7</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>7</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -186,16 +180,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>7</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>8</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>8</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -203,16 +187,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>8</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>9</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>9</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -220,13 +194,23 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
+					<Item>
+						<Key>B</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>135 0 8 8</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>9</InitialAnimation>
+				<InitialAnimation>0</InitialAnimation>
 			</Value>
 		</Item>
+	
+		<!-- Hearts -->
+		
 		<Item>
-			<Key>EmptyHeart</Key>
+			<Key>Heart</Key>
 			<Value>
 				<Texture>HUD/NumAndHeart</Texture>
 				<Animations>
@@ -237,16 +221,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>EmptyHeart</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>HalfHeart</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>HalfHeart</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -254,16 +228,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>HalfHeart</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>FullHeart</Key>
-			<Value>
-				<Texture>HUD/NumAndHeart</Texture>
-				<Animations>
 					<Item>
 						<Key>FullHeart</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -271,16 +235,24 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
+					<Item>
+						<Key>B</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>135 0 8 8</Rectangle>
+							<CenterPoint>0 0</CenterPoint>
+						</Value>
+					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>FullHeart</InitialAnimation>
+				<InitialAnimation>B</InitialAnimation>
 			</Value>
 		</Item>
+		
 		
 		<!-- Weapons And Items -->
 
 		<Item>
-			<Key>Sword</Key>
+			<Key>Item</Key>
 			<Value>
 				<Texture>HUD/HUDWeapons</Texture>
 				<Animations>
@@ -291,16 +263,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>Sword</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>BlueSword</Key>
-			<Value>
-				<Texture>HUD/HUDWeapons</Texture>
-				<Animations>
 					<Item>
 						<Key>BlueSword</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -308,16 +270,6 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>BlueSword</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>SlantSword</Key>
-			<Value>
-				<Texture>HUD/HUDWeapons</Texture>
-				<Animations>
 					<Item>
 						<Key>SlantSword</Key>
 						<Value Type="XMLData.SingleAtlasData">
@@ -325,112 +277,59 @@
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>SlantSword</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>Boomerang</Key>
-			<Value>
-				<Texture>HUD/HUDWeapons</Texture>
-				<Animations>
+          <Item>
+            <Key>Boomerang</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>65 0 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>BlueBoomerang</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>74 0 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>Bomb</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>85 0 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>Arrow</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>96 0 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>BlueArrow</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>105 0 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>Bow</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>114 0 8 16</Rectangle>
+              <CenterPoint>0 0</CenterPoint>
+            </Value>
+          </Item>
 					<Item>
-						<Key>Boomerang</Key>
+						<Key>Empty</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>65 0 8 16</Rectangle>
+							<Rectangle>111 19 8 8</Rectangle>
 							<CenterPoint>0 0</CenterPoint>
 						</Value>
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
-				<InitialAnimation>Boomerang</InitialAnimation>
+				<InitialAnimation>Empty</InitialAnimation>
 			</Value>
-		</Item>
-		<Item>
-			<Key>BlueBoomerang</Key>
-			<Value>
-				<Texture>HUD/HUDWeapons</Texture>
-				<Animations>
-					<Item>
-						<Key>BlueBoomerang</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>74 0 8 16</Rectangle>
-							<CenterPoint>0 0</CenterPoint>
-						</Value>
-					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>BlueBoomerang</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>Bomb</Key>
-			<Value>
-				<Texture>HUD/HUDWeapons</Texture>
-				<Animations>
-					<Item>
-						<Key>Bomb</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>85 0 8 16</Rectangle>
-							<CenterPoint>0 0</CenterPoint>
-						</Value>
-					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>Bomb</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>Arrow</Key>
-			<Value>
-				<Texture>HUD/HUDWeapons</Texture>
-				<Animations>
-					<Item>
-						<Key>Arrow</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>96 0 8 16</Rectangle>
-							<CenterPoint>0 0</CenterPoint>
-						</Value>
-					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>Arrow</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-			<Key>BlueArrow</Key>
-			<Value>
-				<Texture>HUD/HUDWeapons</Texture>
-				<Animations>
-					<Item>
-						<Key>BlueArrow</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>105 0 8 16</Rectangle>
-							<CenterPoint>0 0</CenterPoint>
-						</Value>
-					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>BlueArrow</InitialAnimation>
-			</Value>
-		</Item>
-		<Item>
-		<Key>Bow</Key>
-		<Value>
-			<Texture>HUD/HUDWeapons</Texture>
-			<Animations>
-				<Item>
-					<Key>Bow</Key>
-					<Value Type="XMLData.SingleAtlasData">
-						<Rectangle>114 0 8 16</Rectangle>
-						<CenterPoint>0 0</CenterPoint>
-					</Value>
-				</Item>
-			</Animations>
-			<Scale>4</Scale>
-			<InitialAnimation>Bow</InitialAnimation>
-		</Value>
 		</Item>
 	</Asset>
 </XnaContent>

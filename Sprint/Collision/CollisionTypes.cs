@@ -30,13 +30,9 @@ namespace Sprint.Collision
         SWORD,
 
         ITEM,
-
-        MOVEVERT,
-   
-
-        MOVEWALL,
-
-        MOVESPIKE
+        FLYING_ENEMY,
+        PHASING_WALL,
+        MOVEWALL
 
     }
 }

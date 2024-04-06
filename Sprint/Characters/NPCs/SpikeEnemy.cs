@@ -15,7 +15,7 @@ namespace Sprint.Characters
 {
 
     //Code based on the BluebubbleEnemy.cs file
-    public class SpikeEnemy : Enemy
+    internal class SpikeEnemy : Enemy
     {
         private float elapsedTime;
         private Vector2 initialPosition;
@@ -30,8 +30,8 @@ namespace Sprint.Characters
 
 
 
-        public SpikeEnemy(ISprite sprite, Vector2 initialPosition, SceneObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, objectManager)
+        public SpikeEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -40,7 +40,7 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
             moveSpike = new MoveSpike(physics);
 

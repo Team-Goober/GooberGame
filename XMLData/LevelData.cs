@@ -8,8 +8,12 @@ namespace XMLData
     {
         public int Level;
         public Point StartLevel; // Column, Row pair for room to start player in
+        public Point CompassPoint; // Column, Row pair for room to place a compass signal in
         public string SpriteFile; // Path to file holding all room sprites for this level
         public string HUBFile;
+
+        public string Song;    //Song for the level
+        public List<SfxData> Sfxs; //All sound effects in the level
 
         public Rectangle[] OuterWalls; // Collision bounds of walls on the outside of the room
         public string BackgroundSprite; // is drawn at 0,0 and should show the background walls
@@ -57,6 +61,7 @@ namespace XMLData
     public class RoomData
     {
         public bool NeedWall; // Determines if walls will be loaded for a room 
+        public bool Hidden; // Determines whether room is hidden after receiving map
         public string TopExit; // Each exit for the room. Corresponds to one door each
         public string BottomExit;
         public string LeftExit;
@@ -64,18 +69,32 @@ namespace XMLData
         public List<string> TileGrid; // Grid of tiles. Each string is a row of tiles separated by spaces. Usees LevelData.TileReferences keys
         public List<ItemSpawnData> Items; // Spawn data for every item in the room
         public List<EnemySpawnData> Enemies; // Spawn data for every enemy in the room
+        public List<TextBoxData> TextBoxes; // Data for textboxes placed in room
     }
 
     public class ItemSpawnData
     {
         public string Type; // Type of item to construct. Used by ItemFactory
-        public int Row, Column; // Grid coordinates of tile to spawn on
+        public Vector2 TilePos; // Grid coordinates of tile to spawn on. Not in world coordinates
     }
 
     public class EnemySpawnData
     {
         public string Type; // Type of enemy to construct. Used by EnemyFactory
-        public int Row, Column; // Grid coordinates of tile to spawn on
+        public Vector2 TilePos; // Grid coordinates of tile to spawn on. Not in world coordinates
     }
 
+    public class TextBoxData
+    {
+        public string FontName; // Name of font to draw with
+        public List<string> Text; // Lines of text to draw
+        public Vector2 CharacterDimensions; // Average size of a single character
+        public Vector2 Position; // Position of center of top line of text
+        public Color Color; // Color mask for text
+    }
+
+    public class SfxData
+    {
+        public string SoundName;
+    }
 }

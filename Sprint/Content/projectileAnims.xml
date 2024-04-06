@@ -137,7 +137,7 @@
               <Rows>1</Rows>
               <Cols>2</Cols>
               <Padding>1</Padding>
-              <CenterPoint>16.5 8</CenterPoint>
+              <CenterPoint>8 8</CenterPoint>
               <Loop>true</Loop>
               <Framerate>9</Framerate>
             </Value>

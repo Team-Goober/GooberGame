@@ -8,15 +8,20 @@ using Sprint.Collision;
 using System.Diagnostics;
 using Sprint.Testing;
 using Sprint.Commands;
+using Sprint.Music.Sfx;
 using System.Security.Cryptography.X509Certificates;
-using Sprint.Events;
+using Sprint.Items;
+using Sprint.HUD;
 
 namespace Sprint.Characters
 {
 
     internal class Player : Character, IMovingCollidable
     {
+
         public Inventory inventory;
+
+        private SfxFactory sfxFactory;
 
         private ISprite sprite;
 
@@ -42,7 +47,7 @@ namespace Sprint.Characters
         private Timer attackTimer;
         private Timer castTimer;
         private Timer damageTimer;
-        private SceneObjectManager objectManager;
+        private Room room;
         private Reset reset;
 
         // TODO: replace this with state machine
@@ -56,8 +61,10 @@ namespace Sprint.Characters
 
 
         //declares the move systems for the main character sprite
-        public Player(IInputMap inputTable, SpriteLoader spriteLoader, Reset reset)
+        public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
+            //Initialize SFX player
+            sfxFactory = SfxFactory.GetInstance();
 
             //Initialize physics and objectManager
             physics = new Physics(Vector2.Zero);
@@ -73,29 +80,39 @@ namespace Sprint.Characters
             // Duration of the damage state
             damageTimer = new Timer(0.3);
 
-            objectManager = null;
+            room = null;
 
             // Start out idle
             Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
 
             // Set up projectiles
-            secondaryItems = new ProjectileSystem(physics.Position, inputTable, spriteLoader);
+            secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
 
-            this.reset = reset;
+            this.reset = new Reset(dungeon);
+        }
+
+        public SimpleProjectileFactory GetProjectileFactory()
+        {
+            return secondaryItems.ProjectileFactory;
+        }
+
+        public Inventory GetInventory()
+        {
+            return inventory;
         }
 
         // Moves the player from current scene into a new one
-        public void SetScene(SceneObjectManager scene)
+        public void SetRoom(Room room)
         {
-            if (objectManager != null)
+            if (this.room != null)
             {
-                objectManager.Remove(this);
+                this.room.GetScene().Remove(this);
             }
 
-            objectManager = scene;
-            secondaryItems.SetScene(objectManager);
-            objectManager.Add(this);
+            this.room = room;
+            secondaryItems.SetRoom(this.room);
+            this.room.GetScene().Add(this);
             StopMoving();
         }
 
@@ -143,7 +160,7 @@ namespace Sprint.Characters
             
             swordCollision = new SwordCollision(swordRec, this);
             
-            objectManager.Add(swordCollision);
+            room.GetScene().Add(swordCollision);
             
             
         }
@@ -282,7 +299,7 @@ namespace Sprint.Characters
 
         public void TakeDamage()
         {
-
+            sfxFactory.PlaySoundEffect("Player Hurt");
             sprite.SetAnimation("damage");
             damageTimer.Start();
 
@@ -296,7 +313,7 @@ namespace Sprint.Characters
             attackTimer.Update(gameTime);
             if (attackTimer.JustEnded)
             {
-                objectManager.Remove(swordCollision);
+                room.GetScene().Remove(swordCollision);
                 returnToBaseAnim();
             }
             castTimer.Update(gameTime);
@@ -341,32 +358,18 @@ namespace Sprint.Characters
             physics.SetPosition(pos);
         }
 
-        ////////////////////////////////////////////////////////
-        public HUDHandler handler = HUDUpdate.UpdateKey;
-
-        protected virtual void OnKeyPickedUp(int keys)
-        {
-            handler(keys);
-        }
-        ////////////////////////////////////////////////////////
         /// <summary>
         /// Pickup Item off the ground
         /// </summary>
         /// <param name="item"> ItemType to pickup</param>
         public void PickupItem(Item item)
         {
-            // Test
             ItemType itemType = item.GetItemType();
-
-            if(itemType == ItemType.Key)
-            {
-                OnKeyPickedUp(inventory.getItemAmount(itemType) + 1);
-            }
 
             if(item.GetColliable())
             {
                 inventory.PickupItem(itemType);
-                objectManager.Remove(item);
+                room.GetScene().Remove(item);
             }
         }
 
