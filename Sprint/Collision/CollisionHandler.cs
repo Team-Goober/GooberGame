@@ -72,7 +72,7 @@ namespace Sprint.Collision
 
                 // Collision Enemy Damage
                 {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.SWORD), typeof(TakeDamage).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(TakeDamage).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(ProjectileDamage).GetConstructor( constructorParams ) },
             };
 
         //Made assuming that ICollidable can access the objects native type

@@ -28,7 +28,7 @@ namespace Sprint.Projectile
             sfxFactory.PlaySoundEffect("Arrow Shot");
         }
 
-        double DamageAmount()
+        public double DamageAmount()
         {
             return dmg;
         }

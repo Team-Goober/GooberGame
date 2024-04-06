@@ -30,6 +30,11 @@ namespace Sprint.Projectile
             returned = false;
         }
 
+        public double DamageAmount()
+        {
+            return dmg;
+        }
+
         public void SetSmokeCommand(PlaceSmoke smoke)
         {
             this.smoke = smoke;

@@ -29,6 +29,11 @@ namespace Sprint.Projectile
             sfxFactory.PlaySoundEffect("Flames Shot");
         }
 
+        public double DamageAmount()
+        {
+            return dmg;
+        }
+
         public override void Dissipate()
         {
             if (sitTimer.Ended)

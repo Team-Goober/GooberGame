@@ -32,7 +32,6 @@ namespace Sprint.Projectile
 
         public double DamageAmount()
         {
-            // Plce holder
             return 0;
         }
 

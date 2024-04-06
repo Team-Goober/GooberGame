@@ -32,6 +32,11 @@ namespace Sprint.Projectile
             this.smoke = smoke;
         }
 
+        public double DamageAmount()
+        {
+            return dmg;
+        }
+
         public override void Dissipate()
         {
             sfxFactory.PlaySoundEffect("Run Into Wall");

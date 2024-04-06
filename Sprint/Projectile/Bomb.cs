@@ -37,6 +37,10 @@ namespace Sprint.Projectile
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Bomb Placement");
         }
+        public double DamageAmount()
+        {
+            return dmg;
+        }
 
         public override void Dissipate()
         {

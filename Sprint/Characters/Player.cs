@@ -29,7 +29,8 @@ namespace Sprint.Characters
         private ISprite damagedSprite;
         public event EventHandler OnPlayerDamaged;
         public event EventHandler OnPlayerDied;
-        protected double hp;
+        protected double hp = 3.0;
+        protected double swordDmg = 1; 
 
         private Physics physics;
 
@@ -93,7 +94,6 @@ namespace Sprint.Characters
             // Start out idle
             Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
-            hp = 3.0;
 
             // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
@@ -129,6 +129,7 @@ namespace Sprint.Characters
         public void Attack()
         {
             Rectangle swordRec  = new Rectangle();
+
 
             // Only attack if not already attacking
             if (!attackTimer.Ended)
