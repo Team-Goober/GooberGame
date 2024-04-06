@@ -90,28 +90,22 @@ namespace Sprint.Characters
         private void SetAnimationBasedOnDirection()
         {
             string newAnim = "";
-            DirectionFace currDir = moveVert.directionFace;
-            switch (currDir)
+            moveDirection = moveVert.directionFace;
+            if (moveDirection == Directions.DOWN)
             {
-                case DirectionFace.UP:
-                    newAnim = "downFacing";
-                    moveDirection = Directions.DOWN;
-                    break;
-                case DirectionFace.LEFT:
-                    newAnim = "leftFacing";
-                    moveDirection = Directions.LEFT;
-                    break;
-                case DirectionFace.DOWN:
-                    newAnim = "upFacing";
-                    moveDirection = Directions.UP;
-                    break;
-                case DirectionFace.RIGHT:
-                    newAnim = "rightFacing";
-                    moveDirection = Directions.RIGHT;
-                    break;
-                default:
-                    newAnim = "downFacing";
-                    break;
+                newAnim = "downFacing";
+            }
+            else if (moveDirection == Directions.LEFT)
+            {
+                newAnim = "leftFacing";
+            }
+            else if(moveDirection == Directions.UP)
+            {
+                newAnim = "upFacing";
+            }
+            else if(moveDirection == Directions.RIGHT)
+            {
+                newAnim = "rightFacing";
             }
             
             if (newAnim != lastAnimationName)

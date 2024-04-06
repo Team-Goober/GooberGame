@@ -343,7 +343,7 @@ namespace Sprint.Characters
             sprite = damagedSprite;
             damageTimer.Start();
 
-            health -= .5;
+            health -= 0.5;
             // Trigger death when health is at or below 0
             if (health <= 0.0)
             {

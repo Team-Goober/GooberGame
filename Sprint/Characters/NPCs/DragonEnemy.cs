@@ -30,7 +30,7 @@ namespace Sprint.Characters
         {
 
             sfxFactory = SfxFactory.GetInstance();
-            this.objectManager = objectManager;
+            this.objectManager = room.GetScene();
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
