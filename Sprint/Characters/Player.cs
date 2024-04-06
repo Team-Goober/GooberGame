@@ -8,6 +8,7 @@ using Sprint.Collision;
 using System.Diagnostics;
 using Sprint.Testing;
 using Sprint.Commands;
+using Sprint.Music.Sfx;
 using System.Security.Cryptography.X509Certificates;
 using Sprint.Items;
 using Sprint.HUD;
@@ -17,7 +18,10 @@ namespace Sprint.Characters
 
     internal class Player : Character, IMovingCollidable
     {
+
         public Inventory inventory;
+
+        private SfxFactory sfxFactory;
 
         private ISprite sprite;
 
@@ -59,6 +63,8 @@ namespace Sprint.Characters
         //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
+            //Initialize SFX player
+            sfxFactory = SfxFactory.GetInstance();
 
             //Initialize physics and objectManager
             physics = new Physics(Vector2.Zero);
@@ -293,7 +299,7 @@ namespace Sprint.Characters
 
         public void TakeDamage()
         {
-
+            sfxFactory.PlaySoundEffect("Player Hurt");
             sprite.SetAnimation("damage");
             damageTimer.Start();
 

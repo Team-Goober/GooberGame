@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography;
+using Sprint.Functions.Music;
 
 namespace Sprint
 {
@@ -186,6 +187,11 @@ namespace Sprint
                 inputTable.RegisterMapping(new ClickInBoundsTrigger(ClickInBoundsTrigger.MouseButton.Middle, doorBounds[i]),
                     new SwitchRoomFromDoorsCommand(slice, this));
             }
+
+            // SFX and Song controls
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.L), new MusicUp());
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.J), new MusicDown());
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.K), new MusicMuteToggle());
 
             }
 

@@ -14,6 +14,42 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Arrow Hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Arrow Hit.wav
+
+#begin Arrow Shot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Arrow Shot.wav
+
+#begin Bomb Explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Bomb Explosion.wav
+
+#begin Bomb Placement.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Bomb Placement.wav
+
+#begin Boss Defeated.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Boss Defeated.mp3
+
+#begin Boss Roaring.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Boss Roaring.mp3
+
 #begin boss_zelda.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -38,10 +74,28 @@
 /processorParam:TextureFormat=Color
 /build:dragon.png
 
+#begin Dungeon Song.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Dungeon Song.mp3
+
+#begin Enemy Death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Enemy Death.wav
+
 #begin enemyAnims.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
 /build:enemyAnims.xml
+
+#begin Flames Shot.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Flames Shot.mp3
 
 #begin Font.spritefont
 /importer:FontDescriptionImporter
@@ -49,6 +103,12 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Font.spritefont
+
+#begin Health Heart.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Health Heart.mp3
 
 #begin HUD/HUD.png
 /importer:TextureImporter
@@ -83,6 +143,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:HUD/HUDTop.png
+
+#begin Item Pickup.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Item Pickup.mp3
 
 #begin HUD/HUDWeapons.png
 /importer:TextureImporter
@@ -291,6 +357,12 @@
 /processorParam:TextureFormat=Color
 /build:LevelOne/RoomOne/Text.png
 
+#begin Magical Boomerang Thrown.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Magical Boomerang Thrown.mp3
+
 #begin oldMan.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -303,6 +375,12 @@
 /processorParam:TextureFormat=Color
 /build:oldMan.png
 
+#begin Player Hurt.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Player Hurt.mp3
+
 #begin playerAnims.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
@@ -312,6 +390,12 @@
 /importer:XmlImporter
 /processor:PassThroughProcessor
 /build:projectileAnims.xml
+
+#begin Run Into Wall.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Run Into Wall.wav
 
 #begin Sprite/ZeldaSpriteLinkLeft.gif
 /importer:TextureImporter
@@ -324,6 +408,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprite/ZeldaSpriteLinkLeft.gif
+
+#begin Sword Swing.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sword Swing.mp3
 
 #begin tileAnims.xml
 /importer:XmlImporter
@@ -341,6 +431,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tiles.png
+
+#begin Unlock Door.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Unlock Door.wav
+
+#begin Upgraded Magical Boomerang Thrown.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Upgraded Magical Boomerang Thrown.mp3
 
 #begin zelda_boss.png
 /importer:TextureImporter

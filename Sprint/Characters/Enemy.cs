@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Collision;
 using Sprint.Interfaces;
 using Sprint.Levels;
+using Sprint.Music.Sfx;
 using System.Runtime.Serialization;
 
 namespace Sprint.Characters
@@ -12,12 +13,14 @@ namespace Sprint.Characters
         protected ISprite sprite;
         protected Physics physics;
         SceneObjectManager objectManager;
+        private SfxFactory sfxFactory;
 
         public Enemy(ISprite sprite, Vector2 position, SceneObjectManager objectManager)
         {
             this.sprite = sprite;
             physics = new Physics(position);
             this.objectManager = objectManager;
+            sfxFactory = SfxFactory.GetInstance();
         }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
@@ -47,6 +50,7 @@ namespace Sprint.Characters
         public override void Die()
         {
             objectManager.Remove(this);
+            sfxFactory.PlaySoundEffect("Enemy Death");
         }
     }
 }
