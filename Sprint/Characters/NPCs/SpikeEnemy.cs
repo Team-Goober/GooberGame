@@ -30,8 +30,8 @@ namespace Sprint.Characters
 
 
 
-        public SpikeEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, room)
+        public SpikeEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -53,7 +53,7 @@ namespace Sprint.Characters
         {
 
 
-
+            base.Update(gameTime);
             // Calculate movement based on elapsed time for the random pattern
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 

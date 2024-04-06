@@ -20,8 +20,8 @@ namespace Sprint.Characters
         private Timer timeAttack;
 
 
-        public OldMan(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, room)
+        public OldMan(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -40,11 +40,11 @@ namespace Sprint.Characters
         }
 
         // Update logic
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
 
 
-
+            base.Update(gameTime);
             // Calculate movement based on elapsed time for the random pattern
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 

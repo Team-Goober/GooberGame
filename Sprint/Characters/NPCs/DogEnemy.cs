@@ -22,8 +22,8 @@ namespace Sprint.Characters
         private string lastAnimationName;
         private MoveVert moveVert;
 
-        public DogEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, room)
+        public DogEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -62,6 +62,7 @@ namespace Sprint.Characters
         public override void Update(GameTime gameTime)
         {
             timeAttack.Update(gameTime);
+            base.Update(gameTime);
 
             // Uses timer to shoot projectiles every 2 seconds
             if (timeAttack.JustEnded)

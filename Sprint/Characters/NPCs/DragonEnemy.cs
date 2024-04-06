@@ -25,8 +25,8 @@ namespace Sprint.Characters
         private SceneObjectManager objectManager;
         private MoveVert moveVert;
 
-        public DragonEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, room)
+        public DragonEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
 
             sfxFactory = SfxFactory.GetInstance();
@@ -67,6 +67,8 @@ namespace Sprint.Characters
         // Update DragonEnemy logic
         public override void Update(GameTime gameTime)
         {
+            timeAttack.Update(gameTime);
+            base.Update(gameTime);
 
 
             moveVert.MoveAI(gameTime);

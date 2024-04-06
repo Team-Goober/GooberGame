@@ -28,9 +28,8 @@ namespace Sprint.Characters
 
         public override CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.FLYING_ENEMY, CollisionTypes.ENEMY, CollisionTypes.CHARACTER };
 
-
-        public BatEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, room)
+        public BatEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -53,15 +52,13 @@ namespace Sprint.Characters
         {
 
             timeAttack.Update(gameTime);
-
+            base.Update(gameTime);
             //uses timer to shoot arrows ever 3 seconds
             if (timeAttack.JustEnded)
             {
                 itemFactory.SetStartPosition(physics.Position);
 
                 itemFactory.SetDirection(moveDirection);
-
-               
 
                 timeAttack.Start();
 

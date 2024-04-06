@@ -38,16 +38,14 @@ namespace Sprint.Collision
         // TODO: Read this from file
         Dictionary<TypePairKey, ConstructorInfo> commandDictionary = new Dictionary<TypePairKey, ConstructorInfo>()
             {
+                // Collision for all Characters with map
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.WALL), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.GAP), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.DOOR), pushOut},
                 {new TypePairKey(CollisionTypes.MOVEWALL, CollisionTypes.CHARACTER), pushOut},
                 {new TypePairKey(CollisionTypes.MOVEWALL, CollisionTypes.WALL), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.CHARACTER), pushOut},
-
-
-
-
+                {new TypePairKey(CollisionTypes.FLYING_ENEMY, CollisionTypes.PHASING_WALL), null},
 
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
@@ -55,19 +53,26 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
 
+                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.ENEMY), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.PLAYER), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
+
+
+                // Collision for Player and doors
                 {new TypePairKey(CollisionTypes.OPEN_DOOR, CollisionTypes.PLAYER), typeof(SwitchRoomCommand).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.HIDDEN_DOOR, CollisionTypes.EXPLOSION), typeof(OpenDoorCommand).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.PLAYER,CollisionTypes.LOCKED_DOOR), typeof(OpenLockedDoorCommand).GetConstructor(constructorParams)},
 
+                // Collision for Player and items
                 {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ITEM), typeof(PickUpItem).GetConstructor( constructorParams ) },
 
-                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.SWORD), typeof(KillCommand).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY_PROJECTILE), typeof(KillCommand).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY), typeof(KillCommand).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(KillCommand).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.ENEMY), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.PLAYER), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
-                { new TypePairKey(CollisionTypes.FLYING_ENEMY, CollisionTypes.PHASING_WALL), null },
+                // Collision Player Damage
+                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY), typeof(TakeDamage).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY_PROJECTILE), typeof(TakeDamage).GetConstructor( constructorParams ) },
+                // Collision Enemy Damage
+                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.SWORD), typeof(TakeDamage).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(TakeDamage).GetConstructor( constructorParams ) },
+
+                
             };
 
         //Made assuming that ICollidable can access the objects native type
@@ -144,15 +149,9 @@ namespace Sprint.Collision
         /// <param name="overlap">Overlap distance, measured out from receiver</param>
         public void CreateAndRun(ConstructorInfo commandConstructor, ICollidable receiver, ICollidable effector, Vector2 overlap)
         {
-            // Check if commandConstructor is not null
-            if (commandConstructor != null)
-            {
-                // Construct command then execute
-                ICommand c = commandConstructor.Invoke(new object[] { receiver, effector, overlap }) as ICommand;
-                c.Execute();
-            }
-            
+            // Construct command then execute
+            ICommand c = commandConstructor?.Invoke(new object[] { receiver, effector, overlap }) as ICommand;
+            c?.Execute();
         }
-
     }
 }

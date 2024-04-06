@@ -28,8 +28,8 @@ namespace Sprint.Characters
         private Timer timeAttack;
 
 
-        public SkeletonEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, room)
+        public SkeletonEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -53,6 +53,7 @@ namespace Sprint.Characters
         {
 
             timeAttack.Update(gameTime);
+            base.Update(gameTime);
 
             //uses timer to shoot arrows ever 3 seconds
             if (timeAttack.JustEnded)

@@ -76,13 +76,13 @@ namespace Sprint.Sprite
                 {
                     AutoAtlasData aad = atlasData as AutoAtlasData;
                     atlas = new AutoAtlas(
-                        aad.SheetArea,
-                        aad.Rows,
-                        aad.Cols,
-                        aad.Padding,
-                        aad.CenterPoint,
-                        aad.Loop,
-                        aad.Framerate
+                            aad.SheetArea,
+                            aad.Rows,
+                            aad.Cols,
+                            aad.Padding,
+                            aad.CenterPoint,
+                            aad.Loop,
+                            aad.Framerate
                         );
                 }
                 else if (atlasData is SingleAtlasData)
