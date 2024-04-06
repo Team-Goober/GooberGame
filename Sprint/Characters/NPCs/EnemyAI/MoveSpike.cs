@@ -24,7 +24,7 @@ namespace Sprint.Characters
 
         Physics physics;
 
-        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.MOVESPIKE, CollisionTypes.ENEMY };
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.MOVESPIKE, CollisionTypes.ENEMY, CollisionTypes.CHARACTER };
         public MoveSpike(Physics physics)
         {
 
@@ -40,17 +40,18 @@ namespace Sprint.Characters
         // Move AI for MoveVert
         public override void MoveAI(GameTime gameTime)
         {
-            float speed = 100; // Adjust the speed as needed
-            float moveTime = 10; // Time before changing direction (in seconds)
+            float speed = 200; // Adjust the speed as needed
+            float moveTime = 1.5f; // Time before changing direction (in seconds)
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (elapsedTime > moveTime)
             {
                 // Change direction after the specified time
-                RandomizeMoveDirection();
+                moveDirection = -moveDirection;
                 elapsedTime = 0;
             }
+
 
             // Move in the current direction
             Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -67,7 +68,7 @@ namespace Sprint.Characters
             int indDir = random.Next(4);
             directionFace = (DirectionFace)indDir;
             SetDirection(directionFace);
-            
+
 
         }
 
@@ -95,7 +96,7 @@ namespace Sprint.Characters
                     break;
             }
 
-            
+
 
         }
 
@@ -111,3 +112,4 @@ namespace Sprint.Characters
         }
     }
 }
+

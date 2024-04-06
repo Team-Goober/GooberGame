@@ -43,6 +43,8 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.DOOR), pushOut},
                 {new TypePairKey(CollisionTypes.MOVEWALL, CollisionTypes.CHARACTER), pushOut},
                 {new TypePairKey(CollisionTypes.MOVEWALL, CollisionTypes.WALL), pushOut},
+                {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.CHARACTER), pushOut},
+
 
 
 
@@ -68,6 +70,7 @@ namespace Sprint.Collision
 
                 {new TypePairKey(CollisionTypes.MOVESPIKE, CollisionTypes.WALL), typeof(ReverseSpikeDirCommand).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.MOVESPIKE, CollisionTypes.MOVESPIKE), typeof(ReverseSpikeDirCommand).GetConstructor( constructorParams ) },
+
             };
 
         //Made assuming that ICollidable can access the objects native type

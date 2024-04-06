@@ -23,6 +23,8 @@ namespace Sprint.Characters
 
         public void Execute()
         {
+
+          
             if (Math.Abs(overlap.X) > Math.Abs(overlap.Y))
             {
                 moveSpike.ReverseHorDir();
@@ -31,6 +33,8 @@ namespace Sprint.Characters
             {
                 moveSpike.ReverseVerDir();
             }
+
+           
         }
     }
 }
