@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
-using System;
 
 namespace Sprint.Levels
 {

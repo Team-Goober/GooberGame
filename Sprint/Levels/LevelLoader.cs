@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
 using Sprint.Door;
-using Sprint.Functions.RoomTransition;
-using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Items;
 using Sprint.Levels;
@@ -11,7 +9,6 @@ using Sprint.Music.Sfx;
 using Sprint.Music.Songs;
 using Sprint.Sprite;
 using System.Collections.Generic;
-using System.Diagnostics;
 using XMLData;
 
 namespace Sprint.Loader

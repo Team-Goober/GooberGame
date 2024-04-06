@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using System;
-using System.Diagnostics;
 
 namespace Sprint.Projectile
 {

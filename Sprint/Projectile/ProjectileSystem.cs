@@ -1,8 +1,4 @@
-﻿using Sprint.Interfaces;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Sprint.Commands.SecondaryItem;
-using Sprint.Input;
+﻿using Microsoft.Xna.Framework;
 using Sprint.Sprite;
 using Sprint.Levels;
 

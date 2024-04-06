@@ -1,6 +1,4 @@
-﻿using Sprint.Items;
-
-namespace Sprint.Items;
+﻿namespace Sprint.Items;
 
 public enum ItemType
 {

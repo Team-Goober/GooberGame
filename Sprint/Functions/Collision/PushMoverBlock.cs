@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using Sprint.Levels;
-using Sprint.Characters;
 
 namespace Sprint.Functions.Collision
 {

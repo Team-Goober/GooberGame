@@ -20,8 +20,7 @@ namespace Sprint.Characters
         protected Physics physics;
 
         private Timer damageTimer;
-        public event EventHandler OnEnemyDamaged;
-        public event EventHandler OnEnemyDied;
+        
         protected Room room;
         private SfxFactory sfxFactory;
         protected double health;
@@ -78,7 +77,6 @@ namespace Sprint.Characters
                     OnEnemyDamaged?.Invoke(this, EventArgs.Empty);
                 }
             }
-
         }
 
         public override void Update(GameTime gameTime)

@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using System.Collections.Generic;
-using System.Linq;
-using static Sprint.Characters.Character;
 
 namespace Sprint
 {

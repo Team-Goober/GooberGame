@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sprint.Commands;
 using Sprint.Functions.DeathState;
 using Sprint.HUD;
 using Sprint.Input;
@@ -10,9 +9,6 @@ using Sprint.Levels;
 using Sprint.Loader;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Timers;
 
 namespace Sprint.GameStates

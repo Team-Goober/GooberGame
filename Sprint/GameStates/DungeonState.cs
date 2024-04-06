@@ -18,7 +18,6 @@ using Sprint.Loader;
 using Sprint.Sprite;
 using Sprint.Functions.DeathState;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Sprint.Functions.Music;
 using Sprint.Music.Sfx;
 using Sprint.Door;

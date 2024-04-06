@@ -1,15 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Sprint.Interfaces;
-using Microsoft.Xna.Framework.Content;
+﻿using Sprint.Interfaces;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Sprint.Commands.SecondaryItem;
-using Sprint.Input;
-using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
-using Sprint.Collision;
 
 namespace Sprint.Characters
 {
@@ -21,7 +14,6 @@ namespace Sprint.Characters
         private Vector2 initialPosition;
         private Vector2 moveDirection; // Movement direction for the random pattern
         private SimpleProjectileFactory itemFactory;
-        private ICommand projectileCommand;
 
         private Timer timeAttack;
 

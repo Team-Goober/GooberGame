@@ -1,8 +1,5 @@
-﻿
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using Sprint.Levels;
 using Sprint.Projectile;
 
 namespace Sprint.Functions.SecondaryItem

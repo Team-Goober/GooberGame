@@ -2,9 +2,6 @@
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Collision;
-using Sprint.Levels;
-using System.Diagnostics;
-using Sprint.Characters;
 
 namespace Sprint.Door
 {

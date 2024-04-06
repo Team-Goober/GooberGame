@@ -1,7 +1,6 @@
 ﻿using Sprint.Characters;
 using Sprint.Interfaces;
 using Sprint.Items;
-using Sprint.Levels;
 using Sprint.Projectile;
 
 namespace Sprint.Commands.SecondaryItem

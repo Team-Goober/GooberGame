@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprint.Levels;
-using System.Collections.Generic;
 
 namespace Sprint.Interfaces
 {

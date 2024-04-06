@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Media;
-using Sprint.Levels;
-using Sprint.Loader;
-using Sprint.Sprite;
-using XMLData;
+﻿using Microsoft.Xna.Framework.Media;
+
 
 namespace Sprint.Music.Songs
 {

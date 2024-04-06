@@ -4,9 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using Sprint.Functions;
 using Sprint.Input;
 using Sprint.Interfaces;
-using Sprint.Levels;
-using System.Collections.Generic;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Sprint
 {

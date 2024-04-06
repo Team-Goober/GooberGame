@@ -1,10 +1,4 @@
-﻿using Sprint.Door;
-using Sprint.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sprint.Interfaces;
 using Microsoft.Xna.Framework;
 
 

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using System;
-using System.IO;
 
 namespace Sprint.HUD
 {
@@ -112,7 +111,7 @@ namespace Sprint.HUD
 
         public void Update(GameTime gameTime)
         {
-            // throw new NotImplementedException();
+            // Nothing
         }
     }
 }
