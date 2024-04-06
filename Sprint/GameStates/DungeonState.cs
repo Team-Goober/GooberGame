@@ -16,6 +16,7 @@ using Sprint.Items;
 using Sprint.Levels;
 using Sprint.Loader;
 using Sprint.Sprite;
+using Sprint.Functions.DeathState;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Sprint.Functions.Music;
@@ -89,6 +90,8 @@ namespace Sprint
             inventory.InventoryEvent += this.OnInventoryEvent;
             inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
+
+            player.OnPlayerDamaged += hudLoader.UpdateHeartAmount;
         }
 
         private void unloadDelegates()
@@ -183,14 +186,16 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.J), new MusicDown());
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.K), new MusicMuteToggle());
 
-            }
+            // Death State TEST Remove or Change Later
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.M), new OpenDeath(this));
+
+        }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-
             // Translate the game arena to the correct location on screen
             Matrix translateMat = Matrix.CreateTranslation(new Vector3(arenaPosition.X, arenaPosition.Y, 0));
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: translateMat);
+            spriteBatch.Begin(SpriteSortMode.Immediate, samplerState: SamplerState.PointClamp, transformMatrix: translateMat);
 
             // Draw current room's objects
             SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X].GetScene();
@@ -417,6 +422,17 @@ namespace Sprint
             TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, inventory);
 
             PassToState(scroll);
+        }
+
+        public void DeathScreen()
+        {
+            GameOverState death = new GameOverState(game, hudLoader);
+
+            SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X].GetScene();
+
+            //death.GetRoomScene(currRoom);
+            death.GetHUDScene(hudLoader.GetTopDisplay());
+            PassToState(death);
         }
 
         public Point RoomIndex()

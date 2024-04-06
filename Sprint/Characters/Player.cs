@@ -27,9 +27,12 @@ namespace Sprint.Characters
         private ISprite defaultSprite;
         private SpriteLoader spriteLoader;
         private ISprite damagedSprite;
-        public event EventHandler OnPlayerDamaged;
+
         public event EventHandler OnPlayerDied;
         protected double hp;
+
+        public delegate void HealthUpdateDelegate(double health);
+        public event HealthUpdateDelegate OnPlayerDamaged;
 
         private Physics physics;
 
@@ -333,7 +336,9 @@ namespace Sprint.Characters
             defaultSprite = sprite;
             sprite = damagedSprite;
             damageTimer.Start();
-            OnPlayerDamaged?.Invoke(this, EventArgs.Empty);
+
+            OnPlayerDamaged?.Invoke(hp);
+
             hp -= .5;
         }
 
