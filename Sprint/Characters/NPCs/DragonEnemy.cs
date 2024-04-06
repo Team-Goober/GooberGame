@@ -72,7 +72,7 @@ namespace Sprint.Characters
             if (timeAttack.JustEnded)
             {
                 itemFactory.SetStartPosition(physics.Position);
-                itemFactory.SetDirection(moveDirection);
+                itemFactory.SetDirection(Directions.LEFT);
                 projectileCommand.Execute();
                 timeAttack.Start();
             }
