@@ -4,14 +4,19 @@
 		<Item>
 			<Key>rupee</Key>
 			<Value>
-				<Texture>Items/ZeldaSprite5Rupies</Texture>
+				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
 						<Key>rupee</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>0 0 8 16</Rectangle>
-							<CenterPoint>4 8</CenterPoint>
-						</Value>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>160 120 56 16</SheetArea>
+              <Rows>1</Rows>
+              <Cols>2</Cols>
+              <Padding>24</Padding>
+              <CenterPoint>8 8</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>10</Framerate>
+            </Value>
 					</Item>
 				</Animations>
 				<Scale>4</Scale>
@@ -21,13 +26,13 @@
 		<Item>
 			<Key>arrow</Key>
 			<Value>
-				<Texture>Items/ZeldaSpriteArrow</Texture>
+				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
 						<Key>arrow</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>0 0 5 16</Rectangle>
-							<CenterPoint>2 8</CenterPoint>
+							<Rectangle>40 40 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
 				</Animations>
@@ -38,13 +43,13 @@
 		<Item>
 			<Key>heartPiece</Key>
 			<Value>
-				<Texture>Items/ZeldaSpriteHeartContainer</Texture>
+				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
 						<Key>heartPiece</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>0 0 13 13</Rectangle>
-							<CenterPoint>5 5</CenterPoint>
+							<Rectangle>240 40 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
 				</Animations>
@@ -72,16 +77,16 @@
 		<Item>
 			<Key>triforce</Key>
 			<Value>
-				<Texture>Items/Triforce</Texture>
+				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
 						<Key>triforce</Key>
 						<Value Type="XMLData.AutoAtlasData">
-							<SheetArea>0 0 24 10</SheetArea>
+							<SheetArea>323 123 30 10</SheetArea>
 							<Rows>1</Rows>
 							<Cols>2</Cols>
-							<Padding>4</Padding>
-							<CenterPoint>12 5</CenterPoint>
+							<Padding>10</Padding>
+							<CenterPoint>5 5</CenterPoint>
 							<Loop>true</Loop>
 							<Framerate>10</Framerate>
 						</Value>
@@ -117,7 +122,7 @@
 					<Item>
 						<Key>clock</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>360 1 16 16</Rectangle>
+							<Rectangle>360 0 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -135,7 +140,7 @@
 					<Item>
 						<Key>bow</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>322 0 16 16</Rectangle>
+							<Rectangle>320 0 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -207,7 +212,7 @@
 					<Item>
 						<Key>fairy</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>123 38 16 16</Rectangle>
+							<Rectangle>120 40 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -225,7 +230,7 @@
 					<Item>
 						<Key>bomb</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>203 4 16 16</Rectangle>
+							<Rectangle>200 0 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -243,7 +248,7 @@
 					<Item>
 						<Key>blueRing</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>163 2 16 16</Rectangle>
+							<Rectangle>160 0 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -261,7 +266,7 @@
 					<Item>
 						<Key>redRing</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>123 122 16 16</Rectangle>
+							<Rectangle>120 120 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -279,7 +284,7 @@
 					<Item>
 						<Key>blueBoomerang</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>123 82 16 16</Rectangle>
+							<Rectangle>120 80 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -297,7 +302,7 @@
 					<Item>
 						<Key>boomerang</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>284 3 16 16</Rectangle>
+							<Rectangle>280 0 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -315,7 +320,7 @@
 					<Item>
 						<Key>heart</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>243 123 16 16</Rectangle>
+							<Rectangle>240 120 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -333,7 +338,7 @@
 					<Item>
 						<Key>blueWand</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>204 80 16 16</Rectangle>
+							<Rectangle>200 80 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -350,7 +355,7 @@
 					<Item>
 						<Key>sword</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>283 120 16 16</Rectangle>
+							<Rectangle>280 120 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -368,7 +373,7 @@
 					<Item>
 						<Key>bracelet</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>282 80 16 16</Rectangle>
+							<Rectangle>280 80 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -386,7 +391,7 @@
 					<Item>
 						<Key>book</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>241 0 16 16</Rectangle>
+							<Rectangle>240 0 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -397,14 +402,14 @@
 		</Item>
 
 		<Item>
-			<Key>potion</Key>
+			<Key>bluePotion</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
 				<Animations>
 					<Item>
 						<Key>potion</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>84 0 16 16</Rectangle>
+							<Rectangle>360 40 16 16</Rectangle>
 							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
@@ -414,6 +419,24 @@
 			</Value>
 		</Item>
 
+    <Item>
+      <Key>redPotion</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>potion</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>80 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>potion</InitialAnimation>
+      </Value>
+    </Item>
+
 		<Item>
 			<Key>key</Key>
 			<Value>
@@ -422,8 +445,8 @@
 					<Item>
 						<Key>key</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>284 40 8 16</Rectangle>
-							<CenterPoint>4 8</CenterPoint>
+							<Rectangle>280 40 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
 				</Animations>
@@ -440,8 +463,8 @@
 					<Item>
 						<Key>map</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>244 80 8 16</Rectangle>
-							<CenterPoint>4 8</CenterPoint>
+							<Rectangle>240 80 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
 				</Animations>
@@ -458,8 +481,8 @@
 					<Item>
 						<Key>compass</Key>
 						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>82 42 11 12</Rectangle>
-							<CenterPoint>5 6</CenterPoint>
+							<Rectangle>80 40 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
 						</Value>
 					</Item>
 				</Animations>
@@ -468,46 +491,77 @@
 			</Value>
 		</Item>
 
-		<Item>
-			<Key>fireball</Key>
-			<Value>
-				<Texture>Items/FireBall</Texture>
-				<Animations>
-					<Item>
-						<Key>fireball</Key>
-						<Value Type="XMLData.AutoAtlasData">
-							<SheetArea>0 0 33 16</SheetArea>
-							<Rows>1</Rows>
-							<Cols>2</Cols>
-							<Padding>1</Padding>
-							<CenterPoint>8 8</CenterPoint>
-							<Loop>true</Loop>
-							<Framerate>9</Framerate>
-						</Value>
-					</Item>
-				</Animations>
-				<Scale>4</Scale>
-				<InitialAnimation>fireball</InitialAnimation>
-			</Value>
-		</Item>
+    <Item>
+      <Key>redCandle</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>candle</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>80 120 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>candle</InitialAnimation>
+      </Value>
+    </Item>
+    
+    <Item>
+      <Key>blueCandle</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>candle</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>120 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>candle</InitialAnimation>
+      </Value>
+    </Item>
 
-		<Item>
-			<Key>oldmanText</Key>
-			<Value>
-				<Texture>LevelOne/RoomOne/Text</Texture>
-				<Animations>
-					<Item>
-						<Key>oldmanText</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>0 0 1164 150</Rectangle>
-							<CenterPoint>582 75</CenterPoint>
-						</Value>
-					</Item>
-				</Animations>
-				<Scale>0.5</Scale>
-				<InitialAnimation>oldmanText</InitialAnimation>
-			</Value>
-		</Item>
+    <Item>
+      <Key>flute</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>flute</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>360 80 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>flute</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>meat</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>meat</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>200 40 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>meat</InitialAnimation>
+      </Value>
+    </Item>
 		
 	</Asset>
 </XnaContent>

@@ -8,6 +8,7 @@ using Sprint.Loader;
 using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Diagnostics;
 using XMLData;
 
@@ -29,8 +30,12 @@ namespace Sprint.HUD
 
         private int maxHearts;
 
-        private HUDAnimSprite bWeapon;
-        private HUDAnimSprite aWeapon;
+        private HUDInterchangeableSprite bWeapon;
+        private HUDInterchangeableSprite aWeapon;
+        private HUDInterchangeableSprite bSelection;
+
+        private Dictionary<ItemType, HUDInterchangeableSprite> itemDisplays;
+        private HUDSelector selector;
 
         HUDData data;
 
@@ -75,14 +80,10 @@ namespace Sprint.HUD
             }
 
             // Weapons
-            bWeapon = MakeSlotItem("Item", data.BWeapon);
-            aWeapon = MakeSlotItem("Item", data.AWeapon);
+            bWeapon = MakeItemSprite(null, data.BWeapon);
+            aWeapon = MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Sword), data.AWeapon);
             topDisplay.Add(bWeapon);
             topDisplay.Add(aWeapon);
-
-            //Remove below or change later
-            UpdateBWeapon("Sword");
-            UpdateAWeapon("Bow");
 
             // Minimap
             topDisplay.Add(MakeMinimap(map, data.MinimapPos, data.MinimapRoomSize, data.MinimapPadding, data.MinimapBackgroundSize));
@@ -90,6 +91,55 @@ namespace Sprint.HUD
             // Inventory Backgrounds
             inventoryScreen.Add(MakeHUDSprite("Inventory", data.InventoryFramePos));
             inventoryScreen.Add(MakeHUDSprite("DungeonMap", data.MapFramePos));
+
+            // Visual displays for receiving items. Don't display until acquired
+
+            itemDisplays = new()
+            {
+                { ItemType.Map, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Map), data.MapItemPos) },
+                { ItemType.Compass, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Compass), data.CompassItemPos) },
+
+                { ItemType.Raft, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Raft), data.RaftItemPos) },
+                { ItemType.Book, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Book), data.BookItemPos) },
+                { ItemType.RedRing, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.RedRing), data.RingItemPos) },
+                { ItemType.Ladder, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Ladder), data.LadderItemPos) },
+                { ItemType.SpecialKey, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.SpecialKey), data.SpecialKeyItemPos) },
+                { ItemType.Bracelet, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Bracelet), data.BraceletItemPos) },
+                { ItemType.Bow, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Bow), data.BowItemPos) }
+            };
+
+            // At the slot item displays
+            for(int i=0; i<Inventory.Slots.GetLength(0); i++)
+            {
+                for (int j = 0; j < Inventory.Slots.GetLength(1); j++)
+                {
+                    ItemType slot = Inventory.Slots[i, j];
+                    List<ItemType> upgrades = new() { slot };
+                    if(Inventory.UpgradePaths.ContainsKey(slot))
+                        upgrades = Inventory.UpgradePaths[slot];
+
+                    // Calculate position of slot and place sprite there
+                    Vector2 slotPos = (data.InventorySlotSize + data.InventoryPadding) * new Vector2(j, i) + data.FirstInventoryCell + data.InventorySlotSize / 2;
+
+                    // Arrow slots are offset by a quarter
+                    if (slot == ItemType.Arrow)
+                        slotPos.X -= data.InventorySlotSize.X / 4;
+
+                    // Add one sprite for every item in upgrade path
+                    for (int k = 0; k < upgrades.Count; k++)
+                    {
+                        itemDisplays.Add(upgrades[k], MakeItemSprite(ItemFactory.GetSpriteName(upgrades[k]), slotPos));
+
+                    }
+                }
+            }
+
+            // Selector for slots
+            selector = MakeSelector("selector", data.FirstInventoryCell, data.InventoryPadding + data.InventorySlotSize);
+            inventoryScreen.Add(selector);
+
+            bSelection = MakeItemSprite(null, data.BSelection);
+            inventoryScreen.Add(bSelection);
 
             inventoryScreen.Add(MakeFullMap(map, data.FullMapPos, data.FullMapRoomSize, data.FullMapPadding, data.FullMapBackgroundSize));
             inventoryScreen.EndCycle();
@@ -147,15 +197,20 @@ namespace Sprint.HUD
             return hudFactory.MakeHUDSprite(spriteLabel, position);
         }
 
-        public HUDAnimSprite MakeSlotItem(string spriteLabel, Vector2 position)
+        public HUDInterchangeableSprite MakeItemSprite(string spriteLabel, Vector2 position)
         {
-            HUDAnimSprite sprite = hudFactory.MakeHUDItem(spriteLabel, position);
-            return sprite;
+            return hudFactory.MakeItemSprite(spriteLabel, position);
+        }
+
+        public HUDSelector MakeSelector(string spriteLabel, Vector2 position, Vector2 padding)
+        {
+            return hudFactory.MakeSelector(spriteLabel, position, padding);
         }
 
 
-        public void OnInventoryEvent(ItemType it, int prev, int next)
+        public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
         {
+            // Update UI numbers for specific items
             switch (it)
             {
                 case ItemType.Rupee:
@@ -170,6 +225,52 @@ namespace Sprint.HUD
                 default:
                     break;
             }
+            if (itemDisplays.ContainsKey(it))
+            {
+                // Add or remove displays for items that are gained or lost
+                int k = ownedUpgrades.IndexOf(it);
+                // Only update UI if this item is the highest owned upgrade
+                if(k == ownedUpgrades.Count - 1)
+                {
+                    // Ran out
+                    if (prev > 0 && next == 0)
+                    {
+                        inventoryScreen.Remove(itemDisplays[it]);
+                        // Add in the next highest upgrade if it exists
+                        if(k > 0 && itemDisplays.ContainsKey(ownedUpgrades[k - 1]))
+                        {
+                            inventoryScreen.Add(itemDisplays[ownedUpgrades[k - 1]]);
+                        }
+                    }
+                    // Acquired
+                    else if (prev == 0 && next > 0)
+                    {
+                        inventoryScreen.Add(itemDisplays[it]);
+                        // Remove the next highest upgrade if it exists
+                        if (k > 0 && itemDisplays.ContainsKey(ownedUpgrades[k - 1]))
+                        {
+                            inventoryScreen.Remove(itemDisplays[ownedUpgrades[k - 1]]);
+                        }
+                    }
+
+                    // process changes
+                    inventoryScreen.EndCycle();
+                }
+            }
+
+
+        }
+
+        public void OnSelectorMoveEvent(int r, int c) {
+            // Move selector sprite
+            selector.SetLocation(r, c);
+        }
+
+        public void OnSelectorChooseEvent(ItemType item)
+        {
+            // Exchange sprites for B item
+            bWeapon.GiveSprite(itemDisplays[item].GetSprite());
+            bSelection.GiveSprite(itemDisplays[item].GetSprite());
         }
 
         public void UpdateItemAmount(List<HUDAnimSprite> numSprites, int number)
@@ -213,16 +314,6 @@ namespace Sprint.HUD
         public void UpdateMaxHeartAmount(int newHeartAmount)
         {
             maxHearts = newHeartAmount;
-        }
-
-        public void UpdateBWeapon(string item)
-        {
-            bWeapon.SetSprite(item);
-        }
-
-        public void UpdateAWeapon(string item)
-        {
-            aWeapon.SetSprite(item);
         }
 
     }

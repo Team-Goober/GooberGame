@@ -73,8 +73,6 @@ namespace Sprint
             hudLoader = new HUDLoader(contentManager, spriteLoader);
             hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
 
-            loadDelegates();
-
             // enter first room
             SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
         }
@@ -84,10 +82,20 @@ namespace Sprint
             Inventory inventory = player.GetInventory();
             inventory.InventoryEvent += hudLoader.OnInventoryEvent;
             inventory.InventoryEvent += this.OnInventoryEvent;
-
+            inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
+            ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
         }
 
-        public void OnInventoryEvent(ItemType it, int prev, int next)
+        private void unloadDelegates()
+        {
+            Inventory inventory = player.GetInventory();
+            inventory.InventoryEvent -= hudLoader.OnInventoryEvent;
+            inventory.InventoryEvent -= this.OnInventoryEvent;
+            inventory.SelectorChooseEvent -= hudLoader.OnSelectorChooseEvent;
+            ((InventoryState)game.GetInventoryState()).SelectorMoveEvent -= hudLoader.OnSelectorMoveEvent;
+        }
+
+        public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
         {
             switch (it)
             {
@@ -105,7 +113,10 @@ namespace Sprint
         // Generates all commands available while the player is moving in a room
         public void MakeCommands()
         {
+            // TODO: These are here because they refer to InventoryState, which may not exist yet. Should be moved
             ((InventoryState)game.GetInventoryState()).SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
+            ((InventoryState)game.GetInventoryState()).AttachPlayer(player);
+            loadDelegates();
 
             inputTable = new InputTable();
 
@@ -129,30 +140,10 @@ namespace Sprint
 
             //Player uses a cast move
             // TODO: shouldnt bind separately from shoot commands
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D5), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D6), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D7), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D8), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D9), new Cast(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D0), new Cast(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new Cast(player));
 
-            // Shooting items commands
-            //Arrow
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D1), new ShootArrowCommand(player.GetProjectileFactory()));
-            //Blue Arrow
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D2), new ShootBlueArrowC(player.GetProjectileFactory()));
-            //Bomb
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D3), new ShootBombC(player.GetProjectileFactory()));
-            //Boomarang
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D4), new ShootBoomarangC(player.GetProjectileFactory()));
-            //FireBall
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D5), new ShootFireBallC(player.GetProjectileFactory()));
-            //Blue Boomerang
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D6), new ShootBlueBoomerangC(player.GetProjectileFactory()));
+            // Using item slot B
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseBWeaponCommand(player.GetProjectileFactory(), player.GetInventory()));
 
             // Reset command
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
@@ -265,6 +256,9 @@ namespace Sprint
         //clears input dictionary and object manager
         public void ResetGame()
         {
+            // remove events
+            unloadDelegates();
+
             // delete all game objects
             hudLoader.GetTopDisplay().ClearObjects();
 
@@ -290,9 +284,9 @@ namespace Sprint
             hudLoader = new HUDLoader(contentManager, spriteLoader);
             hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
 
-            loadDelegates();
+            ((InventoryState)game.GetInventoryState()).Reset();
 
-            // remake commands
+            // remake commands and delegates
             MakeCommands();
 
             // enter first room

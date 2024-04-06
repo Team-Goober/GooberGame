@@ -1,4 +1,6 @@
-﻿namespace Sprint.Items;
+﻿using Sprint.Items;
+
+namespace Sprint.Items;
 
 public enum ItemType
 {
@@ -23,11 +25,14 @@ public enum ItemType
     Sword,
     Bracelet,
     Book,
-    Potion,
+    BluePotion,
+    RedPotion,
     Key,
     Map,
     Compass,
-    FireBall,
-    OldManText,
-    Bomb
+    Bomb,
+    RedCandle,
+    BlueCandle,
+    Flute,
+    Meat
 }

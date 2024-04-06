@@ -215,17 +215,21 @@ namespace Sprint.Loader
             //Load enemies
             foreach (EnemySpawnData spawn in rd.Enemies)
             {
-                float xP = lvl.FloorGridPos.X + (spawn.Column + 0.5f) * lvl.TileSize.X;
-                float yP = lvl.FloorGridPos.Y + (spawn.Row + 0.5f) * lvl.TileSize.Y;
-                roomNpcs.Add(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP), room));
+                Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
+                roomNpcs.Add(enemyFactory.MakeEnemy(spawn.Type, position, room));
             }
 
             //Load items
             foreach (ItemSpawnData spawn in rd.Items)
             {
-                float xP = lvl.FloorGridPos.X + (spawn.Column + 0.5f) * lvl.TileSize.X;
-                float yP = lvl.FloorGridPos.Y + (spawn.Row + 0.5f) * lvl.TileSize.Y;
-                roomItems.Add(itemFactory.MakeItem(spawn.Type, new System.Numerics.Vector2(xP, yP)));
+                Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
+                roomItems.Add(itemFactory.MakeItem(spawn.Type, position));
+            }
+
+            //Load textboxes
+            foreach (TextBoxData box in rd.TextBoxes)
+            {
+                scene.Add(new ZeldaText(box.FontName, box.Text, box.Position, box.CharacterDimensions, box.Color, content));
             }
 
             foreach (IDoor d in roomDoors)
