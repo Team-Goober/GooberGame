@@ -29,8 +29,8 @@ namespace Sprint.Projectile
         private const int SPEED = 150;
         private const int TRAVEL = 50;
 
-        public Bomb(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, SceneObjectManager objectManager) :
-            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objectManager)
+        public Bomb(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) :
+            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)
         {
             explosionTimer = new Timer(1);
             sfxFactory = SfxFactory.GetInstance();
@@ -59,7 +59,7 @@ namespace Sprint.Projectile
             explosionTimer.Update(gameTime);
             if (explosionTimer.JustEnded)
             {
-                objectManager.Remove(this);
+                room.GetScene().Remove(this);
             }
 
             base.Update(gameTime);

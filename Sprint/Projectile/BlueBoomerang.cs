@@ -21,8 +21,8 @@ namespace Sprint.Projectile
         private SfxFactory sfxFactory;
         private SoundEffectInstance sfx;
 
-        public BlueBoomerang(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, SceneObjectManager objectManager) :
-            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objectManager)
+        public BlueBoomerang(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) :
+            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)
         {
             sfxFactory = SfxFactory.GetInstance();
             sfx = sfxFactory.GetSoundEffect("Magical Boomerang Thrown");

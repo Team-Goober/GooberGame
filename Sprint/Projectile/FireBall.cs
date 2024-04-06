@@ -20,8 +20,8 @@ namespace Sprint.Projectile
         private Timer sitTimer;
         private SfxFactory sfxFactory;
 
-        public FireBall(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, SceneObjectManager objectManager) :
-            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objectManager)
+        public FireBall(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) :
+            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)
         {
             sitTimer = new Timer(1);
             sfxFactory = SfxFactory.GetInstance();

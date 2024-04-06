@@ -31,11 +31,6 @@ namespace Sprint.GameStates
             this.game = game;
         }
 
-        public List<SceneObjectManager> AllObjectManagers()
-        {
-            return new List<SceneObjectManager>();
-        }
-
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Matrix translateMat = Matrix.CreateTranslation(new Vector3(hudPosition.X, hudPosition.Y, 0));
@@ -100,18 +95,18 @@ namespace Sprint.GameStates
 
         public void CloseInventory()
         {
-            DungeonState dungeon = (DungeonState)game.DungeonState;
+            DungeonState dungeon = (DungeonState)game.GetDungeonState();
 
             // Set all the start and end positions for the scenes
             Dictionary<SceneObjectManager, Vector4> scrollScenes = new()
             {
-                { dungeon.GetRoomAt(dungeon.RoomIndex()), new Vector4(hudPosition.X, Goober.gameHeight, hudPosition.X, Goober.gameHeight - hudPosition.Y) },
+                { dungeon.GetRoomAt(dungeon.RoomIndex()).GetScene(), new Vector4(hudPosition.X, Goober.gameHeight, hudPosition.X, Goober.gameHeight - hudPosition.Y) },
                 { inventoryUI, new Vector4(hudPosition.X, 0, -hudPosition.X, -hudPosition.Y) },
                 { hud, new Vector4(hudPosition.X, hudPosition.Y, hudPosition.X, 0) }
             };
 
             // Create new GameState to scroll and then set back to this state
-            TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, game.DungeonState);
+            TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, dungeon);
 
             PassToState(scroll);
         }

@@ -10,6 +10,7 @@ using Sprint.Levels;
 using Sprint.Music.Sfx;
 using Sprint.Music.Songs;
 using Sprint.Sprite;
+using System.Collections.Generic;
 using XMLData;
 
 namespace Sprint.Loader
@@ -81,7 +82,7 @@ namespace Sprint.Loader
                     Point loc = new Point(c, r);
                     if (data.Rooms[r][c] != null)
                     {
-                        dungeon.AddRoom(loc, BuildRoomManager(data, loc), data.Rooms[loc.Y][loc.X].Hidden);
+                        dungeon.AddRoom(loc, BuildRoom(data, loc), data.Rooms[loc.Y][loc.X].Hidden);
                     }
                 }
             }
@@ -142,10 +143,16 @@ namespace Sprint.Loader
         * @param lvl        LevelData to pull info from
         * @param roomIndex  index of room in LevelData.Rooms to be made
         */
-        public SceneObjectManager BuildRoomManager(LevelData lvl, Point roomIndices)
+        public Room BuildRoom(LevelData lvl, Point roomIndices)
         {
             RoomData rd = lvl.Rooms[roomIndices.Y][roomIndices.X];
-            SceneObjectManager rom = new SceneObjectManager();
+
+            Room room = new(rd.Hidden);
+
+            List<IDoor> roomDoors = room.GetDoors();
+            List<Character> roomNpcs = room.GetNpcs();
+            List<Item> roomItems = room.GetItems();
+            SceneObjectManager scene = room.GetScene();
 
             //If the rooms need walls. Load Wall sprite, Door sprite, and wall colliders.
             if (lvl.Rooms[roomIndices.Y][roomIndices.X].NeedWall)
@@ -153,13 +160,13 @@ namespace Sprint.Loader
                 //Load Wall texture
                 ISprite bgSprite = spriteLoader.BuildSprite(lvl.SpriteFile, lvl.BackgroundSprite);
                 BackgroundTexture bg = new BackgroundTexture(bgSprite, lvl.WallPos);
-                rom.Add(bg);
+                scene.Add(bg);
 
                 //Load Wall colliders
                 foreach (Rectangle rect in lvl.OuterWalls)
                 {
                     InvisibleWall ow = new InvisibleWall(rect);
-                    rom.Add(ow);
+                    scene.Add(ow);
                 }
 
                 // spawn player on other side of room
@@ -173,7 +180,7 @@ namespace Sprint.Loader
 
                 for (int i = 0; i < doors.Length; i++)
                 {
-                    rom.Add(doors[i]);
+                    roomDoors.Add(doors[i]);
                     // make commands if clicked
                     doorsPerSide[i, roomIndices.Y, roomIndices.X] = doors[i];
                 }
@@ -198,7 +205,7 @@ namespace Sprint.Loader
                 string[] str = row.Split(' ');
                 foreach (string tile in str)
                 {
-                    rom.Add(MakeTile(lvl, tile, new Vector2(x, y)));
+                    scene.Add(MakeTile(lvl, tile, new Vector2(x, y)));
                     x += lvl.TileSize.X;
                 }
                 x = xChange;
@@ -210,7 +217,7 @@ namespace Sprint.Loader
             {
                 float xP = lvl.FloorGridPos.X + (spawn.Column + 0.5f) * lvl.TileSize.X;
                 float yP = lvl.FloorGridPos.Y + (spawn.Row + 0.5f) * lvl.TileSize.Y;
-                rom.Add(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP), rom));
+                roomNpcs.Add(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP), room));
             }
 
             //Load items
@@ -218,10 +225,17 @@ namespace Sprint.Loader
             {
                 float xP = lvl.FloorGridPos.X + (spawn.Column + 0.5f) * lvl.TileSize.X;
                 float yP = lvl.FloorGridPos.Y + (spawn.Row + 0.5f) * lvl.TileSize.Y;
-                rom.Add(itemFactory.MakeItem(spawn.Type, new System.Numerics.Vector2(xP, yP)));
+                roomItems.Add(itemFactory.MakeItem(spawn.Type, new System.Numerics.Vector2(xP, yP)));
             }
 
-            return rom;
+            foreach (IDoor d in roomDoors)
+                scene.Add(d);
+            foreach (Character n in roomNpcs)
+                scene.Add(n);
+            foreach (Item i in roomItems)
+                scene.Add(i);
+
+            return room;
         }
 
         public IDoor MakeDoor(LevelData lvl, string doorName, string spriteName, Vector2 position, Vector2 spawnPosition, Vector2 sideOfRoom, Point roomIndices)

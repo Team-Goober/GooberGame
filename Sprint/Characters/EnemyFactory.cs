@@ -26,7 +26,7 @@ namespace Sprint.Characters
         /// <param name="name">Name of enemy to make</param>
         /// <param name="position">World position to spawn at</param>
         /// <returns></returns>
-        public Enemy MakeEnemy(String name, Vector2 position, SceneObjectManager scene)
+        public Enemy MakeEnemy(String name, Vector2 position, Room room)
         {
             // Consider storing enemies in file with reflection, and having enemies load their own sprites
             // This would make dealing with enemies much easier
@@ -37,25 +37,25 @@ namespace Sprint.Characters
             switch (name)
             {
                 case "jellyfish":
-                    return new JellyfishEnemy(enemySprite, position, scene, spriteLoader);
+                    return new JellyfishEnemy(enemySprite, position, room, spriteLoader);
                 case "bluebubble":
-                    return new BluebubbleEnemy(enemySprite, position, scene, spriteLoader);
+                    return new BluebubbleEnemy(enemySprite, position, room, spriteLoader);
                 case "skeleton":
-                    return new SkeletonEnemy(enemySprite, position, scene, spriteLoader);
+                    return new SkeletonEnemy(enemySprite, position, room, spriteLoader);
                 case "dog":
-                    return new DogEnemy(enemySprite, position, scene, spriteLoader);
+                    return new DogEnemy(enemySprite, position, room, spriteLoader);
                 case "bat":
-                    return new BatEnemy(enemySprite, position, scene, spriteLoader);
+                    return new BatEnemy(enemySprite, position, room, spriteLoader);
                 case "hand":
-                    return new HandEnemy(enemySprite, position, scene, spriteLoader);
+                    return new HandEnemy(enemySprite, position, room, spriteLoader);
                 case "dragonmov":
-                    return new DragonEnemy(enemySprite, position, scene, spriteLoader);
+                    return new DragonEnemy(enemySprite, position, room, spriteLoader);
                 case "slime":
-                    return new SlimeEnemy(enemySprite, position, scene, spriteLoader);
+                    return new SlimeEnemy(enemySprite, position, room, spriteLoader);
                 case "spike":
-                    return new SpikeEnemy(enemySprite, position, scene, spriteLoader);
+                    return new SpikeEnemy(enemySprite, position, room, spriteLoader);
                 case "oldman":
-                    return new OldMan(enemySprite, position, scene, spriteLoader);
+                    return new OldMan(enemySprite, position, room, spriteLoader);
                 default:
                     return null;
             }

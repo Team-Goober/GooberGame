@@ -19,8 +19,8 @@ namespace Sprint.Projectile
         private PlaceSmoke smoke;
         private SfxFactory sfxFactory;
 
-        public BlueArrow(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, SceneObjectManager objectManager) :
-            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objectManager)
+        public BlueArrow(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) :
+            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)
         {
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Arrow Shot");
