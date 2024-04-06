@@ -18,7 +18,7 @@ namespace Sprint.Functions
         public void Execute()
         {
             // Tell state to close out and switch game to next state
-            receiver.PassToState(state, false);
+            receiver.PassToState(state);
         }
     }
 }

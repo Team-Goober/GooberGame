@@ -252,13 +252,8 @@ namespace Sprint
             currRoom.EndCycle();
         }
 
-        public void PassToState(IGameState newState, bool reset)
-        {
-            if(reset)
-            {
-                ResetReq();
-            }
-
+        public void PassToState(IGameState newState)
+        { 
             game.GameState = newState;
             if (inputTable != null)
                 inputTable.Sleep();
@@ -334,7 +329,7 @@ namespace Sprint
             // Create new GameState to scroll and then set back to this state
             TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, this);
 
-            PassToState(scroll, false);
+            PassToState(scroll);
 
             // Clean up previous room changes
             rooms[idx.Y][idx.X].EndCycle();
@@ -394,7 +389,7 @@ namespace Sprint
             // Create new GameState to scroll and then set back to this state
             TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, game.InventoryState);
 
-            PassToState(scroll, false);
+            PassToState(scroll);
         }
 
         public void DeathScreen()
@@ -405,7 +400,7 @@ namespace Sprint
 
             //death.GetRoomScene(currRoom);
             death.GetHUDScene(hud);
-            PassToState(death, false);
+            PassToState(death);
         }
 
         public Point RoomIndex()

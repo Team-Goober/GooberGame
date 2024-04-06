@@ -78,7 +78,7 @@ namespace Sprint.GameStates
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new CloseInventoryCommand(this));
         }
 
-        public void PassToState(IGameState newState, bool reset)
+        public void PassToState(IGameState newState)
         {
             game.GameState = newState;
             input.Sleep();
@@ -111,7 +111,7 @@ namespace Sprint.GameStates
             // Create new GameState to scroll and then set back to this state
             TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, game.DungeonState);
 
-            PassToState(scroll, false);
+            PassToState(scroll);
         }
 
     }

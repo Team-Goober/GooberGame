@@ -100,7 +100,7 @@ namespace Sprint.GameStates
             }
         }
 
-        public void PassToState(IGameState newState, bool reset)
+        public void PassToState(IGameState newState)
         {
             game.GameState = newState;
             input.Sleep();
@@ -140,7 +140,8 @@ namespace Sprint.GameStates
 
         public void CloseDeathMenu()
         {
-            PassToState(game.DungeonState, true);
+            ((DungeonState)game.DungeonState).ResetGame();
+            PassToState(game.DungeonState);
         }
     }
 }
