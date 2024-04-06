@@ -18,19 +18,15 @@ namespace Sprint.Characters
         private Vector2 moveDirection; // Movement direction for the random pattern
         private ICommand projectileCommand;
         private SimpleProjectileFactory itemFactory;
-        private Vector2 initialPosition;
 
         public BluebubbleEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
-            // Store the initial position for reference
-            this.initialPosition = initialPosition;
-
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            health = 2;
+            health = CharacterConstants.LOW_HP;
 
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 

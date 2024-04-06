@@ -14,11 +14,7 @@ namespace Sprint.Characters
 {
     internal class HandEnemy : Enemy
     {
-        private float elapsedTime;
-        private Timer timeAttack;
-        private ICommand projectileCommand;
-        private SimpleProjectileFactory itemFactory;
-        private Vector2 initialPosition;
+
         private string lastAnimationName;
         private MoveHand moveHand;
 
@@ -26,15 +22,8 @@ namespace Sprint.Characters
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
-            // Store the initial position for reference
-            this.initialPosition = initialPosition;
 
-            timeAttack = new Timer(2);
-            timeAttack.Start();
-
-            health = 2;
-
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
+            health = CharacterConstants.MID_HP;
 
 
 

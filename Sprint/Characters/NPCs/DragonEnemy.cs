@@ -5,18 +5,17 @@ using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
+using Sprint.Commands.SecondaryItem;
 
 
 namespace Sprint.Characters
 {
     internal class DragonEnemy : Enemy
     {
-        private float elapsedTime;
         private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
         private ICommand projectileCommand;
         private SimpleProjectileFactory itemFactory;
-        private Vector2 initialPosition;
         private string lastAnimationName;
         private SfxFactory sfxFactory;
         private SceneObjectManager objectManager;
@@ -29,16 +28,14 @@ namespace Sprint.Characters
             sfxFactory = SfxFactory.GetInstance();
             this.objectManager = room.GetScene();
 
-            // Store the initial position for reference
-            this.initialPosition = initialPosition;
-
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            health = 10;
+            health = CharacterConstants.HIGH_HP;
 
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
+            projectileCommand = new ShootFireBallC(itemFactory);
 
             moveVert = new MoveVert(physics);
 
@@ -71,6 +68,14 @@ namespace Sprint.Characters
 
 
             moveVert.MoveAI(gameTime);
+            
+            if (timeAttack.JustEnded)
+            {
+                itemFactory.SetStartPosition(physics.Position);
+                itemFactory.SetDirection(moveDirection);
+                projectileCommand.Execute();
+                timeAttack.Start();
+            }
 
             // Set animation based on the new direction
             SetAnimationBasedOnDirection();

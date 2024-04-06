@@ -24,7 +24,6 @@ namespace Sprint.GameStates
         private SceneObjectManager roomManager;
         private SceneObjectManager hudManger;
         private SceneObjectManager playerManger;
-        private Player player;
         private Item triForce;
 
         private Vector2 arenaPosition;
@@ -40,7 +39,6 @@ namespace Sprint.GameStates
             this.input = new InputTable();
             this.roomManager = roomManger;
             this.hudManger = hudManger;
-            this.player = player;
             this.arenaPosition = arenaPosition;
 
             player.WinPose();

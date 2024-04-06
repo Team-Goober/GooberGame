@@ -3,6 +3,7 @@ using Sprint.Interfaces;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
+using Sprint.Characters;
 
 namespace Sprint.Projectile
 {
@@ -21,7 +22,7 @@ namespace Sprint.Projectile
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.LoopSoundEffect("Magical Boomerang Thrown", this);
             returned = false;
-            damage = 2;
+            damage = CharacterConstants.MID_DMG;
         }
 
         public void SetSmokeCommand(PlaceSmoke smoke)

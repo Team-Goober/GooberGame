@@ -72,10 +72,6 @@ namespace Sprint.Characters
                     EnemyDeathEvent?.Invoke();
                     Die();
                 }
-                else
-                {
-                    OnEnemyDamaged?.Invoke(this, EventArgs.Empty);
-                }
             }
         }
 

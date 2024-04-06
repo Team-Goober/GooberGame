@@ -10,11 +10,6 @@ namespace Sprint.Characters
     //Code based on the BluebubbleEnemy.cs file
     internal class SlimeEnemy : Enemy
     {
-        private float elapsedTime;
-        private Vector2 initialPosition;
-        private Vector2 moveDirection; // Movement direction for the random pattern
-        private SimpleProjectileFactory itemFactory;
-        private ICommand projectileCommand;
         private MoveSlime moveSlime;
 
         private Timer timeAttack;
@@ -24,15 +19,10 @@ namespace Sprint.Characters
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
-            // Store the initial position for reference
-            this.initialPosition = initialPosition;
-
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            health = 2;
-
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
+            health = CharacterConstants.LOW_HP;
 
             moveSlime = new MoveSlime(physics);
         }
@@ -43,8 +33,6 @@ namespace Sprint.Characters
 
 
             base.Update(gameTime);
-            // Calculate movement based on elapsed time for the random pattern
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 
 

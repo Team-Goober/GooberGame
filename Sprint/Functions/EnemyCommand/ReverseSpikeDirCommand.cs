@@ -6,7 +6,7 @@ using Sprint.Characters;
 using Microsoft.Xna.Framework;
 using System;
 
-namespace Sprint.Characters
+namespace Sprint.Functions.EnemyCommand
 {
     //Command used for reversing direction of MoveVert when it collides with the Wall
     internal class ReverseSpikeDirCommand : ICommand
@@ -17,14 +17,14 @@ namespace Sprint.Characters
 
         public ReverseSpikeDirCommand(ICollidable receiver, ICollidable effector, Vector2 overlap)
         {
-            this.moveSpike = (MoveSpike)receiver;
+            moveSpike = (MoveSpike)receiver;
             this.overlap = overlap;
         }
 
         public void Execute()
         {
 
-          
+
             if (Math.Abs(overlap.X) > Math.Abs(overlap.Y))
             {
                 moveSpike.ReverseHorDir();
@@ -34,7 +34,7 @@ namespace Sprint.Characters
                 moveSpike.ReverseVerDir();
             }
 
-           
+
         }
     }
 }

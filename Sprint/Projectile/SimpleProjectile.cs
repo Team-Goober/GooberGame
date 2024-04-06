@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Characters;
 using Sprint.Collision;
 using Sprint.Interfaces;
 using Sprint.Levels;
@@ -15,9 +16,10 @@ namespace Sprint.Projectile
         protected bool isEnemy;
         protected double damage;
 
-        public Rectangle BoundingBox => new((int)(position.X - 4 * 3),
-            (int)(position.Y - 4 * 3),
-            8*3, 8*3);
+        public virtual Rectangle BoundingBox => new((int)(position.X - CharacterConstants.PROJECTILE_SIDE_LENGTH/2 * CharacterConstants.COLLIDER_SCALE),
+            (int)(position.Y - CharacterConstants.PROJECTILE_SIDE_LENGTH/2 * CharacterConstants.COLLIDER_SCALE),
+            CharacterConstants.PROJECTILE_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE, 
+            CharacterConstants.PROJECTILE_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE);
 
         public virtual CollisionTypes[] CollisionType {
             get

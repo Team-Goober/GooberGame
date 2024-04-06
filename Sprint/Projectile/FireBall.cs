@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
+using Sprint.Characters;
 
 namespace Sprint.Projectile
 {
@@ -17,10 +18,10 @@ namespace Sprint.Projectile
         public FireBall(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) :
             base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)
         {
-            sitTimer = new Timer(1);
+            sitTimer = new Timer(1.5);
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Flames Shot");
-            damage = 1;
+            damage = CharacterConstants.LOW_DMG;
         }
 
         public override void Dissipate()

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprint.Characters;
 using Sprint.Collision;
 using Sprint.Interfaces;
 using Sprint.Levels;
@@ -14,7 +15,7 @@ namespace Sprint.Projectile
         public Smoke(ISprite sprite, Vector2 startPos, Room room) : base(sprite, startPos, false, room)
         {
             smokeTimer = new Timer(0.5);
-            damage = 0;
+            damage = CharacterConstants.NO_DMG;
         }
 
         public override void Create()

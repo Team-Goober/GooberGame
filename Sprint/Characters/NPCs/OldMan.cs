@@ -12,29 +12,17 @@ namespace Sprint.Characters
     internal class OldMan : Enemy
     {
         private float elapsedTime;
-        private Vector2 initialPosition;
         private Vector2 moveDirection; // Movement direction for the random pattern
-        private SimpleProjectileFactory itemFactory;
-        private ICommand projectileCommand;
-
-        private Timer timeAttack;
 
 
         public OldMan(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
-            // Store the initial position for reference
-            this.initialPosition = initialPosition;
 
-            timeAttack = new Timer(2);
-            timeAttack.Start();
+            health = CharacterConstants.MAX_HP;
 
-            health = 99999;
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
-
-            projectileCommand = new ShootArrowCommand(itemFactory);
 
 
             // Initialize the move direction randomly

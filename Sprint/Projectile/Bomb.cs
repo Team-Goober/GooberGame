@@ -4,6 +4,7 @@ using Sprint.Interfaces;
 using Sprint.Collision;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
+using Sprint.Characters;
 
 namespace Sprint.Projectile
 {
@@ -24,6 +25,21 @@ namespace Sprint.Projectile
             }
         }
 
+
+        public override Rectangle BoundingBox
+        {
+            get
+            {
+                int sideLength = CharacterConstants.PROJECTILE_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
+                // Double side length during explosion
+                if (!explosionTimer.Ended)
+                {
+                    sideLength *= 4;
+                }
+                return new((int)(position.X - sideLength / 2), (int)(position.Y - sideLength / 2), sideLength, sideLength);
+            }
+        }
+
         private const int SPEED = 150;
         private const int TRAVEL = 50;
 
@@ -33,7 +49,7 @@ namespace Sprint.Projectile
             explosionTimer = new Timer(1);
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Bomb Placement");
-            damage = 4;
+            damage = CharacterConstants.HIGH_DMG;
         }
 
         public override void Dissipate()

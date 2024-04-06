@@ -10,10 +10,6 @@ namespace Sprint.Characters
     //Code based on the BluebubbleEnemy.cs file
     internal class SpikeEnemy : Enemy
     {
-        private float elapsedTime;
-        private Vector2 initialPosition;
-        private Vector2 moveDirection; // Movement direction for the random pattern
-        private SimpleProjectileFactory itemFactory;
 
         private Timer timeAttack;
 
@@ -26,13 +22,9 @@ namespace Sprint.Characters
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
-            // Store the initial position for reference
-            this.initialPosition = initialPosition;
-            health = 99999;
+            health = CharacterConstants.MAX_HP;
             timeAttack = new Timer(2);
             timeAttack.Start();
-
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
             moveSpike = new MoveSpike(physics);
         }
@@ -41,11 +33,7 @@ namespace Sprint.Characters
         // Update logic
         public override void Update(GameTime gameTime)
         {
-
-
             base.Update(gameTime);
-            // Calculate movement based on elapsed time for the random pattern
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             moveSpike.MoveAI(gameTime);
 

@@ -3,6 +3,7 @@ using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Music.Sfx;
+using Sprint.Characters;
 
 namespace Sprint.Projectile
 {
@@ -19,7 +20,7 @@ namespace Sprint.Projectile
         {
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Arrow Shot");
-            damage = 1;
+            damage = CharacterConstants.LOW_DMG;
         }
 
         public void SetSmokeCommand(PlaceSmoke smoke)

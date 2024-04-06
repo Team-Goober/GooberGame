@@ -12,7 +12,7 @@ namespace Sprint.Characters.NPCs
         public FireBallEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader) : base(sprite, damagedSprite, initialPosition, room)
         {
             // NPC
-            health = 99999;
+            health = CharacterConstants.MID_HP;
         }
 
     }

@@ -26,7 +26,6 @@ namespace Sprint.Characters
         private SfxFactory sfxFactory;
 
         private ISprite sprite;
-        private ISprite defaultSprite;
         private SpriteLoader spriteLoader;
         private ISprite damagedSprite;
 
@@ -41,13 +40,13 @@ namespace Sprint.Characters
         private Physics physics;
 
         // Player variables
-        private int sideLength = 3 * 16;
-        private int maxHealth = 3;
-        private double health = 3;
+        private int sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
+        private int maxHealth = CharacterConstants.STARTING_HEALTH;
+        private double health = CharacterConstants.STARTING_HEALTH;
 
         private ProjectileSystem secondaryItems;
         private SwordCollision swordCollision;
-        private const int swordWidth = 40, swordLength = 90;
+        private const int swordWidth = CharacterConstants.SWORD_WIDTH, swordLength = CharacterConstants.SWORD_LENGTH;
 
         public Vector2 Facing { get; private set; }
 
@@ -58,7 +57,7 @@ namespace Sprint.Characters
 
         public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
 
-        private const float speed = 200;
+        private float speed = CharacterConstants.PLAYER_SPEED;
 
         private Timer attackTimer;
         private Timer castTimer;
@@ -345,11 +344,13 @@ namespace Sprint.Characters
             // sound playing
             sfxFactory.PlaySoundEffect("Player Hurt");
             // switching sprites
-            defaultSprite = sprite;
             sprite = damagedSprite;
             damageTimer.Start();
             double prevHealth = health;
             health -= dmg;
+
+            OnPlayerHealthChange?.Invoke(prevHealth, health);
+
             // Trigger death when health is at or below 0
             if (health <= 0.0)
             {
@@ -361,7 +362,6 @@ namespace Sprint.Characters
                 health = maxHealth;
             }
 
-            OnPlayerHealthChange?.Invoke(prevHealth, health);
         }
 
 

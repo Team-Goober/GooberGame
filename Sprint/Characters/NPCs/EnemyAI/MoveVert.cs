@@ -6,13 +6,8 @@ namespace Sprint.Characters
     public class MoveVert : EnemyAI
     {
         private float elapsedTime;
-        private Timer timeAttack;
         public Vector2 moveDirection; // Movement direction for the random pattern
         public Vector2 directionFace;
-
-
-
-        private Vector2 initialPosition;
 
         Physics physics;
 

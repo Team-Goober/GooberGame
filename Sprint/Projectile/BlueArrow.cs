@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Characters;
 using Sprint.Collision;
 using Sprint.Commands;
 using Sprint.Functions.SecondaryItem;
@@ -24,7 +25,7 @@ namespace Sprint.Projectile
         {
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Arrow Shot");
-            damage = 2;
+            damage = CharacterConstants.MID_DMG;
         }
 
         public void SetSmokeCommand(PlaceSmoke smoke)

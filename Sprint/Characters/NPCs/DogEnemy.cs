@@ -10,12 +10,10 @@ namespace Sprint.Characters
 {
     internal class DogEnemy : Enemy
     {
-        private float elapsedTime;
         private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
         private ICommand projectileCommand;
         private SimpleProjectileFactory itemFactory;
-        private Vector2 initialPosition;
         private string lastAnimationName;
         private MoveVert moveVert;
 
@@ -23,13 +21,10 @@ namespace Sprint.Characters
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
-            // Store the initial position for reference
-            this.initialPosition = initialPosition;
-
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            health = 3;
+            health = CharacterConstants.MID_HP;
 
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 

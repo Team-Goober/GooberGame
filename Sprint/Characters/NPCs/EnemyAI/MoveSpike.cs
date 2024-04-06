@@ -14,13 +14,9 @@ namespace Sprint.Characters
     public class MoveSpike : EnemyAI
     {
         private float elapsedTime;
-        private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
         public Vector2 directionFace;
 
-
-
-        private Vector2 initialPosition;
 
         Physics physics;
 
