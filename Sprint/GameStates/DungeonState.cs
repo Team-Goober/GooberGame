@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Sprint.Functions.Music;
 using Sprint.Music.Sfx;
+using Sprint.Door;
 
 namespace Sprint
 {
@@ -93,6 +94,7 @@ namespace Sprint
 
             inventory.WinEvent += this.WinScreen;
             player.OnPlayerDamaged += hudLoader.UpdateHeartAmount;
+
         }
 
         private void unloadDelegates()
@@ -258,6 +260,8 @@ namespace Sprint
 
             // Complete additions and deletions resulting from collisions
             currRoom.EndCycle();
+
+            CheckPuzzle(); // TESTING
         }
 
         public void PassToState(IGameState newState)
@@ -388,6 +392,7 @@ namespace Sprint
                     target = new Point(0, (target.Y + 1) % rooms.Length);
                 }
             }
+            
             SwitchRoom(roomStartPosition, target, Directions.STILL);
         }
 
@@ -430,6 +435,7 @@ namespace Sprint
         {
             WinState win = new WinState(game, hudLoader.GetTopDisplay(), rooms[currentRoom.Y][currentRoom.X].GetScene(), player, spriteLoader, arenaPosition);
             PassToState(win);
+        }
             
         public void DeathScreen()
         {
@@ -505,6 +511,83 @@ namespace Sprint
         public Point GetCompassPointer()
         {
             return compassPointer;
+        }
+
+        private bool solved1 = false;
+        private bool solved2 = false;
+        private bool solved3 = false;
+
+        public void CheckPuzzle()
+        {            
+            if (currentRoom == new Point(2, 4) && !solved2)
+            {
+                Room room = GetRoomAt(new Point(2, 4));
+                SceneObjectManager scene = room.GetScene();
+                int count = room.GetEnemyCount();
+                foreach (IGameObject g in scene.GetObjects())
+                {
+                    if (g is MoveWallTile && count == 0)
+                    {
+                        (Vector2, Vector2) pos = ((MoveWallTile)g).GetPosition();
+                        solved1 = pos.Item1 != pos.Item2;
+                    }
+                }
+            } else if (currentRoom == new Point(5, 3) && !solved2)
+            {
+                Room room = GetRoomAt(new Point(5, 3));
+                int count = room.GetEnemyCount();
+                if(count == 0)
+                {
+                    solved2 = true;
+                }
+            } else if (currentRoom == new Point(2, 5) && !solved3)
+            {
+                Room room = GetRoomAt(new Point(2, 5));
+                int count = room.GetEnemyCount();
+                if (count == 0)
+                {
+                    solved3 = true;
+                }
+            }
+
+            if(solved1)
+            {
+                Room room = GetRoomAt(new Point(2, 4));
+                List<IDoor> doors = room.GetDoors();
+                foreach (IDoor g in doors)
+                {
+                    if(g is PuzzleDoor)
+                    {
+                        g.SetOpen(true);
+                    }
+                }
+            }
+
+            if(solved2)
+            {
+                Room room = GetRoomAt(new Point(5, 3));
+                List<IDoor> doors = room.GetDoors();
+                foreach (IDoor g in doors)
+                {
+                    if (g is PuzzleDoor)
+                    {
+                        g.SetOpen(true);
+                    }
+                }
+            }
+
+            if (solved3)
+            {
+                Room room = GetRoomAt(new Point(2, 5));
+                List<IDoor> doors = room.GetDoors();
+                foreach (IDoor g in doors)
+                {
+                    if (g is PuzzleDoor)
+                    {
+                        g.SetOpen(true);
+                    }
+                }
+            }
         }
 
     }

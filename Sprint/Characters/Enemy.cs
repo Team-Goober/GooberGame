@@ -6,6 +6,8 @@ using Sprint.Levels;
 using Sprint.Music.Sfx;
 using System.Runtime.Serialization;
 using System;
+using System.Threading.Tasks.Dataflow;
+using System.Diagnostics;
 
 namespace Sprint.Characters
 {
@@ -15,14 +17,13 @@ namespace Sprint.Characters
         protected ISprite defaultSprite;
         protected ISprite damagedSprite;
         protected Physics physics;
-        public double hp;
 
         private Timer damageTimer;
         public event EventHandler OnEnemyDamaged;
         public event EventHandler OnEnemyDied;
         protected Room room;
         private SfxFactory sfxFactory;
-        
+        protected double health;
 
         public Enemy(ISprite sprite, ISprite damagedSprite, Vector2 position, Room room)
         {
@@ -52,11 +53,24 @@ namespace Sprint.Characters
             physics.SetPosition(physics.Position + distance);
         }
 
-        public override void TakeDamage()
+        public delegate void EnemyDeathDelegate();
+        public event EnemyDeathDelegate EnemyDeathEvent;
+
+        public override void TakeDamage(double dmg)
         {
-                damageTimer.Start();
-                this.sprite = damagedSprite;
+            damageTimer.Start();
+            this.sprite = damagedSprite;
+            health -= dmg;
+            // Trigger death when health is at or below 0
+            if (health <= 0.0)
+            {
+                EnemyDeathEvent?.Invoke();
+                Die();
+            }
+            else
+            {
                 OnEnemyDamaged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -72,18 +86,13 @@ namespace Sprint.Characters
                 // switch back to default sprite (non-damaged)
                 this.sprite = this.defaultSprite;
 
-                // Trigger death when health is at or below 0
-                if (hp <= 0.0)
-                {
-                    this.Die();
-                }
             }
         }
+
 
         // Remove enemy from game
         public override void Die()
         {
-            OnEnemyDied?.Invoke(this, EventArgs.Empty);
             room.GetScene().Remove(this);
             sfxFactory.PlaySoundEffect("Enemy Death");
         }

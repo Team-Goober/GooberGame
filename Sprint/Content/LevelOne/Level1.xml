@@ -148,6 +148,14 @@
 				<Type>floor</Type>
 			</Value>
 		</Item>
+
+		<Item>
+			<Key>X</Key>
+			<Value>
+				<SpriteName>bevelTile</SpriteName>
+				<Type>moveWall</Type>
+			</Value>
+		</Item>
     </TileReferences>
 	  
     <DoorSize>128 128</DoorSize>
@@ -311,7 +319,7 @@
               <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
               <Item>0 0 0 0 0 0 1 0 0 0 0 0</Item>
               <Item>0 0 0 0 0 1 0 1 0 0 0 0</Item>
-              <Item>0 0 0 0 0 0 3 0 1 0 0 0</Item>
+              <Item>0 0 0 0 X 0 3 0 1 0 0 0</Item>
               <Item>0 0 0 0 0 1 0 1 0 0 0 0</Item>
               <Item>0 0 0 0 0 0 1 0 0 0 0 0</Item>
               <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -556,7 +564,7 @@
             <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
             <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
             <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-            <Item>0 0 0 0 0 1 0 0 0 0 0 0</Item>
+            <Item>0 0 0 0 0 X 0 0 0 0 0 0</Item>
             <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
             <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
             <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>

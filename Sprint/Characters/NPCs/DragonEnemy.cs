@@ -8,6 +8,8 @@ using Sprint.Sprite;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
 using System.Runtime.Serialization;
+using Sprint.Items;
+using System.Collections.Generic;
 
 
 namespace Sprint.Characters
@@ -30,7 +32,7 @@ namespace Sprint.Characters
         {
 
             sfxFactory = SfxFactory.GetInstance();
-            this.objectManager = objectManager;
+            this.objectManager = room.GetScene();
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
@@ -38,7 +40,7 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            hp = 10;
+            health = 10;
 
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
@@ -114,7 +116,6 @@ namespace Sprint.Characters
 
 
         }
-
 
 
         // Remove enemy from game

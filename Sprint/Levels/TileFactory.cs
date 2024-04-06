@@ -41,6 +41,10 @@ namespace Sprint.Levels
             {
                 return new GapTile(sprite, position, size);
             }
+            else if (type.Equals("moveWall"))
+            {
+                return new MoveWallTile(sprite, position, size);
+            }
             else
             {
                 return null;

@@ -9,6 +9,7 @@ namespace Sprint.Levels
     {
         ISprite sprite;
         Vector2 position;
+        Vector2 originalPosition;
         Rectangle bounds;
 
         public Rectangle BoundingBox => bounds;
@@ -19,6 +20,7 @@ namespace Sprint.Levels
         {
             this.sprite = sprite;
             this.position = position;
+            this.originalPosition = position;
             bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
         }
 
@@ -44,6 +46,11 @@ namespace Sprint.Levels
             position = position + distance;
             bounds.X = (int)position.X;
             bounds.Y = (int)position.Y;
+        }
+
+        public (Vector2, Vector2) GetPosition()
+        {
+            return (originalPosition, position);
         }
     }
 }

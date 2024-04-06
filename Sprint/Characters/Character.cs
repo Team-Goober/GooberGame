@@ -13,7 +13,7 @@ namespace Sprint.Characters
 
         public abstract void Die();
 
-        public abstract void TakeDamage();
+        public abstract void TakeDamage(double damage);
 
     }
 }

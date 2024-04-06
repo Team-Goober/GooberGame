@@ -29,7 +29,7 @@ namespace Sprint.Characters
         private ISprite damagedSprite;
 
         public event EventHandler OnPlayerDied;
-        protected double hp = 3.0;
+        protected double health = 3;
         protected double swordDmg = 1; 
 
         public delegate void HealthUpdateDelegate(double health);
@@ -329,7 +329,7 @@ namespace Sprint.Characters
             return physics;
         }
 
-        public override void TakeDamage()
+        public override void TakeDamage(double dmg)
         {
             // Invincible until timer goes down
             if (!damageTimer.Ended)
@@ -343,9 +343,16 @@ namespace Sprint.Characters
             sprite = damagedSprite;
             damageTimer.Start();
 
-            OnPlayerDamaged?.Invoke(hp);
-
-            hp -= .5;
+            health -= 0.5;
+            // Trigger death when health is at or below 0
+            if (health <= 0.0)
+            {
+                this.Die();
+            }
+            else
+            {
+                OnPlayerDamaged?.Invoke(health);
+            }
         }
 
 
@@ -375,11 +382,6 @@ namespace Sprint.Characters
                 sprite = spriteLoader.BuildSprite("playerAnims", "player");
                 returnToBaseAnim();
 
-                // Trigger death when health is at or below 0
-                if(hp <= 0.0)
-                {
-                    this.Die();
-                }
             }
             physics.Update(gameTime);
             sprite.Update(gameTime);

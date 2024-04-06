@@ -16,7 +16,7 @@ namespace Sprint.Characters
         private float elapsedTime;
         private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
-        public DirectionFace directionFace;
+        public Vector2 directionFace;
 
 
         
@@ -65,7 +65,7 @@ namespace Sprint.Characters
             // Generate a random movement direction
             Random random = new Random();
             int indDir = random.Next(4);
-            directionFace = (DirectionFace)indDir;
+            directionFace = Directions.GetDirectionFromIndex(indDir);
             SetDirection(directionFace);
             
 
@@ -74,28 +74,9 @@ namespace Sprint.Characters
 
 
         // Set the direction of the move AI
-        public void SetDirection(DirectionFace direction)
+        public void SetDirection(Vector2 direction)
         {
-            switch (direction)
-            {
-                case DirectionFace.UP:
-                    moveDirection = new Vector2(0, -1);
-                    break;
-                case DirectionFace.LEFT:
-                    moveDirection = new Vector2(-1, 0);
-                    break;
-                case DirectionFace.DOWN:
-                    moveDirection = new Vector2(0, 1);
-                    break;
-                case DirectionFace.RIGHT:
-                    moveDirection = new Vector2(1, 0);
-                    break;
-                default:
-                    moveDirection = Vector2.Zero;
-                    break;
-            }
-
-            
+            moveDirection = direction;
 
         }
 
