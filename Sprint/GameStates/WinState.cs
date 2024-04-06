@@ -11,12 +11,20 @@ using System.Drawing;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Color = Microsoft.Xna.Framework.Color;
 using System;
+using Microsoft.Xna.Framework.Input;
+using Sprint.Input;
+using Sprint.Commands;
+using Sprint.Functions.WinStateCommands;
 
 
 namespace Sprint.GameStates
 {
     internal class WinState : IGameState
     {
+        private Goober game;
+
+        private IInputMap input;
+
         private SceneObjectManager roomManager;
         private SceneObjectManager hudManger;
         private SceneObjectManager playerManger;
@@ -29,9 +37,11 @@ namespace Sprint.GameStates
         private int currtainPostionX2;
         private int currtainAreaX2;
 
-        public WinState(Game game, SceneObjectManager hudManger, SceneObjectManager roomManger, Player player, SpriteLoader spriteLoader, Vector2 arenaPosition)
+        public WinState(Goober game, SceneObjectManager hudManger, SceneObjectManager roomManger, Player player, SpriteLoader spriteLoader, Vector2 arenaPosition)
         {
             playerManger = new SceneObjectManager();
+            this.game = game;
+            this.input = new InputTable();
             this.roomManager = roomManger;
             this.hudManger = hudManger;
             this.player = player;
@@ -54,6 +64,8 @@ namespace Sprint.GameStates
 
             currtainPostionX2 = 1024;
             currtainAreaX2 = 0;
+
+            MakeCommands();
         }
 
         public List<SceneObjectManager> AllObjectManagers()
@@ -96,13 +108,21 @@ namespace Sprint.GameStates
 
         public void MakeCommands()
         {
-            throw new NotImplementedException();
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new CloseWin(this));
         }
 
         public void PassToState(IGameState newState)
         {
-            throw new NotImplementedException();
+            game.GameState = newState;
+            input.Sleep();
         }
+
+        public void CloseWin()
+        {
+            ((DungeonState)game.GetDungeonState()).ResetGame();
+            PassToState(game.GetDungeonState());
+        }
+
 
         public void Update(GameTime gameTime)
         {
@@ -113,7 +133,7 @@ namespace Sprint.GameStates
                 currtainAreaX2 += 10;
                 currtainPostionX2 -= 10;
             }
-
+            input.Update(gameTime);
             triForce.Update(gameTime);
             hudManger.EndCycle();
             playerManger.EndCycle();
