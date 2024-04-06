@@ -37,7 +37,7 @@
 ## Known Bugs
 - On some machines you have to write "dotnet restore" in the terminal to run the game
 - Dragon is having collision issues
-- Spike flys off the map
+- Some enemies fly off the map when pushed
 - Boomerang sound effect sometimes goes on an infinite loop when switching between rooms
 
 ## Assumption

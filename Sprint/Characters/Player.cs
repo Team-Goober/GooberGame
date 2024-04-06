@@ -363,6 +363,8 @@ namespace Sprint.Characters
             {
                 sprite = spriteLoader.BuildSprite("playerAnims", "player");
                 returnToBaseAnim();
+
+                // Trigger death when health is at or below 0
                 if(hp <= 0.0)
                 {
                     this.Die();
