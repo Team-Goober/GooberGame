@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Characters;
 using Sprint.Interfaces;
-using Sprint.Projectile;
 
 namespace Sprint.Functions.SecondaryItem
 {

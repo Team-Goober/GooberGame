@@ -19,8 +19,7 @@ namespace Sprint.Characters
         protected Physics physics;
 
         private Timer damageTimer;
-        public event EventHandler OnEnemyDamaged;
-        public event EventHandler OnEnemyDied;
+        
         protected Room room;
         private SfxFactory sfxFactory;
         protected double health;
@@ -66,10 +65,6 @@ namespace Sprint.Characters
             {
                 EnemyDeathEvent?.Invoke();
                 Die();
-            }
-            else
-            {
-                OnEnemyDamaged?.Invoke(this, EventArgs.Empty);
             }
         }
 

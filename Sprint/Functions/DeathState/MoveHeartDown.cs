@@ -1,6 +1,5 @@
 ﻿using Sprint.GameStates;
 using Sprint.Interfaces;
-using System.Diagnostics;
 
 namespace Sprint.Functions.DeathState
 {

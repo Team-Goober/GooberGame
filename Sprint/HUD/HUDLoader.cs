@@ -8,8 +8,6 @@ using Sprint.Loader;
 using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Diagnostics;
 using XMLData;
 
 

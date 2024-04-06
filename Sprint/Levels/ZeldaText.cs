@@ -2,11 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Sprint.Interfaces;
-using System.Diagnostics;
 using System.Collections.Generic;
-using Sprint.Projectile;
-using System.Security;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Sprint.Levels
 {

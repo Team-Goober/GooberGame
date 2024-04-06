@@ -1,5 +1,4 @@
-﻿
-using Sprint.Interfaces;
+﻿using Sprint.Interfaces;
 
 namespace Sprint.Functions
 {

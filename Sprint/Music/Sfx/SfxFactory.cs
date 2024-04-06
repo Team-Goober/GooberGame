@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Media;
 using XMLData;
 using System.Diagnostics;
 using Sprint.Interfaces;
@@ -219,11 +217,5 @@ namespace Sprint.Music.Sfx
             }
         }
 
-
-        public void StopLoops()
-        {
-
-        }
-
-}
+    }
 }

@@ -1,14 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using Sprint.Sprite;
-using System;
-using Microsoft.Xna.Framework.Audio;
-using Sprint.Collision;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
-using System.Diagnostics;
 
 namespace Sprint.Projectile
 {

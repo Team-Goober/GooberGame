@@ -1,6 +1,4 @@
-﻿
-
-using Sprint.GameStates;
+﻿using Sprint.GameStates;
 using Sprint.Interfaces;
 
 namespace Sprint.Functions
@@ -17,7 +15,5 @@ namespace Sprint.Functions
         {
             receiver.SelectSlot();
         }
-
-
     }
 }

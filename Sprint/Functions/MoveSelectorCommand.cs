@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.GameStates;
 using Sprint.Interfaces;
-using System.Numerics;
 
 namespace Sprint.Functions
 {

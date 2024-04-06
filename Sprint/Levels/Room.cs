@@ -1,9 +1,7 @@
 ﻿using Sprint.Characters;
 using Sprint.Interfaces;
 using Sprint.Items;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Sprint.Levels
 {

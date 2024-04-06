@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprint.Characters;
 using Sprint.Collision;
 using Sprint.Interfaces;
 using Sprint.Levels;
-using System;
 
 namespace Sprint.Projectile
 {

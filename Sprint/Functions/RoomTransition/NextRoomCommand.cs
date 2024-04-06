@@ -1,6 +1,4 @@
 ﻿using Sprint.Interfaces;
-using Sprint.Levels;
-using Microsoft.Xna.Framework;
 
 namespace Sprint.Functions.RoomTransition
 {

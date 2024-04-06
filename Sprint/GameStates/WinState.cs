@@ -6,14 +6,10 @@ using Sprint.Characters;
 using System.Collections.Generic;
 using Sprint.Items;
 using Sprint.Sprite;
-using System.Diagnostics;
-using System.Drawing;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Color = Microsoft.Xna.Framework.Color;
-using System;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Input;
-using Sprint.Commands;
 using Sprint.Functions.WinStateCommands;
 
 
