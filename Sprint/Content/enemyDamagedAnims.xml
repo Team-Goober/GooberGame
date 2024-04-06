@@ -4,7 +4,7 @@
     <Item>
       <Key>bluebubble</Key>
       <Value>
-        <Texture>zelda_enemies</Texture>
+        <Texture>Damaged/zelda_enemies</Texture>
         <Animations>
           <Item>
             <Key>upFacing</Key>
@@ -42,7 +42,7 @@
     <Item>
       <Key>jellyfish</Key>
       <Value>
-        <Texture>zelda_enemies</Texture>
+        <Texture>Damaged/zelda_enemies</Texture>
         <Animations>
           <Item>
             <Key>upFacing</Key>
@@ -80,7 +80,7 @@
     <Item>
       <Key>skeleton</Key>
       <Value>
-        <Texture>zelda_enemies</Texture>
+        <Texture>Damaged/zelda_enemies</Texture>
         <Animations>
           <Item>
             <Key>moving</Key>
@@ -91,7 +91,7 @@
               <Padding>16</Padding>
               <CenterPoint>7.5 8</CenterPoint>
               <Loop>true</Loop>
-              <Framerate>3</Framerate>
+              <Framerate>15</Framerate>
             </Value>
           </Item>
         </Animations>
@@ -102,7 +102,7 @@
 	<Item>
 		  <Key>dog</Key>
 		  <Value>
-			  <Texture>zelda_enemies</Texture>
+			  <Texture>Damaged/zelda_enemies</Texture>
 			  <Animations>
 				  <Item>
 					  <Key>upFacing</Key>
@@ -113,7 +113,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>3</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 				  <Item>
@@ -125,7 +125,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>3</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 				  <Item>
@@ -137,7 +137,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>3</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 				  <Item>
@@ -149,7 +149,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>3</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -160,7 +160,7 @@
 	  <Item>
 		  <Key>bat</Key>
 		  <Value>
-			  <Texture>zelda_enemies</Texture>
+			  <Texture>Damaged/zelda_enemies</Texture>
 			  <Animations>
 				  <Item>
 					  <Key>moving</Key>
@@ -171,7 +171,7 @@
 						  <Padding>6</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>3</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -182,7 +182,7 @@
 	  <Item>
 		  <Key>hand</Key>
 		  <Value>
-			  <Texture>zelda_enemies</Texture>
+			  <Texture>Damaged/zelda_enemies</Texture>
 			  <Animations>
 				  <Item>
 					  <Key>leftFacing</Key>
@@ -193,7 +193,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>3</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 				  <Item>
@@ -205,7 +205,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>3</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -216,7 +216,7 @@
 	  <Item>
 		  <Key>dragonmov</Key>
 		  <Value>
-			  <Texture>boss_zelda</Texture>
+			  <Texture>Damaged/boss_zelda</Texture>
 			  <Animations>
 				  <Item>
 					  <Key>dragmoving</Key>
@@ -227,7 +227,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>14 23</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>2</Framerate>
+						  <Framerate>5</Framerate>
 					  </Value>
 				  </Item>
 				  
@@ -239,7 +239,7 @@
 	  <Item>
 		  <Key>slime</Key>
 		  <Value>
-			  <Texture>zelda_enemies</Texture>
+			  <Texture>Damaged/zelda_enemies</Texture>
 			  <Animations>
 				  <Item>
 					  <Key>moving</Key>
@@ -250,7 +250,7 @@
 						  <Padding>16</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>3</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -261,7 +261,7 @@
 	  <Item>
 		  <Key>spike</Key>
 		  <Value>
-			  <Texture>zelda_enemies</Texture>
+			  <Texture>Damaged/zelda_enemies</Texture>
 			  <Animations>
 				  <Item>
 					  <Key>moving</Key>
@@ -272,7 +272,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>0 0</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>3</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -285,7 +285,7 @@
 	  <Item>
 		  <Key>oldman</Key>
 		  <Value>
-			  <Texture>oldMan</Texture>
+			  <Texture>Damaged/oldMan</Texture>
 			  <Animations>
 				  <Item>
 					  <Key>moving</Key>
@@ -296,7 +296,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>8 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>3</Framerate>
+						  <Framerate>15</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -304,29 +304,29 @@
 			  <InitialAnimation>moving</InitialAnimation>
 		  </Value>
 	  </Item>
-
-    <Item>
-      <Key>fireball</Key>
-      <Value>
-        <Texture>Items/FireBall</Texture>
-        <Animations>
-          <Item>
-            <Key>fireball</Key>
-            <Value Type="XMLData.AutoAtlasData">
-              <SheetArea>0 0 33 16</SheetArea>
-              <Rows>1</Rows>
-              <Cols>2</Cols>
-              <Padding>1</Padding>
-              <CenterPoint>8 8</CenterPoint>
-              <Loop>true</Loop>
-              <Framerate>9</Framerate>
-            </Value>
-          </Item>
-        </Animations>
-        <Scale>4</Scale>
-        <InitialAnimation>fireball</InitialAnimation>
-      </Value>
-    </Item>
-
+	  
+	  <Item>
+		  <Key>fireball</Key>
+		  <Value>
+			  <Texture>Items/FireBall</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>fireball</Key>
+					  <Value Type="XMLData.AutoAtlasData">
+						  <SheetArea>0 0 33 16</SheetArea>
+						  <Rows>1</Rows>
+						  <Cols>2</Cols>
+						  <Padding>1</Padding>
+						  <CenterPoint>8 8</CenterPoint>
+						  <Loop>true</Loop>
+						  <Framerate>16</Framerate>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>fireball</InitialAnimation>
+		  </Value>
+	  </Item>
+	  
   </Asset>
 </XnaContent>

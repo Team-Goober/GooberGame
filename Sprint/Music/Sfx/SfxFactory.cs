@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Media;
 using XMLData;
+using System.Diagnostics;
+using Sprint.Interfaces;
 
 namespace Sprint.Music.Sfx
 {
@@ -15,7 +17,8 @@ namespace Sprint.Music.Sfx
         private float currentVolume;
         private int volumeCounter;
         private bool isMuted;
-
+        // For each object, stores the sound effect instances with corresponding labels
+        private Dictionary<object, Dictionary<SoundEffectInstance, string>> loopingInstances;
 
         public SfxFactory()
         {
@@ -23,6 +26,7 @@ namespace Sprint.Music.Sfx
             currentVolume = 0.1f;
             volumeCounter = 1;
             isMuted = false;
+            loopingInstances = new();
         }
 
         /// <summary>
@@ -70,6 +74,92 @@ namespace Sprint.Music.Sfx
         public void PlaySoundEffect(string name)
         {
             soundEffects[name].Play();
+        }
+
+        public void LoopSoundEffect(string name, object owner)
+        {
+            SoundEffectInstance sfx = GetSoundEffect(name);
+
+            // Register the sound effect in the looping dict
+            if (!loopingInstances.ContainsKey(owner))
+            {
+                loopingInstances.Add(owner, new());
+            }
+            loopingInstances[owner].Add(sfx, name);
+
+            // play the sound
+            sfx.IsLooped = true;
+            sfx.Play();
+        }
+
+
+        public void EndLoopSoundEffect(string name, object owner)
+        {
+            // Handle case where object already removed
+            if (!loopingInstances.ContainsKey(owner))
+            {
+                return;
+            }
+            // Deregister the sound effect from the looping dict
+            SoundEffectInstance target = null;
+            foreach(KeyValuePair<SoundEffectInstance, string> kvp in loopingInstances[owner])
+            {
+                if (kvp.Value.Equals(name))
+                {
+                    target = kvp.Key;
+                }
+                break;
+            }
+            Debug.Assert(target != null);
+            // Remove entries that no longer exist
+            loopingInstances[owner].Remove(target);
+            if (loopingInstances[owner].Count == 0)
+            {
+                loopingInstances.Remove(owner);
+            }
+            // Stop the sound
+            target.Stop();
+        }
+
+        public void PauseLoopsForObjects(List<IGameObject> objs)
+        {
+            foreach (object o in objs)
+            {
+                if (loopingInstances.ContainsKey(o))
+                {
+                    Dictionary<SoundEffectInstance, string> sfxs = loopingInstances[o];
+                    foreach (KeyValuePair<SoundEffectInstance, string> kvp in sfxs)
+                    {
+                        kvp.Key.Pause();
+                    }
+                }
+            }
+        }
+
+        public void ResumeLoopsForObjects(List<IGameObject> objs)
+        {
+            foreach (object o in objs)
+            {
+                if (loopingInstances.ContainsKey(o))
+                {
+                    Dictionary<SoundEffectInstance, string> sfxs = loopingInstances[o];
+                    foreach (KeyValuePair<SoundEffectInstance, string> kvp in sfxs)
+                    {
+                        kvp.Key.Resume();
+                    }
+                }
+            }
+        }
+
+        public void EndAllLoops()
+        {
+            foreach (KeyValuePair<object, Dictionary<SoundEffectInstance, string>> kvp in loopingInstances){
+                foreach(KeyValuePair<SoundEffectInstance, string> kvp2 in kvp.Value)
+                {
+                    kvp2.Key.Stop();
+                }
+            }
+            loopingInstances.Clear();
         }
 
         /// <summary>
@@ -129,5 +219,11 @@ namespace Sprint.Music.Sfx
             }
         }
 
-    }
+
+        public void StopLoops()
+        {
+
+        }
+
+}
 }

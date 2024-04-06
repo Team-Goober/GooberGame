@@ -26,8 +26,8 @@ namespace Sprint.Characters
         private Timer timeAttack;
 
 
-        public SlimeEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, room)
+        public SlimeEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -36,9 +36,9 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
+            hp = 2;
+
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
-
-
 
             moveSlime = new MoveSlime(physics);
         }
@@ -48,7 +48,7 @@ namespace Sprint.Characters
         {
 
 
-
+            base.Update(gameTime);
             // Calculate movement based on elapsed time for the random pattern
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 

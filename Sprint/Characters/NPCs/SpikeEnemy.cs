@@ -30,30 +30,28 @@ namespace Sprint.Characters
 
 
 
-        public SpikeEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, room)
+        public SpikeEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
-
+            hp = 99999;
             timeAttack = new Timer(2);
             timeAttack.Start();
 
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
             moveSpike = new MoveSpike(physics);
-
-
-
         }
+
 
         // Update logic
         public override void Update(GameTime gameTime)
         {
 
 
-
+            base.Update(gameTime);
             // Calculate movement based on elapsed time for the random pattern
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 

@@ -8,6 +8,7 @@ using Sprint.Collision;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
+using System.Diagnostics;
 
 namespace Sprint.Projectile
 {
@@ -19,16 +20,19 @@ namespace Sprint.Projectile
         private bool returned;
         private PlaceSmoke smoke;
         private SfxFactory sfxFactory;
-        private SoundEffectInstance sfx;
+        public readonly double dmg = 1;
 
         public Boomerang(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) :
             base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)
         {
             sfxFactory = SfxFactory.GetInstance();
-            sfx = sfxFactory.GetSoundEffect("Magical Boomerang Thrown");
+            sfxFactory.LoopSoundEffect("Magical Boomerang Thrown", this);
             returned = false;
-            sfx.IsLooped = true;
-            sfx.Play();
+        }
+
+        public double DamageAmount()
+        {
+            return dmg;
         }
 
         public void SetSmokeCommand(PlaceSmoke smoke)
@@ -38,7 +42,7 @@ namespace Sprint.Projectile
 
         public override void Dissipate()
         {
-            sfx.Stop();
+            sfxFactory.EndLoopSoundEffect("Magical Boomerang Thrown", this);
             smoke.Execute();
         }
 

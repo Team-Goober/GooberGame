@@ -62,6 +62,78 @@
 /processorParam:TextureFormat=Color
 /build:boss_zelda.png
 
+#begin Damaged/boss_zelda.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=0,136,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Damaged/boss_zelda.png
+
+#begin Damaged/dragon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=0,136,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Damaged/dragon.png
+
+#begin Damaged/oldMan.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Damaged/oldMan.png
+
+#begin Damaged/tiles.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Damaged/tiles.png
+
+#begin Damaged/zelda_enemies.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=0,136,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Damaged/zelda_enemies.png
+
+#begin Damaged/zelda_links.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=0,136,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Damaged/zelda_links.png
+
 #begin dragon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -91,6 +163,11 @@
 /processor:PassThroughProcessor
 /build:enemyAnims.xml
 
+#begin enemyDamagedAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:enemyDamagedAnims.xml
+
 #begin Flames Shot.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -109,6 +186,30 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Health Heart.mp3
+
+#begin HUD/DeathScreenMenu.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HUD/DeathScreenMenu.png
+
+#begin HUD/GameOver.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HUD/GameOver.png
 
 #begin HUD/HUD.png
 /importer:TextureImporter
@@ -373,6 +474,11 @@
 /importer:XmlImporter
 /processor:PassThroughProcessor
 /build:playerAnims.xml
+
+#begin playerDamagedAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:playerDamagedAnims.xml
 
 #begin projectileAnims.xml
 /importer:XmlImporter

@@ -9,9 +9,10 @@ namespace Sprint.Characters.NPCs
     internal class FireBallEnemy : Enemy
     {
 
-        public FireBallEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader) : base(sprite, initialPosition, room)
+        public FireBallEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader) : base(sprite, damagedSprite, initialPosition, room)
         {
-
+            // NPC
+            hp = 99999;
         }
 
     }

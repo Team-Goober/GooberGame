@@ -14,6 +14,7 @@ namespace Sprint.Projectile
         protected int travel;
         protected Vector2 startPos;
         protected Vector2 velocity;
+        public readonly double dmg = 0;
 
         public DissipatingProjectile(ISprite sprite, Vector2 startPos, Vector2 direction, int speed, int travel, bool isEnemy, Room room) :
             base(sprite, startPos, isEnemy, room)

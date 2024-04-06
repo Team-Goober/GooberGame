@@ -71,7 +71,7 @@
     <ArenaOffset>0 256</ArenaOffset>
 	  <WallPos>0 0</WallPos>
     <FloorGridPos>128 128</FloorGridPos>
-	  <ZeroZeroPos>34 34</ZeroZeroPos>
+	  <ZeroZeroPos>0 0</ZeroZeroPos>
     <TileSize>64 64</TileSize>
 	  
     <TileReferences>
@@ -288,6 +288,15 @@
               </Item>
             </Enemies>
             <TextBoxes />
+            <Stairs>
+              <Item>
+                <Position>194 0</Position>
+                <Size>64 64</Size>
+                <IDNum>0</IDNum>
+                <OtherSideID>1</OtherSideID>
+                <SpawnPosition>480 352</SpawnPosition>
+              </Item>
+            </Stairs>
         </Item>
         <Item>
           <!--Row 1 Col 2 Room Index 0-->
@@ -302,7 +311,7 @@
               <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
               <Item>0 0 0 0 0 0 1 0 0 0 0 0</Item>
               <Item>0 0 0 0 0 1 0 1 0 0 0 0</Item>
-              <Item>0 0 0 0 1 0 3 0 1 0 0 0</Item>
+              <Item>0 0 0 0 0 0 3 0 1 0 0 0</Item>
               <Item>0 0 0 0 0 1 0 1 0 0 0 0</Item>
               <Item>0 0 0 0 0 0 1 0 0 0 0 0</Item>
               <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -327,6 +336,15 @@
               </Item>
             </Enemies>
             <TextBoxes />
+            <Stairs>
+              <Item>
+                <Position>512 320</Position>
+                <Size>64 64</Size>
+                <IDNum>1</IDNum>
+                <OtherSideID>0</OtherSideID>
+                <SpawnPosition>226 96</SpawnPosition>
+              </Item>
+            </Stairs>
         </Item>
         <Item>
           <!--Row 1 Col 3 Room Index 1-->
@@ -367,6 +385,7 @@
               </Item>
             </Enemies>
             <TextBoxes />
+            <Stairs />
         </Item>
         <Item Null="true" />
         <Item Null="true" />
@@ -410,6 +429,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item Null="true" />
         <Item>
@@ -443,6 +463,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item>
           <!--Row 2 Col 6 Room Index 4-->
@@ -470,6 +491,7 @@
           </Items>
           <Enemies/>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item Null="true" />
       </Item>
@@ -519,6 +541,7 @@
               <Color>FFFFFF</Color>
             </Item>
           </TextBoxes>
+          <Stairs />
         </Item>
         <Item>
           <!--Row 3 Col 2 Room Index 6-->
@@ -554,6 +577,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item>
           <!--Row 3 Col 3 Room Index 7-->
@@ -601,6 +625,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item>
           <!--Row 3 Col 4 Room Index 8-->
@@ -641,6 +666,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item>
           <!--Row 3 Col 5 Room Index 9-->
@@ -677,6 +703,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item Null="true" />
         <Item Null="true" />
@@ -729,6 +756,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item>
           <!--Row 4 Col 3 Room Index 11-->
@@ -777,6 +805,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item>
           <!--Row 4 Col 4 Room Index 12-->
@@ -837,6 +866,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item Null="true" />
         <Item Null="true" />
@@ -879,6 +909,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item Null="true" />
         <Item Null="true" />
@@ -907,6 +938,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item Null="true" />
       </Item>
@@ -951,6 +983,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item>
           <!--Row 6 Col 3 Room Index 15 Starting Room-->
@@ -973,6 +1006,7 @@
           <Items/>
           <Enemies/>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item>
           <!--Row 6 Col 4 Room Index 16-->
@@ -1020,6 +1054,7 @@
             </Item>
           </Enemies>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item Null="true" />
         <Item>
@@ -1167,6 +1202,7 @@
           </Items>
           <Enemies/>
           <TextBoxes />
+          <Stairs />
         </Item>
         <Item Null="true" />
       </Item>

@@ -22,8 +22,8 @@ namespace Sprint.Characters
         private string lastAnimationName;
         private MoveHand moveHand;
 
-        public HandEnemy(ISprite sprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, room)
+        public HandEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
 
             // Store the initial position for reference
@@ -31,6 +31,8 @@ namespace Sprint.Characters
 
             timeAttack = new Timer(2);
             timeAttack.Start();
+
+            hp = 2;
 
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
@@ -63,7 +65,7 @@ namespace Sprint.Characters
         // Update HandEnemy logic
         public override void Update(GameTime gameTime)
         {
-
+            base.Update(gameTime);
 
             // Calculate movement based on elapsed time for the random pattern
             moveHand.MoveAI(gameTime);

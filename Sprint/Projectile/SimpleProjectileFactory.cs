@@ -33,6 +33,11 @@ namespace Sprint.Projectile
             this.room = room;
         }
 
+        public double DamageAmount()
+        {
+            return 0;
+        }
+
         public Smoke CreateSmoke()
         {
             return new Smoke(
