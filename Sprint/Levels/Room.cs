@@ -3,6 +3,7 @@ using Sprint.Interfaces;
 using Sprint.Items;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprint.Levels
 {
@@ -15,6 +16,8 @@ namespace Sprint.Levels
         private List<Item> items; // List of items at start of room
         private bool hidden; // Whether this room should stay hidden on the map
 
+        private int enemyCount;
+
         public Room(bool hidden)
         {
             objectManager = new SceneObjectManager();
@@ -22,6 +25,32 @@ namespace Sprint.Levels
             this.npcs = new();
             this.items = new();
             this.hidden = hidden;
+
+            enemyCount = -1;
+        }
+
+        public void loadNPCEvents()
+        {
+            foreach(Enemy e in npcs)
+            {
+               e.EnemyDeathEvent += this.DecrementEnemy;   
+            }
+        }
+
+        public void DecrementEnemy()
+        {
+            if (enemyCount < 0)
+            {
+                enemyCount = this.npcs.Count;
+            }
+
+            enemyCount--;
+
+        }
+
+        public int GetEnemyCount()
+        {
+            return enemyCount;
         }
 
         public List<IDoor> GetDoors()

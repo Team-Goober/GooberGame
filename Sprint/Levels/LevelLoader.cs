@@ -284,6 +284,8 @@ namespace Sprint.Loader
             foreach (Item i in roomItems)
                 scene.Add(i);
 
+            room.loadNPCEvents();
+
             return room;
         }
 

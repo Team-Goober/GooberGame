@@ -94,6 +94,7 @@ namespace Sprint
 
             inventory.WinEvent += this.WinScreen;
             player.OnPlayerDamaged += hudLoader.UpdateHeartAmount;
+
         }
 
         private void unloadDelegates()
@@ -514,18 +515,18 @@ namespace Sprint
 
         private bool solved1 = false;
         private bool solved2 = false;
+        private bool solved3 = false;
 
         public void CheckPuzzle()
-        {
-            //Puzzle are in index: 0, 3, 4 
-             if (currentRoom == new Point(2, 4) && !solved2)
+        {            
+            if (currentRoom == new Point(2, 4) && !solved2)
             {
                 Room room = GetRoomAt(new Point(2, 4));
                 SceneObjectManager scene = room.GetScene();
-                List<IDoor> doors = room.GetDoors();
+                int count = room.GetEnemyCount();
                 foreach (IGameObject g in scene.GetObjects())
                 {
-                    if (g is MoveWallTile)
+                    if (g is MoveWallTile && count == 0)
                     {
                         (Vector2, Vector2) pos = ((MoveWallTile)g).GetPosition();
                         solved1 = pos.Item1 != pos.Item2;
@@ -534,14 +535,19 @@ namespace Sprint
             } else if (currentRoom == new Point(5, 3) && !solved2)
             {
                 Room room = GetRoomAt(new Point(5, 3));
-                List<Character> npc = room.GetNpcs();
-                List<IDoor> doors = room.GetDoors();
-
-                if(npc.Count == 0)
+                int count = room.GetEnemyCount();
+                if(count == 0)
                 {
                     solved2 = true;
                 }
-                
+            } else if (currentRoom == new Point(2, 5) && !solved3)
+            {
+                Room room = GetRoomAt(new Point(2, 5));
+                int count = room.GetEnemyCount();
+                if (count == 0)
+                {
+                    solved3 = true;
+                }
             }
 
             if(solved1)
@@ -560,6 +566,19 @@ namespace Sprint
             if(solved2)
             {
                 Room room = GetRoomAt(new Point(5, 3));
+                List<IDoor> doors = room.GetDoors();
+                foreach (IDoor g in doors)
+                {
+                    if (g is PuzzleDoor)
+                    {
+                        g.SetOpen(true);
+                    }
+                }
+            }
+
+            if (solved3)
+            {
+                Room room = GetRoomAt(new Point(2, 5));
                 List<IDoor> doors = room.GetDoors();
                 foreach (IDoor g in doors)
                 {

@@ -8,6 +8,8 @@ using Sprint.Sprite;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
 using System.Runtime.Serialization;
+using Sprint.Items;
+using System.Collections.Generic;
 
 
 namespace Sprint.Characters
@@ -114,7 +116,6 @@ namespace Sprint.Characters
 
 
         }
-
 
 
         // Remove enemy from game

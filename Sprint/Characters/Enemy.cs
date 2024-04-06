@@ -7,6 +7,7 @@ using Sprint.Music.Sfx;
 using System.Runtime.Serialization;
 using System;
 using System.Threading.Tasks.Dataflow;
+using System.Diagnostics;
 
 namespace Sprint.Characters
 {
@@ -52,6 +53,9 @@ namespace Sprint.Characters
             physics.SetPosition(physics.Position + distance);
         }
 
+        public delegate void EnemyDeathDelegate();
+        public event EnemyDeathDelegate EnemyDeathEvent;
+
         public override void TakeDamage(double dmg)
         {
             damageTimer.Start();
@@ -60,6 +64,7 @@ namespace Sprint.Characters
             // Trigger death when health is at or below 0
             if (health <= 0.0)
             {
+                EnemyDeathEvent?.Invoke();
                 Die();
             }
             else
@@ -84,10 +89,10 @@ namespace Sprint.Characters
             }
         }
 
+
         // Remove enemy from game
         public override void Die()
         {
-            OnEnemyDied?.Invoke(this, EventArgs.Empty);
             room.GetScene().Remove(this);
             sfxFactory.PlaySoundEffect("Enemy Death");
         }
