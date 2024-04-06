@@ -18,10 +18,6 @@ namespace Sprint.Items
         public Item(ISprite sprite, Vector2 position, ItemType itemType)
         {
             isColliable = true;
-            if (itemType == ItemType.FireBall || itemType == ItemType.OldmManText)
-            {
-                isColliable = false;
-            }
             this.itemType = itemType;
             this.sprite = sprite;
             this.position = position;

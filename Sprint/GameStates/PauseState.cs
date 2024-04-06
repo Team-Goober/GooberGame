@@ -44,11 +44,6 @@ namespace Sprint
             input.Sleep();
         }
 
-        public List<SceneObjectManager> AllObjectManagers()
-        {
-            return returnState.AllObjectManagers();
-        }
-
         public void MakeCommands()
         {
             input = new InputTable();

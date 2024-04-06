@@ -85,13 +85,13 @@
           <Item>
             <Key>moving</Key>
             <Value Type="XMLData.AutoAtlasData">
-              <SheetArea>420 120 15 46</SheetArea>
+              <SheetArea>420 119 15 46</SheetArea>
               <Rows>2</Rows>
               <Cols>1</Cols>
               <Padding>16</Padding>
               <CenterPoint>7.5 8</CenterPoint>
               <Loop>true</Loop>
-              <Framerate>10</Framerate>
+              <Framerate>3</Framerate>
             </Value>
           </Item>
         </Animations>
@@ -113,7 +113,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>10</Framerate>
+						  <Framerate>3</Framerate>
 					  </Value>
 				  </Item>
 				  <Item>
@@ -125,7 +125,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>10</Framerate>
+						  <Framerate>3</Framerate>
 					  </Value>
 				  </Item>
 				  <Item>
@@ -137,7 +137,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>10</Framerate>
+						  <Framerate>3</Framerate>
 					  </Value>
 				  </Item>
 				  <Item>
@@ -149,7 +149,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>10</Framerate>
+						  <Framerate>3</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -171,7 +171,7 @@
 						  <Padding>6</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>10</Framerate>
+						  <Framerate>3</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -193,7 +193,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>10</Framerate>
+						  <Framerate>3</Framerate>
 					  </Value>
 				  </Item>
 				  <Item>
@@ -205,7 +205,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>10</Framerate>
+						  <Framerate>3</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -220,9 +220,14 @@
 			  <Animations>
 				  <Item>
 					  <Key>dragmoving</Key>
-					  <Value Type="XMLData.SingleAtlasData">
-						  <Rectangle>0 0 30 30</Rectangle>
-						  <CenterPoint>0 0</CenterPoint>
+					  <Value Type="XMLData.AutoAtlasData">
+						  <SheetArea>4 0 163 32</SheetArea>
+						  <Rows>1</Rows>
+						  <Cols>4</Cols>
+						  <Padding>0</Padding>
+						  <CenterPoint>14 23</CenterPoint>
+						  <Loop>true</Loop>
+						  <Framerate>2</Framerate>
 					  </Value>
 				  </Item>
 				  
@@ -245,7 +250,7 @@
 						  <Padding>16</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>10</Framerate>
+						  <Framerate>3</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -267,7 +272,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>0 0</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>10</Framerate>
+						  <Framerate>3</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -291,7 +296,7 @@
 						  <Padding>0</Padding>
 						  <CenterPoint>8 8</CenterPoint>
 						  <Loop>true</Loop>
-						  <Framerate>10</Framerate>
+						  <Framerate>3</Framerate>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -299,6 +304,29 @@
 			  <InitialAnimation>moving</InitialAnimation>
 		  </Value>
 	  </Item>
+
+    <Item>
+      <Key>fireball</Key>
+      <Value>
+        <Texture>Items/FireBall</Texture>
+        <Animations>
+          <Item>
+            <Key>fireball</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>0 0 33 16</SheetArea>
+              <Rows>1</Rows>
+              <Cols>2</Cols>
+              <Padding>1</Padding>
+              <CenterPoint>8 8</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>9</Framerate>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>fireball</InitialAnimation>
+      </Value>
+    </Item>
 
   </Asset>
 </XnaContent>

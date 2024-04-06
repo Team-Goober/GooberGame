@@ -15,6 +15,7 @@ namespace Sprint.HUD
         private SpriteLoader spriteLoader;
 
         const string LOCATION = "HUD/HUDSprite";
+        const string ITEM_LOCATION = "itemAnims";
 
         public HUDFactory(SpriteLoader spriteLoader)
         {
@@ -28,11 +29,19 @@ namespace Sprint.HUD
             return new HUDSprite(sprite, position);
         }
 
-        public HUDAnimSprite MakeHUDItem(string spriteLabel, Vector2 position)
+        public HUDInterchangeableSprite MakeItemSprite(string spriteLabel, Vector2 position)
         {
-            ISprite sprite = spriteLoader.BuildSprite(LOCATION, spriteLabel);
+            ISprite sprite;
+            if (spriteLabel != null)
+            {
+                sprite = spriteLoader.BuildSprite(ITEM_LOCATION, spriteLabel);
+            }
+            else
+            {
+                sprite = null;
+            }
 
-            return new HUDAnimSprite(sprite, position);
+            return new HUDInterchangeableSprite(sprite, position);
         }
 
         public List<HUDAnimSprite> MakeNumber(string level, Vector2 position, int spriteSize)
@@ -66,6 +75,13 @@ namespace Sprint.HUD
             }
 
             return hearts;
+        }
+
+        public HUDSelector MakeSelector(string spriteLabel, Vector2 position, Vector2 padding)
+        {
+            return new HUDSelector(spriteLoader.BuildSprite(LOCATION, spriteLabel),
+                new Rectangle((int)position.X, (int)position.Y, (int)padding.X, (int)padding.Y),
+                "active", "inactive");
         }
     }
 }

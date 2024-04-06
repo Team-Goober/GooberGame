@@ -6,10 +6,11 @@
 	  <LevelNumPos>256 32</LevelNumPos>
 	  <GemNumPos>384 64</GemNumPos>
 	  <KeyNumPos>384 128</KeyNumPos>
-	<BombNumPos>384 160</BombNumPos>
-	<HeartNumPos>704 160</HeartNumPos>
-	<BWeapon>512 96</BWeapon>
-	<AWeapon>608 96</AWeapon>
+	  <BombNumPos>384 160</BombNumPos>
+	  <!--128-->
+	  <HeartNumPos>704 160</HeartNumPos>
+	  <BWeapon>528 128</BWeapon>
+	  <AWeapon>624 128</AWeapon>
     <InventoryFramePos>0 0</InventoryFramePos>
     <MapFramePos>0 352</MapFramePos>
     <MinimapPos>64 64</MinimapPos>
@@ -21,11 +22,21 @@
     <FullMapPadding>4</FullMapPadding>
     <FullMapBackgroundSize>256 256</FullMapBackgroundSize>
 
-	  <GameOverPos>320 600</GameOverPos>
-	  <DeathMenuPos>309 366</DeathMenuPos>
-	  <MenuHeartPos>309 366</MenuHeartPos>
-	  
-	<NumSpriteSize>32</NumSpriteSize>
-	
+    <MapItemPos>208 480</MapItemPos>
+    <CompassItemPos>208 640</CompassItemPos>
+    <FirstInventoryCell>512 192</FirstInventoryCell>
+    <InventorySlotSize>64 64</InventorySlotSize>
+    <InventoryPadding>32 0</InventoryPadding>
+    <RaftItemPos>544 128</RaftItemPos>
+    <BookItemPos>624 128</BookItemPos>
+    <RingItemPos>676 128</RingItemPos>
+    <LadderItemPos>736 128</LadderItemPos>
+    <SpecialKeyItemPos>800 128</SpecialKeyItemPos>
+    <BraceletItemPos>848 128</BraceletItemPos>
+    <BowItemPos>752 224</BowItemPos>
+    <BSelection>288 224</BSelection>
+    
+    <NumSpriteSize>32</NumSpriteSize>
+  
 </Asset>
 </XnaContent>

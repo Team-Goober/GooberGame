@@ -3,6 +3,15 @@ using Microsoft.Xna.Framework;
 
 namespace Sprint
 {
+
+    public enum DirectionFace
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
+
     public static class Directions
     {
 

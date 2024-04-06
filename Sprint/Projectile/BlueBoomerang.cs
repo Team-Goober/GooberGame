@@ -6,6 +6,8 @@ using System;
 using Sprint.Collision;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Levels;
+using Sprint.Music.Sfx;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Sprint.Projectile
 {
@@ -16,10 +18,13 @@ namespace Sprint.Projectile
         private const int RETURN_TRAVEL = 200;
         private bool returned;
         private PlaceSmoke smoke;
+        private SfxFactory sfxFactory;
 
-        public BlueBoomerang(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, SceneObjectManager objectManager) :
-            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objectManager)
+        public BlueBoomerang(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) :
+            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)
         {
+            sfxFactory = SfxFactory.GetInstance();
+            sfxFactory.LoopSoundEffect("Magical Boomerang Thrown", this);
             returned = false;
         }
 
@@ -30,6 +35,7 @@ namespace Sprint.Projectile
 
         public override void Dissipate()
         {
+            sfxFactory.EndLoopSoundEffect("Magical Boomerang Thrown", this);
             smoke.Execute();
         }
 

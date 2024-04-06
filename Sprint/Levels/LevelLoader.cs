@@ -7,7 +7,10 @@ using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Items;
 using Sprint.Levels;
+using Sprint.Music.Sfx;
+using Sprint.Music.Songs;
 using Sprint.Sprite;
+using System.Collections.Generic;
 using XMLData;
 
 namespace Sprint.Loader
@@ -22,6 +25,8 @@ namespace Sprint.Loader
         private DoorFactory doorFactory;
         private ItemFactory itemFactory;
         private EnemyFactory enemyFactory;
+        private SongHandler songHandler;
+        private SfxFactory sfxFactory;
 
         // Array to generate click-through-door commands
         private Rectangle[] doorBounds;
@@ -39,7 +44,7 @@ namespace Sprint.Loader
             doorFactory = new(spriteLoader);
             itemFactory = new(spriteLoader);
             enemyFactory = new(spriteLoader);
-
+            songHandler = SongHandler.GetInstance();
         }
 
         /* Loads Level data from given file
@@ -77,7 +82,7 @@ namespace Sprint.Loader
                     Point loc = new Point(c, r);
                     if (data.Rooms[r][c] != null)
                     {
-                        dungeon.AddRoom(loc, BuildRoomManager(data, loc), data.Rooms[loc.Y][loc.X].Hidden);
+                        dungeon.AddRoom(loc, BuildRoom(data, loc), data.Rooms[loc.Y][loc.X].Hidden);
                     }
                 }
             }
@@ -128,6 +133,9 @@ namespace Sprint.Loader
 
             dungeon.SetStart(data.BottomSpawnPos, data.StartLevel);
 
+            //Load Song
+            songHandler.PlaySong(data.Song);
+
         }
 
         /* Creates a room from given data
@@ -135,10 +143,16 @@ namespace Sprint.Loader
         * @param lvl        LevelData to pull info from
         * @param roomIndex  index of room in LevelData.Rooms to be made
         */
-        public SceneObjectManager BuildRoomManager(LevelData lvl, Point roomIndices)
+        public Room BuildRoom(LevelData lvl, Point roomIndices)
         {
             RoomData rd = lvl.Rooms[roomIndices.Y][roomIndices.X];
-            SceneObjectManager rom = new SceneObjectManager();
+
+            Room room = new(rd.Hidden);
+
+            List<IDoor> roomDoors = room.GetDoors();
+            List<Character> roomNpcs = room.GetNpcs();
+            List<Item> roomItems = room.GetItems();
+            SceneObjectManager scene = room.GetScene();
 
             //If the rooms need walls. Load Wall sprite, Door sprite, and wall colliders.
             if (lvl.Rooms[roomIndices.Y][roomIndices.X].NeedWall)
@@ -146,13 +160,13 @@ namespace Sprint.Loader
                 //Load Wall texture
                 ISprite bgSprite = spriteLoader.BuildSprite(lvl.SpriteFile, lvl.BackgroundSprite);
                 BackgroundTexture bg = new BackgroundTexture(bgSprite, lvl.WallPos);
-                rom.Add(bg);
+                scene.Add(bg);
 
                 //Load Wall colliders
                 foreach (Rectangle rect in lvl.OuterWalls)
                 {
                     InvisibleWall ow = new InvisibleWall(rect);
-                    rom.Add(ow);
+                    scene.Add(ow);
                 }
 
                 // spawn player on other side of room
@@ -166,7 +180,7 @@ namespace Sprint.Loader
 
                 for (int i = 0; i < doors.Length; i++)
                 {
-                    rom.Add(doors[i]);
+                    roomDoors.Add(doors[i]);
                     // make commands if clicked
                     doorsPerSide[i, roomIndices.Y, roomIndices.X] = doors[i];
                 }
@@ -191,7 +205,7 @@ namespace Sprint.Loader
                 string[] str = row.Split(' ');
                 foreach (string tile in str)
                 {
-                    rom.Add(MakeTile(lvl, tile, new Vector2(x, y)));
+                    scene.Add(MakeTile(lvl, tile, new Vector2(x, y)));
                     x += lvl.TileSize.X;
                 }
                 x = xChange;
@@ -201,20 +215,31 @@ namespace Sprint.Loader
             //Load enemies
             foreach (EnemySpawnData spawn in rd.Enemies)
             {
-                float xP = lvl.FloorGridPos.X + (spawn.Column + 0.5f) * lvl.TileSize.X;
-                float yP = lvl.FloorGridPos.Y + (spawn.Row + 0.5f) * lvl.TileSize.Y;
-                rom.Add(enemyFactory.MakeEnemy(spawn.Type, new System.Numerics.Vector2(xP, yP), rom));
+                Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
+                roomNpcs.Add(enemyFactory.MakeEnemy(spawn.Type, position, room));
             }
 
             //Load items
             foreach (ItemSpawnData spawn in rd.Items)
             {
-                float xP = lvl.FloorGridPos.X + (spawn.Column + 0.5f) * lvl.TileSize.X;
-                float yP = lvl.FloorGridPos.Y + (spawn.Row + 0.5f) * lvl.TileSize.Y;
-                rom.Add(itemFactory.MakeItem(spawn.Type, new System.Numerics.Vector2(xP, yP)));
+                Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
+                roomItems.Add(itemFactory.MakeItem(spawn.Type, position));
             }
 
-            return rom;
+            //Load textboxes
+            foreach (TextBoxData box in rd.TextBoxes)
+            {
+                scene.Add(new ZeldaText(box.FontName, box.Text, box.Position, box.CharacterDimensions, box.Color, content));
+            }
+
+            foreach (IDoor d in roomDoors)
+                scene.Add(d);
+            foreach (Character n in roomNpcs)
+                scene.Add(n);
+            foreach (Item i in roomItems)
+                scene.Add(i);
+
+            return room;
         }
 
         public IDoor MakeDoor(LevelData lvl, string doorName, string spriteName, Vector2 position, Vector2 spawnPosition, Vector2 sideOfRoom, Point roomIndices)

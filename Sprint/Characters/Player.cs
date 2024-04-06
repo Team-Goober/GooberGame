@@ -8,7 +8,8 @@ using Sprint.Collision;
 using System.Diagnostics;
 using Sprint.Testing;
 using Sprint.Commands;
-using System.Security.Cryptography.X509Certificates;
+using System;
+using Sprint.Music.Sfx;
 using Sprint.Items;
 using Sprint.HUD;
 
@@ -17,9 +18,16 @@ namespace Sprint.Characters
 
     internal class Player : Character, IMovingCollidable
     {
+
         public Inventory inventory;
 
+        private SfxFactory sfxFactory;
+
         private ISprite sprite;
+        private ISprite defaultSprite;
+        private SpriteLoader spriteLoader;
+        private ISprite damagedSprite;
+        public event EventHandler OnPlayerDamaged;
 
         private Physics physics;
 
@@ -43,7 +51,7 @@ namespace Sprint.Characters
         private Timer attackTimer;
         private Timer castTimer;
         private Timer damageTimer;
-        private SceneObjectManager objectManager;
+        private Room room;
         private Reset reset;
 
         // TODO: replace this with state machine
@@ -59,22 +67,26 @@ namespace Sprint.Characters
         //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
+            //Initialize SFX player
+            sfxFactory = SfxFactory.GetInstance();
 
             //Initialize physics and objectManager
             physics = new Physics(Vector2.Zero);
+            this.spriteLoader = spriteLoader;
 
             inventory = new Inventory();
 
             //Loads sprite for link
-            sprite = spriteLoader.BuildSprite("playerAnims", "player");
+            sprite = spriteLoader.BuildSprite("playerAnims" , "player");
+            damagedSprite = spriteLoader.BuildSprite("playerDamagedAnims" , "player");
 
             // Duration of one sword swing or item use
             attackTimer = new Timer(0.5);
             castTimer = new Timer(0.5);
             // Duration of the damage state
-            damageTimer = new Timer(0.3);
+            damageTimer = new Timer(0.5);
 
-            objectManager = null;
+            room = null;
 
             // Start out idle
             Facing = Directions.STILL;
@@ -97,16 +109,16 @@ namespace Sprint.Characters
         }
 
         // Moves the player from current scene into a new one
-        public void SetScene(SceneObjectManager scene)
+        public void SetRoom(Room room)
         {
-            if (objectManager != null)
+            if (this.room != null)
             {
-                objectManager.Remove(this);
+                this.room.GetScene().Remove(this);
             }
 
-            objectManager = scene;
-            secondaryItems.SetScene(objectManager);
-            objectManager.Add(this);
+            this.room = room;
+            secondaryItems.SetRoom(this.room);
+            this.room.GetScene().Add(this);
             StopMoving();
         }
 
@@ -133,28 +145,31 @@ namespace Sprint.Characters
             if (Facing == Directions.DOWN)
             {
                 sprite.SetAnimation("swordDown");
+                damagedSprite.SetAnimation("swordRight");
                 swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
             }
             else if (Facing == Directions.LEFT)
             {
                 sprite.SetAnimation("swordLeft");
+                damagedSprite.SetAnimation("swordLeft");
                 swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
             else if (Facing == Directions.UP)
             {
                 sprite.SetAnimation("swordUp");
+                damagedSprite.SetAnimation("swordUp");
                 swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
             }
             else if (Facing == Directions.RIGHT)
             {
                 sprite.SetAnimation("swordRight");
+                damagedSprite.SetAnimation("swordDown");
                 swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
 
-            
             swordCollision = new SwordCollision(swordRec, this);
             
-            objectManager.Add(swordCollision);
+            room.GetScene().Add(swordCollision);
             
             
         }
@@ -178,18 +193,22 @@ namespace Sprint.Characters
             if (Facing == Directions.DOWN)
             {
                 sprite.SetAnimation("castDown");
+                damagedSprite.SetAnimation("castDown");
             }
             else if (Facing == Directions.LEFT)
             {
                 sprite.SetAnimation("castLeft");
+                damagedSprite.SetAnimation("castLeft");
             }
             else if (Facing == Directions.UP)
             {
                 sprite.SetAnimation("castUp");
+                damagedSprite.SetAnimation("castUp");
             }
             else if (Facing == Directions.RIGHT)
             {
                 sprite.SetAnimation("castRight");
+                damagedSprite.SetAnimation("castRight");
             }
         }
 
@@ -210,18 +229,22 @@ namespace Sprint.Characters
                 if (Facing == Directions.DOWN)
                 {
                     sprite.SetAnimation("downStill");
+                    damagedSprite.SetAnimation("downStill");
                 }
                 else if (Facing == Directions.LEFT)
                 {
                     sprite.SetAnimation("leftStill");
+                    damagedSprite.SetAnimation("leftStill");
                 }
                 else if (Facing == Directions.UP)
                 {
                     sprite.SetAnimation("upStill");
+                    damagedSprite.SetAnimation("upStill");
                 }
                 else if (Facing == Directions.RIGHT)
                 {
                     sprite.SetAnimation("rightStill");
+                    damagedSprite.SetAnimation("rightStill");
                 }
             }
             else if (baseAnim == AnimationCycle.Walk)
@@ -229,18 +252,22 @@ namespace Sprint.Characters
                 if (Facing == Directions.DOWN)
                 {
                     sprite.SetAnimation("down");
+                    damagedSprite.SetAnimation("down");
                 }
                 else if (Facing == Directions.LEFT)
                 {
                     sprite.SetAnimation("left");
+                    damagedSprite.SetAnimation("left");
                 }
                 else if (Facing == Directions.UP)
                 {
                     sprite.SetAnimation("up");
+                    damagedSprite.SetAnimation("up");
                 }
                 else if (Facing == Directions.RIGHT)
                 {
                     sprite.SetAnimation("right");
+                    damagedSprite.SetAnimation("right");
                 }
             }
 
@@ -280,7 +307,6 @@ namespace Sprint.Characters
         {
             // Sets velocity towards down
             physics.SetVelocity(new Vector2(0, speed));
-
             sprite.SetAnimation("down");
             Facing = Directions.DOWN;
             baseAnim = AnimationCycle.Walk;
@@ -291,12 +317,20 @@ namespace Sprint.Characters
             return physics;
         }
 
-        public void TakeDamage()
+        public override void TakeDamage()
         {
-
-            sprite.SetAnimation("damage");
+            // Invincible until timer goes down
+            if (!damageTimer.Ended)
+            {
+                return;
+            }
+            // sound playing
+            sfxFactory.PlaySoundEffect("Player Hurt");
+            // switching sprites
+            defaultSprite = sprite;
+            sprite = damagedSprite;
             damageTimer.Start();
-
+            OnPlayerDamaged?.Invoke(this, EventArgs.Empty);
         }
 
 
@@ -307,7 +341,7 @@ namespace Sprint.Characters
             attackTimer.Update(gameTime);
             if (attackTimer.JustEnded)
             {
-                objectManager.Remove(swordCollision);
+                room.GetScene().Remove(swordCollision);
                 returnToBaseAnim();
             }
             castTimer.Update(gameTime);
@@ -323,10 +357,9 @@ namespace Sprint.Characters
             damageTimer.Update(gameTime);
             if (damageTimer.JustEnded)
             {
+                sprite = spriteLoader.BuildSprite("playerAnims", "player");
                 returnToBaseAnim();
             }
-
-
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
@@ -363,7 +396,7 @@ namespace Sprint.Characters
             if(item.GetColliable())
             {
                 inventory.PickupItem(itemType);
-                objectManager.Remove(item);
+                room.GetScene().Remove(item);
             }
         }
 

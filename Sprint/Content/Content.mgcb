@@ -14,6 +14,42 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Arrow Hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Arrow Hit.wav
+
+#begin Arrow Shot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Arrow Shot.wav
+
+#begin Bomb Explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Bomb Explosion.wav
+
+#begin Bomb Placement.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Bomb Placement.wav
+
+#begin Boss Defeated.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Boss Defeated.mp3
+
+#begin Boss Roaring.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Boss Roaring.mp3
+
 #begin boss_zelda.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -25,6 +61,78 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:boss_zelda.png
+
+#begin Damaged/boss_zelda.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=0,136,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Damaged/boss_zelda.png
+
+#begin Damaged/dragon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=0,136,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Damaged/dragon.png
+
+#begin Damaged/oldMan.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Damaged/oldMan.png
+
+#begin Damaged/tiles.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Damaged/tiles.png
+
+#begin Damaged/zelda_enemies.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=0,136,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Damaged/zelda_enemies.png
+
+#begin Damaged/zelda_links.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=0,136,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Damaged/zelda_links.png
 
 #begin dragon.png
 /importer:TextureImporter
@@ -38,17 +146,46 @@
 /processorParam:TextureFormat=Color
 /build:dragon.png
 
+#begin Dungeon Song.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Dungeon Song.mp3
+
+#begin Enemy Death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Enemy Death.wav
+
 #begin enemyAnims.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
 /build:enemyAnims.xml
+
+#begin enemyDamagedAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:enemyDamagedAnims.xml
+
+#begin Flames Shot.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Flames Shot.mp3
 
 #begin Font.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Font.spritefont
+/build:Font.spritefont;nintendo.spritefont
+
+#begin Health Heart.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Health Heart.mp3
 
 #begin HUD/DeathScreenMenu.png
 /importer:TextureImporter
@@ -107,6 +244,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:HUD/HUDTop.png
+
+#begin Item Pickup.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Item Pickup.mp3
 
 #begin HUD/HUDWeapons.png
 /importer:TextureImporter
@@ -303,17 +446,11 @@
 /processorParam:TextureFormat=Color
 /build:LevelOne/RoomOne/roomOneFloor.png
 
-#begin LevelOne/RoomOne/Text.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:LevelOne/RoomOne/Text.png
+#begin Magical Boomerang Thrown.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Magical Boomerang Thrown.mp3
 
 #begin oldMan.png
 /importer:TextureImporter
@@ -327,15 +464,32 @@
 /processorParam:TextureFormat=Color
 /build:oldMan.png
 
+#begin Player Hurt.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Player Hurt.mp3
+
 #begin playerAnims.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
 /build:playerAnims.xml
 
+#begin playerDamagedAnims.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:playerDamagedAnims.xml
+
 #begin projectileAnims.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
 /build:projectileAnims.xml
+
+#begin Run Into Wall.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Run Into Wall.wav
 
 #begin Sprite/ZeldaSpriteLinkLeft.gif
 /importer:TextureImporter
@@ -349,10 +503,11 @@
 /processorParam:TextureFormat=Color
 /build:Sprite/ZeldaSpriteLinkLeft.gif
 
-#begin tileAnims.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:tileAnims.xml
+#begin Sword Swing.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sword Swing.mp3
 
 #begin tiles.png
 /importer:TextureImporter
@@ -365,6 +520,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tiles.png
+
+#begin Unlock Door.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Unlock Door.wav
+
+#begin Upgraded Magical Boomerang Thrown.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Upgraded Magical Boomerang Thrown.mp3
 
 #begin zelda_boss.png
 /importer:TextureImporter

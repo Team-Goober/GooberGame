@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Input;
@@ -6,6 +7,7 @@ using Sprint.Interfaces;
 using Sprint.Commands;
 using Sprint.Sprite;
 using Sprint.GameStates;
+using Sprint.Music.Sfx;
 
 
 namespace Sprint
@@ -14,15 +16,15 @@ namespace Sprint
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
+        
         private IInputMap inputTable; // Table of commands available no matter what state the game is loaded
 
 
         public IGameState GameState; // Current state of the game
 
-        public IGameState DungeonState; // State where player can move in a room
-        public IGameState InventoryState; // State where player can see map and select items
-        public IGameState GameOverState; // State where player died and can restart game
+        private DungeonState dungeonState; // State where player can move in a room
+        private InventoryState inventoryState; // State where player can see map and select items
+        private SfxFactory sfxFactory;
 
         private SpriteLoader spriteLoader; // Loads sprites from file and caches them for reuse
         // Dimensions of window
@@ -36,6 +38,7 @@ namespace Sprint
             IsMouseVisible = true;
         }
 
+        public static ContentManager content;
         protected override void Initialize()
         {
             _graphics.PreferredBackBufferWidth = gameWidth;
@@ -44,20 +47,24 @@ namespace Sprint
 
             spriteLoader = new SpriteLoader(Content);
             inputTable = new InputTable();
+            content = Content;
+
 
             base.Initialize();
         }
 
         protected override void LoadContent()
-        { 
+        {
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            DungeonState = new DungeonState(this, spriteLoader, Content);
-            InventoryState = new InventoryState(this);
-            DungeonState.MakeCommands();
-            InventoryState.MakeCommands();
-            GameState = DungeonState;
+            dungeonState = new DungeonState(this, spriteLoader, Content);
+            inventoryState = new InventoryState(this);
+            dungeonState.MakeCommands();
+            inventoryState.MakeCommands();
+            GameState = dungeonState;
+            sfxFactory = SfxFactory.GetInstance();
+            sfxFactory.MakeSongs();
 
             //Quit game
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Q), new Quit(this));
@@ -66,7 +73,7 @@ namespace Sprint
 
         protected override void Update(GameTime gameTime)
         {
-
+            inputTable.Update(gameTime);
             GameState.Update(gameTime);
 
             base.Update(gameTime);
@@ -79,6 +86,16 @@ namespace Sprint
             GameState.Draw(_spriteBatch, gameTime);
 
             base.Draw(gameTime);
+        }
+
+        public IGameState GetDungeonState()
+        {
+            return dungeonState;
+        }
+
+        public IGameState GetInventoryState()
+        {
+            return inventoryState;
         }
 
     }

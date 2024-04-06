@@ -1,36 +1,38 @@
-﻿namespace Sprint.Items;
+﻿using Sprint.Items;
+
+namespace Sprint.Items;
 
 public enum ItemType
 {
     Arrow,
-    Heart,
+    HeartPiece,
     SpecialKey,
     Rupee,
     Triforce,
     Shield,
     Clock,
     Bow,
-    Fence,
+    Raft,
     Ladder,
     BlueArrow,
     Fairy,
-    BlueOrb,
     BlueRing,
     RedRing,
     BlueBoomerang,
     Boomerang,
-    BlueHeart,
-    BlueTorch,
+    Heart,
+    BlueWand,
     Sword,
-    Citem,
-    ShieldRed,
-    Potion,
-    Cake,
+    Bracelet,
+    Book,
+    BluePotion,
+    RedPotion,
     Key,
-    Paper,
+    Map,
     Compass,
-    FireBall,
-    OldmManText,
-    Gem,
-    Bomb
+    Bomb,
+    RedCandle,
+    BlueCandle,
+    Flute,
+    Meat
 }

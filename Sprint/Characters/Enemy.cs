@@ -3,21 +3,33 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Collision;
 using Sprint.Interfaces;
 using Sprint.Levels;
+using Sprint.Music.Sfx;
 using System.Runtime.Serialization;
+using System;
 
 namespace Sprint.Characters
 {
-    public class Enemy : Character, IMovingCollidable
+    internal class Enemy : Character, IMovingCollidable
     {
         protected ISprite sprite;
+        protected ISprite defaultSprite;
+        protected ISprite damagedSprite;
         protected Physics physics;
-        SceneObjectManager objectManager;
 
-        public Enemy(ISprite sprite, Vector2 position, SceneObjectManager objectManager)
+        private Timer damageTimer;
+        public event EventHandler OnEnemyDamaged;
+        protected Room room;
+        private SfxFactory sfxFactory;
+
+        public Enemy(ISprite sprite, ISprite damagedSprite, Vector2 position, Room room)
         {
+            this.defaultSprite = sprite;
             this.sprite = sprite;
+            this.damagedSprite = damagedSprite;
             physics = new Physics(position);
-            this.objectManager = objectManager;
+            this.room = room;
+            sfxFactory = SfxFactory.GetInstance();
+            damageTimer = new Timer(0.1);
         }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
@@ -37,16 +49,33 @@ namespace Sprint.Characters
             physics.SetPosition(physics.Position + distance);
         }
 
+        public override void TakeDamage()
+        {
+                damageTimer.Start();
+                this.sprite = damagedSprite;
+                OnEnemyDamaged?.Invoke(this, EventArgs.Empty);
+        }
+
         public override void Update(GameTime gameTime)
         {
             physics.Update(gameTime);
             sprite.Update(gameTime);
+            
+
+            damageTimer?.Update(gameTime);
+            // damage timer to switch between sprites
+            if (damageTimer.JustEnded && damageTimer != null)
+            {
+                // switch back to default sprite (non-damaged)
+                this.sprite = this.defaultSprite;
+            }
         }
 
         // Remove enemy from game
         public override void Die()
         {
-            objectManager.Remove(this);
+            room.GetScene().Remove(this);
+            sfxFactory.PlaySoundEffect("Enemy Death");
         }
     }
 }
