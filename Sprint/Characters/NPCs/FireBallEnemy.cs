@@ -11,7 +11,8 @@ namespace Sprint.Characters.NPCs
 
         public FireBallEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader) : base(sprite, damagedSprite, initialPosition, room)
         {
-
+            // NPC
+            hp = 99999;
         }
 
     }

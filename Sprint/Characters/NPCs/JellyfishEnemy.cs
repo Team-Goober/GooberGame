@@ -19,6 +19,8 @@ namespace Sprint.Characters
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
+
+            hp = 2;
         }
 
         // Set the direction and update the animation accordingly

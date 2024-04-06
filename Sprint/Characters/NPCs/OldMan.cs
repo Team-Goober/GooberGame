@@ -30,6 +30,8 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
+            hp = 99999;
+
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
             projectileCommand = new ShootArrowCommand(itemFactory);

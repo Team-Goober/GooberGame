@@ -28,6 +28,9 @@ namespace Sprint.Characters
         private SpriteLoader spriteLoader;
         private ISprite damagedSprite;
 
+        public event EventHandler OnPlayerDied;
+        protected double hp;
+
         public delegate void HealthUpdateDelegate(double health);
         public event HealthUpdateDelegate OnPlayerDamaged;
 
@@ -93,6 +96,7 @@ namespace Sprint.Characters
             // Start out idle
             Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
+            hp = 3.0;
 
             // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
@@ -334,6 +338,8 @@ namespace Sprint.Characters
             damageTimer.Start();
 
             OnPlayerDamaged?.Invoke(hp);
+
+            hp -= .5;
         }
 
 
@@ -362,6 +368,12 @@ namespace Sprint.Characters
             {
                 sprite = spriteLoader.BuildSprite("playerAnims", "player");
                 returnToBaseAnim();
+
+                // Trigger death when health is at or below 0
+                if(hp <= 0.0)
+                {
+                    this.Die();
+                }
             }
             physics.Update(gameTime);
             sprite.Update(gameTime);
@@ -415,7 +427,7 @@ namespace Sprint.Characters
         // Remove player from game
         public override void Die()
         {
-            reset.Execute();
+            OnPlayerDied?.Invoke(this, EventArgs.Empty);
         }
     }
 }

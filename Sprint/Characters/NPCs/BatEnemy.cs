@@ -23,6 +23,7 @@ namespace Sprint.Characters
         private SimpleProjectileFactory itemFactory;
         private ICommand projectileCommand;
         private MoveRandom moveRandom;
+        
 
         private Timer timeAttack;
 
@@ -34,6 +35,8 @@ namespace Sprint.Characters
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
+
+            hp = 2;
 
             timeAttack = new Timer(2);
             timeAttack.Start();

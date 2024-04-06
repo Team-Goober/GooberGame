@@ -1,4 +1,4 @@
-# Team Goobers Sprint 3
+# Team Goobers Sprint 4
 
 ## Team Members:
 - Pavan Rauch
@@ -12,10 +12,13 @@
 - WASD to move the character
 - R to reset the game
 - Q to quit the game
-- Z/N to make Link Attck with his sword
-- 1,2,3,4,5,6 to make Link use weapons
-- Left/Right click to change rooms sequentially
-- Middle click on a door to go into that door directly
+- Z to make Link Attck with his sword
+- X to use slot B
+- I to open inventory
+- Z to select from inventory
+- UP,DOWN,Left,Right and WASD control inventory position  
+- M1/M2 click to change rooms sequentially
+- M3 click on a door to go into that door directly
 
 ## Code Smells to check for:
 - Shotgun Surgery
@@ -34,7 +37,12 @@
 ## Known Bugs
 - On some machines you have to write "dotnet restore" in the terminal to run the game
 - Dragon is having collision issues
-- Spike flys off the map
+- Some enemies fly off the map when pushed
+- Boomerang sound effect sometimes goes on an infinite loop when switching between rooms
+
+## Assumption
+- All characters are pushable
+- 
 
 
 ## Extra Tools and Processes Used
