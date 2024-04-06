@@ -27,6 +27,12 @@ internal class Inventory
         { ItemType.BlueCandle, new() { ItemType.BlueCandle, ItemType.RedCandle } },
         { ItemType.BluePotion, new() { ItemType.BluePotion, ItemType.RedPotion } } };
 
+    public static readonly Dictionary<ItemType, int> BundleSize = new()
+    {
+        { ItemType.Bomb, 4 },
+        { ItemType.Rupee, 5 }
+    };
+
     private ItemType selected;
 
     public Inventory()
@@ -75,8 +81,13 @@ internal class Inventory
     /// <param name="item">ItemType to increment</param>
     public void PickupItem(ItemType item)
     {
-        itemDictionary[item]++;
-        InventoryEvent?.Invoke(item, itemDictionary[item] - 1, itemDictionary[item], ownedUpgrades(item));
+        int quantity = 1;
+        if (BundleSize.ContainsKey(item))
+        {
+            quantity = BundleSize[item];
+        }
+        itemDictionary[item] += quantity;
+        InventoryEvent?.Invoke(item, itemDictionary[item] - quantity, itemDictionary[item], ownedUpgrades(item));
     }
 
     /// <summary>
