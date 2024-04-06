@@ -15,11 +15,13 @@ namespace Sprint.Characters
         protected ISprite defaultSprite;
         protected ISprite damagedSprite;
         protected Physics physics;
+        protected double hp;
 
         private Timer damageTimer;
         public event EventHandler OnEnemyDamaged;
         protected Room room;
         private SfxFactory sfxFactory;
+        
 
         public Enemy(ISprite sprite, ISprite damagedSprite, Vector2 position, Room room)
         {

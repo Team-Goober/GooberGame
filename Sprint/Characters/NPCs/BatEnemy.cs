@@ -23,6 +23,7 @@ namespace Sprint.Characters
         private SimpleProjectileFactory itemFactory;
         private ICommand projectileCommand;
         private MoveRandom moveRandom;
+        
 
         private Timer timeAttack;
 
