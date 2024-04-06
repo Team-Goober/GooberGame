@@ -219,6 +219,7 @@
     </DoorReferences>
     <LayoutColumns>8</LayoutColumns>
     <LayoutRows>8</LayoutRows>
+    <!-- Empty rows, as all maps are 8x8 -->
     <Rooms>
       <Item>
         <Item Null="true" />
@@ -273,18 +274,22 @@
               <Item>
                 <Type>bat</Type>
                 <TilePos>2 6</TilePos>
+                <ItemDrop>rupee</ItemDrop>
               </Item>
               <Item>
                 <Type>bat</Type>
                 <TilePos>2 2</TilePos>
+                <ItemDrop Null="true" />
               </Item>
               <Item>
                 <Type>bat</Type>
                 <TilePos>6 6</TilePos>
+                <ItemDrop Null="true" />
               </Item>
               <Item>
                 <Type>bat</Type>
                 <TilePos>6 2</TilePos>
+                <ItemDrop Null="true" />
               </Item>
             </Enemies>
             <TextBoxes />
@@ -311,7 +316,7 @@
               <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
               <Item>0 0 0 0 0 0 1 0 0 0 0 0</Item>
               <Item>0 0 0 0 0 1 0 1 0 0 0 0</Item>
-              <Item>0 0 0 0 0 0 3 0 1 0 0 0</Item>
+              <Item>0 0 0 0 X 0 3 0 1 0 0 0</Item>
               <Item>0 0 0 0 0 1 0 1 0 0 0 0</Item>
               <Item>0 0 0 0 0 0 1 0 0 0 0 0</Item>
               <Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -321,18 +326,22 @@
               <Item>
                 <Type>spike</Type>
                 <TilePos>1 0</TilePos>
+                <ItemDrop Null="true" />
               </Item>
               <Item>
                 <Type>spike</Type>
                 <TilePos>11 0</TilePos>
+                <ItemDrop Null="true" />
               </Item>
               <Item>
                 <Type>spike</Type>
                 <TilePos>1 6</TilePos>
+                <ItemDrop Null="true" />
               </Item>
               <Item>
                 <Type>spike</Type>
                 <TilePos>11 6</TilePos>
+                <ItemDrop Null="true" />
               </Item>
             </Enemies>
             <TextBoxes />
@@ -374,14 +383,17 @@
               <Item>
                 <Type>dog</Type>
                 <TilePos>9 1</TilePos>
+                <ItemDrop Null="true" />
               </Item>
               <Item>
                 <Type>dog</Type>
                 <TilePos>5 3</TilePos>
+                <ItemDrop Null="true" />
               </Item>
               <Item>
                 <Type>dog</Type>
                 <TilePos>8 3</TilePos>
+                <ItemDrop Null="true" />
               </Item>
             </Enemies>
             <TextBoxes />
@@ -418,14 +430,17 @@
             <Item>
               <Type>skeleton</Type>
               <TilePos>1 2</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>skeleton</Type>
               <TilePos>11 3</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>skeleton</Type>
-                <TilePos>9 5</TilePos>
+              <TilePos>9 5</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />
@@ -460,6 +475,7 @@
             <Item>
               <Type>dragonmov</Type>
               <TilePos>10 2</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />
@@ -519,14 +535,17 @@
             <Item>
               <Type>oldman</Type>
               <TilePos>5.5 3</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>fireball</Type>
               <TilePos>2.5 3</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>fireball</Type>
               <TilePos>8.5 3</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes>
@@ -566,14 +585,17 @@
             <Item>
               <Type>slime</Type>
               <TilePos>8 1</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>slime</Type>
               <TilePos>7 3</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>slime</Type>
               <TilePos>8 5</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />
@@ -606,22 +628,27 @@
             <Item>
               <Type>slime</Type>
               <TilePos>7 3</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>slime</Type>
               <TilePos>7 5</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>slime</Type>
               <TilePos>9 3</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>slime</Type>
               <TilePos>9 5</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>slime</Type>
               <TilePos>11 4</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />
@@ -655,14 +682,17 @@
             <Item>
               <Type>dog</Type>
               <TilePos>11 2</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>dog</Type>
               <TilePos>9 3</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>dog</Type>
               <TilePos>9 5</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />
@@ -696,10 +726,12 @@
             <Item>
               <Type>hand</Type>
               <TilePos>3 2</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>hand</Type>
               <TilePos>1 4</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />
@@ -733,26 +765,32 @@
             <Item>
               <Type>bat</Type>
               <TilePos>9 1</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>2 2</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>4 3</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>1 4</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>4 5</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>9 6</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />
@@ -786,22 +824,27 @@
             <Item>
               <Type>skeleton</Type>
               <TilePos>9 1</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>skeleton</Type>
-                <TilePos>8 2</TilePos>
+              <TilePos>8 2</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>skeleton</Type>
               <TilePos>4 3</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>skeleton</Type>
               <TilePos>8 4</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>skeleton</Type>
               <TilePos>9 5</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />
@@ -835,34 +878,42 @@
             <Item>
               <Type>bat</Type>
               <TilePos>3 0</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>3 6</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>6 4</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>8 4</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>8 2</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>9 2</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>11 4</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>10 5</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />
@@ -898,14 +949,17 @@
             <Item>
               <Type>skeleton</Type>
               <TilePos>4 3</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>skeleton</Type>
               <TilePos>4 5</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>skeleton</Type>
               <TilePos>8 5</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />
@@ -935,6 +989,7 @@
             <Item>
               <Type>skeleton</Type>
               <TilePos>1 1</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />
@@ -972,14 +1027,17 @@
             <Item>
               <Type>bat</Type>
               <TilePos>4 3</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>4 5</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>bat</Type>
               <TilePos>2 6</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />
@@ -1035,22 +1093,27 @@
             <Item>
               <Type>skeleton</Type>
               <TilePos>2 0</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>skeleton</Type>
               <TilePos>3 6</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>skeleton</Type>
               <TilePos>6 2</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>skeleton</Type>
               <TilePos>6 4</TilePos>
+              <ItemDrop Null="true" />
             </Item>
             <Item>
               <Type>skeleton</Type>
               <TilePos>10 1</TilePos>
+              <ItemDrop Null="true" />
             </Item>
           </Enemies>
           <TextBoxes />

@@ -59,5 +59,10 @@ namespace Sprint.Items
         {
             return itemType;
         }
+
+        public void SetPosition(Vector2 pos)
+        {
+            position = pos;
+        }
     }
 }
