@@ -70,6 +70,7 @@ namespace XMLData
         public List<ItemSpawnData> Items; // Spawn data for every item in the room
         public List<EnemySpawnData> Enemies; // Spawn data for every enemy in the room
         public List<TextBoxData> TextBoxes; // Data for textboxes placed in room
+        public List<StairData> Stairs; // Doors that arent in one of the four typical positions
     }
 
     public class ItemSpawnData
@@ -91,6 +92,15 @@ namespace XMLData
         public Vector2 CharacterDimensions; // Average size of a single character
         public Vector2 Position; // Position of center of top line of text
         public Color Color; // Color mask for text
+    }
+
+    public class StairData
+    {
+        public Vector2 Position; // World boundaries of the stair
+        public Vector2 Size;
+        public int IDNum; // Number to link to this stair with
+        public int OtherSideID; // Stair to link to
+        public Vector2 SpawnPosition; // Place to spawn the player when exiting
     }
 
     public class SfxData
