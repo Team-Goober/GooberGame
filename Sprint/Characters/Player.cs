@@ -152,7 +152,7 @@ namespace Sprint.Characters
             if (Facing == Directions.DOWN)
             {
                 sprite.SetAnimation("swordDown");
-                damagedSprite.SetAnimation("swordRight");
+                damagedSprite.SetAnimation("swordDown");
                 swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
             }
             else if (Facing == Directions.LEFT)
@@ -170,7 +170,7 @@ namespace Sprint.Characters
             else if (Facing == Directions.RIGHT)
             {
                 sprite.SetAnimation("swordRight");
-                damagedSprite.SetAnimation("swordDown");
+                damagedSprite.SetAnimation("swordRight");
                 swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
 

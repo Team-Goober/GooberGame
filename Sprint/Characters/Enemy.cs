@@ -54,18 +54,23 @@ namespace Sprint.Characters
 
         public override void TakeDamage(double dmg)
         {
-            damageTimer.Start();
-            this.sprite = damagedSprite;
-            health -= dmg;
-            // Trigger death when health is at or below 0
-            if (health <= 0.0)
+            // Only take damage if not in invulnerable frames
+            if (damageTimer.Ended)
             {
-                Die();
+                damageTimer.Start();
+                this.sprite = damagedSprite;
+                health -= dmg;
+                // Trigger death when health is at or below 0
+                if (health <= 0.0)
+                {
+                    Die();
+                }
+                else
+                {
+                    OnEnemyDamaged?.Invoke(this, EventArgs.Empty);
+                }
             }
-            else
-            {
-                OnEnemyDamaged?.Invoke(this, EventArgs.Empty);
-            }
+
         }
 
         public override void Update(GameTime gameTime)
