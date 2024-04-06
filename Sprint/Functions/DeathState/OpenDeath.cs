@@ -1,6 +1,6 @@
 ﻿using Sprint.Interfaces;
 
-namespace Sprint.Functions
+namespace Sprint.Functions.DeathState
 {
     internal class OpenDeath : ICommand
     {

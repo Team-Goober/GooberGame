@@ -61,11 +61,11 @@ namespace Sprint
             if (timePassed >= totalDuration)
             {
                 timePassed = totalDuration;
-                PassToState(nextState);
+                PassToState(nextState, false);
             }
         }
 
-        public void PassToState(IGameState newState)
+        public void PassToState(IGameState newState, bool reset)
         {
             game.GameState = newState;
         }

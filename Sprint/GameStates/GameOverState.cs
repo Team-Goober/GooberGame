@@ -1,15 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Sprint.Commands;
+using Sprint.Functions.DeathState;
 using Sprint.HUD;
+using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Loader;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
-
 
 namespace Sprint.GameStates
 {
@@ -25,6 +29,7 @@ namespace Sprint.GameStates
         private HUDLoader hudLoader;
 
         private HUDAnimSprite heartPointer;
+        private Vector2 originalPos;
 
 
         public GameOverState(Goober game, HUDLoader hudLoader) 
@@ -35,7 +40,12 @@ namespace Sprint.GameStates
             menuManager = new SceneObjectManager();
             menuManager.Add(hudLoader.MakeDeathMenu());
 
-            heartPointer = hudLoader.MakeDeathHeart();
+            this.heartPointer = hudLoader.MakeDeathHeart();
+            menuManager.Add(heartPointer);
+
+            originalPos = heartPointer.GetPosition();
+
+            input = new InputTable();
         }
 
         public void GetRoomScene(SceneObjectManager scenes)
@@ -62,10 +72,35 @@ namespace Sprint.GameStates
 
         public void MakeCommands()
         {
-            throw new NotImplementedException();
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Up),  new MoveHeartUp(this));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveHeartDown(this));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Enter), new CloseDeathMenu(this));
         }
 
-        public void PassToState(IGameState newState)
+        public void MoveHeartDown()
+        {
+            Vector2 position = heartPointer.GetPosition();
+            position.Y += 188;
+
+            if(position.Y - originalPos.Y == 188) 
+            {
+                heartPointer.SetPosition(position);
+            }
+
+        }
+
+        public void MoveHeartUp()
+        {
+            Vector2 position = heartPointer.GetPosition();
+            position.Y -= 188;
+
+            if(position.Y - originalPos.Y == 0)
+            {
+                heartPointer.SetPosition(position);
+            }
+        }
+
+        public void PassToState(IGameState newState, bool reset)
         {
             game.GameState = newState;
             input.Sleep();
@@ -93,13 +128,19 @@ namespace Sprint.GameStates
         {
             hudManager.ClearObjects();
             hudManager = menuManager;
+            MakeCommands();
         }
-
 
         public void Update(GameTime gameTime)
         {
+            input.Update(gameTime);
             hudManager.EndCycle();
             menuManager.EndCycle();
+        }
+
+        public void CloseDeathMenu()
+        {
+            PassToState(game.DungeonState, true);
         }
     }
 }

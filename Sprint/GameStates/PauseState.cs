@@ -38,7 +38,7 @@ namespace Sprint
             // Don't update objects
         }
 
-        public void PassToState(IGameState newState)
+        public void PassToState(IGameState newState, bool reset)
         {
             game.GameState = newState;
             input.Sleep();

@@ -11,7 +11,7 @@ namespace Sprint.Interfaces
         void Draw(SpriteBatch spriteBatch, GameTime gameTime);
 
         // Close out this state and set game to a new state
-        void PassToState(IGameState newState);
+        void PassToState(IGameState newState, bool reset);
 
         // Generate all commands
         void MakeCommands();

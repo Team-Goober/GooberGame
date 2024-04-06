@@ -21,6 +21,11 @@ namespace Sprint.Loader
             sprite.SetAnimation(number);
         }
 
+        public Vector2 GetPosition()
+        {
+            return position;
+        }
+
         public void SetPosition(Vector2 position)
         {
             this.position = position;

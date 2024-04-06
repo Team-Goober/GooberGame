@@ -16,7 +16,7 @@ using Sprint.Items;
 using Sprint.Levels;
 using Sprint.Loader;
 using Sprint.Sprite;
-using System;
+using Sprint.Functions.DeathState;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography;
@@ -238,6 +238,7 @@ namespace Sprint
             // Update HUD
             foreach (IGameObject obj in hud.GetObjects())
                 obj.Update(gameTime);
+
             hud.EndCycle();
 
 
@@ -251,8 +252,13 @@ namespace Sprint
             currRoom.EndCycle();
         }
 
-        public void PassToState(IGameState newState)
+        public void PassToState(IGameState newState, bool reset)
         {
+            if(reset)
+            {
+                ResetReq();
+            }
+
             game.GameState = newState;
             if (inputTable != null)
                 inputTable.Sleep();
@@ -328,7 +334,7 @@ namespace Sprint
             // Create new GameState to scroll and then set back to this state
             TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, this);
 
-            PassToState(scroll);
+            PassToState(scroll, false);
 
             // Clean up previous room changes
             rooms[idx.Y][idx.X].EndCycle();
@@ -388,7 +394,7 @@ namespace Sprint
             // Create new GameState to scroll and then set back to this state
             TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, game.InventoryState);
 
-            PassToState(scroll);
+            PassToState(scroll, false);
         }
 
         public void DeathScreen()
@@ -399,7 +405,7 @@ namespace Sprint
 
             //death.GetRoomScene(currRoom);
             death.GetHUDScene(hud);
-            PassToState(death);
+            PassToState(death, false);
         }
 
         public Point RoomIndex()
