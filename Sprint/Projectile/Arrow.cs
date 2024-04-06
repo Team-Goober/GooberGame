@@ -19,17 +19,20 @@ namespace Sprint.Projectile
         private const int TRAVEL = 200;
         private PlaceSmoke smoke;
         private SfxFactory sfxFactory;
-        protected double dmg;
+        public readonly double dmg = 1;
 
         public Arrow(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) : 
             base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)
         {
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Arrow Shot");
-            dmg = 1;
-
         }
-       
+
+        double DamageAmount()
+        {
+            return dmg;
+        }
+
         public void SetSmokeCommand(PlaceSmoke smoke)
         {
             this.smoke = smoke;

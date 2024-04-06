@@ -20,7 +20,7 @@ namespace Sprint.Projectile
         private bool returned;
         private PlaceSmoke smoke;
         private SfxFactory sfxFactory;
-        protected double dmg;
+        public readonly double dmg = 1;
 
         public Boomerang(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) :
             base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)

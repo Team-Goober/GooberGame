@@ -12,7 +12,7 @@ namespace Sprint.Projectile
     {
 
         private Timer smokeTimer;
-
+        public readonly double dmg = 0;
         public override CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PARTICLE };
 
         public Smoke(ISprite sprite, Vector2 startPos, Room room) : base(sprite, startPos, false, room)

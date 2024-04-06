@@ -19,7 +19,7 @@ namespace Sprint.Projectile
         private const int TRAVEL = 100;
         private Timer sitTimer;
         private SfxFactory sfxFactory;
-        protected double dmg;
+        public readonly double dmg = 1;
 
         public FireBall(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) :
             base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)
@@ -27,7 +27,6 @@ namespace Sprint.Projectile
             sitTimer = new Timer(1);
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Flames Shot");
-            dmg = 1;
         }
 
         public override void Dissipate()

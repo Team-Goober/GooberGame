@@ -15,10 +15,11 @@ namespace Sprint.Characters
         protected ISprite defaultSprite;
         protected ISprite damagedSprite;
         protected Physics physics;
-        protected double hp;
+        public double hp;
 
         private Timer damageTimer;
         public event EventHandler OnEnemyDamaged;
+        public event EventHandler OnEnemyDied;
         protected Room room;
         private SfxFactory sfxFactory;
         
@@ -70,12 +71,19 @@ namespace Sprint.Characters
             {
                 // switch back to default sprite (non-damaged)
                 this.sprite = this.defaultSprite;
+
+                // Trigger death when health is at or below 0
+                if (hp <= 0.0)
+                {
+                    this.Die();
+                }
             }
         }
 
         // Remove enemy from game
         public override void Die()
         {
+            OnEnemyDied?.Invoke(this, EventArgs.Empty);
             room.GetScene().Remove(this);
             sfxFactory.PlaySoundEffect("Enemy Death");
         }

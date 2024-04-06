@@ -40,8 +40,6 @@ namespace Sprint.Characters
 
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
-
-
             moveSlime = new MoveSlime(physics);
         }
 

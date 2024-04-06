@@ -43,10 +43,8 @@ namespace Sprint.Characters
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
             moveSpike = new MoveSpike(physics);
-
-
-
         }
+
 
         // Update logic
         public override void Update(GameTime gameTime)

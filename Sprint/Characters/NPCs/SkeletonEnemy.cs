@@ -45,9 +45,6 @@ namespace Sprint.Characters
             projectileCommand = new ShootArrowCommand(itemFactory);
 
             moveVert = new MoveVert(physics);
-
-
-
         }
 
         // Update logic
