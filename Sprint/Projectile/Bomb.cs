@@ -14,7 +14,6 @@ namespace Sprint.Projectile
 
         Timer explosionTimer;
         private SfxFactory sfxFactory;
-        public readonly double dmg = 4;
 
         public override CollisionTypes[] CollisionType
         {
@@ -36,10 +35,7 @@ namespace Sprint.Projectile
             explosionTimer = new Timer(1);
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Bomb Placement");
-        }
-        public double DamageAmount()
-        {
-            return dmg;
+            damage = 4;
         }
 
         public override void Dissipate()

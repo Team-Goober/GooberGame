@@ -15,7 +15,7 @@ namespace Sprint.Projectile
         protected Vector2 position;
         protected ISprite sprite;
         protected bool isEnemy;
-        public double dmg;
+        protected double damage;
 
         public Rectangle BoundingBox => new((int)(position.X - 4 * 3),
             (int)(position.Y - 4 * 3),
@@ -38,7 +38,7 @@ namespace Sprint.Projectile
 
         public double DamageAmount()
         {
-            return dmg;
+            return damage;
         }
 
         public SimpleProjectile(ISprite sprite, Vector2 startPos, bool isEnemy, Room room)

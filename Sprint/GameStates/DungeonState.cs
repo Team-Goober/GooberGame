@@ -430,6 +430,7 @@ namespace Sprint
         {
             WinState win = new WinState(game, hudLoader.GetTopDisplay(), rooms[currentRoom.Y][currentRoom.X].GetScene(), player, spriteLoader, arenaPosition);
             PassToState(win);
+        }
             
         public void DeathScreen()
         {

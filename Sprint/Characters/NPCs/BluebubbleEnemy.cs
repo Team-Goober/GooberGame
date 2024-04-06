@@ -30,7 +30,7 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            hp = 2;
+            health = 2;
 
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 

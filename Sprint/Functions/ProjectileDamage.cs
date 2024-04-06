@@ -19,8 +19,7 @@ namespace Sprint.Functions.SecondaryItem
 
         public void Execute()
         {
-            receiver.hp -= effector.dmg;
-            receiver.TakeDamage();
+            receiver.TakeDamage(effector.DamageAmount());
         }
     }
 }

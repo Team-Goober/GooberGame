@@ -20,7 +20,6 @@ namespace Sprint.Projectile
         private bool returned;
         private PlaceSmoke smoke;
         private SfxFactory sfxFactory;
-        public readonly double dmg = 1;
 
         public Boomerang(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) :
             base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)
@@ -28,11 +27,7 @@ namespace Sprint.Projectile
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.LoopSoundEffect("Magical Boomerang Thrown", this);
             returned = false;
-        }
-
-        public double DamageAmount()
-        {
-            return dmg;
+            damage = 1;
         }
 
         public void SetSmokeCommand(PlaceSmoke smoke)
