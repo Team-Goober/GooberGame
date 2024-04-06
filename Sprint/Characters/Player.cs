@@ -27,9 +27,13 @@ namespace Sprint.Characters
         private ISprite defaultSprite;
         private SpriteLoader spriteLoader;
         private ISprite damagedSprite;
-        public event EventHandler OnPlayerDamaged;
+
         public event EventHandler OnPlayerDied;
-        protected double hp;
+        protected double health = 3;
+        protected double swordDmg = 1; 
+
+        public delegate void HealthUpdateDelegate(double health);
+        public event HealthUpdateDelegate OnPlayerDamaged;
 
         private Physics physics;
 
@@ -93,7 +97,6 @@ namespace Sprint.Characters
             // Start out idle
             Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
-            hp = 3.0;
 
             // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
@@ -129,6 +132,7 @@ namespace Sprint.Characters
         public void Attack()
         {
             Rectangle swordRec  = new Rectangle();
+
 
             // Only attack if not already attacking
             if (!attackTimer.Ended)
@@ -213,6 +217,11 @@ namespace Sprint.Characters
                 sprite.SetAnimation("castRight");
                 damagedSprite.SetAnimation("castRight");
             }
+        }
+
+        public void WinPose()
+        {
+            sprite.SetAnimation("holdItem");
         }
 
         // Removes velocity and changes animation to match lack of movement
@@ -320,7 +329,7 @@ namespace Sprint.Characters
             return physics;
         }
 
-        public override void TakeDamage()
+        public override void TakeDamage(double dmg)
         {
             // Invincible until timer goes down
             if (!damageTimer.Ended)
@@ -333,8 +342,17 @@ namespace Sprint.Characters
             defaultSprite = sprite;
             sprite = damagedSprite;
             damageTimer.Start();
-            OnPlayerDamaged?.Invoke(this, EventArgs.Empty);
-            hp -= .5;
+
+            health -= 0.5;
+            // Trigger death when health is at or below 0
+            if (health <= 0.0)
+            {
+                this.Die();
+            }
+            else
+            {
+                OnPlayerDamaged?.Invoke(health);
+            }
         }
 
 
@@ -364,11 +382,6 @@ namespace Sprint.Characters
                 sprite = spriteLoader.BuildSprite("playerAnims", "player");
                 returnToBaseAnim();
 
-                // Trigger death when health is at or below 0
-                if(hp <= 0.0)
-                {
-                    this.Die();
-                }
             }
             physics.Update(gameTime);
             sprite.Update(gameTime);

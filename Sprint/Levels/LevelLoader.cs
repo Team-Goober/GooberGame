@@ -11,6 +11,7 @@ using Sprint.Music.Sfx;
 using Sprint.Music.Songs;
 using Sprint.Sprite;
 using System.Collections.Generic;
+using System.Diagnostics;
 using XMLData;
 
 namespace Sprint.Loader
@@ -31,6 +32,9 @@ namespace Sprint.Loader
         // Array to generate click-through-door commands
         private Rectangle[] doorBounds;
         private IDoor[,,] doorsPerSide;
+        // Dictionaries to link doors that aren't on cardinal dirs
+        private Dictionary<int, IDoor> stairs;
+        private Dictionary<int, int> stairLinks;
 
         private int levelNumber;
 
@@ -74,6 +78,8 @@ namespace Sprint.Loader
                 doorBounds[i].Offset(data.ArenaOffset);
 
             doorsPerSide = new IDoor[4, data.LayoutRows, data.LayoutColumns];
+            stairs = new();
+            stairLinks = new();
 
             // Load all rooms by index using RoomLoader
             for (int r = 0; r < data.LayoutRows; r++) {
@@ -85,6 +91,12 @@ namespace Sprint.Loader
                         dungeon.AddRoom(loc, BuildRoom(data, loc), data.Rooms[loc.Y][loc.X].Hidden);
                     }
                 }
+            }
+
+            // Link together stairs
+            foreach(KeyValuePair<int, IDoor> st in stairs)
+            {
+                st.Value.SetOtherFace(stairs[stairLinks[st.Key]]);
             }
 
             // Link together doors on opposing sides
@@ -184,6 +196,17 @@ namespace Sprint.Loader
                     // make commands if clicked
                     doorsPerSide[i, roomIndices.Y, roomIndices.X] = doors[i];
                 }
+            }
+
+            // Load extra doors that arent in normal 
+            for (int i = 0; i < rd.Stairs.Count; i++)
+            {
+                StairData sd = rd.Stairs[i];
+                IDoor stair = doorFactory.MakeStair(sd.Position, sd.Size, sd.SpawnPosition, roomIndices, dungeon);
+                roomDoors.Add(stair);
+                // Record in dictionaries for linkage once all doors are made
+                stairs[sd.IDNum] = stair;
+                stairLinks[sd.IDNum] = sd.OtherSideID;
             }
 
             //Load Floor tile 

@@ -621,7 +621,7 @@
 					  <Key>default</Key>
 					  <Value Type="XMLData.SingleAtlasData">
 						  <Rectangle>0 34 16 16</Rectangle>
-						  <CenterPoint>8 8</CenterPoint>
+						  <CenterPoint>0 0</CenterPoint>
 					  </Value>
 				  </Item>
 			  </Animations>
@@ -639,7 +639,7 @@
 					  <Key>default</Key>
 					  <Value Type="XMLData.SingleAtlasData">
 						  <Rectangle>17 34 16 16</Rectangle>
-						  <CenterPoint>8 8</CenterPoint>
+						  <CenterPoint>0 0</CenterPoint>
 					  </Value>
 				  </Item>
 			  </Animations>

@@ -17,7 +17,7 @@ namespace Sprint.Functions.SecondaryItem
 
         public void Execute()
         {
-            receiver.TakeDamage();
+            receiver.TakeDamage(0.5);
         }
     }
 }

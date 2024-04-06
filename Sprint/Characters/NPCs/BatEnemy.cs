@@ -36,7 +36,7 @@ namespace Sprint.Characters
             // Store the initial position for reference
             this.initialPosition = initialPosition;
 
-            hp = 2;
+            health = 2;
 
             timeAttack = new Timer(2);
             timeAttack.Start();

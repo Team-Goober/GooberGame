@@ -105,7 +105,7 @@
 			  <Texture>zelda_enemies</Texture>
 			  <Animations>
 				  <Item>
-					  <Key>upFacing</Key>
+					  <Key>downFacing</Key>
 					  <Value Type="XMLData.AutoAtlasData">
 						  <SheetArea>0 55 16 60</SheetArea>
 						  <Rows>2</Rows>
@@ -129,7 +129,7 @@
 					  </Value>
 				  </Item>
 				  <Item>
-					  <Key>downFacing</Key>
+					  <Key>upFacing</Key>
 					  <Value Type="XMLData.AutoAtlasData">
 						  <SheetArea>59 55 16 60</SheetArea>
 						  <Rows>2</Rows>

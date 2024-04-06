@@ -36,17 +36,15 @@ namespace Sprint.Characters
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
-            hp = 99999;
+            health = 99999;
             timeAttack = new Timer(2);
             timeAttack.Start();
 
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
             moveSpike = new MoveSpike(physics);
-
-
-
         }
+
 
         // Update logic
         public override void Update(GameTime gameTime)

@@ -71,7 +71,7 @@ namespace Sprint.Door
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            sprite.Draw(spriteBatch, position, gameTime);
+            sprite?.Draw(spriteBatch, position, gameTime);
         }
 
         public void Update(GameTime gameTime)
@@ -81,7 +81,7 @@ namespace Sprint.Door
                 isOpen = true;
                 queueOpen = false;
             }
-            sprite.Update(gameTime);
+            sprite?.Update(gameTime);
         }
 
         // Returns current room index

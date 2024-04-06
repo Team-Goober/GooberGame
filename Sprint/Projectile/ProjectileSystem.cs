@@ -30,6 +30,11 @@ namespace Sprint.Projectile
             ProjectileFactory.SetRoom(room);
         }
 
+        public double DamageAmount()
+        {
+            return 0;
+        }
+
         // Update direction of shot projectiles
         public void UpdateDirection(Vector2 dir)
         {

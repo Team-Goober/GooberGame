@@ -30,7 +30,7 @@ namespace Sprint.Characters
         {
 
             sfxFactory = SfxFactory.GetInstance();
-            this.objectManager = objectManager;
+            this.objectManager = room.GetScene();
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
@@ -38,7 +38,7 @@ namespace Sprint.Characters
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            hp = 10;
+            health = 10;
 
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 

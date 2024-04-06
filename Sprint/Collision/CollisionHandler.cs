@@ -47,12 +47,13 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.CHARACTER), pushOut},
                 {new TypePairKey(CollisionTypes.FLYING_ENEMY, CollisionTypes.PHASING_WALL), null},
 
+                // Projectile collision
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
                 
                 {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.WALL), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.DOOR), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
-
+                
                 {new TypePairKey(CollisionTypes.PROJECTILE, CollisionTypes.ENEMY), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.ENEMY_PROJECTILE, CollisionTypes.PLAYER), typeof(DissipateProjectile).GetConstructor( constructorParams ) },
 
@@ -68,11 +69,10 @@ namespace Sprint.Collision
                 // Collision Player Damage
                 {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY), typeof(TakeDamage).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY_PROJECTILE), typeof(TakeDamage).GetConstructor( constructorParams ) },
+
                 // Collision Enemy Damage
                 {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.SWORD), typeof(TakeDamage).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(TakeDamage).GetConstructor( constructorParams ) },
-
-                
+                {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(ProjectileDamage).GetConstructor( constructorParams ) },
             };
 
         //Made assuming that ICollidable can access the objects native type
