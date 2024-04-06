@@ -22,7 +22,8 @@
     <FullMapBackgroundSize>256 256</FullMapBackgroundSize>
 
 	  <GameOverPos>320 600</GameOverPos>
-	  <DeathMenuPos>320 600</DeathMenuPos>
+	  <DeathMenuPos>309 366</DeathMenuPos>
+	  <MenuHeartPos>309 366</MenuHeartPos>
 	  
 	<NumSpriteSize>32</NumSpriteSize>
 	

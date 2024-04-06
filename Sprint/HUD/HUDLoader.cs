@@ -118,6 +118,15 @@ namespace Sprint.HUD
             return LifeForce;
         }
 
+        public HUDAnimSprite MakeDeathHeart()
+        {
+            LifeForce = hudFactory.MakeHearts(maxHearts, "Heart", data.MenuHeartPos, data.NumSpriteSize);
+
+            LifeForce[0].SetSprite("FullHeart");
+
+            return LifeForce[0];
+        }
+
         public List<HUDAnimSprite> MakeLevelNumber(string level, Vector2 position, int spriteSize)
         {
             List<HUDAnimSprite> levelNum = hudFactory.MakeNumber(level + "B", position, spriteSize);

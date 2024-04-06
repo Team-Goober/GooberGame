@@ -3,10 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.HUD;
 using Sprint.Interfaces;
 using Sprint.Levels;
+using Sprint.Loader;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Timers;
+
 
 namespace Sprint.GameStates
 {
@@ -17,17 +20,22 @@ namespace Sprint.GameStates
 
         private SceneObjectManager roomManager;
         private SceneObjectManager hudManager;
-        private SceneObjectManager menu;
+        private SceneObjectManager menuManager;
 
         private HUDLoader hudLoader;
 
+        private HUDAnimSprite heartPointer;
+
+
         public GameOverState(Goober game, HUDLoader hudLoader) 
-        { 
+        {
             this.game = game;
             this.hudLoader = hudLoader;
 
-            this.menu = new SceneObjectManager();
-            this.menu.Add(hudLoader.MakeDeathMenu());
+            menuManager = new SceneObjectManager();
+            menuManager.Add(hudLoader.MakeDeathMenu());
+
+            heartPointer = hudLoader.MakeDeathHeart();
         }
 
         public void GetRoomScene(SceneObjectManager scenes)
@@ -40,6 +48,11 @@ namespace Sprint.GameStates
             this.hudManager = scenes;
             IHUD over = hudLoader.MakeGameOver();
             hudManager.Add(over);
+
+            System.Timers.Timer timer = new System.Timers.Timer(2000);
+            timer.Elapsed += SwitchScene;
+            timer.AutoReset = false;
+            timer.Start();
         }
 
         public List<SceneObjectManager> AllObjectManagers()
@@ -74,23 +87,19 @@ namespace Sprint.GameStates
             }
 
             spriteBatch.End();
+        }
 
-            Thread.Sleep(2000);
-
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-            foreach (IGameObject g in menu.GetObjects())
-            {
-                g.Draw(spriteBatch, gameTime);
-            }
-
-            spriteBatch.End();
+        private void SwitchScene(Object sender, ElapsedEventArgs eventArgs)
+        {
+            hudManager.ClearObjects();
+            hudManager = menuManager;
         }
 
 
         public void Update(GameTime gameTime)
         {
-           
+            hudManager.EndCycle();
+            menuManager.EndCycle();
         }
     }
 }
