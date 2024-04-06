@@ -8,6 +8,7 @@ using Sprint.Functions.Collision;
 using Sprint.Functions.RoomTransition;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
+using Sprint.Characters;
 
 
 namespace Sprint.Collision
@@ -42,6 +43,8 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.DOOR), pushOut},
                 {new TypePairKey(CollisionTypes.MOVEWALL, CollisionTypes.CHARACTER), pushOut},
                 {new TypePairKey(CollisionTypes.MOVEWALL, CollisionTypes.WALL), pushOut},
+                {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.CHARACTER), pushOut},
+
 
 
 
