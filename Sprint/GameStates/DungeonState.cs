@@ -19,6 +19,7 @@ using Sprint.Sprite;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Sprint.Functions.Music;
+using Sprint.Music.Sfx;
 
 namespace Sprint
 {
@@ -49,6 +50,7 @@ namespace Sprint
         private Point compassPointer; // Room indices for triforce location
         private HUDLoader hudLoader;
 
+        private bool sleeping; // True when state isnt being updated
 
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
         {
@@ -73,8 +75,11 @@ namespace Sprint
             hudLoader = new HUDLoader(contentManager, spriteLoader);
             hudLoader.LoadHUD("HUD/HUDData", loader.GetLevel(), map);
 
+            sleeping = false;
+
             // enter first room
             SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
+
         }
 
         private void loadDelegates ()
@@ -205,6 +210,15 @@ namespace Sprint
 
         public void Update(GameTime gameTime)
         {
+            // Wake up if sleeping
+            if (sleeping)
+            {
+                sleeping = false;
+                // Resume sounds in current room
+                if (currentRoom.X >= 0)
+                    SfxFactory.GetInstance().ResumeLoopsForObjects(rooms[currentRoom.Y][currentRoom.X].GetScene().GetObjects());
+            }
+
 
             // Resets the game when requested
             if (resetGame)
@@ -242,9 +256,17 @@ namespace Sprint
 
         public void PassToState(IGameState newState)
         {
+
+            // Pause sounds in current room
+            if (currentRoom.X >= 0)
+                SfxFactory.GetInstance().PauseLoopsForObjects(rooms[currentRoom.Y][currentRoom.X].GetScene().GetObjects());
+
             game.GameState = newState;
+
+            // Sleep updates that need it
             if (inputTable != null)
                 inputTable.Sleep();
+            sleeping = true;
         }
 
         //checks if the user requested a reset for game
@@ -256,6 +278,9 @@ namespace Sprint
         //clears input dictionary and object manager
         public void ResetGame()
         {
+            // Stop sounds
+            SfxFactory.GetInstance().EndAllLoops();
+
             // remove events
             unloadDelegates();
 
@@ -289,6 +314,8 @@ namespace Sprint
             // remake commands and delegates
             MakeCommands();
 
+            sleeping = false;
+
             // enter first room
             SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
         }
@@ -301,6 +328,7 @@ namespace Sprint
         // Switches current room to a different one by index
         public void SwitchRoom(Vector2 spawn, Point idx, Vector2 dir)
         {
+
 
             // Terminal position for a fully scrolled arena
             Vector2 max = -dir * (new Vector2(Goober.gameWidth, Goober.gameHeight) - arenaPosition);
@@ -320,6 +348,13 @@ namespace Sprint
                 TransitionState scroll = new TransitionState(game, scrollScenes, 0.75f, this);
 
                 PassToState(scroll);
+            }
+            else if(currentRoom.X >= 0)
+            {
+                // Pause sounds in current room
+                // If direction isn't still, sounds will pause during the PassToState method
+                SfxFactory.GetInstance().PauseLoopsForObjects(rooms[currentRoom.Y][currentRoom.X].GetScene().GetObjects());
+                sleeping = true;
             }
 
             // Clean up previous room changes
