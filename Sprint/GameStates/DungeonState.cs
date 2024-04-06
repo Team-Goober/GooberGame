@@ -91,6 +91,7 @@ namespace Sprint
             inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
 
+            inventory.WinEvent += this.WinScreen;
             player.OnPlayerDamaged += hudLoader.UpdateHeartAmount;
         }
 
@@ -424,6 +425,12 @@ namespace Sprint
             PassToState(scroll);
         }
 
+
+        public void WinScreen()
+        {
+            WinState win = new WinState(game, hudLoader.GetTopDisplay(), rooms[currentRoom.Y][currentRoom.X].GetScene(), player, spriteLoader, arenaPosition);
+            PassToState(win);
+            
         public void DeathScreen()
         {
             GameOverState death = new GameOverState(game, hudLoader);
