@@ -211,6 +211,7 @@ namespace Sprint.Loader
                     if (tile.Equals("X"))
                     {
                         moveTiles.Add(MakeTile(lvl, tile, new Vector2(x, y)));
+                        normTiles.Add(MakeTile(lvl, "0", new Vector2(x, y)));
                     }
                     else
                     {
