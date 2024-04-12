@@ -4,31 +4,31 @@ using Sprint.Interfaces;
 
 namespace Sprint.Loader
 {
-    internal class HUDInterchangeableSprite : IHUD
+    internal class HUDPowerup : IHUD
     {
-        private ISprite sprite;
+        private IPowerup powerup;
         private Vector2 position;
 
-        public HUDInterchangeableSprite(ISprite sprite, Vector2 position)
+        public HUDPowerup(IPowerup powerup, Vector2 position)
         {
-            this.sprite = sprite;
+            this.powerup = powerup;
             this.position = position;
         }
 
-        public void GiveSprite(ISprite sprite)
+        public void SetPowerup(IPowerup powerup)
         {
-            this.sprite = sprite;
+            this.powerup = powerup;
         }
 
-        public ISprite GetSprite()
+        public IPowerup GetPowerup()
         {
-            return sprite;
+            return powerup;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (sprite!= null)
-                sprite.Draw(spriteBatch, position, gameTime);
+            if (powerup!= null)
+                powerup.Draw(spriteBatch, position, gameTime);
         }
 
         public void Update(GameTime gameTime)

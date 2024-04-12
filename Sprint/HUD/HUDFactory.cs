@@ -26,19 +26,10 @@ namespace Sprint.HUD
             return new HUDSprite(sprite, position);
         }
 
-        public HUDInterchangeableSprite MakeItemSprite(string spriteLabel, Vector2 position)
+        public HUDPowerup MakeItemSprite(IPowerup powerup, Vector2 position)
         {
-            ISprite sprite;
-            if (spriteLabel != null)
-            {
-                sprite = spriteLoader.BuildSprite(ITEM_LOCATION, spriteLabel);
-            }
-            else
-            {
-                sprite = null;
-            }
 
-            return new HUDInterchangeableSprite(sprite, position);
+            return new HUDPowerup(powerup, position);
         }
 
         public List<HUDAnimSprite> MakeNumber(string level, Vector2 position, int spriteSize)

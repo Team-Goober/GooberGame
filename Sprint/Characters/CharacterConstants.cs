@@ -12,6 +12,8 @@ namespace Sprint.Characters
         public const int SWORD_WIDTH = 40, SWORD_LENGTH = 90;
         public const int STARTING_HEALTH = 3;
 
+        public const int INVENTORY_ROWS = 2, INVENTORY_COLUMNS = 4;
+
         public const int COLLIDER_SCALE = 3;
         public const int DEFAULT_SIDE_LENGTH = 16;
 
