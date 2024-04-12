@@ -25,7 +25,7 @@ namespace Sprint.Characters
         /// <param name="name">Name of enemy to make</param>
         /// <param name="position">World position to spawn at</param>
         /// <returns></returns>
-        public Enemy MakeEnemy(string name, Vector2 position, Room room)
+        public Enemy MakeEnemy(string name, Vector2 position, Room room, Player player)
         {
             // Consider storing enemies in file with reflection, and having enemies load their own sprites
             // This would make dealing with enemies much easier
@@ -41,7 +41,7 @@ namespace Sprint.Characters
                 case "bluebubble":
                     return new BluebubbleEnemy(enemySprite, damagedSprite, position, room, spriteLoader);
                 case "skeleton":
-                    return new SkeletonEnemy(enemySprite, damagedSprite, position, room, spriteLoader);
+                    return new SkeletonEnemy(enemySprite, damagedSprite, position, room, spriteLoader, player);
                 case "dog":
                     return new DogEnemy(enemySprite, damagedSprite, position, room, spriteLoader);
                 case "bat":

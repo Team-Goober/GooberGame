@@ -595,5 +595,10 @@ namespace Sprint
             }
         }
 
+        public Player ReturnPlayer()
+        {
+            return player;
+        }
+
     }
 }

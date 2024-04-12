@@ -11,11 +11,14 @@ namespace Sprint.Characters
 
         Physics physics;
 
+        Player player;
+
 
         public MoveVert(Physics physics)
         {
 
             this.physics = physics;
+            this.player = player;
 
             // Initialize the move direction randomly
             RandomizeMoveDirection();
