@@ -13,5 +13,8 @@ namespace Sprint.Interfaces
         //Method that clears the dictionaryr
         void ClearDictionary();
 
+        // Marks map as not receiving updates
+        void Sleep();
+
     }
 }

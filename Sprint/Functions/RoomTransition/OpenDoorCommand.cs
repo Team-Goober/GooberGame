@@ -1,10 +1,4 @@
-﻿using Sprint.Factory.Door;
-using Sprint.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sprint.Interfaces;
 using Microsoft.Xna.Framework;
 
 
@@ -22,7 +16,10 @@ namespace Sprint.Functions.RoomTransition
 
         public void Execute()
         {
+            // Open the door
             receiver.SetOpen(true);
+            // Open the other side of the door
+            receiver.GetOtherFace().SetOpen(true);
         }
     }
 }

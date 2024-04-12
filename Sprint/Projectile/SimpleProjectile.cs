@@ -4,21 +4,22 @@ using Sprint.Characters;
 using Sprint.Collision;
 using Sprint.Interfaces;
 using Sprint.Levels;
-using System;
 
 namespace Sprint.Projectile
 {
     abstract class SimpleProjectile : IProjectile, IMovingCollidable
     {
 
-        protected GameObjectManager objManager;
+        protected Room room;
         protected Vector2 position;
         protected ISprite sprite;
         protected bool isEnemy;
+        protected double damage;
 
-        public Rectangle BoundingBox => new((int)(position.X - 4 * 3),
-            (int)(position.Y - 4 * 3),
-            8*3, 8*3);
+        public virtual Rectangle BoundingBox => new((int)(position.X - CharacterConstants.PROJECTILE_SIDE_LENGTH/2 * CharacterConstants.COLLIDER_SCALE),
+            (int)(position.Y - CharacterConstants.PROJECTILE_SIDE_LENGTH/2 * CharacterConstants.COLLIDER_SCALE),
+            CharacterConstants.PROJECTILE_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE, 
+            CharacterConstants.PROJECTILE_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE);
 
         public virtual CollisionTypes[] CollisionType {
             get
@@ -34,9 +35,15 @@ namespace Sprint.Projectile
             }
         }
 
-        public SimpleProjectile(ISprite sprite, Vector2 startPos, bool isEnemy, GameObjectManager objManager)
+
+        public double DamageAmount()
         {
-            this.objManager = objManager;
+            return damage;
+        }
+
+        public SimpleProjectile(ISprite sprite, Vector2 startPos, bool isEnemy, Room room)
+        {
+            this.room = room;
             this.sprite = sprite;
             this.position = startPos;
             this.isEnemy = isEnemy;
@@ -45,12 +52,12 @@ namespace Sprint.Projectile
 
         public virtual void Create()
         {
-            objManager.Add(this);
+            room.GetScene().Add(this);
         }
 
         public virtual void Delete()
         {
-            objManager.Remove(this);
+            room.GetScene().Remove(this);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)

@@ -8,39 +8,39 @@ using System.Runtime.Serialization;
 
 namespace Sprint.Characters
 {
-    public class JellyfishEnemy : Enemy
+    internal class JellyfishEnemy : Enemy
     {
         private float elapsedTime;
         private Vector2 initialPosition;
 
-        public JellyfishEnemy(ISprite sprite, Vector2 initialPosition, GameObjectManager objManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, objManager)
+        public JellyfishEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
 
             // Store the initial position for reference
             this.initialPosition = initialPosition;
+
+            health = CharacterConstants.LOW_HP;
         }
 
         // Set the direction and update the animation accordingly
-        public void SetDirection(Directions direction)
+        public void SetDirection(Vector2 direction)
         {
-            switch (direction)
+            if (direction == Directions.DOWN)
             {
-                case Directions.UP:
-                    SetAnimation("upFacing");
-                    break;
-                case Directions.LEFT:
-                    SetAnimation("leftFacing");
-                    break;
-                case Directions.DOWN:
-                    SetAnimation("downFacing");
-                    break;
-                case Directions.RIGHT:
-                    SetAnimation("rightFacing");
-                    break;
-                default:
-                    SetAnimation("default");
-                    break;
+                sprite.SetAnimation("downFacing");
+            }
+            else if (direction == Directions.LEFT)
+            {
+                sprite.SetAnimation("leftFacing");
+            }
+            else if (direction == Directions.UP)
+            {
+                sprite.SetAnimation("upFacing");
+            }
+            else if (direction == Directions.RIGHT)
+            {
+                sprite.SetAnimation("righFacing");
             }
         }
 
@@ -48,6 +48,8 @@ namespace Sprint.Characters
         {
             // Calculate movement based on elapsed time
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            base.Update(gameTime);
 
             // Adjust the speed and side length of the square loop
             float speed = 50;

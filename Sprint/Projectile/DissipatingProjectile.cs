@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using System;
-using System.Diagnostics;
 
 namespace Sprint.Projectile
 {
@@ -15,8 +13,8 @@ namespace Sprint.Projectile
         protected Vector2 startPos;
         protected Vector2 velocity;
 
-        public DissipatingProjectile(ISprite sprite, Vector2 startPos, Vector2 direction, int speed, int travel, bool isEnemy, GameObjectManager objManager) : 
-            base(sprite, startPos, isEnemy, objManager)
+        public DissipatingProjectile(ISprite sprite, Vector2 startPos, Vector2 direction, int speed, int travel, bool isEnemy, Room room) :
+            base(sprite, startPos, isEnemy, room)
         {
             this.travel = travel;
             this.startPos = startPos;

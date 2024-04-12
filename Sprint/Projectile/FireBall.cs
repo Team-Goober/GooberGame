@@ -1,13 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using Sprint.Sprite;
-using Sprint.Commands;
-using System;
 using Sprint.Levels;
-using Sprint.Collision;
-using Sprint.Functions.SecondaryItem;
-using System.Diagnostics;
+using Sprint.Music.Sfx;
+using Sprint.Characters;
 
 namespace Sprint.Projectile
 {
@@ -17,11 +13,15 @@ namespace Sprint.Projectile
         private const int SPEED = 300;
         private const int TRAVEL = 100;
         private Timer sitTimer;
+        private SfxFactory sfxFactory;
 
-        public FireBall(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, GameObjectManager objManager) :
-            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objManager)
+        public FireBall(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) :
+            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)
         {
-            sitTimer = new Timer(1);
+            sitTimer = new Timer(1.5);
+            sfxFactory = SfxFactory.GetInstance();
+            sfxFactory.PlaySoundEffect("Flames Shot");
+            damage = CharacterConstants.LOW_DMG;
         }
 
         public override void Dissipate()

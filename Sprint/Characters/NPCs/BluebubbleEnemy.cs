@@ -11,26 +11,24 @@ using Sprint.Levels;
 
 namespace Sprint.Characters
 {
-    public class BluebubbleEnemy : Enemy
+    internal class BluebubbleEnemy : Enemy
     {
         private float elapsedTime;
         private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
         private ICommand projectileCommand;
         private SimpleProjectileFactory itemFactory;
-        private Vector2 initialPosition;
 
-        public BluebubbleEnemy(ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, objectManager)
+        public BluebubbleEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
-
-            // Store the initial position for reference
-            this.initialPosition = initialPosition;
 
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
+            health = CharacterConstants.LOW_HP;
+
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
             projectileCommand = new ShootBombC(itemFactory);
 
@@ -60,6 +58,7 @@ namespace Sprint.Characters
         public override void Update(GameTime gameTime)
         {
             timeAttack.Update(gameTime);
+            base.Update(gameTime);
 
             // Uses timer to shoot projectiles every 2 seconds
             if (timeAttack.JustEnded)
@@ -118,27 +117,9 @@ namespace Sprint.Characters
 
             // Move in the current direction
             Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            CheckBounds(newPosition, 3); // Ensure enemy stays within game bounds
             physics.SetPosition(newPosition);
         }
 
-        // Ensure that the enemy always stays within the game bounds
-        private void CheckBounds(Vector2 pos, float scale)
-        {
-            //int gameX = Goober.gameWidth;
-            //int gameY = Goober.gameHeight;
-
-            // Make the enemy go to the other direction when it reaches a certain distance so that it doesn't go over the window
-            //if (pos.X + scale > gameX)
-            //{
-            //    moveDirection.X = -moveDirection.X;
-            //}
-
-            //if (pos.Y + scale > gameY)
-            //{
-            //    moveDirection.Y = -moveDirection.Y;
-            //}
-        }
 
         // Generate a random movement direction for BluebubbleEnemy
         private void RandomizeMoveDirection()

@@ -1,26 +1,22 @@
 ﻿using Sprint.Interfaces;
-using Sprint.Levels;
-using Microsoft.Xna.Framework;
-using System.Runtime.Serialization;
-using System.Collections.Generic;
 
 namespace Sprint.Functions.RoomTransition
 {
     internal class SwitchRoomFromDoorsCommand : ICommand
     {
 
-        private IDoor[] receivers;
-        private GameObjectManager objManager;
+        private IDoor[,] receivers;
+        private DungeonState dungeon;
 
-        public SwitchRoomFromDoorsCommand(IDoor[] doors, GameObjectManager objManager)
+        public SwitchRoomFromDoorsCommand(IDoor[,] doors, DungeonState dungeon)
         {
             receivers = doors;
-            this.objManager = objManager;
+            this.dungeon = dungeon;
         }
 
         public void Execute()
         {
-            receivers[objManager.RoomIndex()].SwitchRoom();
+            receivers[dungeon.RoomIndex().Y, dungeon.RoomIndex().X].SwitchRoom();
         }
 
     }

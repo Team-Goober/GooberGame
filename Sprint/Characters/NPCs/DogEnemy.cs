@@ -1,40 +1,37 @@
-using Microsoft.Xna.Framework.Graphics;
+
 using Sprint.Interfaces;
 using Microsoft.Xna.Framework;
 using Sprint.Commands.SecondaryItem;
-using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
 
 namespace Sprint.Characters
 {
-    public class DogEnemy : Enemy
+    internal class DogEnemy : Enemy
     {
-        private float elapsedTime;
         private Timer timeAttack;
         private Vector2 moveDirection; // Movement direction for the random pattern
         private ICommand projectileCommand;
         private SimpleProjectileFactory itemFactory;
-        private Vector2 initialPosition;
         private string lastAnimationName;
+        private MoveVert moveVert;
 
-        public DogEnemy(ISprite sprite, Vector2 initialPosition, GameObjectManager objectManager, SpriteLoader spriteLoader)
-            : base(sprite, initialPosition, objectManager)
+        public DogEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+            : base(sprite, damagedSprite, initialPosition, room)
         {
-
-            // Store the initial position for reference
-            this.initialPosition = initialPosition;
 
             timeAttack = new Timer(2);
             timeAttack.Start();
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, objectManager);
+            health = CharacterConstants.MID_HP;
 
-            projectileCommand = new ShootBombC(itemFactory);
+            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
-            // Initialize the move direction randomly
-            RandomizeMoveDirection();
+            projectileCommand = new ShootBoomarangC(itemFactory);
+
+            moveVert = new MoveVert(physics);
+
         }
 
         // Register a directional animation for DogEnemy sprite
@@ -59,6 +56,7 @@ namespace Sprint.Characters
         public override void Update(GameTime gameTime)
         {
             timeAttack.Update(gameTime);
+            base.Update(gameTime);
 
             // Uses timer to shoot projectiles every 2 seconds
             if (timeAttack.JustEnded)
@@ -69,8 +67,8 @@ namespace Sprint.Characters
                 timeAttack.Start();
             }
 
-            // Calculate movement based on elapsed time for the random pattern
-            MoveRandomly(gameTime);
+            // Move randomly within a specified area
+            moveVert.MoveAI(gameTime);
 
             // Set animation based on the new direction
             SetAnimationBasedOnDirection();
@@ -84,81 +82,36 @@ namespace Sprint.Characters
         private void SetAnimationBasedOnDirection()
         {
             string newAnim = "";
-            if (Math.Abs(moveDirection.X) > Math.Abs(moveDirection.Y))
+            moveDirection = moveVert.directionFace;
+            if (moveDirection == Directions.DOWN)
             {
-
-                if (moveDirection.X > 0)
-                    newAnim = "rightFacing";
-                else
-                    newAnim = "leftFacing";
-
+                newAnim = "downFacing";
             }
-            else
+            else if (moveDirection == Directions.LEFT)
             {
-
-                if (moveDirection.Y > 0)
-                    newAnim = "upFacing";
-                else
-                    newAnim = "downFacing";
+                newAnim = "leftFacing";
             }
-
-            if(newAnim != lastAnimationName)
+            else if(moveDirection == Directions.UP)
+            {
+                newAnim = "upFacing";
+            }
+            else if(moveDirection == Directions.RIGHT)
+            {
+                newAnim = "rightFacing";
+            }
+            
+            if (newAnim != lastAnimationName)
             {
                 lastAnimationName = newAnim;
                 SetAnimation(newAnim);
             }
 
 
+
         }
 
-        // Move DogEnemy randomly within the game area
-        private void MoveRandomly(GameTime gameTime)
-        {
-            float speed = 50; // Adjust the speed as needed
-            float moveTime = 2; // Time before changing direction (in seconds)
 
-            if (elapsedTime > moveTime)
-            {
-                // Change direction after the specified time
-                RandomizeMoveDirection();
-                elapsedTime = 0;
-            }
 
-            // Move in the current direction
-            Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            CheckBounds(newPosition, 3); // Ensure enemy stays within game bounds
-            physics.SetPosition(newPosition);
-        }
-
-        // Ensure that the enemy always stays within the game bounds
-        private void CheckBounds(Vector2 pos, float scale)
-        {
-            //int gameX = Goober.gameWidth;
-            //int gameY = Goober.gameHeight;
-
-            // Make the enemy go to the other direction when it reaches a certain distance so that it doesn't go over the window
-            //    if (pos.X + scale > gameX)
-            //    {
-            //        moveDirection.X = -moveDirection.X;
-            //    }
-
-            //    if (pos.Y + scale > gameY)
-            //    {
-            //        moveDirection.Y = -moveDirection.Y;
-            //    }
-        }
-
-        // Generate a random movement direction for DogEnemy
-        private void RandomizeMoveDirection()
-        {
-            // Generate a random movement direction
-            Random random = new Random();
-            float angle = (float)random.NextDouble() * MathHelper.TwoPi;
-            moveDirection = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-
-            // Normalize the moveDirection vector
-            moveDirection.Normalize();
-        }
 
     }
 }

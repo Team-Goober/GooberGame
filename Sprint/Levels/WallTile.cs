@@ -13,7 +13,7 @@ namespace Sprint.Levels
 
         public Rectangle BoundingBox => bounds;
 
-        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.WALL };
+        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PHASING_WALL, CollisionTypes.WALL };
 
         public WallTile(ISprite sprite, Vector2 position, Vector2 size)
         {

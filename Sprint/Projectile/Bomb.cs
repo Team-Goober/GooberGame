@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using Sprint.Sprite;
 using Sprint.Collision;
-using System.Runtime.Serialization;
 using Sprint.Levels;
+using Sprint.Music.Sfx;
+using Sprint.Characters;
 
 namespace Sprint.Projectile
 {
@@ -12,6 +12,7 @@ namespace Sprint.Projectile
     {
 
         Timer explosionTimer;
+        private SfxFactory sfxFactory;
 
         public override CollisionTypes[] CollisionType
         {
@@ -24,19 +25,38 @@ namespace Sprint.Projectile
             }
         }
 
+
+        public override Rectangle BoundingBox
+        {
+            get
+            {
+                int sideLength = CharacterConstants.PROJECTILE_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
+                // Double side length during explosion
+                if (!explosionTimer.Ended)
+                {
+                    sideLength *= 4;
+                }
+                return new((int)(position.X - sideLength / 2), (int)(position.Y - sideLength / 2), sideLength, sideLength);
+            }
+        }
+
         private const int SPEED = 150;
         private const int TRAVEL = 50;
 
-        public Bomb(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, GameObjectManager objManager) :
-            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, objManager)
+        public Bomb(ISprite sprite, Vector2 startPos, Vector2 direction, bool isEnemy, Room room) :
+            base(sprite, startPos, direction, SPEED, TRAVEL, isEnemy, room)
         {
             explosionTimer = new Timer(1);
+            sfxFactory = SfxFactory.GetInstance();
+            sfxFactory.PlaySoundEffect("Bomb Placement");
+            damage = CharacterConstants.HIGH_DMG;
         }
 
         public override void Dissipate()
         {
             if (explosionTimer.Ended)
             {
+                sfxFactory.PlaySoundEffect("Bomb Explosion");
                 sprite.SetAnimation("explosion");
                 explosionTimer.Start();
                 velocity = Vector2.Zero;
@@ -54,7 +74,7 @@ namespace Sprint.Projectile
             explosionTimer.Update(gameTime);
             if (explosionTimer.JustEnded)
             {
-                objManager.Remove(this);
+                room.GetScene().Remove(this);
             }
 
             base.Update(gameTime);

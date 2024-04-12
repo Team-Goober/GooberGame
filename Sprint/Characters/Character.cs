@@ -13,14 +13,7 @@ namespace Sprint.Characters
 
         public abstract void Die();
 
-        public enum Directions
-        {
-            UP,
-            DOWN,
-            LEFT,
-            RIGHT,
-            STILL
-        }
+        public abstract void TakeDamage(double damage);
 
     }
 }

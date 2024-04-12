@@ -13,6 +13,7 @@ namespace Sprint.Functions.Collision
             this.receiver = (IMovingCollidable)receiver;
             // overlap is directed into the static collider; we want to move outwards
             distance = -overlap;
+
         }
 
         public void Execute()

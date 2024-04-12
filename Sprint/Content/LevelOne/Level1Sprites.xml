@@ -611,5 +611,41 @@
 			  <InitialAnimation>tile</InitialAnimation>
 		  </Value>
 	  </Item>
+
+	  <Item>
+		  <Key>brickTile</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>default</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>0 34 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>default</InitialAnimation>
+		  </Value>
+	  </Item>
+    
+	  <Item>
+		  <Key>slatTile</Key>
+		  <Value>
+			  <Texture>tiles</Texture>
+			  <Animations>
+				  <Item>
+					  <Key>default</Key>
+					  <Value Type="XMLData.SingleAtlasData">
+						  <Rectangle>17 34 16 16</Rectangle>
+						  <CenterPoint>0 0</CenterPoint>
+					  </Value>
+				  </Item>
+			  </Animations>
+			  <Scale>4</Scale>
+			  <InitialAnimation>default</InitialAnimation>
+		  </Value>
+	  </Item>
   </Asset>
 </XnaContent>

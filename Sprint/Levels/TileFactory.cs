@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Sprite;
-using System;
 
 namespace Sprint.Levels
 {
@@ -40,6 +39,10 @@ namespace Sprint.Levels
             else if (type.Equals("gap"))
             {
                 return new GapTile(sprite, position, size);
+            }
+            else if (type.Equals("moveWall"))
+            {
+                return new MoveWallTile(sprite, position, size);
             }
             else
             {

@@ -4,16 +4,16 @@ namespace Sprint.Commands
 {
     internal class Reset : ICommand
     {
-        private Goober game;
+        private DungeonState dungeon;
 
-        public Reset(Goober game)
+        public Reset(DungeonState dungeon)
         {
-            this.game = game;
+            this.dungeon = dungeon;
         }
 
         public void Execute()
         {
-            this.game.ResetReq();
+            this.dungeon.ResetReq();
 
         }
     }
