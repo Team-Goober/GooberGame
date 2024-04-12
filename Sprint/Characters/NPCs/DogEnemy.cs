@@ -5,6 +5,8 @@ using Sprint.Commands.SecondaryItem;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
+using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace Sprint.Characters
 {
@@ -16,19 +18,31 @@ namespace Sprint.Characters
         private SimpleProjectileFactory itemFactory;
         private string lastAnimationName;
         private MoveVert moveVert;
+        private ProjBoomarang projBoomarang;
+        private Timer delayTimer;
+        private bool shooting;
 
         public DogEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
-            timeAttack = new Timer(2);
-            timeAttack.Start();
+            //timeAttack = new Timer(2);
+            //timeAttack.Start();
+
+            delayTimer = new Timer(1);
+            shooting = false;
+
+
+
+
 
             health = CharacterConstants.MID_HP;
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
+            //itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
-            projectileCommand = new ShootBoomarangC(itemFactory);
+            //projectileCommand = new ShootBoomarangC(itemFactory);
+
+            projBoomarang = new ProjBoomarang(spriteLoader, room, moveDirection);
 
             moveVert = new MoveVert(physics);
 
@@ -55,27 +69,52 @@ namespace Sprint.Characters
         // Update DogEnemy logic
         public override void Update(GameTime gameTime)
         {
-            timeAttack.Update(gameTime);
-            base.Update(gameTime);
+            //timeAttack.Update(gameTime);
+            //base.Update(gameTime);
 
-            // Uses timer to shoot projectiles every 2 seconds
-            if (timeAttack.JustEnded)
+            //// Uses timer to shoot projectiles every 2 seconds
+            //if (timeAttack.JustEnded)
+            //{
+            //    itemFactory.SetStartPosition(physics.Position);
+            //    itemFactory.SetDirection(moveDirection);
+            //    projectileCommand.Execute();
+            //    timeAttack.Start();
+            //}
+
+            projBoomarang.Update(gameTime, physics, moveDirection);
+
+            if (projBoomarang.shootingTF && !shooting)
             {
-                itemFactory.SetStartPosition(physics.Position);
-                itemFactory.SetDirection(moveDirection);
-                projectileCommand.Execute();
-                timeAttack.Start();
+                shooting = true;
+                delayTimer.Start();
+                
             }
 
-            // Move randomly within a specified area
-            moveVert.MoveAI(gameTime);
+
+
+            delayTimer.Update(gameTime);
+
 
             // Set animation based on the new direction
             SetAnimationBasedOnDirection();
 
+            if (!shooting)
+            {
+                // Move randomly within a specified area
+                moveVert.MoveAI(gameTime);
+                physics.Update(gameTime);
+            }
+            else if (delayTimer.Ended)
+            {
+
+                shooting = false;
+            }
+
             // Update the sprite and physics
             sprite.Update(gameTime);
-            physics.Update(gameTime);
+
+
+
         }
 
         // Set animation based on the direction of movement
