@@ -199,4 +199,8 @@ internal class Inventory
     {
         return abilitySlots;
     }
+    public Dictionary<string, IPowerup> GetListing()
+    {
+        return allPowerups;
+    }
 }

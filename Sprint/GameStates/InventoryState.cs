@@ -8,8 +8,10 @@ using Sprint.Functions.States;
 using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 using Sprint.Items;
 using Sprint.Levels;
+using Sprint.Loader;
 using System.Collections.Generic;
 
 namespace Sprint.GameStates
@@ -23,6 +25,8 @@ namespace Sprint.GameStates
         private SceneObjectManager inventoryUI;
         private Inventory playerInventory;
         private Point slot;
+        private HUDPowerupArray listing;
+        private HUDText itemDescription;
 
         private Vector2 hudPosition;
 
@@ -93,6 +97,16 @@ namespace Sprint.GameStates
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveSelectorCommand(this, new Point(1, 0)));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new SelectSlotCommand(this));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new DropSlotCommand(this));
+
+            IPowerup[,] listArray = listing.GetPowerups();
+            for (int i = 0; i< listArray.GetLength(0); i++)
+            {
+                for (int j = 0; j < listArray.GetLength(1); j++)
+                {
+                    input.RegisterMapping(new MouseHoverTrigger(listing.PositionAt(i, j), 32), new SetDescriptiveTextCommand(itemDescription, listing, i, j));
+                }
+            }
+
         }
 
         public void Reset()
@@ -122,6 +136,8 @@ namespace Sprint.GameStates
             hudPosition = pos;
             hud = hudLoader.GetTopDisplay();
             inventoryUI = hudLoader.GetInventoryScreen();
+            listing = hudLoader.GetListing();
+            itemDescription = hudLoader.GetDescriptionText();
         }
 
         public SceneObjectManager GetScene()

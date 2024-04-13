@@ -20,12 +20,14 @@ namespace Sprint.Items
         private IAbility baseAbility;
         private List<string> baseOptions;
         private Player player;
+        private string description;
 
-        public UpgradeAbility(ISprite sprite, IUpgradeEffect onActivate, string label)
+        public UpgradeAbility(ISprite sprite, IUpgradeEffect onActivate, string label, string description)
         {
             this.sprite = sprite;
             this.onActivate = onActivate;
             this.label = label;
+            this.description = description;
         }
 
         public void ActivateItem()
@@ -57,6 +59,11 @@ namespace Sprint.Items
         public IEffect GetEffect()
         {
             return onActivate;
+        }
+
+        public string GetDescription()
+        {
+            return baseAbility.GetDescription() + "|" + description;
         }
 
         public void SetUpgradeOptions(List<string> bases)

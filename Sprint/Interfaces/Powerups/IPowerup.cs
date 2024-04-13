@@ -17,6 +17,8 @@ namespace Sprint.Interfaces.Powerups
 
         public IEffect GetEffect();
 
+        public string GetDescription();
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime);
 
         public void Update(GameTime gameTime);

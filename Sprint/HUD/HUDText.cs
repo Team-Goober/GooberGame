@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using System;
@@ -20,6 +21,11 @@ namespace Sprint.HUD
         {
             this.text = text;
             this.position = position;
+        }
+
+        public void SetText(string line)
+        {
+            text.SetText(line);
         }
 
         public void Update(GameTime gameTime)

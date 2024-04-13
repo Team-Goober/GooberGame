@@ -5,6 +5,9 @@ using Sprint.Interfaces;
 using System.Collections.Generic;
 using static System.Formats.Asn1.AsnWriter;
 using static System.Net.Mime.MediaTypeNames;
+using System;
+using System.Linq;
+using System.Diagnostics;
 
 namespace Sprint.Levels
 {
@@ -31,8 +34,13 @@ namespace Sprint.Levels
         }
 
 
+        public void SetText(string text)
+        {
+            SetText(text.Split("|").ToList());
+        }
+
         public void SetText(List<string> text)
-        {   
+        {
             // Calculate relative positions for each line
             lines = new();
             for (int i = 0; i < text.Count; i++)

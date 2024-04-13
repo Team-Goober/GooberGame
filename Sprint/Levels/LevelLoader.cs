@@ -280,22 +280,25 @@ namespace Sprint.Loader
                     case "heart":
                         roomItems.Add(new Item(position,
                             new InstantPowerup(
-                                spriteLoader.BuildSprite("itemAnims", "heart"),
+                                spriteLoader.BuildSprite("itemAnims", "heart"), 
                                 new HealPlayerEffect(1),
-                                "heart")));
+                                "heart",
+                                "HEART|heals one heart")));
                         break;
                     case "redRing":
                         roomItems.Add(new Item(position,
                             new PassivePowerup(
                                 spriteLoader.BuildSprite("itemAnims", "redRing"),
                                 new ChangeSpeedEffect(CharacterConstants.PLAYER_SPEED * 2),
-                                "redRing")));
+                                "redRing",
+                                "RING|doubles run speed")));
                         break;
                     case "rupee":
                         IStackedPowerup gem = new ResourcePowerup(
                                 spriteLoader.BuildSprite("itemAnims", "rupee"),
                                 null,
-                                "rupee");
+                                "rupee",
+                                "RUPEE|can be traded");
                         gem.AddAmount(5);
                         roomItems.Add(new Item(position, gem));
                         break;
@@ -303,7 +306,8 @@ namespace Sprint.Loader
                         IStackedPowerup key = new ResourcePowerup(
                                 spriteLoader.BuildSprite("itemAnims", "key"),
                                 null,
-                                "key");
+                                "key",
+                                "KEY|unlocks doors");
                         key.AddAmount(1);
                         roomItems.Add(new Item(position, key));
                         break;
@@ -312,13 +316,15 @@ namespace Sprint.Loader
                             new ActiveAbility(
                                 spriteLoader.BuildSprite("itemAnims", "bow"),
                                 new SpawnProjectileEffect("arrow"),
-                                "bow")));
+                                "bow",
+                                "BOW|shoots arrows")));
                         break;
                     case "meat":
                         IStackedPowerup meat = new ConsumableAbility(
                                 spriteLoader.BuildSprite("itemAnims", "meat"),
                                 new HealPlayerEffect(2),
-                                "meat");
+                                "meat",
+                                "MEAT|heals 2 hearts");
                         meat.AddAmount(2);
                         roomItems.Add(new Item(position, meat));
                         break;
@@ -326,7 +332,8 @@ namespace Sprint.Loader
                         IUpgradePowerup greenUpgrade = new UpgradeAbility(
                                 spriteLoader.BuildSprite("itemAnims", "greenBadge"),
                                 new DualShotUpgrade(),
-                                "greenBadge");
+                                "greenBadge",
+                                "- dual shot");
                         greenUpgrade.SetUpgradeOptions(new() { "bow" });
                         roomItems.Add(new Item(position, greenUpgrade));
                         break;
@@ -334,7 +341,8 @@ namespace Sprint.Loader
                         IUpgradePowerup blueUpgrade = new UpgradeAbility(
                                 spriteLoader.BuildSprite("itemAnims", "blueBadge"),
                                 new TripleShotUpgrade(),
-                                "blueBadge");
+                                "blueBadge",
+                                "- triple shot");
                         blueUpgrade.SetUpgradeOptions(new() { "bow" });
                         roomItems.Add(new Item(position, blueUpgrade));
                         break;

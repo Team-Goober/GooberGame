@@ -24,13 +24,15 @@ namespace Sprint.Items
         private string label;
         private int quantity;
         private ZeldaText number;
+        private string description;
 
-        public ResourcePowerup(ISprite sprite, IEffect command, string label)
+        public ResourcePowerup(ISprite sprite, IEffect command, string label, string description)
         {
             this.sprite = sprite;
             this.label = label;
             quantity = 0;
             number = new ZeldaText("nintendo", new() { "0" }, new Vector2(16, 16), 0.5f, Color.White, Goober.content);
+            this.description = description;
         }
 
 
@@ -38,7 +40,7 @@ namespace Sprint.Items
         {
             quantity += amount;
             Debug.Assert(quantity >= 0);
-            number.SetText(new() { ""+quantity });
+            number.SetText( "" + quantity );
         }
 
         public int Quantity()
@@ -80,6 +82,10 @@ namespace Sprint.Items
             return null;
         }
 
+        public string GetDescription()
+        {
+            return description + "|amt: " + quantity;
+        }
 
         public void Update(GameTime gameTime)
         {

@@ -27,13 +27,14 @@ namespace Sprint.HUD
 
         private HUDPowerupArray bWeapon;
         private HUDPowerupArray aWeapon;
-        private HUDPowerupArray bSelection;
         private HUDPowerupArray rupeeCount;
         private HUDPowerupArray keyCount;
 
         private HUDPowerupArray slotDisplay;
         private HUDPowerupArray listingDisplay;
         private HUDSelector selector;
+
+        private HUDText descriptionText;
 
         HUDData data;
 
@@ -75,8 +76,8 @@ namespace Sprint.HUD
             // Weapons
             bWeapon = MakeItemSprite(null, data.BWeapon);
             aWeapon = MakeItemSprite(null, data.AWeapon);
-            rupeeCount = MakeItemSprite(null, data.GemNumPos);
-            keyCount = MakeItemSprite(null, data.KeyNumPos);
+            rupeeCount = MakeItemSprite(null, data.GemNumPos + new Vector2(40, 0));
+            keyCount = MakeItemSprite(null, data.KeyNumPos + new Vector2(40, 0));
             topDisplay.Add(bWeapon);
             topDisplay.Add(aWeapon);
             topDisplay.Add(rupeeCount);
@@ -100,8 +101,9 @@ namespace Sprint.HUD
             listingDisplay = new HUDPowerupArray(new Vector2(50, 350), data.InventorySlotSize + data.InventoryPadding);
             inventoryScreen.Add(listingDisplay);
 
-            bSelection = MakeItemSprite(null, data.BSelection);
-            inventoryScreen.Add(bSelection);
+            // Hovered item summary text
+            descriptionText = new HUDText(new ZeldaText("nintendo", new() { "--HOVER ITEM--" }, new Vector2(24, 24), 0.75f, Color.Gray, content), new Vector2(240, 200));
+            inventoryScreen.Add(descriptionText);
 
             inventoryScreen.Add(MakeFullMap(map, data.FullMapPos, data.FullMapRoomSize, data.FullMapPadding, data.FullMapBackgroundSize));
             inventoryScreen.EndCycle();
@@ -199,7 +201,6 @@ namespace Sprint.HUD
         {
             // Exchange sprites for B item
             bWeapon.SetSinglePowerup(item);
-            bSelection.SetSinglePowerup(item);
         }
 
         public void OnListingUpdateEvent(Dictionary<string, IPowerup> newDict)
@@ -274,6 +275,16 @@ namespace Sprint.HUD
         public void SetSlotsArray(IAbility[,] slots)
         {
             slotDisplay.SetPowerups(slots);
+        }
+
+        public HUDPowerupArray GetListing()
+        {
+            return listingDisplay;
+        }
+
+        public HUDText GetDescriptionText()
+        {
+            return descriptionText;
         }
 
     }

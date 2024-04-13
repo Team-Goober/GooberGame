@@ -94,7 +94,6 @@ namespace Sprint
             player.OnPlayerHealthChange += hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange += hudLoader.UpdateMaxHeartAmount;
 
-            hudLoader.SetSlotsArray(inventory.GetAbilities());
         }
 
         private void unloadDelegates()
@@ -129,9 +128,12 @@ namespace Sprint
         public void MakeCommands()
         {
             // TODO: These are here because they refer to InventoryState, which may not exist yet. Should be moved
+            loadDelegates();
+            hudLoader.SetSlotsArray(player.GetInventory().GetAbilities());
+            hudLoader.OnListingUpdateEvent(player.GetInventory().GetListing());
+
             ((InventoryState)game.GetInventoryState()).SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
             ((InventoryState)game.GetInventoryState()).AttachPlayer(player);
-            loadDelegates();
 
             inputTable = new InputTable();
 

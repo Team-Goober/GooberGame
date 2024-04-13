@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Sprint.Interfaces.Powerups;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -35,6 +36,11 @@ namespace Sprint.Loader
             return powerups;
         }
 
+        public Vector2 PositionAt(int r, int c)
+        {
+            return firstCell + offsets * new Vector2(c, r);
+        }
+
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (powerups != null)
@@ -45,7 +51,7 @@ namespace Sprint.Loader
                     {
                         if (powerups[i, j] != null)
                         {
-                            powerups[i, j].Draw(spriteBatch, firstCell + offsets * new Vector2(j, i), gameTime);
+                            powerups[i, j].Draw(spriteBatch, PositionAt(i, j), gameTime);
                         }
                     }
                 }
@@ -56,5 +62,6 @@ namespace Sprint.Loader
         {
             // Don't pass updates to them
         }
+
     }
 }

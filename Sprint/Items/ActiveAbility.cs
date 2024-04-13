@@ -23,12 +23,14 @@ namespace Sprint.Items
         private IEffect onActivate;
         private string label;
         private Player player;
+        private string description;
 
-        public ActiveAbility(ISprite sprite, IEffect onActivate, string label)
+        public ActiveAbility(ISprite sprite, IEffect onActivate, string label, string description)
         {
             this.sprite = sprite;
             this.label = label;
             this.onActivate = onActivate;
+            this.description = description;
         }
 
         public void ActivateItem()
@@ -61,6 +63,11 @@ namespace Sprint.Items
         public IEffect GetEffect()
         {
             return onActivate;
+        }
+
+        public string GetDescription()
+        {
+            return description;
         }
 
         public void Update(GameTime gameTime)

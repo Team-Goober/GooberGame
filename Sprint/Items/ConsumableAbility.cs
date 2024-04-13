@@ -21,21 +21,23 @@ namespace Sprint.Items
         private int quantity;
         private ZeldaText number;
         private Player player;
+        private string description;
 
-        public ConsumableAbility(ISprite sprite, IEffect onActivate, string label)
+        public ConsumableAbility(ISprite sprite, IEffect onActivate, string label, string description)
         {
             this.sprite = sprite;
             this.onActivate = onActivate;
             this.label = label;
             quantity = 0;
             number = new ZeldaText("nintendo", new() { "0" }, new Vector2(16, 16), 0.5f, Color.White, Goober.content);
+            this.description = description;
         }
 
         public void AddAmount(int amount)
         {
             quantity += amount;
             Debug.Assert(quantity >= 0);
-            number.SetText(new() { "" + quantity });
+            number.SetText( "" + quantity );
         }
 
         public int Quantity()
@@ -80,6 +82,10 @@ namespace Sprint.Items
         public IEffect GetEffect()
         {
             return onActivate;
+        }
+        public string GetDescription()
+        {
+            return description + "|amt: " + quantity;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)

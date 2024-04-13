@@ -17,12 +17,14 @@ namespace Sprint.Items
         private IEffect onApply;
         private ISprite sprite;
         private string label;
+        private string description;
 
-        public InstantPowerup(ISprite sprite, IEffect onApply, string label)
+        public InstantPowerup(ISprite sprite, IEffect onApply, string label, string description)
         {
             this.sprite = sprite;
             this.onApply = onApply;
             this.label = label;
+            this.description = description;
         }
 
 
@@ -49,6 +51,10 @@ namespace Sprint.Items
         public IEffect GetEffect()
         {
             return onApply;
+        }
+        public string GetDescription()
+        {
+            return description;
         }
 
         public void Update(GameTime gameTime)

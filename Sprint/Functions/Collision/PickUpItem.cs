@@ -24,7 +24,8 @@ internal class PickUpItem : ICommand
     public void Execute()
     {
         // Moves receiver by displacement
-        receiver.PickupItem(effector);
-        sfxFactory.PlaySoundEffect("Item Pickup");
+        bool didPickup = receiver.PickupItem(effector);
+        if (didPickup)
+            sfxFactory.PlaySoundEffect("Item Pickup");
     }
 }

@@ -417,13 +417,16 @@ namespace Sprint.Characters
         /// Pickup Item off the ground
         /// </summary>
         /// <param name="item"> ItemType to pickup</param>
-        public void PickupItem(Item item)
+        /// <returns>true if item picked up</returns>
+        public bool PickupItem(Item item)
         {
             if(item.CanPickup(inventory))
             {
                 item.GetPowerup().Apply(this);
                 room.GetScene().Remove(item);
+                return true;
             }
+            return false;
         }
 
         // Send to a game over
