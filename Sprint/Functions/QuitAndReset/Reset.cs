@@ -1,6 +1,6 @@
 ﻿using Sprint.Interfaces;
 
-namespace Sprint.Commands
+namespace Sprint.Functions
 {
     internal class Reset : ICommand
     {

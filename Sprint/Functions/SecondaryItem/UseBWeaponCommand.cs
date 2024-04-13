@@ -1,9 +1,8 @@
 ﻿using Sprint.Characters;
 using Sprint.Interfaces;
-using Sprint.Items;
 using Sprint.Projectile;
 
-namespace Sprint.Commands.SecondaryItem
+namespace Sprint.Functions.SecondaryItem
 {
     internal class UseBWeaponCommand : ICommand
     {

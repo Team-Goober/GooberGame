@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Sprint.Commands.SecondaryItem;
+using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
 using Sprint.Levels;
-using Sprint.Projectile;
 using Sprint.Sprite;
 using System;
 

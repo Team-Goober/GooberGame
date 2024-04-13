@@ -3,7 +3,7 @@ using Sprint.Interfaces;
 using Sprint.Music.Sfx;
 
 
-namespace Sprint.Commands
+namespace Sprint.Functions
 {
     internal class Melee : ICommand
     {

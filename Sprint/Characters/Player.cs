@@ -5,14 +5,9 @@ using Sprint.Sprite;
 using Sprint.Projectile;
 using Sprint.Levels;
 using Sprint.Collision;
-using System.Diagnostics;
-using Sprint.Testing;
-using Sprint.Commands;
 using System;
 using Sprint.Music.Sfx;
 using Sprint.Items;
-using Sprint.HUD;
-using System.Collections.Generic;
 using Sprint.Functions.States;
 
 namespace Sprint.Characters
