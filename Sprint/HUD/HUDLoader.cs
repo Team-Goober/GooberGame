@@ -28,6 +28,7 @@ namespace Sprint.HUD
         private HUDPowerup aWeapon;
         private HUDPowerup bSelection;
         private HUDPowerup rupeeCount;
+        private HUDPowerup keyCount;
 
         private HUDPowerup[,] itemDisplays;
         private HUDSelector selector;
@@ -73,9 +74,11 @@ namespace Sprint.HUD
             bWeapon = MakeItemSprite(null, data.BWeapon);
             aWeapon = MakeItemSprite(null, data.AWeapon);
             rupeeCount = MakeItemSprite(null, data.GemNumPos);
+            keyCount = MakeItemSprite(null, data.KeyNumPos);
             topDisplay.Add(bWeapon);
             topDisplay.Add(aWeapon);
             topDisplay.Add(rupeeCount);
+            topDisplay.Add(keyCount);
 
             // Minimap
             topDisplay.Add(MakeMinimap(map, data.MinimapPos, data.MinimapRoomSize, data.MinimapPadding, data.MinimapBackgroundSize));
@@ -206,9 +209,14 @@ namespace Sprint.HUD
 
         public void OnPowerupGainedEvent(IPowerup item)
         {
-            if(item.GetLabel() == "rupee")
+            switch(item.GetLabel())
             {
-                rupeeCount.SetPowerup(item);
+                case "rupee":
+                    rupeeCount.SetPowerup(item);
+                    break;
+                case "key":
+                    keyCount.SetPowerup(item);
+                    break;
             }
         }
 

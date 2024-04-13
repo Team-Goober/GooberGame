@@ -291,6 +291,14 @@ namespace Sprint.Loader
                         gem.AddAmount(5);
                         roomItems.Add(new Item(position, gem));
                         break;
+                    case "key":
+                        ResourcePowerup key = new ResourcePowerup(
+                                spriteLoader.BuildSprite("itemAnims", "key"),
+                                null,
+                                "key");
+                        key.AddAmount(1);
+                        roomItems.Add(new Item(position, key));
+                        break;
                 }
             }
 

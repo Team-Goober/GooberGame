@@ -20,26 +20,16 @@ public class OpenLockedDoorCommand : ICommand
 
     public void Execute()
     {
-        /*// Unlock if able to
-        if (receiver.inventory.HasItem(ItemType.Key))
-        {
-            effector.SetOpen(true);
-            // Open other side of the door
-            effector.GetOtherFace().SetOpen(true);
-            // Use up a key
-            receiver.inventory.ConsumeItem(ItemType.Key);
-        }
-        // Master key bypasses all locks
-        else if (receiver.inventory.HasItem(ItemType.SpecialKey))
+        // Unlock if able to
+        bool hasKey = receiver.GetInventory().TryConsumeResource("key");
+        if (hasKey)
         {
             effector.SetOpen(true);
             // Open other side of the door
             effector.GetOtherFace().SetOpen(true);
         }
-        else
-        {*/
+        
             // Moves receiver by displacement
         receiver.Move(distance);
-        //}
     }
 }
