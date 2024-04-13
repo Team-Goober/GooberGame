@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sprint.Interfaces
+namespace Sprint.Interfaces.Powerups
 {
     internal interface IStackedPowerup : IPowerup
     {

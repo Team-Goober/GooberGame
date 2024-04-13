@@ -1,6 +1,6 @@
 ﻿
 using Sprint.Characters;
-using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 
 namespace Sprint.Items.Effects
 {

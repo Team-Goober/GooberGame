@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Sprint.Items;
 
-namespace Sprint.Interfaces
+namespace Sprint.Interfaces.Powerups
 {
     internal interface IPowerup
     {

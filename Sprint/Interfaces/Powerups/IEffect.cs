@@ -1,6 +1,6 @@
 ﻿using Sprint.Characters;
 
-namespace Sprint.Interfaces
+namespace Sprint.Interfaces.Powerups
 {
     internal interface IEffect
     {

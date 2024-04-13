@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Sprint.Characters;
-using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 
 namespace Sprint.Items;
 

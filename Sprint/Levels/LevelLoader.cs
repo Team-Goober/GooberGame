@@ -4,6 +4,7 @@ using Sprint.Characters;
 using Sprint.Door;
 using Sprint.HUD;
 using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 using Sprint.Items;
 using Sprint.Items.Effects;
 using Sprint.Levels;
@@ -324,10 +325,18 @@ namespace Sprint.Loader
                     case "greenBadge":
                         IUpgradePowerup greenUpgrade = new UpgradeAbility(
                                 spriteLoader.BuildSprite("itemAnims", "greenBadge"),
-                                new DoubleShotUpgrade(),
+                                new DualShotUpgrade(),
                                 "greenBadge");
                         greenUpgrade.SetUpgradeOptions(new() { "bow" });
                         roomItems.Add(new Item(position, greenUpgrade));
+                        break;
+                    case "blueBadge":
+                        IUpgradePowerup blueUpgrade = new UpgradeAbility(
+                                spriteLoader.BuildSprite("itemAnims", "blueBadge"),
+                                new TripleShotUpgrade(),
+                                "blueBadge");
+                        blueUpgrade.SetUpgradeOptions(new() { "bow" });
+                        roomItems.Add(new Item(position, blueUpgrade));
                         break;
                 }
             }

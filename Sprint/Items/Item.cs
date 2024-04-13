@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Collision;
 using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 
 namespace Sprint.Items
 {

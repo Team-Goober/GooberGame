@@ -1,5 +1,5 @@
 ﻿using Sprint.Characters;
-using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 using System;
 using System.Collections.Generic;
 using System.Linq;

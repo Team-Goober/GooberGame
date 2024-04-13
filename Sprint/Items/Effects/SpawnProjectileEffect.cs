@@ -1,10 +1,10 @@
 ﻿using Sprint.Characters;
-using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 using System;
 
 namespace Sprint.Items.Effects
 {
-    internal class SpawnProjectileEffect : IEffect
+    internal class SpawnProjectileEffect : IEffect, IProjectileEffect
     {
 
         string projName;

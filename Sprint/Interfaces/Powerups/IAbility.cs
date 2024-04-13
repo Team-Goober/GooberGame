@@ -1,6 +1,6 @@
 ﻿using Sprint.Levels;
 
-namespace Sprint.Interfaces
+namespace Sprint.Interfaces.Powerups
 {
     internal interface IAbility : IPowerup
     {

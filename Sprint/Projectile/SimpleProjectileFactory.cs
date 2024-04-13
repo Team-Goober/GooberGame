@@ -128,6 +128,12 @@ namespace Sprint.Projectile
             this.direction = direction;
         }
 
+
+        public Vector2 GetDirection()
+        {
+            return direction;
+        }
+
         public void SetStartPosition(Vector2 pos)
         {
             position = pos;

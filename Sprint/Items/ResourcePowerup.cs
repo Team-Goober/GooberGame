@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Sprint.Levels;
+using Sprint.Interfaces.Powerups;
 
 namespace Sprint.Items
 {

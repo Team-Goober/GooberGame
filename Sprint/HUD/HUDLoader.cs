@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
 using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 using Sprint.Items;
 using Sprint.Levels;
 using Sprint.Loader;

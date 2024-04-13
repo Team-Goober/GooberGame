@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sprint.Interfaces
+namespace Sprint.Interfaces.Powerups
 {
-    internal interface IUpgradePowerup : IPowerup
+    internal interface IUpgradeEffect : IEffect
     {
 
-        public void SetUpgradeOptions(List<string> bases);
+        public void SetBase(IEffect baseEffect);
 
     }
 }
