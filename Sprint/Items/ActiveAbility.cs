@@ -39,6 +39,7 @@ namespace Sprint.Items
         {
             this.player = player;
             player.GetInventory().AddToSlots(this);
+            player.GetInventory().AddPowerup(this);
         }
 
         public bool CanPickup(Inventory inventory)

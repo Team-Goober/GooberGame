@@ -84,11 +84,11 @@ internal class Inventory
         }
     }
 
-    public int ResourceQuantity(string resource)
+    public int StackQuantity(string resource)
     {
         if (HasPowerup(resource))
         {
-            Debug.Assert(allPowerups[resource] is ResourcePowerup);
+            Debug.Assert(allPowerups[resource] is IStackedPowerup);
             return ((ResourcePowerup)allPowerups[resource]).Quantity();
         }
         else
@@ -97,9 +97,9 @@ internal class Inventory
         }
     }
 
-    public bool TryConsumeResource(string resource)
+    public bool TryConsumeStack(string resource)
     {
-        if (ResourceQuantity(resource) <= 0)
+        if (StackQuantity(resource) <= 0)
             return false;
         ((ResourcePowerup)allPowerups[resource]).AddAmount(-1);
         return true;
@@ -168,5 +168,10 @@ internal class Inventory
         }
         Debug.Assert(allPowerups.ContainsKey(prev));
         allPowerups[prev] = next;
+    }
+
+    public IAbility[,] GetAbilities()
+    {
+        return abilitySlots;
     }
 }

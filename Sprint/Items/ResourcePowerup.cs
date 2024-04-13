@@ -12,7 +12,7 @@ using Sprint.Levels;
 
 namespace Sprint.Items
 {
-    internal class ResourcePowerup : IPowerup
+    internal class ResourcePowerup : IStackedPowerup
     {
 
         /*

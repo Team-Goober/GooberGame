@@ -22,7 +22,7 @@ namespace Sprint.Functions.SecondaryItem
 
         public void Execute()
         {
-            inventory.TryConsumeResource(Inventory.RupeeLabel);
+            inventory.TryConsumeStack(Inventory.RupeeLabel);
             inventory.GetSelectionB()?.ActivateItem();
             // Handle each possible item separately
             /*switch (inventory.GetSelection())

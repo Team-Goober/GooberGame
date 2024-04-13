@@ -24,13 +24,13 @@ namespace Sprint.HUD
 
         private int maxHearts;
 
-        private HUDPowerup bWeapon;
-        private HUDPowerup aWeapon;
-        private HUDPowerup bSelection;
-        private HUDPowerup rupeeCount;
-        private HUDPowerup keyCount;
+        private HUDPowerupArray bWeapon;
+        private HUDPowerupArray aWeapon;
+        private HUDPowerupArray bSelection;
+        private HUDPowerupArray rupeeCount;
+        private HUDPowerupArray keyCount;
 
-        private HUDPowerup[,] itemDisplays;
+        private HUDPowerupArray itemDisplays;
         private HUDSelector selector;
 
         HUDData data;
@@ -88,18 +88,10 @@ namespace Sprint.HUD
             inventoryScreen.Add(MakeHUDSprite("DungeonMap", data.MapFramePos));
 
             // Visual displays for receiving items. Don't display until acquired
-            
+
 
             // At the slot item displays
-            itemDisplays = new HUDPowerup[CharacterConstants.INVENTORY_ROWS, CharacterConstants.INVENTORY_COLUMNS];
-            for(int i = 0; i < CharacterConstants.INVENTORY_ROWS; i++)
-            {
-                for (int j = 0; j < CharacterConstants.INVENTORY_COLUMNS; j++)
-                {
-                    Vector2 slotPos = (data.InventorySlotSize + data.InventoryPadding) * new Vector2(j, i) + data.FirstInventoryCell + data.InventorySlotSize / 2;
-                    itemDisplays[i, j] = MakeItemSprite(null, slotPos);
-                }
-            }
+            itemDisplays = new HUDPowerupArray(data.FirstInventoryCell, data.InventorySlotSize + data.InventoryPadding);
 
             // Selector for slots
             selector = MakeSelector("selector", data.FirstInventoryCell, data.InventoryPadding + data.InventorySlotSize);
@@ -173,7 +165,7 @@ namespace Sprint.HUD
             return hudFactory.MakeHUDSprite(spriteLabel, position);
         }
 
-        public HUDPowerup MakeItemSprite(IPowerup powerup, Vector2 position)
+        public HUDPowerupArray MakeItemSprite(IPowerup powerup, Vector2 position)
         {
             return hudFactory.MakeItemSprite(powerup, position);
         }
@@ -203,8 +195,8 @@ namespace Sprint.HUD
         public void OnSelectorChooseEvent(IPowerup item)
         {
             // Exchange sprites for B item
-            bWeapon.SetPowerup(item);
-            bSelection.SetPowerup(item);
+            bWeapon.SetSinglePowerup(item);
+            bSelection.SetSinglePowerup(item);
         }
 
         public void OnPowerupGainedEvent(IPowerup item)
@@ -212,10 +204,10 @@ namespace Sprint.HUD
             switch(item.GetLabel())
             {
                 case Inventory.RupeeLabel:
-                    rupeeCount.SetPowerup(item);
+                    rupeeCount.SetSinglePowerup(item);
                     break;
                 case Inventory.KeyLabel:
-                    keyCount.SetPowerup(item);
+                    keyCount.SetSinglePowerup(item);
                     break;
             }
         }
@@ -256,6 +248,11 @@ namespace Sprint.HUD
                     LifeForce[i].SetSprite("B");
                 }
             }
+        }
+
+        public void SetSlotsArray(IAbility[,] slots)
+        {
+            itemDisplays.SetPowerups(slots);
         }
 
     }
