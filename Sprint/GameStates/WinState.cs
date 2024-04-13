@@ -49,7 +49,7 @@ namespace Sprint.GameStates
             player.GetPhysic().SetPosition(position);
 
             position.Y -= 50;
-            triForce = itemFactory.MakeItem("triforce", position);
+            //triForce = itemFactory.MakeItem("triforce", position);
             
             playerManger.Add(player);
             playerManger.Add(triForce);

@@ -20,7 +20,7 @@ public class OpenLockedDoorCommand : ICommand
 
     public void Execute()
     {
-        // Unlock if able to
+        /*// Unlock if able to
         if (receiver.inventory.HasItem(ItemType.Key))
         {
             effector.SetOpen(true);
@@ -37,9 +37,9 @@ public class OpenLockedDoorCommand : ICommand
             effector.GetOtherFace().SetOpen(true);
         }
         else
-        {
+        {*/
             // Moves receiver by displacement
-            receiver.Move(distance);
-        }
+        receiver.Move(distance);
+        //}
     }
 }

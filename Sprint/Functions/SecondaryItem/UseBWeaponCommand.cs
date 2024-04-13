@@ -21,8 +21,9 @@ namespace Sprint.Commands.SecondaryItem
 
         public void Execute()
         {
+            inventory.GetSelectionB().ActivateItem();
             // Handle each possible item separately
-            switch (inventory.GetSelection())
+            /*switch (inventory.GetSelection())
             {
                 // Create and shoot correct projectile
                 case ItemType.Boomerang:
@@ -87,7 +88,7 @@ namespace Sprint.Commands.SecondaryItem
                     break;
                 default:
                     break;
-            }
+            }*/
 
         }
     }
