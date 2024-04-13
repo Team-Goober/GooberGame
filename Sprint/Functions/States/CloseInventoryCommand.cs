@@ -1,7 +1,7 @@
 ﻿using Sprint.GameStates;
 using Sprint.Interfaces;
 
-namespace Sprint.Functions.Inventory
+namespace Sprint.Functions.States
 {
     internal class CloseInventoryCommand : ICommand
     {

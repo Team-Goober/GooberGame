@@ -17,6 +17,8 @@ using Sprint.Sprite;
 using System.Collections.Generic;
 using Sprint.Music.Sfx;
 using Sprint.Door;
+using Sprint.Functions;
+using Sprint.Functions.States;
 
 namespace Sprint
 {

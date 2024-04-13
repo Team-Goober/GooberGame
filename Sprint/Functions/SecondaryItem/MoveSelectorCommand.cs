@@ -2,7 +2,7 @@
 using Sprint.GameStates;
 using Sprint.Interfaces;
 
-namespace Sprint.Functions.Inventory
+namespace Sprint.Functions.SecondaryItem
 {
     internal class MoveSelectorCommand : ICommand
     {

@@ -1,7 +1,7 @@
 ﻿using Sprint.GameStates;
 using Sprint.Interfaces;
 
-namespace Sprint.Functions.WinStateCommands
+namespace Sprint.Functions.States
 {
     internal class CloseWin : ICommand
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sprint.Functions.DeathState;
+using Sprint.Functions.States;
 using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;

@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Characters;
 using Sprint.Functions;
+using Sprint.Functions.SecondaryItem;
+using Sprint.Functions.States;
 using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;

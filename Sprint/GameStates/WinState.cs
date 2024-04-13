@@ -10,7 +10,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Color = Microsoft.Xna.Framework.Color;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Input;
-using Sprint.Functions.WinStateCommands;
+using Sprint.Functions.States;
 
 
 namespace Sprint.GameStates
