@@ -433,6 +433,11 @@ namespace Sprint.Characters
             gameOver.Execute();
         }
 
+        public void SetSpeed(float newSpeed)
+        {
+            speed = newSpeed;
+        }
+
         /*public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
         {
             switch (it)

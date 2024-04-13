@@ -53,19 +53,7 @@ namespace Sprint.Loader
 
         public void Update(GameTime gameTime)
         {
-            if (powerups != null)
-            {
-                for (int i = 0; i < powerups.GetLength(0); i++)
-                {
-                    for (int j = 0; j < powerups.GetLength(1); j++)
-                    {
-                        if (powerups[i, j] != null)
-                        {
-                            powerups[i, j].Update(gameTime);
-                        }
-                    }
-                }
-            }
+            // Don't pass updates to them
         }
     }
 }

@@ -278,11 +278,18 @@ namespace Sprint.Loader
                 {
                     case "heart":
                         roomItems.Add(new Item(position,
-                            new PassivePowerup(
+                            new InstantPowerup(
                                 spriteLoader.BuildSprite("itemAnims", "heart"),
                                 new HealPlayerEffect(1),
                                 "heart")));
-                        break; 
+                        break;
+                    case "redRing":
+                        roomItems.Add(new Item(position,
+                            new PassivePowerup(
+                                spriteLoader.BuildSprite("itemAnims", "redRing"),
+                                new ChangeSpeedEffect(CharacterConstants.PLAYER_SPEED * 2),
+                                "redRing")));
+                        break;
                     case "rupee":
                         IStackedPowerup gem = new ResourcePowerup(
                                 spriteLoader.BuildSprite("itemAnims", "rupee"),

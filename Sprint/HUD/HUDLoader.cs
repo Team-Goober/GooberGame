@@ -30,7 +30,8 @@ namespace Sprint.HUD
         private HUDPowerupArray rupeeCount;
         private HUDPowerupArray keyCount;
 
-        private HUDPowerupArray itemDisplays;
+        private HUDPowerupArray slotDisplay;
+        private HUDPowerupArray listingDisplay;
         private HUDSelector selector;
 
         HUDData data;
@@ -92,8 +93,11 @@ namespace Sprint.HUD
             inventoryScreen.Add(selector);
 
             // At the slot item displays
-            itemDisplays = new HUDPowerupArray(data.FirstInventoryCell + data.InventorySlotSize / 2, data.InventorySlotSize + data.InventoryPadding);
-            inventoryScreen.Add(itemDisplays);
+            slotDisplay = new HUDPowerupArray(data.FirstInventoryCell + data.InventorySlotSize / 2, data.InventorySlotSize + data.InventoryPadding);
+            inventoryScreen.Add(slotDisplay);
+
+            listingDisplay = new HUDPowerupArray(new Vector2(50, 350), data.InventorySlotSize + data.InventoryPadding);
+            inventoryScreen.Add(listingDisplay);
 
             bSelection = MakeItemSprite(null, data.BSelection);
             inventoryScreen.Add(bSelection);
@@ -197,17 +201,35 @@ namespace Sprint.HUD
             bSelection.SetSinglePowerup(item);
         }
 
-        public void OnPowerupGainedEvent(IPowerup item)
+        public void OnListingUpdateEvent(Dictionary<string, IPowerup> newDict)
         {
-            switch(item.GetLabel())
+            if (newDict.ContainsKey(Inventory.RupeeLabel))
+                rupeeCount.SetSinglePowerup(newDict[Inventory.RupeeLabel]);
+
+            if (newDict.ContainsKey(Inventory.KeyLabel))
+                keyCount.SetSinglePowerup(newDict[Inventory.KeyLabel]);
+
+            IPowerup[,] pups = new IPowerup[7, 4];
+            int r = 0, c = 0;
+            foreach (KeyValuePair<string, IPowerup> kvp in newDict)
             {
-                case Inventory.RupeeLabel:
-                    rupeeCount.SetSinglePowerup(item);
+                if (c >= pups.GetLength(1))
+                {
+                    c = 0;
+                    r++;
+                }
+                if (r < pups.GetLength(0))
+                {
+                    pups[r, c] = kvp.Value;
+                    c++;
+                }
+                else
+                {
                     break;
-                case Inventory.KeyLabel:
-                    keyCount.SetSinglePowerup(item);
-                    break;
+                }
             }
+            listingDisplay.SetPowerups(pups);
+
         }
 
         public void UpdateHeartAmount(double prevHeart, double newHeart)
@@ -250,7 +272,7 @@ namespace Sprint.HUD
 
         public void SetSlotsArray(IAbility[,] slots)
         {
-            itemDisplays.SetPowerups(slots);
+            slotDisplay.SetPowerups(slots);
         }
 
     }

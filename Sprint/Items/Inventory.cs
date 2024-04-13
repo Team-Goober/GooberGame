@@ -1,12 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Reflection.Emit;
-using System.Reflection.Metadata;
 using Sprint.Characters;
-using Sprint.HUD;
 using Sprint.Interfaces;
-using Sprint.Projectile;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Sprint.Items;
 
@@ -19,8 +15,8 @@ internal class Inventory
     public delegate void SelectorChooseDelegate(IAbility ability);
     public event SelectorChooseDelegate SelectorChooseEvent;
 
-    public delegate void PowerupGainedDelegate(IPowerup powerup);
-    public event PowerupGainedDelegate PowerupGainedEvent;
+    public delegate void ListingUpdateDelegate(Dictionary<string, IPowerup> listing);
+    public event ListingUpdateDelegate ListingUpdateEvent;
 
     private Dictionary<string, IPowerup> allPowerups;
     private IAbility[,] abilitySlots;
@@ -45,7 +41,7 @@ internal class Inventory
         {
             allPowerups.Add(label, powerup);
         }
-        PowerupGainedEvent?.Invoke(powerup);
+        ListingUpdateEvent?.Invoke(allPowerups);
     }
 
     public void AddToSlots(IAbility ability)
@@ -69,6 +65,8 @@ internal class Inventory
         string label = powerup.GetLabel();
         Debug.Assert(HasPowerup(label));
         allPowerups.Remove(label);
+        ListingUpdateEvent?.Invoke(allPowerups);
+
         if (powerup is IAbility)
         {
             for (int i = 0; i < abilitySlots.GetLength(0); i++)
@@ -194,6 +192,7 @@ internal class Inventory
         }
         Debug.Assert(allPowerups.ContainsKey(prev));
         allPowerups[prev] = next;
+        ListingUpdateEvent?.Invoke(allPowerups);
     }
 
     public IAbility[,] GetAbilities()

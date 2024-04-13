@@ -85,7 +85,7 @@ namespace Sprint
         private void loadDelegates ()
         {
             Inventory inventory = player.GetInventory();
-            inventory.PowerupGainedEvent += hudLoader.OnPowerupGainedEvent;
+            inventory.ListingUpdateEvent += hudLoader.OnListingUpdateEvent;
 
             inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
@@ -100,7 +100,7 @@ namespace Sprint
         private void unloadDelegates()
         {
             Inventory inventory = player.GetInventory();
-            inventory.PowerupGainedEvent -= hudLoader.OnPowerupGainedEvent;
+            inventory.ListingUpdateEvent -= hudLoader.OnListingUpdateEvent;
 
             inventory.SelectorChooseEvent -= hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent -= hudLoader.OnSelectorMoveEvent;
