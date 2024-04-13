@@ -12,15 +12,14 @@ using System;
 using Sprint.Music.Sfx;
 using Sprint.Items;
 using Sprint.HUD;
-using Sprint.Functions.DeathState;
 using System.Collections.Generic;
+using Sprint.Functions.States;
 
 namespace Sprint.Characters
 {
 
     internal class Player : Character, IMovingCollidable
     {
-        private DungeonState dungeon;
         private Inventory inventory;
 
         private SfxFactory sfxFactory;
@@ -78,7 +77,6 @@ namespace Sprint.Characters
         //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
-            this.dungeon = dungeon;
             //Initialize SFX player
             sfxFactory = SfxFactory.GetInstance();
 
@@ -426,7 +424,7 @@ namespace Sprint.Characters
         {
             if(item.CanPickup(inventory))
             {
-                item.GetPowerup().Apply(this, dungeon);
+                item.GetPowerup().Apply(this);
                 room.GetScene().Remove(item);
             }
         }

@@ -2,7 +2,7 @@
 using Sprint.GameStates;
 using Sprint.Interfaces;
 
-namespace Sprint.Functions
+namespace Sprint.Functions.Inventory
 {
     internal class MoveSelectorCommand : ICommand
     {
@@ -10,7 +10,8 @@ namespace Sprint.Functions
         InventoryState receiver;
         Point direction;
 
-        public MoveSelectorCommand(InventoryState inventoryState, Point dir) {
+        public MoveSelectorCommand(InventoryState inventoryState, Point dir)
+        {
             receiver = inventoryState;
             direction = dir;
         }

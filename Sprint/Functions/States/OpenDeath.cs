@@ -1,20 +1,19 @@
 ﻿using Sprint.Interfaces;
 
-namespace Sprint.Functions
+namespace Sprint.Functions.States
 {
-    internal class OpenInventoryCommand : ICommand
+    internal class OpenDeath : ICommand
     {
-
         private DungeonState receiver;
 
-        public OpenInventoryCommand(DungeonState receiver)
+        public OpenDeath(DungeonState receiver)
         {
             this.receiver = receiver;
         }
 
         public void Execute()
         {
-            receiver.OpenInventory();
+            receiver.DeathScreen();
         }
     }
 }

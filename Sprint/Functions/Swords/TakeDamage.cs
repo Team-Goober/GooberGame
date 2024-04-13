@@ -2,7 +2,7 @@
 using Sprint.Characters;
 using Sprint.Interfaces;
 
-namespace Sprint.Functions.SecondaryItem
+namespace Sprint.Functions.Swords
 {
     internal class TakeDamage : ICommand
     {

@@ -1,13 +1,14 @@
 ﻿using Sprint.GameStates;
 using Sprint.Interfaces;
 
-namespace Sprint.Functions
+namespace Sprint.Functions.Inventory
 {
     internal class SelectSlotCommand : ICommand
     {
         InventoryState receiver;
-        
-        public SelectSlotCommand(InventoryState receiver) { 
+
+        public SelectSlotCommand(InventoryState receiver)
+        {
             this.receiver = receiver;
         }
 

@@ -8,7 +8,7 @@ namespace Sprint.Interfaces
     internal interface IPowerup
     {
 
-        public void Apply(Player player, DungeonState dungeon);
+        public void Apply(Player player);
 
         public bool CanPickup(Inventory inventory);
 

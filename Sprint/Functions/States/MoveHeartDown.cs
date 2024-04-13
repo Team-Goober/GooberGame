@@ -1,7 +1,7 @@
 ﻿using Sprint.GameStates;
 using Sprint.Interfaces;
 
-namespace Sprint.Functions.DeathState
+namespace Sprint.Functions.States
 {
     internal class MoveHeartDown : ICommand
     {
