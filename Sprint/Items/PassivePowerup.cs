@@ -9,11 +9,11 @@ namespace Sprint.Items
     internal class PassivePowerup : IPowerup
     {
 
-        private IPowerupCommand applyCommand;
+        private IEffect applyCommand;
         private ISprite sprite;
         private string label;
 
-        public PassivePowerup(ISprite sprite, IPowerupCommand applyCommand, string label)
+        public PassivePowerup(ISprite sprite, IEffect applyCommand, string label)
         {
             this.sprite = sprite;
             this.applyCommand = applyCommand;

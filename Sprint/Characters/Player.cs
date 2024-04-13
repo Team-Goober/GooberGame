@@ -343,6 +343,12 @@ namespace Sprint.Characters
             double prevHealth = health;
             health -= dmg;
 
+            // If negative damage (healing), don't go over max health
+            if (health > maxHealth)
+            {
+                health = maxHealth;
+            }
+
             OnPlayerHealthChange?.Invoke(prevHealth, health);
 
             // Trigger death when health is at or below 0
@@ -350,11 +356,7 @@ namespace Sprint.Characters
             {
                 this.Die();
             }
-            // If negative damage (healing), don't go over max health
-            else if (health > maxHealth)
-            {
-                health = maxHealth;
-            }
+
 
         }
 

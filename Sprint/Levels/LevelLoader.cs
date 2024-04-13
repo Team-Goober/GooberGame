@@ -4,6 +4,7 @@ using Sprint.Characters;
 using Sprint.Door;
 using Sprint.Interfaces;
 using Sprint.Items;
+using Sprint.Items.Effects;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
 using Sprint.Music.Songs;
@@ -272,6 +273,14 @@ namespace Sprint.Loader
             {
                 Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
                 //roomItems.Add(itemFactory.MakeItem(spawn.Type, position));
+                if(spawn.Type == "heart")
+                {
+                    roomItems.Add(new Item(position,
+                        new PassivePowerup(
+                            spriteLoader.BuildSprite("itemAnims", "heart"),
+                            new HealPlayerEffect(1),
+                            "heart")));
+                }
             }
 
             //Load textboxes

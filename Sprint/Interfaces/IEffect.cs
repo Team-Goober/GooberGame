@@ -2,7 +2,7 @@
 
 namespace Sprint.Interfaces
 {
-    internal interface IPowerupCommand
+    internal interface IEffect
     {
         void Execute(Player player);
     }

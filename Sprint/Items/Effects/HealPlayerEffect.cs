@@ -2,14 +2,14 @@
 using Sprint.Characters;
 using Sprint.Interfaces;
 
-namespace Sprint.Items.PowerupCommands
+namespace Sprint.Items.Effects
 {
-    internal class HealPlayerCommand : IPowerupCommand
+    internal class HealPlayerEffect : IEffect
     {
 
         int amount;
 
-        public HealPlayerCommand(int amount)
+        public HealPlayerEffect(int amount)
         {
             this.amount = amount;
         }
