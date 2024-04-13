@@ -284,7 +284,7 @@ namespace Sprint.Loader
                                 "heart")));
                         break; 
                     case "rupee":
-                        ResourcePowerup gem = new ResourcePowerup(
+                        IStackedPowerup gem = new ResourcePowerup(
                                 spriteLoader.BuildSprite("itemAnims", "rupee"),
                                 null,
                                 "rupee");
@@ -292,7 +292,7 @@ namespace Sprint.Loader
                         roomItems.Add(new Item(position, gem));
                         break;
                     case "key":
-                        ResourcePowerup key = new ResourcePowerup(
+                        IStackedPowerup key = new ResourcePowerup(
                                 spriteLoader.BuildSprite("itemAnims", "key"),
                                 null,
                                 "key");
@@ -305,6 +305,14 @@ namespace Sprint.Loader
                                 spriteLoader.BuildSprite("itemAnims", "bow"),
                                 new SpawnProjectileEffect("arrow"),
                                 "bow")));
+                        break;
+                    case "meat":
+                        IStackedPowerup meat = new ConsumableAbility(
+                                spriteLoader.BuildSprite("itemAnims", "meat"),
+                                new HealPlayerEffect(2),
+                                "meat");
+                        meat.AddAmount(2);
+                        roomItems.Add(new Item(position, meat));
                         break;
                 }
             }
