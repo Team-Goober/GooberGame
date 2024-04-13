@@ -151,6 +151,11 @@ internal class Inventory
         SelectorChooseEvent?.Invoke(abilitySlots[r, c]);
     }
 
+    public void Drop(int r, int c)
+    {
+        DeletePowerup(abilitySlots[r, c]);
+    }
+
     public IAbility GetSelectionA()
     {
         return selectedA;

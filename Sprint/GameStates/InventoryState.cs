@@ -92,6 +92,7 @@ namespace Sprint.GameStates
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveSelectorCommand(this, new Point(0, 1)));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveSelectorCommand(this, new Point(1, 0)));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new SelectSlotCommand(this));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new DropSlotCommand(this));
         }
 
         public void Reset()
@@ -166,6 +167,11 @@ namespace Sprint.GameStates
         public void SelectSlot()
         {
             playerInventory.Select(slot.Y, slot.X);
+        }
+
+        public void DropSlot()
+        {
+            playerInventory.Drop(slot.Y, slot.X);
         }
 
     }
