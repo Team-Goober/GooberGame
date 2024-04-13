@@ -314,6 +314,14 @@ namespace Sprint.Loader
                         meat.AddAmount(2);
                         roomItems.Add(new Item(position, meat));
                         break;
+                    case "greenBadge":
+                        IUpgradePowerup greenUpgrade = new UpgradeAbility(
+                                spriteLoader.BuildSprite("itemAnims", "greenBadge"),
+                                new DoubleShotUpgrade(),
+                                "greenBadge");
+                        greenUpgrade.SetUpgradeOptions(new() { "bow" });
+                        roomItems.Add(new Item(position, greenUpgrade));
+                        break;
                 }
             }
 

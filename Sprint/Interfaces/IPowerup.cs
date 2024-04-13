@@ -15,6 +15,8 @@ namespace Sprint.Interfaces
 
         public string GetLabel();
 
+        public IEffect GetEffect();
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime);
 
         public void Update(GameTime gameTime);

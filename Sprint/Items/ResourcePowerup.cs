@@ -74,6 +74,12 @@ namespace Sprint.Items
             return label;
         }
 
+        public IEffect GetEffect()
+        {
+            return null;
+        }
+
+
         public void Update(GameTime gameTime)
         {
             sprite.Update(gameTime);

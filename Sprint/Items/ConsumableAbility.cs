@@ -75,7 +75,12 @@ namespace Sprint.Items
         {
             return label;
         }
-        
+
+        public IEffect GetEffect()
+        {
+            return onActivate;
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);

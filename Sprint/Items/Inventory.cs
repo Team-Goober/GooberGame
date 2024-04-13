@@ -52,7 +52,7 @@ internal class Inventory
     {
         for (int i = 0; i < abilitySlots.GetLength(0); i++)
         {
-            for (int j = 0; i < abilitySlots.GetLength(1); j++)
+            for (int j = 0; j < abilitySlots.GetLength(1); j++)
             {
                 if (abilitySlots[i, j] == null)
                 {
@@ -73,13 +73,23 @@ internal class Inventory
         {
             for (int i = 0; i < abilitySlots.GetLength(0); i++)
             {
-                for (int j = 0; i < abilitySlots.GetLength(1); j++)
+                for (int j = 0; j < abilitySlots.GetLength(1); j++)
                 {
                     if (abilitySlots[i, j] != null && abilitySlots[i, j].GetLabel() == label)
                     {
                         abilitySlots[i, j] = null;
                     }
                 }
+            }
+
+            if (selectedA != null && selectedA.GetLabel() == label)
+            {
+                selectedA = null;
+            }
+            if (selectedB != null && selectedB.GetLabel() == label)
+            {
+                selectedB = null;
+                SelectorChooseEvent?.Invoke(null);
             }
         }
     }
@@ -123,7 +133,7 @@ internal class Inventory
     {
         for (int i = 0; i < abilitySlots.GetLength(0); i++)
         {
-            for (int j = 0; i < abilitySlots.GetLength(1); j++)
+            for (int j = 0; j < abilitySlots.GetLength(1); j++)
             {
                 if (abilitySlots[i, j] == null)
                 {
@@ -155,15 +165,26 @@ internal class Inventory
     {
         if (next is IAbility)
         {
+            IAbility abilityNext = next as IAbility;
             for (int i = 0; i < abilitySlots.GetLength(0); i++)
             {
-                for (int j = 0; i < abilitySlots.GetLength(1); j++)
+                for (int j = 0; j < abilitySlots.GetLength(1); j++)
                 {
-                    if (abilitySlots[i, j].GetLabel() == prev)
+                    if (abilitySlots[i, j] != null && abilitySlots[i, j].GetLabel() == prev)
                     {
-                        abilitySlots[i, j] = (IAbility)next;
+                        abilitySlots[i, j] = abilityNext;
                     }
                 }
+            }
+
+            if (selectedA != null && selectedA.GetLabel() == prev)
+            {
+                selectedA = abilityNext;
+            }
+            if (selectedB != null && selectedB.GetLabel() == prev)
+            {
+                selectedB = abilityNext;
+                SelectorChooseEvent?.Invoke(abilityNext);
             }
         }
         Debug.Assert(allPowerups.ContainsKey(prev));

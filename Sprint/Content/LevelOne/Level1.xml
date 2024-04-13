@@ -1276,6 +1276,10 @@
               <Type>rupee</Type>
               <TilePos>10 6</TilePos>
             </Item>
+            <Item>
+              <Type>greenBadge</Type>
+              <TilePos>11 4</TilePos>
+            </Item>
           </Items>
           <Enemies/>
           <TextBoxes />
