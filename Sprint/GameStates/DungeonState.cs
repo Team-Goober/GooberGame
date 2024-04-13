@@ -93,6 +93,8 @@ namespace Sprint
             //inventory.WinEvent += this.WinScreen;
             player.OnPlayerHealthChange += hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange += hudLoader.UpdateMaxHeartAmount;
+
+            hudLoader.SetSlotsArray(inventory.GetAbilities());
         }
 
         private void unloadDelegates()

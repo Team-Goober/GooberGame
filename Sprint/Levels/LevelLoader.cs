@@ -299,6 +299,13 @@ namespace Sprint.Loader
                         key.AddAmount(1);
                         roomItems.Add(new Item(position, key));
                         break;
+                    case "bow":
+                        roomItems.Add(new Item(position, 
+                            new ActiveAbility(
+                                spriteLoader.BuildSprite("itemAnims", "bow"),
+                                new SpawnProjectileEffect("arrow"),
+                                "bow")));
+                        break;
                 }
             }
 

@@ -87,15 +87,13 @@ namespace Sprint.HUD
             inventoryScreen.Add(MakeHUDSprite("Inventory", data.InventoryFramePos));
             inventoryScreen.Add(MakeHUDSprite("DungeonMap", data.MapFramePos));
 
-            // Visual displays for receiving items. Don't display until acquired
-
-
-            // At the slot item displays
-            itemDisplays = new HUDPowerupArray(data.FirstInventoryCell, data.InventorySlotSize + data.InventoryPadding);
-
             // Selector for slots
             selector = MakeSelector("selector", data.FirstInventoryCell, data.InventoryPadding + data.InventorySlotSize);
             inventoryScreen.Add(selector);
+
+            // At the slot item displays
+            itemDisplays = new HUDPowerupArray(data.FirstInventoryCell + data.InventorySlotSize / 2, data.InventorySlotSize + data.InventoryPadding);
+            inventoryScreen.Add(itemDisplays);
 
             bSelection = MakeItemSprite(null, data.BSelection);
             inventoryScreen.Add(bSelection);

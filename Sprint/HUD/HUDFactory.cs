@@ -29,7 +29,9 @@ namespace Sprint.HUD
         public HUDPowerupArray MakeItemSprite(IPowerup powerup, Vector2 position)
         {
 
-            return new HUDPowerupArray(powerup, position);
+            HUDPowerupArray hpa = new(position, Vector2.Zero);
+            hpa.SetSinglePowerup(powerup);
+            return hpa;
         }
 
         public List<HUDAnimSprite> MakeNumber(string level, Vector2 position, int spriteSize)

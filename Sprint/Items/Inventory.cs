@@ -125,7 +125,7 @@ internal class Inventory
         {
             for (int j = 0; i < abilitySlots.GetLength(1); j++)
             {
-                if (abilitySlots[i, j].GetLabel() == null)
+                if (abilitySlots[i, j] == null)
                 {
                     return true;
                 }

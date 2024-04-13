@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprint.Loader
 {
@@ -35,7 +36,7 @@ namespace Sprint.Loader
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (powerups!= null)
+            if (powerups != null)
             {
                 for(int i = 0; i < powerups.GetLength(0); i++)
                 {
