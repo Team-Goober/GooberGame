@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection.Emit;
+using System.Reflection.Metadata;
+using Sprint.Characters;
 using Sprint.HUD;
 using Sprint.Interfaces;
-using Sprint.Items;
 using Sprint.Projectile;
+using static System.Net.Mime.MediaTypeNames;
 
-namespace Sprint.Characters;
+namespace Sprint.Items;
 
 internal class Inventory
 {
 
-
+    public const string KeyLabel = "key";
+    public const string RupeeLabel = "rupee";
 
     public delegate void SelectorChooseDelegate(IAbility ability);
     public event SelectorChooseDelegate SelectorChooseEvent;
@@ -68,7 +71,8 @@ internal class Inventory
         allPowerups.Remove(label);
         if (powerup is IAbility)
         {
-            for (int i = 0; i < abilitySlots.GetLength(0); i++) {
+            for (int i = 0; i < abilitySlots.GetLength(0); i++)
+            {
                 for (int j = 0; i < abilitySlots.GetLength(1); j++)
                 {
                     if (abilitySlots[i, j] != null && abilitySlots[i, j].GetLabel() == label)
@@ -115,6 +119,22 @@ internal class Inventory
         return allPowerups[label];
     }
 
+    public bool SlotsAvailable()
+    {
+        for (int i = 0; i < abilitySlots.GetLength(0); i++)
+        {
+            for (int j = 0; i < abilitySlots.GetLength(1); j++)
+            {
+                if (abilitySlots[i, j].GetLabel() == null)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+
+    }
+
     public void Select(int r, int c)
     {
         selectedB = abilitySlots[r, c];
@@ -133,7 +153,7 @@ internal class Inventory
 
     public void ReplaceWithDecorator(string prev, IPowerup next)
     {
-        if(next is IAbility)
+        if (next is IAbility)
         {
             for (int i = 0; i < abilitySlots.GetLength(0); i++)
             {

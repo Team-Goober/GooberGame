@@ -19,6 +19,7 @@ using Sprint.Music.Sfx;
 using Sprint.Door;
 using Sprint.Functions;
 using Sprint.Functions.States;
+using Sprint.Items;
 
 namespace Sprint
 {

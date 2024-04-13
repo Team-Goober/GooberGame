@@ -13,21 +13,21 @@ namespace Sprint.Items
          *  Represents a powerup whose effect is instantly activated on pickup and isn't stored in inventory
          */
 
-        private IEffect applyCommand;
+        private IEffect onApply;
         private ISprite sprite;
         private string label;
 
-        public InstantPowerup(ISprite sprite, IEffect applyCommand, string label)
+        public InstantPowerup(ISprite sprite, IEffect onApply, string label)
         {
             this.sprite = sprite;
-            this.applyCommand = applyCommand;
+            this.onApply = onApply;
             this.label = label;
         }
 
 
         public void Apply(Player player)
         {
-            applyCommand.Execute(player);
+            onApply.Execute(player);
         }
 
         public bool CanPickup(Inventory inventory)

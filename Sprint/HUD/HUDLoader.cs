@@ -211,10 +211,10 @@ namespace Sprint.HUD
         {
             switch(item.GetLabel())
             {
-                case "rupee":
+                case Inventory.RupeeLabel:
                     rupeeCount.SetPowerup(item);
                     break;
-                case "key":
+                case Inventory.KeyLabel:
                     keyCount.SetPowerup(item);
                     break;
             }

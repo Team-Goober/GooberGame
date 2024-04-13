@@ -21,7 +21,7 @@ public class OpenLockedDoorCommand : ICommand
     public void Execute()
     {
         // Unlock if able to
-        bool hasKey = receiver.GetInventory().TryConsumeResource("key");
+        bool hasKey = receiver.GetInventory().TryConsumeResource(Inventory.KeyLabel);
         if (hasKey)
         {
             effector.SetOpen(true);

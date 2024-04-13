@@ -1,39 +1,49 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Characters;
 using Sprint.Interfaces;
+using Sprint.Levels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Sprint.Items
 {
-    internal class PassivePowerup : IPowerup
+    internal class ActiveAbility : IAbility
     {
 
         /*
-         *  Represents a powerup which is kept in the inventory and applies a change to the player. Cannot have multiple
+         *  Represents an ability which must be kept in a slot and can be selected and used.
          */
 
-        private IEffect onApply;
         private ISprite sprite;
+        private IEffect onActivate;
         private string label;
+        private Player player;
 
-        public PassivePowerup(ISprite sprite, IEffect onApply, string label)
+        public ActiveAbility(ISprite sprite, IEffect onActivate, string label)
         {
             this.sprite = sprite;
-            this.onApply = onApply;
             this.label = label;
+            this.onActivate = onActivate;
         }
 
+        public void ActivateItem()
+        {
+            onActivate.Execute(player);
+        }
 
         public void Apply(Player player)
         {
-            player.GetInventory().AddPowerup(this);
-            onApply.Execute(player);
+            this.player = player;
+            player.GetInventory().AddToSlots(this);
         }
 
         public bool CanPickup(Inventory inventory)
         {
-            return !inventory.HasPowerup(label);
+            return !inventory.HasPowerup(label) && inventory.SlotsAvailable();
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)

@@ -2,6 +2,7 @@
 using Sprint.Characters;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Sprint.Items;
 
 namespace Sprint.Interfaces
 {
