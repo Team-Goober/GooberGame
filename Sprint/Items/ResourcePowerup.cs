@@ -40,6 +40,11 @@ namespace Sprint.Items
             number.SetText(new() { ""+quantity });
         }
 
+        public int Quantity()
+        {
+            return quantity;
+        }
+
         public void Apply(Player player)
         {
             Inventory inv = player.GetInventory();

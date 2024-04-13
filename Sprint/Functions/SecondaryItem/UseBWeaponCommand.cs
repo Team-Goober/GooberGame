@@ -1,6 +1,7 @@
 ﻿using Sprint.Characters;
 using Sprint.Interfaces;
 using Sprint.Projectile;
+using System.Diagnostics;
 
 namespace Sprint.Functions.SecondaryItem
 {
@@ -20,7 +21,8 @@ namespace Sprint.Functions.SecondaryItem
 
         public void Execute()
         {
-            inventory.GetSelectionB().ActivateItem();
+            inventory.TryConsumeResource("rupee");
+            inventory.GetSelectionB()?.ActivateItem();
             // Handle each possible item separately
             /*switch (inventory.GetSelection())
             {

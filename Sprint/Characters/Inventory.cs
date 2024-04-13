@@ -80,6 +80,27 @@ internal class Inventory
         }
     }
 
+    public int ResourceQuantity(string resource)
+    {
+        if (HasPowerup(resource))
+        {
+            Debug.Assert(allPowerups[resource] is ResourcePowerup);
+            return ((ResourcePowerup)allPowerups[resource]).Quantity();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public bool TryConsumeResource(string resource)
+    {
+        if (ResourceQuantity(resource) <= 0)
+            return false;
+        ((ResourcePowerup)allPowerups[resource]).AddAmount(-1);
+        return true;
+    }
+
     public bool HasPowerup(string label)
     {
         return allPowerups.ContainsKey(label) && allPowerups[label] != null;

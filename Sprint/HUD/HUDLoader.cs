@@ -27,6 +27,7 @@ namespace Sprint.HUD
         private HUDPowerup bWeapon;
         private HUDPowerup aWeapon;
         private HUDPowerup bSelection;
+        private HUDPowerup rupeeCount;
 
         private HUDPowerup[,] itemDisplays;
         private HUDSelector selector;
@@ -71,8 +72,10 @@ namespace Sprint.HUD
             // Weapons
             bWeapon = MakeItemSprite(null, data.BWeapon);
             aWeapon = MakeItemSprite(null, data.AWeapon);
+            rupeeCount = MakeItemSprite(null, data.GemNumPos);
             topDisplay.Add(bWeapon);
             topDisplay.Add(aWeapon);
+            topDisplay.Add(rupeeCount);
 
             // Minimap
             topDisplay.Add(MakeMinimap(map, data.MinimapPos, data.MinimapRoomSize, data.MinimapPadding, data.MinimapBackgroundSize));
@@ -82,7 +85,7 @@ namespace Sprint.HUD
             inventoryScreen.Add(MakeHUDSprite("DungeonMap", data.MapFramePos));
 
             // Visual displays for receiving items. Don't display until acquired
-
+            
 
             // At the slot item displays
             itemDisplays = new HUDPowerup[CharacterConstants.INVENTORY_ROWS, CharacterConstants.INVENTORY_COLUMNS];
@@ -205,7 +208,7 @@ namespace Sprint.HUD
         {
             if(item.GetLabel() == "rupee")
             {
-                bWeapon.SetPowerup(item);
+                rupeeCount.SetPowerup(item);
             }
         }
 
