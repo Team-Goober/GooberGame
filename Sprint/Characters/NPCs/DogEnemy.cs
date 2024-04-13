@@ -21,8 +21,9 @@ namespace Sprint.Characters
         private ProjBoomarang projBoomarang;
         private Timer delayTimer;
         private bool shooting;
+        private Player player;
 
-        public DogEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+        public DogEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader, Player player)
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
@@ -33,7 +34,7 @@ namespace Sprint.Characters
             shooting = false;
 
 
-
+            this.player = player;
 
 
             health = CharacterConstants.MID_HP;
@@ -44,7 +45,7 @@ namespace Sprint.Characters
 
             projBoomarang = new ProjBoomarang(spriteLoader, room, moveDirection);
 
-            moveVert = new MoveVert(physics);
+            moveVert = new MoveVert(physics, player);
 
         }
 

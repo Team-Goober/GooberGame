@@ -20,6 +20,7 @@ namespace Sprint.Characters
         private SfxFactory sfxFactory;
         private SceneObjectManager objectManager;
         private MoveVert moveVert;
+        private Player player;
 
         public DragonEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
             : base(sprite, damagedSprite, initialPosition, room)
@@ -27,6 +28,7 @@ namespace Sprint.Characters
 
             sfxFactory = SfxFactory.GetInstance();
             this.objectManager = room.GetScene();
+            this.player = player;
 
             timeAttack = new Timer(2);
             timeAttack.Start();
@@ -37,7 +39,7 @@ namespace Sprint.Characters
 
             projectileCommand = new ShootFireBallC(itemFactory);
 
-            moveVert = new MoveVert(physics);
+            moveVert = new MoveVert(physics, player);
 
 
         }

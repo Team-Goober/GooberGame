@@ -3,22 +3,26 @@ using System;
 
 namespace Sprint.Characters
 {
-    public class MoveVert : EnemyAI
+    internal class MoveVert : EnemyAI
     {
         private float elapsedTime;
         public Vector2 moveDirection; // Movement direction for the random pattern
         public Vector2 directionFace;
+        CalculateDistance calcDistance;
 
         Physics physics;
 
         Player player;
 
 
-        public MoveVert(Physics physics)
+        public MoveVert(Physics physics, Player player)
         {
 
             this.physics = physics;
             this.player = player;
+            
+
+            
 
             // Initialize the move direction randomly
             RandomizeMoveDirection();
@@ -52,11 +56,22 @@ namespace Sprint.Characters
         // Choose a random direction to move
         public void RandomizeMoveDirection()
         {
+
+            if (player != null)
+            {
+                calcDistance = new CalculateDistance(physics, player);
+            }
+
             // Generate a random movement direction
             Random random = new Random();
             int indDir = random.Next(4);
             directionFace = Directions.GetDirectionFromIndex(indDir);
-            SetDirection(directionFace);
+
+            if(calcDistance != null)
+            {
+                SetDirection(calcDistance.FindDirection());
+            }
+            
             
 
         }

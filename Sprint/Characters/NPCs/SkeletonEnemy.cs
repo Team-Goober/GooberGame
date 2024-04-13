@@ -22,6 +22,7 @@ namespace Sprint.Characters
         private SimpleProjectileFactory itemFactory;
         private ICommand projectileCommand;
         private MoveVert moveVert;
+        private Player player;
 
         private Timer timeAttack;
 
@@ -32,6 +33,9 @@ namespace Sprint.Characters
 
             timeAttack = new Timer(2);
             timeAttack.Start();
+            this.player = player;
+
+
 
             health = CharacterConstants.LOW_HP;
 
@@ -39,7 +43,9 @@ namespace Sprint.Characters
 
             projectileCommand = new ShootArrowCommand(itemFactory);
 
-            moveVert = new MoveVert(physics);
+           
+
+            moveVert = new MoveVert(physics, player);
         }
 
         // Update logic
