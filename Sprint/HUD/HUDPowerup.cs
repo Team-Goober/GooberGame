@@ -33,7 +33,8 @@ namespace Sprint.Loader
 
         public void Update(GameTime gameTime)
         {
-            // Nothing Here
+            if (powerup != null)
+                powerup.Update(gameTime);
         }
     }
 }

@@ -6,18 +6,18 @@ using Sprint.Interfaces;
 
 namespace Sprint.Items
 {
-    internal class PassivePowerup : IPowerup
+    internal class InstantPowerup : IPowerup
     {
 
         /*
-         *  Represents a powerup which is kept in the inventory and applies a change to the player. Cannot have multiple
+         *  Represents a powerup whose effect is instantly activated on pickup and isn't stored in inventory
          */
 
         private IEffect applyCommand;
         private ISprite sprite;
         private string label;
 
-        public PassivePowerup(ISprite sprite, IEffect applyCommand, string label)
+        public InstantPowerup(ISprite sprite, IEffect applyCommand, string label)
         {
             this.sprite = sprite;
             this.applyCommand = applyCommand;
@@ -27,13 +27,12 @@ namespace Sprint.Items
 
         public void Apply(Player player)
         {
-            player.GetInventory().AddPowerup(this);
             applyCommand.Execute(player);
         }
 
         public bool CanPickup(Inventory inventory)
         {
-            return !inventory.HasPowerup(label);
+            return true;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)

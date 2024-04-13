@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
 using Sprint.Door;
+using Sprint.HUD;
 using Sprint.Interfaces;
 using Sprint.Items;
 using Sprint.Items.Effects;
@@ -273,20 +274,31 @@ namespace Sprint.Loader
             {
                 Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
                 //roomItems.Add(itemFactory.MakeItem(spawn.Type, position));
-                if(spawn.Type == "heart")
+                switch(spawn.Type)
                 {
-                    roomItems.Add(new Item(position,
-                        new PassivePowerup(
-                            spriteLoader.BuildSprite("itemAnims", "heart"),
-                            new HealPlayerEffect(1),
-                            "heart")));
+                    case "heart":
+                        roomItems.Add(new Item(position,
+                            new PassivePowerup(
+                                spriteLoader.BuildSprite("itemAnims", "heart"),
+                                new HealPlayerEffect(1),
+                                "heart")));
+                        break; 
+                    case "rupee":
+                        ResourcePowerup gem = new ResourcePowerup(
+                                spriteLoader.BuildSprite("itemAnims", "rupee"),
+                                null,
+                                "rupee");
+                        gem.AddAmount(5);
+                        roomItems.Add(new Item(position, gem));
+                        break;
                 }
             }
 
             //Load textboxes
             foreach (TextBoxData box in rd.TextBoxes)
             {
-                scene.Add(new ZeldaText(box.FontName, box.Text, box.Position, box.CharacterDimensions, box.Color, content));
+                ZeldaText text = new(box.FontName, box.Text, box.CharacterDimensions, 1.0f, box.Color, content);
+                scene.Add(new HUDText(text, box.Position));
             }
 
             foreach (IDoor d in roomDoors)

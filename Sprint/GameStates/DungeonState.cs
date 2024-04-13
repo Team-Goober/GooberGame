@@ -84,29 +84,27 @@ namespace Sprint
         private void loadDelegates ()
         {
             Inventory inventory = player.GetInventory();
-            //inventory.InventoryEvent += hudLoader.OnInventoryEvent;
-            //inventory.InventoryEvent += this.OnInventoryEvent;
+            inventory.PowerupGainedEvent += hudLoader.OnPowerupGainedEvent;
+
             inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
 
             //inventory.WinEvent += this.WinScreen;
             player.OnPlayerHealthChange += hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange += hudLoader.UpdateMaxHeartAmount;
-            //inventory.InventoryEvent += player.OnInventoryEvent;
         }
 
         private void unloadDelegates()
         {
             Inventory inventory = player.GetInventory();
-            //inventory.InventoryEvent -= hudLoader.OnInventoryEvent;
-            //inventory.InventoryEvent -= this.OnInventoryEvent;
+            inventory.PowerupGainedEvent -= hudLoader.OnPowerupGainedEvent;
+
             inventory.SelectorChooseEvent -= hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent -= hudLoader.OnSelectorMoveEvent;
 
             //inventory.WinEvent -= this.WinScreen;
             player.OnPlayerHealthChange -= hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange -= hudLoader.UpdateMaxHeartAmount;
-            //inventory.InventoryEvent -= player.OnInventoryEvent;
         }
 
         /*public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)

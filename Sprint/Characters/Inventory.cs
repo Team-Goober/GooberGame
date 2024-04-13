@@ -13,8 +13,11 @@ internal class Inventory
 
 
 
-    public delegate void SelectorChooseDelegate(IPowerup powerup);
+    public delegate void SelectorChooseDelegate(IAbility ability);
     public event SelectorChooseDelegate SelectorChooseEvent;
+
+    public delegate void PowerupGainedDelegate(IPowerup powerup);
+    public event PowerupGainedDelegate PowerupGainedEvent;
 
     private Dictionary<string, IPowerup> allPowerups;
     private IAbility[,] abilitySlots;
@@ -35,7 +38,11 @@ internal class Inventory
         {
             allPowerups[label] = powerup;
         }
-        allPowerups.Add(label, powerup);
+        else
+        {
+            allPowerups.Add(label, powerup);
+        }
+        PowerupGainedEvent?.Invoke(powerup);
     }
 
     public void AddToSlots(IAbility ability)

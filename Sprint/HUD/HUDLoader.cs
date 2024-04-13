@@ -201,6 +201,14 @@ namespace Sprint.HUD
             bSelection.SetPowerup(item);
         }
 
+        public void OnPowerupGainedEvent(IPowerup item)
+        {
+            if(item.GetLabel() == "rupee")
+            {
+                bWeapon.SetPowerup(item);
+            }
+        }
+
         public void UpdateHeartAmount(double prevHeart, double newHeart)
         {
             SetHearts(newHeart);

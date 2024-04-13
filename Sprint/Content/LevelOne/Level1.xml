@@ -1260,6 +1260,22 @@
               <Type>blueCandle</Type>
               <TilePos>9 6</TilePos>
             </Item>
+            <Item>
+              <Type>rupee</Type>
+              <TilePos>10 3</TilePos>
+            </Item>
+            <Item>
+              <Type>rupee</Type>
+              <TilePos>10 4</TilePos>
+            </Item>
+            <Item>
+              <Type>rupee</Type>
+              <TilePos>10 5</TilePos>
+            </Item>
+            <Item>
+              <Type>rupee</Type>
+              <TilePos>10 6</TilePos>
+            </Item>
           </Items>
           <Enemies/>
           <TextBoxes />

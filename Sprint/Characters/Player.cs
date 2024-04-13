@@ -354,7 +354,7 @@ namespace Sprint.Characters
             // Trigger death when health is at or below 0
             if (health <= 0.0)
             {
-                this.Die();
+                Die();
             }
 
 
