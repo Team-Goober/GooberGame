@@ -20,8 +20,8 @@ namespace Sprint.Characters
 
     internal class Player : Character, IMovingCollidable
     {
-
-        public Inventory inventory;
+        private DungeonState dungeon;
+        private Inventory inventory;
 
         private SfxFactory sfxFactory;
 
@@ -78,6 +78,7 @@ namespace Sprint.Characters
         //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
+            this.dungeon = dungeon;
             //Initialize SFX player
             sfxFactory = SfxFactory.GetInstance();
 
@@ -423,22 +424,11 @@ namespace Sprint.Characters
         /// <param name="item"> ItemType to pickup</param>
         public void PickupItem(Item item)
         {
-            ItemType itemType = item.GetItemType();
-
-            if(item.GetColliable())
+            if(item.CanPickup(inventory))
             {
-                inventory.PickupItem(itemType);
+                item.GetPowerup().Apply(this, dungeon);
                 room.GetScene().Remove(item);
             }
-        }
-
-        /// <summary>
-        /// Subtract item from inventory
-        /// </summary>
-        /// <param name="item">ItemType to decrement</param>
-        public void UseItem(ItemType item)
-        {
-            inventory.ConsumeItem(item);
         }
 
         // Send to a game over
@@ -448,7 +438,7 @@ namespace Sprint.Characters
             gameOver.Execute();
         }
 
-        public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
+        /*public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
         {
             switch (it)
             {
@@ -470,7 +460,7 @@ namespace Sprint.Characters
                 default:
                     break;
             }
-        }
+        }*/
 
     }
 }

@@ -262,7 +262,7 @@ namespace Sprint.Loader
                 // Give item drop
                 if(spawn.ItemDrop != null)
                 {
-                    en.GiveDrop(itemFactory.MakeItem(spawn.ItemDrop, position));
+                    //en.GiveDrop(itemFactory.MakeItem(spawn.ItemDrop, position));
                 }
                 roomNpcs.Add(en);
             }
@@ -271,7 +271,7 @@ namespace Sprint.Loader
             foreach (ItemSpawnData spawn in rd.Items)
             {
                 Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
-                roomItems.Add(itemFactory.MakeItem(spawn.Type, position));
+                //roomItems.Add(itemFactory.MakeItem(spawn.Type, position));
             }
 
             //Load textboxes

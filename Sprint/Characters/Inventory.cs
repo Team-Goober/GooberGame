@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection.Emit;
 using Sprint.HUD;
 using Sprint.Interfaces;
 using Sprint.Items;
+using Sprint.Projectile;
 
 namespace Sprint.Characters;
 
@@ -14,9 +16,9 @@ internal class Inventory
     public delegate void SelectorChooseDelegate(IPowerup powerup);
     public event SelectorChooseDelegate SelectorChooseEvent;
 
-    private List<IPowerup> allPowerups;
-    private IAbility selectedA, selectedB;
+    private Dictionary<string, IPowerup> allPowerups;
     private IAbility[,] abilitySlots;
+    private IAbility selectedA, selectedB;
 
     public Inventory()
     {
@@ -25,28 +27,44 @@ internal class Inventory
     }
 
 
-    /// <summary>
-    /// Adds item to object's inventory
-    /// </summary>
-    /// <param name="item">ItemType to increment</param>
-    public void AddItem(IPowerup powerup)
+    public void AddPowerup(IPowerup powerup)
     {
-        allPowerups.Add(powerup);
+        string label = powerup.GetLabel();
+        Debug.Assert(!HasPowerup(label));
+        if (allPowerups.ContainsKey(label))
+        {
+            allPowerups[label] = powerup;
+        }
+        allPowerups.Add(label, powerup);
     }
 
-    /// <summary>
-    /// Removes item from object's inventory
-    /// </summary>
-    /// <param name="item">ItemType to decrement</param>
-    public void DeleteItem(IPowerup powerup)
+    public void AddToSlots(IAbility ability)
     {
-        allPowerups.Remove(powerup);
-        if(powerup is  IAbility)
+        for (int i = 0; i < abilitySlots.GetLength(0); i++)
         {
-            for (int i = 0; i < abilitySlots.GetLength(0); i++){
+            for (int j = 0; i < abilitySlots.GetLength(1); j++)
+            {
+                if (abilitySlots[i, j] == null)
+                {
+                    abilitySlots[i, j] = ability;
+                    return;
+                }
+            }
+        }
+        Debug.Assert(false);
+    }
+
+    public void DeletePowerup(IPowerup powerup)
+    {
+        string label = powerup.GetLabel();
+        Debug.Assert(HasPowerup(label));
+        allPowerups.Remove(label);
+        if (powerup is IAbility)
+        {
+            for (int i = 0; i < abilitySlots.GetLength(0); i++) {
                 for (int j = 0; i < abilitySlots.GetLength(1); j++)
                 {
-                    if (abilitySlots[i, j] == powerup)
+                    if (abilitySlots[i, j] != null && abilitySlots[i, j].GetLabel() == label)
                     {
                         abilitySlots[i, j] = null;
                     }
@@ -55,28 +73,23 @@ internal class Inventory
         }
     }
 
-    /// <summary>
-    /// Check if object has any of a ItemType
-    /// </summary>
-    /// <param name="item"> ItemType to check</param>
-    /// <returns>true - has at least 1 item false - has less than 1</returns>
-    /*public bool HasItem(ItemType item)
+    public bool HasPowerup(string label)
     {
-        return itemDictionary[item] > 0;
-    }*/
+        return allPowerups.ContainsKey(label) && allPowerups[label] != null;
+    }
 
-    /// <summary>
-    /// Check the amount of items that the player has.
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns>The amount of item</returns>
-    /*public int GetItemAmount(ItemType item)
+    public IPowerup GetPowerup(string label)
     {
-        return itemDictionary[item];
-    }*/
+        if (!allPowerups.ContainsKey(label))
+        {
+            return null;
+        }
+        return allPowerups[label];
+    }
 
     public void Select(int r, int c)
     {
+        selectedB = abilitySlots[r, c];
         SelectorChooseEvent?.Invoke(abilitySlots[r, c]);
     }
 
@@ -88,5 +101,24 @@ internal class Inventory
     public IAbility GetSelectionB()
     {
         return selectedB;
+    }
+
+    public void ReplaceWithDecorator(string prev, IPowerup next)
+    {
+        if(next is IAbility)
+        {
+            for (int i = 0; i < abilitySlots.GetLength(0); i++)
+            {
+                for (int j = 0; i < abilitySlots.GetLength(1); j++)
+                {
+                    if (abilitySlots[i, j].GetLabel() == prev)
+                    {
+                        abilitySlots[i, j] = (IAbility)next;
+                    }
+                }
+            }
+        }
+        Debug.Assert(allPowerups.ContainsKey(prev));
+        allPowerups[prev] = next;
     }
 }

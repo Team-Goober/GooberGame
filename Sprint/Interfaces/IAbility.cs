@@ -1,9 +1,11 @@
-﻿namespace Sprint.Interfaces
+﻿using Sprint.Levels;
+
+namespace Sprint.Interfaces
 {
     internal interface IAbility : IPowerup
     {
 
-        public void Activate();
+        public void ActivateItem(Room room);
 
     }
 }

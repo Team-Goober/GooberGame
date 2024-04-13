@@ -86,32 +86,32 @@ namespace Sprint
         private void loadDelegates ()
         {
             Inventory inventory = player.GetInventory();
-            inventory.InventoryEvent += hudLoader.OnInventoryEvent;
-            inventory.InventoryEvent += this.OnInventoryEvent;
+            //inventory.InventoryEvent += hudLoader.OnInventoryEvent;
+            //inventory.InventoryEvent += this.OnInventoryEvent;
             inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
 
-            inventory.WinEvent += this.WinScreen;
+            //inventory.WinEvent += this.WinScreen;
             player.OnPlayerHealthChange += hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange += hudLoader.UpdateMaxHeartAmount;
-            inventory.InventoryEvent += player.OnInventoryEvent;
+            //inventory.InventoryEvent += player.OnInventoryEvent;
         }
 
         private void unloadDelegates()
         {
             Inventory inventory = player.GetInventory();
-            inventory.InventoryEvent -= hudLoader.OnInventoryEvent;
-            inventory.InventoryEvent -= this.OnInventoryEvent;
+            //inventory.InventoryEvent -= hudLoader.OnInventoryEvent;
+            //inventory.InventoryEvent -= this.OnInventoryEvent;
             inventory.SelectorChooseEvent -= hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent -= hudLoader.OnSelectorMoveEvent;
 
-            inventory.WinEvent -= this.WinScreen;
+            //inventory.WinEvent -= this.WinScreen;
             player.OnPlayerHealthChange -= hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange -= hudLoader.UpdateMaxHeartAmount;
-            inventory.InventoryEvent -= player.OnInventoryEvent;
+            //inventory.InventoryEvent -= player.OnInventoryEvent;
         }
 
-        public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
+        /*public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
         {
             switch (it)
             {
@@ -124,7 +124,7 @@ namespace Sprint
                 default:
                     break;
             }
-        }
+        }*/
 
         // Generates all commands available while the player is moving in a room
         public void MakeCommands()

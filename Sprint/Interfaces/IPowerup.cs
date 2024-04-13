@@ -8,7 +8,11 @@ namespace Sprint.Interfaces
     internal interface IPowerup
     {
 
-        public void Apply(Player player, Room room);
+        public void Apply(Player player, DungeonState dungeon);
+
+        public bool CanPickup(Inventory inventory);
+
+        public string GetLabel();
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime);
 

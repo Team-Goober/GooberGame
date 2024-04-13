@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Characters;
 using Sprint.Collision;
 using Sprint.Interfaces;
 
@@ -33,11 +34,6 @@ namespace Sprint.Items
             }
         }
 
-        public bool GetColliable()
-        {
-            return isColliable;
-        }
-
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             powerup.Draw(spriteBatch, position, gameTime);
@@ -60,8 +56,14 @@ namespace Sprint.Items
         public void SetPosition(Vector2 pos)
         {
             position = pos;
-            bounds.X = (int)position.X - 24;
-            bounds.Y = (int)position.Y - 24;
+            bounds.X = (int)(position.X - bounds.Width / 2);
+            bounds.Y = (int)(position.Y - bounds.Height / 2);
         }
+
+        public bool CanPickup(Inventory inventory)
+        {
+            return isColliable && powerup.CanPickup(inventory);
+        }
+
     }
 }
