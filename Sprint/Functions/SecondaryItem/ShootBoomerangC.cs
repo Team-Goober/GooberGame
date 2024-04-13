@@ -3,18 +3,18 @@ using Sprint.Projectile;
 
 namespace Sprint.Functions.SecondaryItem
 {
-    internal class ShootBoomarangC : ICommand
+    internal class ShootBoomerangC : ICommand
     {
         private SimpleProjectileFactory factory;
 
-        public ShootBoomarangC(SimpleProjectileFactory newFactory)
+        public ShootBoomerangC(SimpleProjectileFactory newFactory)
         {
             this.factory = newFactory;
         }
 
         public void Execute()
         {
-            IProjectile projectile = factory.CreateBoomarang();
+            IProjectile projectile = factory.CreateBoomerang();
             projectile.Create();
         }
     }

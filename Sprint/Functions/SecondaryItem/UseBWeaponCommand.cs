@@ -29,7 +29,7 @@ namespace Sprint.Functions.SecondaryItem
             {
                 // Create and shoot correct projectile
                 case ItemType.Boomerang:
-                    factory.CreateBoomarang().Create();
+                    factory.CreateBoomerang().Create();
                     break;
                 case ItemType.BlueBoomerang:
                     factory.CreateBlueBoomerang().Create();

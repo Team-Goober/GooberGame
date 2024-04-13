@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Functions.SecondaryItem;
+using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;
 
@@ -33,9 +34,34 @@ namespace Sprint.Projectile
             this.room = room;
         }
 
-        public double DamageAmount()
+        public IProjectile CreateFromString(string name)
         {
-            return 0;
+            IProjectile ret = null;
+            switch (name)
+            {
+                case "smoke":
+                    ret = CreateSmoke();
+                    break;
+                case "arrow":
+                    ret = CreateArrow();
+                    break;
+                case "blueArrow":
+                    ret = CreateBlueArrow();
+                    break;
+                case "bomb":
+                    ret = CreateBomb();
+                    break;
+                case "boomerang":
+                    ret = CreateBoomerang();
+                    break;
+                case "blueBoomerang":
+                    ret = CreateBlueBoomerang();
+                    break;
+                case "fireBall":
+                    ret = CreateFireBall();
+                    break;
+            }
+            return ret;
         }
 
         public Smoke CreateSmoke()
@@ -71,7 +97,7 @@ namespace Sprint.Projectile
             return proj;
         }
         
-        public Boomerang CreateBoomarang()
+        public Boomerang CreateBoomerang()
         {
             Boomerang proj = new Boomerang(
                 spriteLoader.BuildSprite(ANIMS_FILE, "boomerang"),

@@ -28,7 +28,7 @@ namespace Sprint.Characters
 
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
-            projectileCommand = new ShootBoomarangC(itemFactory);
+            projectileCommand = new ShootBoomerangC(itemFactory);
 
             moveVert = new MoveVert(physics);
 

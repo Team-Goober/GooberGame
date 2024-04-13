@@ -38,7 +38,7 @@ namespace Sprint.Characters
         private int maxHealth = CharacterConstants.STARTING_HEALTH;
         private double health = CharacterConstants.STARTING_HEALTH;
 
-        private ProjectileSystem secondaryItems;
+        private SimpleProjectileFactory secondaryItems;
         private SwordCollision swordCollision;
         private const int swordWidth = CharacterConstants.SWORD_WIDTH, swordLength = CharacterConstants.SWORD_LENGTH;
 
@@ -98,14 +98,14 @@ namespace Sprint.Characters
             baseAnim = AnimationCycle.Idle;
 
             // Set up projectiles
-            secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
+            secondaryItems = new SimpleProjectileFactory(spriteLoader, CharacterConstants.PROJECTILE_SPAWN_DISTANCE, false, null);
 
             this.gameOver = new OpenDeath(dungeon);
         }
 
         public SimpleProjectileFactory GetProjectileFactory()
         {
-            return secondaryItems.ProjectileFactory;
+            return secondaryItems;
         }
 
         public Inventory GetInventory()
@@ -377,8 +377,8 @@ namespace Sprint.Characters
                 returnToBaseAnim();
             }
 
-            secondaryItems.UpdateDirection(Facing);
-            secondaryItems.UpdatePostion(physics.Position);
+            secondaryItems.SetDirection(Facing);
+            secondaryItems.SetStartPosition(physics.Position);
 
             // Checks for damage state
             damageTimer.Update(gameTime);
