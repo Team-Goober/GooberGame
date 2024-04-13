@@ -265,7 +265,12 @@ namespace Sprint.Loader
                 // Give item drop
                 if(spawn.ItemDrop != null)
                 {
-                    //en.GiveDrop(itemFactory.MakeItem(spawn.ItemDrop, position));
+                    Item it = itemFactory.MakeItem(spawn.ItemDrop, position);
+                    if (it != null)
+                    {
+                        en.GiveDrop(it);
+                    }
+                   
                 }
                 roomNpcs.Add(en);
             }
@@ -274,78 +279,10 @@ namespace Sprint.Loader
             foreach (ItemSpawnData spawn in rd.Items)
             {
                 Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
-                //roomItems.Add(itemFactory.MakeItem(spawn.Type, position));
-                switch(spawn.Type)
+                Item it = itemFactory.MakeItem(spawn.Type, position);
+                if (it != null)
                 {
-                    case "heart":
-                        roomItems.Add(new Item(position,
-                            new InstantPowerup(
-                                spriteLoader.BuildSprite("itemAnims", "heart"), 
-                                new HealPlayerEffect(1),
-                                "heart",
-                                "HEART|heals one heart")));
-                        break;
-                    case "redRing":
-                        roomItems.Add(new Item(position,
-                            new PassivePowerup(
-                                spriteLoader.BuildSprite("itemAnims", "redRing"),
-                                new ChangeSpeedEffect(CharacterConstants.PLAYER_SPEED * 2),
-                                "redRing",
-                                "RING|doubles run speed")));
-                        break;
-                    case "rupee":
-                        IStackedPowerup gem = new ResourcePowerup(
-                                spriteLoader.BuildSprite("itemAnims", "rupee"),
-                                null,
-                                "rupee",
-                                "RUPEE|can be traded");
-                        gem.AddAmount(5);
-                        roomItems.Add(new Item(position, gem));
-                        break;
-                    case "key":
-                        IStackedPowerup key = new ResourcePowerup(
-                                spriteLoader.BuildSprite("itemAnims", "key"),
-                                null,
-                                "key",
-                                "KEY|unlocks doors");
-                        key.AddAmount(1);
-                        roomItems.Add(new Item(position, key));
-                        break;
-                    case "bow":
-                        roomItems.Add(new Item(position, 
-                            new ActiveAbility(
-                                spriteLoader.BuildSprite("itemAnims", "bow"),
-                                new SpawnProjectileEffect("arrow"),
-                                "bow",
-                                "BOW|shoots arrows")));
-                        break;
-                    case "meat":
-                        IStackedPowerup meat = new ConsumableAbility(
-                                spriteLoader.BuildSprite("itemAnims", "meat"),
-                                new HealPlayerEffect(2),
-                                "meat",
-                                "MEAT|heals 2 hearts");
-                        meat.AddAmount(2);
-                        roomItems.Add(new Item(position, meat));
-                        break;
-                    case "greenBadge":
-                        IUpgradePowerup greenUpgrade = new UpgradeAbility(
-                                spriteLoader.BuildSprite("itemAnims", "greenBadge"),
-                                new DualShotUpgrade(),
-                                "greenBadge",
-                                "- dual shot");
-                        greenUpgrade.SetUpgradeOptions(new() { "bow" });
-                        roomItems.Add(new Item(position, greenUpgrade));
-                        break;
-                    case "blueBadge":
-                        IUpgradePowerup blueUpgrade = new UpgradeAbility(
-                                spriteLoader.BuildSprite("itemAnims", "blueBadge"),
-                                new TripleShotUpgrade(),
-                                "blueBadge",
-                                "- triple shot");
-                        blueUpgrade.SetUpgradeOptions(new() { "bow" });
-                        roomItems.Add(new Item(position, blueUpgrade));
-                        break;
+                    roomItems.Add(it);
                 }
             }
 
