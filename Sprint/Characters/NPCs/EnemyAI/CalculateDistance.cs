@@ -66,7 +66,27 @@ namespace Sprint.Characters
             return dirIndices[randInd];
 
 
+        }
 
+
+        public bool proxiDetection()
+        {
+            float XBound = 30;
+            float YBound = 30;
+
+            float XLocation = Math.Abs(enemyVector.X - playerVector.X);
+            float YLocation = Math.Abs(enemyVector.Y - playerVector.Y);
+
+            if(XBound > XLocation || YBound > YLocation)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+            
 
         }
 

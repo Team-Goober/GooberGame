@@ -46,6 +46,15 @@ namespace Sprint.Characters
                 elapsedTime = 0;
             }
 
+            if (calcDistance.proxiDetection())
+            {
+                speed = 300;
+            }
+            else
+            {
+                speed = 100;
+            }
+
             // Move in the current direction
             Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             physics.SetPosition(newPosition);
