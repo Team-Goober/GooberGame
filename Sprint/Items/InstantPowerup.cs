@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Characters;
 using Sprint.Interfaces;
 using Sprint.Interfaces.Powerups;
+using System;
 
 namespace Sprint.Items
 {
@@ -18,6 +19,8 @@ namespace Sprint.Items
         private ISprite sprite;
         private string label;
         private string description;
+
+        private TimeSpan lastUpdate;
 
         public InstantPowerup(ISprite sprite, IEffect onApply, string label, string description)
         {
@@ -48,10 +51,6 @@ namespace Sprint.Items
             return label;
         }
 
-        public IEffect GetEffect()
-        {
-            return onApply;
-        }
         public string GetDescription()
         {
             return description;
@@ -59,7 +58,11 @@ namespace Sprint.Items
 
         public void Update(GameTime gameTime)
         {
-            sprite.Update(gameTime);
+            if (gameTime.TotalGameTime != lastUpdate)
+            {
+                sprite.Update(gameTime);
+            }
+            lastUpdate = gameTime.TotalGameTime;
         }
     }
 }

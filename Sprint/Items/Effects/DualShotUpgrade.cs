@@ -7,20 +7,20 @@ namespace Sprint.Items.Effects
     internal class DualShotUpgrade : IUpgradeEffect, IProjectileEffect
     {
 
-        IProjectileEffect baseEffect;
+        IAbility baseAbility;
 
         public void Execute(Player player)
         {
             SimpleProjectileFactory projs = player.GetProjectileFactory();
-            baseEffect.Execute(player);
+            baseAbility.ActivateItem();
             projs.SetDirection(Directions.Opposite(projs.GetDirection()));
-            baseEffect.Execute(player);
+            baseAbility.ActivateItem();
             projs.SetDirection(Directions.Opposite(projs.GetDirection()));
         }
 
-        public void SetBase(IEffect baseEffect)
+        public void SetBase(IPowerup powerup)
         {
-            this.baseEffect = (IProjectileEffect)baseEffect;
+            baseAbility = powerup as IAbility;
         }
     }
 }

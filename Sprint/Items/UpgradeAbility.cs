@@ -22,6 +22,9 @@ namespace Sprint.Items
         private Player player;
         private string description;
 
+        private TimeSpan lastUpdate;
+
+
         public UpgradeAbility(ISprite sprite, IUpgradeEffect onActivate, string label, string description)
         {
             this.sprite = sprite;
@@ -43,7 +46,7 @@ namespace Sprint.Items
 
             baseAbility = inv.GetSelectionB();
             inv.ReplaceWithDecorator(baseAbility.GetLabel(), this);
-            onActivate.SetBase(baseAbility.GetEffect());
+            onActivate.SetBase(baseAbility);
         }
 
         public bool CanPickup(Inventory inventory)
@@ -54,11 +57,6 @@ namespace Sprint.Items
         public string GetLabel()
         {
             return (baseAbility == null) ? label : baseAbility.GetLabel();
-        }
-
-        public IEffect GetEffect()
-        {
-            return onActivate;
         }
 
         public string GetDescription()
@@ -79,8 +77,12 @@ namespace Sprint.Items
 
         public void Update(GameTime gameTime)
         {
-            sprite.Update(gameTime);
-            baseAbility?.Update(gameTime);
+            if (gameTime.TotalGameTime != lastUpdate)
+            {
+                sprite.Update(gameTime);
+                baseAbility?.Update(gameTime);
+            }
+            lastUpdate = gameTime.TotalGameTime;
         }
     }
 }

@@ -3,16 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Characters;
 using Sprint.Interfaces;
 using Sprint.Interfaces.Powerups;
-using Sprint.Levels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection.Metadata;
 
 namespace Sprint.Items
 {
-    internal class ActiveAbility : IAbility
+    internal class CooldownAbility : IAbility
     {
 
         /*
@@ -24,20 +20,26 @@ namespace Sprint.Items
         private string label;
         private Player player;
         private string description;
+        private Timer cooldownTimer;
 
         private TimeSpan lastUpdate;
 
-        public ActiveAbility(ISprite sprite, IEffect onActivate, string label, string description)
+        public CooldownAbility(ISprite sprite, IEffect onActivate, float cooldown, string label, string description)
         {
             this.sprite = sprite;
             this.label = label;
             this.onActivate = onActivate;
             this.description = description;
+            cooldownTimer = new Timer(cooldown);
         }
 
         public void ActivateItem()
         {
-            onActivate.Execute(player);
+            if (cooldownTimer.Ended || cooldownTimer.TimeLeft == cooldownTimer.Duration)
+            {
+                onActivate.Execute(player);
+                cooldownTimer.Start();
+            }
         }
 
         public void Apply(Player player)
@@ -55,12 +57,23 @@ namespace Sprint.Items
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
-        }
 
+            if (!cooldownTimer.Ended)
+            {
+                Texture2D overlayColor;
+                overlayColor = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                overlayColor.SetData(new Color[] { new Color(Color.Black, CharacterConstants.DISABLED_OPACITY) } );
+                int side = CharacterConstants.POWERUP_SIDE_LENGTH;
+                float height = side * (float)(cooldownTimer.TimeLeft / cooldownTimer.Duration);
+                float ypos = position.Y + side / 2.0f - height;
+                spriteBatch.Draw(overlayColor, new Rectangle((int)(position.X - side / 2.0f), (int)ypos, side, (int)height), Color.White);
+            }
+        }
         public string GetLabel()
         {
             return label;
         }
+
 
         public string GetDescription()
         {
@@ -69,8 +82,9 @@ namespace Sprint.Items
 
         public void Update(GameTime gameTime)
         {
-            if (gameTime.TotalGameTime != lastUpdate)
+            if(gameTime.TotalGameTime != lastUpdate)
             {
+                cooldownTimer.Update(gameTime);
                 sprite.Update(gameTime);
             }
             lastUpdate = gameTime.TotalGameTime;

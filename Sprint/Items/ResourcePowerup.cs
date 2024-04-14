@@ -26,6 +26,8 @@ namespace Sprint.Items
         private ZeldaText number;
         private string description;
 
+        private TimeSpan lastUpdate;
+
         public ResourcePowerup(ISprite sprite, IEffect command, string label, string description)
         {
             this.sprite = sprite;
@@ -69,17 +71,20 @@ namespace Sprint.Items
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
+            if (quantity == 0)
+            {
+                Texture2D overlayColor;
+                overlayColor = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                overlayColor.SetData(new Color[] { new Color(Color.Black, CharacterConstants.DISABLED_OPACITY) });
+                int side = CharacterConstants.POWERUP_SIDE_LENGTH;
+                spriteBatch.Draw(overlayColor, new Rectangle((int)(position.X - side / 2.0f), (int)(position.Y - side / 2.0f), side, side), Color.White);
+            }
             number.Draw(spriteBatch, position, gameTime);
         }
 
         public string GetLabel()
         {
             return label;
-        }
-
-        public IEffect GetEffect()
-        {
-            return null;
         }
 
         public string GetDescription()
@@ -89,7 +94,11 @@ namespace Sprint.Items
 
         public void Update(GameTime gameTime)
         {
-            sprite.Update(gameTime);
+            if (gameTime.TotalGameTime != lastUpdate)
+            {
+                sprite.Update(gameTime);
+            }
+            lastUpdate = gameTime.TotalGameTime;
         }
     }
 }

@@ -64,9 +64,10 @@ namespace Sprint.Items
                     break;
                 case "bow":
                     it = (new Item(position,
-                        new ActiveAbility(
+                        new CooldownAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "bow"),
                             new SpawnProjectileEffect("arrow"),
+                            1,
                             "bow",
                             "BOW|shoots arrows")));
                     break;

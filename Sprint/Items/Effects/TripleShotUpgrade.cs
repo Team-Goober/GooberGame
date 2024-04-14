@@ -9,23 +9,23 @@ namespace Sprint.Items.Effects
     internal class TripleShotUpgrade : IUpgradeEffect, IProjectileEffect
     {
 
-        IProjectileEffect baseEffect;
+        IAbility baseAbility;
 
         public void Execute(Player player)
         {
             SimpleProjectileFactory projs = player.GetProjectileFactory();
             Vector2 originalDir = projs.GetDirection();
-            baseEffect.Execute(player);
+            baseAbility.ActivateItem();
             projs.SetDirection(Vector2.Transform(originalDir, Matrix.CreateRotationZ((float)(Math.PI / 6))));
-            baseEffect.Execute(player);
+            baseAbility.ActivateItem();
             projs.SetDirection(Vector2.Transform(originalDir, Matrix.CreateRotationZ((float)(- Math.PI / 6))));
-            baseEffect.Execute(player);
+            baseAbility.ActivateItem();
             projs.SetDirection(originalDir);
         }
 
-        public void SetBase(IEffect baseEffect)
+        public void SetBase(IPowerup powerup)
         {
-            this.baseEffect = (IProjectileEffect)baseEffect;
+            baseAbility = powerup as IAbility;
         }
     }
 }

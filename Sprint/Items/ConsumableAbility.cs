@@ -4,6 +4,7 @@ using Sprint.Characters;
 using Sprint.Interfaces;
 using Sprint.Interfaces.Powerups;
 using Sprint.Levels;
+using System;
 using System.Diagnostics;
 
 namespace Sprint.Items
@@ -22,6 +23,8 @@ namespace Sprint.Items
         private ZeldaText number;
         private Player player;
         private string description;
+
+        private TimeSpan lastUpdate;
 
         public ConsumableAbility(ISprite sprite, IEffect onActivate, string label, string description)
         {
@@ -79,10 +82,6 @@ namespace Sprint.Items
             return label;
         }
 
-        public IEffect GetEffect()
-        {
-            return onActivate;
-        }
         public string GetDescription()
         {
             return description + "|amt: " + quantity;
@@ -91,12 +90,24 @@ namespace Sprint.Items
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
+            if(quantity == 0)
+            {
+                Texture2D overlayColor;
+                overlayColor = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                overlayColor.SetData(new Color[] { new Color(Color.Black, CharacterConstants.DISABLED_OPACITY) });
+                int side = CharacterConstants.POWERUP_SIDE_LENGTH;
+                spriteBatch.Draw(overlayColor, new Rectangle((int)(position.X - side / 2.0f), (int)(position.Y - side / 2.0f), side, side), Color.White);
+            }
             number.Draw(spriteBatch, position, gameTime);
         }
 
         public void Update(GameTime gameTime)
         {
-            sprite.Update(gameTime);
+            if (gameTime.TotalGameTime != lastUpdate)
+            {
+                sprite.Update(gameTime);
+            }
+            lastUpdate = gameTime.TotalGameTime;
         }
     }
 }

@@ -21,5 +21,8 @@ namespace Sprint.Characters
         public const int LOW_HP = 2, MID_HP = 4, HIGH_HP = 12, MAX_HP = 99999;
         public const int LOW_DMG = 1, MID_DMG = 2, HIGH_DMG = 4, NO_DMG = 0;
         public const int PROJECTILE_SIDE_LENGTH = 8;
+
+        public const int POWERUP_SIDE_LENGTH = 64;
+        public const int DISABLED_OPACITY = 150;
     }
 }
