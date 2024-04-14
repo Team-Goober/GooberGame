@@ -116,6 +116,15 @@ namespace Sprint.Items
                     yellowUpgrade.SetUpgradeOptions(new() { "bow" });
                     it = (new Item(position, yellowUpgrade));
                     break;
+                case "pinkBadge":
+                    IUpgradePowerup pinkUpgrade = new UpgradeAbility(
+                            spriteLoader.BuildSprite(ANIM_FILE, "pinkBadge"),
+                            new InfiniteAmmoUpgrade(),
+                            "pinkBadge",
+                            "- infinite ammo");
+                    pinkUpgrade.SetUpgradeOptions(new() { "bomb" });
+                    it = (new Item(position, pinkUpgrade));
+                    break;
             }
             return it;
         }

@@ -1300,6 +1300,14 @@
               <Type>yellowBadge</Type>
               <TilePos>10 5</TilePos>
             </Item>
+            <Item>
+              <Type>pinkBadge</Type>
+              <TilePos>9 6</TilePos>
+            </Item>
+            <Item>
+              <Type>pinkBadge</Type>
+              <TilePos>10 6</TilePos>
+            </Item>
           </Items>
           <Enemies/>
           <TextBoxes />
