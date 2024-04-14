@@ -11,5 +11,9 @@ namespace Sprint.Interfaces.Powerups
 
         public void SetUpgradeOptions(List<string> bases);
 
+        public string GetTrueLabel();
+
+        public IPowerup FindInChain(string label);
+
     }
 }

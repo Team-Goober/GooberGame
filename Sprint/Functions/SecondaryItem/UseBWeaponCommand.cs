@@ -1,5 +1,6 @@
 ﻿using Sprint.Characters;
 using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 using Sprint.Items;
 using Sprint.Projectile;
 using System.Diagnostics;
@@ -22,8 +23,11 @@ namespace Sprint.Functions.SecondaryItem
 
         public void Execute()
         {
-            inventory.TryConsumeStack(Inventory.RupeeLabel);
-            inventory.GetSelectionB()?.ActivateItem();
+            IAbility bp = inventory.GetSelectionB();
+            if(bp != null && bp.ReadyUp())
+            {
+                bp.Activate();
+            }
             // Handle each possible item separately
             /*switch (inventory.GetSelection())
             {

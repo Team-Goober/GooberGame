@@ -71,6 +71,15 @@ namespace Sprint.Items
                             "bow",
                             "BOW|shoots arrows")));
                     break;
+                case "bomb":
+                    IStackedPowerup bomb = (new ConsumableAbility(
+                            spriteLoader.BuildSprite(ANIM_FILE, "bomb"),
+                            new SpawnProjectileEffect("bomb"),
+                            "bomb",
+                            "BOMB|drops an explosive"));
+                    bomb.AddAmount(3);
+                    it = (new Item(position, bomb));
+                    break;
                 case "meat":
                     IStackedPowerup meat = new ConsumableAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "meat"),
@@ -86,7 +95,7 @@ namespace Sprint.Items
                             new DualShotUpgrade(),
                             "greenBadge",
                             "- dual shot");
-                    greenUpgrade.SetUpgradeOptions(new() { "bow" });
+                    greenUpgrade.SetUpgradeOptions(new() { "bow", "bomb" });
                     it = (new Item(position, greenUpgrade));
                     break;
                 case "blueBadge":
@@ -95,7 +104,7 @@ namespace Sprint.Items
                             new TripleShotUpgrade(),
                             "blueBadge",
                             "- triple shot");
-                    blueUpgrade.SetUpgradeOptions(new() { "bow" });
+                    blueUpgrade.SetUpgradeOptions(new() { "bow", "bomb" });
                     it = (new Item(position, blueUpgrade));
                     break;
             }

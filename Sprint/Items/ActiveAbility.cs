@@ -35,7 +35,13 @@ namespace Sprint.Items
             this.description = description;
         }
 
-        public void ActivateItem()
+
+        public bool ReadyUp()
+        {
+            return true;
+        }
+
+        public void Activate()
         {
             onActivate.Execute(player);
         }

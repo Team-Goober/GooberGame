@@ -15,11 +15,11 @@ namespace Sprint.Items.Effects
         {
             SimpleProjectileFactory projs = player.GetProjectileFactory();
             Vector2 originalDir = projs.GetDirection();
-            baseAbility.ActivateItem();
+            baseAbility.Activate();
             projs.SetDirection(Vector2.Transform(originalDir, Matrix.CreateRotationZ((float)(Math.PI / 6))));
-            baseAbility.ActivateItem();
+            baseAbility.Activate();
             projs.SetDirection(Vector2.Transform(originalDir, Matrix.CreateRotationZ((float)(- Math.PI / 6))));
-            baseAbility.ActivateItem();
+            baseAbility.Activate();
             projs.SetDirection(originalDir);
         }
 

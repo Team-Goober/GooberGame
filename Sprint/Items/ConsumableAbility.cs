@@ -63,13 +63,19 @@ namespace Sprint.Items
             }
         }
 
-        public void ActivateItem()
+        public bool ReadyUp()
         {
-            if(quantity > 0)
+            if (quantity > 0)
             {
-                onActivate.Execute(player);
                 AddAmount(-1);
+                return true;
             }
+            return false;
+        }
+
+        public void Activate()
+        {
+            onActivate.Execute(player);
         }
 
         public bool CanPickup(Inventory inventory)

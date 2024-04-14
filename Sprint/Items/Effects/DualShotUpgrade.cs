@@ -12,9 +12,9 @@ namespace Sprint.Items.Effects
         public void Execute(Player player)
         {
             SimpleProjectileFactory projs = player.GetProjectileFactory();
-            baseAbility.ActivateItem();
+            baseAbility.Activate();
             projs.SetDirection(Directions.Opposite(projs.GetDirection()));
-            baseAbility.ActivateItem();
+            baseAbility.Activate();
             projs.SetDirection(Directions.Opposite(projs.GetDirection()));
         }
 

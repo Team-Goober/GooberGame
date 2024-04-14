@@ -5,6 +5,7 @@ using Sprint.Interfaces;
 using Sprint.Interfaces.Powerups;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Sprint.Items
 {
-    internal class UpgradeAbility : IAbility, IUpgradePowerup
+    internal class UpgradeAbility : IAbility, IUpgradePowerup, IStackedPowerup
     {
         private ISprite sprite;
         private IUpgradeEffect onActivate;
@@ -33,7 +34,12 @@ namespace Sprint.Items
             this.description = description;
         }
 
-        public void ActivateItem()
+        public bool ReadyUp()
+        {
+            return baseAbility.ReadyUp();
+        }
+
+        public void Activate()
         {
             onActivate.Execute(player);
         }
@@ -51,12 +57,29 @@ namespace Sprint.Items
 
         public bool CanPickup(Inventory inventory)
         {
-            return baseOptions != null && inventory.GetSelectionB() != null && baseOptions.Contains(inventory.GetSelectionB().GetLabel());
+            if(baseOptions != null && inventory.GetSelectionB() != null && baseOptions.Contains(inventory.GetSelectionB().GetLabel()))
+            {
+                IUpgradePowerup upgradeB = inventory.GetSelectionB() as IUpgradePowerup;
+                if (upgradeB != null)
+                {
+                    return upgradeB.FindInChain(label) == null;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public string GetLabel()
         {
             return (baseAbility == null) ? label : baseAbility.GetLabel();
+        }
+
+        public string GetTrueLabel()
+        {
+            return label;
         }
 
         public string GetDescription()
@@ -83,6 +106,45 @@ namespace Sprint.Items
                 baseAbility?.Update(gameTime);
             }
             lastUpdate = gameTime.TotalGameTime;
+        }
+
+        public void AddAmount(int amount)
+        {
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            stackBase?.AddAmount(amount);
+        }
+
+        public int Quantity()
+        {
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            if (stackBase == null)
+            {
+                return 1;
+            }
+            else
+            {
+                return stackBase.Quantity();
+            }
+        }
+
+        public IPowerup FindInChain(string label)
+        {
+            if (this.label == label)
+            {
+                return this;
+            }
+            else if (baseAbility == null)
+            {
+                return null;
+            }
+            else if(baseAbility is IUpgradePowerup)
+            {
+                return ((IUpgradePowerup)baseAbility).FindInChain(label);
+            }
+            else
+            {
+                return (baseAbility.GetLabel() == label) ? baseAbility : null;
+            }
         }
     }
 }

@@ -33,13 +33,19 @@ namespace Sprint.Items
             cooldownTimer = new Timer(cooldown);
         }
 
-        public void ActivateItem()
+        public bool ReadyUp()
         {
             if (cooldownTimer.Ended || cooldownTimer.TimeLeft == cooldownTimer.Duration)
             {
-                onActivate.Execute(player);
                 cooldownTimer.Start();
+                return true;
             }
+            return false;
+        }
+
+        public void Activate()
+        {
+            onActivate.Execute(player);
         }
 
         public void Apply(Player player)

@@ -1277,12 +1277,20 @@
               <TilePos>10 6</TilePos>
             </Item>
             <Item>
+              <Type>blueBadge</Type>
+              <TilePos>11 3</TilePos>
+            </Item>
+            <Item>
               <Type>greenBadge</Type>
               <TilePos>11 4</TilePos>
             </Item>
             <Item>
               <Type>blueBadge</Type>
               <TilePos>11 5</TilePos>
+            </Item>
+            <Item>
+              <Type>greenBadge</Type>
+              <TilePos>11 6</TilePos>
             </Item>
           </Items>
           <Enemies/>
