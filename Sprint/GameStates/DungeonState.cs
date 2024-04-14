@@ -90,7 +90,6 @@ namespace Sprint
             inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
 
-            player.OnWin += this.WinScreen;
             player.OnPlayerHealthChange += hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange += hudLoader.UpdateMaxHeartAmount;
 
@@ -104,7 +103,6 @@ namespace Sprint
             inventory.SelectorChooseEvent -= hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent -= hudLoader.OnSelectorMoveEvent;
 
-            player.OnWin -= this.WinScreen;
             player.OnPlayerHealthChange -= hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange -= hudLoader.UpdateMaxHeartAmount;
         }
@@ -191,9 +189,6 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.L), new MusicUp());
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.J), new MusicDown());
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.K), new MusicMuteToggle());
-
-            // Press m to die
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.M), new OpenDeath(this));
 
         }
 

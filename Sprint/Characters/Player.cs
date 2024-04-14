@@ -15,6 +15,7 @@ namespace Sprint.Characters
 
     internal class Player : Character, IMovingCollidable
     {
+        private DungeonState dungeon;
         private Inventory inventory;
 
         private SfxFactory sfxFactory;
@@ -23,15 +24,10 @@ namespace Sprint.Characters
         private SpriteLoader spriteLoader;
         private ISprite damagedSprite;
 
-        public event EventHandler OnPlayerDied;
-
-
         public delegate void HealthUpdateDelegate(double prev, double next);
         public event HealthUpdateDelegate OnPlayerHealthChange;
         public delegate void MaxHealthUpdateDelegate(int prev, int next, double health);
         public event MaxHealthUpdateDelegate OnPlayerMaxHealthChange;
-        public delegate void WinDelegate();
-        public event WinDelegate OnWin;
 
         private Physics physics;
 
@@ -59,7 +55,6 @@ namespace Sprint.Characters
         private Timer castTimer;
         private Timer damageTimer;
         private Room room;
-        private OpenDeath gameOver;
 
         // TODO: replace this with state machine
         // Animation to return to as base after a played animation ends
@@ -74,6 +69,7 @@ namespace Sprint.Characters
         //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
+            this.dungeon = dungeon;
             //Initialize SFX player
             sfxFactory = SfxFactory.GetInstance();
 
@@ -100,9 +96,7 @@ namespace Sprint.Characters
             baseAnim = AnimationCycle.Idle;
 
             // Set up projectiles
-            secondaryItems = new SimpleProjectileFactory(spriteLoader, CharacterConstants.PROJECTILE_SPAWN_DISTANCE, false, null);
-
-            this.gameOver = new OpenDeath(dungeon);
+            secondaryItems = new SimpleProjectileFactory(spriteLoader, CharacterConstants.PROJECTILE_SPAWN_DISTANCE, false, null);         
         }
 
         public SimpleProjectileFactory GetProjectileFactory()
@@ -218,13 +212,6 @@ namespace Sprint.Characters
                 sprite.SetAnimation("castRight");
                 damagedSprite.SetAnimation("castRight");
             }
-        }
-
-        public void Win()
-        {
-            StopMoving();
-            sprite.SetAnimation("holdItem");
-            OnWin?.Invoke();
         }
 
         // Removes velocity and changes animation to match lack of movement
@@ -436,8 +423,19 @@ namespace Sprint.Characters
         // Send to a game over
         public override void Die()
         {
-            OnPlayerDied?.Invoke(this, EventArgs.Empty);
-            gameOver.Execute();
+            dungeon.DeathScreen();
+        }
+
+        public void Win()
+        {
+            StopMoving();
+            sprite.SetAnimation("holdItem");
+            dungeon.WinScreen();
+        }
+
+        public MapModel GetMap()
+        {
+            return dungeon.GetMap();
         }
 
         public void SetSpeed(float newSpeed)

@@ -36,6 +36,22 @@ namespace Sprint.Items
                             "heart",
                             "HEART|heals one heart")));
                     break;
+                case "compass":
+                    it = (new Item(position,
+                        new PassivePowerup(
+                            spriteLoader.BuildSprite(ANIM_FILE, "compass"),
+                            new CompassEffect(),
+                            "compass",
+                            "COMPASS|reveal triforce|room")));
+                    break;
+                case "map":
+                    it = (new Item(position,
+                        new PassivePowerup(
+                            spriteLoader.BuildSprite(ANIM_FILE, "map"),
+                            new MapEffect(),
+                            "map",
+                            "MAP|reveal dungeon|layout")));
+                    break;
                 case "redRing":
                     it = (new Item(position,
                         new PassivePowerup(
