@@ -4,7 +4,7 @@ using System;
 
 namespace Sprint.Items.Effects
 {
-    internal class SpawnProjectileEffect : IEffect, IProjectileEffect
+    internal class SpawnProjectileEffect : IEffect
     {
 
         string projName;

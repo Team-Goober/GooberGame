@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Sprint.Items
 {
-    internal class UpgradeAbility : IAbility, IUpgradePowerup, IStackedPowerup
+    internal class UpgradeAbility : IAbility, IUpgradePowerup, IStackedPowerup, ICooldownPowerup
     {
         private ISprite sprite;
         private IUpgradeEffect onActivate;
@@ -108,25 +108,6 @@ namespace Sprint.Items
             lastUpdate = gameTime.TotalGameTime;
         }
 
-        public void AddAmount(int amount)
-        {
-            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
-            stackBase?.AddAmount(amount);
-        }
-
-        public int Quantity()
-        {
-            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
-            if (stackBase == null)
-            {
-                return 1;
-            }
-            else
-            {
-                return stackBase.Quantity();
-            }
-        }
-
         public IPowerup FindInChain(string label)
         {
             if (this.label == label)
@@ -145,6 +126,36 @@ namespace Sprint.Items
             {
                 return (baseAbility.GetLabel() == label) ? baseAbility : null;
             }
+        }
+
+        public void AddAmount(int amount)
+        {
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            stackBase?.AddAmount(amount);
+        }
+
+        public int Quantity()
+        {
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            return (stackBase == null) ? 1 : stackBase.Quantity();
+        }
+
+        public void SetDuration(float duration)
+        {
+            ICooldownPowerup cooldownBase = baseAbility as ICooldownPowerup;
+            cooldownBase?.SetDuration(duration);
+        }
+
+        public void SetTimeLeft(float duration)
+        {
+            ICooldownPowerup cooldownBase = baseAbility as ICooldownPowerup;
+            cooldownBase?.SetTimeLeft(duration);
+        }
+
+        public float GetTimeLeft()
+        {
+            ICooldownPowerup cooldownBase = baseAbility as ICooldownPowerup;
+            return (cooldownBase == null) ? 0 : cooldownBase.GetTimeLeft();
         }
     }
 }

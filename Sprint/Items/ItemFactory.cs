@@ -63,13 +63,13 @@ namespace Sprint.Items
                     it = (new Item(position, key));
                     break;
                 case "bow":
-                    it = (new Item(position,
-                        new CooldownAbility(
+                    ICooldownPowerup bow = new CooldownAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "bow"),
                             new SpawnProjectileEffect("arrow"),
-                            1,
                             "bow",
-                            "BOW|shoots arrows")));
+                            "BOW|shoots arrows");
+                    bow.SetDuration(1);
+                    it = (new Item(position, bow));
                     break;
                 case "bomb":
                     IStackedPowerup bomb = (new ConsumableAbility(
@@ -106,6 +106,15 @@ namespace Sprint.Items
                             "- triple shot");
                     blueUpgrade.SetUpgradeOptions(new() { "bow", "bomb" });
                     it = (new Item(position, blueUpgrade));
+                    break;
+                case "yellowBadge":
+                    IUpgradePowerup yellowUpgrade = new UpgradeAbility(
+                            spriteLoader.BuildSprite(ANIM_FILE, "yellowBadge"),
+                            new QuickCooldownUpgrade(),
+                            "yellowBadge",
+                            "- quick reload");
+                    yellowUpgrade.SetUpgradeOptions(new() { "bow" });
+                    it = (new Item(position, yellowUpgrade));
                     break;
             }
             return it;

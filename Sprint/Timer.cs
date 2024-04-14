@@ -35,6 +35,15 @@ namespace Sprint
             Duration = TimeSpan.FromSeconds(seconds);
         }
 
+        public void SubtractTime(double seconds)
+        {
+            TimeLeft -= TimeSpan.FromSeconds(seconds);
+            if (TimeLeft < TimeSpan.Zero)
+            {
+                End();
+            }
+        }
+
         public void Update(GameTime gameTime)
         {
             if (JustEnded)
@@ -44,11 +53,7 @@ namespace Sprint
 
             if (!Ended)
             {
-                TimeLeft -= gameTime.ElapsedGameTime;
-                if (TimeLeft < TimeSpan.Zero)
-                {
-                    End();
-                }
+                SubtractTime(gameTime.ElapsedGameTime.TotalSeconds);
             }
         }
 

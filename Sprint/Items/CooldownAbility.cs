@@ -8,7 +8,7 @@ using System.Reflection.Metadata;
 
 namespace Sprint.Items
 {
-    internal class CooldownAbility : IAbility
+    internal class CooldownAbility : IAbility, ICooldownPowerup
     {
 
         /*
@@ -24,13 +24,13 @@ namespace Sprint.Items
 
         private TimeSpan lastUpdate;
 
-        public CooldownAbility(ISprite sprite, IEffect onActivate, float cooldown, string label, string description)
+        public CooldownAbility(ISprite sprite, IEffect onActivate, string label, string description)
         {
             this.sprite = sprite;
             this.label = label;
             this.onActivate = onActivate;
             this.description = description;
-            cooldownTimer = new Timer(cooldown);
+            cooldownTimer = new Timer(1.0f);
         }
 
         public bool ReadyUp()
@@ -94,6 +94,21 @@ namespace Sprint.Items
                 sprite.Update(gameTime);
             }
             lastUpdate = gameTime.TotalGameTime;
+        }
+
+        public void SetDuration(float duration)
+        {
+            cooldownTimer.SetDuration(duration);
+        }
+
+        public void SetTimeLeft(float duration)
+        {
+            cooldownTimer.SubtractTime(duration);
+        }
+
+        public float GetTimeLeft()
+        {
+            return (float)cooldownTimer.TimeLeft.TotalSeconds;
         }
     }
 }

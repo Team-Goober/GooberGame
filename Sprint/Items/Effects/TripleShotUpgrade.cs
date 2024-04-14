@@ -6,7 +6,7 @@ using System;
 
 namespace Sprint.Items.Effects
 {
-    internal class TripleShotUpgrade : IUpgradeEffect, IProjectileEffect
+    internal class TripleShotUpgrade : IUpgradeEffect
     {
 
         IAbility baseAbility;

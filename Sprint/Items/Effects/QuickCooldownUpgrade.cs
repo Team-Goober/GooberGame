@@ -4,18 +4,15 @@ using Sprint.Projectile;
 
 namespace Sprint.Items.Effects
 {
-    internal class DualShotUpgrade : IUpgradeEffect
+    internal class QuickCooldownUpgrade : IUpgradeEffect
     {
 
         IAbility baseAbility;
 
         public void Execute(Player player)
         {
-            SimpleProjectileFactory projs = player.GetProjectileFactory();
+            ((ICooldownPowerup)baseAbility).SetTimeLeft(((ICooldownPowerup)baseAbility).GetTimeLeft() / 2f);
             baseAbility.Activate();
-            projs.SetDirection(Directions.Opposite(projs.GetDirection()));
-            baseAbility.Activate();
-            projs.SetDirection(Directions.Opposite(projs.GetDirection()));
         }
 
         public void SetBase(IPowerup powerup)
