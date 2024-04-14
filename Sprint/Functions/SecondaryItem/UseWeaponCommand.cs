@@ -7,23 +7,25 @@ using System.Diagnostics;
 
 namespace Sprint.Functions.SecondaryItem
 {
-    internal class UseBWeaponCommand : ICommand
+    internal class UseWeaponCommand : ICommand
     {
 
         private SimpleProjectileFactory factory;
         private Inventory inventory;
         private Player player;
+        private int box;
 
-        public UseBWeaponCommand(Player player)
+        public UseWeaponCommand(Player player, int box)
         {
             this.factory = player.GetProjectileFactory();
             this.inventory = player.GetInventory();
             this.player = player;
+            this.box = box;
         }
 
         public void Execute()
         {
-            IAbility bp = inventory.GetSelectionB();
+            IAbility bp = inventory.GetSelection(box);
             if(bp != null && bp.ReadyUp())
             {
                 bp.Activate();

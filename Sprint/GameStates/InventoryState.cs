@@ -95,8 +95,9 @@ namespace Sprint.GameStates
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveSelectorCommand(this, new Point(-1, 0)));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveSelectorCommand(this, new Point(0, 1)));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveSelectorCommand(this, new Point(1, 0)));
-            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new SelectSlotCommand(this));
-            input.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new DropSlotCommand(this));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new SelectSlotCommand(this, 0));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new SelectSlotCommand(this, 1));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.C), new DropSlotCommand(this));
 
             IPowerup[,] listArray = listing.GetPowerups();
             for (int i = 0; i< listArray.GetLength(0); i++)
@@ -180,9 +181,9 @@ namespace Sprint.GameStates
         }
 
         // Choose on the current slot
-        public void SelectSlot()
+        public void SelectSlot(int b)
         {
-            playerInventory.Select(slot.Y, slot.X);
+            playerInventory.Select(b, slot.Y, slot.X);
         }
 
         public void DropSlot()

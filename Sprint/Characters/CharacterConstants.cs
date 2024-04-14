@@ -14,6 +14,7 @@ namespace Sprint.Characters
         public const int PROJECTILE_SPAWN_DISTANCE = 40;
 
         public const int INVENTORY_ROWS = 2, INVENTORY_COLUMNS = 4;
+        public const int SELECT_BOXES = 2;
 
         public const int COLLIDER_SCALE = 3;
         public const int DEFAULT_SIDE_LENGTH = 16;

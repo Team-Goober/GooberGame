@@ -71,6 +71,15 @@ namespace Sprint.Items
                     triforce.AddAmount(1);
                     it = (new Item(position, triforce));
                     break;
+                case "sword":
+                    ICooldownPowerup sword = new CooldownAbility(
+                            spriteLoader.BuildSprite(ANIM_FILE, "sword"),
+                            new MeleeEffect(),
+                            "sword",
+                            "SWORD|melee attack");
+                    sword.SetDuration(0.5);
+                    it = (new Item(position, sword));
+                    break;
                 case "bow":
                     ICooldownPowerup bow = new CooldownAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "bow"),
@@ -122,7 +131,7 @@ namespace Sprint.Items
                             new QuickCooldownUpgrade(),
                             "yellowBadge",
                             "- quick reload");
-                    yellowUpgrade.SetUpgradeOptions(new() { "bow" });
+                    yellowUpgrade.SetUpgradeOptions(new() { "bow", "sword" });
                     it = (new Item(position, yellowUpgrade));
                     break;
                 case "pinkBadge":

@@ -88,8 +88,8 @@ namespace Sprint.Characters
             damagedSprite = spriteLoader.BuildSprite("playerDamagedAnims" , "player");
 
             // Duration of one sword swing or item use
-            attackTimer = new Timer(0.5);
-            castTimer = new Timer(0.5);
+            attackTimer = new Timer(0.25);
+            castTimer = new Timer(0.25);
             // Duration of the damage state
             damageTimer = new Timer(0.5);
 

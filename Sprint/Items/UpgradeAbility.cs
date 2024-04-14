@@ -54,28 +54,34 @@ namespace Sprint.Items
         {
             this.player = player;
             Inventory inv = player.GetInventory();
-            Debug.Assert(CanPickup(inv));
+            int b = getApplicableBox(inv);
+            Debug.Assert(b >= 0);
 
-            baseAbility = inv.GetSelectionB();
+            baseAbility = inv.GetSelection(b);
             inv.ReplaceWithDecorator(baseAbility.GetLabel(), this);
             onActivate.SetBase(baseAbility);
         }
 
         public bool CanPickup(Inventory inventory)
         {
-            if(baseOptions != null && inventory.GetSelectionB() != null && baseOptions.Contains(inventory.GetSelectionB().GetLabel()))
+            return getApplicableBox(inventory) >= 0;
+        }
+
+        private int getApplicableBox(Inventory inventory)
+        {
+            for(int b = 0; b < CharacterConstants.SELECT_BOXES; b++)
             {
-                IUpgradePowerup upgradeB = inventory.GetSelectionB() as IUpgradePowerup;
-                if (upgradeB != null)
+                IPowerup inBox = inventory.GetSelection(b);
+                if(inBox != null && baseOptions.Contains(inBox.GetLabel()))
                 {
-                    return upgradeB.FindInChain(label) == null;
-                }
-                else
-                {
-                    return true;
+                    IUpgradePowerup upgradeBox = inBox as IUpgradePowerup;
+                    if (upgradeBox == null || upgradeBox.FindInChain(label) == null)
+                    {
+                        return b;
+                    }
                 }
             }
-            return false;
+            return -1;
         }
 
         public string GetLabel()
@@ -146,13 +152,13 @@ namespace Sprint.Items
             return (stackBase == null) ? 1 : stackBase.Quantity();
         }
 
-        public void SetDuration(float duration)
+        public void SetDuration(double duration)
         {
             ICooldownPowerup cooldownBase = baseAbility as ICooldownPowerup;
             cooldownBase?.SetDuration(duration);
         }
 
-        public void SetTimeLeft(float duration)
+        public void SetTimeLeft(double duration)
         {
             ICooldownPowerup cooldownBase = baseAbility as ICooldownPowerup;
             cooldownBase?.SetTimeLeft(duration);

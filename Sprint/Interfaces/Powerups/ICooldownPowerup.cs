@@ -9,8 +9,8 @@ namespace Sprint.Interfaces.Powerups
     internal interface ICooldownPowerup : IPowerup
     {
 
-        public void SetDuration(float duration);
-        public void SetTimeLeft(float duration);
+        public void SetDuration(double duration);
+        public void SetTimeLeft(double duration);
         public float GetTimeLeft();
 
     }

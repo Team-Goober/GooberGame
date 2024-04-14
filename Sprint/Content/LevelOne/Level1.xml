@@ -1064,7 +1064,12 @@
             <Item>0 4 0 7 4 7 7 5 7 0 5 0</Item>
             <Item>0 0 0 7 7 7 7 7 7 0 0 0</Item>
           </TileGrid>
-          <Items/>
+          <Items>
+            <Item>
+              <Type>sword</Type>
+              <TilePos>5.5 4</TilePos>
+            </Item>
+          </Items>
           <Enemies/>
           <TextBoxes />
           <Stairs />

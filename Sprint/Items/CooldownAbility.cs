@@ -96,12 +96,12 @@ namespace Sprint.Items
             lastUpdate = gameTime.TotalGameTime;
         }
 
-        public void SetDuration(float duration)
+        public void SetDuration(double duration)
         {
             cooldownTimer.SetDuration(duration);
         }
 
-        public void SetTimeLeft(float duration)
+        public void SetTimeLeft(double duration)
         {
             cooldownTimer.SubtractTime(duration);
         }

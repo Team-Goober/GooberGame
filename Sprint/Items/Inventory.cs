@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Reflection.Emit;
 using Sprint.Characters;
 using Sprint.Interfaces.Powerups;
 
@@ -12,7 +13,7 @@ internal class Inventory
     public const string KeyLabel = "key";
     public const string RupeeLabel = "rupee";
 
-    public delegate void SelectorChooseDelegate(IAbility ability);
+    public delegate void SelectorChooseDelegate(int box, IAbility ability);
     public event SelectorChooseDelegate SelectorChooseEvent;
 
     public delegate void ListingUpdateDelegate(Dictionary<string, IPowerup> listing);
@@ -20,12 +21,13 @@ internal class Inventory
 
     private Dictionary<string, IPowerup> allPowerups;
     private IAbility[,] abilitySlots;
-    private IAbility selectedA, selectedB;
+    private IAbility[] selectedBoxes;
 
     public Inventory()
     {
         allPowerups = new();
         abilitySlots = new IAbility[CharacterConstants.INVENTORY_ROWS, CharacterConstants.INVENTORY_COLUMNS];
+        selectedBoxes = new IAbility[CharacterConstants.SELECT_BOXES];
     }
 
 
@@ -80,14 +82,13 @@ internal class Inventory
                 }
             }
 
-            if (selectedA != null && selectedA.GetLabel() == label)
+            for (int i = 0; i < selectedBoxes.Length; i++)
             {
-                selectedA = null;
-            }
-            if (selectedB != null && selectedB.GetLabel() == label)
-            {
-                selectedB = null;
-                SelectorChooseEvent?.Invoke(null);
+                if (selectedBoxes[i] != null && selectedBoxes[i].GetLabel() == label)
+                {
+                    selectedBoxes[i] = null;
+                    SelectorChooseEvent?.Invoke(i, null);
+                }
             }
         }
     }
@@ -143,10 +144,10 @@ internal class Inventory
 
     }
 
-    public void Select(int r, int c)
+    public void Select(int b, int r, int c)
     {
-        selectedB = abilitySlots[r, c];
-        SelectorChooseEvent?.Invoke(abilitySlots[r, c]);
+        selectedBoxes[b] = abilitySlots[r, c];
+        SelectorChooseEvent?.Invoke(b, abilitySlots[r, c]);
     }
 
     public void Drop(int r, int c)
@@ -154,14 +155,9 @@ internal class Inventory
         DeletePowerup(abilitySlots[r, c]);
     }
 
-    public IAbility GetSelectionA()
+    public IAbility GetSelection(int b)
     {
-        return selectedA;
-    }
-
-    public IAbility GetSelectionB()
-    {
-        return selectedB;
+        return selectedBoxes[b];
     }
 
     public void ReplaceWithDecorator(string prev, IPowerup next)
@@ -179,15 +175,13 @@ internal class Inventory
                     }
                 }
             }
-
-            if (selectedA != null && selectedA.GetLabel() == prev)
+            for (int i = 0; i < selectedBoxes.Length; i++)
             {
-                selectedA = abilityNext;
-            }
-            if (selectedB != null && selectedB.GetLabel() == prev)
-            {
-                selectedB = abilityNext;
-                SelectorChooseEvent?.Invoke(abilityNext);
+                if (selectedBoxes[i] != null && selectedBoxes[i].GetLabel() == prev)
+                {
+                    selectedBoxes[i] = abilityNext;
+                    SelectorChooseEvent?.Invoke(i, abilityNext);
+                }
             }
         }
         Debug.Assert(allPowerups.ContainsKey(prev));

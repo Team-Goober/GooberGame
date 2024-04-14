@@ -151,16 +151,13 @@ namespace Sprint
             Keys[] moveKeys = { Keys.A, Keys.D, Keys.W, Keys.S, Keys.Left, Keys.Right, Keys.Up, Keys.Down };
             inputTable.RegisterMapping(new MultipleKeyReleaseTrigger(moveKeys), new StopMoving(player));
 
-            //Melee Regular Sword Attack
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Melee(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.N), new Melee(player));
-
             //Player uses a cast move
             // TODO: shouldnt bind separately from shoot commands
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new Cast(player));
 
-            // Using item slot B
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseBWeaponCommand(player));
+            // Using item slots
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new UseWeaponCommand(player, 0));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseWeaponCommand(player, 1));
 
             // Reset command
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));

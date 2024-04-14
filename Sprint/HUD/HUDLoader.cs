@@ -197,10 +197,16 @@ namespace Sprint.HUD
             selector.SetLocation(r, c);
         }
 
-        public void OnSelectorChooseEvent(IPowerup item)
+        public void OnSelectorChooseEvent(int b, IPowerup item)
         {
             // Exchange sprites for B item
-            bWeapon.SetSinglePowerup(item);
+            if(b == 0)
+            {
+                aWeapon.SetSinglePowerup(item);
+            }else if (b == 1)
+            {
+                bWeapon.SetSinglePowerup(item);
+            }
         }
 
         public void OnListingUpdateEvent(Dictionary<string, IPowerup> newDict)
