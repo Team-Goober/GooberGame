@@ -21,6 +21,7 @@ namespace Sprint.Items
          */
 
         private ISprite sprite;
+        private IEffect onApply;
         private string label;
         private int quantity;
         private ZeldaText number;
@@ -28,9 +29,10 @@ namespace Sprint.Items
 
         private TimeSpan lastUpdate;
 
-        public ResourcePowerup(ISprite sprite, IEffect command, string label, string description)
+        public ResourcePowerup(ISprite sprite, IEffect onApply, string label, string description)
         {
             this.sprite = sprite;
+            this.onApply = onApply;
             this.label = label;
             quantity = 0;
             number = new ZeldaText("nintendo", new() { "0" }, new Vector2(16, 16), 0.5f, Color.White, Goober.content);
@@ -61,6 +63,7 @@ namespace Sprint.Items
             {
                 inv.AddPowerup(this);
             }
+            onApply?.Execute(player);
         }
 
         public bool CanPickup(Inventory inventory)

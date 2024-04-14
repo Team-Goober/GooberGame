@@ -41,7 +41,13 @@ namespace Sprint.Items
 
         public void Activate()
         {
-            onActivate.Execute(player);
+            if(onActivate != null)
+            {
+                onActivate.Execute(player);
+            }else if(baseAbility != null)
+            {
+                baseAbility.Activate();
+            }
         }
 
         public void Apply(Player player)

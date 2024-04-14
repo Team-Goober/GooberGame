@@ -30,6 +30,8 @@ namespace Sprint.Characters
         public event HealthUpdateDelegate OnPlayerHealthChange;
         public delegate void MaxHealthUpdateDelegate(int prev, int next, double health);
         public event MaxHealthUpdateDelegate OnPlayerMaxHealthChange;
+        public delegate void WinDelegate();
+        public event WinDelegate OnWin;
 
         private Physics physics;
 
@@ -218,9 +220,11 @@ namespace Sprint.Characters
             }
         }
 
-        public void WinPose()
+        public void Win()
         {
+            StopMoving();
             sprite.SetAnimation("holdItem");
+            OnWin?.Invoke();
         }
 
         // Removes velocity and changes animation to match lack of movement

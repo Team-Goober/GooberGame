@@ -33,7 +33,7 @@ namespace Sprint.Items
 
         public void Apply(Player player)
         {
-            onApply.Execute(player);
+            onApply?.Execute(player);
         }
 
         public bool CanPickup(Inventory inventory)

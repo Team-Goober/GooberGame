@@ -34,7 +34,7 @@ namespace Sprint.Items
         public void Apply(Player player)
         {
             player.GetInventory().AddPowerup(this);
-            onApply.Execute(player);
+            onApply?.Execute(player);
         }
 
         public bool CanPickup(Inventory inventory)

@@ -11,6 +11,7 @@ using Color = Microsoft.Xna.Framework.Color;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Input;
 using Sprint.Functions.States;
+using Sprint.Interfaces.Powerups;
 
 
 namespace Sprint.GameStates
@@ -22,9 +23,9 @@ namespace Sprint.GameStates
         private IInputMap input;
 
         private SceneObjectManager roomManager;
-        private SceneObjectManager hudManger;
-        private SceneObjectManager playerManger;
-        private Item triForce;
+        private SceneObjectManager hudManager;
+        private Player player;
+        private IPowerup triForce;
 
         private Vector2 arenaPosition;
         private int currtainAreaX;
@@ -34,25 +35,15 @@ namespace Sprint.GameStates
 
         public WinState(Goober game, SceneObjectManager hudManger, SceneObjectManager roomManger, Player player, SpriteLoader spriteLoader, Vector2 arenaPosition)
         {
-            playerManger = new SceneObjectManager();
             this.game = game;
             this.input = new InputTable();
             this.roomManager = roomManger;
-            this.hudManger = hudManger;
+            this.hudManager = hudManger;
             this.arenaPosition = arenaPosition;
 
-            player.WinPose();
-            Vector2 position = player.GetPhysic().Position;
-            
-            ItemFactory itemFactory = new ItemFactory(spriteLoader);
-
-            player.GetPhysic().SetPosition(position);
-
-            position.Y -= 50;
-            //triForce = itemFactory.MakeItem("triforce", position);
-            
-            playerManger.Add(player);
-            playerManger.Add(triForce);
+            this.player = player;
+            triForce = player.GetInventory().GetPowerup("triforce");
+           
 
             currtainAreaX = 0;
 
@@ -71,7 +62,7 @@ namespace Sprint.GameStates
         {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            foreach (IGameObject g in hudManger.GetObjects())
+            foreach (IGameObject g in hudManager.GetObjects())
             {
                 g.Draw(spriteBatch, gameTime);
             }
@@ -92,10 +83,9 @@ namespace Sprint.GameStates
             spriteBatch.Draw(backingColor, new Rectangle(0, 0, currtainAreaX, 698), Color.White);
             spriteBatch.Draw(backingColor, new Rectangle(currtainPostionX2, 0, currtainAreaX2, 698), Color.White);
 
-            foreach (IGameObject g in playerManger.GetObjects())
-            {
-                g.Draw(spriteBatch, gameTime);
-            }
+
+            player.Draw(spriteBatch, gameTime);
+            triForce.Draw(spriteBatch, player.GetPhysic().Position + new Vector2(0, -50), gameTime);
 
             spriteBatch.End();
         }
@@ -127,10 +117,10 @@ namespace Sprint.GameStates
                 currtainAreaX2 += 10;
                 currtainPostionX2 -= 10;
             }
+            player.Update(gameTime);
             input.Update(gameTime);
             triForce.Update(gameTime);
-            hudManger.EndCycle();
-            playerManger.EndCycle();
+            hudManager.EndCycle();
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Sprint.Items
 
         public void Activate()
         {
-            onActivate.Execute(player);
+            onActivate?.Execute(player);
         }
 
         public void Apply(Player player)

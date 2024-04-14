@@ -90,7 +90,7 @@ namespace Sprint
             inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
 
-            //inventory.WinEvent += this.WinScreen;
+            player.OnWin += this.WinScreen;
             player.OnPlayerHealthChange += hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange += hudLoader.UpdateMaxHeartAmount;
 
@@ -104,7 +104,7 @@ namespace Sprint
             inventory.SelectorChooseEvent -= hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent -= hudLoader.OnSelectorMoveEvent;
 
-            //inventory.WinEvent -= this.WinScreen;
+            player.OnWin -= this.WinScreen;
             player.OnPlayerHealthChange -= hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange -= hudLoader.UpdateMaxHeartAmount;
         }

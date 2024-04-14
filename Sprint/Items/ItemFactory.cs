@@ -62,6 +62,15 @@ namespace Sprint.Items
                     key.AddAmount(1);
                     it = (new Item(position, key));
                     break;
+                case "triforce":
+                    IStackedPowerup triforce = new ResourcePowerup(
+                            spriteLoader.BuildSprite(ANIM_FILE, "triforce"),
+                            new WinEffect(),
+                            "triforce",
+                            "TRIFORCE|saves hyrule");
+                    triforce.AddAmount(1);
+                    it = (new Item(position, triforce));
+                    break;
                 case "bow":
                     ICooldownPowerup bow = new CooldownAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "bow"),
