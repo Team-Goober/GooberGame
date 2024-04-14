@@ -2,6 +2,7 @@
 using Sprint.Interfaces;
 using Sprint.Collision;
 using Microsoft.Xna.Framework.Graphics;
+using Sprint.Functions.SecondaryItem;
 
 namespace Sprint.Characters
 {
@@ -11,15 +12,17 @@ namespace Sprint.Characters
         private Rectangle bounds;
         private Player player;
         private float moveScale = 0.07f;
+        private float damage;
 
         public Rectangle BoundingBox => bounds;
 
         public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.SWORD };
 
-        public SwordCollision(Rectangle boundBox, Player player)
+        public SwordCollision(Rectangle boundBox, Player player, float damage)
         {
             bounds = boundBox;
             this.player = player;
+            this.damage = damage;
         }
 
         public void Update(GameTime gameTime)
@@ -28,6 +31,10 @@ namespace Sprint.Characters
         }
 
 
+        public float Damage()
+        {
+            return damage;
+        }
 
 
         public void Move(Vector2 distance)

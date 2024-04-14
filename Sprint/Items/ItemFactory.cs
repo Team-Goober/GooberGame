@@ -74,11 +74,20 @@ namespace Sprint.Items
                 case "sword":
                     ICooldownPowerup sword = new CooldownAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "sword"),
-                            new MeleeEffect(),
+                            new MeleeEffect(0.5f),
                             "sword",
                             "SWORD|melee attack");
-                    sword.SetDuration(0.5);
+                    sword.SetDuration(0.75);
                     it = (new Item(position, sword));
+                    break;
+                case "masterSword":
+                    ICooldownPowerup masterSword = new CooldownAbility(
+                            spriteLoader.BuildSprite(ANIM_FILE, "masterSword"),
+                            new MeleeEffect(3),
+                            "masterSword",
+                            "MASTER SWORD|strong melee attack");
+                    masterSword.SetDuration(0.5);
+                    it = (new Item(position, masterSword));
                     break;
                 case "bow":
                     ICooldownPowerup bow = new CooldownAbility(
@@ -131,7 +140,7 @@ namespace Sprint.Items
                             new QuickCooldownUpgrade(),
                             "yellowBadge",
                             "- quick reload");
-                    yellowUpgrade.SetUpgradeOptions(new() { "bow", "sword" });
+                    yellowUpgrade.SetUpgradeOptions(new() { "bow", "sword", "masterSword" });
                     it = (new Item(position, yellowUpgrade));
                     break;
                 case "pinkBadge":

@@ -130,7 +130,7 @@ namespace Sprint.Characters
         }
 
         //Melee attack according to direction
-        public void Attack()
+        public void Attack(float dmg)
         {
             Rectangle swordRec  = new Rectangle();
 
@@ -175,7 +175,7 @@ namespace Sprint.Characters
                 swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
 
-            swordCollision = new SwordCollision(swordRec, this);
+            swordCollision = new SwordCollision(swordRec, this, dmg);
             
             room.GetScene().Add(swordCollision);
             

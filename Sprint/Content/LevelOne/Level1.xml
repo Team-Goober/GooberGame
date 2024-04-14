@@ -1234,6 +1234,10 @@
               <TilePos>5 1</TilePos>
             </Item>
             <Item>
+              <Type>masterSword</Type>
+              <TilePos>6 1</TilePos>
+            </Item>
+            <Item>
               <Type>key</Type>
               <TilePos>7 1</TilePos>
             </Item>

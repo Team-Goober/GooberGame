@@ -6,15 +6,17 @@ namespace Sprint.Items.Effects
     internal class MeleeEffect : IEffect
     {
         private SfxFactory sfxFactory;
+        private float damage;
 
-        public MeleeEffect()
+        public MeleeEffect(float damage)
         {
             sfxFactory = SfxFactory.GetInstance();
+            this.damage = damage;
         }
 
         public void Execute(Player player)
         {
-            player.Attack();
+            player.Attack(damage);
             sfxFactory.PlaySoundEffect("Sword Swing");
         }
     }
