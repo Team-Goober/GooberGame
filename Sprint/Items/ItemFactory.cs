@@ -178,7 +178,7 @@ namespace Sprint.Items
                             new InfiniteAmmoUpgrade(),
                             "pinkBadge",
                             "- infinite ammo");
-                    pinkUpgrade.SetUpgradeOptions(new() { "bomb" });
+                    pinkUpgrade.SetUpgradeOptions(new() { "bomb", "meat" });
                     it = (new Item(position, pinkUpgrade, 2));
                     break;
             }

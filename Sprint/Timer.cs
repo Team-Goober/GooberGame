@@ -30,6 +30,7 @@ namespace Sprint
         {
             Ended = true;
             JustEnded = true;
+            TimeLeft = TimeSpan.Zero;
         }
 
         // Set length of countdown

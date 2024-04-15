@@ -163,9 +163,23 @@ namespace Sprint.Items
             // Only update if haven't already updated on this cycle
             if (gameTime.TotalGameTime != lastUpdate)
             {
+                // If cooldown ended but item is still active, reactivate it before it reactivates itself
+                if (baseAbility is ICooldownPowerup && GetTimeLeft() == 0 && IsActive())
+                {
+                    // End last activation
+                    Complete();
+                    // Try to prepare item; only continue if succeeds
+                    if (ReadyUp())
+                    {
+                        // Reactivate item
+                        Activate();
+                    }
+                }
+
                 sprite.Update(gameTime);
                 // Update the base
                 baseAbility?.Update(gameTime);
+                
             }
             lastUpdate = gameTime.TotalGameTime;
         }

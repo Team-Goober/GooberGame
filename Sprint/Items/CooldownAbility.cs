@@ -4,6 +4,7 @@ using Sprint.Characters;
 using Sprint.Interfaces;
 using Sprint.Interfaces.Powerups;
 using System;
+using System.Diagnostics;
 using System.Reflection.Metadata;
 
 namespace Sprint.Items
@@ -126,8 +127,22 @@ namespace Sprint.Items
             // Only update if haven't already updated on this cycle
             if (gameTime.TotalGameTime != lastUpdate)
             {
+                // If cooldown ended but item is still active, reactivate it
+                if (GetTimeLeft() == 0 && IsActive())
+                {
+                    // End last activation
+                    Complete();
+                    // Try to prepare item; only continue if succeeds
+                    if (ReadyUp())
+                    {
+                        // Reactivate item
+                        Activate();
+                    }
+                }
+
                 cooldownTimer.Update(gameTime);
                 sprite.Update(gameTime);
+
             }
             lastUpdate = gameTime.TotalGameTime;
         }
