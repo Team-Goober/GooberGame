@@ -19,5 +19,10 @@ namespace Sprint.Items.Effects
             // Heal by doing negative damage to player
             player.TakeDamage(-amount);
         }
+
+        public void Reverse(Player player)
+        {
+            // Do nothing
+        }
     }
 }

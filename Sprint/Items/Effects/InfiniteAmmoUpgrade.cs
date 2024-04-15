@@ -20,6 +20,12 @@ namespace Sprint.Items.Effects
         {
             baseAbility = powerup as IAbility;
         }
+
+        public void Reverse(Player player)
+        {
+            // Do nothing
+        }
+
     }
 }
 

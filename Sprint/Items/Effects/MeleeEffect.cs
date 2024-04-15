@@ -21,5 +21,10 @@ namespace Sprint.Items.Effects
             // Make swing sound
             sfxFactory.PlaySoundEffect("Sword Swing");
         }
+
+        public void Reverse(Player player)
+        {
+            // Do nothing
+        }
     }
 }

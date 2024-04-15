@@ -60,7 +60,7 @@ namespace Sprint.Items
                     it = (new Item(position,
                         new PassivePowerup(
                             spriteLoader.BuildSprite(ANIM_FILE, "redRing"),
-                            new ChangeSpeedEffect(CharacterConstants.PLAYER_SPEED * 2),
+                            new ChangeSpeedEffect(CharacterConstants.PLAYER_SPEED),
                             "redRing",
                             "RING|doubles run speed"),
                         0));

@@ -16,5 +16,10 @@ namespace Sprint.Items.Effects
             // Tell player to win
             player.Win();
         }
+
+        public void Reverse(Player player)
+        {
+            // Do nothing
+        }
     }
 }

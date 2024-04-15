@@ -31,9 +31,17 @@ namespace Sprint
         }
 
         // Place the compass pointer at a room index
-        public void PlaceCompass()
+        public void PlaceCompass(bool doPlace)
         {
-            compassPos = dungeon.GetCompassPointer();
+            if (doPlace)
+            {
+                compassPos = dungeon.GetCompassPointer();
+            }
+            else
+            {
+                // Remove pointer if told to
+                compassPos = new Point(-1, -1);
+            }
         }
 
         // Move the player pointer to a room index and update room visibility
@@ -54,22 +62,31 @@ namespace Sprint
         }
 
         // Reveal all non-hidden information for the level
-        public void RevealAll()
+        public void RevealAll(bool doReveal)
         {
-            for (int i = 0; i<dungeon.RoomRows(); i++)
+            if (doReveal)
             {
-                for (int j = 0; j < dungeon.RoomColumns(); j++)
+                for (int i = 0; i < dungeon.RoomRows(); i++)
                 {
-                    // Only show existing and non-hidden rooms
-                    Room r = dungeon.GetRoomAt(new Point(j, i));
-                    if (r != null && !r.IsHidden())
+                    for (int j = 0; j < dungeon.RoomColumns(); j++)
                     {
-                        revealRoom(i, j);
+                        // Only show existing and non-hidden rooms
+                        Room r = dungeon.GetRoomAt(new Point(j, i));
+                        if (r != null && !r.IsHidden())
+                        {
+                            revealRoom(i, j);
+
+                        }
 
                     }
-
                 }
             }
+            else
+            {
+                // Remove map reveals if instructed to
+                revealedRooms = visitedRooms;
+            }
+            
         }
 
         // Reveals a room and its doors if currently not visible

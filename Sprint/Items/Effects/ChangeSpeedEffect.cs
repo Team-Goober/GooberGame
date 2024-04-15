@@ -11,17 +11,23 @@ namespace Sprint.Items.Effects
     internal class ChangeSpeedEffect : IEffect
     {
 
-        float speed;
+        float speedChange;
 
-        public ChangeSpeedEffect(float speed)
+        public ChangeSpeedEffect(float speedChange)
         { 
-            this.speed = speed;
+            this.speedChange = speedChange;
         }
 
         public void Execute(Player player)
         {
-            // Set player speed to new value
-            player.SetSpeed(speed);
+            // Increment player speed
+            player.AddSpeed(speedChange);
+        }
+
+        public void Reverse(Player player)
+        {
+            // Decrement player speed
+            player.AddSpeed(-speedChange);
         }
     }
 }

@@ -452,9 +452,10 @@ namespace Sprint.Characters
             return dungeon.GetMap();
         }
 
-        public void SetSpeed(float newSpeed)
+        // Adds to player base speed
+        public void AddSpeed(float addition)
         {
-            speed = newSpeed;
+            speed += addition;
         }
 
     }

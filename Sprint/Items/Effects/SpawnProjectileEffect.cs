@@ -19,5 +19,10 @@ namespace Sprint.Items.Effects
             // Create projectile based on string and add to room
             player.GetProjectileFactory().CreateFromString(projName).Create();
         }
+
+        public void Reverse(Player player)
+        {
+            // Do nothing
+        }
     }
 }

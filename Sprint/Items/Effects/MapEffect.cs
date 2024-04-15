@@ -8,7 +8,13 @@ namespace Sprint.Items.Effects
         public void Execute(Player player)
         {
             // Tell player to tell dungeon to reveal the whole map
-            player.GetMap().RevealAll();
+            player.GetMap().RevealAll(true);
+        }
+
+        public void Reverse(Player player)
+        {
+            // Tell player to tell dungeon to unreveal the whole map
+            player.GetMap().RevealAll(false);
         }
     }
 }
