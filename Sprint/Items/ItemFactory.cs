@@ -133,6 +133,14 @@ namespace Sprint.Items
                     meat.AddAmount(2);
                     it = (new Item(position, meat));
                     break;
+                case "redCandle":
+                    IAbility candle = (new PerRoomAbility(
+                            spriteLoader.BuildSprite(ANIM_FILE, "redCandle"),
+                            new SpawnProjectileEffect("fireBall"),
+                            "candle",
+                            "CANDLE|make fire|once per room"));
+                    it = (new Item(position, candle));
+                    break;
                 case "greenBadge":
                     IUpgradePowerup greenUpgrade = new UpgradeAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "greenBadge"),

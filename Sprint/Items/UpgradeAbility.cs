@@ -15,6 +15,12 @@ namespace Sprint.Items
 {
     internal class UpgradeAbility : IAbility, IUpgradePowerup, IStackedPowerup, ICooldownPowerup
     {
+
+        /*
+         *  Represents an ability that acts as a decorator on another ability to alter its functionality
+         */
+
+
         private ISprite sprite;
         private IUpgradeEffect onActivate;
         private string label;

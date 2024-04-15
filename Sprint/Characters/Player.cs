@@ -112,6 +112,11 @@ namespace Sprint.Characters
             return inventory;
         }
 
+        public Room GetCurrentRoom()
+        {
+            return room;
+        }
+
         // Moves the player from current scene into a new one
         public void SetRoom(Room room)
         {
