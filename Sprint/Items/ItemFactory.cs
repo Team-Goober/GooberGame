@@ -35,7 +35,8 @@ namespace Sprint.Items
                             spriteLoader.BuildSprite(ANIM_FILE, "heart"),
                             new HealPlayerEffect(1),
                             "heart",
-                            "HEART|heals one heart")));
+                            "HEART|heals one heart"), 
+                        0));
                     break;
                 case "compass":
                     it = (new Item(position,
@@ -43,7 +44,8 @@ namespace Sprint.Items
                             spriteLoader.BuildSprite(ANIM_FILE, "compass"),
                             new CompassEffect(),
                             "compass",
-                            "COMPASS|reveal triforce|room")));
+                            "COMPASS|reveal triforce|room"),
+                        0));
                     break;
                 case "map":
                     it = (new Item(position,
@@ -51,7 +53,8 @@ namespace Sprint.Items
                             spriteLoader.BuildSprite(ANIM_FILE, "map"),
                             new MapEffect(),
                             "map",
-                            "MAP|reveal dungeon|layout")));
+                            "MAP|reveal dungeon|layout"),
+                        0));
                     break;
                 case "redRing":
                     it = (new Item(position,
@@ -59,7 +62,8 @@ namespace Sprint.Items
                             spriteLoader.BuildSprite(ANIM_FILE, "redRing"),
                             new ChangeSpeedEffect(CharacterConstants.PLAYER_SPEED * 2),
                             "redRing",
-                            "RING|doubles run speed")));
+                            "RING|doubles run speed"),
+                        0));
                     break;
                 case "rupee":
                     IStackedPowerup gem = new ResourcePowerup(
@@ -68,7 +72,7 @@ namespace Sprint.Items
                             "rupee",
                             "RUPEE|can be traded");
                     gem.AddAmount(5);
-                    it = (new Item(position, gem));
+                    it = (new Item(position, gem, 0));
                     break;
                 case "key":
                     IStackedPowerup key = new ResourcePowerup(
@@ -77,7 +81,7 @@ namespace Sprint.Items
                             "key",
                             "KEY|unlocks doors");
                     key.AddAmount(1);
-                    it = (new Item(position, key));
+                    it = (new Item(position, key, 0));
                     break;
                 case "triforce":
                     IStackedPowerup triforce = new ResourcePowerup(
@@ -86,7 +90,7 @@ namespace Sprint.Items
                             "triforce",
                             "TRIFORCE|saves hyrule");
                     triforce.AddAmount(1);
-                    it = (new Item(position, triforce));
+                    it = (new Item(position, triforce, 0));
                     break;
                 case "sword":
                     ICooldownPowerup sword = new CooldownAbility(
@@ -95,7 +99,7 @@ namespace Sprint.Items
                             "sword",
                             "SWORD|melee attack");
                     sword.SetDuration(0.75);
-                    it = (new Item(position, sword));
+                    it = (new Item(position, sword, 0));
                     break;
                 case "masterSword":
                     ICooldownPowerup masterSword = new CooldownAbility(
@@ -104,7 +108,7 @@ namespace Sprint.Items
                             "masterSword",
                             "MASTER SWORD|strong melee attack");
                     masterSword.SetDuration(0.5);
-                    it = (new Item(position, masterSword));
+                    it = (new Item(position, masterSword, 20));
                     break;
                 case "bow":
                     ICooldownPowerup bow = new CooldownAbility(
@@ -113,7 +117,7 @@ namespace Sprint.Items
                             "bow",
                             "BOW|shoots arrows");
                     bow.SetDuration(1);
-                    it = (new Item(position, bow));
+                    it = (new Item(position, bow, 0));
                     break;
                 case "bomb":
                     IStackedPowerup bomb = (new ConsumableAbility(
@@ -122,7 +126,7 @@ namespace Sprint.Items
                             "bomb",
                             "BOMB|drops an explosive"));
                     bomb.AddAmount(3);
-                    it = (new Item(position, bomb));
+                    it = (new Item(position, bomb, 0));
                     break;
                 case "meat":
                     IStackedPowerup meat = new ConsumableAbility(
@@ -131,7 +135,7 @@ namespace Sprint.Items
                             "meat",
                             "MEAT|heals 2 hearts");
                     meat.AddAmount(2);
-                    it = (new Item(position, meat));
+                    it = (new Item(position, meat, 5));
                     break;
                 case "redCandle":
                     IAbility candle = (new PerRoomAbility(
@@ -139,7 +143,7 @@ namespace Sprint.Items
                             new SpawnProjectileEffect("fireBall"),
                             "candle",
                             "CANDLE|make fire|once per room"));
-                    it = (new Item(position, candle));
+                    it = (new Item(position, candle, 5));
                     break;
                 case "greenBadge":
                     IUpgradePowerup greenUpgrade = new UpgradeAbility(
@@ -147,8 +151,8 @@ namespace Sprint.Items
                             new DualShotUpgrade(),
                             "greenBadge",
                             "- dual shot");
-                    greenUpgrade.SetUpgradeOptions(new() { "bow", "bomb" });
-                    it = (new Item(position, greenUpgrade));
+                    greenUpgrade.SetUpgradeOptions(new() { "bow", "bomb", "candle" });
+                    it = (new Item(position, greenUpgrade, 2));
                     break;
                 case "blueBadge":
                     IUpgradePowerup blueUpgrade = new UpgradeAbility(
@@ -156,8 +160,8 @@ namespace Sprint.Items
                             new TripleShotUpgrade(),
                             "blueBadge",
                             "- triple shot");
-                    blueUpgrade.SetUpgradeOptions(new() { "bow", "bomb" });
-                    it = (new Item(position, blueUpgrade));
+                    blueUpgrade.SetUpgradeOptions(new() { "bow", "bomb", "candle"});
+                    it = (new Item(position, blueUpgrade, 2));
                     break;
                 case "yellowBadge":
                     IUpgradePowerup yellowUpgrade = new UpgradeAbility(
@@ -166,7 +170,7 @@ namespace Sprint.Items
                             "yellowBadge",
                             "- quick reload");
                     yellowUpgrade.SetUpgradeOptions(new() { "bow", "sword", "masterSword" });
-                    it = (new Item(position, yellowUpgrade));
+                    it = (new Item(position, yellowUpgrade, 2));
                     break;
                 case "pinkBadge":
                     IUpgradePowerup pinkUpgrade = new UpgradeAbility(
@@ -175,7 +179,7 @@ namespace Sprint.Items
                             "pinkBadge",
                             "- infinite ammo");
                     pinkUpgrade.SetUpgradeOptions(new() { "bomb" });
-                    it = (new Item(position, pinkUpgrade));
+                    it = (new Item(position, pinkUpgrade, 2));
                     break;
             }
             return it;
