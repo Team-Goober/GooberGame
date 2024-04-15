@@ -49,7 +49,7 @@ namespace Sprint.Characters
                 case "dog":
                     return new DogEnemy(enemySprite, damagedSprite, position, room, spriteLoader, player);
                 case "bat":
-                    return new BatEnemy(enemySprite, damagedSprite, position, room, spriteLoader);
+                    return new BatEnemy(enemySprite, damagedSprite, position, room, spriteLoader, player);
                 case "hand":
                     return new HandEnemy(enemySprite, damagedSprite, position, room, spriteLoader);
                 case "dragonmov":

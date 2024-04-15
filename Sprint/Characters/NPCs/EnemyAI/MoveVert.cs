@@ -46,7 +46,7 @@ namespace Sprint.Characters
                 elapsedTime = 0;
             }
 
-            if (calcDistance.proxiDetection())
+            if (calcDistance != null && calcDistance.proxiDetection())
             {
                 speed = 300;
             }

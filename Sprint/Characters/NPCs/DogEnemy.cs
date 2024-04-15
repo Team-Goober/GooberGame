@@ -39,9 +39,6 @@ namespace Sprint.Characters
 
             health = CharacterConstants.MID_HP;
 
-            //itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
-
-            //projectileCommand = new ShootBoomarangC(itemFactory);
 
             projBoomarang = new ProjBoomarang(spriteLoader, room, moveDirection);
 
@@ -70,17 +67,7 @@ namespace Sprint.Characters
         // Update DogEnemy logic
         public override void Update(GameTime gameTime)
         {
-            //timeAttack.Update(gameTime);
-            //base.Update(gameTime);
 
-            //// Uses timer to shoot projectiles every 2 seconds
-            //if (timeAttack.JustEnded)
-            //{
-            //    itemFactory.SetStartPosition(physics.Position);
-            //    itemFactory.SetDirection(moveDirection);
-            //    projectileCommand.Execute();
-            //    timeAttack.Start();
-            //}
 
             projBoomarang.Update(gameTime, physics, moveDirection);
 

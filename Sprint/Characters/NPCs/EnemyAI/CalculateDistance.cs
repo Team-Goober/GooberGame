@@ -92,10 +92,43 @@ namespace Sprint.Characters
 
 
 
+        public Vector2 FindRandomMove() {
+
+            int xDir = 0;
+            int yDir = 0;
+
+            if(enemyVector.X > playerVector.X)
+            {
+                xDir = -1;
+            }else if(enemyVector.X < playerVector.X)
+            {
+                xDir = 1;
+            }
+
+            if (enemyVector.Y > playerVector.Y)
+            {
+                yDir = -1;
+            }
+            else if (enemyVector.Y < playerVector.Y)
+            {
+                yDir = 1;
+            }
+
+            return new Vector2(xDir, yDir);
 
 
 
-        
+
+
+
+        }
+
+
+
+
+
+
+
 
 
 
