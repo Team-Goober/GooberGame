@@ -17,95 +17,65 @@ using System.Collections.Generic;
 
 namespace Sprint.Characters
 {
-
     internal class Player : Character, IMovingCollidable
     {
-
         public Inventory inventory;
-
         private SfxFactory sfxFactory;
-
         private ISprite sprite;
         private SpriteLoader spriteLoader;
         private ISprite damagedSprite;
 
         public event EventHandler OnPlayerDied;
-
-
         public delegate void HealthUpdateDelegate(double prev, double next);
         public event HealthUpdateDelegate OnPlayerHealthChange;
         public delegate void MaxHealthUpdateDelegate(int prev, int next, double health);
         public event MaxHealthUpdateDelegate OnPlayerMaxHealthChange;
 
         private Physics physics;
-
-        // Player variables
         private int sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
         private int maxHealth = CharacterConstants.STARTING_HEALTH;
         private double health = CharacterConstants.STARTING_HEALTH;
-
         private ProjectileSystem secondaryItems;
         private SwordCollision swordCollision;
         private const int swordWidth = CharacterConstants.SWORD_WIDTH, swordLength = CharacterConstants.SWORD_LENGTH;
 
         public Vector2 Facing { get; private set; }
-
         public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
-                (int) (physics.Position.Y - sideLength / 2.0),
+                (int)(physics.Position.Y - sideLength / 2.0),
                 sideLength,
                 sideLength);
-
         public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
-
         private float speed = CharacterConstants.PLAYER_SPEED;
-
         private Timer attackTimer;
         private Timer castTimer;
         private Timer damageTimer;
         private Room room;
         private OpenDeath gameOver;
-
-        // TODO: replace this with state machine
-        // Animation to return to as base after a played animation ends
         private enum AnimationCycle
         {
             Idle,
             Walk
         }
         private AnimationCycle baseAnim;
+        private Vector2 acceleration = Vector2.Zero;
 
+        private float accelerationRate = 500f;
 
-        //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
-            //Initialize SFX player
             sfxFactory = SfxFactory.GetInstance();
-
-            //Initialize physics and objectManager
             physics = new Physics(Vector2.Zero);
             this.spriteLoader = spriteLoader;
-
             inventory = new Inventory();
-
-            //Loads sprite for link
-            sprite = spriteLoader.BuildSprite("playerAnims" , "player");
-            damagedSprite = spriteLoader.BuildSprite("playerDamagedAnims" , "player");
-
-            // Duration of one sword swing or item use
+            sprite = spriteLoader.BuildSprite("playerAnims", "player");
+            damagedSprite = spriteLoader.BuildSprite("playerDamagedAnims", "player");
             attackTimer = new Timer(0.5);
             castTimer = new Timer(0.5);
-            // Duration of the damage state
             damageTimer = new Timer(0.5);
-
             room = null;
-
-            // Start out idle
             Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
-
-            // Set up projectiles
             secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
-
             this.gameOver = new OpenDeath(dungeon);
         }
 
@@ -119,7 +89,6 @@ namespace Sprint.Characters
             return inventory;
         }
 
-        // Moves the player from current scene into a new one
         public void SetRoom(Room room)
         {
             if (this.room != null)
@@ -133,27 +102,19 @@ namespace Sprint.Characters
             StopMoving();
         }
 
-        //Melee attack according to direction
         public void Attack()
         {
-            Rectangle swordRec  = new Rectangle();
-
-
-            // Only attack if not already attacking
+            Rectangle swordRec = new Rectangle();
             if (!attackTimer.Ended)
             {
-                
                 return;
             }
 
-            // Player shouldn't move while attacking
             StopMoving();
 
-            // Start timer for attack
             attackTimer.Start();
             castTimer.Start();
 
-            //Creates animations and bounds for the sword for collision
             if (Facing == Directions.DOWN)
             {
                 sprite.SetAnimation("swordDown");
@@ -180,26 +141,19 @@ namespace Sprint.Characters
             }
 
             swordCollision = new SwordCollision(swordRec, this);
-            
+
             room.GetScene().Add(swordCollision);
-            
-            
         }
 
-        //Cast according to direction
         public void Cast()
         {
-
-            // Only attack if not already attacking
             if (!castTimer.Ended)
             {
                 return;
             }
 
-            // Player shouldn't move while attacking
             StopMoving();
 
-            // Start timer for attack
             castTimer.Start();
 
             if (Facing == Directions.DOWN)
@@ -229,16 +183,16 @@ namespace Sprint.Characters
             sprite.SetAnimation("holdItem");
         }
 
-        // Removes velocity and changes animation to match lack of movement
         public void StopMoving()
         {
-            physics.SetVelocity(new Vector2(0, 0));
-            baseAnim = AnimationCycle.Idle;
+            acceleration = Vector2.Zero;
+            physics.SetVelocity(Vector2.Zero);
             returnToBaseAnim();
+            // Reset Facing direction to STILL
+            Facing = Directions.STILL;
         }
 
-        // Return to base animation cycle based on states and facing dir
-        // TODO: replace with a state machine
+
         private void returnToBaseAnim()
         {
             if (baseAnim == AnimationCycle.Idle)
@@ -287,47 +241,54 @@ namespace Sprint.Characters
                     damagedSprite.SetAnimation("right");
                 }
             }
-
         }
 
         public void MoveLeft()
         {
-            // Sets velocity towards left
-            physics.SetVelocity(new Vector2(-speed, 0));
-
-            sprite.SetAnimation("left");
+            acceleration.X = -accelerationRate;
             Facing = Directions.LEFT;
             baseAnim = AnimationCycle.Walk;
+            returnToBaseAnim(); // Add this line to update animation continuously
         }
 
         public void MoveRight()
         {
-            // Sets velocity towards right
-            physics.SetVelocity(new Vector2(speed, 0));
-
-            sprite.SetAnimation("right");
+            acceleration.X = accelerationRate;
             Facing = Directions.RIGHT;
             baseAnim = AnimationCycle.Walk;
+            returnToBaseAnim(); // Add this line to update animation continuously
         }
 
         public void MoveUp()
         {
-            // Sets velocity towards up
-            physics.SetVelocity(new Vector2(0, -speed));
-
-            sprite.SetAnimation("up");
+            acceleration.Y = -accelerationRate;
             Facing = Directions.UP;
             baseAnim = AnimationCycle.Walk;
+            returnToBaseAnim(); // Add this line to update animation continuously
         }
 
         public void MoveDown()
         {
-            // Sets velocity towards down
-            physics.SetVelocity(new Vector2(0, speed));
-            sprite.SetAnimation("down");
+            acceleration.Y = accelerationRate;
             Facing = Directions.DOWN;
             baseAnim = AnimationCycle.Walk;
+            returnToBaseAnim(); // Add this line to update animation continuously
         }
+
+        public void MoveDiagonal(Vector2 direction)
+        {
+            float diagonalSpeed = CharacterConstants.PLAYER_SPEED / (float)(Math.Sqrt(2) * 64); // Diagonal movement speed
+            Vector2 movementVector = direction;
+            movementVector.Normalize();
+            acceleration = movementVector * accelerationRate;
+            baseAnim = AnimationCycle.Walk;
+            returnToBaseAnim(); // Add this line to update animation continuously
+        }
+
+
+
+
+
 
         public Physics GetPhysic()
         {
@@ -336,14 +297,12 @@ namespace Sprint.Characters
 
         public override void TakeDamage(double dmg)
         {
-            // Invincible until timer goes down
             if (!damageTimer.Ended)
             {
                 return;
             }
-            // sound playing
+
             sfxFactory.PlaySoundEffect("Player Hurt");
-            // switching sprites
             sprite = damagedSprite;
             damageTimer.Start();
             double prevHealth = health;
@@ -351,30 +310,73 @@ namespace Sprint.Characters
 
             OnPlayerHealthChange?.Invoke(prevHealth, health);
 
-            // Trigger death when health is at or below 0
             if (health <= 0.0)
             {
                 this.Die();
             }
-            // If negative damage (healing), don't go over max health
             else if (health > maxHealth)
             {
                 health = maxHealth;
             }
-
         }
-
 
         public override void Update(GameTime gameTime)
         {
+            // Update player's velocity based on acceleration
+            Vector2 newVelocity = physics.Velocity + acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // Check for end of sword swing
+            // Apply friction or deceleration to gradually slow down the player
+            // Adjust friction dynamically based on player's movement
+            float friction = 0.02f; // Default friction
+            if (physics.Velocity.LengthSquared() > 0)
+            {
+                // Apply higher friction if the player is moving
+                friction = 0.03f;
+            }
+            newVelocity *= (1f - friction);
+
+            // Clamp the speed for both X and Y components
+            newVelocity.X = MathHelper.Clamp(newVelocity.X, -speed, speed);
+            newVelocity.Y = MathHelper.Clamp(newVelocity.Y, -speed, speed);
+
+            physics.SetVelocity(newVelocity);
+
+            
+
+            // Determine the direction of movement to set the correct walking animation
+            if (physics.Velocity.X > 0)
+            {
+                sprite.SetAnimation("right");
+                damagedSprite.SetAnimation("right");
+                Facing = Directions.RIGHT;
+            }
+            else if (physics.Velocity.X < 0)
+            {
+                sprite.SetAnimation("left");
+                damagedSprite.SetAnimation("left");
+                Facing = Directions.LEFT;
+            }
+            else if (physics.Velocity.Y > 0)
+            {
+                sprite.SetAnimation("down");
+                damagedSprite.SetAnimation("down");
+                Facing = Directions.DOWN;
+            }
+            else if (physics.Velocity.Y < 0)
+            {
+                sprite.SetAnimation("up");
+                damagedSprite.SetAnimation("up");
+                Facing = Directions.UP;
+            }
+
+            // Update timers and other components
             attackTimer.Update(gameTime);
             if (attackTimer.JustEnded)
             {
                 room.GetScene().Remove(swordCollision);
                 returnToBaseAnim();
             }
+
             castTimer.Update(gameTime);
             if (castTimer.JustEnded)
             {
@@ -384,71 +386,57 @@ namespace Sprint.Characters
             secondaryItems.UpdateDirection(Facing);
             secondaryItems.UpdatePostion(physics.Position);
 
-            // Checks for damage state
             damageTimer.Update(gameTime);
             if (damageTimer.JustEnded)
             {
                 sprite = spriteLoader.BuildSprite("playerAnims", "player");
                 returnToBaseAnim();
-
             }
+
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
 
+
+
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            //Draws sprite animation using AnimationSprite class
             sprite.Draw(spriteBatch, physics.Position, gameTime);
-
         }
 
-        // Moves the player by a set distance
         public void Move(Vector2 distance)
         {
-           
-
-            // teleport player in displacement specified
             physics.SetPosition(physics.Position + distance);
         }
-        
-        // Moves player to set position
-        // Should be in Characters?
+
         public void MoveTo(Vector2 pos)
         {
             physics.SetPosition(pos);
         }
 
-        /// <summary>
-        /// Pickup Item off the ground
-        /// </summary>
-        /// <param name="item"> ItemType to pickup</param>
         public void PickupItem(Item item)
         {
             ItemType itemType = item.GetItemType();
 
-            if(item.GetColliable())
+            if (item.GetColliable())
             {
                 inventory.PickupItem(itemType);
                 room.GetScene().Remove(item);
             }
         }
 
-        /// <summary>
-        /// Subtract item from inventory
-        /// </summary>
-        /// <param name="item">ItemType to decrement</param>
         public void UseItem(ItemType item)
         {
             inventory.ConsumeItem(item);
         }
 
-        // Send to a game over
         public override void Die()
         {
             OnPlayerDied?.Invoke(this, EventArgs.Empty);
             gameOver.Execute();
         }
+
+
 
         public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
         {
@@ -456,14 +444,14 @@ namespace Sprint.Characters
             {
                 case ItemType.HeartPiece:
                     int prevMax = maxHealth;
-                    if(maxHealth < 16)
+                    if (maxHealth < 16)
                         maxHealth += 1;
                     OnPlayerMaxHealthChange?.Invoke(prevMax, maxHealth, health);
                     break;
                 case ItemType.Heart:
                     double prevHealth = health;
                     health += 1;
-                    if(health > maxHealth)
+                    if (health > maxHealth)
                     {
                         health = maxHealth;
                     }
@@ -473,7 +461,5 @@ namespace Sprint.Characters
                     break;
             }
         }
-
     }
 }
-

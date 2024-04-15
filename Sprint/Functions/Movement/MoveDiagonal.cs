@@ -18,10 +18,7 @@ namespace Sprint.Commands
 
         public void Execute()
         {
-            float diagonalSpeed = CharacterConstants.PLAYER_SPEED / (float)(Math.Sqrt(2) * 64); // Diagonal movement speed
-            Vector2 movementVector = direction;
-            movementVector.Normalize();
-            player.Move(movementVector * diagonalSpeed);
+            player.MoveDiagonal(direction);
         }
     }
 
