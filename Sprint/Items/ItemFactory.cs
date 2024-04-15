@@ -136,6 +136,15 @@ namespace Sprint.Items
                     bow.SetDuration(1);
                     it = (new Item(position, bow, 0));
                     break;
+                case "boomerang":
+                    ICooldownPowerup boomerang = new CooldownAbility(
+                            spriteLoader.BuildSprite(ANIM_FILE, "boomerang"),
+                            new SpawnProjectileEffect("boomerang"),
+                            "boomerang",
+                            "BOOMERANG|throw boomerang");
+                    boomerang.SetDuration(1);
+                    it = (new Item(position, boomerang, 0));
+                    break;
                 case "bomb":
                     IStackedPowerup bomb = (new ConsumableAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "bomb"),
@@ -168,7 +177,7 @@ namespace Sprint.Items
                             new DualShotUpgrade(),
                             "greenBadge",
                             "- dual shot");
-                    greenUpgrade.SetUpgradeOptions(new() { "bow", "bomb", "candle" });
+                    greenUpgrade.SetUpgradeOptions(new() { "bow", "bomb", "candle", "boomerang" });
                     it = (new Item(position, greenUpgrade, 2));
                     break;
                 case "blueBadge":
@@ -177,7 +186,7 @@ namespace Sprint.Items
                             new TripleShotUpgrade(),
                             "blueBadge",
                             "- triple shot");
-                    blueUpgrade.SetUpgradeOptions(new() { "bow", "bomb", "candle"});
+                    blueUpgrade.SetUpgradeOptions(new() { "bow", "bomb", "candle", "boomerang"});
                     it = (new Item(position, blueUpgrade, 2));
                     break;
                 case "yellowBadge":
@@ -186,7 +195,7 @@ namespace Sprint.Items
                             new QuickCooldownUpgrade(),
                             "yellowBadge",
                             "- quick reload");
-                    yellowUpgrade.SetUpgradeOptions(new() { "bow", "sword", "masterSword" });
+                    yellowUpgrade.SetUpgradeOptions(new() { "bow", "sword", "masterSword", "boomerang" });
                     it = (new Item(position, yellowUpgrade, 2));
                     break;
                 case "pinkBadge":
@@ -197,6 +206,24 @@ namespace Sprint.Items
                             "- infinite ammo");
                     pinkUpgrade.SetUpgradeOptions(new() { "bomb", "meat" });
                     it = (new Item(position, pinkUpgrade, 2));
+                    break;
+                case "blueArrow":
+                    IUpgradePowerup blueArrow = new UpgradeAbility(
+                            spriteLoader.BuildSprite(ANIM_FILE, "blueArrow"),
+                            new UpgradeProjectileUpgrade("arrow"),
+                            "blueArrow",
+                            "- silver tip");
+                    blueArrow.SetUpgradeOptions(new() { "bow" });
+                    it = (new Item(position, blueArrow, 5));
+                    break;
+                case "blueBoomerang":
+                    IUpgradePowerup blueBoomerang = new UpgradeAbility(
+                            spriteLoader.BuildSprite(ANIM_FILE, "blueBoomerang"),
+                            new UpgradeProjectileUpgrade("boomerang"),
+                            "blueBoomerang",
+                            "- silver tip");
+                    blueBoomerang.SetUpgradeOptions(new() { "boomerang" });
+                    it = (new Item(position, blueBoomerang, 5));
                     break;
             }
             return it;

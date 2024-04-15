@@ -3,6 +3,7 @@ using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Sprite;
+using System.Collections.Generic;
 
 namespace Sprint.Projectile
 {
@@ -19,6 +20,7 @@ namespace Sprint.Projectile
 
         private const string ANIMS_FILE = "projectileAnims";
 
+        private Dictionary<string, bool> upgraded; // Dictionary of whether each projectile has been upgraded
 
         public SimpleProjectileFactory(SpriteLoader spriteLoader, float distanceOut, bool isEnemy, Room room)
         {
@@ -26,6 +28,11 @@ namespace Sprint.Projectile
             this.spriteLoader = spriteLoader;
             this.room = room;
             this.isEnemy = isEnemy;
+            upgraded = new()
+            {
+                { "arrow", false },
+                { "boomerang", false }
+            };
         }
 
         // Change the room that projectiles are placed in
@@ -38,25 +45,21 @@ namespace Sprint.Projectile
         public IProjectile CreateFromString(string name)
         {
             IProjectile ret = null;
+            // Choose alternate string if upgraded
+            bool isUpgraded = upgraded.ContainsKey(name) && upgraded[name];
             switch (name)
             {
                 case "smoke":
                     ret = CreateSmoke();
                     break;
                 case "arrow":
-                    ret = CreateArrow();
-                    break;
-                case "blueArrow":
-                    ret = CreateBlueArrow();
+                    ret = isUpgraded ? CreateBlueArrow() : CreateArrow();
                     break;
                 case "bomb":
                     ret = CreateBomb();
                     break;
                 case "boomerang":
-                    ret = CreateBoomerang();
-                    break;
-                case "blueBoomerang":
-                    ret = CreateBlueBoomerang();
+                    ret = isUpgraded ? CreateBlueBoomerang() : CreateBoomerang();
                     break;
                 case "fireBall":
                     ret = CreateFireBall();
@@ -138,6 +141,16 @@ namespace Sprint.Projectile
         public void SetStartPosition(Vector2 pos)
         {
             position = pos;
+        }
+
+        public void SetUpgraded(string name, bool up)
+        {
+            upgraded[name] = up;
+        }
+
+        public bool GetUpgraded(string name)
+        {
+            return upgraded[name];
         }
 
         private Vector2 getSpawnPosition()
