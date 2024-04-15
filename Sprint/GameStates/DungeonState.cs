@@ -44,7 +44,6 @@ namespace Sprint
 
         private Player player; // Player game object to be moved as rooms switch
 
-        private IDoor[,,] doorReference; // All doors in the level
         private Rectangle[] doorBounds; // Bounds of the doors in each room for click-through
         private MapModel map; // Tracks revealing of rooms for UI
         private Point compassPointer; // Room indices for triforce location
@@ -157,18 +156,10 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new OpenInventoryCommand(this));
 
             // Middle click through doors
-            for (int i = 0; i < doorReference.GetLength(0); i++)
+            for (int d = 0; d < 4; d++)
             {
-                IDoor[,] slice = new IDoor[doorReference.GetLength(1), doorReference.GetLength(2)];
-                for (int r = 0; r < doorReference.GetLength(1); r++)
-                {
-                    for (int c = 0; c < doorReference.GetLength(2); c++)
-                    {
-                        slice[r, c] = doorReference[i, r, c];
-                    }
-                }
-                inputTable.RegisterMapping(new ClickInBoundsTrigger(ClickInBoundsTrigger.MouseButton.Middle, doorBounds[i]),
-                    new SwitchRoomFromDoorsCommand(slice, this));
+                inputTable.RegisterMapping(new ClickInBoundsTrigger(ClickInBoundsTrigger.MouseButton.Middle, doorBounds[d]),
+                    new SwitchRoomFromDoorsCommand(this, Directions.GetDirectionFromIndex(d)));
             }
 
             // SFX and Song controls
@@ -464,15 +455,9 @@ namespace Sprint
             arenaPosition = pos;
         }
 
-        public void SetDoors(IDoor[,,] doors, Rectangle[] bounds)
+        public void SetDoors(Rectangle[] bounds)
         {
-            doorReference = doors;
             doorBounds = bounds;
-        }
-
-        public IDoor[,,] GetDoors()
-        {
-            return doorReference;
         }
 
         public MapModel GetMap()

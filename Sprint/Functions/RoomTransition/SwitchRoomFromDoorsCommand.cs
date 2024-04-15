@@ -1,22 +1,33 @@
-﻿using Sprint.Interfaces;
+﻿using Microsoft.Xna.Framework;
+using Sprint.Interfaces;
+using Sprint.Levels;
 
 namespace Sprint.Functions.RoomTransition
 {
     internal class SwitchRoomFromDoorsCommand : ICommand
     {
 
-        private IDoor[,] receivers;
+        private Vector2 direction;
         private DungeonState dungeon;
 
-        public SwitchRoomFromDoorsCommand(IDoor[,] doors, DungeonState dungeon)
+        public SwitchRoomFromDoorsCommand(DungeonState dungeon, Vector2 direction)
         {
-            receivers = doors;
+            this.direction = direction;
             this.dungeon = dungeon;
         }
 
         public void Execute()
         {
-            receivers[dungeon.RoomIndex().Y, dungeon.RoomIndex().X].SwitchRoom();
+            // Get current room
+            Room r = dungeon.GetRoomAt(dungeon.RoomIndex());
+
+            if(r.GetDoors().Count < 4)
+            {
+                // Room doesn't have directional doors, so don't click through
+                return;
+            }
+            // Get door in room by direction and switch
+            r?.GetDoors()[Directions.GetIndex(direction)]?.SwitchRoom();
         }
 
     }

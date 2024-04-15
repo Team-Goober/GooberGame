@@ -1,12 +1,6 @@
-﻿
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using Sprint.Items;
 using Sprint.Levels;
-using System;
-using System.Diagnostics;
-using System.Linq.Expressions;
 
 namespace Sprint
 {
@@ -87,14 +81,16 @@ namespace Sprint
 
             visitedRooms[r, c] = true;
 
-            IDoor[,,] doorReference = dungeon.GetDoors();
-
-            // Reveal all open doors
-            for (int i = 0; i < 4; i++)
+            // Reveal all open directional doors 
+            Room room = dungeon.GetRoomAt(new Point(c, r));
+            if(room.GetDoors().Count >= 4)
             {
-                if (doorReference[i, r, c] != null && doorReference[i, r, c].IsOpen())
+                for (int i = 0; i < 4; i++)
                 {
-                    doors[i, r, c] = true;
+                    if (room.GetDoors()[i].IsOpen())
+                    {
+                        doors[i, r, c] = true;
+                    }
                 }
             }
         }
