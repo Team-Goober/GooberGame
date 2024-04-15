@@ -20,11 +20,13 @@ namespace Sprint.Loader
             this.offsets = offsets;
         }
 
+        // Attach array of powerups to draw
         public void SetPowerups(IPowerup[,] powerups)
         {
             this.powerups = powerups;
         }
 
+        // Set array to contain only one powerup
         public void SetSinglePowerup(IPowerup powerup)
         {
             this.powerups = new IPowerup[1, 1];
@@ -36,6 +38,7 @@ namespace Sprint.Loader
             return powerups;
         }
 
+        // Return scene position at a specific cell
         public Vector2 PositionAt(int r, int c)
         {
             return firstCell + offsets * new Vector2(c, r);
@@ -49,6 +52,7 @@ namespace Sprint.Loader
                 {
                     for (int j = 0; j < powerups.GetLength(1); j++)
                     {
+                        // Draw all filled cells at their scene location
                         if (powerups[i, j] != null)
                         {
                             powerups[i, j].Draw(spriteBatch, PositionAt(i, j), gameTime);

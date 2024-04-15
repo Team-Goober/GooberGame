@@ -39,10 +39,11 @@ namespace Sprint.Items
             this.description = description;
         }
 
-
         public void AddAmount(int amount)
         {
+            // Add an amount to the stack
             quantity += amount;
+            // Must not have negative stack size
             Debug.Assert(quantity >= 0);
             number.SetText( "" + quantity );
         }
@@ -57,10 +58,12 @@ namespace Sprint.Items
             Inventory inv = player.GetInventory();
             if (inv.HasPowerup(label))
             {
+                // Add this stack to existing one if player already has this type
                 ((IStackedPowerup)inv.GetPowerup(label)).AddAmount(quantity);
             }   
             else
             {
+                // If player doesn't have this type, add it to their inventory
                 inv.AddPowerup(this);
             }
             onApply?.Execute(player);
@@ -68,12 +71,14 @@ namespace Sprint.Items
 
         public bool CanPickup(Inventory inventory)
         {
+            // Can always pick up a resource
             return true;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
+            // Draw an overlay to darken sprite if there are none left
             if (quantity == 0)
             {
                 Texture2D overlayColor;
@@ -92,11 +97,13 @@ namespace Sprint.Items
 
         public string GetDescription()
         {
+            // Add quantity to the item description
             return description + "|amt: " + quantity;
         }
 
         public void Update(GameTime gameTime)
         {
+            // Only update if haven't already updated on this cycle
             if (gameTime.TotalGameTime != lastUpdate)
             {
                 sprite.Update(gameTime);

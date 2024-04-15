@@ -44,11 +44,6 @@ namespace Sprint.GameStates
             input = new InputTable();
         }
 
-        public void GetRoomScene(SceneObjectManager scenes)
-        {
-            this.roomManager = scenes;
-        }
-
         public void GetHUDScene(SceneObjectManager scenes)
         {
             this.hudManager = scenes;
@@ -59,11 +54,6 @@ namespace Sprint.GameStates
             timer.Elapsed += SwitchScene;
             timer.AutoReset = false;
             timer.Start();
-        }
-
-        public List<SceneObjectManager> AllObjectManagers()
-        {
-            return new List<SceneObjectManager>();
         }
 
         public void MakeCommands()

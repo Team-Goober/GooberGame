@@ -33,11 +33,14 @@ namespace Sprint.Items
 
         public void Apply(Player player)
         {
+            // Run behavior command
+            // Don't add to player inventory
             onApply?.Execute(player);
         }
 
         public bool CanPickup(Inventory inventory)
         {
+            // Can always pick up an instant effect
             return true;
         }
 
@@ -58,6 +61,7 @@ namespace Sprint.Items
 
         public void Update(GameTime gameTime)
         {
+            // Only update if haven't already updated on this cycle
             if (gameTime.TotalGameTime != lastUpdate)
             {
                 sprite.Update(gameTime);

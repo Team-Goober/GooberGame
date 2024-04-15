@@ -28,7 +28,9 @@ namespace Sprint.Input
 
         public void UpdateInput(GameTime gameTime, KeyboardState keys, MouseState mouse)
         {
+            // See if mouse position is close enough to target
             bool hover = Vector2.Distance(pos, new Vector2(mouse.Position.X, mouse.Position.Y)) <= distance;
+            // Only activate if the mouse just started hovering
             triggered = hover && !hoveredPreviously;
             hoveredPreviously = hover;
         }

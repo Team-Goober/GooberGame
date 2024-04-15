@@ -18,6 +18,7 @@ namespace Sprint.Functions.Swords
 
         public void Execute()
         {
+            // Damage the character with the sword's damage value
             receiver.TakeDamage(effector.Damage());
         }
     }

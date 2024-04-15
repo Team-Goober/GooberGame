@@ -44,8 +44,8 @@ namespace Sprint
 
         private Player player; // Player game object to be moved as rooms switch
 
-        private IDoor[,,] doorReference;
-        private Rectangle[] doorBounds;
+        private IDoor[,,] doorReference; // All doors in the level
+        private Rectangle[] doorBounds; // Bounds of the doors in each room for click-through
         private MapModel map; // Tracks revealing of rooms for UI
         private Point compassPointer; // Room indices for triforce location
         private HUDLoader hudLoader;
@@ -57,7 +57,6 @@ namespace Sprint
             this.game = game;
             this.contentManager = contentManager;
             this.spriteLoader = spriteLoader;
-
 
             collisionDetector = new CollisionDetector();
 
@@ -82,6 +81,7 @@ namespace Sprint
 
         }
 
+        // Connect all of the signals
         private void loadDelegates ()
         {
             Inventory inventory = player.GetInventory();
@@ -95,6 +95,7 @@ namespace Sprint
 
         }
 
+        // Disconnect all of the signals
         private void unloadDelegates()
         {
             Inventory inventory = player.GetInventory();
@@ -107,25 +108,10 @@ namespace Sprint
             player.OnPlayerMaxHealthChange -= hudLoader.UpdateMaxHeartAmount;
         }
 
-        /*public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
-        {
-            switch (it)
-            {
-                case ItemType.Map:
-                    map.RevealAll();
-                    break;
-                case ItemType.Compass:
-                    map.PlaceCompass();
-                    break;
-                default:
-                    break;
-            }
-        }*/
-
         // Generates all commands available while the player is moving in a room
         public void MakeCommands()
         {
-            // TODO: These are here because they refer to InventoryState, which may not exist yet. Should be moved
+            // Make the changes that require InventoryState
             loadDelegates();
             hudLoader.SetSlotsArray(player.GetInventory().GetAbilities());
             hudLoader.OnListingUpdateEvent(player.GetInventory().GetListing());
@@ -428,20 +414,17 @@ namespace Sprint
             PassToState(scroll);
         }
 
-
+        // Switch to a new win state
         public void WinScreen()
         {
             WinState win = new WinState(game, hudLoader.GetTopDisplay(), rooms[currentRoom.Y][currentRoom.X].GetScene(), player, spriteLoader, arenaPosition);
             PassToState(win);
         }
-            
+
+        // Switch to a new death state
         public void DeathScreen()
         {
             GameOverState death = new GameOverState(game, hudLoader);
-
-            SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X].GetScene();
-
-            //death.GetRoomScene(currRoom);
             death.GetHUDScene(hudLoader.GetTopDisplay());
             PassToState(death);
         }
@@ -466,6 +449,7 @@ namespace Sprint
             return rooms.Length;
         }
 
+        // Clear out room list
         public void ClearRooms(int rows, int cols)
         {
             rooms = new Room[rows][];
@@ -485,6 +469,7 @@ namespace Sprint
             doorReference = doors;
             doorBounds = bounds;
         }
+
         public IDoor[,,] GetDoors()
         {
             return doorReference;
@@ -515,6 +500,7 @@ namespace Sprint
         private bool solved2 = false;
         private bool solved3 = false;
 
+        // Manually check for puzzle door open triggers
         public void CheckPuzzle()
         {            
             if (currentRoom == new Point(2, 4) && !solved2)

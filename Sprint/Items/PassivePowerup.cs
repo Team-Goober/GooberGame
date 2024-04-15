@@ -30,15 +30,16 @@ namespace Sprint.Items
             this.description = description;
         }
 
-
         public void Apply(Player player)
         {
+            // Add this powerup to inventory listing
             player.GetInventory().AddPowerup(this);
             onApply?.Execute(player);
         }
 
         public bool CanPickup(Inventory inventory)
         {
+            // Only pickup if player doesn't already have one
             return !inventory.HasPowerup(label);
         }
 
@@ -59,6 +60,7 @@ namespace Sprint.Items
 
         public void Update(GameTime gameTime)
         {
+            // Only update if haven't already updated on this cycle
             if (gameTime.TotalGameTime != lastUpdate)
             {
                 sprite.Update(gameTime);

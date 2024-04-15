@@ -14,6 +14,7 @@ namespace Sprint.Functions.SecondaryItem
 
         public void Execute()
         {
+            // Tell inventory to delete current selected item
             receiver.DropSlot();
         }
     }

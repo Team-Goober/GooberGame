@@ -11,7 +11,6 @@ namespace Sprint.Characters
 
         private Rectangle bounds;
         private Player player;
-        private float moveScale = 0.07f;
         private float damage;
 
         public Rectangle BoundingBox => bounds;
@@ -30,7 +29,7 @@ namespace Sprint.Characters
             //no updated needed
         }
 
-
+        // Get damage amount
         public float Damage()
         {
             return damage;
@@ -39,7 +38,7 @@ namespace Sprint.Characters
 
         public void Move(Vector2 distance)
         {
-            player.Move(distance * moveScale);
+            player.Move(distance);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

@@ -10,7 +10,9 @@ namespace Sprint.Items.Effects
 
         public void Execute(Player player)
         {
+            // Add ammo to refund last use
             ((IStackedPowerup)baseAbility).AddAmount(1);
+            // Do base ability
             baseAbility.Activate();
         }
 

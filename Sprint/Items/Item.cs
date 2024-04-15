@@ -60,6 +60,7 @@ namespace Sprint.Items
             bounds.Y = (int)(position.Y - bounds.Height / 2);
         }
 
+        // True if the inventory has room for the item
         public bool CanPickup(Inventory inventory)
         {
             return isColliable && powerup.CanPickup(inventory);

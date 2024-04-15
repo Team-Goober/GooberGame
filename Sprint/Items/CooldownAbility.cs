@@ -20,7 +20,7 @@ namespace Sprint.Items
         private string label;
         private Player player;
         private string description;
-        private Timer cooldownTimer;
+        private Timer cooldownTimer; // Times duration between allowed uses
 
         private TimeSpan lastUpdate;
 
@@ -35,8 +35,10 @@ namespace Sprint.Items
 
         public bool ReadyUp()
         {
+            // Can only use when timer is over or it was just started this cycle
             if (cooldownTimer.Ended || cooldownTimer.TimeLeft == cooldownTimer.Duration)
             {
+                // Start cooldown
                 cooldownTimer.Start();
                 return true;
             }
@@ -45,18 +47,22 @@ namespace Sprint.Items
 
         public void Activate()
         {
+            // Run behavior command
             onActivate?.Execute(player);
         }
 
         public void Apply(Player player)
         {
             this.player = player;
+            // Assign ability to slot
             player.GetInventory().AddToSlots(this);
+            // Add to full list of items
             player.GetInventory().AddPowerup(this);
         }
 
         public bool CanPickup(Inventory inventory)
         {
+            // Only pickupable if not already in inventory and if there's space in the ability slots
             return !inventory.HasPowerup(label) && inventory.SlotsAvailable();
         }
 
@@ -64,6 +70,7 @@ namespace Sprint.Items
         {
             sprite.Draw(spriteBatch, position, gameTime);
 
+            // Draw dark overlay to show how much time is left in cooldown
             if (!cooldownTimer.Ended)
             {
                 Texture2D overlayColor;
@@ -88,7 +95,8 @@ namespace Sprint.Items
 
         public void Update(GameTime gameTime)
         {
-            if(gameTime.TotalGameTime != lastUpdate)
+            // Only update if haven't already updated on this cycle
+            if (gameTime.TotalGameTime != lastUpdate)
             {
                 cooldownTimer.Update(gameTime);
                 sprite.Update(gameTime);

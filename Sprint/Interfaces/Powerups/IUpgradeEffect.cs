@@ -9,6 +9,7 @@ namespace Sprint.Interfaces.Powerups
     internal interface IUpgradeEffect : IEffect
     {
 
+        // Give a base powerup for this effect to modify behavior of
         public void SetBase(IPowerup powerup);
 
     }

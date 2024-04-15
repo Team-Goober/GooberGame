@@ -20,16 +20,18 @@ public class OpenLockedDoorCommand : ICommand
 
     public void Execute()
     {
-        // Unlock if able to
+        // Try to use up a player key
         bool hasKey = receiver.GetInventory().TryConsumeStack(Inventory.KeyLabel);
+        // Only continue if player had a key
         if (hasKey)
         {
+            // Open this door
             effector.SetOpen(true);
             // Open other side of the door
             effector.GetOtherFace().SetOpen(true);
         }
         
-            // Moves receiver by displacement
+        // Moves receiver by displacement
         receiver.Move(distance);
     }
 }

@@ -25,6 +25,7 @@ namespace Sprint.Items
         /// <returns></returns>
         public Item MakeItem(string name, Vector2 position)
         {
+            // TODO: replace this with XML loading
             Item it = null;
             switch (name)
             {

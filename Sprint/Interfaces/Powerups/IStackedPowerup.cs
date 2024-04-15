@@ -9,9 +9,10 @@ namespace Sprint.Interfaces.Powerups
 {
     internal interface IStackedPowerup : IPowerup
     {
-
+        // Adds a quantity to the stack
         public void AddAmount(int amount);
 
+        // Return size of stack
         public int Quantity();
     }
 }

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Characters;
-using Sprint.Functions;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Functions.States;
 using Sprint.HUD;
@@ -24,12 +23,13 @@ namespace Sprint.GameStates
         private SceneObjectManager hud;
         private SceneObjectManager inventoryUI;
         private Inventory playerInventory;
-        private Point slot;
-        private HUDPowerupArray listing;
-        private HUDText itemDescription;
+        private Point slot; // Indices of currently selected slot
+        private HUDPowerupArray listing; // HUD array of all powerups in inventory (for hovering)
+        private HUDText itemDescription; // HUD element that shows item descriptions
 
-        private Vector2 hudPosition;
+        private Vector2 hudPosition; // Position of HUD on screen
 
+        // Event that occurs when selected slot changes
         public delegate void SelectorMoveDelegate(int row, int column);
         public event SelectorMoveDelegate SelectorMoveEvent;
 
@@ -95,10 +95,12 @@ namespace Sprint.GameStates
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveSelectorCommand(this, new Point(-1, 0)));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveSelectorCommand(this, new Point(0, 1)));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveSelectorCommand(this, new Point(1, 0)));
+            // Register commands for A and B slot selection
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new SelectSlotCommand(this, 0));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new SelectSlotCommand(this, 1));
+            // Register command to delete selected item
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.C), new DropSlotCommand(this));
-
+            // Register commands for setting item description when hovered
             IPowerup[,] listArray = listing.GetPowerups();
             for (int i = 0; i< listArray.GetLength(0); i++)
             {
@@ -132,6 +134,7 @@ namespace Sprint.GameStates
             input.Sleep();
         }
 
+        // Update variables once a HUD has been created
         public void SetHUD(HUDLoader hudLoader, Vector2 pos)
         {
             hudPosition = pos;
@@ -186,6 +189,7 @@ namespace Sprint.GameStates
             playerInventory.Select(b, slot.Y, slot.X);
         }
 
+        // Delete ability in current slot
         public void DropSlot()
         {
             playerInventory.Drop(slot.Y, slot.X);

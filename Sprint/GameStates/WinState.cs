@@ -53,11 +53,6 @@ namespace Sprint.GameStates
             MakeCommands();
         }
 
-        public List<SceneObjectManager> AllObjectManagers()
-        {
-            return new List<SceneObjectManager>();
-        }
-
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);

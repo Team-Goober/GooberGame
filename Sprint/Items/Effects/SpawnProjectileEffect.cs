@@ -16,6 +16,7 @@ namespace Sprint.Items.Effects
 
         public void Execute(Player player)
         {
+            // Create projectile based on string and add to room
             player.GetProjectileFactory().CreateFromString(projName).Create();
         }
     }

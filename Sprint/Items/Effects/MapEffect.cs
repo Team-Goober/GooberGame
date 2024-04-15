@@ -7,6 +7,7 @@ namespace Sprint.Items.Effects
     {
         public void Execute(Player player)
         {
+            // Tell player to tell dungeon to reveal the whole map
             player.GetMap().RevealAll();
         }
     }

@@ -20,26 +20,32 @@ namespace Sprint.Characters
 
         private SfxFactory sfxFactory;
 
+        // Player sprites
         private ISprite sprite;
         private SpriteLoader spriteLoader;
         private ISprite damagedSprite;
 
+        // Events to signal hearts changed
         public delegate void HealthUpdateDelegate(double prev, double next);
         public event HealthUpdateDelegate OnPlayerHealthChange;
         public delegate void MaxHealthUpdateDelegate(int prev, int next, double health);
         public event MaxHealthUpdateDelegate OnPlayerMaxHealthChange;
 
         private Physics physics;
+        private Room room;
 
-        // Player variables
+        // Constants and initial values
         private int sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
         private int maxHealth = CharacterConstants.STARTING_HEALTH;
         private double health = CharacterConstants.STARTING_HEALTH;
+        private float speed = CharacterConstants.PLAYER_SPEED;
 
+        // Weapons
         private SimpleProjectileFactory secondaryItems;
         private SwordCollision swordCollision;
         private const int swordWidth = CharacterConstants.SWORD_WIDTH, swordLength = CharacterConstants.SWORD_LENGTH;
 
+        // Direction that the player is facing
         public Vector2 Facing { get; private set; }
 
         public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
@@ -49,14 +55,11 @@ namespace Sprint.Characters
 
         public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
 
-        private float speed = CharacterConstants.PLAYER_SPEED;
-
+        // Timers for animations and cooldowns
         private Timer attackTimer;
         private Timer castTimer;
         private Timer damageTimer;
-        private Room room;
 
-        // TODO: replace this with state machine
         // Animation to return to as base after a played animation ends
         private enum AnimationCycle
         {
@@ -95,7 +98,7 @@ namespace Sprint.Characters
             Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
 
-            // Set up projectiles
+            // Set up projectile factory
             secondaryItems = new SimpleProjectileFactory(spriteLoader, CharacterConstants.PROJECTILE_SPAWN_DISTANCE, false, null);         
         }
 
@@ -123,7 +126,7 @@ namespace Sprint.Characters
             StopMoving();
         }
 
-        //Melee attack according to direction
+        // Create melee attack according to facing direction and with given damage value
         public void Attack(float dmg)
         {
             Rectangle swordRec  = new Rectangle();
@@ -172,11 +175,10 @@ namespace Sprint.Characters
             swordCollision = new SwordCollision(swordRec, this, dmg);
             
             room.GetScene().Add(swordCollision);
-            
-            
+                    
         }
 
-        //Cast according to direction
+        // Cast according to direction
         public void Cast()
         {
 
@@ -223,7 +225,6 @@ namespace Sprint.Characters
         }
 
         // Return to base animation cycle based on states and facing dir
-        // TODO: replace with a state machine
         private void returnToBaseAnim()
         {
             if (baseAnim == AnimationCycle.Idle)
@@ -319,6 +320,7 @@ namespace Sprint.Characters
             return physics;
         }
 
+        // Reduce health
         public override void TakeDamage(double dmg)
         {
             // Invincible until timer goes down
@@ -330,7 +332,9 @@ namespace Sprint.Characters
             sfxFactory.PlaySoundEffect("Player Hurt");
             // switching sprites
             sprite = damagedSprite;
+            // timer to turn sprite back
             damageTimer.Start();
+            // update health
             double prevHealth = health;
             health -= dmg;
 
@@ -340,6 +344,7 @@ namespace Sprint.Characters
                 health = maxHealth;
             }
 
+            // broadcast health change
             OnPlayerHealthChange?.Invoke(prevHealth, health);
 
             // Trigger death when health is at or below 0
@@ -347,7 +352,6 @@ namespace Sprint.Characters
             {
                 Die();
             }
-
 
         }
 
@@ -362,12 +366,14 @@ namespace Sprint.Characters
                 room.GetScene().Remove(swordCollision);
                 returnToBaseAnim();
             }
+            // Check for end of cast animation
             castTimer.Update(gameTime);
             if (castTimer.JustEnded)
             {
                 returnToBaseAnim();
             }
 
+            // Update projectile factory positioning
             secondaryItems.SetDirection(Facing);
             secondaryItems.SetStartPosition(physics.Position);
 
@@ -398,7 +404,6 @@ namespace Sprint.Characters
         }
         
         // Moves player to set position
-        // Should be in Characters?
         public void MoveTo(Vector2 pos)
         {
             physics.SetPosition(pos);
@@ -408,12 +413,15 @@ namespace Sprint.Characters
         /// Pickup Item off the ground
         /// </summary>
         /// <param name="item"> ItemType to pickup</param>
-        /// <returns>true if item picked up</returns>
+        /// <return>true if item picked up</return>
         public bool PickupItem(Item item)
         {
+            // Ask item if it can be added to inventory
             if(item.CanPickup(inventory))
             {
+                // Run item's apply behavior to add to inventory
                 item.GetPowerup().Apply(this);
+                // Remove item game object
                 room.GetScene().Remove(item);
                 return true;
             }
@@ -426,6 +434,7 @@ namespace Sprint.Characters
             dungeon.DeathScreen();
         }
 
+        // Send to win screen
         public void Win()
         {
             StopMoving();
@@ -442,30 +451,6 @@ namespace Sprint.Characters
         {
             speed = newSpeed;
         }
-
-        /*public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
-        {
-            switch (it)
-            {
-                case ItemType.HeartPiece:
-                    int prevMax = maxHealth;
-                    if(maxHealth < 16)
-                        maxHealth += 1;
-                    OnPlayerMaxHealthChange?.Invoke(prevMax, maxHealth, health);
-                    break;
-                case ItemType.Heart:
-                    double prevHealth = health;
-                    health += 1;
-                    if(health > maxHealth)
-                    {
-                        health = maxHealth;
-                    }
-                    OnPlayerHealthChange?.Invoke(prevHealth, health);
-                    break;
-                default:
-                    break;
-            }
-        }*/
 
     }
 }

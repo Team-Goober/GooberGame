@@ -33,7 +33,7 @@ namespace Sprint.Levels
             this.textScale = textScale;
         }
 
-
+        // Set text based on single string with | used to delineate line breaks
         public void SetText(string text)
         {
             SetText(text.Split("|").ToList());

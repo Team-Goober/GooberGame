@@ -21,20 +21,20 @@ namespace Sprint.HUD
         private SceneObjectManager topDisplay;
         private SceneObjectManager inventoryScreen;
 
-        private List<HUDAnimSprite> LifeForce;
+        private List<HUDAnimSprite> LifeForce; // Player hearts display
 
-        private int maxHearts;
+        private int maxHearts; // Total number of heart icons to render
 
-        private HUDPowerupArray bWeapon;
-        private HUDPowerupArray aWeapon;
-        private HUDPowerupArray rupeeCount;
-        private HUDPowerupArray keyCount;
+        private HUDPowerupArray bWeapon; // Weapon bound to B slot
+        private HUDPowerupArray aWeapon; // Weapon bound to A slot
+        private HUDPowerupArray rupeeCount; // Rupee rendered with count on HUD
+        private HUDPowerupArray keyCount; // Key rendered with count on HUD
 
-        private HUDPowerupArray slotDisplay;
-        private HUDPowerupArray listingDisplay;
-        private HUDSelector selector;
+        private HUDPowerupArray slotDisplay; // Inventory ability slots
+        private HUDPowerupArray listingDisplay; // Array of all owned powerups
+        private HUDSelector selector; // Selector that moves across slots
 
-        private HUDText descriptionText;
+        private HUDText descriptionText; // Text that shows item descriptions
 
         HUDData data;
 
@@ -98,6 +98,7 @@ namespace Sprint.HUD
             slotDisplay = new HUDPowerupArray(data.FirstInventoryCell + data.InventorySlotSize / 2, data.InventorySlotSize + data.InventoryPadding);
             inventoryScreen.Add(slotDisplay);
 
+            // List of all owned items
             listingDisplay = new HUDPowerupArray(new Vector2(50, 350), data.InventorySlotSize + data.InventoryPadding);
             inventoryScreen.Add(listingDisplay);
 
@@ -199,11 +200,14 @@ namespace Sprint.HUD
 
         public void OnSelectorChooseEvent(int b, IPowerup item)
         {
-            // Exchange sprites for B item
+            // Exchange sprites for A item
             if(b == 0)
             {
                 aWeapon.SetSinglePowerup(item);
-            }else if (b == 1)
+
+            }
+            // Exchange sprites for B item
+            else if (b == 1)
             {
                 bWeapon.SetSinglePowerup(item);
             }
@@ -211,21 +215,25 @@ namespace Sprint.HUD
 
         public void OnListingUpdateEvent(Dictionary<string, IPowerup> newDict)
         {
-            if (newDict.ContainsKey(Inventory.RupeeLabel))
+            // Add rupee display once player picks up some
+            if (newDict.ContainsKey(Inventory.RupeeLabel) && rupeeCount.GetPowerups()[0,0] == null)
                 rupeeCount.SetSinglePowerup(newDict[Inventory.RupeeLabel]);
 
-            if (newDict.ContainsKey(Inventory.KeyLabel))
+            // Add key display once player picks up some
+            if (newDict.ContainsKey(Inventory.KeyLabel) && keyCount.GetPowerups()[0, 0] == null)
                 keyCount.SetSinglePowerup(newDict[Inventory.KeyLabel]);
 
             IPowerup[,] pups = new IPowerup[7, 4];
             int r = 0, c = 0;
             foreach (KeyValuePair<string, IPowerup> kvp in newDict)
             {
+                // Move currently assigned cell down to next row once it reaches end of row
                 if (c >= pups.GetLength(1))
                 {
                     c = 0;
                     r++;
                 }
+                // Assign powerup to cell and increment to next cell
                 if (r < pups.GetLength(0))
                 {
                     pups[r, c] = kvp.Value;

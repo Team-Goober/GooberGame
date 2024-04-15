@@ -34,6 +34,7 @@ namespace Sprint.Projectile
             this.room = room;
         }
 
+        // Create projectile based on string identifier
         public IProjectile CreateFromString(string name)
         {
             IProjectile ret = null;

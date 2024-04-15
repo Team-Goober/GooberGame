@@ -8,11 +8,13 @@ namespace Sprint.Interfaces.Powerups
 {
     internal interface IUpgradePowerup : IPowerup
     {
-
+        // Set list of base powerups that this upgrade can stack on
         public void SetUpgradeOptions(List<string> bases);
 
+        // Get the label that describes this upgrade
         public string GetTrueLabel();
 
+        // Checks the entire chain of upgrades to see if a certain base or upgrade is present
         public IPowerup FindInChain(string label);
 
     }

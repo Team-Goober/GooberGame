@@ -16,6 +16,7 @@ namespace Sprint.Functions.SecondaryItem
 
         public void Execute()
         {
+            // Make inventory choose the selected slot
             receiver.SelectSlot(box);
         }
     }

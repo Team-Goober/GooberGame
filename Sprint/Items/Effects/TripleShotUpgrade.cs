@@ -15,11 +15,15 @@ namespace Sprint.Items.Effects
         {
             SimpleProjectileFactory projs = player.GetProjectileFactory();
             Vector2 originalDir = projs.GetDirection();
+            // Shoot first shot
             baseAbility.Activate();
+            // Rotate one way and shoot
             projs.SetDirection(Vector2.Transform(originalDir, Matrix.CreateRotationZ((float)(Math.PI / 6))));
             baseAbility.Activate();
+            // Rotate other way and shoot
             projs.SetDirection(Vector2.Transform(originalDir, Matrix.CreateRotationZ((float)(- Math.PI / 6))));
             baseAbility.Activate();
+            // Reset to original direction
             projs.SetDirection(originalDir);
         }
 

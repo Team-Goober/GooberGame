@@ -13,6 +13,7 @@ namespace Sprint.Items.Effects
 
         public void Execute(Player player)
         {
+            // Tell player to win
             player.Win();
         }
     }

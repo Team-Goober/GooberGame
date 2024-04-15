@@ -20,6 +20,7 @@ namespace Sprint.Items.Effects
 
         public void Execute(Player player)
         {
+            // Set player speed to new value
             player.SetSpeed(speed);
         }
     }

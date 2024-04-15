@@ -16,7 +16,9 @@ namespace Sprint.Items.Effects
 
         public void Execute(Player player)
         {
+            // Tell player to swing with given damage
             player.Attack(damage);
+            // Make swing sound
             sfxFactory.PlaySoundEffect("Sword Swing");
         }
     }

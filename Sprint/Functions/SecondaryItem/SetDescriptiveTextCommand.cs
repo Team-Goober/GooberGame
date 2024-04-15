@@ -25,10 +25,12 @@ namespace Sprint.Functions.SecondaryItem
         public void Execute()
         {
             IPowerup p = array.GetPowerups()[r, c];
+            // If slot is empty, set to default text
             if (p == null)
             {
                 receiver.SetText("--HOVER ITEM--");
             }
+            // If slot is filled, use that powerup's description as text
             else
             {
                 receiver.SetText(p.GetDescription());
