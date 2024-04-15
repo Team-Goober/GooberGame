@@ -38,6 +38,15 @@ namespace Sprint.Items
                             "HEART|heals one heart"), 
                         0));
                     break;
+                case "heartPiece":
+                    it = (new Item(position,
+                        new InstantPowerup(
+                            spriteLoader.BuildSprite(ANIM_FILE, "heartPiece"),
+                            new AddHeartEffect(),
+                            "heartPiece",
+                            "HEART PIECE|increase max health"),
+                        0));
+                    break;
                 case "compass":
                     it = (new Item(position,
                         new PassivePowerup(
@@ -91,6 +100,14 @@ namespace Sprint.Items
                             "TRIFORCE|saves hyrule");
                     triforce.AddAmount(1);
                     it = (new Item(position, triforce, 0));
+                    break;
+                case "shield":
+                    IAbility shield = new ActiveAbility(
+                            spriteLoader.BuildSprite(ANIM_FILE, "shield"),
+                            new ShieldEffect(),
+                            "shield",
+                            "SHIELD|protects player");
+                    it = (new Item(position, shield, 0));
                     break;
                 case "sword":
                     ICooldownPowerup sword = new CooldownAbility(

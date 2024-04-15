@@ -9,6 +9,7 @@ using System;
 using Sprint.Music.Sfx;
 using Sprint.Items;
 using Sprint.Functions.States;
+using System.Diagnostics;
 
 namespace Sprint.Characters
 {
@@ -44,6 +45,7 @@ namespace Sprint.Characters
         private SimpleProjectileFactory secondaryItems;
         private SwordCollision swordCollision;
         private const int swordWidth = CharacterConstants.SWORD_WIDTH, swordLength = CharacterConstants.SWORD_LENGTH;
+        private bool shielded;
 
         // Direction that the player is facing
         public Vector2 Facing { get; private set; }
@@ -53,7 +55,20 @@ namespace Sprint.Characters
                 sideLength,
                 sideLength);
 
-        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
+        public CollisionTypes[] CollisionType {
+            get
+            {
+                // Collide as shield if shield is up
+                if (shielded)
+                {
+                    return new CollisionTypes[] { CollisionTypes.SHIELD, CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
+                }
+                else
+                {
+                    return new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
+                }
+            }
+        }
 
         // Timers for animations and cooldowns
         private Timer attackTimer;
@@ -283,6 +298,9 @@ namespace Sprint.Characters
 
         public void MoveLeft()
         {
+            // Don't move while shielding
+            if (shielded)
+                return;
             // Sets velocity towards left
             physics.SetVelocity(new Vector2(-speed, 0));
 
@@ -293,6 +311,9 @@ namespace Sprint.Characters
 
         public void MoveRight()
         {
+            // Don't move while shielding
+            if (shielded)
+                return;
             // Sets velocity towards right
             physics.SetVelocity(new Vector2(speed, 0));
 
@@ -303,6 +324,9 @@ namespace Sprint.Characters
 
         public void MoveUp()
         {
+            // Don't move while shielding
+            if (shielded)
+                return;
             // Sets velocity towards up
             physics.SetVelocity(new Vector2(0, -speed));
 
@@ -313,6 +337,9 @@ namespace Sprint.Characters
 
         public void MoveDown()
         {
+            // Don't move while shielding
+            if (shielded)
+                return;
             // Sets velocity towards down
             physics.SetVelocity(new Vector2(0, speed));
             sprite.SetAnimation("down");
@@ -324,42 +351,6 @@ namespace Sprint.Characters
         {
             return physics;
         }
-
-        // Reduce health
-        public override void TakeDamage(double dmg)
-        {
-            // Invincible until timer goes down
-            if (!damageTimer.Ended)
-            {
-                return;
-            }
-            // sound playing
-            sfxFactory.PlaySoundEffect("Player Hurt");
-            // switching sprites
-            sprite = damagedSprite;
-            // timer to turn sprite back
-            damageTimer.Start();
-            // update health
-            double prevHealth = health;
-            health -= dmg;
-
-            // If negative damage (healing), don't go over max health
-            if (health > maxHealth)
-            {
-                health = maxHealth;
-            }
-
-            // broadcast health change
-            OnPlayerHealthChange?.Invoke(prevHealth, health);
-
-            // Trigger death when health is at or below 0
-            if (health <= 0.0)
-            {
-                Die();
-            }
-
-        }
-
 
         public override void Update(GameTime gameTime)
         {
@@ -458,6 +449,64 @@ namespace Sprint.Characters
             speed += addition;
         }
 
+        public void Heal(float amt)
+        {
+            // Don't reduce health during heal
+            Debug.Assert(amt >= 0);
+            double prevHealth = health;
+            health += amt;
+            // Don't overfill hearts
+            if (health > maxHealth)
+            {
+                health = maxHealth;
+            }
+            OnPlayerHealthChange?.Invoke(prevHealth, health);
+        }
+
+        public void IncreaseHearts()
+        {
+            int prevMax = maxHealth;
+            // Don't go over what the HUD can display
+            if (maxHealth < CharacterConstants.MAX_HEARTS)
+                maxHealth += 1;
+            OnPlayerMaxHealthChange?.Invoke(prevMax, maxHealth, health);
+        }
+
+        // Reduce health
+        public override void TakeDamage(double dmg)
+        {
+            // Don't allow negative damage
+            Debug.Assert(dmg >= 0);
+            // Invincible until timer goes down
+            if (!damageTimer.Ended)
+            {
+                return;
+            }
+            // sound playing
+            sfxFactory.PlaySoundEffect("Player Hurt");
+            // switching sprites
+            sprite = damagedSprite;
+            // timer to turn sprite back
+            damageTimer.Start();
+            // update health
+            double prevHealth = health;
+            health -= dmg;
+
+            // broadcast health change
+            OnPlayerHealthChange?.Invoke(prevHealth, health);
+
+            // Trigger death when health is at or below 0
+            if (health <= 0.0)
+            {
+                Die();
+            }
+
+        }
+
+        public void SetShielded(bool active)
+        {
+            shielded = active;
+        }
     }
 }
 

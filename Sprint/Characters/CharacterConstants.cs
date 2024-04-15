@@ -11,6 +11,7 @@ namespace Sprint.Characters
         public const int PLAYER_SPEED = 300;
         public const int SWORD_WIDTH = 40, SWORD_LENGTH = 90;
         public const int STARTING_HEALTH = 3;
+        public const int MAX_HEARTS = 8;
         public const int PROJECTILE_SPAWN_DISTANCE = 40;
 
         public const int INVENTORY_ROWS = 2, INVENTORY_COLUMNS = 4;

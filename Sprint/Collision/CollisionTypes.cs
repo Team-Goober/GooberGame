@@ -10,6 +10,7 @@ namespace Sprint.Collision
     {
         CHARACTER,
         PLAYER,
+        SHIELD,
         ENEMY,
 
         PROJECTILE,

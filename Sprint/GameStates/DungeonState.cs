@@ -135,7 +135,7 @@ namespace Sprint
             inputTable.RegisterMapping(new MultipleKeyReleaseTrigger(moveKeys), new StopMoving(player));
 
             //Player uses a cast move
-            // TODO: shouldnt bind separately from shoot commands
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Cast(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new Cast(player));
 
             // Using item slots

@@ -92,6 +92,15 @@ namespace Sprint.Items
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)
         {
+            // Make yellow background while active
+            if (IsActive())
+            {
+                Texture2D overlayColor;
+                overlayColor = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                overlayColor.SetData(new Color[] { new Color(Color.Yellow, CharacterConstants.DISABLED_OPACITY) });
+                int side = CharacterConstants.POWERUP_SIDE_LENGTH;
+                spriteBatch.Draw(overlayColor, new Rectangle((int)(position.X - side / 2.0f), (int)(position.Y - side / 2.0f), side, side), Color.White);
+            }
             sprite.Draw(spriteBatch, position, gameTime);
         }
 

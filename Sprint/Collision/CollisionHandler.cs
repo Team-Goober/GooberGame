@@ -62,7 +62,7 @@ namespace Sprint.Collision
                 // Collision for Player and doors
                 {new TypePairKey(CollisionTypes.OPEN_DOOR, CollisionTypes.PLAYER), typeof(SwitchRoomCommand).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.HIDDEN_DOOR, CollisionTypes.EXPLOSION), typeof(OpenDoorCommand).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.PLAYER,CollisionTypes.LOCKED_DOOR), typeof(OpenLockedDoorCommand).GetConstructor(constructorParams)},
+                {new TypePairKey(CollisionTypes.PLAYER,CollisionTypes.LOCKED_DOOR), typeof(OpenLockedDoorCommand).GetConstructor(constructorParams) },
 
                 // Collision for Player and items
                 {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ITEM), typeof(PickUpItem).GetConstructor( constructorParams ) },
@@ -74,6 +74,10 @@ namespace Sprint.Collision
                 // Collision Enemy Damage
                 {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.SWORD), typeof(SwordDamage).GetConstructor( constructorParams ) },
                 {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.PROJECTILE), typeof(ProjectileDamage).GetConstructor( constructorParams ) },
+
+                // Collision Shield negating damage
+                {new TypePairKey(CollisionTypes.SHIELD, CollisionTypes.ENEMY), typeof(DamageUnlessFacingCommand).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.SHIELD, CollisionTypes.ENEMY_PROJECTILE), typeof(DamageUnlessFacingCommand).GetConstructor( constructorParams ) }
             };
 
         //Made assuming that ICollidable can access the objects native type

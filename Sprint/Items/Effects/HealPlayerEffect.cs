@@ -16,8 +16,8 @@ namespace Sprint.Items.Effects
        
         public void Execute(Player player)
         {
-            // Heal by doing negative damage to player
-            player.TakeDamage(-amount);
+            // Heal player
+            player.Heal(amount);
         }
 
         public void Reverse(Player player)
