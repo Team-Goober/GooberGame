@@ -246,33 +246,36 @@ namespace Sprint.Characters
         public void MoveLeft()
         {
             acceleration.X = -accelerationRate;
+            sprite.SetAnimation("left");
             Facing = Directions.LEFT;
             baseAnim = AnimationCycle.Walk;
-            returnToBaseAnim(); // Add this line to update animation continuously
         }
 
         public void MoveRight()
         {
             acceleration.X = accelerationRate;
+            sprite.SetAnimation("right");
             Facing = Directions.RIGHT;
             baseAnim = AnimationCycle.Walk;
-            returnToBaseAnim(); // Add this line to update animation continuously
+
         }
 
         public void MoveUp()
         {
             acceleration.Y = -accelerationRate;
+            sprite.SetAnimation("up");
             Facing = Directions.UP;
             baseAnim = AnimationCycle.Walk;
-            returnToBaseAnim(); // Add this line to update animation continuously
+
         }
 
         public void MoveDown()
         {
             acceleration.Y = accelerationRate;
+            sprite.SetAnimation("down");
             Facing = Directions.DOWN;
             baseAnim = AnimationCycle.Walk;
-            returnToBaseAnim(); // Add this line to update animation continuously
+
         }
 
         public void MoveDiagonal(Vector2 direction)
@@ -280,9 +283,7 @@ namespace Sprint.Characters
             float diagonalSpeed = CharacterConstants.PLAYER_SPEED / (float)(Math.Sqrt(2) * 64); // Diagonal movement speed
             Vector2 movementVector = direction;
             movementVector.Normalize();
-            acceleration = movementVector * accelerationRate;
-            baseAnim = AnimationCycle.Walk;
-            returnToBaseAnim(); // Add this line to update animation continuously
+            acceleration = movementVector * accelerationRate;           
         }
 
 
@@ -341,33 +342,35 @@ namespace Sprint.Characters
 
             physics.SetVelocity(newVelocity);
 
-            
+            // Check if the player is not moving to return to the base animation
+            if (physics.Velocity == Vector2.Zero)
+            {
+                baseAnim = AnimationCycle.Idle;
+                returnToBaseAnim();
+            }
+
+
 
             // Determine the direction of movement to set the correct walking animation
             if (physics.Velocity.X > 0)
-            {
-                sprite.SetAnimation("right");
-                damagedSprite.SetAnimation("right");
+            {              
                 Facing = Directions.RIGHT;
             }
             else if (physics.Velocity.X < 0)
             {
-                sprite.SetAnimation("left");
-                damagedSprite.SetAnimation("left");
+               
                 Facing = Directions.LEFT;
             }
             else if (physics.Velocity.Y > 0)
             {
-                sprite.SetAnimation("down");
-                damagedSprite.SetAnimation("down");
+               
                 Facing = Directions.DOWN;
             }
             else if (physics.Velocity.Y < 0)
-            {
-                sprite.SetAnimation("up");
-                damagedSprite.SetAnimation("up");
+            {              
                 Facing = Directions.UP;
             }
+           
 
             // Update timers and other components
             attackTimer.Update(gameTime);
