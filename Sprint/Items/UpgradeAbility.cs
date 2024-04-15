@@ -40,6 +40,28 @@ namespace Sprint.Items
             this.description = description;
         }
 
+        public bool CanPickup(Inventory inventory)
+        {
+            // Can only pick up if an ability box can take it
+            return getApplicableBox(inventory) >= 0;
+        }
+
+        public void Apply(Player player)
+        {
+            this.player = player;
+            Inventory inv = player.GetInventory();
+            // Find the first box that can have this upgrade applied
+            int b = getApplicableBox(inv);
+            // If applied, a box must have been found
+            Debug.Assert(b >= 0);
+
+            baseAbility = inv.GetSelection(b);
+            // Replace the box's ability with this upgrade as a decorator
+            inv.ReplaceWithDecorator(baseAbility.GetLabel(), this);
+            // Set base ability that effect applies to
+            onActivate.SetBase(baseAbility);
+        }
+
         public bool ReadyUp()
         {
             // Defer readyup to base
@@ -59,26 +81,29 @@ namespace Sprint.Items
             }
         }
 
-        public void Apply(Player player)
+        public void Complete()
         {
-            this.player = player;
-            Inventory inv = player.GetInventory();
-            // Find the first box that can have this upgrade applied
-            int b = getApplicableBox(inv);
-            // If applied, a box must have been found
-            Debug.Assert(b >= 0);
-
-            baseAbility = inv.GetSelection(b);
-            // Replace the box's ability with this upgrade as a decorator
-            inv.ReplaceWithDecorator(baseAbility.GetLabel(), this);
-            // Set base ability that effect applies to
-            onActivate.SetBase(baseAbility);
+            // Defer to base
+            baseAbility?.Complete();
         }
 
-        public bool CanPickup(Inventory inventory)
+        public bool IsActive()
         {
-            // Can only pick up if an ability box can take it
-            return getApplicableBox(inventory) >= 0;
+            // Defer to base
+            if(baseAbility == null)
+            {
+                return false;
+            }
+            else
+            {
+                return baseAbility.IsActive();
+            }
+        }
+
+        public void Undo(Player player)
+        {
+            // Defer to base
+            baseAbility?.Undo(player);
         }
 
         private int getApplicableBox(Inventory inventory)

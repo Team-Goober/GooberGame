@@ -8,13 +8,15 @@ namespace Sprint.Interfaces.Powerups
 {
     internal interface IPowerup
     {
+        // Returns true if inventory is able to apply this item
+        public bool CanPickup(Inventory inventory);
 
         // Apply any changes that must occur when an item is picked up
         // Adds to inventory and potentially runs behavior
         public void Apply(Player player);
 
-        // Returns true if inventory is able to apply this item
-        public bool CanPickup(Inventory inventory);
+        // Removes from inventory and undoes any changes that were made to the player
+        public void Undo(Player player);
 
         // Label that identifies powerup type
         public string GetLabel();

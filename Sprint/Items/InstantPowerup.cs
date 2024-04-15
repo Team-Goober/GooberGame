@@ -31,6 +31,12 @@ namespace Sprint.Items
         }
 
 
+        public bool CanPickup(Inventory inventory)
+        {
+            // Can always pick up an instant effect
+            return true;
+        }
+
         public void Apply(Player player)
         {
             // Run behavior command
@@ -38,10 +44,9 @@ namespace Sprint.Items
             onApply?.Execute(player);
         }
 
-        public bool CanPickup(Inventory inventory)
+        public void Undo(Player player)
         {
-            // Can always pick up an instant effect
-            return true;
+            // Can't reverse changes, and not in inventory
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)

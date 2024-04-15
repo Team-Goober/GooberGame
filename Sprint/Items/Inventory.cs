@@ -71,7 +71,7 @@ internal class Inventory
         Debug.Assert(false);
     }
 
-    // Deletes all references to the powerup
+    // Deletes listing reference to the powerup
     public void DeletePowerup(IPowerup powerup)
     {
         string label = powerup.GetLabel();
@@ -80,28 +80,31 @@ internal class Inventory
         // Remove from full list
         allPowerups.Remove(label);
         ListingUpdateEvent?.Invoke(allPowerups);
+    }
 
-        if (powerup is IAbility)
+    // Deletes slot references to the powerup
+    public void DeleteFromSlots(IAbility ability)
+    {
+        string label = ability.GetLabel();
+
+        // Check ability array and delete if found
+        for (int i = 0; i < abilitySlots.GetLength(0); i++)
         {
-            // Check ability array and delete if found
-            for (int i = 0; i < abilitySlots.GetLength(0); i++)
+            for (int j = 0; j < abilitySlots.GetLength(1); j++)
             {
-                for (int j = 0; j < abilitySlots.GetLength(1); j++)
+                if (abilitySlots[i, j] != null && abilitySlots[i, j].GetLabel() == label)
                 {
-                    if (abilitySlots[i, j] != null && abilitySlots[i, j].GetLabel() == label)
-                    {
-                        abilitySlots[i, j] = null;
-                    }
+                    abilitySlots[i, j] = null;
                 }
             }
-            // Check bound boxes and delete if found
-            for (int i = 0; i < selectedBoxes.Length; i++)
+        }
+        // Check bound boxes and delete if found
+        for (int i = 0; i < selectedBoxes.Length; i++)
+        {
+            if (selectedBoxes[i] != null && selectedBoxes[i].GetLabel() == label)
             {
-                if (selectedBoxes[i] != null && selectedBoxes[i].GetLabel() == label)
-                {
-                    selectedBoxes[i] = null;
-                    SelectorChooseEvent?.Invoke(i, null);
-                }
+                selectedBoxes[i] = null;
+                SelectorChooseEvent?.Invoke(i, null);
             }
         }
     }
@@ -172,12 +175,6 @@ internal class Inventory
     {
         selectedBoxes[b] = abilitySlots[r, c];
         SelectorChooseEvent?.Invoke(b, abilitySlots[r, c]);
-    }
-
-    // Delete the ability at a slot
-    public void Drop(int r, int c)
-    {
-        DeletePowerup(abilitySlots[r, c]);
     }
 
     // Return the ability bound to box b

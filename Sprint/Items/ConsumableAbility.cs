@@ -49,6 +49,12 @@ namespace Sprint.Items
             return quantity;
         }
 
+        public bool CanPickup(Inventory inventory)
+        {
+            // Only pick up if player already has this ability assigned, or if they have space for it
+            return inventory.HasPowerup(label) || inventory.SlotsAvailable();
+        }
+
         public void Apply(Player player)
         {
             this.player = player;
@@ -69,7 +75,7 @@ namespace Sprint.Items
         public bool ReadyUp()
         {
             // Only add if there are items in the stack to use
-            if (quantity > 0)
+            if (quantity > 0 && !IsActive())
             {
                 // Consume one from stack
                 AddAmount(-1);
@@ -84,10 +90,26 @@ namespace Sprint.Items
             onActivate?.Execute(player);
         }
 
-        public bool CanPickup(Inventory inventory)
+        public void Complete()
         {
-            // Only pick up if player already has this ability assigned, or if they have space for it
-            return inventory.HasPowerup(label) || inventory.SlotsAvailable();
+            // Don't reverse the effect
+        }
+
+        public bool IsActive()
+        {
+            return false;
+        }
+
+        public void Undo(Player player)
+        {
+            // End execution if necessary
+            if (IsActive())
+                Complete();
+            this.player = player;
+            // Remove from assigned slot
+            player.GetInventory().DeleteFromSlots(this);
+            // Remove from list of items
+            player.GetInventory().DeletePowerup(this);
         }
 
         public string GetLabel()

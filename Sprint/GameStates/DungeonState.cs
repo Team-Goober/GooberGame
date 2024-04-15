@@ -141,6 +141,8 @@ namespace Sprint
             // Using item slots
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new UseWeaponCommand(player, 0));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseWeaponCommand(player, 1));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.Z), new ReleaseWeaponCommand(player, 0));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.X), new ReleaseWeaponCommand(player, 1));
 
             // Reset command
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));

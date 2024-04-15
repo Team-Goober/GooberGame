@@ -52,6 +52,11 @@ namespace Sprint.Items
         {
             return quantity;
         }
+        public bool CanPickup(Inventory inventory)
+        {
+            // Can always pick up a resource
+            return true;
+        }
 
         public void Apply(Player player)
         {
@@ -69,10 +74,13 @@ namespace Sprint.Items
             onApply?.Execute(player);
         }
 
-        public bool CanPickup(Inventory inventory)
+
+        public void Undo(Player player)
         {
-            // Can always pick up a resource
-            return true;
+            // Remove this powerup from inventory listing
+            player.GetInventory().DeletePowerup(this);
+            // Undo behavior
+            onApply?.Reverse(player);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)

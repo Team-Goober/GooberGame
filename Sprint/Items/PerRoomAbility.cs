@@ -36,20 +36,10 @@ namespace Sprint.Items
             this.description = description;
         }
 
-
-        public bool ReadyUp()
+        public bool CanPickup(Inventory inventory)
         {
-            Room newRoom = player.GetCurrentRoom();
-            bool same = newRoom == lastRoom;
-            lastRoom = newRoom;
-            // Only allow if this wasn't already used in the room
-            return !same;
-        }
-
-        public void Activate()
-        {
-            // Run behavior command
-            onActivate?.Execute(player);
+            // Only pickupable if not already in inventory and if there's space in the ability slots
+            return !inventory.HasPowerup(label) && inventory.SlotsAvailable();
         }
 
         public void Apply(Player player)
@@ -61,11 +51,43 @@ namespace Sprint.Items
             player.GetInventory().AddPowerup(this);
         }
 
-        public bool CanPickup(Inventory inventory)
+        public bool ReadyUp()
         {
-            // Only pickupable if not already in inventory and if there's space in the ability slots
-            return !inventory.HasPowerup(label) && inventory.SlotsAvailable();
+            Room newRoom = player.GetCurrentRoom();
+            bool same = newRoom == lastRoom;
+            lastRoom = newRoom;
+            // Only allow if this wasn't already used in the room
+            return !same && !IsActive();
         }
+
+        public void Activate()
+        {
+            // Run behavior command
+            onActivate?.Execute(player);
+        }
+
+        public void Complete()
+        {
+            // Don't reverse the effect
+        }
+
+        public bool IsActive()
+        {
+            return false;
+        }
+
+        public void Undo(Player player)
+        {
+            // End execution if necessary
+            if (IsActive())
+                Complete();
+            this.player = player;
+            // Remove from assigned slot
+            player.GetInventory().DeleteFromSlots(this);
+            // Remove from list of items
+            player.GetInventory().DeletePowerup(this);
+        }
+
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)
         {

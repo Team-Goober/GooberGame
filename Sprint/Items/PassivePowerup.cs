@@ -29,18 +29,26 @@ namespace Sprint.Items
             this.label = label;
             this.description = description;
         }
+        public bool CanPickup(Inventory inventory)
+        {
+            // Only pickup if player doesn't already have one
+            return !inventory.HasPowerup(label);
+        }
 
         public void Apply(Player player)
         {
             // Add this powerup to inventory listing
             player.GetInventory().AddPowerup(this);
+            // Run behavior
             onApply?.Execute(player);
         }
 
-        public bool CanPickup(Inventory inventory)
+        public void Undo(Player player)
         {
-            // Only pickup if player doesn't already have one
-            return !inventory.HasPowerup(label);
+            // Remove this powerup from inventory listing
+            player.GetInventory().DeletePowerup(this);
+            // Undo behavior
+            onApply?.Reverse(player);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)

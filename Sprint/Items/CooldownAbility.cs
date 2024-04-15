@@ -21,6 +21,7 @@ namespace Sprint.Items
         private Player player;
         private string description;
         private Timer cooldownTimer; // Times duration between allowed uses
+        private bool active;
 
         private TimeSpan lastUpdate;
 
@@ -32,11 +33,25 @@ namespace Sprint.Items
             this.description = description;
             cooldownTimer = new Timer(1.0f);
         }
+        public bool CanPickup(Inventory inventory)
+        {
+            // Only pickupable if not already in inventory and if there's space in the ability slots
+            return !inventory.HasPowerup(label) && inventory.SlotsAvailable();
+        }
+
+        public void Apply(Player player)
+        {
+            this.player = player;
+            // Assign ability to slot
+            player.GetInventory().AddToSlots(this);
+            // Add to full list of items
+            player.GetInventory().AddPowerup(this);
+        }
 
         public bool ReadyUp()
         {
             // Can only use when timer is over or it was just started this cycle
-            if (cooldownTimer.Ended || cooldownTimer.TimeLeft == cooldownTimer.Duration)
+            if ((cooldownTimer.Ended || cooldownTimer.TimeLeft == cooldownTimer.Duration) && !IsActive())
             {
                 // Start cooldown
                 cooldownTimer.Start();
@@ -49,21 +64,34 @@ namespace Sprint.Items
         {
             // Run behavior command
             onActivate?.Execute(player);
+            if(onActivate != null)
+            {
+                active = true;
+            }
         }
 
-        public void Apply(Player player)
+        public void Complete()
         {
+            // Reverse whatever was done by activate
+            onActivate?.Reverse(player);
+            active = false;
+        }
+
+        public bool IsActive()
+        {
+            return active;
+        }
+
+        public void Undo(Player player)
+        {
+            // End execution if necessary
+            if (IsActive())
+                Complete();
             this.player = player;
-            // Assign ability to slot
-            player.GetInventory().AddToSlots(this);
-            // Add to full list of items
-            player.GetInventory().AddPowerup(this);
-        }
-
-        public bool CanPickup(Inventory inventory)
-        {
-            // Only pickupable if not already in inventory and if there's space in the ability slots
-            return !inventory.HasPowerup(label) && inventory.SlotsAvailable();
+            // Remove from assigned slot
+            player.GetInventory().DeleteFromSlots(this);
+            // Remove from list of items
+            player.GetInventory().DeletePowerup(this);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)

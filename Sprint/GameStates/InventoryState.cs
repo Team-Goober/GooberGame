@@ -22,6 +22,7 @@ namespace Sprint.GameStates
         private IInputMap input;
         private SceneObjectManager hud;
         private SceneObjectManager inventoryUI;
+        private Player player;
         private Inventory playerInventory;
         private Point slot; // Indices of currently selected slot
         private HUDPowerupArray listing; // HUD array of all powerups in inventory (for hovering)
@@ -42,6 +43,7 @@ namespace Sprint.GameStates
         // Assign an inventory to modify
         public void AttachPlayer(Player player)
         {
+            this.player = player;
             playerInventory = player.GetInventory();
         }
 
@@ -189,10 +191,10 @@ namespace Sprint.GameStates
             playerInventory.Select(b, slot.Y, slot.X);
         }
 
-        // Delete ability in current slot
+        // Delete ability in current slot by making it undo its changes
         public void DropSlot()
         {
-            playerInventory.Drop(slot.Y, slot.X);
+            playerInventory.GetAbilities()[slot.Y, slot.X]?.Undo(player);
         }
 
     }

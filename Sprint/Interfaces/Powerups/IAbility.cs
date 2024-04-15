@@ -12,5 +12,11 @@ namespace Sprint.Interfaces.Powerups
         // Runs ability behavior
         public void Activate();
 
+        // Ends activation period of behavior
+        public void Complete();
+
+        // Return if item is currently in an active period
+        public bool IsActive();
+
     }
 }
