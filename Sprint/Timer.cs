@@ -39,6 +39,11 @@ namespace Sprint
             Duration = TimeSpan.FromSeconds(seconds);
         }
 
+        public void SetTimeLeft(double seconds)
+        {
+            TimeLeft = TimeSpan.FromSeconds(seconds);
+        }
+
         // Skip forward in countdown
         public void SubtractTime(double seconds)
         {

@@ -236,6 +236,13 @@ namespace Sprint.Items
             cooldownBase?.SetTimeLeft(duration);
         }
 
+        public float GetDuration()
+        {
+            // Defer to base if it has cooldown
+            ICooldownPowerup cooldownBase = baseAbility as ICooldownPowerup;
+            return (cooldownBase == null) ? 1 : cooldownBase.GetDuration();
+        }
+
         public float GetTimeLeft()
         {
             // Defer to base if it has cooldown

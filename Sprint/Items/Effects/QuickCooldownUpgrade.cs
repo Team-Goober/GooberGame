@@ -12,7 +12,7 @@ namespace Sprint.Items.Effects
         public void Execute(Player player)
         {
             // Instantly pass half of the cooldown duration
-            ((ICooldownPowerup)baseAbility).SetTimeLeft(((ICooldownPowerup)baseAbility).GetTimeLeft() / 2f);
+            ((ICooldownPowerup)baseAbility).SetTimeLeft(((ICooldownPowerup)baseAbility).GetDuration() / 2f);
             // Do base ability
             baseAbility.Activate();
         }

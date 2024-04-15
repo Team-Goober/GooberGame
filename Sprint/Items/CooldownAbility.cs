@@ -154,9 +154,12 @@ namespace Sprint.Items
 
         public void SetTimeLeft(double duration)
         {
-            cooldownTimer.SubtractTime(duration);
+            cooldownTimer.SetTimeLeft(duration);
         }
-
+        public float GetDuration()
+        {
+            return (float)cooldownTimer.Duration.TotalSeconds;
+        }
         public float GetTimeLeft()
         {
             return (float)cooldownTimer.TimeLeft.TotalSeconds;
