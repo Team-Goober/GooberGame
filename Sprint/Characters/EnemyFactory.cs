@@ -3,6 +3,7 @@ using Sprint.Sprite;
 using Sprint.Levels;
 using Sprint.Interfaces;
 using Sprint.Characters.NPCs;
+using System;
 
 namespace Sprint.Characters
 {
@@ -46,7 +47,7 @@ namespace Sprint.Characters
                     return new BluebubbleEnemy(enemySprite, damagedSprite, position, room, spriteLoader);
                 case "skeleton":
                     return new SkeletonEnemy(enemySprite, damagedSprite, position, room, spriteLoader, player);
-                case "dog":
+                case "dog":  
                     return new DogEnemy(enemySprite, damagedSprite, position, room, spriteLoader, player);
                 case "bat":
                     return new BatEnemy(enemySprite, damagedSprite, position, room, spriteLoader, player);
@@ -55,7 +56,7 @@ namespace Sprint.Characters
                 case "dragonmov":
                     return new DragonEnemy(enemySprite, damagedSprite, position, room, spriteLoader);
                 case "slime":
-                    return new SlimeEnemy(enemySprite, damagedSprite, position, room, spriteLoader);
+                    return new SlimeEnemy(enemySprite, damagedSprite, position, room, spriteLoader, player);
                 case "spike":
                     return new SpikeEnemy(enemySprite, damagedSprite, position, room, spriteLoader);
                 case "oldman":
