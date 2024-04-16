@@ -1,7 +1,7 @@
 
 using Sprint.Interfaces;
 using Microsoft.Xna.Framework;
-using Sprint.Commands.SecondaryItem;
+using Sprint.Functions.SecondaryItem;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
@@ -28,7 +28,7 @@ namespace Sprint.Characters
 
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
-            projectileCommand = new ShootBoomarangC(itemFactory);
+            projectileCommand = new ShootBoomerangC(itemFactory);
 
             moveVert = new MoveVert(physics);
 

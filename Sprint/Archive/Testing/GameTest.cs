@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sprint.Commands;
+using Sprint.Functions;
 using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Sprite;

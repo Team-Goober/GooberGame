@@ -1,12 +1,6 @@
-﻿
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
-using Sprint.Items;
 using Sprint.Levels;
-using System;
-using System.Diagnostics;
-using System.Linq.Expressions;
 
 namespace Sprint
 {
@@ -37,9 +31,17 @@ namespace Sprint
         }
 
         // Place the compass pointer at a room index
-        public void PlaceCompass()
+        public void PlaceCompass(bool doPlace)
         {
-            compassPos = dungeon.GetCompassPointer();
+            if (doPlace)
+            {
+                compassPos = dungeon.GetCompassPointer();
+            }
+            else
+            {
+                // Remove pointer if told to
+                compassPos = new Point(-1, -1);
+            }
         }
 
         // Move the player pointer to a room index and update room visibility
@@ -60,22 +62,31 @@ namespace Sprint
         }
 
         // Reveal all non-hidden information for the level
-        public void RevealAll()
+        public void RevealAll(bool doReveal)
         {
-            for (int i = 0; i<dungeon.RoomRows(); i++)
+            if (doReveal)
             {
-                for (int j = 0; j < dungeon.RoomColumns(); j++)
+                for (int i = 0; i < dungeon.RoomRows(); i++)
                 {
-                    // Only show existing and non-hidden rooms
-                    Room r = dungeon.GetRoomAt(new Point(j, i));
-                    if (r != null && !r.IsHidden())
+                    for (int j = 0; j < dungeon.RoomColumns(); j++)
                     {
-                        revealRoom(i, j);
+                        // Only show existing and non-hidden rooms
+                        Room r = dungeon.GetRoomAt(new Point(j, i));
+                        if (r != null && !r.IsHidden())
+                        {
+                            revealRoom(i, j);
+
+                        }
 
                     }
-
                 }
             }
+            else
+            {
+                // Remove map reveals if instructed to
+                revealedRooms = visitedRooms;
+            }
+            
         }
 
         // Reveals a room and its doors if currently not visible
@@ -87,14 +98,16 @@ namespace Sprint
 
             visitedRooms[r, c] = true;
 
-            IDoor[,,] doorReference = dungeon.GetDoors();
-
-            // Reveal all open doors
-            for (int i = 0; i < 4; i++)
+            // Reveal all open directional doors 
+            Room room = dungeon.GetRoomAt(new Point(c, r));
+            if(room.GetDoors().Count >= 4)
             {
-                if (doorReference[i, r, c] != null && doorReference[i, r, c].IsOpen())
+                for (int i = 0; i < 4; i++)
                 {
-                    doors[i, r, c] = true;
+                    if (room.GetDoors()[i].IsOpen())
+                    {
+                        doors[i, r, c] = true;
+                    }
                 }
             }
         }

@@ -2,12 +2,15 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Characters;
-using Sprint.Functions;
+using Sprint.Functions.SecondaryItem;
+using Sprint.Functions.States;
 using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 using Sprint.Items;
 using Sprint.Levels;
+using Sprint.Loader;
 using System.Collections.Generic;
 
 namespace Sprint.GameStates
@@ -19,11 +22,15 @@ namespace Sprint.GameStates
         private IInputMap input;
         private SceneObjectManager hud;
         private SceneObjectManager inventoryUI;
+        private Player player;
         private Inventory playerInventory;
-        private Point slot;
+        private Point slot; // Indices of currently selected slot
+        private HUDPowerupArray listing; // HUD array of all powerups in inventory (for hovering)
+        private HUDText itemDescription; // HUD element that shows item descriptions
 
-        private Vector2 hudPosition;
+        private Vector2 hudPosition; // Position of HUD on screen
 
+        // Event that occurs when selected slot changes
         public delegate void SelectorMoveDelegate(int row, int column);
         public event SelectorMoveDelegate SelectorMoveEvent;
 
@@ -36,6 +43,7 @@ namespace Sprint.GameStates
         // Assign an inventory to modify
         public void AttachPlayer(Player player)
         {
+            this.player = player;
             playerInventory = player.GetInventory();
         }
 
@@ -89,7 +97,21 @@ namespace Sprint.GameStates
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveSelectorCommand(this, new Point(-1, 0)));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveSelectorCommand(this, new Point(0, 1)));
             input.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveSelectorCommand(this, new Point(1, 0)));
-            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new SelectSlotCommand(this));
+            // Register commands for A and B slot selection
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new SelectSlotCommand(this, 0));
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new SelectSlotCommand(this, 1));
+            // Register command to delete selected item
+            input.RegisterMapping(new SingleKeyPressTrigger(Keys.C), new DropSlotCommand(this));
+            // Register commands for setting item description when hovered
+            IPowerup[,] listArray = listing.GetPowerups();
+            for (int i = 0; i< listArray.GetLength(0); i++)
+            {
+                for (int j = 0; j < listArray.GetLength(1); j++)
+                {
+                    input.RegisterMapping(new MouseHoverTrigger(listing.PositionAt(i, j), 32), new SetDescriptiveTextCommand(itemDescription, listing, i, j));
+                }
+            }
+
         }
 
         public void Reset()
@@ -114,11 +136,14 @@ namespace Sprint.GameStates
             input.Sleep();
         }
 
+        // Update variables once a HUD has been created
         public void SetHUD(HUDLoader hudLoader, Vector2 pos)
         {
             hudPosition = pos;
             hud = hudLoader.GetTopDisplay();
             inventoryUI = hudLoader.GetInventoryScreen();
+            listing = hudLoader.GetListing();
+            itemDescription = hudLoader.GetDescriptionText();
         }
 
         public SceneObjectManager GetScene()
@@ -151,10 +176,9 @@ namespace Sprint.GameStates
         // Try to move the selector in the direction given by p
         public void TryMoveSelector(Point p)
         {
-            ItemType[,] slotsArr = Inventory.Slots;
             Point newSlot = slot + p;
             // Check if new slot is in bounds
-            if (newSlot.X >= 0 && newSlot.X < slotsArr.GetLength(1) && newSlot.Y >= 0 && newSlot.Y < slotsArr.GetLength(0))
+            if (newSlot.X >= 0 && newSlot.X < CharacterConstants.INVENTORY_COLUMNS && newSlot.Y >= 0 && newSlot.Y < CharacterConstants.INVENTORY_ROWS)
             {
                 slot = newSlot;
                 SelectorMoveEvent?.Invoke(slot.Y, slot.X);
@@ -162,9 +186,15 @@ namespace Sprint.GameStates
         }
 
         // Choose on the current slot
-        public void SelectSlot()
+        public void SelectSlot(int b)
         {
-            playerInventory.Select(slot.Y, slot.X);
+            playerInventory.Select(b, slot.Y, slot.X);
+        }
+
+        // Delete ability in current slot by making it undo its changes
+        public void DropSlot()
+        {
+            playerInventory.GetAbilities()[slot.Y, slot.X]?.Undo(player);
         }
 
     }
