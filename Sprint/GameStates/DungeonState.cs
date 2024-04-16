@@ -149,7 +149,12 @@ namespace Sprint
             inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.W, Keys.A }), new MoveDiagonalUpLeft(player));
             inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.S, Keys.D }), new MoveDiagonalDownRight(player));
             inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.S, Keys.A }), new MoveDiagonalDownLeft(player));
-            
+
+            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.Up, Keys.Right }), new MoveDiagonalUpRight(player));
+            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.Up, Keys.Left }), new MoveDiagonalUpLeft(player));
+            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.Down, Keys.Right }), new MoveDiagonalDownRight(player));
+            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.Down, Keys.Left }), new MoveDiagonalDownLeft(player));
+
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveRight(player));

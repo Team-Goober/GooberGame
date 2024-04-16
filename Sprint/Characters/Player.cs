@@ -20,75 +20,112 @@ namespace Sprint.Characters
     internal class Player : Character, IMovingCollidable
     {
         public Inventory inventory;
+
         private SfxFactory sfxFactory;
+
         private ISprite sprite;
         private SpriteLoader spriteLoader;
         private ISprite damagedSprite;
 
         public event EventHandler OnPlayerDied;
+
+
         public delegate void HealthUpdateDelegate(double prev, double next);
         public event HealthUpdateDelegate OnPlayerHealthChange;
         public delegate void MaxHealthUpdateDelegate(int prev, int next, double health);
         public event MaxHealthUpdateDelegate OnPlayerMaxHealthChange;
 
         private Physics physics;
+
+        // Player variables
         private int sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
         private int maxHealth = CharacterConstants.STARTING_HEALTH;
         private double health = CharacterConstants.STARTING_HEALTH;
+
         private ProjectileSystem secondaryItems;
         private SwordCollision swordCollision;
         private const int swordWidth = CharacterConstants.SWORD_WIDTH, swordLength = CharacterConstants.SWORD_LENGTH;
 
         public Vector2 Facing { get; private set; }
+
         public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
                 (int)(physics.Position.Y - sideLength / 2.0),
                 sideLength,
                 sideLength);
+
         public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
+
         private float speed = CharacterConstants.PLAYER_SPEED;
+
         private Timer attackTimer;
         private Timer castTimer;
         private Timer damageTimer;
         private Room room;
         private OpenDeath gameOver;
+
+        // Animation cycle for player
         private enum AnimationCycle
         {
             Idle,
             Walk
         }
         private AnimationCycle baseAnim;
+
+        // Acceleration vector for player movement
         private Vector2 acceleration = Vector2.Zero;
 
+        // Rate of acceleration
         private float accelerationRate = 500f;
 
+        // Constructor for Player class
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
+            // Initialize SFX player
             sfxFactory = SfxFactory.GetInstance();
+
+            // Initialize physics component
             physics = new Physics(Vector2.Zero);
             this.spriteLoader = spriteLoader;
+
+            // Initialize player inventory
             inventory = new Inventory();
+
+            // Load player sprite and damaged sprite
             sprite = spriteLoader.BuildSprite("playerAnims", "player");
             damagedSprite = spriteLoader.BuildSprite("playerDamagedAnims", "player");
+
+            // Initialize timers
             attackTimer = new Timer(0.5);
             castTimer = new Timer(0.5);
             damageTimer = new Timer(0.5);
+
+            // Initialize room and facing direction
             room = null;
             Facing = Directions.STILL;
+
+            // Initialize animation cycle
             baseAnim = AnimationCycle.Idle;
+
+            // Initialize projectile system
             secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
+
+            // Initialize game over functionality
             this.gameOver = new OpenDeath(dungeon);
         }
 
+        // Method to get projectile factory
         public SimpleProjectileFactory GetProjectileFactory()
         {
             return secondaryItems.ProjectileFactory;
         }
 
+        // Method to get player inventory
         public Inventory GetInventory()
         {
             return inventory;
         }
 
+        // Method to set current room for player
         public void SetRoom(Room room)
         {
             if (this.room != null)
@@ -102,6 +139,7 @@ namespace Sprint.Characters
             StopMoving();
         }
 
+        // Method for player attack
         public void Attack()
         {
             Rectangle swordRec = new Rectangle();
@@ -145,6 +183,7 @@ namespace Sprint.Characters
             room.GetScene().Add(swordCollision);
         }
 
+        // Method for player casting
         public void Cast()
         {
             if (!castTimer.Ended)
@@ -178,20 +217,21 @@ namespace Sprint.Characters
             }
         }
 
+        // Method for player win pose
         public void WinPose()
         {
             sprite.SetAnimation("holdItem");
         }
 
+        // Method to stop player movement
         public void StopMoving()
         {
             acceleration = Vector2.Zero;
             physics.SetVelocity(Vector2.Zero);
             returnToBaseAnim();
-          
         }
 
-
+        // Method to return to base animation cycle
         private void returnToBaseAnim()
         {
             if (baseAnim == AnimationCycle.Idle)
@@ -242,6 +282,7 @@ namespace Sprint.Characters
             }
         }
 
+        // Method to move player left
         public void MoveLeft()
         {
             acceleration.X = -accelerationRate;
@@ -250,51 +291,49 @@ namespace Sprint.Characters
             baseAnim = AnimationCycle.Walk;
         }
 
+        // Method to move player right
         public void MoveRight()
         {
             acceleration.X = accelerationRate;
             sprite.SetAnimation("right");
             Facing = Directions.RIGHT;
             baseAnim = AnimationCycle.Walk;
-
         }
 
+        // Method to move player up
         public void MoveUp()
         {
             acceleration.Y = -accelerationRate;
             sprite.SetAnimation("up");
             Facing = Directions.UP;
             baseAnim = AnimationCycle.Walk;
-
         }
 
+        // Method to move player down
         public void MoveDown()
         {
             acceleration.Y = accelerationRate;
             sprite.SetAnimation("down");
             Facing = Directions.DOWN;
             baseAnim = AnimationCycle.Walk;
-
         }
 
+        // Method to move player diagonally
         public void MoveDiagonal(Vector2 direction)
         {
             float diagonalSpeed = CharacterConstants.PLAYER_SPEED / (float)(Math.Sqrt(2) * 64); // Diagonal movement speed
             Vector2 movementVector = direction;
             movementVector.Normalize();
-            acceleration = movementVector * accelerationRate;           
+            acceleration = movementVector * accelerationRate;
         }
 
-
-
-
-
-
+        // Method to get physics component of the player
         public Physics GetPhysic()
         {
             return physics;
         }
 
+        // Method to handle player taking damage
         public override void TakeDamage(double dmg)
         {
             if (!damageTimer.Ended)
@@ -320,6 +359,7 @@ namespace Sprint.Characters
             }
         }
 
+        // Method to update player state
         public override void Update(GameTime gameTime)
         {
             // Update player's velocity based on acceleration
@@ -348,28 +388,23 @@ namespace Sprint.Characters
                 damagedSprite.SetAnimation("down");
             }
 
-
-
             // Determine the direction of movement to set the correct walking animation
             if (physics.Velocity.X > 0)
-            {              
+            {
                 Facing = Directions.RIGHT;
             }
             else if (physics.Velocity.X < 0)
             {
-               
                 Facing = Directions.LEFT;
             }
             else if (physics.Velocity.Y > 0)
             {
-               
                 Facing = Directions.DOWN;
             }
             else if (physics.Velocity.Y < 0)
-            {              
+            {
                 Facing = Directions.UP;
             }
-           
 
             // Update timers and other components
             attackTimer.Update(gameTime);
@@ -399,23 +434,30 @@ namespace Sprint.Characters
             sprite.Update(gameTime);
         }
 
-
-
+        // Method to draw player sprite
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, physics.Position, gameTime);
         }
 
+        // Method to move player by a set distance
         public void Move(Vector2 distance)
         {
             physics.SetPosition(physics.Position + distance);
         }
 
+        // Moves player to set position
+        // Should be in Characters?
         public void MoveTo(Vector2 pos)
         {
             physics.SetPosition(pos);
         }
 
+
+        /// <summary>
+        /// Pickup Item off the ground
+        /// </summary>
+        /// <param name="item"> ItemType to pickup</param>
         public void PickupItem(Item item)
         {
             ItemType itemType = item.GetItemType();
@@ -427,6 +469,10 @@ namespace Sprint.Characters
             }
         }
 
+        /// <summary>
+        /// Subtract item from inventory
+        /// </summary>
+        /// <param name="item">ItemType to decrement</param>
         public void UseItem(ItemType item)
         {
             inventory.ConsumeItem(item);
