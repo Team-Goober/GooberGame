@@ -188,8 +188,7 @@ namespace Sprint.Characters
             acceleration = Vector2.Zero;
             physics.SetVelocity(Vector2.Zero);
             returnToBaseAnim();
-            // Reset Facing direction to STILL
-            Facing = Directions.STILL;
+          
         }
 
 
@@ -345,8 +344,8 @@ namespace Sprint.Characters
             // Check if the player is not moving to return to the base animation
             if (physics.Velocity == Vector2.Zero)
             {
-                baseAnim = AnimationCycle.Idle;
-                returnToBaseAnim();
+                sprite.SetAnimation("down");
+                damagedSprite.SetAnimation("down");
             }
 
 
