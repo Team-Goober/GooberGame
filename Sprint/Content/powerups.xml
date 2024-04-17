@@ -70,6 +70,20 @@
       </Value>
     </Item>
     <Item>
+      <Key>knife</Key>
+      <Value Type="XMLData:StackedPowerupData">
+        <Label>knife</Label>
+        <Description>KNIFE|floating sword|hits enemies</Description>
+        <Sprite>knife</Sprite>
+        <Effect Type="Sprint.Items.Effects.SwordCompanionEffect">
+          <spriteName>knife</spriteName>
+          <spriteFile>itemAnims</spriteFile>
+        </Effect>
+        <Type>Sprint.Items.ResourcePowerup</Type>
+        <Quantity>1</Quantity>
+      </Value>
+    </Item>
+    <Item>
       <Key>rupee</Key>
       <Value Type="XMLData:StackedPowerupData">
         <Label>rupee</Label>

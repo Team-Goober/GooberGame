@@ -1080,22 +1080,22 @@
               <Price>0</Price>
             </Item>
             <Item>
-              <Type>fairy</Type>
+              <Type>knife</Type>
               <TilePos>5 4</TilePos>
               <Price>0</Price>
             </Item>
             <Item>
-              <Type>fairy</Type>
+              <Type>knife</Type>
               <TilePos>6 4</TilePos>
               <Price>0</Price>
             </Item>
             <Item>
-              <Type>fairy</Type>
+              <Type>knife</Type>
               <TilePos>5 3</TilePos>
               <Price>0</Price>
             </Item>
             <Item>
-              <Type>fairy</Type>
+              <Type>knife</Type>
               <TilePos>6 3</TilePos>
               <Price>0</Price>
             </Item>
@@ -1349,6 +1349,11 @@
             <Item>
               <Type>rupee</Type>
               <TilePos>3 6</TilePos>
+              <Price>0</Price>
+            </Item>
+            <Item>
+              <Type>knife</Type>
+              <TilePos>4 6</TilePos>
               <Price>0</Price>
             </Item>
             <Item>

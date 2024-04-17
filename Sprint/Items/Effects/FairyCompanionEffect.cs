@@ -30,7 +30,7 @@ namespace Sprint.Items.Effects
             }
             // Add new fairy to room
             ISprite sprite = player.GetSpriteLoader().BuildSprite(spriteFile, spriteName);
-            Companion companion = new Companion(sprite, player);
+            Companion companion = new Companion(sprite, player, companions.Count % 2 == 0, companions.Count / 2 % 2 == 0);
             companion.SetDisable(false);
             companions.Push(companion);
         }
@@ -65,7 +65,7 @@ namespace Sprint.Items.Effects
             }
             // Disconnect signal
             player.OnPlayerHealthChange -= onPlayerHealthChanged;
-            player = null;
+            this.player = null;
         }
 
         public IEffect Clone()

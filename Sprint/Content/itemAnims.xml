@@ -383,6 +383,24 @@
       </Value>
     </Item>
 
+    <Item>
+      <Key>knife</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>knife</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>80 80 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>knife</InitialAnimation>
+      </Value>
+    </Item>
+
 		<Item>
 			<Key>bracelet</Key>
 			<Value>
