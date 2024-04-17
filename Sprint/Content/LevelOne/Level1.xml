@@ -1079,6 +1079,26 @@
               <TilePos>5.5 4</TilePos>
               <Price>0</Price>
             </Item>
+            <Item>
+              <Type>fairy</Type>
+              <TilePos>5 4</TilePos>
+              <Price>0</Price>
+            </Item>
+            <Item>
+              <Type>fairy</Type>
+              <TilePos>6 4</TilePos>
+              <Price>0</Price>
+            </Item>
+            <Item>
+              <Type>fairy</Type>
+              <TilePos>5 3</TilePos>
+              <Price>0</Price>
+            </Item>
+            <Item>
+              <Type>fairy</Type>
+              <TilePos>6 3</TilePos>
+              <Price>0</Price>
+            </Item>
           </Items>
           <Enemies/>
           <TextBoxes />

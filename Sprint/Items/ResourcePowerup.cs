@@ -61,17 +61,26 @@ namespace Sprint.Items
         public void Apply(Player player)
         {
             Inventory inv = player.GetInventory();
-            if (inv.HasPowerup(label))
+            // Get the version of this resource in the inventory
+            IStackedPowerup ownedVersion = inv.GetPowerup(label) as IStackedPowerup;
+            if(ownedVersion == this)
+            {
+                // This is the version in the inventory; run apply without re-adding
+                onApply?.Execute(player);
+            }
+            else if (ownedVersion != null)
             {
                 // Add this stack to existing one if player already has this type
-                ((IStackedPowerup)inv.GetPowerup(label)).AddAmount(quantity);
+                ownedVersion.AddAmount(quantity);
+                // Make it run its effect
+                ownedVersion.Apply(player);
             }   
             else
             {
                 // If player doesn't have this type, add it to their inventory
                 inv.AddPowerup(this);
+                onApply?.Execute(player);
             }
-            onApply?.Execute(player);
         }
 
 

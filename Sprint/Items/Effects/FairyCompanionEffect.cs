@@ -3,6 +3,9 @@ using Sprint.Characters;
 using Sprint.Characters.Companions;
 using Sprint.Interfaces;
 using Sprint.Interfaces.Powerups;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Markup;
 
 namespace Sprint.Items.Effects
@@ -13,45 +16,56 @@ namespace Sprint.Items.Effects
         public string spriteName;
         public string spriteFile;
 
-        private Companion companion;
+        private Stack<Companion> companions = new(); // All active fairies
         private Player player;
 
         public void Execute(Player player)
         {
             // Create new companion on first execution
-            if(companion == null)
+            if(this.player == null)
             {
                 this.player = player;
-                ISprite sprite = player.GetSpriteLoader().BuildSprite(spriteFile, spriteName);
-                companion = new Companion(sprite, player);
                 // Connect to player health updates to save player if health is zero
                 player.OnPlayerHealthChange += onPlayerHealthChanged;
             }
-            // Add to room
+            // Add new fairy to room
+            ISprite sprite = player.GetSpriteLoader().BuildSprite(spriteFile, spriteName);
+            Companion companion = new Companion(sprite, player);
             companion.SetDisable(false);
+            companions.Push(companion);
         }
 
         private void onPlayerHealthChanged(double prevHp, double nextHp)
         {
             // Check if player about to die
-            if(nextHp <= 0)
+            if(nextHp <= 0.0)
             {
-                // Give player health back
-                player.Heal(0.5f);
-                // Remove fairy
-                player.OnPlayerHealthChange -= onPlayerHealthChanged;
-                // Roundabout way of removing the item from inventory and disabling companion
-                player.GetInventory().GetPowerup("fairy").Undo(player);
-                player = null;
-                companion = null;
+                // Try to decrement number of fairies in inventory
+                bool usedFairy = player.GetInventory().TryConsumeStack("fairy");
+                if (usedFairy)
+                {
+                    // Remove a fairy from the stack
+                    Companion fairy = companions.Pop();
+                    // Remove fairy from the room
+                    fairy.SetDisable(true);
+
+                    // Give player health back
+                    player.Heal(0.5f);
+                }
             }
         }
 
 
         public void Reverse(Player player)
         {
-            // Disable it
-            companion.SetDisable(true);
+            // Disable all
+            while(companions.Count > 0)
+            {
+                companions.Pop().SetDisable(true);
+            }
+            // Disconnect signal
+            player.OnPlayerHealthChange -= onPlayerHealthChanged;
+            player = null;
         }
 
         public IEffect Clone()

@@ -20,7 +20,7 @@ namespace Sprint.Characters.Companions
             this.sprite = sprite;
             this.player = player;
             Random random = new Random();
-            offset = new Vector2((float)(200 * (random.NextDouble() - 0.5)), (float)(200 * (random.NextDouble() - 0.5)));
+            offset = new Vector2((float)(300 * (random.NextDouble() - 0.5)), (float)(300 * (random.NextDouble() - 0.5)));
         }
 
         // Sets whether this object should be in a room

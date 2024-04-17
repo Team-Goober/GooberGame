@@ -57,15 +57,16 @@
     </Item>
     <Item>
       <Key>fairy</Key>
-      <Value>
+      <Value Type="XMLData:StackedPowerupData">
         <Label>fairy</Label>
-        <Description>FAIRY|companion for|player</Description>
+        <Description>FAIRY|save player|from death</Description>
         <Sprite>fairy</Sprite>
         <Effect Type="Sprint.Items.Effects.FairyCompanionEffect">
           <spriteName>fairy</spriteName>
           <spriteFile>itemAnims</spriteFile>
         </Effect>
-        <Type>Sprint.Items.PassivePowerup</Type>
+        <Type>Sprint.Items.ResourcePowerup</Type>
+        <Quantity>1</Quantity>
       </Value>
     </Item>
     <Item>
