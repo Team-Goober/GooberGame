@@ -8,6 +8,7 @@ using Sprint.Music.Sfx;
 using Sprint.Commands.SecondaryItem;
 
 
+
 namespace Sprint.Characters
 {
     internal class DragonEnemy : Enemy
@@ -21,8 +22,9 @@ namespace Sprint.Characters
         private SceneObjectManager objectManager;
         private MoveVert moveVert;
         private Player player;
+        private MoveRandom moveRandom;
 
-        public DragonEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+        public DragonEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader, Player player)
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
@@ -39,7 +41,7 @@ namespace Sprint.Characters
 
             projectileCommand = new ShootFireBallC(itemFactory);
 
-            moveVert = new MoveVert(physics, player);
+            moveRandom = new MoveRandom(physics, player);
 
 
         }
@@ -69,8 +71,9 @@ namespace Sprint.Characters
             base.Update(gameTime);
 
 
-            moveVert.MoveAI(gameTime);
-            
+            // Move randomly within a specified area
+            moveRandom.MoveAI(gameTime);
+
             if (timeAttack.JustEnded)
             {
                 itemFactory.SetStartPosition(physics.Position);
@@ -92,10 +95,10 @@ namespace Sprint.Characters
         {
 
             string newAnim = "";
-            if (Math.Abs(moveVert.moveDirection.X) > Math.Abs(moveVert.moveDirection.Y))
+            if (Math.Abs(moveRandom.moveDirection.X) > Math.Abs(moveRandom.moveDirection.Y))
             {
 
-                if (moveDirection.X > 0)
+                if (moveRandom.moveDirection.X > 0)
                     newAnim = "rightFacing";
                 else
                     newAnim = "leftFacing";
@@ -104,7 +107,7 @@ namespace Sprint.Characters
             else
             {
 
-                if (moveVert.moveDirection.Y > 0)
+                if (moveRandom.moveDirection.Y > 0)
                     newAnim = "upFacing";
                 else
                     newAnim = "downFacing";

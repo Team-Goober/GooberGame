@@ -54,7 +54,7 @@ namespace Sprint.Characters
                 case "hand":
                     return new HandEnemy(enemySprite, damagedSprite, position, room, spriteLoader, player);
                 case "dragonmov":
-                    return new DragonEnemy(enemySprite, damagedSprite, position, room, spriteLoader);
+                    return new DragonEnemy(enemySprite, damagedSprite, position, room, spriteLoader, player);
                 case "slime":
                     return new SlimeEnemy(enemySprite, damagedSprite, position, room, spriteLoader, player);
                 case "spike":

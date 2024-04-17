@@ -15,7 +15,7 @@ namespace Sprint.Characters
     {
         private float elapsedTime;
         private float elapsedTimeCount;
-        private Vector2 moveDirection; // Movement direction for the random pattern
+        public Vector2 moveDirection; // Movement direction for the random pattern
         public Vector2 directionFace;
         private CalculateDistance calcDistance;
         private Player player;

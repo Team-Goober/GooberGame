@@ -12,7 +12,7 @@ using Sprint.Door;
 
 namespace Sprint.Characters
 {
-    internal class ProjFire 
+    internal class ProjBoomarang 
     {
         private SimpleProjectileFactory itemFactory;
         private ICommand projectileCommand;
@@ -26,7 +26,7 @@ namespace Sprint.Characters
         Physics physics;
 
 
-        public ProjFire(SpriteLoader spriteLoader, Room room, Vector2 moveDirection)
+        public ProjBoomarang(SpriteLoader spriteLoader, Room room, Vector2 moveDirection)
         {
 
             timeAttack = new Timer(2);
