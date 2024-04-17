@@ -2,12 +2,15 @@
 
 namespace Sprint.Interfaces.Powerups
 {
-    internal interface IEffect
+    public interface IEffect
     {
         // Executes powerup behavior on given player
-        void Execute(Player player);
+        internal void Execute(Player player);
 
         // Undoes whatever change was done in execute
-        void Reverse(Player player);
+        internal void Reverse(Player player);
+
+        // Create a copy of this effect
+        internal IEffect Clone();
     }
 }

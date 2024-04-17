@@ -10,4 +10,10 @@
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Sprint">
+      <HintPath>..\Sprint\obj\Debug\net6.0\Sprint.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

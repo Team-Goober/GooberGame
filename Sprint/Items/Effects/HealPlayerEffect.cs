@@ -7,12 +7,7 @@ namespace Sprint.Items.Effects
     internal class HealPlayerEffect : IEffect
     {
 
-        int amount;
-
-        public HealPlayerEffect(int amount)
-        {
-            this.amount = amount;
-        }
+        public int amount;
        
         public void Execute(Player player)
         {
@@ -23,6 +18,11 @@ namespace Sprint.Items.Effects
         public void Reverse(Player player)
         {
             // Do nothing
+        }
+
+        public IEffect Clone()
+        {
+            return new HealPlayerEffect() { amount = amount };
         }
     }
 }

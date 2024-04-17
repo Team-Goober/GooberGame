@@ -8,6 +8,8 @@ using Sprint.Functions;
 using Sprint.Sprite;
 using Sprint.GameStates;
 using Sprint.Music.Sfx;
+using XMLData;
+using Sprint.Items;
 
 
 namespace Sprint
@@ -36,6 +38,9 @@ namespace Sprint
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+
+            PowerupSaver.WriteFile();
         }
 
         public static ContentManager content;

@@ -17,5 +17,10 @@ namespace Sprint.Items.Effects
             // Disable player shield
             player.SetShielded(false);
         }
+
+        public IEffect Clone()
+        {
+            return new ShieldEffect();
+        }
     }
 }

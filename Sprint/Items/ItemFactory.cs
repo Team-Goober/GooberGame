@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection.Metadata;
 using Microsoft.Xna.Framework;
 using Sprint.Characters;
 using Sprint.Interfaces.Powerups;
 using Sprint.Items.Effects;
 using Sprint.Sprite;
+using XMLData;
 
 namespace Sprint.Items
 {
@@ -30,13 +33,18 @@ namespace Sprint.Items
             switch (name)
             {
                 case "heart":
-                    it = (new Item(position,
+                    /*it = (new Item(position,
                         new InstantPowerup(
                             spriteLoader.BuildSprite(ANIM_FILE, "heart"),
                             new HealPlayerEffect(1),
                             "heart",
                             "HEART|heals one heart"), 
                         0));
+                    break;*/
+                    PowerupData pd = Goober.content.Load<PowerupData>("powerups");
+                    IPowerup pup = new InstantPowerup(spriteLoader.BuildSprite(ANIM_FILE, pd.Sprite),
+                        pd.Effect.Clone(), pd.Label, pd.Description);
+                    it = new Item(position, pup, 0);
                     break;
                 case "heartPiece":
                     it = (new Item(position,
@@ -69,7 +77,7 @@ namespace Sprint.Items
                     it = (new Item(position,
                         new PassivePowerup(
                             spriteLoader.BuildSprite(ANIM_FILE, "redRing"),
-                            new ChangeSpeedEffect(CharacterConstants.PLAYER_SPEED),
+                            new ChangeSpeedEffect() { speedChange = CharacterConstants.PLAYER_SPEED },
                             "redRing",
                             "RING|doubles run speed"),
                         0));
@@ -112,7 +120,7 @@ namespace Sprint.Items
                 case "sword":
                     ICooldownPowerup sword = new CooldownAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "sword"),
-                            new MeleeEffect(0.5f),
+                            new MeleeEffect() { damage = 0.5f },
                             "sword",
                             "SWORD|melee attack");
                     sword.SetDuration(0.75);
@@ -121,7 +129,7 @@ namespace Sprint.Items
                 case "masterSword":
                     ICooldownPowerup masterSword = new CooldownAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "masterSword"),
-                            new MeleeEffect(3),
+                            new MeleeEffect() { damage = 3 },
                             "masterSword",
                             "MASTER SWORD|strong melee attack");
                     masterSword.SetDuration(0.5);
@@ -130,7 +138,7 @@ namespace Sprint.Items
                 case "bow":
                     ICooldownPowerup bow = new CooldownAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "bow"),
-                            new SpawnProjectileEffect("arrow"),
+                            new SpawnProjectileEffect() { projName = "arrow" },
                             "bow",
                             "BOW|shoots arrows");
                     bow.SetDuration(1);
@@ -139,7 +147,7 @@ namespace Sprint.Items
                 case "boomerang":
                     ICooldownPowerup boomerang = new CooldownAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "boomerang"),
-                            new SpawnProjectileEffect("boomerang"),
+                            new SpawnProjectileEffect() { projName = "boomerang" },
                             "boomerang",
                             "BOOMERANG|throw boomerang");
                     boomerang.SetDuration(1);
@@ -148,7 +156,7 @@ namespace Sprint.Items
                 case "bomb":
                     IStackedPowerup bomb = (new ConsumableAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "bomb"),
-                            new SpawnProjectileEffect("bomb"),
+                            new SpawnProjectileEffect() { projName = "bomb" },
                             "bomb",
                             "BOMB|drops an explosive"));
                     bomb.AddAmount(3);
@@ -157,7 +165,7 @@ namespace Sprint.Items
                 case "meat":
                     IStackedPowerup meat = new ConsumableAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "meat"),
-                            new HealPlayerEffect(2),
+                            new HealPlayerEffect() { amount = 2 },
                             "meat",
                             "MEAT|heals 2 hearts");
                     meat.AddAmount(2);
@@ -166,7 +174,7 @@ namespace Sprint.Items
                 case "redCandle":
                     IAbility candle = (new PerRoomAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "redCandle"),
-                            new SpawnProjectileEffect("fireBall"),
+                            new SpawnProjectileEffect() { projName = "fireBall" },
                             "candle",
                             "CANDLE|make fire|once per room"));
                     it = (new Item(position, candle, 5));
@@ -210,7 +218,7 @@ namespace Sprint.Items
                 case "blueArrow":
                     IUpgradePowerup blueArrow = new UpgradeAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "blueArrow"),
-                            new UpgradeProjectileUpgrade("arrow"),
+                            new UpgradeProjectileUpgrade() { projectile = "arrow" },
                             "blueArrow",
                             "- silver tip");
                     blueArrow.SetUpgradeOptions(new() { "bow" });
@@ -219,7 +227,7 @@ namespace Sprint.Items
                 case "blueBoomerang":
                     IUpgradePowerup blueBoomerang = new UpgradeAbility(
                             spriteLoader.BuildSprite(ANIM_FILE, "blueBoomerang"),
-                            new UpgradeProjectileUpgrade("boomerang"),
+                            new UpgradeProjectileUpgrade() { projectile = "arrow" },
                             "blueBoomerang",
                             "- silver tip");
                     blueBoomerang.SetUpgradeOptions(new() { "boomerang" });

@@ -8,13 +8,8 @@ namespace Sprint.Items.Effects
     {
 
         IAbility baseAbility;
-        private string projectile;
+        public string projectile;
         private bool prev; // Last level of upgrade
-
-        public UpgradeProjectileUpgrade(string proj)
-        {
-            projectile = proj;
-        }
 
         public void Execute(Player player)
         {
@@ -38,6 +33,11 @@ namespace Sprint.Items.Effects
             // Reverse upgrade level if interrupted
             SimpleProjectileFactory projs = player.GetProjectileFactory();
             projs.SetUpgraded(projectile, prev);
+        }
+
+        public IEffect Clone()
+        {
+            return new UpgradeProjectileUpgrade() { projectile = projectile };
         }
     }
 }

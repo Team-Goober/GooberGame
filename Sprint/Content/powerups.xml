@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:XMLData="XMLData" xmlns:Effects="Sprint.Items.Effects">
+  <Asset Type="XMLData:PowerupData">
+    <Label>heart</Label>
+    <Description>HEART|heals one heart</Description>
+    <Sprite>heart</Sprite>
+    <Effect Type="Effects:HealPlayerEffect">
+      <amount>1</amount>
+    </Effect>
+  </Asset>
+</XnaContent>

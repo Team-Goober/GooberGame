@@ -16,5 +16,11 @@ namespace Sprint.Items.Effects
         {
             // Do nothing
         }
+
+        public IEffect Clone()
+        {
+            return new AddHeartEffect();
+        }
+            
     }
 }

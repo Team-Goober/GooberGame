@@ -16,5 +16,10 @@ namespace Sprint.Items.Effects
             // Tell player to tell dungeon to unreveal the whole map
             player.GetMap().RevealAll(false);
         }
+
+        public IEffect Clone()
+        {
+            return new MapEffect();
+        }
     }
 }
