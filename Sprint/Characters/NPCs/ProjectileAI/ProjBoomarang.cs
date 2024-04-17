@@ -29,7 +29,7 @@ namespace Sprint.Characters
         public ProjBoomarang(SpriteLoader spriteLoader, Room room, Vector2 moveDirection)
         {
 
-            timeAttack = new Timer(2);
+            timeAttack = new Timer(3);
             timeAttack.Start();
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
