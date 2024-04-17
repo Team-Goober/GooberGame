@@ -1,8 +1,4 @@
-﻿using Sprint;
-using Sprint.Interfaces.Powerups;
-using System.Reflection;
-
-namespace XMLData
+﻿namespace XMLData
 {
     public class PowerupData
     {
@@ -10,7 +6,7 @@ namespace XMLData
         public string Label;
         public string Description;
         public string Sprite;
-        public IEffect Effect;
+        public object Effect;
         public string Type;
     }
 

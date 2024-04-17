@@ -29,7 +29,7 @@ namespace Sprint.Items
 
         public void LoadPowerupData()
         {
-             catalog = Goober.content.Load<Dictionary<string, PowerupData>>(POWERUP_FILE);
+            catalog = Goober.content.Load<Dictionary<string, PowerupData>>(POWERUP_FILE);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Sprint.Items
         /// <param name="name">Name of powerup for item to make</param>
         /// <param name="position">World position to spawn at</param>
         /// <param name="price">Cost of item when picked up</param>
-        /// <returns></returns>
+        /// <returns>Newly created Item</returns>
         public Item MakeItem(string name, Vector2 position, int price)
         {
             // Temporarily handle unimplemented items
@@ -53,7 +53,7 @@ namespace Sprint.Items
             ConstructorInfo constructor = Type.GetType(pd.Type).GetConstructor(args);
             // Create powerup using sprite, cloned effect, and strings
             IPowerup pup = constructor?.Invoke(new object[] { spriteLoader.BuildSprite(ANIM_FILE, pd.Sprite),
-                        pd.Effect?.Clone(), pd.Label, pd.Description}) as IPowerup;
+                        ((IEffect)pd.Effect)?.Clone(), pd.Label, pd.Description}) as IPowerup;
 
             // Add quantity if stacked type
             if(pd is StackedPowerupData)

@@ -11,6 +11,7 @@
 #-------------------------------- References --------------------------------#
 
 /reference:..\..\XMLData\bin\Debug\net6.0\XMLData.dll
+/reference:..\obj\Debug\net6.0\Sprint.dll
 
 #---------------------------------- Content ---------------------------------#
 
