@@ -56,6 +56,7 @@ namespace Sprint.Loader
         public void LoadLevelXML(string path)
         {
             LevelData data = content.Load<LevelData>(path);
+            itemFactory.LoadPowerupData();
 
             dungeon.SetArenaPosition(data.ArenaOffset);
 
@@ -251,7 +252,7 @@ namespace Sprint.Loader
                 // Give item drop
                 if(spawn.ItemDrop != null)
                 {
-                    Item it = itemFactory.MakeItem(spawn.ItemDrop, position);
+                    Item it = itemFactory.MakeItem(spawn.ItemDrop, position, 0);
                     if (it != null)
                     {
                         en.GiveDrop(it);
@@ -265,7 +266,7 @@ namespace Sprint.Loader
             foreach (ItemSpawnData spawn in rd.Items)
             {
                 Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
-                Item it = itemFactory.MakeItem(spawn.Type, position);
+                Item it = itemFactory.MakeItem(spawn.Type, position, 0);
                 if (it != null)
                 {
                     roomItems.Add(it);

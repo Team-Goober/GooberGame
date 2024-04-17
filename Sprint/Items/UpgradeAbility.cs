@@ -32,10 +32,10 @@ namespace Sprint.Items
         private TimeSpan lastUpdate;
 
 
-        public UpgradeAbility(ISprite sprite, IUpgradeEffect onActivate, string label, string description)
+        public UpgradeAbility(ISprite sprite, IEffect onActivate, string label, string description)
         {
             this.sprite = sprite;
-            this.onActivate = onActivate;
+            this.onActivate = (IUpgradeEffect)onActivate;
             this.label = label;
             this.description = description;
         }

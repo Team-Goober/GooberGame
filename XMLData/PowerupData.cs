@@ -21,7 +21,7 @@ namespace XMLData
 
     public class CooldownPowerupData : PowerupData
     {
-        public int Duration;
+        public double Duration;
     }
 
     public class UpgradePowerupData : PowerupData
