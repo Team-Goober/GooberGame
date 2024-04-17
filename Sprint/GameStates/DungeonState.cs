@@ -12,6 +12,41 @@ using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Sprint.Characters;
+using Sprint.Collision;
+using Sprint.Commands;
+using Sprint.Functions;
+using Sprint.Functions.RoomTransition;
+using Sprint.GameStates;
+using Sprint.HUD;
+using Sprint.Input;
+using Sprint.Interfaces;
+using Sprint.Items;
+using Sprint.Levels;
+using Sprint.Loader;
+using Sprint.Sprite;
+using System.Collections.Generic;
+using Sprint.Functions.Music;
+using Sprint.Music.Sfx;
+using Sprint.Door;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Sprint.Characters;
+using Sprint.Collision;
+using Sprint.Functions.SecondaryItem;
+using Sprint.Functions.RoomTransition;
+using Sprint.Functions.Music;
+using Sprint.GameStates;
+using Sprint.HUD;
+using Sprint.Input;
+using Sprint.Interfaces;
+using Sprint.Levels;
 using Sprint.Loader;
 using Sprint.Sprite;
 using System.Collections.Generic;
@@ -128,11 +163,16 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.S), new MoveDown(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
 
-            // Diagonal movement
+            //Diagonal Movement
             inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.W, Keys.D }), new MoveDiagonalUpRight(player));
             inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.W, Keys.A }), new MoveDiagonalUpLeft(player));
             inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.S, Keys.D }), new MoveDiagonalDownRight(player));
             inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.S, Keys.A }), new MoveDiagonalDownLeft(player));
+
+            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.Up, Keys.Right }), new MoveDiagonalUpRight(player));
+            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.Up, Keys.Left }), new MoveDiagonalUpLeft(player));
+            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.Down, Keys.Right }), new MoveDiagonalDownRight(player));
+            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.Down, Keys.Left }), new MoveDiagonalDownLeft(player));
 
 
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveLeft(player));

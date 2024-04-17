@@ -83,6 +83,9 @@ namespace Sprint.Characters
         }
         private AnimationCycle baseAnim;
 
+        // Acceleration vector for player movement
+        private Vector2 acceleration = Vector2.Zero;
+        private float speedLimit = CharacterConstants.PLAYER_SPEED;
 
         //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
@@ -239,8 +242,8 @@ namespace Sprint.Characters
         // Removes velocity and changes animation to match lack of movement
         public void StopMoving()
         {
-            physics.SetVelocity(new Vector2(0, 0));
-            baseAnim = AnimationCycle.Idle;
+            physics.SetAcceleration(Vector2.Zero);
+            physics.SetVelocity(Vector2.Zero);
             returnToBaseAnim();
         }
 
@@ -299,11 +302,9 @@ namespace Sprint.Characters
         public void MoveLeft()
         {
             // Don't move while shielding
-            if (shielded)
-                return;
-            // Sets velocity towards left
-            physics.SetVelocity(new Vector2(-speed, 0));
-
+            
+            Vector2 newAcceleration = new Vector2(-CharacterConstants.accelerationRate, 0);
+            physics.SetAcceleration(newAcceleration);
             sprite.SetAnimation("left");
             Facing = Directions.LEFT;
             baseAnim = AnimationCycle.Walk;
@@ -312,11 +313,9 @@ namespace Sprint.Characters
         public void MoveRight()
         {
             // Don't move while shielding
-            if (shielded)
-                return;
-            // Sets velocity towards right
-            physics.SetVelocity(new Vector2(speed, 0));
-
+           
+            Vector2 newAcceleration = new Vector2(CharacterConstants.accelerationRate, 0);
+            physics.SetAcceleration(newAcceleration);
             sprite.SetAnimation("right");
             Facing = Directions.RIGHT;
             baseAnim = AnimationCycle.Walk;
@@ -325,11 +324,9 @@ namespace Sprint.Characters
         public void MoveUp()
         {
             // Don't move while shielding
-            if (shielded)
-                return;
-            // Sets velocity towards up
-            physics.SetVelocity(new Vector2(0, -speed));
-
+           
+            Vector2 newAcceleration = new Vector2(0, -CharacterConstants.accelerationRate);
+            physics.SetAcceleration(newAcceleration);
             sprite.SetAnimation("up");
             Facing = Directions.UP;
             baseAnim = AnimationCycle.Walk;
@@ -338,14 +335,23 @@ namespace Sprint.Characters
         public void MoveDown()
         {
             // Don't move while shielding
-            if (shielded)
-                return;
-            // Sets velocity towards down
-            physics.SetVelocity(new Vector2(0, speed));
+           
+            Vector2 newAcceleration = new Vector2(0, CharacterConstants.accelerationRate);
+            physics.SetAcceleration(newAcceleration);
             sprite.SetAnimation("down");
             Facing = Directions.DOWN;
             baseAnim = AnimationCycle.Walk;
         }
+
+        public void MoveDiagonal(Vector2 direction)
+        {
+            // Don't move while shielding
+           
+            float diagonalSpeed = CharacterConstants.PLAYER_SPEED / (float)(Math.Sqrt(2) * 64); // Diagonal movement speed
+            Vector2 newAcceleration = direction * CharacterConstants.accelerationRate;
+            physics.SetAcceleration(newAcceleration);
+        }
+
 
         public Physics GetPhysic()
         {
@@ -354,6 +360,36 @@ namespace Sprint.Characters
 
         public override void Update(GameTime gameTime)
         {
+
+            // Update the velocity using the Physics component
+            physics.UpdateVelocity(CharacterConstants.stillFriction, speedLimit, gameTime);
+
+            // Check if the player is not moving to return to the base animation
+            if (physics.Velocity == Vector2.Zero)
+            {
+                sprite.SetAnimation("down");
+                damagedSprite.SetAnimation("down");
+            }
+
+            // Determine the direction of movement to set the correct walking animation
+
+            if (physics.Velocity.X > 0)
+            {
+                Facing = Directions.RIGHT;
+            }
+            else if (physics.Velocity.X < 0)
+            {
+                Facing = Directions.LEFT;
+            }
+            else if (physics.Velocity.Y > 0)
+            {
+                Facing = Directions.DOWN;
+            }
+            else if (physics.Velocity.Y < 0)
+            {
+                Facing = Directions.UP;
+            }
+
 
             // Check for end of sword swing
             attackTimer.Update(gameTime);
