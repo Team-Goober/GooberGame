@@ -7,5 +7,6 @@
     <Effect Type="Effects:HealPlayerEffect">
       <amount>1</amount>
     </Effect>
+    <Type>Sprint.Items.InstantPowerup</Type>
   </Asset>
 </XnaContent>

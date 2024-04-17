@@ -1,7 +1,7 @@
-﻿using XMLData;
-using System.Xml;
+﻿using System.Xml;
 using Sprint.Items.Effects;
 using System.Reflection;
+using XMLData;
 
 namespace Sprint.Items
 {
@@ -17,7 +17,8 @@ namespace Sprint.Items
                 Label = "heart",
                 Description = "HEART|heals one heart",
                 Sprite = "heart",
-                Effect = new HealPlayerEffect() { amount = 1 }
+                Effect = new HealPlayerEffect() { amount = 1 },
+                Type = typeof(InstantPowerup).FullName
             };
 
             XmlWriterSettings settings = new XmlWriterSettings();

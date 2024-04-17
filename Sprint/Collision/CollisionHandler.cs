@@ -33,7 +33,6 @@ namespace Sprint.Collision
 
         static Type[] constructorParams = new Type[] { typeof(ICollidable), typeof(ICollidable), typeof(Vector2) };
         static ConstructorInfo pushOut = typeof(PushMoverOut).GetConstructor( constructorParams );
-        static ConstructorInfo pushBlockOut = typeof(PushMoverBlock).GetConstructor(constructorParams);
 
         // Dictionary mapping two collider types, where the first one is passed as a receiver to the command value
         // TODO: Read this from file

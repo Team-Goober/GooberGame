@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Reflection.Metadata;
 using Microsoft.Xna.Framework;
 using Sprint.Characters;
+using Sprint.Interfaces;
 using Sprint.Interfaces.Powerups;
 using Sprint.Items.Effects;
 using Sprint.Sprite;
@@ -29,6 +31,7 @@ namespace Sprint.Items
         public Item MakeItem(string name, Vector2 position)
         {
             // TODO: replace this with XML loading
+            Type[] args = new Type[] { typeof(ISprite), typeof(IEffect), typeof(string), typeof(string) };
             Item it = null;
             switch (name)
             {
@@ -42,8 +45,9 @@ namespace Sprint.Items
                         0));
                     break;*/
                     PowerupData pd = Goober.content.Load<PowerupData>("powerups");
-                    IPowerup pup = new InstantPowerup(spriteLoader.BuildSprite(ANIM_FILE, pd.Sprite),
-                        pd.Effect.Clone(), pd.Label, pd.Description);
+                    ConstructorInfo constructor = Type.GetType(pd.Type).GetConstructor(args);
+                    IPowerup pup = constructor?.Invoke(new object[] { spriteLoader.BuildSprite(ANIM_FILE, pd.Sprite),
+                        pd.Effect.Clone(), pd.Label, pd.Description}) as IPowerup;
                     it = new Item(position, pup, 0);
                     break;
                 case "heartPiece":

@@ -11,6 +11,22 @@ namespace XMLData
         public string Description;
         public string Sprite;
         public IEffect Effect;
-
+        public string Type;
     }
+
+    public class StackedPowerupData : PowerupData
+    {
+        public int Quantity;
+    }
+
+    public class CooldownPowerupData : PowerupData
+    {
+        public int Duration;
+    }
+
+    public class UpgradePowerupData : PowerupData
+    {
+        public string[] Bases;
+    }
+
 }
