@@ -114,9 +114,10 @@ namespace Sprint
             loadDelegates();
             hudLoader.SetSlotsArray(player.GetInventory().GetAbilities());
             hudLoader.OnListingUpdateEvent(player.GetInventory().GetListing());
-
-            ((InventoryState)game.GetInventoryState()).SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
-            ((InventoryState)game.GetInventoryState()).AttachPlayer(player);
+            InventoryState inventoryState = (InventoryState)game.GetInventoryState();
+            inventoryState.SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
+            inventoryState.AttachPlayer(player);
+            inventoryState.MakeCommands();
 
             inputTable = new InputTable();
 
@@ -300,6 +301,7 @@ namespace Sprint
 
             // remake commands and delegates
             MakeCommands();
+
 
             sleeping = false;
 

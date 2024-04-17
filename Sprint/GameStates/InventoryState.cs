@@ -125,9 +125,6 @@ namespace Sprint.GameStates
             hudPosition = Vector2.Zero;
             hud = null;
             inventoryUI = null;
-
-            MakeCommands();
-
         }
 
         public void PassToState(IGameState newState)
