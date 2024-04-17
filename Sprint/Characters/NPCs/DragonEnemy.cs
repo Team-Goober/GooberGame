@@ -5,7 +5,7 @@ using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
-using Sprint.Commands.SecondaryItem;
+using Sprint.Functions.SecondaryItem;
 
 
 namespace Sprint.Characters

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 using Sprint.Loader;
 using Sprint.Sprite;
 using System.Collections.Generic;
@@ -26,19 +27,12 @@ namespace Sprint.HUD
             return new HUDSprite(sprite, position);
         }
 
-        public HUDInterchangeableSprite MakeItemSprite(string spriteLabel, Vector2 position)
+        public HUDPowerupArray MakeItemSprite(IPowerup powerup, Vector2 position)
         {
-            ISprite sprite;
-            if (spriteLabel != null)
-            {
-                sprite = spriteLoader.BuildSprite(ITEM_LOCATION, spriteLabel);
-            }
-            else
-            {
-                sprite = null;
-            }
 
-            return new HUDInterchangeableSprite(sprite, position);
+            HUDPowerupArray hpa = new(position, Vector2.Zero);
+            hpa.SetSinglePowerup(powerup);
+            return hpa;
         }
 
         public List<HUDAnimSprite> MakeNumber(string level, Vector2 position, int spriteSize)

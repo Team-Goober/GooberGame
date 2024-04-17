@@ -4,23 +4,22 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Characters;
 using Sprint.Collision;
-using Sprint.Commands;
-using Sprint.Commands.SecondaryItem;
-using Sprint.Functions;
+using Sprint.Functions.SecondaryItem;
 using Sprint.Functions.RoomTransition;
+using Sprint.Functions.Music;
 using Sprint.GameStates;
 using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
-using Sprint.Items;
 using Sprint.Levels;
 using Sprint.Loader;
 using Sprint.Sprite;
-using Sprint.Functions.DeathState;
 using System.Collections.Generic;
-using Sprint.Functions.Music;
 using Sprint.Music.Sfx;
 using Sprint.Door;
+using Sprint.Functions;
+using Sprint.Functions.States;
+using Sprint.Items;
 
 namespace Sprint
 {
@@ -45,8 +44,7 @@ namespace Sprint
 
         private Player player; // Player game object to be moved as rooms switch
 
-        private IDoor[,,] doorReference;
-        private Rectangle[] doorBounds;
+        private Rectangle[] doorBounds; // Bounds of the doors in each room for click-through
         private MapModel map; // Tracks revealing of rooms for UI
         private Point compassPointer; // Room indices for triforce location
         private HUDLoader hudLoader;
@@ -58,7 +56,6 @@ namespace Sprint
             this.game = game;
             this.contentManager = contentManager;
             this.spriteLoader = spriteLoader;
-
 
             collisionDetector = new CollisionDetector();
 
@@ -83,56 +80,43 @@ namespace Sprint
 
         }
 
+        // Connect all of the signals
         private void loadDelegates ()
         {
             Inventory inventory = player.GetInventory();
-            inventory.InventoryEvent += hudLoader.OnInventoryEvent;
-            inventory.InventoryEvent += this.OnInventoryEvent;
+            inventory.ListingUpdateEvent += hudLoader.OnListingUpdateEvent;
+
             inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
 
-            inventory.WinEvent += this.WinScreen;
             player.OnPlayerHealthChange += hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange += hudLoader.UpdateMaxHeartAmount;
-            inventory.InventoryEvent += player.OnInventoryEvent;
+
         }
 
+        // Disconnect all of the signals
         private void unloadDelegates()
         {
             Inventory inventory = player.GetInventory();
-            inventory.InventoryEvent -= hudLoader.OnInventoryEvent;
-            inventory.InventoryEvent -= this.OnInventoryEvent;
+            inventory.ListingUpdateEvent -= hudLoader.OnListingUpdateEvent;
+
             inventory.SelectorChooseEvent -= hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent -= hudLoader.OnSelectorMoveEvent;
 
-            inventory.WinEvent -= this.WinScreen;
             player.OnPlayerHealthChange -= hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange -= hudLoader.UpdateMaxHeartAmount;
-            inventory.InventoryEvent -= player.OnInventoryEvent;
-        }
-
-        public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
-        {
-            switch (it)
-            {
-                case ItemType.Map:
-                    map.RevealAll();
-                    break;
-                case ItemType.Compass:
-                    map.PlaceCompass();
-                    break;
-                default:
-                    break;
-            }
         }
 
         // Generates all commands available while the player is moving in a room
         public void MakeCommands()
         {
-            // TODO: These are here because they refer to InventoryState, which may not exist yet. Should be moved
+            // Make the changes that require InventoryState
+            loadDelegates();
+            hudLoader.SetSlotsArray(player.GetInventory().GetAbilities());
+            hudLoader.OnListingUpdateEvent(player.GetInventory().GetListing());
+
             ((InventoryState)game.GetInventoryState()).SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
             ((InventoryState)game.GetInventoryState()).AttachPlayer(player);
-            loadDelegates();
 
             inputTable = new InputTable();
 
@@ -159,16 +143,15 @@ namespace Sprint
             Keys[] moveKeys = { Keys.A, Keys.D, Keys.W, Keys.S, Keys.Left, Keys.Right, Keys.Up, Keys.Down };
             inputTable.RegisterMapping(new MultipleKeyReleaseTrigger(moveKeys), new StopMoving(player));
 
-            //Melee Regular Sword Attack
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Melee(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.N), new Melee(player));
-
             //Player uses a cast move
-            // TODO: shouldnt bind separately from shoot commands
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Cast(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new Cast(player));
 
-            // Using item slot B
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseBWeaponCommand(player));
+            // Using item slots
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new UseWeaponCommand(player, 0));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseWeaponCommand(player, 1));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.Z), new ReleaseWeaponCommand(player, 0));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.X), new ReleaseWeaponCommand(player, 1));
 
             // Reset command
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
@@ -184,27 +167,16 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new OpenInventoryCommand(this));
 
             // Middle click through doors
-            for (int i = 0; i < doorReference.GetLength(0); i++)
+            for (int d = 0; d < 4; d++)
             {
-                IDoor[,] slice = new IDoor[doorReference.GetLength(1), doorReference.GetLength(2)];
-                for (int r = 0; r < doorReference.GetLength(1); r++)
-                {
-                    for (int c = 0; c < doorReference.GetLength(2); c++)
-                    {
-                        slice[r, c] = doorReference[i, r, c];
-                    }
-                }
-                inputTable.RegisterMapping(new ClickInBoundsTrigger(ClickInBoundsTrigger.MouseButton.Middle, doorBounds[i]),
-                    new SwitchRoomFromDoorsCommand(slice, this));
+                inputTable.RegisterMapping(new ClickInBoundsTrigger(ClickInBoundsTrigger.MouseButton.Middle, doorBounds[d]),
+                    new SwitchRoomFromDoorsCommand(this, Directions.GetDirectionFromIndex(d)));
             }
 
             // SFX and Song controls
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.L), new MusicUp());
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.J), new MusicDown());
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.K), new MusicMuteToggle());
-
-            // Press m to die
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.M), new OpenDeath(this));
 
         }
 
@@ -444,20 +416,17 @@ namespace Sprint
             PassToState(scroll);
         }
 
-
+        // Switch to a new win state
         public void WinScreen()
         {
             WinState win = new WinState(game, hudLoader.GetTopDisplay(), rooms[currentRoom.Y][currentRoom.X].GetScene(), player, spriteLoader, arenaPosition);
             PassToState(win);
         }
-            
+
+        // Switch to a new death state
         public void DeathScreen()
         {
             GameOverState death = new GameOverState(game, hudLoader);
-
-            SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X].GetScene();
-
-            //death.GetRoomScene(currRoom);
             death.GetHUDScene(hudLoader.GetTopDisplay());
             PassToState(death);
         }
@@ -482,6 +451,7 @@ namespace Sprint
             return rooms.Length;
         }
 
+        // Clear out room list
         public void ClearRooms(int rows, int cols)
         {
             rooms = new Room[rows][];
@@ -496,14 +466,9 @@ namespace Sprint
             arenaPosition = pos;
         }
 
-        public void SetDoors(IDoor[,,] doors, Rectangle[] bounds)
+        public void SetDoors(Rectangle[] bounds)
         {
-            doorReference = doors;
             doorBounds = bounds;
-        }
-        public IDoor[,,] GetDoors()
-        {
-            return doorReference;
         }
 
         public MapModel GetMap()
@@ -531,6 +496,7 @@ namespace Sprint
         private bool solved2 = false;
         private bool solved3 = false;
 
+        // Manually check for puzzle door open triggers
         public void CheckPuzzle()
         {            
             if (currentRoom == new Point(2, 4) && !solved2)

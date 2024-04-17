@@ -18,37 +18,53 @@ namespace Sprint
             JustEnded = false;
         }
 
+        // Begin countdown
         public void Start()
         {
             TimeLeft = Duration;
             Ended = false;
         }
 
+        // Force end to countdown
         public void End()
         {
             Ended = true;
             JustEnded = true;
+            TimeLeft = TimeSpan.Zero;
         }
 
+        // Set length of countdown
         public void SetDuration(double seconds)
         {
             Duration = TimeSpan.FromSeconds(seconds);
         }
 
+        public void SetTimeLeft(double seconds)
+        {
+            TimeLeft = TimeSpan.FromSeconds(seconds);
+        }
+
+        // Skip forward in countdown
+        public void SubtractTime(double seconds)
+        {
+            TimeLeft -= TimeSpan.FromSeconds(seconds);
+            if (TimeLeft < TimeSpan.Zero)
+            {
+                End();
+            }
+        }
+
         public void Update(GameTime gameTime)
         {
+            // Cycle after end, reset JustEnded
             if (JustEnded)
             {
                 JustEnded = false;
             }
-
+            // Count down
             if (!Ended)
             {
-                TimeLeft -= gameTime.ElapsedGameTime;
-                if (TimeLeft < TimeSpan.Zero)
-                {
-                    End();
-                }
+                SubtractTime(gameTime.ElapsedGameTime.TotalSeconds);
             }
         }
 

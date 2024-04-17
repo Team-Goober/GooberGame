@@ -1064,7 +1064,12 @@
             <Item>0 4 0 7 4 7 7 5 7 0 5 0</Item>
             <Item>0 0 0 7 7 7 7 7 7 0 0 0</Item>
           </TileGrid>
-          <Items/>
+          <Items>
+            <Item>
+              <Type>sword</Type>
+              <TilePos>5.5 4</TilePos>
+            </Item>
+          </Items>
           <Enemies/>
           <TextBoxes />
           <Stairs />
@@ -1229,6 +1234,10 @@
               <TilePos>5 1</TilePos>
             </Item>
             <Item>
+              <Type>masterSword</Type>
+              <TilePos>6 1</TilePos>
+            </Item>
+            <Item>
               <Type>key</Type>
               <TilePos>7 1</TilePos>
             </Item>
@@ -1242,23 +1251,71 @@
             </Item>
             <Item>
               <Type>bluePotion</Type>
-              <TilePos>9 2</TilePos>
+              <TilePos>2 2</TilePos>
             </Item>
             <Item>
               <Type>redCandle</Type>
-              <TilePos>9 3</TilePos>
+              <TilePos>2 3</TilePos>
             </Item>
             <Item>
               <Type>meat</Type>
-              <TilePos>9 4</TilePos>
+              <TilePos>2 4</TilePos>
             </Item>
             <Item>
               <Type>flute</Type>
-              <TilePos>9 5</TilePos>
+              <TilePos>2 5</TilePos>
             </Item>
             <Item>
               <Type>blueCandle</Type>
+              <TilePos>2 6</TilePos>
+            </Item>
+            <Item>
+              <Type>rupee</Type>
+              <TilePos>3 3</TilePos>
+            </Item>
+            <Item>
+              <Type>rupee</Type>
+              <TilePos>3 4</TilePos>
+            </Item>
+            <Item>
+              <Type>rupee</Type>
+              <TilePos>3 5</TilePos>
+            </Item>
+            <Item>
+              <Type>rupee</Type>
+              <TilePos>3 6</TilePos>
+            </Item>
+            <Item>
+              <Type>blueBadge</Type>
+              <TilePos>9 3</TilePos>
+            </Item>
+            <Item>
+              <Type>blueBadge</Type>
+              <TilePos>10 3</TilePos>
+            </Item>
+            <Item>
+              <Type>greenBadge</Type>
+              <TilePos>9 4</TilePos>
+            </Item>
+            <Item>
+              <Type>greenBadge</Type>
+              <TilePos>10 4</TilePos>
+            </Item>
+            <Item>
+              <Type>yellowBadge</Type>
+              <TilePos>9 5</TilePos>
+            </Item>
+            <Item>
+              <Type>yellowBadge</Type>
+              <TilePos>10 5</TilePos>
+            </Item>
+            <Item>
+              <Type>pinkBadge</Type>
               <TilePos>9 6</TilePos>
+            </Item>
+            <Item>
+              <Type>pinkBadge</Type>
+              <TilePos>10 6</TilePos>
             </Item>
           </Items>
           <Enemies/>
