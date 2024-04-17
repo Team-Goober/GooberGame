@@ -7,7 +7,7 @@ namespace Sprint.Items.Effects
     internal class HealPlayerEffect : IEffect
     {
 
-        public int amount;
+        public double amount;
        
         public void Execute(Player player)
         {

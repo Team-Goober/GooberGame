@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Sprint.Levels;
+using System;
 
 namespace Sprint.Characters.Companions
 {
@@ -18,9 +19,8 @@ namespace Sprint.Characters.Companions
         {
             this.sprite = sprite;
             this.player = player;
-            offset = new Vector2(100, 100);
-            disable = false;
-            player.OnPlayerRoomChange += moveToRoom;
+            Random random = new Random();
+            offset = new Vector2((float)(200 * (random.NextDouble() - 0.5)), (float)(200 * (random.NextDouble() - 0.5)));
         }
 
         // Sets whether this object should be in a room
@@ -31,20 +31,19 @@ namespace Sprint.Characters.Companions
             {
                 // Add to player room
                 moveToRoom(player.GetCurrentRoom());
+                player.OnPlayerRoomChange += moveToRoom;
             }
             else
             {
                 // Remove from current room
                 moveToRoom(null);
+                player.OnPlayerRoomChange -= moveToRoom;
             }
         }
 
         // Moves to scene object manager of new room
         private void moveToRoom(Room r)
         {
-            // Don't move if disabled
-            if (disable)
-                return;
             room?.GetScene().Remove(this);
             room = r;
             room?.GetScene().Add(this);

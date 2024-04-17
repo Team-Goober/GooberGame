@@ -61,7 +61,7 @@
         <Label>fairy</Label>
         <Description>FAIRY|companion for|player</Description>
         <Sprite>fairy</Sprite>
-        <Effect Type="Sprint.Items.Effects.CompanionEffect">
+        <Effect Type="Sprint.Items.Effects.FairyCompanionEffect">
           <spriteName>fairy</spriteName>
           <spriteFile>itemAnims</spriteFile>
         </Effect>

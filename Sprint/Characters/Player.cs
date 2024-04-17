@@ -390,6 +390,14 @@ namespace Sprint.Characters
                 returnToBaseAnim();
 
             }
+
+            // Die when health is zero
+            // Must be in update instead of TakeDamage so items can intervene in death
+            if(health <= 0.0)
+            {
+                Die();
+            }
+
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
@@ -458,7 +466,7 @@ namespace Sprint.Characters
             speed += addition;
         }
 
-        public void Heal(float amt)
+        public void Heal(double amt)
         {
             // Don't reduce health during heal
             Debug.Assert(amt >= 0);
@@ -501,14 +509,14 @@ namespace Sprint.Characters
             double prevHealth = health;
             health -= dmg;
 
+            // Trigger death when health is at or below 0
+            if (health < 0.0)
+            {
+                health = 0.0;
+            }
+
             // broadcast health change
             OnPlayerHealthChange?.Invoke(prevHealth, health);
-
-            // Trigger death when health is at or below 0
-            if (health <= 0.0)
-            {
-                Die();
-            }
 
         }
 
