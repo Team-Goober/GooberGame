@@ -33,11 +33,33 @@ namespace Sprint.Characters
             Acceleration = newAcceleration;
         }
 
+        public void UpdateVelocity(float baseFriction, float speedLimit, GameTime gameTime)
+        {
+            // Calculate friction dynamically based on velocity
+            float friction = baseFriction;
+            if (Velocity.LengthSquared() > 0)
+            {
+                // Apply higher friction if the object is moving
+                friction = CharacterConstants.movingFriction;
+            }
+
+            // Update velocity based on acceleration
+            Vector2 newVelocity = Velocity + Acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            // Apply friction to gradually slow down the object
+            newVelocity *= (1f - friction);
+
+            // Clamp velocity to ensure it does not exceed the speed limit
+            newVelocity.X = MathHelper.Clamp(newVelocity.X, -speedLimit, speedLimit);
+            newVelocity.Y = MathHelper.Clamp(newVelocity.Y, -speedLimit, speedLimit);
+
+            // Update velocity
+            Velocity = newVelocity;
+        }
+
+
         public void Update(GameTime gameTime)
         {
-            // Update velocity based on acceleration
-            Velocity += Acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
             // Move position according to current velocity
             Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }

@@ -11,8 +11,9 @@ namespace Sprint.Characters
         public const int PLAYER_SPEED = 300;
         public const int SWORD_WIDTH = 40, SWORD_LENGTH = 90;
         public const int STARTING_HEALTH = 3;
-        
-       
+        public const float accelerationRate = 500f;
+        public const float stillFriction = 0.02f;
+        public const float movingFriction = 0.03f;
 
         public const int COLLIDER_SCALE = 3;
         public const int DEFAULT_SIDE_LENGTH = 16;

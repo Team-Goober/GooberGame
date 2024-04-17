@@ -74,8 +74,8 @@ namespace Sprint.Characters
         // Acceleration vector for player movement
         private Vector2 acceleration = Vector2.Zero;
 
-        // Rate of acceleration
-        private float accelerationRate = 500f;
+    
+        private float speedLimit = CharacterConstants.PLAYER_SPEED;
 
         // Constructor for Player class
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
@@ -226,7 +226,7 @@ namespace Sprint.Characters
         // Method to stop player movement
         public void StopMoving()
         {
-            acceleration = Vector2.Zero;
+            physics.SetAcceleration(Vector2.Zero);
             physics.SetVelocity(Vector2.Zero);
             returnToBaseAnim();
         }
@@ -282,49 +282,47 @@ namespace Sprint.Characters
             }
         }
 
-        // Method to move player left
         public void MoveLeft()
         {
-            acceleration.X = -accelerationRate;
+            Vector2 newAcceleration = new Vector2(-CharacterConstants.accelerationRate, 0);
+            physics.SetAcceleration(newAcceleration);
             sprite.SetAnimation("left");
             Facing = Directions.LEFT;
             baseAnim = AnimationCycle.Walk;
         }
 
-        // Method to move player right
         public void MoveRight()
         {
-            acceleration.X = accelerationRate;
+            Vector2 newAcceleration = new Vector2(CharacterConstants.accelerationRate, 0);
+            physics.SetAcceleration(newAcceleration);
             sprite.SetAnimation("right");
             Facing = Directions.RIGHT;
             baseAnim = AnimationCycle.Walk;
         }
 
-        // Method to move player up
         public void MoveUp()
         {
-            acceleration.Y = -accelerationRate;
+            Vector2 newAcceleration = new Vector2(0, -CharacterConstants.accelerationRate);
+            physics.SetAcceleration(newAcceleration);
             sprite.SetAnimation("up");
             Facing = Directions.UP;
             baseAnim = AnimationCycle.Walk;
         }
 
-        // Method to move player down
         public void MoveDown()
         {
-            acceleration.Y = accelerationRate;
+            Vector2 newAcceleration = new Vector2(0, CharacterConstants.accelerationRate);
+            physics.SetAcceleration(newAcceleration);
             sprite.SetAnimation("down");
             Facing = Directions.DOWN;
             baseAnim = AnimationCycle.Walk;
         }
 
-        // Method to move player diagonally
         public void MoveDiagonal(Vector2 direction)
         {
             float diagonalSpeed = CharacterConstants.PLAYER_SPEED / (float)(Math.Sqrt(2) * 64); // Diagonal movement speed
-            Vector2 movementVector = direction;
-            movementVector.Normalize();
-            acceleration = movementVector * accelerationRate;
+            Vector2 newAcceleration = direction * CharacterConstants.accelerationRate;
+            physics.SetAcceleration(newAcceleration);
         }
 
         // Method to get physics component of the player
@@ -362,24 +360,8 @@ namespace Sprint.Characters
         // Method to update player state
         public override void Update(GameTime gameTime)
         {
-            // Update player's velocity based on acceleration
-            Vector2 newVelocity = physics.Velocity + acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            // Apply friction or deceleration to gradually slow down the player
-            // Adjust friction dynamically based on player's movement
-            float friction = 0.02f; // Default friction
-            if (physics.Velocity.LengthSquared() > 0)
-            {
-                // Apply higher friction if the player is moving
-                friction = 0.03f;
-            }
-            newVelocity *= (1f - friction);
-
-            // Clamp the speed for both X and Y components
-            newVelocity.X = MathHelper.Clamp(newVelocity.X, -speed, speed);
-            newVelocity.Y = MathHelper.Clamp(newVelocity.Y, -speed, speed);
-
-            physics.SetVelocity(newVelocity);
+            // Update the velocity using the Physics component
+            physics.UpdateVelocity(CharacterConstants.stillFriction, speedLimit, gameTime);
 
             // Check if the player is not moving to return to the base animation
             if (physics.Velocity == Vector2.Zero)
@@ -389,6 +371,7 @@ namespace Sprint.Characters
             }
 
             // Determine the direction of movement to set the correct walking animation
+        
             if (physics.Velocity.X > 0)
             {
                 Facing = Directions.RIGHT;
@@ -430,9 +413,11 @@ namespace Sprint.Characters
                 returnToBaseAnim();
             }
 
+            // Update the Physics component
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
+
 
         // Method to draw player sprite
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
