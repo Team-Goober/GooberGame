@@ -23,6 +23,7 @@ namespace Sprint.Characters
         private MoveVert moveVert;
         private Player player;
         private MoveRandom moveRandom;
+        private ProjFire projFire;
 
         public DragonEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader, Player player)
             : base(sprite, damagedSprite, initialPosition, room)
@@ -32,14 +33,16 @@ namespace Sprint.Characters
             this.objectManager = room.GetScene();
             this.player = player;
 
-            timeAttack = new Timer(2);
-            timeAttack.Start();
+            //timeAttack = new Timer(2);
+            //timeAttack.Start();
 
             health = CharacterConstants.HIGH_HP;
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
+            //itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
-            projectileCommand = new ShootFireBallC(itemFactory);
+            //projectileCommand = new ShootFireBallC(itemFactory);
+
+            projFire = new ProjFire(spriteLoader, room, moveDirection);
 
             moveRandom = new MoveRandom(physics, player);
 
@@ -67,20 +70,20 @@ namespace Sprint.Characters
         // Update DragonEnemy logic
         public override void Update(GameTime gameTime)
         {
-            timeAttack.Update(gameTime);
+            //timeAttack.Update(gameTime);
             base.Update(gameTime);
 
-
+            projFire.Update(gameTime, physics, moveDirection);
             // Move randomly within a specified area
             moveRandom.MoveAI(gameTime);
 
-            if (timeAttack.JustEnded)
-            {
-                itemFactory.SetStartPosition(physics.Position);
-                itemFactory.SetDirection(Directions.LEFT);
-                projectileCommand.Execute();
-                timeAttack.Start();
-            }
+            //if (timeAttack.JustEnded)
+            //{
+            //    itemFactory.SetStartPosition(physics.Position);
+            //    itemFactory.SetDirection(Directions.LEFT);
+            //    projectileCommand.Execute();
+            //    timeAttack.Start();
+            //}
 
             // Set animation based on the new direction
             SetAnimationBasedOnDirection();
@@ -93,7 +96,7 @@ namespace Sprint.Characters
         // Set animation based on the direction of movement
         private void SetAnimationBasedOnDirection()
         {
-
+            moveDirection = moveRandom.moveDirection;
             string newAnim = "";
             if (Math.Abs(moveRandom.moveDirection.X) > Math.Abs(moveRandom.moveDirection.Y))
             {
