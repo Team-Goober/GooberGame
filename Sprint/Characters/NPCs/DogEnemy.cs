@@ -5,6 +5,7 @@ using Sprint.Commands.SecondaryItem;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
@@ -17,7 +18,7 @@ namespace Sprint.Characters
         private ICommand projectileCommand;
         private SimpleProjectileFactory itemFactory;
         private string lastAnimationName;
-        private MoveVert moveVert;
+        private MoveDog moveDog;
         private ProjBoomarang projBoomarang;
         private Timer delayTimer;
         private bool shooting;
@@ -42,7 +43,7 @@ namespace Sprint.Characters
 
             projBoomarang = new ProjBoomarang(spriteLoader, room, moveDirection);
 
-            moveVert = new MoveVert(physics, player);
+            moveDog = new MoveDog(physics, player);
 
         }
 
@@ -89,7 +90,7 @@ namespace Sprint.Characters
             if (!shooting)
             {
                 // Move randomly within a specified area
-                moveVert.MoveAI(gameTime);
+                moveDog.MoveAI(gameTime);
                 physics.Update(gameTime);
             }
             else if (delayTimer.Ended)
@@ -105,34 +106,68 @@ namespace Sprint.Characters
 
         }
 
+        //// Set animation based on the direction of movement
+        //private void SetAnimationBasedOnDirection()
+        //{
+        //    string newAnim = "";
+        //    moveDirection = moveDog.directionFace;
+        //    if (moveDirection == Directions.DOWN)
+        //    {
+        //        newAnim = "downFacing";
+        //    }
+        //    else if (moveDirection == Directions.LEFT)
+        //    {
+        //        newAnim = "leftFacing";
+        //    }
+        //    else if (moveDirection == Directions.UP)
+        //    {
+        //        newAnim = "upFacing";
+        //    }
+        //    else if (moveDirection == Directions.RIGHT)
+        //    {
+        //        newAnim = "rightFacing";
+        //    }
+
+        //    if (newAnim != lastAnimationName)
+        //    {
+        //        lastAnimationName = newAnim;
+        //        SetAnimation(newAnim);
+        //    }
+
+
+
+        //}
+
+
         // Set animation based on the direction of movement
         private void SetAnimationBasedOnDirection()
         {
+
             string newAnim = "";
-            moveDirection = moveVert.directionFace;
-            if (moveDirection == Directions.DOWN)
+            moveDirection = moveDog.moveDirection;
+            if (Math.Abs(moveDog.moveDirection.X) > Math.Abs(moveDog.moveDirection.Y))
             {
-                newAnim = "downFacing";
+                
+                if (moveDog.moveDirection.X > 0)
+                    newAnim = "rightFacing";
+                else
+                    newAnim = "leftFacing";
+
             }
-            else if (moveDirection == Directions.LEFT)
+            else
             {
-                newAnim = "leftFacing";
+
+                if (moveDog.moveDirection.Y > 0)
+                    newAnim = "downFacing";
+                else
+                    newAnim = "upFacing";
             }
-            else if(moveDirection == Directions.UP)
-            {
-                newAnim = "upFacing";
-            }
-            else if(moveDirection == Directions.RIGHT)
-            {
-                newAnim = "rightFacing";
-            }
-            
+
             if (newAnim != lastAnimationName)
             {
                 lastAnimationName = newAnim;
                 SetAnimation(newAnim);
             }
-
 
 
         }
