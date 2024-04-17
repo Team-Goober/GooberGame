@@ -266,7 +266,7 @@ namespace Sprint.Loader
             foreach (ItemSpawnData spawn in rd.Items)
             {
                 Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
-                Item it = itemFactory.MakeItem(spawn.Type, position, 0);
+                Item it = itemFactory.MakeItem(spawn.Type, position, spawn.Price);
                 if (it != null)
                 {
                     roomItems.Add(it);

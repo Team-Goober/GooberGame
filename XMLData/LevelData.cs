@@ -77,6 +77,7 @@ namespace XMLData
     {
         public string Type; // Type of item to construct. Used by ItemFactory
         public Vector2 TilePos; // Grid coordinates of tile to spawn on. Not in world coordinates
+        public int Price; // Rupees required to purchase item
     }
 
     public class EnemySpawnData

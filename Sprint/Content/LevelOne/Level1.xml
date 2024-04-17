@@ -276,6 +276,7 @@
               <Item>
                 <Type>bow</Type>
                 <TilePos>6 2</TilePos>
+                <Price>0</Price>
               </Item>
             </Items>
             <Enemies>
@@ -385,6 +386,7 @@
               <Item>
                 <Type>key</Type>
                 <TilePos>7 2</TilePos>
+                <Price>0</Price>
               </Item>
             </Items>
             <Enemies>
@@ -477,6 +479,7 @@
             <Item>
               <Type>heartPiece</Type>
               <TilePos>10 3</TilePos>
+              <Price>0</Price>
             </Item>
           </Items>
           <Enemies>
@@ -511,6 +514,7 @@
             <Item>
               <Type>triforce</Type>
               <TilePos>5.5 3</TilePos>
+              <Price>0</Price>
             </Item>
           </Items>
           <Enemies/>
@@ -630,6 +634,7 @@
             <Item>
               <Type>map</Type>
               <TilePos>10 3</TilePos>
+              <Price>0</Price>
             </Item>
           </Items>
           <Enemies>
@@ -684,6 +689,7 @@
             <Item>
               <Type>boomerang</Type>
               <TilePos>6 1</TilePos>
+              <Price>0</Price>
             </Item>
           </Items>
           <Enemies>
@@ -728,6 +734,7 @@
             <Item>
               <Type>key</Type>
               <TilePos>8 6</TilePos>
+              <Price>0</Price>
             </Item>
           </Items>
           <Enemies>
@@ -826,6 +833,7 @@
             <Item>
               <Type>key</Type>
               <TilePos>6 1</TilePos>
+              <Price>0</Price>
             </Item>
           </Items>
           <Enemies>
@@ -880,6 +888,7 @@
             <Item>
               <Type>compass</Type>
               <TilePos>10 3</TilePos>
+              <Price>0</Price>
             </Item>
           </Items>
           <Enemies>
@@ -1068,6 +1077,7 @@
             <Item>
               <Type>sword</Type>
               <TilePos>5.5 4</TilePos>
+              <Price>0</Price>
             </Item>
           </Items>
           <Enemies/>
@@ -1144,178 +1154,222 @@
             <Item>
               <Type>arrow</Type>
               <TilePos>0 0</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>heartPiece</Type>
               <TilePos>0 1</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>specialKey</Type>
               <TilePos>0 2</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>rupee</Type>
               <TilePos>0 3</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>triforce</Type>
               <TilePos>0 4</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>shield</Type>
               <TilePos>0 5</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>clock</Type>
               <TilePos>0 6</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>bow</Type>
               <TilePos>1 0</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>raft</Type>
               <TilePos>2 0</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>ladder</Type>
               <TilePos>3 0</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>blueArrow</Type>
               <TilePos>4 0</TilePos>
+              <Price>2</Price>
             </Item>
             <Item>
               <Type>fairy</Type>
               <TilePos>5 0</TilePos>
+              <Price>10</Price>
             </Item>
             <Item>
               <Type>bomb</Type>
               <TilePos>6 0</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>blueRing</Type>
               <TilePos>7 0</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>redRing</Type>
               <TilePos>8 0</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>blueBoomerang</Type>
               <TilePos>9 0</TilePos>
+              <Price>2</Price>
             </Item>
             <Item>
               <Type>boomerang</Type>
               <TilePos>10 0</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>heart</Type>
                 <TilePos>11 0</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>blueWand</Type>
                 <TilePos>1 1</TilePos>
+                <Price>0</Price>
             </Item>
             <Item>
               <Type>sword</Type>
               <TilePos>2 1</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>bracelet</Type>
               <TilePos>3 1</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>book</Type>
               <TilePos>4 1</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>redPotion</Type>
               <TilePos>5 1</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>masterSword</Type>
               <TilePos>6 1</TilePos>
+              <Price>20</Price>
             </Item>
             <Item>
               <Type>key</Type>
               <TilePos>7 1</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>map</Type>
               <TilePos>8 1</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>compass</Type>
               <TilePos>9 1</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>bluePotion</Type>
               <TilePos>2 2</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>redCandle</Type>
               <TilePos>2 3</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>meat</Type>
               <TilePos>2 4</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>flute</Type>
               <TilePos>2 5</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>blueCandle</Type>
               <TilePos>2 6</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>rupee</Type>
               <TilePos>3 3</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>rupee</Type>
               <TilePos>3 4</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>rupee</Type>
               <TilePos>3 5</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>rupee</Type>
               <TilePos>3 6</TilePos>
+              <Price>0</Price>
             </Item>
             <Item>
               <Type>blueBadge</Type>
               <TilePos>9 3</TilePos>
+              <Price>2</Price>
             </Item>
             <Item>
               <Type>blueBadge</Type>
               <TilePos>10 3</TilePos>
+              <Price>2</Price>
             </Item>
             <Item>
               <Type>greenBadge</Type>
               <TilePos>9 4</TilePos>
+              <Price>2</Price>
             </Item>
             <Item>
               <Type>greenBadge</Type>
               <TilePos>10 4</TilePos>
+              <Price>2</Price>
             </Item>
             <Item>
               <Type>yellowBadge</Type>
               <TilePos>9 5</TilePos>
+              <Price>2</Price>
             </Item>
             <Item>
               <Type>yellowBadge</Type>
               <TilePos>10 5</TilePos>
+              <Price>2</Price>
             </Item>
             <Item>
               <Type>pinkBadge</Type>
               <TilePos>9 6</TilePos>
+              <Price>2</Price>
             </Item>
             <Item>
               <Type>pinkBadge</Type>
               <TilePos>10 6</TilePos>
+              <Price>2</Price>
             </Item>
           </Items>
           <Enemies/>
