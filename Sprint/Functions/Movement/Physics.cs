@@ -40,7 +40,7 @@ namespace Sprint.Characters
             if (Velocity.LengthSquared() > 0)
             {
                 // Apply higher friction if the object is moving
-                friction = CharacterConstants.movingFriction;
+                friction = CharacterConstants.MOVING_FRICTION;
             }
 
             // Update velocity based on acceleration

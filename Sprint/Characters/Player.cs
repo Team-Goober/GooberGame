@@ -303,7 +303,7 @@ namespace Sprint.Characters
         {
             // Don't move while shielding
             
-            Vector2 newAcceleration = new Vector2(-CharacterConstants.accelerationRate, 0);
+            Vector2 newAcceleration = new Vector2(-CharacterConstants.ACCELERATION_RATE, 0);
             physics.SetAcceleration(newAcceleration);
             sprite.SetAnimation("left");
             Facing = Directions.LEFT;
@@ -314,7 +314,7 @@ namespace Sprint.Characters
         {
             // Don't move while shielding
            
-            Vector2 newAcceleration = new Vector2(CharacterConstants.accelerationRate, 0);
+            Vector2 newAcceleration = new Vector2(CharacterConstants.ACCELERATION_RATE, 0);
             physics.SetAcceleration(newAcceleration);
             sprite.SetAnimation("right");
             Facing = Directions.RIGHT;
@@ -325,7 +325,7 @@ namespace Sprint.Characters
         {
             // Don't move while shielding
            
-            Vector2 newAcceleration = new Vector2(0, -CharacterConstants.accelerationRate);
+            Vector2 newAcceleration = new Vector2(0, -CharacterConstants.ACCELERATION_RATE);
             physics.SetAcceleration(newAcceleration);
             sprite.SetAnimation("up");
             Facing = Directions.UP;
@@ -336,7 +336,7 @@ namespace Sprint.Characters
         {
             // Don't move while shielding
            
-            Vector2 newAcceleration = new Vector2(0, CharacterConstants.accelerationRate);
+            Vector2 newAcceleration = new Vector2(0, CharacterConstants.ACCELERATION_RATE);
             physics.SetAcceleration(newAcceleration);
             sprite.SetAnimation("down");
             Facing = Directions.DOWN;
@@ -348,7 +348,7 @@ namespace Sprint.Characters
             // Don't move while shielding
            
             float diagonalSpeed = CharacterConstants.PLAYER_SPEED / (float)(Math.Sqrt(2) * 64); // Diagonal movement speed
-            Vector2 newAcceleration = direction * CharacterConstants.accelerationRate;
+            Vector2 newAcceleration = direction * CharacterConstants.ACCELERATION_RATE;
             physics.SetAcceleration(newAcceleration);
         }
 
@@ -362,7 +362,7 @@ namespace Sprint.Characters
         {
 
             // Update the velocity using the Physics component
-            physics.UpdateVelocity(CharacterConstants.stillFriction, speedLimit, gameTime);
+            physics.UpdateVelocity(CharacterConstants.STILL_FRICTION, speedLimit, gameTime);
 
             // Check if the player is not moving to return to the base animation
             if (physics.Velocity == Vector2.Zero)
