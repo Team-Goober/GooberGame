@@ -31,6 +31,9 @@ namespace Sprint.Characters
         public event HealthUpdateDelegate OnPlayerHealthChange;
         public delegate void MaxHealthUpdateDelegate(int prev, int next, double health);
         public event MaxHealthUpdateDelegate OnPlayerMaxHealthChange;
+        // Event that signals room change
+        public delegate void RoomChangeDelegate(Room newRoom);
+        public event RoomChangeDelegate OnPlayerRoomChange;
 
         private Physics physics;
         private Room room;
@@ -132,6 +135,11 @@ namespace Sprint.Characters
             return room;
         }
 
+        public SpriteLoader GetSpriteLoader()
+        {
+            return spriteLoader;
+        }
+
         // Moves the player from current scene into a new one
         public void SetRoom(Room room)
         {
@@ -144,6 +152,7 @@ namespace Sprint.Characters
             secondaryItems.SetRoom(this.room);
             this.room.GetScene().Add(this);
             StopMoving();
+            OnPlayerRoomChange?.Invoke(room);
         }
 
         // Create melee attack according to facing direction and with given damage value

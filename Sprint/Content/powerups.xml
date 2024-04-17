@@ -56,6 +56,19 @@
       </Value>
     </Item>
     <Item>
+      <Key>fairy</Key>
+      <Value>
+        <Label>fairy</Label>
+        <Description>FAIRY|companion for|player</Description>
+        <Sprite>fairy</Sprite>
+        <Effect Type="Sprint.Items.Effects.CompanionEffect">
+          <spriteName>fairy</spriteName>
+          <spriteFile>itemAnims</spriteFile>
+        </Effect>
+        <Type>Sprint.Items.PassivePowerup</Type>
+      </Value>
+    </Item>
+    <Item>
       <Key>rupee</Key>
       <Value Type="XMLData:StackedPowerupData">
         <Label>rupee</Label>
