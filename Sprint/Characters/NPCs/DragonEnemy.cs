@@ -33,14 +33,9 @@ namespace Sprint.Characters
             this.objectManager = room.GetScene();
             this.player = player;
 
-            //timeAttack = new Timer(2);
-            //timeAttack.Start();
 
             health = CharacterConstants.HIGH_HP;
 
-            //itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
-
-            //projectileCommand = new ShootFireBallC(itemFactory);
 
             projFire = new ProjFire(spriteLoader, room, moveDirection);
 
@@ -77,13 +72,6 @@ namespace Sprint.Characters
             // Move randomly within a specified area
             moveRandom.MoveAI(gameTime);
 
-            //if (timeAttack.JustEnded)
-            //{
-            //    itemFactory.SetStartPosition(physics.Position);
-            //    itemFactory.SetDirection(Directions.LEFT);
-            //    projectileCommand.Execute();
-            //    timeAttack.Start();
-            //}
 
             // Set animation based on the new direction
             SetAnimationBasedOnDirection();
