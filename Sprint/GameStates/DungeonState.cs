@@ -351,7 +351,7 @@ namespace Sprint
             // Move player to new room
             player.SetRoom(rooms[idx.Y][idx.X]);
             currentRoom = idx;
-            player.MoveTo(spawn);
+            player.Move(spawn - player.GetPosition());
 
             // Update map for change
             map.MovePlayer(idx);

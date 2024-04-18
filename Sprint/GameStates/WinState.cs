@@ -80,7 +80,7 @@ namespace Sprint.GameStates
 
 
             player.Draw(spriteBatch, gameTime);
-            triForce.Draw(spriteBatch, player.GetPhysic().Position + new Vector2(0, -50), gameTime);
+            triForce.Draw(spriteBatch, player.GetPosition() + new Vector2(0, -50), gameTime);
 
             spriteBatch.End();
         }

@@ -71,7 +71,7 @@ namespace Sprint.Characters.Companions
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             // Draw a little bit offset from player
-            sprite.Draw(spriteBatch, player.GetPhysic().Position + offset, gameTime);
+            sprite.Draw(spriteBatch, player.GetPosition() + offset, gameTime);
         }
 
         public virtual void Update(GameTime gameTime)

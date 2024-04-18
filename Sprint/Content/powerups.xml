@@ -204,6 +204,19 @@
       </Value>
     </Item>
     <Item>
+      <Key>enderPearl</Key>
+      <Value Type="XMLData:StackedPowerupData">
+        <Label>enderPearl</Label>
+        <Description>ENDER PEARL|teleports player</Description>
+        <Sprite>enderPearl</Sprite>
+        <Effect Type="Sprint.Items.Effects.SpawnProjectileEffect">
+          <projName>enderPearl</projName>
+        </Effect>
+        <Type>Sprint.Items.ConsumableAbility</Type>
+        <Quantity>2</Quantity>
+      </Value>
+    </Item>
+    <Item>
       <Key>meat</Key>
       <Value Type="XMLData:StackedPowerupData">
         <Label>meat</Label>

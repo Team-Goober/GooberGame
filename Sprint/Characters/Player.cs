@@ -14,7 +14,7 @@ using System.Diagnostics;
 namespace Sprint.Characters
 {
 
-    internal class Player : Character, IMovingCollidable
+    internal class Player : Character
     {
         private DungeonState dungeon;
         private Inventory inventory;
@@ -53,12 +53,12 @@ namespace Sprint.Characters
         // Direction that the player is facing
         public Vector2 Facing { get; private set; }
 
-        public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
+        public override Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
                 (int) (physics.Position.Y - sideLength / 2.0),
                 sideLength,
                 sideLength);
 
-        public CollisionTypes[] CollisionType {
+        public override CollisionTypes[] CollisionType {
             get
             {
                 // Collide as shield if shield is up
@@ -356,9 +356,16 @@ namespace Sprint.Characters
             baseAnim = AnimationCycle.Walk;
         }
 
-        public Physics GetPhysic()
+        public override Vector2 GetPosition()
         {
-            return physics;
+            return physics.Position;
+        }
+
+        // Moves the player by a set distance
+        public override void Move(Vector2 distance)
+        {
+            // teleport player in displacement specified
+            physics.SetPosition(physics.Position + distance);
         }
 
         public override void Update(GameTime gameTime)
@@ -407,19 +414,6 @@ namespace Sprint.Characters
             //Draws sprite animation using AnimationSprite class
             sprite.Draw(spriteBatch, physics.Position, gameTime);
 
-        }
-
-        // Moves the player by a set distance
-        public void Move(Vector2 distance)
-        {
-            // teleport player in displacement specified
-            physics.SetPosition(physics.Position + distance);
-        }
-        
-        // Moves player to set position
-        public void MoveTo(Vector2 pos)
-        {
-            physics.SetPosition(pos);
         }
 
         /// <summary>

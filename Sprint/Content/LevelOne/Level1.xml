@@ -1079,26 +1079,6 @@
               <TilePos>5.5 4</TilePos>
               <Price>0</Price>
             </Item>
-            <Item>
-              <Type>knife</Type>
-              <TilePos>5 4</TilePos>
-              <Price>0</Price>
-            </Item>
-            <Item>
-              <Type>knife</Type>
-              <TilePos>6 4</TilePos>
-              <Price>0</Price>
-            </Item>
-            <Item>
-              <Type>knife</Type>
-              <TilePos>5 3</TilePos>
-              <Price>0</Price>
-            </Item>
-            <Item>
-              <Type>knife</Type>
-              <TilePos>6 3</TilePos>
-              <Price>0</Price>
-            </Item>
           </Items>
           <Enemies/>
           <TextBoxes />
@@ -1354,6 +1334,21 @@
             <Item>
               <Type>knife</Type>
               <TilePos>4 6</TilePos>
+              <Price>0</Price>
+            </Item>
+            <Item>
+              <Type>knife</Type>
+              <TilePos>4 5</TilePos>
+              <Price>0</Price>
+            </Item>
+            <Item>
+              <Type>enderPearl</Type>
+              <TilePos>4 4</TilePos>
+              <Price>0</Price>
+            </Item>
+            <Item>
+              <Type>enderPearl</Type>
+              <TilePos>4 3</TilePos>
               <Price>0</Price>
             </Item>
             <Item>

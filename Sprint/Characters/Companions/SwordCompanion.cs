@@ -52,7 +52,7 @@ namespace Sprint.Characters.Companions
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             // Draw a little bit offset from player with rotation according to spin
-            sprite.Draw(spriteBatch, player.GetPhysic().Position + offset, gameTime, (float)(2 * Math.PI * spinTimer.TimeLeft / spinTimer.Duration));
+            sprite.Draw(spriteBatch, player.GetPosition() + offset, gameTime, (float)(2 * Math.PI * spinTimer.TimeLeft / spinTimer.Duration));
         }
 
         public override void Update(GameTime gameTime)
@@ -60,7 +60,7 @@ namespace Sprint.Characters.Companions
             spinTimer.Update(gameTime);
 
             // Update sword position
-            sword.SetPosition(player.GetPhysic().Position + offset - new Vector2(CharacterConstants.SWORD_WIDTH / 2));
+            sword.SetPosition(player.GetPosition() + offset - new Vector2(CharacterConstants.SWORD_WIDTH / 2));
 
             base.Update(gameTime);
         }

@@ -706,6 +706,23 @@
         <InitialAnimation>badge</InitialAnimation>
       </Value>
     </Item>
-		
+    
+    <Item>
+      <Key>enderPearl</Key>
+      <Value>
+        <Texture>Items/minecraft</Texture>
+        <Animations>
+          <Item>
+            <Key>pearl</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>466 2 13 13</Rectangle>
+              <CenterPoint>6.5 6.5</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>pearl</InitialAnimation>
+      </Value>
+    </Item>
 	</Asset>
 </XnaContent>
