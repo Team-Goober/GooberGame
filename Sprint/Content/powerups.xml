@@ -254,6 +254,7 @@
           <Item>bomb</Item>
           <Item>candle</Item>
           <Item>boomerang</Item>
+          <Item>enderPearl</Item>
         </Bases>
       </Value>
     </Item>
@@ -270,6 +271,7 @@
           <Item>bomb</Item>
           <Item>candle</Item>
           <Item>boomerang</Item>
+          <Item>enderPearl</Item>
         </Bases>
       </Value>
     </Item>
@@ -300,6 +302,7 @@
         <Bases>
           <Item>bomb</Item>
           <Item>meat</Item>
+          <Item>enderPearl</Item>
         </Bases>
       </Value>
     </Item>

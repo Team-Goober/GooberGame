@@ -29,6 +29,8 @@ namespace Sprint.Projectile
             sfxFactory.PlaySoundEffect("Run Into Wall");
             // Teleport shooting character to end position
             shooter?.Move(position - shooter.GetPosition());
+            // Damage the character on impact
+            shooter.TakeDamage(0.5);
             Delete();
         }
     }
