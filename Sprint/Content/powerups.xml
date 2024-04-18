@@ -44,6 +44,18 @@
       </Value>
     </Item>
     <Item>
+      <Key>specialKey</Key>
+      <Value>
+        <Label>specialKey</Label>
+        <Description>MASTER KEY|unlock any|door</Description>
+        <Sprite>specialKey</Sprite>
+        <Effect Type="Sprint.Items.Effects.InfiniteResourceEffect">
+          <label>key</label>
+        </Effect>
+        <Type>Sprint.Items.PassivePowerup</Type>
+      </Value>
+    </Item>
+    <Item>
       <Key>redRing</Key>
       <Value>
         <Label>redRing</Label>

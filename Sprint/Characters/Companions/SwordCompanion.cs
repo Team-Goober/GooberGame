@@ -16,8 +16,10 @@ namespace Sprint.Characters.Companions
         {
             spinTimer = new Timer(1.7);
             spinTimer.SetLooping(true);
-            loopTimer.SetDuration(2);
+            loopTimer.SetDuration(3.5);
             axisTimer.SetDuration(11);
+
+            stride = new Vector2(150, 75);
             // Width is used isntead of length because the sword is rotating, so we need a square
             sword = new SwordCollision(new(0, 0, CharacterConstants.SWORD_WIDTH, CharacterConstants.SWORD_WIDTH), player, 0.1f);
         }

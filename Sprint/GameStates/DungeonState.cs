@@ -563,5 +563,10 @@ namespace Sprint
             }
         }
 
+        public Player GetPlayer()
+        {
+            return player;
+        }
+
     }
 }

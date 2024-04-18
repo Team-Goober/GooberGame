@@ -32,14 +32,13 @@ namespace Sprint.Items
             catalog = Goober.content.Load<Dictionary<string, PowerupData>>(POWERUP_FILE);
         }
 
+
         /// <summary>
-        /// Builds item from string name
+        /// Builds powerup from string name
         /// </summary>
-        /// <param name="name">Name of powerup for item to make</param>
-        /// <param name="position">World position to spawn at</param>
-        /// <param name="price">Cost of item when picked up</param>
-        /// <returns>Newly created Item</returns>
-        public Item MakeItem(string name, Vector2 position, int price)
+        /// <param name="name">Name of powerup for powerup to make</param>
+        /// <returns>Newly created powerup</returns>
+        public IPowerup MakePowerup(string name)
         {
             // Temporarily handle unimplemented items
             if (!catalog.ContainsKey(name))
@@ -56,15 +55,33 @@ namespace Sprint.Items
                         ((IEffect)pd.Effect)?.Clone(), pd.Label, pd.Description}) as IPowerup;
 
             // Add quantity if stacked type
-            if(pd is StackedPowerupData)
+            if (pd is StackedPowerupData)
                 ((IStackedPowerup)pup).AddAmount(((StackedPowerupData)pd).Quantity);
             // Set duration if cooldown type
-            if(pd is CooldownPowerupData)
+            if (pd is CooldownPowerupData)
                 ((ICooldownPowerup)pup).SetDuration(((CooldownPowerupData)pd).Duration);
             // Set bases if upgrade type
             if (pd is UpgradePowerupData)
                 ((IUpgradePowerup)pup).SetUpgradeOptions(((UpgradePowerupData)pd).Bases.ToList());
 
+            return pup;
+        }
+
+        /// <summary>
+        /// Builds item from string name
+        /// </summary>
+        /// <param name="name">Name of powerup for item to make</param>
+        /// <param name="position">World position to spawn at</param>
+        /// <param name="price">Cost of item when picked up</param>
+        /// <returns>Newly created Item</returns>
+        public Item MakeItem(string name, Vector2 position, int price)
+        {
+            IPowerup pup = MakePowerup(name);
+            // If powerup doesn't exist, don't make an item
+            if(pup == null)
+            {
+                return null;
+            }
             // Create final item using powerup
             Item it = new(position, pup, price);
             return it;

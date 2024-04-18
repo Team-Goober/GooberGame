@@ -26,6 +26,7 @@ namespace Sprint.Items
         private int quantity;
         private ZeldaText number;
         private string description;
+        private bool unlimited = false;
 
         private TimeSpan lastUpdate;
 
@@ -37,6 +38,26 @@ namespace Sprint.Items
             quantity = 0;
             number = new ZeldaText("nintendo", new() { "0" }, new Vector2(16, 16), 0.5f, Color.White, Goober.content);
             this.description = description;
+        }
+
+        public bool ReadyConsume(int amount)
+        {
+            if(Quantity() < amount && !unlimited)
+            {
+                // Can't use if not enough and not unlimited
+                return false;
+            }
+            else if (!unlimited)
+            {
+                // If not unlimited but able to use one, use one
+                AddAmount(-amount);
+                return true;
+            }
+            else
+            {
+                // Unlimited, so don't need to use one
+                return true;
+            }
         }
 
         public void AddAmount(int amount)
@@ -52,6 +73,17 @@ namespace Sprint.Items
         {
             return quantity;
         }
+
+        public void SetUnlimited(bool unlimited)
+        {
+            this.unlimited = unlimited;
+        }
+
+        public bool GetUnlimited()
+        {
+            return unlimited;
+        }
+
         public bool CanPickup(Inventory inventory)
         {
             // Can always pick up a resource

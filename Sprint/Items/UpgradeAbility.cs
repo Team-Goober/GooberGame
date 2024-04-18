@@ -222,6 +222,27 @@ namespace Sprint.Items
             return (stackBase == null) ? 1 : stackBase.Quantity();
         }
 
+        public bool ReadyConsume(int amount)
+        {
+            // Defer to base if it is stackable
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            return (stackBase == null) ? false : stackBase.ReadyConsume(amount);
+        }
+
+        public void SetUnlimited(bool unlimited)
+        {
+            // Defer to base if it is stackable
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            stackBase?.SetUnlimited(unlimited);
+        }
+
+        public bool GetUnlimited()
+        {
+            // Defer to base if it is stackable
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            return (stackBase == null) ? false : stackBase.GetUnlimited();
+        }
+
         public void SetDuration(double duration)
         {
             // Defer to base if it has cooldown
