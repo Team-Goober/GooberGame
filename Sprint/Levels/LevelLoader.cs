@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
 using Sprint.Door;
@@ -36,6 +38,9 @@ namespace Sprint.Loader
 
         private int levelNumber;
 
+        private LevelGeneration levelGeneration;
+
+
         public LevelLoader(ContentManager newContent, DungeonState dungeon, SpriteLoader spriteLoader)
         {
             this.content = newContent;
@@ -47,6 +52,7 @@ namespace Sprint.Loader
             itemFactory = new(spriteLoader);
             enemyFactory = new(spriteLoader);
             songHandler = SongHandler.GetInstance();
+            levelGeneration = LevelGeneration.GetInstance();
         }
 
         /* Loads Level data from given file
@@ -55,7 +61,50 @@ namespace Sprint.Loader
         */
         public void LoadLevelXML(string path)
         {
+            // Dictionary<int, (int, int)> indexConverter = new Dictionary<int, (int, int)>()
+            // {
+            //     {0, (2,2)}, {1, (2,3)}, {2,(3,3)}, {3,(3,5)}, {4,(3,6)}, {5,(4,1)}, {6,(4,2)}, {7,(4,3)}, {8,(4,4)},
+            //     {9,(4,5)}, {10,(5,2)}, {11,(5,3)}, {12,(5,4)}, {13,(6,3)}, {14,(7,2)}, {15,(7,3)}, {16,(7,4)}
+            // };
+            //
+            // int rowNum = 0;
+            // int columnNum = 0;
+            // RoomData[] empty = new[] {(RoomData)null,(RoomData)null, (RoomData)null,(RoomData)null,(RoomData)null,(RoomData)null,(RoomData)null,(RoomData)null} as RoomData[];
+            // RoomData[][] mapGirdConverted = new RoomData[8][];
+            // for (int i = 0; i< 8;i++)
+            // {
+            //     mapGirdConverted[i] = empty;
+            // }
+            //
+            // foreach (var indexNeeded in levelGeneration.mapGrid)
+            // {
+            //
+            //     var roomNeeded = indexConverter[indexNeeded];
+            //
+            //     if (indexNeeded == 0)
+            //     {
+            //         mapGirdConverted[rowNum][columnNum] = null;
+            //     }
+            //     else
+            //     {
+            //         mapGirdConverted[rowNum][columnNum] = data.Rooms[roomNeeded.Item1][roomNeeded.Item2];
+            //     }
+            //
+            //     if (columnNum % 7 == 0 && columnNum != 0)
+            //     {
+            //         rowNum++;
+            //         columnNum = 0;
+            //     }
+            //     else
+            //     {
+            //         columnNum++;
+            //     }
+            // }
+
             LevelData data = content.Load<LevelData>(path);
+            RoomListData roomListData = content.Load<RoomListData>("LevelOne/RoomsList");
+            var generatedGrid = levelGeneration.mapGrid;
+
 
             dungeon.SetArenaPosition(data.ArenaOffset);
 
@@ -79,53 +128,104 @@ namespace Sprint.Loader
             stairLinks = new();
 
             // Load all rooms by index using RoomLoader
-            for (int r = 0; r < data.LayoutRows; r++) {
-                for (int c = 0; c < data.LayoutColumns; c++)
+            var loc = new Point(0, 0);
+            foreach (var roomIndex in generatedGrid)
+            {
+                if (roomIndex != 0)
                 {
-                    Point loc = new Point(c, r);
-                    if (data.Rooms[r][c] != null)
-                    {
-                        dungeon.AddRoom(loc, BuildRoom(data, loc), data.Rooms[loc.Y][loc.X].Hidden);
-                    }
+                    dungeon.AddRoom(loc, BuildRoom(roomListData, data, roomIndex, loc), roomListData.Rooms[roomIndex].Hidden);
+                }
+                loc.Y++;
+                if (loc.Y == LevelGeneration.Columns)
+                {
+                    loc.Y = 0;
+                    loc.X++;
                 }
             }
+
+            // // Load all rooms by index using RoomLoader
+            // for (int r = 0; r < data.LayoutRows; r++) {
+            //     for (int c = 0; c < data.LayoutColumns; c++)
+            //     {
+            //         Point loc = new Point(c, r);
+            //         if (data.Rooms[r][c] != null)
+            //         {
+            //             dungeon.AddRoom(loc, BuildRoom(data, loc), data.Rooms[loc.Y][loc.X].Hidden);
+            //         }
+            //     }
+            // }
 
             // Link together stairs
             foreach(KeyValuePair<int, IDoor> st in stairs)
             {
                 st.Value.SetOtherFace(stairs[stairLinks[st.Key]]);
             }
-
             // Link together doors on opposing sides
-            for (int r = 0; r < data.LayoutRows; r++)
+            var roomLocation = new Point(0, 0);
+            foreach (var roomIndex in generatedGrid)
             {
-                for (int c = 0; c < data.LayoutColumns; c++)
+                if (generatedGrid[roomLocation.X,roomLocation.Y] != 0 && roomListData.Rooms[roomIndex].NeedWall)
                 {
-                    if (data.Rooms[r][c] != null && data.Rooms[r][c].NeedWall)
+                    // Check each exit direction
+                    for (int d = 0; d < 4; d++)
                     {
-                        // Check each exit direction
-                        for (int d=0; d<4; d++)
+                        // Get direction and other room's indices
+                        Vector2 dir = Directions.GetDirectionFromIndex(d);
+                        int or = (int)(roomLocation.Y + dir.Y);
+                        int oc = (int)(roomLocation.X + dir.X);
+
+                        // Only link doors if the other room is in layout bounds
+                        if (or >= 0 && or < data.LayoutRows && oc >= 0 && oc < data.LayoutColumns)
                         {
-                            // Get direction and other room's indices
-                            Vector2 dir = Directions.GetDirectionFromIndex(d);
-                            int or = (int)(r + dir.Y);
-                            int oc = (int)(c + dir.X);
-                            // Only link doors if the other room is in layout bounds
-                            if (or >= 0 && or < data.LayoutRows && oc >= 0 && oc < data.LayoutColumns)
+                            IDoor door = dungeon.GetRoomAt(roomLocation).GetDoors()[d];
+                            Room otherRoom = dungeon.GetRoomAt(new Point(oc, or));
+                            if(otherRoom != null && otherRoom.GetDoors().Count >= 4)
                             {
-                                IDoor door = dungeon.GetRoomAt(new Point(c, r)).GetDoors()[d];
-                                Room otherRoom = dungeon.GetRoomAt(new Point(oc, or));
-                                if(otherRoom != null && otherRoom.GetDoors().Count >= 4)
-                                {
-                                    IDoor otherDoor = otherRoom.GetDoors()[Directions.GetIndex(Directions.Opposite(dir))];
-                                    door.SetOtherFace(otherDoor);
-                                }
-                                
+                                IDoor otherDoor = otherRoom.GetDoors()[Directions.GetIndex(Directions.Opposite(dir))];
+                                door.SetOtherFace(otherDoor);
                             }
                         }
                     }
                 }
+
+                if (roomLocation.Y == LevelGeneration.Columns)
+                {
+                    roomLocation.Y = 0;
+                    roomLocation.X++;
+                }
             }
+
+
+            // // Link together doors on opposing sides
+            // for (int r = 0; r < LevelGeneration.Rows; r++)
+            // {
+            //     for (int c = 0; c < LevelGeneration.Columns; c++)
+            //     {
+            //         if (data.Rooms[r][c] != null && data.Rooms[r][c].NeedWall)
+            //         {
+            //             // Check each exit direction
+            //             for (int d=0; d<4; d++)
+            //             {
+            //                 // Get direction and other room's indices
+            //                 Vector2 dir = Directions.GetDirectionFromIndex(d);
+            //                 int or = (int)(r + dir.Y);
+            //                 int oc = (int)(c + dir.X);
+            //                 // Only link doors if the other room is in layout bounds
+            //                 if (or >= 0 && or < data.LayoutRows && oc >= 0 && oc < data.LayoutColumns)
+            //                 {
+            //                     IDoor door = dungeon.GetRoomAt(new Point(c, r)).GetDoors()[d];
+            //                     Room otherRoom = dungeon.GetRoomAt(new Point(oc, or));
+            //                     if(otherRoom != null && otherRoom.GetDoors().Count >= 4)
+            //                     {
+            //                         IDoor otherDoor = otherRoom.GetDoors()[Directions.GetIndex(Directions.Opposite(dir))];
+            //                         door.SetOtherFace(otherDoor);
+            //                     }
+            //
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
 
             dungeon.SetDoors(doorBounds);
 
@@ -143,10 +243,10 @@ namespace Sprint.Loader
         * @param lvl        LevelData to pull info from
         * @param roomIndex  index of room in LevelData.Rooms to be made
         */
-        public Room BuildRoom(LevelData lvl, Point roomIndices)
+        public Room BuildRoom(RoomListData roomListData, LevelData levelData, int roomIndex, Point roomCoordinates)
         {
-            RoomData rd = lvl.Rooms[roomIndices.Y][roomIndices.X];
-
+            RoomData rd = roomListData.Rooms[roomIndex];
+            Point roomIndices = roomCoordinates;
             Room room = new(rd.Hidden);
 
             List<IDoor> roomDoors = room.GetDoors();
@@ -155,15 +255,15 @@ namespace Sprint.Loader
             SceneObjectManager scene = room.GetScene();
 
             //If the rooms need walls. Load Wall sprite, Door sprite, and wall colliders.
-            if (lvl.Rooms[roomIndices.Y][roomIndices.X].NeedWall)
+            if (roomListData.Rooms[roomIndex].NeedWall)
             {
                 //Load Wall texture
-                ISprite bgSprite = spriteLoader.BuildSprite(lvl.SpriteFile, lvl.BackgroundSprite);
-                BackgroundTexture bg = new BackgroundTexture(bgSprite, lvl.WallPos);
+                ISprite bgSprite = spriteLoader.BuildSprite(levelData.SpriteFile, levelData.BackgroundSprite);
+                BackgroundTexture bg = new BackgroundTexture(bgSprite, levelData.WallPos);
                 scene.Add(bg);
 
                 //Load Wall colliders
-                foreach (Rectangle rect in lvl.OuterWalls)
+                foreach (Rectangle rect in levelData.OuterWalls)
                 {
                     InvisibleWall ow = new InvisibleWall(rect);
                     scene.Add(ow);
@@ -172,10 +272,10 @@ namespace Sprint.Loader
                 // spawn player on other side of room
                 // parameter list is way too long
                 IDoor[] doors = new IDoor[4];
-                doors[Directions.GetIndex(Directions.UP)] = MakeDoor(lvl, rd.TopExit, lvl.DoorReferences[rd.TopExit].TopSprite, lvl.TopDoorPos, lvl.BottomSpawnPos, Directions.UP, roomIndices);
-                doors[Directions.GetIndex(Directions.RIGHT)] = MakeDoor(lvl, rd.RightExit, lvl.DoorReferences[rd.RightExit].RightSprite, lvl.RightDoorPos, lvl.LeftSpawnPos, Directions.RIGHT, roomIndices);
-                doors[Directions.GetIndex(Directions.DOWN)] = MakeDoor(lvl, rd.BottomExit, lvl.DoorReferences[rd.BottomExit].BottomSprite, lvl.BottomDoorPos, lvl.TopSpawnPos, Directions.DOWN, roomIndices);
-                doors[Directions.GetIndex(Directions.LEFT)] = MakeDoor(lvl, rd.LeftExit, lvl.DoorReferences[rd.LeftExit].LeftSprite, lvl.LeftDoorPos, lvl.RightSpawnPos, Directions.LEFT, roomIndices);
+                doors[Directions.GetIndex(Directions.UP)] = MakeDoor(levelData, rd.TopExit, levelData.DoorReferences[rd.TopExit].TopSprite, levelData.TopDoorPos, levelData.BottomSpawnPos, Directions.UP, roomIndices);
+                doors[Directions.GetIndex(Directions.RIGHT)] = MakeDoor(levelData, rd.RightExit, levelData.DoorReferences[rd.RightExit].RightSprite, levelData.RightDoorPos, levelData.LeftSpawnPos, Directions.RIGHT, roomIndices);
+                doors[Directions.GetIndex(Directions.DOWN)] = MakeDoor(levelData, rd.BottomExit, levelData.DoorReferences[rd.BottomExit].BottomSprite, levelData.BottomDoorPos, levelData.TopSpawnPos, Directions.DOWN, roomIndices);
+                doors[Directions.GetIndex(Directions.LEFT)] = MakeDoor(levelData, rd.LeftExit, levelData.DoorReferences[rd.LeftExit].LeftSprite, levelData.LeftDoorPos, levelData.RightSpawnPos, Directions.LEFT, roomIndices);
 
 
                 for (int i = 0; i < doors.Length; i++)
@@ -197,16 +297,16 @@ namespace Sprint.Loader
 
             //Load Floor tile 
             float x, y, xChange;
-            if (lvl.Rooms[roomIndices.Y][roomIndices.X].NeedWall)
+            if (roomListData.Rooms[roomIndex].NeedWall)
             {
-                x = lvl.FloorGridPos.X;
-                y = lvl.FloorGridPos.Y;
-                xChange = lvl.FloorGridPos.X;
+                x = levelData.FloorGridPos.X;
+                y = levelData.FloorGridPos.Y;
+                xChange = levelData.FloorGridPos.X;
             } else
             {
-                x = lvl.ZeroZeroPos.X;
-                y = lvl.ZeroZeroPos.Y;
-                xChange = lvl.ZeroZeroPos.X;
+                x = levelData.ZeroZeroPos.X;
+                y = levelData.ZeroZeroPos.Y;
+                xChange = levelData.ZeroZeroPos.X;
             }
 
             List<ITile> normTiles = new List<ITile>();
@@ -219,17 +319,17 @@ namespace Sprint.Loader
                 {
                     if (tile.Equals("X"))
                     {
-                        moveTiles.Add(MakeTile(lvl, tile, new Vector2(x, y)));
-                        normTiles.Add(MakeTile(lvl, "0", new Vector2(x, y)));
+                        moveTiles.Add(MakeTile(levelData, tile, new Vector2(x, y)));
+                        normTiles.Add(MakeTile(levelData, "0", new Vector2(x, y)));
                     }
                     else
                     {
-                        normTiles.Add(MakeTile(lvl, tile, new Vector2(x, y)));
+                        normTiles.Add(MakeTile(levelData, tile, new Vector2(x, y)));
                     }
-                    x += lvl.TileSize.X;
+                    x += levelData.TileSize.X;
                 }
                 x = xChange;
-                y += lvl.TileSize.Y;
+                y += levelData.TileSize.Y;
             }
             
             foreach (ITile t in normTiles)
@@ -246,7 +346,7 @@ namespace Sprint.Loader
             //Load enemies
             foreach (EnemySpawnData spawn in rd.Enemies)
             {
-                Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
+                Vector2 position = levelData.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * levelData.TileSize;
                 Enemy en = enemyFactory.MakeEnemy(spawn.Type, position, room);
                 // Give item drop
                 if(spawn.ItemDrop != null)
@@ -264,7 +364,7 @@ namespace Sprint.Loader
             //Load items
             foreach (ItemSpawnData spawn in rd.Items)
             {
-                Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
+                Vector2 position = levelData.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * levelData.TileSize;
                 Item it = itemFactory.MakeItem(spawn.Type, position);
                 if (it != null)
                 {
