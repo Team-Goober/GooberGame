@@ -446,6 +446,11 @@
 /processorParam:TextureFormat=Color
 /build:LevelOne/RoomOne/roomOneFloor.png
 
+#begin LevelOne/RoomsList.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:LevelOne/RoomsList.xml
+
 #begin Magical Boomerang Thrown.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
