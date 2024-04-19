@@ -1152,7 +1152,7 @@
           </TileGrid>
           <Items>
             <Item>
-              <Type>arrow</Type>
+              <Type>shield</Type>
               <TilePos>0 0</TilePos>
               <Price>0</Price>
             </Item>
@@ -1347,7 +1347,7 @@
               <Price>0</Price>
             </Item>
             <Item>
-              <Type>enderPearl</Type>
+              <Type>hookShot</Type>
               <TilePos>4 3</TilePos>
               <Price>0</Price>
             </Item>

@@ -217,6 +217,16 @@
       </Value>
     </Item>
     <Item>
+      <Key>hookShot</Key>
+      <Value>
+        <Label>hookShot</Label>
+        <Description>HOOK SHOT|grappling hook</Description>
+        <Sprite>arrow</Sprite>
+        <Effect Type="Sprint.Items.Effects.SpawnOrRetractHookEffect" />
+        <Type>Sprint.Items.ActiveAbility</Type>
+      </Value>
+    </Item>
+    <Item>
       <Key>meat</Key>
       <Value Type="XMLData:StackedPowerupData">
         <Label>meat</Label>

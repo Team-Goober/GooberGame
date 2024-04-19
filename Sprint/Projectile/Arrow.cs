@@ -20,7 +20,7 @@ namespace Sprint.Projectile
         {
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Arrow Shot");
-            damage = CharacterConstants.LOW_DMG;
+            damage = CharacterConstants.LOW_DMG / 2;
         }
 
         public void SetSmokeCommand(PlaceSmoke smoke)

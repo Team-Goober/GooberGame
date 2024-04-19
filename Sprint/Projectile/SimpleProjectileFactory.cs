@@ -68,6 +68,9 @@ namespace Sprint.Projectile
                 case "enderPearl":
                     ret = CreateEnderPearl(shooter);
                     break;
+                case "hook":
+                    ret = CreateHook(shooter);
+                    break;
             }
             return ret;
         }
@@ -135,6 +138,14 @@ namespace Sprint.Projectile
         {
             EnderPearl proj = new EnderPearl(
                 spriteLoader.BuildSprite(ANIMS_FILE, "enderPearl"),
+                getSpawnPosition(), direction, isEnemy, room, shooter);
+            return proj;
+        }
+
+        public Hook CreateHook(Character shooter)
+        {
+            Hook proj = new Hook(
+                spriteLoader.BuildSprite(ANIMS_FILE, "arrow"),
                 getSpawnPosition(), direction, isEnemy, room, shooter);
             return proj;
         }

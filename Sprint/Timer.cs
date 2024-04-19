@@ -57,6 +57,8 @@ namespace Sprint
                 if (Looping)
                 {
                     Start();
+                    // Mark that a loop finish just occurred
+                    JustEnded = true;
                 }
                 // Otherwise, end
                 else
