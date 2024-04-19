@@ -6,11 +6,12 @@ namespace Sprint.Items.Effects
     internal class MeleeEffect : IEffect
     {
         private SfxFactory sfxFactory;
-        public float damage;
+        private float damage;
 
-        public MeleeEffect()
+        public MeleeEffect(float damage)
         {
             sfxFactory = SfxFactory.GetInstance();
+            this.damage = damage;
         }
 
         public void Execute(Player player)
@@ -24,11 +25,6 @@ namespace Sprint.Items.Effects
         public void Reverse(Player player)
         {
             // Do nothing
-        }
-
-        public IEffect Clone()
-        {
-            return new MeleeEffect() { damage = damage };
         }
     }
 }

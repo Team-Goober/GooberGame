@@ -13,11 +13,17 @@ namespace Sprint.Items.Effects
     internal class SwordCompanionEffect : IEffect
     {
 
-        public string spriteName;
-        public string spriteFile;
+        private string spriteName;
+        private string spriteFile;
 
         private Stack<Companion> companions = new(); // All active swords
         private Player player;
+
+        public SwordCompanionEffect(string spriteName, string spriteFile)
+        {
+            this.spriteName = spriteName;
+            this.spriteFile = spriteFile;
+        }
 
         public void Execute(Player player)
         {
@@ -42,11 +48,6 @@ namespace Sprint.Items.Effects
             }
             // Disconnect signal
             this.player = null;
-        }
-
-        public IEffect Clone()
-        {
-            return new SwordCompanionEffect() { spriteName = spriteName, spriteFile = spriteFile };
         }
 
     }

@@ -7,7 +7,12 @@ namespace Sprint.Items.Effects
     internal class SpawnProjectileEffect : IEffect
     {
 
-        public string projName;
+        private string projName;
+
+        public SpawnProjectileEffect(string projName)
+        {
+            this.projName = projName;
+        }
 
         public void Execute(Player player)
         {
@@ -20,9 +25,5 @@ namespace Sprint.Items.Effects
             // Do nothing
         }
 
-        public IEffect Clone()
-        {
-            return new SpawnProjectileEffect() { projName = projName };
-        }
     }
 }

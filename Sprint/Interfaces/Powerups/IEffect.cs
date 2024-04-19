@@ -9,8 +9,5 @@ namespace Sprint.Interfaces.Powerups
 
         // Undoes whatever change was done in execute
         void Reverse(Player player);
-
-        // Create a copy of this effect
-        IEffect Clone();
     }
 }
