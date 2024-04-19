@@ -7,9 +7,14 @@ namespace Sprint.Items.Effects
     internal class InfiniteResourceEffect : IEffect
     {
 
-        public string label;
+        private string label;
         private bool prevState; // Preserve previous unlimited level
         private IStackedPowerup pup; // Powerup to make infinite
+
+        public InfiniteResourceEffect(string label)
+        {
+            this.label = label;
+        }
 
         public void Execute(Player player)
         {
@@ -25,9 +30,5 @@ namespace Sprint.Items.Effects
             pup.SetUnlimited(prevState);
         }
 
-        public IEffect Clone()
-        {
-            return new InfiniteResourceEffect() {  label = label };
-        }
     }
 }

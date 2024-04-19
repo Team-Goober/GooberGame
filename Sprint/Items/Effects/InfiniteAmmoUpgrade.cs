@@ -32,11 +32,6 @@ namespace Sprint.Items.Effects
             baseAbility.SetUnlimited(true);
         }
 
-        public IEffect Clone()
-        {
-            return new InfiniteAmmoUpgrade();
-        }
-
     }
 }
 

@@ -16,10 +16,5 @@ namespace Sprint.Items.Effects
             // Tell player to tell dungeon to remove compass on map
             player.GetMap().PlaceCompass(false);
         }
-
-        public IEffect Clone()
-        {
-            return new CompassEffect();
-        }
     }
 }

@@ -9,9 +9,13 @@ namespace Sprint.Items.Effects
     internal class CompanionDamageUpgrade : IUpgradeEffect
     {
 
-        public float damage;
+        private float damage;
         private IPowerup basePowerup;
         
+        public CompanionDamageUpgrade(float damage)
+        {
+            this.damage = damage;
+        }
 
         public void Execute(Player player)
         {
@@ -50,9 +54,5 @@ namespace Sprint.Items.Effects
             }
         }
 
-        public IEffect Clone()
-        {
-            return new CompanionDamageUpgrade() { damage = damage };
-        }
     }
 }

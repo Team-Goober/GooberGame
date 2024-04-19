@@ -1,4 +1,6 @@
-﻿namespace XMLData
+﻿using System.Security;
+
+namespace XMLData
 {
     public class PowerupData
     {
@@ -6,7 +8,9 @@
         public string Label;
         public string Description;
         public string Sprite;
-        public object Effect;
+
+        public string Effect;
+        public ParameterPair[] EffectParams;
         public string Type;
     }
 
@@ -23,6 +27,12 @@
     public class UpgradePowerupData : PowerupData
     {
         public string[] Bases;
+    }
+
+    public struct ParameterPair
+    {
+        public string Name;
+        public object Value;
     }
 
 }

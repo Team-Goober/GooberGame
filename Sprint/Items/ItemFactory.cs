@@ -32,6 +32,32 @@ namespace Sprint.Items
             catalog = Goober.content.Load<Dictionary<string, PowerupData>>(POWERUP_FILE);
         }
 
+        /// <summary>
+        /// Builds effect from type name and constructor parameters
+        /// </summary>
+        /// <param name="type">Name of effect class to be made</param>
+        /// <param name="parameters">Dictionary of constructor parameter names and values</param>
+        /// <returns>Newly created effect</returns>
+        public IEffect MakeEffect(string type, ParameterPair[] parameters)
+        {
+            // Null if no effect
+            if(type == null)
+            {
+                return null;
+            }
+            // Create array of types in order to find constructor and values for them
+            Type[] ptypes = new Type[parameters.Length];
+            object[] pvals = new object[parameters.Length];
+            for(int i=0; i<ptypes.Length; i++)
+            {
+                ptypes[i] = parameters[i].Value.GetType();
+                pvals[i] = parameters[i].Value;
+            }
+            // Get correct constructor
+            ConstructorInfo constructor = Type.GetType(type).GetConstructor(ptypes);
+            // Invoke constructor with parameters
+            return constructor?.Invoke(pvals) as IEffect;
+        }
 
         /// <summary>
         /// Builds powerup from string name
@@ -52,7 +78,7 @@ namespace Sprint.Items
             ConstructorInfo constructor = Type.GetType(pd.Type).GetConstructor(args);
             // Create powerup using sprite, cloned effect, and strings
             IPowerup pup = constructor?.Invoke(new object[] { spriteLoader.BuildSprite(ANIM_FILE, pd.Sprite),
-                        ((IEffect)pd.Effect)?.Clone(), pd.Label, pd.Description}) as IPowerup;
+                        MakeEffect(pd.Effect, pd.EffectParams), pd.Label, pd.Description}) as IPowerup;
 
             // Add quantity if stacked type
             if (pd is StackedPowerupData)

@@ -34,9 +34,5 @@ namespace Sprint.Items.Effects
             return movingHooks;
         }
 
-        public IEffect Clone()
-        {
-            return new SpawnOrRetractHookEffect() { };
-        }
     }
 }

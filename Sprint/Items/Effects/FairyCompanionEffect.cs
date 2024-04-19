@@ -3,22 +3,24 @@ using Sprint.Characters;
 using Sprint.Characters.Companions;
 using Sprint.Interfaces;
 using Sprint.Interfaces.Powerups;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Windows.Markup;
 
 namespace Sprint.Items.Effects
 {
     internal class FairyCompanionEffect : IEffect
     {
 
-        public string spriteName;
-        public string spriteFile;
+        private string spriteName;
+        private string spriteFile;
 
         private Stack<Companion> companions = new(); // All active fairies
         private Player player;
 
+        public FairyCompanionEffect(string spriteName, string spriteFile)
+        {
+            this.spriteName = spriteName;
+            this.spriteFile = spriteFile;
+        }
         public void Execute(Player player)
         {
             // Create new companion on first execution
@@ -66,11 +68,6 @@ namespace Sprint.Items.Effects
             // Disconnect signal
             player.OnPlayerHealthChange -= onPlayerHealthChanged;
             this.player = null;
-        }
-
-        public IEffect Clone()
-        {
-            return new FairyCompanionEffect() { spriteName = spriteName, spriteFile = spriteFile };
         }
 
     }

@@ -18,9 +18,5 @@ namespace Sprint.Items.Effects
             player.SetShielded(false);
         }
 
-        public IEffect Clone()
-        {
-            return new ShieldEffect();
-        }
     }
 }

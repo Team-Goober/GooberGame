@@ -17,9 +17,5 @@ namespace Sprint.Items.Effects
             player.GetMap().RevealAll(false);
         }
 
-        public IEffect Clone()
-        {
-            return new MapEffect();
-        }
     }
 }

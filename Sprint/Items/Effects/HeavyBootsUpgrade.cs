@@ -37,10 +37,5 @@ namespace Sprint.Items.Effects
             baseAbility = powerup as IAbility;
         }
 
-        public IEffect Clone()
-        {
-            return new HeavyBootsUpgrade();
-        }
-
     }
 }

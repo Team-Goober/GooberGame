@@ -7,9 +7,13 @@
         <Label>heart</Label>
         <Description>HEART|heals one heart</Description>
         <Sprite>heart</Sprite>
-        <Effect Type="Sprint.Items.Effects.HealPlayerEffect">
-          <amount>1</amount>
-        </Effect>
+        <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>amount</Name>
+            <Value Type="int">1</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.InstantPowerup</Type>
       </Value>
     </Item>
@@ -19,7 +23,8 @@
         <Label>heartPiece</Label>
         <Description>HEART PIECE|increase max health</Description>
         <Sprite>heartPiece</Sprite>
-        <Effect Type="Sprint.Items.Effects.AddHeartEffect" />
+        <Effect>Sprint.Items.Effects.AddHeartEffect</Effect>
+        <EffectParams />
         <Type>Sprint.Items.InstantPowerup</Type>
       </Value>
     </Item>
@@ -29,7 +34,8 @@
         <Label>compass</Label>
         <Description>COMPASS|reveal triforce|room</Description>
         <Sprite>compass</Sprite>
-        <Effect Type="Sprint.Items.Effects.CompassEffect" />
+        <Effect>Sprint.Items.Effects.CompassEffect</Effect>
+        <EffectParams />
         <Type>Sprint.Items.PassivePowerup</Type>
       </Value>
     </Item>
@@ -39,7 +45,8 @@
         <Label>map</Label>
         <Description>MAP|reveal dungeon|layout</Description>
         <Sprite>map</Sprite>
-        <Effect Type="Sprint.Items.Effects.CompassEffect" />
+        <Effect>Sprint.Items.Effects.MapEffect</Effect>
+        <EffectParams />
         <Type>Sprint.Items.PassivePowerup</Type>
       </Value>
     </Item>
@@ -49,9 +56,13 @@
         <Label>specialKey</Label>
         <Description>MASTER KEY|unlock any|door</Description>
         <Sprite>specialKey</Sprite>
-        <Effect Type="Sprint.Items.Effects.InfiniteResourceEffect">
-          <label>key</label>
-        </Effect>
+        <Effect>Sprint.Items.Effects.InfiniteResourceEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>label</Name>
+            <Value Type="string">key</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.PassivePowerup</Type>
       </Value>
     </Item>
@@ -61,9 +72,13 @@
         <Label>redRing</Label>
         <Description>RING|doubles run speed</Description>
         <Sprite>redRing</Sprite>
-        <Effect Type="Sprint.Items.Effects.ChangeSpeedEffect">
-          <speedChange>300</speedChange>
-        </Effect>
+        <Effect>Sprint.Items.Effects.ChangeSpeedEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>speedChange</Name>
+            <Value Type="float">300</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.PassivePowerup</Type>
       </Value>
     </Item>
@@ -73,10 +88,17 @@
         <Label>fairy</Label>
         <Description>FAIRY|save player|from death</Description>
         <Sprite>fairy</Sprite>
-        <Effect Type="Sprint.Items.Effects.FairyCompanionEffect">
-          <spriteName>fairy</spriteName>
-          <spriteFile>itemAnims</spriteFile>
-        </Effect>
+        <Effect>Sprint.Items.Effects.FairyCompanionEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>spriteName</Name>
+            <Value Type="string">fairy</Value>
+          </Item>
+          <Item>
+            <Name>spriteFile</Name>
+            <Value Type="string">itemAnims</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.ResourcePowerup</Type>
         <Quantity>1</Quantity>
       </Value>
@@ -87,10 +109,17 @@
         <Label>knife</Label>
         <Description>KNIFE|floating sword|hits enemies</Description>
         <Sprite>knife</Sprite>
-        <Effect Type="Sprint.Items.Effects.SwordCompanionEffect">
-          <spriteName>knife</spriteName>
-          <spriteFile>itemAnims</spriteFile>
-        </Effect>
+        <Effect>Sprint.Items.Effects.SwordCompanionEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>spriteName</Name>
+            <Value Type="string">knife</Value>
+          </Item>
+          <Item>
+            <Name>spriteFile</Name>
+            <Value Type="string">itemAnims</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.ResourcePowerup</Type>
         <Quantity>1</Quantity>
       </Value>
@@ -102,6 +131,7 @@
         <Description>RUPEE|can be traded</Description>
         <Sprite>rupee</Sprite>
         <Effect Null="true" />
+        <EffectParams />
         <Type>Sprint.Items.ResourcePowerup</Type>
         <Quantity>5</Quantity>
       </Value>
@@ -113,6 +143,7 @@
         <Description>KEY|unlocks doors</Description>
         <Sprite>key</Sprite>
         <Effect Null="true" />
+        <EffectParams />
         <Type>Sprint.Items.ResourcePowerup</Type>
         <Quantity>1</Quantity>
       </Value>
@@ -123,7 +154,8 @@
         <Label>triforce</Label>
         <Description>TRIFORCE|saves hyrule</Description>
         <Sprite>triforce</Sprite>
-        <Effect Type="Sprint.Items.Effects.WinEffect" />
+        <Effect>Sprint.Items.Effects.WinEffect</Effect>
+        <EffectParams />
         <Type>Sprint.Items.ResourcePowerup</Type>
         <Quantity>1</Quantity>
       </Value>
@@ -134,7 +166,8 @@
         <Label>shield</Label>
         <Description>SHIELD|protects player</Description>
         <Sprite>shield</Sprite>
-        <Effect Type="Sprint.Items.Effects.ShieldEffect" />
+        <Effect>Sprint.Items.Effects.ShieldEffect</Effect>
+        <EffectParams />
         <Type>Sprint.Items.ActiveAbility</Type>
       </Value>
     </Item>
@@ -144,9 +177,13 @@
         <Label>sword</Label>
         <Description>SWORD|melee attack</Description>
         <Sprite>sword</Sprite>
-        <Effect Type="Sprint.Items.Effects.MeleeEffect">
-          <damage>0.5</damage>
-        </Effect>
+        <Effect>Sprint.Items.Effects.MeleeEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>damage</Name>
+            <Value Type="float">0.5</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.CooldownAbility</Type>
         <Duration>0.75</Duration>
       </Value>
@@ -157,9 +194,13 @@
         <Label>masterSword</Label>
         <Description>MASTER SWORD|strong melee attack</Description>
         <Sprite>masterSword</Sprite>
-        <Effect Type="Sprint.Items.Effects.MeleeEffect">
-          <damage>3</damage>
-        </Effect>
+        <Effect>Sprint.Items.Effects.MeleeEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>damage</Name>
+            <Value Type="float">3</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.CooldownAbility</Type>
         <Duration>0.5</Duration>
       </Value>
@@ -170,9 +211,13 @@
         <Label>bow</Label>
         <Description>BOW|shoots arrows</Description>
         <Sprite>bow</Sprite>
-        <Effect Type="Sprint.Items.Effects.SpawnProjectileEffect">
-          <projName>arrow</projName>
-        </Effect>
+        <Effect>Sprint.Items.Effects.SpawnProjectileEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>projName</Name>
+            <Value Type="string">arrow</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.CooldownAbility</Type>
         <Duration>1</Duration>
       </Value>
@@ -183,9 +228,13 @@
         <Label>boomerang</Label>
         <Description>BOOMERANG|throw boomerang</Description>
         <Sprite>boomerang</Sprite>
-        <Effect Type="Sprint.Items.Effects.SpawnProjectileEffect">
-          <projName>boomerang</projName>
-        </Effect>
+        <Effect>Sprint.Items.Effects.SpawnProjectileEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>projName</Name>
+            <Value Type="string">boomerang</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.CooldownAbility</Type>
         <Duration>1</Duration>
       </Value>
@@ -196,9 +245,13 @@
         <Label>bomb</Label>
         <Description>BOMB|drops an explosive</Description>
         <Sprite>bomb</Sprite>
-        <Effect Type="Sprint.Items.Effects.SpawnProjectileEffect">
-          <projName>bomb</projName>
-        </Effect>
+        <Effect>Sprint.Items.Effects.SpawnProjectileEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>projName</Name>
+            <Value Type="string">bomb</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.ConsumableAbility</Type>
         <Quantity>3</Quantity>
       </Value>
@@ -209,9 +262,13 @@
         <Label>enderPearl</Label>
         <Description>ENDER PEARL|teleports player</Description>
         <Sprite>enderPearl</Sprite>
-        <Effect Type="Sprint.Items.Effects.SpawnProjectileEffect">
-          <projName>enderPearl</projName>
-        </Effect>
+        <Effect>Sprint.Items.Effects.SpawnProjectileEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>projName</Name>
+            <Value Type="string">enderPearl</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.ConsumableAbility</Type>
         <Quantity>2</Quantity>
       </Value>
@@ -222,7 +279,8 @@
         <Label>hookShot</Label>
         <Description>HOOK SHOT|pull towards|target</Description>
         <Sprite>tripwire</Sprite>
-        <Effect Type="Sprint.Items.Effects.SpawnOrRetractHookEffect" />
+        <Effect>Sprint.Items.Effects.SpawnOrRetractHookEffect</Effect>
+        <EffectParams />
         <Type>Sprint.Items.ActiveAbility</Type>
       </Value>
     </Item>
@@ -232,9 +290,13 @@
         <Label>meat</Label>
         <Description>MEAT|heals 2 hearts</Description>
         <Sprite>meat</Sprite>
-        <Effect Type="Sprint.Items.Effects.HealPlayerEffect">
-          <amount>2</amount>
-        </Effect>
+        <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>amount</Name>
+            <Value Type="float">2</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.ConsumableAbility</Type>
         <Quantity>2</Quantity>
       </Value>
@@ -245,9 +307,13 @@
         <Label>candle</Label>
         <Description>CANDLE|make fire|once per room</Description>
         <Sprite>redCandle</Sprite>
-        <Effect Type="Sprint.Items.Effects.SpawnProjectileEffect">
-          <projName>fireBall</projName>
-        </Effect>
+        <Effect>Sprint.Items.Effects.SpawnProjectileEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>projName</Name>
+            <Value Type="string">fireBall</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.PerRoomAbility</Type>
       </Value>
     </Item>
@@ -257,7 +323,8 @@
         <Label>duoUpgrade</Label>
         <Description>- dual shot</Description>
         <Sprite>duo</Sprite>
-        <Effect Type="Sprint.Items.Effects.DualShotUpgrade" />
+        <Effect>Sprint.Items.Effects.DualShotUpgrade</Effect>
+        <EffectParams />
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
           <Item>bow</Item>
@@ -275,7 +342,8 @@
         <Label>tripleUpgrade</Label>
         <Description>- triple shot</Description>
         <Sprite>triple</Sprite>
-        <Effect Type="Sprint.Items.Effects.TripleShotUpgrade" />
+        <Effect>Sprint.Items.Effects.TripleShotUpgrade</Effect>
+        <EffectParams />
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
           <Item>bow</Item>
@@ -293,7 +361,8 @@
         <Label>reloadUpgrade</Label>
         <Description>- quick reload</Description>
         <Sprite>reload</Sprite>
-        <Effect Type="Sprint.Items.Effects.QuickCooldownUpgrade" />
+        <Effect>Sprint.Items.Effects.QuickCooldownUpgrade</Effect>
+        <EffectParams />
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
           <Item>bow</Item>
@@ -309,7 +378,8 @@
         <Label>infinityUpgrade</Label>
         <Description>- infinite ammo</Description>
         <Sprite>infinity</Sprite>
-        <Effect Type="Sprint.Items.Effects.InfiniteAmmoUpgrade" />
+        <Effect>Sprint.Items.Effects.InfiniteAmmoUpgrade</Effect>
+        <EffectParams />
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
           <Item>bomb</Item>
@@ -324,9 +394,13 @@
         <Label>blueArrow</Label>
         <Description>- silver tip</Description>
         <Sprite>arrowUpgrade</Sprite>
-        <Effect Type="Sprint.Items.Effects.UpgradeProjectileUpgrade">
-          <projectile>arrow</projectile>
-        </Effect>
+        <Effect>Sprint.Items.Effects.UpgradeProjectileUpgrade</Effect>
+        <EffectParams>
+          <Item>
+            <Name>projectile</Name>
+            <Value Type="string">arrow</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
           <Item>bow</Item>
@@ -339,9 +413,13 @@
         <Label>blueBoomerang</Label>
         <Description>- silver tip</Description>
         <Sprite>boomerangUpgrade</Sprite>
-        <Effect Type="Sprint.Items.Effects.UpgradeProjectileUpgrade">
-          <projectile>boomerang</projectile>
-        </Effect>
+        <Effect>Sprint.Items.Effects.UpgradeProjectileUpgrade</Effect>
+        <EffectParams>
+          <Item>
+            <Name>projectile</Name>
+            <Value Type="string">boomerang</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
           <Item>boomerang</Item>
@@ -354,7 +432,8 @@
         <Label>boots</Label>
         <Description>- heavy boots</Description>
         <Sprite>ironBoots</Sprite>
-        <Effect Type="Sprint.Items.Effects.HeavyBootsUpgrade" />
+        <Effect>Sprint.Items.Effects.HeavyBootsUpgrade</Effect>
+        <EffectParams/>
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
           <Item>hookShot</Item>
@@ -367,9 +446,13 @@
         <Label>criticalUpgrade</Label>
         <Description>- more damage</Description>
         <Sprite>critical</Sprite>
-        <Effect Type="Sprint.Items.Effects.CompanionDamageUpgrade">
-          <damage>0.5</damage>
-        </Effect>
+        <Effect>Sprint.Items.Effects.CompanionDamageUpgrade</Effect>
+        <EffectParams>
+          <Item>
+            <Name>damage</Name>
+            <Value Type="float">0.5</Value>
+          </Item>
+        </EffectParams>
         <Type>Sprint.Items.UpgradePowerup</Type>
         <Bases>
           <Item>knife</Item>
