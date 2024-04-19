@@ -640,6 +640,24 @@
     </Item>
 
     <Item>
+      <Key>tinyLink</Key>
+      <Value>
+        <Texture>zelda_links</Texture>
+        <Animations>
+          <Item>
+            <Key>down</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>1</Scale>
+        <InitialAnimation>down</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
       <Key>ironBoots</Key>
       <Value>
         <Texture>upgrade_badges</Texture>

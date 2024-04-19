@@ -1396,6 +1396,11 @@
               <TilePos>8 6</TilePos>
               <Price>0</Price>
             </Item>
+            <Item>
+              <Type>shrink</Type>
+              <TilePos>8 5</TilePos>
+              <Price>0</Price>
+            </Item>
           </Items>
           <Enemies/>
           <TextBoxes />

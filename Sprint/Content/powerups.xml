@@ -83,6 +83,22 @@
       </Value>
     </Item>
     <Item>
+      <Key>shrink</Key>
+      <Value>
+        <Label>shrink</Label>
+        <Description>SHRINK|become smaller</Description>
+        <Sprite>tinyLink</Sprite>
+        <Effect>Sprint.Items.Effects.ChangeSizeEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>scale</Name>
+            <Value Type="float">0.5</Value>
+          </Item>
+        </EffectParams>
+        <Type>Sprint.Items.PassivePowerup</Type>
+      </Value>
+    </Item>
+    <Item>
       <Key>fairy</Key>
       <Value Type="XMLData:StackedPowerupData">
         <Label>fairy</Label>
