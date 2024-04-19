@@ -365,7 +365,7 @@
       <Key>criticalUpgrade</Key>
       <Value Type="XMLData:UpgradePowerupData">
         <Label>criticalUpgrade</Label>
-        <Description>- heavy boots</Description>
+        <Description>- more damage</Description>
         <Sprite>critical</Sprite>
         <Effect Type="Sprint.Items.Effects.CompanionDamageUpgrade">
           <damage>0.5</damage>
