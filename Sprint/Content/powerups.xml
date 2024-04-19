@@ -220,8 +220,8 @@
       <Key>hookShot</Key>
       <Value>
         <Label>hookShot</Label>
-        <Description>HOOK SHOT|grappling hook</Description>
-        <Sprite>arrow</Sprite>
+        <Description>HOOK SHOT|pull towards|target</Description>
+        <Sprite>blueArrow</Sprite>
         <Effect Type="Sprint.Items.Effects.SpawnOrRetractHookEffect" />
         <Type>Sprint.Items.ActiveAbility</Type>
       </Value>

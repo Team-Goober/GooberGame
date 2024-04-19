@@ -145,7 +145,7 @@ namespace Sprint.Projectile
         public Hook CreateHook(Character shooter)
         {
             Hook proj = new Hook(
-                spriteLoader.BuildSprite(ANIMS_FILE, "arrow"),
+                spriteLoader.BuildSprite(ANIMS_FILE, "bluearrow"),
                 getSpawnPosition(), direction, isEnemy, room, shooter);
             return proj;
         }

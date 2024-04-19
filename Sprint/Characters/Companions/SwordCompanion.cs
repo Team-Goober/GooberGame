@@ -21,7 +21,8 @@ namespace Sprint.Characters.Companions
 
             stride = new Vector2(150, 75);
             // Width is used isntead of length because the sword is rotating, so we need a square
-            sword = new SwordCollision(new(0, 0, CharacterConstants.SWORD_WIDTH, CharacterConstants.SWORD_WIDTH), player, 0.1f);
+            sword = new SwordCollision(new(0, 0, CharacterConstants.SWORD_WIDTH, CharacterConstants.SWORD_WIDTH),
+                player, CharacterConstants.TINY_DMG);
         }
 
         // Sets whether this object should be in a room

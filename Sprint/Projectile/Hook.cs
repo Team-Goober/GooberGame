@@ -18,7 +18,9 @@ namespace Sprint.Projectile
         private const int TRAVEL = 700;
         private const int DISCONNECT_RADIUS = 30; // Distance from pulled character that pulling should stop at
         private SfxFactory sfxFactory;
-        private Character shooter;
+        private Character shooter; // Character that shot the hook and holds the rope
+        private Character target; // Character pierced by the hook
+        private Vector2 targetOffset; // Offset from center of target that the hook is stuck in
         private Timer pullSoundTimer; // Time between each play of the pull sound effect
         // Three modes of the sequence
         private enum HookState
@@ -51,7 +53,7 @@ namespace Sprint.Projectile
             this.shooter = shooter;
             sfxFactory = SfxFactory.GetInstance();
             sfxFactory.PlaySoundEffect("Arrow Shot");
-            damage = CharacterConstants.LOW_DMG;
+            damage = CharacterConstants.TINY_DMG;
             state = HookState.MOVING;
             pullSoundTimer = new Timer(0.25);
             pullSoundTimer.SetLooping(true);
@@ -88,13 +90,34 @@ namespace Sprint.Projectile
 
         }
 
+        public override void Hit(Character subject)
+        {
+            // Do damage
+            base.Hit(subject);
+            // Update target to reflect piercing the subject
+            target = subject;
+            targetOffset = position - target.GetPosition();
+        }
+
         public override void Update(GameTime gameTime)
         {
-            // Only do velocity movement while still moving
+            // Handle projectile movement
             if (state == HookState.MOVING)
             {
+                // Only do velocity movement while still moving
                 base.Update(gameTime);
-            }else if(state == HookState.PULLING)
+            }
+            else if (state == HookState.STUCK || state == HookState.PULLING)
+            {
+                if(target != null)
+                {
+                    // If pierced a target, follow its position
+                    position = target.GetPosition() + targetOffset;
+                }
+            }
+
+            // Handle subject and target movement
+            if (state == HookState.PULLING)
             {
                 pullSoundTimer.Update(gameTime);
                 Vector2 rope = position - shooter.GetPosition();
@@ -110,7 +133,7 @@ namespace Sprint.Projectile
                     float speed = (1 + rope.Length() / TRAVEL) * (2 * SPEED / 3);
                     shooter.Move(Vector2.Normalize(rope) * speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
                     // Play sound periodically
-                    if(pullSoundTimer.JustEnded)
+                    if (pullSoundTimer.JustEnded)
                         sfxFactory.PlaySoundEffect("Arrow Shot");
                 }
             }
