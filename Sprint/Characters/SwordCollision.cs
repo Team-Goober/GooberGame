@@ -3,6 +3,7 @@ using Sprint.Interfaces;
 using Sprint.Collision;
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Functions.SecondaryItem;
+using System.Threading.Tasks.Dataflow;
 
 namespace Sprint.Characters
 {
@@ -34,7 +35,11 @@ namespace Sprint.Characters
         {
             return damage;
         }
-
+        
+        public void SetDamage(float dmg)
+        {
+            damage = dmg;
+        }
 
         public void Move(Vector2 distance)
         {

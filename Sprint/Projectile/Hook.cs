@@ -1,20 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint.Interfaces;
 using Sprint.Levels;
-using Sprint.Functions.SecondaryItem;
 using Sprint.Music.Sfx;
 using Sprint.Characters;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Sprint.Collision;
-using System.Diagnostics;
 
 namespace Sprint.Projectile
 {
     internal class Hook : DissipatingProjectile
     {
 
-        private const int SPEED = 500;
+        private const int SPEED = 800;
         private const int TRAVEL = 700;
         private const int DISCONNECT_RADIUS = 50; // Distance from pulled character that pulling should stop at
         private SfxFactory sfxFactory;

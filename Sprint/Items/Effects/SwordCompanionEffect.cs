@@ -16,7 +16,7 @@ namespace Sprint.Items.Effects
         public string spriteName;
         public string spriteFile;
 
-        private Stack<Companion> companions = new(); // All active swords
+        private Stack<SwordCompanion> companions = new(); // All active swords
         private Player player;
 
         public void Execute(Player player)
@@ -28,7 +28,7 @@ namespace Sprint.Items.Effects
             }
             // Add new word to room
             ISprite sprite = player.GetSpriteLoader().BuildSprite(spriteFile, spriteName);
-            Companion companion = new SwordCompanion(sprite, player, companions.Count % 2 == 0, companions.Count / 2 % 2 == 0);
+            SwordCompanion companion = new SwordCompanion(sprite, player, companions.Count % 2 == 0, companions.Count / 2 % 2 == 0);
             companion.SetDisable(false);
             companions.Push(companion);
         }
@@ -42,6 +42,11 @@ namespace Sprint.Items.Effects
             }
             // Disconnect signal
             this.player = null;
+        }
+
+        public Stack<SwordCompanion> GetSwords()
+        {
+            return companions;
         }
 
         public IEffect Clone()

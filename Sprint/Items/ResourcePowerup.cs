@@ -95,7 +95,9 @@ namespace Sprint.Items
             Inventory inv = player.GetInventory();
             // Get the version of this resource in the inventory
             IStackedPowerup ownedVersion = inv.GetPowerup(label) as IStackedPowerup;
-            if(ownedVersion == this)
+            // If the one in the inventory has an upgrade, find its base
+            IPowerup fromUpgrade = (ownedVersion as IUpgradePowerup)?.FindInChain(GetLabel());
+            if (ownedVersion == this || fromUpgrade == this)
             {
                 // This is the version in the inventory; run apply without re-adding
                 onApply?.Execute(player);

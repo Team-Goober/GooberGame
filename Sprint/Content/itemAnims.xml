@@ -650,11 +650,11 @@
             <Key>badge</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>0 64 32 32</Rectangle>
-              <CenterPoint>16 16</CenterPoint>
+              <CenterPoint>24 8</CenterPoint>
             </Value>
           </Item>
         </Animations>
-        <Scale>2</Scale>
+        <Scale>1.5</Scale>
         <InitialAnimation>item</InitialAnimation>
       </Value>
     </Item>
@@ -675,11 +675,11 @@
             <Key>badge</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>32 0 32 32</Rectangle>
-              <CenterPoint>16 16</CenterPoint>
+              <CenterPoint>8 24</CenterPoint>
             </Value>
           </Item>
         </Animations>
-        <Scale>2</Scale>
+        <Scale>1.5</Scale>
         <InitialAnimation>item</InitialAnimation>
       </Value>
     </Item>
@@ -700,11 +700,11 @@
             <Key>badge</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>32 0 32 32</Rectangle>
-              <CenterPoint>16 16</CenterPoint>
+              <CenterPoint>8 24</CenterPoint>
             </Value>
           </Item>
         </Animations>
-        <Scale>2</Scale>
+        <Scale>1.5</Scale>
         <InitialAnimation>item</InitialAnimation>
       </Value>
     </Item>
@@ -718,7 +718,7 @@
             <Key>badge</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>0 0 32 32</Rectangle>
-              <CenterPoint>16 16</CenterPoint>
+              <CenterPoint>24 24</CenterPoint>
             </Value>
           </Item>
           <Item>
@@ -729,7 +729,7 @@
             </Value>
           </Item>
         </Animations>
-        <Scale>2</Scale>
+        <Scale>1.5</Scale>
         <InitialAnimation>item</InitialAnimation>
       </Value>
     </Item>
@@ -743,7 +743,7 @@
             <Key>badge</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>0 32 32 32</Rectangle>
-              <CenterPoint>16 16</CenterPoint>
+              <CenterPoint>24 16</CenterPoint>
             </Value>
           </Item>
           <Item>
@@ -754,7 +754,7 @@
             </Value>
           </Item>
         </Animations>
-        <Scale>2</Scale>
+        <Scale>1.5</Scale>
         <InitialAnimation>item</InitialAnimation>
       </Value>
     </Item>
@@ -768,7 +768,7 @@
             <Key>badge</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>32 32 32 32</Rectangle>
-              <CenterPoint>16 16</CenterPoint>
+              <CenterPoint>8 16</CenterPoint>
             </Value>
           </Item>
           <Item>
@@ -779,7 +779,7 @@
             </Value>
           </Item>
         </Animations>
-        <Scale>2</Scale>
+        <Scale>1.5</Scale>
         <InitialAnimation>item</InitialAnimation>
       </Value>
     </Item>
@@ -793,7 +793,7 @@
             <Key>badge</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>32 64 32 32</Rectangle>
-              <CenterPoint>16 16</CenterPoint>
+              <CenterPoint>8 8</CenterPoint>
             </Value>
           </Item>
           <Item>
@@ -804,10 +804,35 @@
             </Value>
           </Item>
         </Animations>
-        <Scale>2</Scale>
+        <Scale>1.5</Scale>
         <InitialAnimation>item</InitialAnimation>
       </Value>
     </Item>
-    
+
+    <Item>
+      <Key>critical</Key>
+      <Value>
+        <Texture>upgrade_badges</Texture>
+        <Animations>
+          <Item>
+            <Key>badge</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 96 32 32</Rectangle>
+              <CenterPoint>24 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>item</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>96 96 32 32</Rectangle>
+              <CenterPoint>16 16</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>1.5</Scale>
+        <InitialAnimation>item</InitialAnimation>
+      </Value>
+    </Item>
+
   </Asset>
 </XnaContent>

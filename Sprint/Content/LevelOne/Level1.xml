@@ -1391,6 +1391,11 @@
               <TilePos>10 6</TilePos>
               <Price>2</Price>
             </Item>
+            <Item>
+              <Type>criticalUpgrade</Type>
+              <TilePos>8 6</TilePos>
+              <Price>0</Price>
+            </Item>
           </Items>
           <Enemies/>
           <TextBoxes />

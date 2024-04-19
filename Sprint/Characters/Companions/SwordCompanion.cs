@@ -25,6 +25,11 @@ namespace Sprint.Characters.Companions
                 player, CharacterConstants.TINY_DMG);
         }
 
+        public void SetDamage(float dmg)
+        {
+            sword.SetDamage(dmg);
+        }
+
         // Sets whether this object should be in a room
         public override void SetDisable(bool d)
         {
