@@ -102,7 +102,7 @@ namespace Sprint.Items
 
         public void Undo(Player player)
         {
-            // Defer to base
+            // Pass to base
             baseAbility?.Undo(player);
         }
 
@@ -146,6 +146,11 @@ namespace Sprint.Items
         }
 
         public IEffect GetEffect()
+        {
+            return baseAbility?.GetEffect();
+        }
+
+        public IEffect GetTrueEffect()
         {
             return onActivate;
         }
@@ -273,7 +278,8 @@ namespace Sprint.Items
         {
             // Defer to base if it has cooldown
             ICooldownPowerup cooldownBase = baseAbility as ICooldownPowerup;
-            return (cooldownBase == null) ? 0 : cooldownBase.GetTimeLeft();
+            // Must be 1 so upgrades aren't marked as complete
+            return (cooldownBase == null) ? 1 : cooldownBase.GetTimeLeft();
         }
     }
 }

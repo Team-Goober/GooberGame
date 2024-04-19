@@ -16,7 +16,7 @@ namespace Sprint.Projectile
 
         private const int SPEED = 500;
         private const int TRAVEL = 700;
-        private const int DISCONNECT_RADIUS = 30; // Distance from pulled character that pulling should stop at
+        private const int DISCONNECT_RADIUS = 50; // Distance from pulled character that pulling should stop at
         private SfxFactory sfxFactory;
         private Character shooter; // Character that shot the hook and holds the rope
         private Character target; // Character pierced by the hook
@@ -80,10 +80,6 @@ namespace Sprint.Projectile
                 // Stop moving
                 state = HookState.STUCK;
             }
-            else
-            {
-                Delete();
-            }
         }
 
         public void Retract()
@@ -111,6 +107,18 @@ namespace Sprint.Projectile
             // Update target to reflect piercing the subject
             target = subject;
             targetOffset = position - target.GetPosition();
+
+            // Should delete as response to target's death if target is an enemy
+            if(target is Enemy)
+                (target as Enemy).EnemyDeathEvent += Delete;
+        }
+
+        public override void Delete()
+        {
+            // Remove event response if needed
+            if (target is Enemy)
+                (target as Enemy).EnemyDeathEvent -= Delete;
+            base.Delete();
         }
 
         public override void Update(GameTime gameTime)

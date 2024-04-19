@@ -2,31 +2,36 @@
 using Sprint.Interfaces.Powerups;
 using Sprint.Projectile;
 using System;
+using System.Collections.Generic;
 
 namespace Sprint.Items.Effects
 {
     internal class SpawnOrRetractHookEffect : IEffect
     {
 
-        private Hook hook;
+        private Queue<Hook> movingHooks = new(); // List of hooks that have not yet pierced something
 
         public void Execute(Player player)
         {
             // Create new projectile
-            hook = (Hook)player.GetProjectileFactory().CreateFromString("hook", player);
+            Hook hook = (Hook)player.GetProjectileFactory().CreateFromString("hook", player);
             hook.Create();
+            movingHooks.Enqueue(hook);
         }
 
         public void Reverse(Player player)
         {
-            // Retract existing projectile
-            hook.Retract();
-            hook = null;
+            // Retract existing projectiles
+            Hook h;
+            while (movingHooks.TryDequeue(out h))
+            {
+                h.Retract();
+            }
         }
 
-        public Hook GetHook()
+        public Queue<Hook> GetHooks()
         {
-            return hook;
+            return movingHooks;
         }
 
         public IEffect Clone()

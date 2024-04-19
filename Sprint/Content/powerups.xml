@@ -265,6 +265,7 @@
           <Item>candle</Item>
           <Item>boomerang</Item>
           <Item>enderPearl</Item>
+          <Item>hookShot</Item>
         </Bases>
       </Value>
     </Item>
@@ -282,6 +283,7 @@
           <Item>candle</Item>
           <Item>boomerang</Item>
           <Item>enderPearl</Item>
+          <Item>hookShot</Item>
         </Bases>
       </Value>
     </Item>

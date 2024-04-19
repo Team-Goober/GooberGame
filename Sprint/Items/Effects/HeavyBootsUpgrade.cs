@@ -1,33 +1,35 @@
 ﻿using Sprint.Characters;
 using Sprint.Interfaces.Powerups;
 using Sprint.Projectile;
+using System.Collections.Generic;
 namespace Sprint.Items.Effects
 {
     internal class HeavyBootsUpgrade : IUpgradeEffect
     {
 
         private IAbility baseAbility;
-        private bool prevState; // Last heavyness value
 
         public void Execute(Player player)
         {
             // Activate base to shoot hook
             baseAbility.Activate();
-            // Make hook heavy shooter
+
+            // Make all new moving hooks heavy
             SpawnOrRetractHookEffect effect = baseAbility.GetEffect() as SpawnOrRetractHookEffect;
-            Hook hook = effect.GetHook();
-            prevState = hook.GetHeavyShooter();
-            hook.SetHeavyShooter(true);
+            Queue<Hook> hooks = effect.GetHooks();
+            for(int i=0; i<hooks.Count; i++)
+            {
+                Hook h = hooks.Dequeue();
+                h.SetHeavyShooter(true);
+                hooks.Enqueue(h);
+            }
+
+
         }
 
         public void Reverse(Player player)
         {
-            // If hook is out, remove the heavyness
-            SpawnOrRetractHookEffect effect = baseAbility.GetEffect() as SpawnOrRetractHookEffect;
-            if(effect?.GetHook() != null)
-            {
-                effect.GetHook().SetHeavyShooter(prevState);
-            }
+            // Do nothing
         }
 
         public void SetBase(IPowerup powerup)
