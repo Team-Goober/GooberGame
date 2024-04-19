@@ -208,15 +208,20 @@
 			<Key>fairy</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
-				<Animations>
-					<Item>
-						<Key>fairy</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>120 40 16 16</Rectangle>
-							<CenterPoint>8 8</CenterPoint>
-						</Value>
-					</Item>
-				</Animations>
+        <Animations>
+          <Item>
+            <Key>fairy</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>120 40 56 16</SheetArea>
+              <Rows>1</Rows>
+              <Cols>2</Cols>
+              <Padding>24</Padding>
+              <CenterPoint>8 8</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>5</Framerate>
+            </Value>
+          </Item>
+        </Animations>
 				<Scale>4</Scale>
 				<InitialAnimation>fairy</InitialAnimation>
 			</Value>
