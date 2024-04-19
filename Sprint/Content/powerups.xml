@@ -252,11 +252,11 @@
       </Value>
     </Item>
     <Item>
-      <Key>greenBadge</Key>
+      <Key>duoUpgrade</Key>
       <Value Type="XMLData:UpgradePowerupData">
-        <Label>greenBadge</Label>
+        <Label>duoUpgrade</Label>
         <Description>- dual shot</Description>
-        <Sprite>greenBadge</Sprite>
+        <Sprite>duo</Sprite>
         <Effect Type="Sprint.Items.Effects.DualShotUpgrade" />
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
@@ -270,11 +270,11 @@
       </Value>
     </Item>
     <Item>
-      <Key>blueBadge</Key>
+      <Key>tripleUpgrade</Key>
       <Value Type="XMLData:UpgradePowerupData">
-        <Label>blueBadge</Label>
+        <Label>tripleUpgrade</Label>
         <Description>- triple shot</Description>
-        <Sprite>blueBadge</Sprite>
+        <Sprite>triple</Sprite>
         <Effect Type="Sprint.Items.Effects.TripleShotUpgrade" />
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
@@ -288,11 +288,11 @@
       </Value>
     </Item>
     <Item>
-      <Key>yellowBadge</Key>
+      <Key>reloadUpgrade</Key>
       <Value Type="XMLData:UpgradePowerupData">
-        <Label>yellowBadge</Label>
+        <Label>reloadUpgrade</Label>
         <Description>- quick reload</Description>
-        <Sprite>yellowBadge</Sprite>
+        <Sprite>reload</Sprite>
         <Effect Type="Sprint.Items.Effects.QuickCooldownUpgrade" />
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
@@ -304,11 +304,11 @@
       </Value>
     </Item>
     <Item>
-      <Key>pinkBadge</Key>
+      <Key>infinityUpgrade</Key>
       <Value Type="XMLData:UpgradePowerupData">
-        <Label>pinkBadge</Label>
+        <Label>infinityUpgrade</Label>
         <Description>- infinite ammo</Description>
-        <Sprite>pinkBadge</Sprite>
+        <Sprite>infinity</Sprite>
         <Effect Type="Sprint.Items.Effects.InfiniteAmmoUpgrade" />
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
@@ -323,7 +323,7 @@
       <Value Type="XMLData:UpgradePowerupData">
         <Label>blueArrow</Label>
         <Description>- silver tip</Description>
-        <Sprite>blueArrow</Sprite>
+        <Sprite>arrowUpgrade</Sprite>
         <Effect Type="Sprint.Items.Effects.UpgradeProjectileUpgrade">
           <projectile>arrow</projectile>
         </Effect>
@@ -338,7 +338,7 @@
       <Value Type="XMLData:UpgradePowerupData">
         <Label>blueBoomerang</Label>
         <Description>- silver tip</Description>
-        <Sprite>blueBoomerang</Sprite>
+        <Sprite>boomerangUpgrade</Sprite>
         <Effect Type="Sprint.Items.Effects.UpgradeProjectileUpgrade">
           <projectile>boomerang</projectile>
         </Effect>

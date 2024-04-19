@@ -56,6 +56,10 @@ namespace Sprint.Items
             Debug.Assert(b >= 0);
 
             baseAbility = inv.GetSelection(b);
+
+            // Set sprite to show a badge frame instead of the item frame
+            sprite.SetAnimation("badge");
+
             // Replace the box's ability with this upgrade as a decorator
             inv.ReplaceWithDecorator(baseAbility.GetLabel(), this);
             // Set base ability that effect applies to

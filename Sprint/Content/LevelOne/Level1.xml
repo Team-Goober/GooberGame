@@ -1352,42 +1352,42 @@
               <Price>0</Price>
             </Item>
             <Item>
-              <Type>blueBadge</Type>
+              <Type>duoUpgrade</Type>
               <TilePos>9 3</TilePos>
               <Price>2</Price>
             </Item>
             <Item>
-              <Type>blueBadge</Type>
+              <Type>duoUpgrade</Type>
               <TilePos>10 3</TilePos>
               <Price>2</Price>
             </Item>
             <Item>
-              <Type>greenBadge</Type>
+              <Type>tripleUpgrade</Type>
               <TilePos>9 4</TilePos>
               <Price>2</Price>
             </Item>
             <Item>
-              <Type>greenBadge</Type>
+              <Type>tripleUpgrade</Type>
               <TilePos>10 4</TilePos>
               <Price>2</Price>
             </Item>
             <Item>
-              <Type>yellowBadge</Type>
+              <Type>reloadUpgrade</Type>
               <TilePos>9 5</TilePos>
               <Price>2</Price>
             </Item>
             <Item>
-              <Type>yellowBadge</Type>
+              <Type>reloadUpgrade</Type>
               <TilePos>10 5</TilePos>
               <Price>2</Price>
             </Item>
             <Item>
-              <Type>pinkBadge</Type>
+              <Type>infinityUpgrade</Type>
               <TilePos>9 6</TilePos>
               <Price>2</Price>
             </Item>
             <Item>
-              <Type>pinkBadge</Type>
+              <Type>infinityUpgrade</Type>
               <TilePos>10 6</TilePos>
               <Price>2</Price>
             </Item>
