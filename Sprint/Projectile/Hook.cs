@@ -22,6 +22,8 @@ namespace Sprint.Projectile
         private Character target; // Character pierced by the hook
         private Vector2 targetOffset; // Offset from center of target that the hook is stuck in
         private Timer pullSoundTimer; // Time between each play of the pull sound effect
+        private int pullsRemaining; // Number of loops of the timer before the hook despawns
+        private bool heavyShooter; // If true, shooter is heavy and should drag a target instead of being dragged
         // Three modes of the sequence
         private enum HookState
         {
@@ -57,6 +59,18 @@ namespace Sprint.Projectile
             state = HookState.MOVING;
             pullSoundTimer = new Timer(0.25);
             pullSoundTimer.SetLooping(true);
+            pullsRemaining = 20;
+            heavyShooter = false;
+        }
+
+        public void SetHeavyShooter(bool heavy)
+        {
+            heavyShooter = heavy;
+        }
+
+        public bool GetHeavyShooter()
+        {
+            return heavyShooter;
         }
 
         public override void Dissipate()
@@ -131,10 +145,28 @@ namespace Sprint.Projectile
                     // Otherwise, move player towards this
                     // Speed based on shooting speed and length of rope to simulate tension
                     float speed = (1 + rope.Length() / TRAVEL) * (2 * SPEED / 3);
-                    shooter.Move(Vector2.Normalize(rope) * speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+
+                    if(target != null && heavyShooter)
+                    {
+                        // If shooter is heavy, pull in target
+                        target.Move(Vector2.Normalize(-rope) * speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                    }
+                    else
+                    {
+                        // By default, pull shooter towards hook
+                        shooter.Move(Vector2.Normalize(rope) * speed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                    }
+
                     // Play sound periodically
                     if (pullSoundTimer.JustEnded)
+                    {
                         sfxFactory.PlaySoundEffect("Arrow Shot");
+                        // Count down until despawn
+                        pullsRemaining--;
+                        // Despawn
+                        if (pullsRemaining <= 0)
+                            Delete();
+                    }
                 }
             }
 

@@ -24,6 +24,11 @@ namespace Sprint.Items.Effects
             hook = null;
         }
 
+        public Hook GetHook()
+        {
+            return hook;
+        }
+
         public IEffect Clone()
         {
             return new SpawnOrRetractHookEffect() { };

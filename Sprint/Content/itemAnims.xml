@@ -724,5 +724,39 @@
         <InitialAnimation>pearl</InitialAnimation>
       </Value>
     </Item>
-	</Asset>
+    <Item>
+      <Key>tripwire</Key>
+      <Value>
+        <Texture>Items/minecraft</Texture>
+        <Animations>
+          <Item>
+            <Key>hook</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>336 208 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>hook</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>ironBoots</Key>
+      <Value>
+        <Texture>Items/minecraft</Texture>
+        <Animations>
+          <Item>
+            <Key>boots</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>497 51 14 10</Rectangle>
+              <CenterPoint>7 5</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>boots</InitialAnimation>
+      </Value>
+    </Item>
+  </Asset>
 </XnaContent>

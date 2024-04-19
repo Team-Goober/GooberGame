@@ -221,7 +221,7 @@
       <Value>
         <Label>hookShot</Label>
         <Description>HOOK SHOT|pull towards|target</Description>
-        <Sprite>blueArrow</Sprite>
+        <Sprite>tripwire</Sprite>
         <Effect Type="Sprint.Items.Effects.SpawnOrRetractHookEffect" />
         <Type>Sprint.Items.ActiveAbility</Type>
       </Value>
@@ -343,6 +343,19 @@
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
           <Item>boomerang</Item>
+        </Bases>
+      </Value>
+    </Item>
+    <Item>
+      <Key>boots</Key>
+      <Value Type="XMLData:UpgradePowerupData">
+        <Label>boots</Label>
+        <Description>- heavy boots</Description>
+        <Sprite>ironBoots</Sprite>
+        <Effect Type="Sprint.Items.Effects.HeavyBootsUpgrade" />
+        <Type>Sprint.Items.UpgradeAbility</Type>
+        <Bases>
+          <Item>hookShot</Item>
         </Bases>
       </Value>
     </Item>

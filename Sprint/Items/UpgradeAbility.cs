@@ -142,7 +142,12 @@ namespace Sprint.Items
         public string GetDescription()
         {
             // Append modification text to end of base's description
-            return baseAbility.GetDescription() + "|" + description;
+            return baseAbility?.GetDescription() + "|" + description;
+        }
+
+        public IEffect GetEffect()
+        {
+            return onActivate;
         }
 
         public void SetUpgradeOptions(List<string> bases)

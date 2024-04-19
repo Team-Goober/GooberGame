@@ -1337,18 +1337,18 @@
               <Price>0</Price>
             </Item>
             <Item>
-              <Type>knife</Type>
+              <Type>boots</Type>
               <TilePos>4 5</TilePos>
               <Price>0</Price>
             </Item>
             <Item>
               <Type>enderPearl</Type>
-              <TilePos>4 4</TilePos>
+              <TilePos>4 3</TilePos>
               <Price>0</Price>
             </Item>
             <Item>
               <Type>hookShot</Type>
-              <TilePos>4 3</TilePos>
+              <TilePos>4 4</TilePos>
               <Price>0</Price>
             </Item>
             <Item>

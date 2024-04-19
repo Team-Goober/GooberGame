@@ -150,6 +150,11 @@ namespace Sprint.Items
             return description + "|amt: " + quantity;
         }
 
+        public IEffect GetEffect()
+        {
+            return onApply;
+        }
+
         public void Update(GameTime gameTime)
         {
             // Only update if haven't already updated on this cycle

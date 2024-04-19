@@ -148,6 +148,11 @@ namespace Sprint.Items
             return description + "|amt: " + quantity;
         }
 
+        public IEffect GetEffect()
+        {
+            return onActivate;
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, position, gameTime);
