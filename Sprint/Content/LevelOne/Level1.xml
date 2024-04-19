@@ -252,7 +252,7 @@
       <Item>
         <Item Null="true" />
         <Item>
-          <!--Undergound Room. Index 19-->
+          <!--Underground Shop Room. Index 19-->
             <NeedWall>false</NeedWall>
             <Hidden>true</Hidden>
             <TopExit>Wall</TopExit>
@@ -261,46 +261,35 @@
             <RightExit>Wall</RightExit>
             <TileGrid>
               <Item>8 8 8 9 8 8 8 8 8 8 8 8 8 8 8 8</Item>
-              <Item>8 8 8 9 8 8 8 8 8 8 8 8 8 8 8 8</Item>
-              <Item>8 8 8 9 8 8 8 8 8 8 8 8 8 8 8 8</Item>
-              <Item>8 8 8 9 8 8 8 6 6 6 6 6 6 6 8 8</Item>
-              <Item>8 8 8 9 8 8 8 6 6 6 6 6 6 6 8 8</Item>
-              <Item>8 8 8 9 8 8 8 6 6 6 6 6 6 6 8 8</Item>
-              <Item>8 8 8 9 8 8 8 8 8 8 8 9 8 8 8 8</Item>
-              <Item>8 8 6 9 6 6 6 6 6 6 6 9 6 6 8 8</Item>
-              <Item>8 8 6 9 6 6 6 6 6 6 6 9 6 6 8 8</Item>
+              <Item>8 8 8 9 8 8 6 6 6 6 6 6 6 6 8 8</Item>
+              <Item>8 8 8 9 8 8 6 6 6 6 6 6 6 6 8 8</Item>
+              <Item>8 8 8 9 8 8 6 6 6 6 6 6 8 8 8 8</Item>
+              <Item>8 8 8 9 8 8 6 6 6 6 6 6 6 6 8 8</Item>
+              <Item>8 8 8 9 8 8 6 6 6 6 6 6 6 6 8 8</Item>
+              <Item>8 8 8 9 8 8 6 6 6 6 6 6 8 8 8 8</Item>
+              <Item>8 8 8 9 8 8 6 6 6 6 6 6 6 6 8 8</Item>
+              <Item>8 8 8 9 6 6 6 6 6 6 6 6 6 6 8 8</Item>
               <Item>8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8</Item>
               <Item>8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8</Item>
             </TileGrid>
             <Items>
               <Item>
-                <Type>bow</Type>
-                <TilePos>6 2</TilePos>
+                <Type>random</Type>
+                <TilePos>11 -0.5</TilePos>
                 <Price>0</Price>
               </Item>
+				<Item>
+					<Type>random</Type>
+					<TilePos>11 2.5</TilePos>
+					<Price>0</Price>
+				</Item>
+				<Item>
+					<Type>random</Type>
+					<TilePos>11 5.5</TilePos>
+					<Price>0</Price>
+				</Item>
             </Items>
-            <Enemies>
-              <Item>
-                <Type>bat</Type>
-                <TilePos>2 6</TilePos>
-                <ItemDrop>rupee</ItemDrop>
-              </Item>
-              <Item>
-                <Type>bat</Type>
-                <TilePos>2 2</TilePos>
-                <ItemDrop Null="true" />
-              </Item>
-              <Item>
-                <Type>bat</Type>
-                <TilePos>6 6</TilePos>
-                <ItemDrop Null="true" />
-              </Item>
-              <Item>
-                <Type>bat</Type>
-                <TilePos>6 2</TilePos>
-                <ItemDrop Null="true" />
-              </Item>
-            </Enemies>
+            <Enemies/>
             <TextBoxes />
             <Stairs>
               <Item>
