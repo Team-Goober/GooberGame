@@ -38,19 +38,24 @@ namespace Sprint.Characters
             damageTimer = new Timer(0.1);
         }
 
-        public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
+        public override Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
             (int)(physics.Position.Y - 8 * 3),
             16 * 3,
             16 * 3);
 
-        public virtual CollisionTypes[] CollisionType => new CollisionTypes[] {CollisionTypes.ENEMY, CollisionTypes.CHARACTER};
+        public override CollisionTypes[] CollisionType => new CollisionTypes[] {CollisionTypes.ENEMY, CollisionTypes.CHARACTER};
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, physics.Position, gameTime);
         }
 
-        public void Move(Vector2 distance)
+        public override Vector2 GetPosition()
+        {
+            return physics.Position;
+        }
+
+        public override void Move(Vector2 distance)
         {
             physics.SetPosition(physics.Position + distance);
         }

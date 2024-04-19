@@ -14,7 +14,7 @@ using System.Diagnostics;
 namespace Sprint.Characters
 {
 
-    internal class Player : Character, IMovingCollidable
+    internal class Player : Character
     {
         private DungeonState dungeon;
         private Inventory inventory;
@@ -31,6 +31,9 @@ namespace Sprint.Characters
         public event HealthUpdateDelegate OnPlayerHealthChange;
         public delegate void MaxHealthUpdateDelegate(int prev, int next, double health);
         public event MaxHealthUpdateDelegate OnPlayerMaxHealthChange;
+        // Event that signals room change
+        public delegate void RoomChangeDelegate(Room newRoom);
+        public event RoomChangeDelegate OnPlayerRoomChange;
 
         private Physics physics;
         private Room room;
@@ -50,12 +53,12 @@ namespace Sprint.Characters
         // Direction that the player is facing
         public Vector2 Facing { get; private set; }
 
-        public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
+        public override Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
                 (int) (physics.Position.Y - sideLength / 2.0),
                 sideLength,
                 sideLength);
 
-        public CollisionTypes[] CollisionType {
+        public override CollisionTypes[] CollisionType {
             get
             {
                 // Collide as shield if shield is up
@@ -132,6 +135,11 @@ namespace Sprint.Characters
             return room;
         }
 
+        public SpriteLoader GetSpriteLoader()
+        {
+            return spriteLoader;
+        }
+
         // Moves the player from current scene into a new one
         public void SetRoom(Room room)
         {
@@ -144,6 +152,7 @@ namespace Sprint.Characters
             secondaryItems.SetRoom(this.room);
             this.room.GetScene().Add(this);
             StopMoving();
+            OnPlayerRoomChange?.Invoke(room);
         }
 
         // Create melee attack according to facing direction and with given damage value
@@ -347,9 +356,16 @@ namespace Sprint.Characters
             baseAnim = AnimationCycle.Walk;
         }
 
-        public Physics GetPhysic()
+        public override Vector2 GetPosition()
         {
-            return physics;
+            return physics.Position;
+        }
+
+        // Moves the player by a set distance
+        public override void Move(Vector2 distance)
+        {
+            // teleport player in displacement specified
+            physics.SetPosition(physics.Position + distance);
         }
 
         public override void Update(GameTime gameTime)
@@ -381,6 +397,14 @@ namespace Sprint.Characters
                 returnToBaseAnim();
 
             }
+
+            // Die when health is zero
+            // Must be in update instead of TakeDamage so items can intervene in death
+            if(health <= 0.0)
+            {
+                Die();
+            }
+
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
@@ -390,19 +414,6 @@ namespace Sprint.Characters
             //Draws sprite animation using AnimationSprite class
             sprite.Draw(spriteBatch, physics.Position, gameTime);
 
-        }
-
-        // Moves the player by a set distance
-        public void Move(Vector2 distance)
-        {
-            // teleport player in displacement specified
-            physics.SetPosition(physics.Position + distance);
-        }
-        
-        // Moves player to set position
-        public void MoveTo(Vector2 pos)
-        {
-            physics.SetPosition(pos);
         }
 
         /// <summary>
@@ -449,7 +460,7 @@ namespace Sprint.Characters
             speed += addition;
         }
 
-        public void Heal(float amt)
+        public void Heal(double amt)
         {
             // Don't reduce health during heal
             Debug.Assert(amt >= 0);
@@ -492,14 +503,14 @@ namespace Sprint.Characters
             double prevHealth = health;
             health -= dmg;
 
+            // Trigger death when health is at or below 0
+            if (health < 0.0)
+            {
+                health = 0.0;
+            }
+
             // broadcast health change
             OnPlayerHealthChange?.Invoke(prevHealth, health);
-
-            // Trigger death when health is at or below 0
-            if (health <= 0.0)
-            {
-                Die();
-            }
 
         }
 

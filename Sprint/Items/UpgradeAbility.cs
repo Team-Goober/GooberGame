@@ -32,10 +32,10 @@ namespace Sprint.Items
         private TimeSpan lastUpdate;
 
 
-        public UpgradeAbility(ISprite sprite, IUpgradeEffect onActivate, string label, string description)
+        public UpgradeAbility(ISprite sprite, IEffect onActivate, string label, string description)
         {
             this.sprite = sprite;
-            this.onActivate = onActivate;
+            this.onActivate = (IUpgradeEffect)onActivate;
             this.label = label;
             this.description = description;
         }
@@ -220,6 +220,27 @@ namespace Sprint.Items
             // Defer to base if it is stackable
             IStackedPowerup stackBase = baseAbility as IStackedPowerup;
             return (stackBase == null) ? 1 : stackBase.Quantity();
+        }
+
+        public bool ReadyConsume(int amount)
+        {
+            // Defer to base if it is stackable
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            return (stackBase == null) ? false : stackBase.ReadyConsume(amount);
+        }
+
+        public void SetUnlimited(bool unlimited)
+        {
+            // Defer to base if it is stackable
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            stackBase?.SetUnlimited(unlimited);
+        }
+
+        public bool GetUnlimited()
+        {
+            // Defer to base if it is stackable
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            return (stackBase == null) ? false : stackBase.GetUnlimited();
         }
 
         public void SetDuration(double duration)

@@ -26,6 +26,7 @@ namespace Sprint.Items
         private int quantity;
         private ZeldaText number;
         private string description;
+        private bool unlimited = false;
 
         private TimeSpan lastUpdate;
 
@@ -37,6 +38,26 @@ namespace Sprint.Items
             quantity = 0;
             number = new ZeldaText("nintendo", new() { "0" }, new Vector2(16, 16), 0.5f, Color.White, Goober.content);
             this.description = description;
+        }
+
+        public bool ReadyConsume(int amount)
+        {
+            if(Quantity() < amount && !unlimited)
+            {
+                // Can't use if not enough and not unlimited
+                return false;
+            }
+            else if (!unlimited)
+            {
+                // If not unlimited but able to use one, use one
+                AddAmount(-amount);
+                return true;
+            }
+            else
+            {
+                // Unlimited, so don't need to use one
+                return true;
+            }
         }
 
         public void AddAmount(int amount)
@@ -52,6 +73,17 @@ namespace Sprint.Items
         {
             return quantity;
         }
+
+        public void SetUnlimited(bool unlimited)
+        {
+            this.unlimited = unlimited;
+        }
+
+        public bool GetUnlimited()
+        {
+            return unlimited;
+        }
+
         public bool CanPickup(Inventory inventory)
         {
             // Can always pick up a resource
@@ -61,17 +93,26 @@ namespace Sprint.Items
         public void Apply(Player player)
         {
             Inventory inv = player.GetInventory();
-            if (inv.HasPowerup(label))
+            // Get the version of this resource in the inventory
+            IStackedPowerup ownedVersion = inv.GetPowerup(label) as IStackedPowerup;
+            if(ownedVersion == this)
+            {
+                // This is the version in the inventory; run apply without re-adding
+                onApply?.Execute(player);
+            }
+            else if (ownedVersion != null)
             {
                 // Add this stack to existing one if player already has this type
-                ((IStackedPowerup)inv.GetPowerup(label)).AddAmount(quantity);
+                ownedVersion.AddAmount(quantity);
+                // Make it run its effect
+                ownedVersion.Apply(player);
             }   
             else
             {
                 // If player doesn't have this type, add it to their inventory
                 inv.AddPowerup(this);
+                onApply?.Execute(player);
             }
-            onApply?.Execute(player);
         }
 
 

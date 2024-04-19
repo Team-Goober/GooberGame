@@ -41,6 +41,11 @@ namespace Sprint.Characters
             player.Move(distance);
         }
 
+        public void SetPosition(Vector2 pos)
+        {
+            bounds = new((int)pos.X, (int)pos.Y, bounds.Width, bounds.Height);
+        }
+
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             //no draw needed

@@ -114,9 +114,10 @@ namespace Sprint
             loadDelegates();
             hudLoader.SetSlotsArray(player.GetInventory().GetAbilities());
             hudLoader.OnListingUpdateEvent(player.GetInventory().GetListing());
-
-            ((InventoryState)game.GetInventoryState()).SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
-            ((InventoryState)game.GetInventoryState()).AttachPlayer(player);
+            InventoryState inventoryState = (InventoryState)game.GetInventoryState();
+            inventoryState.SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
+            inventoryState.AttachPlayer(player);
+            inventoryState.MakeCommands();
 
             inputTable = new InputTable();
 
@@ -301,6 +302,7 @@ namespace Sprint
             // remake commands and delegates
             MakeCommands();
 
+
             sleeping = false;
 
             // enter first room
@@ -349,7 +351,7 @@ namespace Sprint
             // Move player to new room
             player.SetRoom(rooms[idx.Y][idx.X]);
             currentRoom = idx;
-            player.MoveTo(spawn);
+            player.Move(spawn - player.GetPosition());
 
             // Update map for change
             map.MovePlayer(idx);
@@ -559,6 +561,11 @@ namespace Sprint
                     }
                 }
             }
+        }
+
+        public Player GetPlayer()
+        {
+            return player;
         }
 
     }

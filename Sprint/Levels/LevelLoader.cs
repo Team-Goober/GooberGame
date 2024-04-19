@@ -56,6 +56,7 @@ namespace Sprint.Loader
         public void LoadLevelXML(string path)
         {
             LevelData data = content.Load<LevelData>(path);
+            itemFactory.LoadPowerupData();
 
             dungeon.SetArenaPosition(data.ArenaOffset);
 
@@ -135,6 +136,15 @@ namespace Sprint.Loader
 
             //Load Song
             songHandler.PlaySong(data.Song);
+
+            // Player needs to start with empty key and rupee powerups in their inventory
+            Player player = dungeon.GetPlayer();
+            IStackedPowerup key = itemFactory.MakePowerup(Inventory.KeyLabel) as IStackedPowerup;
+            key.ReadyConsume(key.Quantity());
+            key.Apply(player);
+            IStackedPowerup rupee = itemFactory.MakePowerup(Inventory.RupeeLabel) as IStackedPowerup;
+            rupee.ReadyConsume(rupee.Quantity());
+            rupee.Apply(player);
 
         }
 
@@ -251,7 +261,7 @@ namespace Sprint.Loader
                 // Give item drop
                 if(spawn.ItemDrop != null)
                 {
-                    Item it = itemFactory.MakeItem(spawn.ItemDrop, position);
+                    Item it = itemFactory.MakeItem(spawn.ItemDrop, position, 0);
                     if (it != null)
                     {
                         en.GiveDrop(it);
@@ -265,7 +275,7 @@ namespace Sprint.Loader
             foreach (ItemSpawnData spawn in rd.Items)
             {
                 Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
-                Item it = itemFactory.MakeItem(spawn.Type, position);
+                Item it = itemFactory.MakeItem(spawn.Type, position, spawn.Price);
                 if (it != null)
                 {
                     roomItems.Add(it);

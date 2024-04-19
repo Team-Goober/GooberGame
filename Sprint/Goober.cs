@@ -8,6 +8,8 @@ using Sprint.Functions;
 using Sprint.Sprite;
 using Sprint.GameStates;
 using Sprint.Music.Sfx;
+using XMLData;
+using Sprint.Items;
 
 
 namespace Sprint

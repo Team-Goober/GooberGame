@@ -11,10 +11,10 @@ namespace Sprint.Items.Effects
     internal class ChangeSpeedEffect : IEffect
     {
 
-        float speedChange;
+        private float speedChange;
 
         public ChangeSpeedEffect(float speedChange)
-        { 
+        {
             this.speedChange = speedChange;
         }
 

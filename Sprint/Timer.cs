@@ -11,6 +11,8 @@ namespace Sprint
         public bool Ended { get; private set; }
         public bool JustEnded { get; private set; }
 
+        public bool Looping { get; private set; }
+
         public Timer(double seconds)
         {
             Duration = TimeSpan.FromSeconds(seconds);
@@ -48,10 +50,25 @@ namespace Sprint
         public void SubtractTime(double seconds)
         {
             TimeLeft -= TimeSpan.FromSeconds(seconds);
+            // Handle time running out
             if (TimeLeft < TimeSpan.Zero)
             {
-                End();
+                // If looping, restart
+                if (Looping)
+                {
+                    Start();
+                }
+                // Otherwise, end
+                else
+                {
+                    End();
+                }
             }
+        }
+
+        public void SetLooping(bool loop)
+        {
+            Looping = loop;
         }
 
         public void Update(GameTime gameTime)
