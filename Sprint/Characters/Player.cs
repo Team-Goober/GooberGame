@@ -303,58 +303,6 @@ namespace Sprint.Characters
 
         }
 
-        /*
-        public void MoveLeft()
-        {
-            // Don't move while shielding
-            
-            Vector2 newAcceleration = new Vector2(-CharacterConstants.ACCELERATION_RATE, 0);
-            physics.SetAcceleration(newAcceleration);
-            sprite.SetAnimation("left");
-            Facing = Directions.LEFT;
-            baseAnim = AnimationCycle.Walk;
-        }
-
-        public void MoveRight()
-        {
-            // Don't move while shielding
-           
-            Vector2 newAcceleration = new Vector2(CharacterConstants.ACCELERATION_RATE, 0);
-            physics.SetAcceleration(newAcceleration);
-            sprite.SetAnimation("right");
-            Facing = Directions.RIGHT;
-            baseAnim = AnimationCycle.Walk;
-        }
-
-        public void MoveUp()
-        {
-            // Don't move while shielding
-           
-            Vector2 newAcceleration = new Vector2(0, -CharacterConstants.ACCELERATION_RATE);
-            physics.SetAcceleration(newAcceleration);
-            sprite.SetAnimation("up");
-            Facing = Directions.UP;
-            baseAnim = AnimationCycle.Walk;
-        }
-
-        public void MoveDown()
-        {
-            // Don't move while shielding
-           
-            Vector2 newAcceleration = new Vector2(0, CharacterConstants.ACCELERATION_RATE);
-            physics.SetAcceleration(newAcceleration);
-            sprite.SetAnimation("down");
-            Facing = Directions.DOWN;
-            baseAnim = AnimationCycle.Walk;
-        }
-
-        public void MoveDiagonal(Vector2 direction)
-        {
-            float diagonalSpeed = CharacterConstants.PLAYER_SPEED / (float)(Math.Sqrt(2)); // Diagonal movement speed
-            Vector2 newAcceleration = direction * CharacterConstants.ACCELERATION_RATE;
-            physics.SetAcceleration(newAcceleration);
-        }
-        */
 
         public void MoveLeft()
         {
@@ -460,8 +408,7 @@ namespace Sprint.Characters
                     }
                 }
             }
-            
-         
+
 
             // Check for end of sword swing
             attackTimer.Update(gameTime);
@@ -492,7 +439,6 @@ namespace Sprint.Characters
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
-
 
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)

@@ -12,7 +12,6 @@ using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
-using Sprint.Commands;
 using Sprint.Functions;
 using Sprint.Items;
 using Sprint.Loader;
