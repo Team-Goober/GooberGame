@@ -42,7 +42,7 @@ namespace Sprint.Collision
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.WALL), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.GAP), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.DOOR), pushOut},
-                {new TypePairKey(CollisionTypes.MOVEWALL, CollisionTypes.CHARACTER), pushOut},
+                {new TypePairKey(CollisionTypes.MOVEWALL, CollisionTypes.PLAYER), pushOut},
                 {new TypePairKey(CollisionTypes.MOVEWALL, CollisionTypes.WALL), pushOut},
                 {new TypePairKey(CollisionTypes.CHARACTER, CollisionTypes.CHARACTER), pushOut},
                 {new TypePairKey(CollisionTypes.FLYING, CollisionTypes.PHASING_WALL), null},
