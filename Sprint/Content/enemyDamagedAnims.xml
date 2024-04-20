@@ -100,62 +100,62 @@
        </Value>
 	</Item>
 	<Item>
-		  <Key>dog</Key>
-		  <Value>
-			  <Texture>Damaged/zelda_enemies</Texture>
-			  <Animations>
-				  <Item>
-					  <Key>upFacing</Key>
-					  <Value Type="XMLData.AutoAtlasData">
-						  <SheetArea>0 55 16 60</SheetArea>
-						  <Rows>2</Rows>
-						  <Cols>1</Cols>
-						  <Padding>0</Padding>
-						  <CenterPoint>7.5 8</CenterPoint>
-						  <Loop>true</Loop>
-						  <Framerate>15</Framerate>
-					  </Value>
-				  </Item>
-				  <Item>
-					  <Key>leftFacing</Key>
-					  <Value Type="XMLData.AutoAtlasData">
-						  <SheetArea>30 55 16 60</SheetArea>
-						  <Rows>2</Rows>
-						  <Cols>1</Cols>
-						  <Padding>0</Padding>
-						  <CenterPoint>7.5 8</CenterPoint>
-						  <Loop>true</Loop>
-						  <Framerate>15</Framerate>
-					  </Value>
-				  </Item>
-				  <Item>
-					  <Key>downFacing</Key>
-					  <Value Type="XMLData.AutoAtlasData">
-						  <SheetArea>59 55 16 60</SheetArea>
-						  <Rows>2</Rows>
-						  <Cols>1</Cols>
-						  <Padding>0</Padding>
-						  <CenterPoint>7.5 8</CenterPoint>
-						  <Loop>true</Loop>
-						  <Framerate>15</Framerate>
-					  </Value>
-				  </Item>
-				  <Item>
-					  <Key>rightFacing</Key>
-					  <Value Type="XMLData.AutoAtlasData">
-						  <SheetArea>89 55 16 60</SheetArea>
-						  <Rows>2</Rows>
-						  <Cols>1</Cols>
-						  <Padding>0</Padding>
-						  <CenterPoint>7.5 8</CenterPoint>
-						  <Loop>true</Loop>
-						  <Framerate>15</Framerate>
-					  </Value>
-				  </Item>
-			  </Animations>
-			  <Scale>4</Scale>
-			  <InitialAnimation>upFacing</InitialAnimation>
-		  </Value>
+    <Key>dog</Key>
+    <Value>
+      <Texture>zelda_enemies</Texture>
+      <Animations>
+        <Item>
+          <Key>downFacing</Key>
+          <Value Type="XMLData.AutoAtlasData">
+            <SheetArea>0 60 16 46</SheetArea>
+            <Rows>2</Rows>
+            <Cols>1</Cols>
+            <Padding>14</Padding>
+            <CenterPoint>7.5 8</CenterPoint>
+            <Loop>true</Loop>
+            <Framerate>3</Framerate>
+          </Value>
+        </Item>
+        <Item>
+          <Key>leftFacing</Key>
+          <Value Type="XMLData.AutoAtlasData">
+            <SheetArea>30 60 16 46</SheetArea>
+            <Rows>2</Rows>
+            <Cols>1</Cols>
+            <Padding>14</Padding>
+            <CenterPoint>7.5 8</CenterPoint>
+            <Loop>true</Loop>
+            <Framerate>3</Framerate>
+          </Value>
+        </Item>
+        <Item>
+          <Key>upFacing</Key>
+          <Value Type="XMLData.AutoAtlasData">
+            <SheetArea>60 60 16 46</SheetArea>
+            <Rows>2</Rows>
+            <Cols>1</Cols>
+            <Padding>14</Padding>
+            <CenterPoint>7.5 8</CenterPoint>
+            <Loop>true</Loop>
+            <Framerate>3</Framerate>
+          </Value>
+        </Item>
+        <Item>
+          <Key>rightFacing</Key>
+          <Value Type="XMLData.AutoAtlasData">
+            <SheetArea>90 60 16 46</SheetArea>
+            <Rows>2</Rows>
+            <Cols>1</Cols>
+            <Padding>14</Padding>
+            <CenterPoint>7.5 8</CenterPoint>
+            <Loop>true</Loop>
+            <Framerate>3</Framerate>
+          </Value>
+        </Item>
+      </Animations>
+      <Scale>4</Scale>
+      <InitialAnimation>upFacing</InitialAnimation>
+    </Value>
 	  </Item>
 	  <Item>
 		  <Key>bat</Key>
