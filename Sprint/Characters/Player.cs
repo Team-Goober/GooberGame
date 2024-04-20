@@ -360,52 +360,39 @@ namespace Sprint.Characters
         {
             accelerationDirection.X -= 1; // Add to X acceleration to move left
 
-            // Only update baseAnim if not already moving up/down
-            if (accelerationDirection.Y == 0)
-            {
                 sprite.SetAnimation("left");
                 Facing = Directions.LEFT;
                 baseAnim = AnimationCycle.Walk;
-            }
+            
         }
 
         public void MoveRight()
         {
             accelerationDirection.X += 1; // Add to X acceleration to move right
 
-            // Only update baseAnim if not already moving up/down
-            if (accelerationDirection.Y == 0)
-            {
+            
                 sprite.SetAnimation("right");
                 Facing = Directions.RIGHT;
                 baseAnim = AnimationCycle.Walk;
-            }
+            
         }
 
         public void MoveUp()
         {
             accelerationDirection.Y -= 1; // Add to Y acceleration to move up
-
-            // Only update baseAnim if not already moving left/right
-            if (accelerationDirection.X == 0)
-            {
-                sprite.SetAnimation("up");
-                Facing = Directions.UP;
-                baseAnim = AnimationCycle.Walk;
-            }
+            sprite.SetAnimation("up");
+            Facing = Directions.UP;
+            baseAnim = AnimationCycle.Walk;
+            
         }
 
         public void MoveDown()
         {
             accelerationDirection.Y += 1; // Add to Y acceleration to move down
-
-            // Only update baseAnim if not already moving left/right
-            if (accelerationDirection.X == 0)
-            {
                 sprite.SetAnimation("down");
                 Facing = Directions.DOWN;
                 baseAnim = AnimationCycle.Walk;
-            }
+            
         }
 
         public void ReleaseLeft()
@@ -428,37 +415,6 @@ namespace Sprint.Characters
             accelerationDirection.Y -= 1; // Subtract from Y acceleration when down key is released
         }
 
-        public void StopMovingLeftRight()
-        {
-            // Check if player is still moving left or right, but not both
-            if ((accelerationDirection.X == -1 && accelerationDirection.Y == 0) ||
-                (accelerationDirection.X == 1 && accelerationDirection.Y == 0))
-            {
-                accelerationDirection.X = 0; // Stop horizontal movement
-            }
-            // If player is still moving diagonally up or down-right, update the acceleration to only up or down
-            else if (accelerationDirection.Y != 0)
-            {
-                accelerationDirection.X = 0; // Stop horizontal movement
-            }
-        }
-
-        public void StopMovingUpDown()
-        {
-            // Check if player is still moving up or down, but not both
-            if ((accelerationDirection.Y == -1 && accelerationDirection.X == 0) ||
-                (accelerationDirection.Y == 1 && accelerationDirection.X == 0))
-            {
-                accelerationDirection.Y = 0; // Stop vertical movement
-            }
-            // If player is still moving diagonally left or right-down, update the acceleration to only left or right
-            else if (accelerationDirection.X != 0)
-            {
-                accelerationDirection.Y = 0; // Stop vertical movement
-            }
-        }
-
-
         public Physics GetPhysic()
         {
             return physics;
@@ -466,46 +422,46 @@ namespace Sprint.Characters
 
         public override void Update(GameTime gameTime)
         {
-
             // Update the acceleration based on the current acceleration direction
             physics.SetAcceleration(accelerationDirection * accelerationRate);
 
             // Update the velocity using the Physics component
             physics.UpdateVelocity(CharacterConstants.STILL_FRICTION, speedLimit, gameTime);
 
-            if (physics.Acceleration == Vector2.Zero)
-            {
-                sprite.SetAnimation("down");
-                damagedSprite.SetAnimation("down");
-            }
-
-
-
             // Determine the animation based on acceleration
             if (physics.Acceleration != Vector2.Zero)
             {
-                        if (physics.Acceleration.X > 0)
-                        {
-                            Facing = Directions.RIGHT;
-                        }
-                        else if (physics.Acceleration.X < 0)
-                        {
-                            Facing = Directions.LEFT;
-                        }
-                        else if (physics.Acceleration.Y > 0)
-                        {
-                            Facing = Directions.DOWN;
-                        }
-                        else if (physics.Acceleration.Y < 0)
-                        {
-                            Facing = Directions.UP;
-                        }
-            }           
-            else
-            {
-                returnToBaseAnim();
+                if (Math.Abs(physics.Acceleration.X) > Math.Abs(physics.Acceleration.Y))
+                {
+                    // Horizontal movement dominates
+                    if (physics.Acceleration.X > 0)
+                    {
+                        Facing = Directions.RIGHT;
+                        
+                    }
+                    else
+                    {
+                        Facing = Directions.LEFT;
+                      
+                    }
+                }
+                else
+                {
+                    // Vertical movement dominates
+                    if (physics.Acceleration.Y > 0)
+                    {
+                        Facing = Directions.DOWN;
+                        
+                    }
+                    else
+                    {
+                        Facing = Directions.UP;
+                       
+                    }
+                }
             }
-
+            
+         
 
             // Check for end of sword swing
             attackTimer.Update(gameTime);
@@ -531,11 +487,13 @@ namespace Sprint.Characters
             {
                 sprite = spriteLoader.BuildSprite("playerAnims", "player");
                 returnToBaseAnim();
-
             }
+
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
+
+
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
