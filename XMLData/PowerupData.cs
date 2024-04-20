@@ -1,6 +1,4 @@
-﻿using System.Security;
-
-namespace XMLData
+﻿namespace XMLData
 {
     public class PowerupData
     {

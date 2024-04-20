@@ -8,15 +8,15 @@ namespace Sprint.Items.Effects
     internal class CompanionDamageUpgrade : IUpgradeEffect
     {
 
-        private float damage;
+        private float multiplier;
         private IPowerup basePowerup;
         private int prevStackSize; // Used to track the number of new swords added
         private Player player;
 
 
-        public CompanionDamageUpgrade(float damage)
+        public CompanionDamageUpgrade(float multiplier)
         {
-            this.damage = damage;
+            this.multiplier = multiplier;
         }
 
         public void Execute(Player player)
@@ -33,7 +33,7 @@ namespace Sprint.Items.Effects
             for(int i = 0; i < currentStack.Count - prevStackSize; i++)
             {
                 SwordCompanion top = currentStack.Pop();
-                top.SetDamage(damage);
+                top.MultiplyDamage(multiplier);
                 tempStack.Push(top);
             }
             // Add them back to the stack
@@ -78,7 +78,7 @@ namespace Sprint.Items.Effects
             while(currentStack.TryPop(out sc))
             {
                 // Set damage
-                sc.SetDamage(damage);
+                sc.MultiplyDamage(multiplier);
                 tempStack.Push(sc);
             }
             // Put swords back

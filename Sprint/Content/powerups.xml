@@ -146,6 +146,18 @@
             <Name>spriteFile</Name>
             <Value Type="string">itemAnims</Value>
           </Item>
+          <Item>
+            <Name>damage</Name>
+            <Value Type="float">0.1</Value>
+          </Item>
+          <Item>
+            <Name>depth</Name>
+            <Value Type="float">150</Value>
+          </Item>
+          <Item>
+            <Name>breadth</Name>
+            <Value Type="float">75</Value>
+          </Item>
         </EffectParams>
         <Type>Sprint.Items.ResourcePowerup</Type>
         <Quantity>1</Quantity>
@@ -155,7 +167,7 @@
 		  <Key>steelknife</Key>
 		  <Value Type="XMLData:StackedPowerupData">
 			  <Label>steelknife</Label>
-			  <Description>KNIFE|floating sword|hits enemies</Description>
+			  <Description>STEEL KNIFE|floating sword|more damage</Description>
 			  <Sprite>steelknife</Sprite>
 			  <Effect>Sprint.Items.Effects.SwordCompanionEffect</Effect>
 			  <EffectParams>
@@ -167,6 +179,18 @@
 					  <Name>spriteFile</Name>
 					  <Value Type="string">itemAnims</Value>
 				  </Item>
+          <Item>
+            <Name>damage</Name>
+            <Value Type="float">0.3</Value>
+          </Item>
+          <Item>
+            <Name>depth</Name>
+            <Value Type="float">150</Value>
+          </Item>
+          <Item>
+            <Name>breadth</Name>
+            <Value Type="float">75</Value>
+          </Item>
 			  </EffectParams>
 			  <Type>Sprint.Items.ResourcePowerup</Type>
 			  <Quantity>1</Quantity>
@@ -176,7 +200,7 @@
 		  <Key>goldknife</Key>
 		  <Value Type="XMLData:StackedPowerupData">
 			  <Label>goldknife</Label>
-			  <Description>KNIFE|floating sword|hits enemies</Description>
+			  <Description>GOLD KNIFE|floating sword|more range</Description>
 			  <Sprite>steelknife</Sprite>
 			  <Effect>Sprint.Items.Effects.SwordCompanionEffect</Effect>
 			  <EffectParams>
@@ -184,10 +208,22 @@
 					  <Name>spriteName</Name>
 					  <Value Type="string">goldknife</Value>
 				  </Item>
-				  <Item>
-					  <Name>spriteFile</Name>
-					  <Value Type="string">itemAnims</Value>
-				  </Item>
+          <Item>
+            <Name>spriteFile</Name>
+            <Value Type="string">itemAnims</Value>
+          </Item>
+          <Item>
+            <Name>damage</Name>
+            <Value Type="float">0.1</Value>
+          </Item>
+          <Item>
+            <Name>depth</Name>
+            <Value Type="float">300</Value>
+          </Item>
+          <Item>
+            <Name>breadth</Name>
+            <Value Type="float">150</Value>
+          </Item>
 			  </EffectParams>
 			  <Type>Sprint.Items.ResourcePowerup</Type>
 			  <Quantity>1</Quantity>
@@ -357,13 +393,13 @@
 		  <Key>steelpants</Key>
 		  <Value>
 			  <Label>steelpants</Label>
-			  <Description>RING|halfs run speed</Description>
+			  <Description>STEEL PANTS|halfs run speed</Description>
 			  <Sprite>steelpants</Sprite>
 			  <Effect>Sprint.Items.Effects.ChangeSpeedEffect</Effect>
 			  <EffectParams>
 				  <Item>
 					  <Name>speedChange</Name>
-					  <Value Type="float">-50</Value>
+					  <Value Type="float">-150</Value>
 				  </Item>
 			  </EffectParams>
 			  <Type>Sprint.Items.PassivePowerup</Type>
@@ -382,13 +418,14 @@
     </Item>
 	  <Item>
 		  <Key>lavaShot</Key>
-		  <Value>
+		  <Value Type="XMLData:CooldownPowerupData">
 			  <Label>lavaShot</Label>
-			  <Description>LAVA SHOT|Shoots lava and once hit turns into lava</Description>
+			  <Description>LAVA SHOT|shoots lava|sticks to|enemies</Description>
 			  <Sprite>lavabucket</Sprite>
 			  <Effect>Sprint.Items.Effects.SpawnLavaEffect</Effect>
 			  <EffectParams />
-			  <Type>Sprint.Items.ActiveAbility</Type>
+			  <Type>Sprint.Items.CooldownAbility</Type>
+        <Duration>20</Duration>
 		  </Value>
 	  </Item>
     <Item>
@@ -412,41 +449,41 @@
 		  <Key>Apple</Key>
 		  <Value Type="XMLData:StackedPowerupData">
 			  <Label>apple</Label>
-			  <Description>MEAT|heals 1 heart</Description>
+			  <Description>APPLE|heals 0.5 heart</Description>
 			  <Sprite>Apple</Sprite>
 			  <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
 			  <EffectParams>
 				  <Item>
 					  <Name>amount</Name>
-					  <Value Type="float">2</Value>
+					  <Value Type="float">0.5</Value>
 				  </Item>
 			  </EffectParams>
 			  <Type>Sprint.Items.ConsumableAbility</Type>
-			  <Quantity>2</Quantity>
+			  <Quantity>5</Quantity>
 		  </Value>
 	  </Item>
 	  <Item>
 		  <Key>GoldApple</Key>
 		  <Value Type="XMLData:StackedPowerupData">
-			  <Label>apple</Label>
-			  <Description>MEAT|heals 1 heart</Description>
+			  <Label>goldApple</Label>
+			  <Description>GOLDEN APPLE|heals 20|hearts</Description>
 			  <Sprite>GoldApple</Sprite>
 			  <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
 			  <EffectParams>
 				  <Item>
 					  <Name>amount</Name>
-					  <Value Type="float">2</Value>
+					  <Value Type="float">20</Value>
 				  </Item>
 			  </EffectParams>
 			  <Type>Sprint.Items.ConsumableAbility</Type>
-			  <Quantity>2</Quantity>
+			  <Quantity>1</Quantity>
 		  </Value>
 	  </Item>
 	  <Item>
 		  <Key>Bread</Key>
 		  <Value Type="XMLData:StackedPowerupData">
 			  <Label>bread</Label>
-			  <Description>BREAD|heals 1 heart</Description>
+			  <Description>BREAD|heals 1|heart</Description>
 			  <Sprite>Bread</Sprite>
 			  <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
 			  <EffectParams>
@@ -463,7 +500,7 @@
 		  <Key>Chicken</Key>
 		  <Value Type="XMLData:StackedPowerupData">
 			  <Label>chicken</Label>
-			  <Description>CHICKEN|heals 3 heart</Description>
+			  <Description>CHICKEN|heals 2|hearts</Description>
 			  <Sprite>Chicken</Sprite>
 			  <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
 			  <EffectParams>
@@ -508,6 +545,7 @@
           <Item>boomerang</Item>
           <Item>enderPearl</Item>
           <Item>hookShot</Item>
+          <Item>lavaShot</Item>
         </Bases>
       </Value>
     </Item>
@@ -527,6 +565,7 @@
           <Item>boomerang</Item>
           <Item>enderPearl</Item>
           <Item>hookShot</Item>
+          <Item>lavaShot</Item>
         </Bases>
       </Value>
     </Item>
@@ -544,6 +583,7 @@
           <Item>sword</Item>
           <Item>masterSword</Item>
           <Item>boomerang</Item>
+          <Item>lavaShot</Item>
         </Bases>
       </Value>
     </Item>
@@ -559,6 +599,10 @@
         <Bases>
           <Item>bomb</Item>
           <Item>meat</Item>
+          <Item>bread</Item>
+          <Item>apple</Item>
+          <Item>chicken</Item>
+          <Item>goldApple</Item>
           <Item>enderPearl</Item>
         </Bases>
       </Value>
@@ -624,13 +668,15 @@
         <Effect>Sprint.Items.Effects.CompanionDamageUpgrade</Effect>
         <EffectParams>
           <Item>
-            <Name>damage</Name>
-            <Value Type="float">0.5</Value>
+            <Name>multiplier</Name>
+            <Value Type="float">5</Value>
           </Item>
         </EffectParams>
         <Type>Sprint.Items.UpgradePowerup</Type>
         <Bases>
           <Item>knife</Item>
+          <Item>steelknife</Item>
+          <Item>goldknife</Item>
         </Bases>
       </Value>
     </Item>
@@ -651,6 +697,8 @@
         <Bases>
           <Item>knife</Item>
           <Item>fairy</Item>
+          <Item>steelknife</Item>
+          <Item>goldknife</Item>
         </Bases>
       </Value>
     </Item>

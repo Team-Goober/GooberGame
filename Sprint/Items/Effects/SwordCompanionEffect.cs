@@ -6,6 +6,7 @@ using Sprint.Interfaces.Powerups;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
 using System.Windows.Markup;
 
 namespace Sprint.Items.Effects
@@ -15,14 +16,18 @@ namespace Sprint.Items.Effects
 
         private string spriteName;
         private string spriteFile;
+        private float damage;
+        private Vector2 range;
 
         private Stack<SwordCompanion> companions = new(); // All active swords
         private Player player;
 
-        public SwordCompanionEffect(string spriteName, string spriteFile)
+        public SwordCompanionEffect(string spriteName, string spriteFile, float damage, float depth, float breadth)
         {
             this.spriteName = spriteName;
             this.spriteFile = spriteFile;
+            this.damage = damage;
+            range = new(depth, breadth);
         }
 
         public void Execute(Player player)
@@ -34,7 +39,7 @@ namespace Sprint.Items.Effects
             }
             // Add new word to room
             ISprite sprite = this.player.GetSpriteLoader().BuildSprite(spriteFile, spriteName);
-            SwordCompanion companion = new SwordCompanion(sprite, this.player, companions.Count % 2 == 0, companions.Count / 2 % 2 == 0);
+            SwordCompanion companion = new SwordCompanion(sprite, this.player, companions.Count % 2 == 0, companions.Count / 2 % 2 == 0, damage, range);
             companion.SetDisable(false);
             companions.Push(companion);
         }

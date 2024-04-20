@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using System;
+using System.Diagnostics;
 
 namespace Sprint.Characters.Companions
 {
@@ -20,14 +21,14 @@ namespace Sprint.Characters.Companions
         protected bool flipAxisDir;
         protected bool flipLoopDir;
 
-        public Companion(ISprite sprite, Player player, bool flipAxisDir, bool flipLoopDir)
+        public Companion(ISprite sprite, Player player, bool flipAxisDir, bool flipLoopDir, Vector2 stride)
         {
             this.sprite = sprite;
             this.player = player;
             this.flipLoopDir = flipLoopDir;
             this.flipAxisDir = flipAxisDir;
             offset = new Vector2();
-            stride = new Vector2(100, 50);
+            this.stride = stride;
             loopTimer = new Timer(6);
             loopTimer.SetLooping(true);
             axisTimer = new Timer(43);
@@ -92,7 +93,6 @@ namespace Sprint.Characters.Companions
 
             // Set position to follow figure 8
             Vector2 preRotate = new Vector2((float)Math.Sin(4 * Math.PI * spot) * stride.Y, (float)Math.Cos(2 * Math.PI * spot) * stride.X);
-
             offset = Vector2.Transform(preRotate, Matrix.CreateRotationZ((float)(Math.PI * 2 * axisCycle)));
 
             // Update sprite

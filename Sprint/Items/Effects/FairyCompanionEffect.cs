@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.Xna.Framework;
 using Sprint.Characters;
 using Sprint.Characters.Companions;
 using Sprint.Interfaces;
@@ -32,7 +33,7 @@ namespace Sprint.Items.Effects
             }
             // Add new fairy to room
             ISprite sprite = this.player.GetSpriteLoader().BuildSprite(spriteFile, spriteName);
-            Companion companion = new Companion(sprite, this.player, companions.Count % 2 == 0, companions.Count / 2 % 2 == 0);
+            Companion companion = new Companion(sprite, this.player, companions.Count % 2 == 0, companions.Count / 2 % 2 == 0, new Vector2(100, 50));
             companion.SetDisable(false);
             companions.Push(companion);
         }
