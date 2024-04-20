@@ -92,7 +92,6 @@ namespace Sprint.Characters
             {
                 // Move randomly within a specified area
                 moveDog.MoveAI(gameTime);
-                physics.Update(gameTime);
             }
             else if (delayTimer.Ended)
             {
@@ -100,10 +99,8 @@ namespace Sprint.Characters
                 shooting = false;
             }
 
-            // Update the sprite and physics
-            sprite.Update(gameTime);
 
-
+            base.Update(gameTime);
 
         }
 

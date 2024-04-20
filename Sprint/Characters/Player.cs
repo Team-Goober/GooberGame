@@ -9,6 +9,7 @@ using Sprint.Music.Sfx;
 using Sprint.Items;
 using System.Diagnostics;
 using System;
+using System.Collections.Generic;
 
 namespace Sprint.Characters
 {
@@ -23,8 +24,6 @@ namespace Sprint.Characters
         // Player sprites
         private ISprite sprite; // Current sprite that's drawn
         private SpriteLoader spriteLoader;
-        private ISprite normalSprite; // Version of sprite without damage
-        private ISprite damagedSprite; // Version of sprite taking damage
 
         // Events to signal hearts changed
         public delegate void HealthUpdateDelegate(double prev, double next);
@@ -42,8 +41,6 @@ namespace Sprint.Characters
         private float sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
         private int maxHealth = CharacterConstants.STARTING_HEALTH;
         private double health = CharacterConstants.STARTING_HEALTH;
-        private float speed = CharacterConstants.PLAYER_SPEED;
-        private bool stopped = false;
 
         // Weapons
         private SimpleProjectileFactory secondaryItems;
@@ -52,8 +49,49 @@ namespace Sprint.Characters
         private bool shielded; // Shield is up, dont take damage from the front
         private bool noclip; // Able to walk through walls
 
-        // Direction that the player is facing
-        public Vector2 Facing { get; private set; }
+
+        private Vector2 _facing = Directions.DOWN;
+        public Vector2 Facing // Direction that the player is facing
+        {
+            get { return _facing; }
+            private set
+            {
+                _facing = value;
+                SyncAnimation(); // Update animation
+            }
+        }
+        // Translate direction vector to animation spring
+        private readonly Dictionary<Vector2, string> facingToAnim = new() {
+            {Directions.UP, "Up" },
+            {Directions.RIGHT, "Right" },
+            {Directions.DOWN, "Down" },
+            {Directions.LEFT, "Left" }
+            };
+
+        private string _mode = STAND;
+        public string Mode // Input state that the player is in
+        {
+            get { return _mode; }
+            private set
+            {
+                _mode = value;
+                SyncAnimation(); // Update animation
+            }
+        }
+        // Constants for the animation strings for each mode
+        private const string CAST = "cast", WALK = "walk", STAND = "stand", SWORD = "sword";
+
+        private bool _damaged = false;
+        public bool Damaged // Whether the player is in damage state
+        {
+            get { return _damaged; }
+            set
+            {
+                _damaged = value;
+                SyncAnimation(); // Update animation
+            }
+        }
+        private const string DAMAGE_ANIMS = "Damage";
 
         public override Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
                 (int) (physics.Position.Y - sideLength / 2.0),
@@ -83,19 +121,10 @@ namespace Sprint.Characters
         private Timer castTimer;
         private Timer damageTimer;
 
-        // Animation to return to as base after a played animation ends
-        private enum AnimationCycle
-        {
-            Idle,
-            Walk
-        }
-        private AnimationCycle baseAnim;
-
         // Acceleration vector for player movement
-        private Vector2 acceleration = Vector2.Zero;
         private Vector2 accelerationDirection = Vector2.Zero;
         private float accelerationRate = CharacterConstants.ACCELERATION_RATE;
-        private float speedLimit = CharacterConstants.PLAYER_SPEED;
+        private float speed = CharacterConstants.PLAYER_SPEED;
 
         //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
@@ -111,9 +140,7 @@ namespace Sprint.Characters
             inventory = new Inventory();
 
             //Loads sprite for link
-            normalSprite = spriteLoader.BuildSprite("playerAnims" , "player");
-            damagedSprite = spriteLoader.BuildSprite("playerDamagedAnims" , "player");
-            sprite = normalSprite; // Start out undamaged
+            sprite = spriteLoader.BuildSprite("playerAnims" , "player");
 
             // Duration of one sword swing or item use
             attackTimer = new Timer(0.25);
@@ -123,9 +150,10 @@ namespace Sprint.Characters
 
             room = null;
 
-            // Start out idle
-            Facing = Directions.STILL;
-            baseAnim = AnimationCycle.Idle;
+            // Initial state
+            Facing = Directions.DOWN;
+            Mode = STAND;
+            Damaged = false;
 
             // Set up projectile factory
             secondaryItems = new SimpleProjectileFactory(spriteLoader, CharacterConstants.PROJECTILE_SPAWN_DISTANCE, false, null);         
@@ -152,6 +180,13 @@ namespace Sprint.Characters
             return spriteLoader;
         }
 
+        // Updates animation to match internal state
+        public void SyncAnimation()
+        {
+            // Animation based on mode, direction, and damage
+            sprite.SetAnimation(Mode + facingToAnim[Facing] + (Damaged?DAMAGE_ANIMS:""));
+        }
+
         // Moves the player from current scene into a new one
         public void SetRoom(Room room)
         {
@@ -172,16 +207,12 @@ namespace Sprint.Characters
         {
             sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * scale * CharacterConstants.COLLIDER_SCALE;
             float spriteScale = scale * CharacterConstants.SPRITE_SCALE;
-            normalSprite.SetScale(spriteScale);
-            damagedSprite.SetScale(spriteScale);
+            sprite.SetScale(spriteScale);
         }
 
         // Create melee attack according to facing direction and with given damage value
         public void Attack(float dmg)
         {
-            Rectangle swordRec  = new Rectangle();
-
-
             // Only attack if not already attacking
             if (!attackTimer.Ended)
             {
@@ -197,30 +228,15 @@ namespace Sprint.Characters
             castTimer.Start();
 
             //Creates animations and bounds for the sword for collision
-            if (Facing == Directions.DOWN)
-            {
-                normalSprite.SetAnimation("swordDown");
-                damagedSprite.SetAnimation("swordDown");
-                swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
-            }
-            else if (Facing == Directions.LEFT)
-            {
-                normalSprite.SetAnimation("swordLeft");
-                damagedSprite.SetAnimation("swordLeft");
-                swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
-            }
-            else if (Facing == Directions.UP)
-            {
-                normalSprite.SetAnimation("swordUp");
-                damagedSprite.SetAnimation("swordUp");
-                swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
-            }
-            else if (Facing == Directions.RIGHT)
-            {
-                normalSprite.SetAnimation("swordRight");
-                damagedSprite.SetAnimation("swordRight");
-                swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
-            }
+            Mode = SWORD;
+
+            // Get offsets for sword top left corner
+            double xOffset = (Facing.X == 0) ? - swordWidth / 2 : swordLength / 2 * (-1 + Facing.X);
+            double yOffset = (Facing.Y == 0) ? - swordWidth / 2 : swordLength / 2 * (-1 + Facing.Y);
+            int xDim = (Facing.X == 0) ? swordWidth : swordLength;
+            int yDim = (Facing.Y == 0) ? swordWidth : swordLength;
+            // Create bounding rectangle for sword
+            Rectangle swordRec = new Rectangle((int)(physics.Position.X + xOffset), (int)(physics.Position.Y + yOffset), xDim, yDim);
 
             swordCollision = new SwordCollision(swordRec, this, dmg);
             
@@ -238,161 +254,37 @@ namespace Sprint.Characters
                 return;
             }
 
-            // Player shouldn't move while attacking
-            StopMoving();
-
             // Start timer for attack
             castTimer.Start();
 
-            if (Facing == Directions.DOWN)
-            {
-                normalSprite.SetAnimation("castDown");
-                damagedSprite.SetAnimation("castDown");
-            }
-            else if (Facing == Directions.LEFT)
-            {
-                normalSprite.SetAnimation("castLeft");
-                damagedSprite.SetAnimation("castLeft");
-            }
-            else if (Facing == Directions.UP)
-            {
-                normalSprite.SetAnimation("castUp");
-                damagedSprite.SetAnimation("castUp");
-            }
-            else if (Facing == Directions.RIGHT)
-            {
-                normalSprite.SetAnimation("castRight");
-                damagedSprite.SetAnimation("castRight");
-            }
+            Mode = CAST;
+            
         }
 
         // Removes velocity and changes animation to match lack of movement
         public void StopMoving()
         {
             accelerationDirection = Vector2.Zero;
-            returnToBaseAnim();
+            Mode = STAND;
         }
 
-
-        // Return to base animation cycle based on states and facing dir
-        private void returnToBaseAnim()
-        {
-            if (baseAnim == AnimationCycle.Idle)
-            {
-                if (Facing == Directions.DOWN)
-                {
-                    normalSprite.SetAnimation("downStill");
-                    damagedSprite.SetAnimation("downStill");
-                }
-                else if (Facing == Directions.LEFT)
-                {
-                    normalSprite.SetAnimation("leftStill");
-                    damagedSprite.SetAnimation("leftStill");
-                }
-                else if (Facing == Directions.UP)
-                {
-                    normalSprite.SetAnimation("upStill");
-                    damagedSprite.SetAnimation("upStill");
-                }
-                else if (Facing == Directions.RIGHT)
-                {
-                    normalSprite.SetAnimation("rightStill");
-                    damagedSprite.SetAnimation("rightStill");
-                }
-            }
-            else if (baseAnim == AnimationCycle.Walk)
-            {
-                if (Facing == Directions.DOWN)
-                {
-                    normalSprite.SetAnimation("down");
-                    damagedSprite.SetAnimation("down");
-                }
-                else if (Facing == Directions.LEFT)
-                {
-                    normalSprite.SetAnimation("left");
-                    damagedSprite.SetAnimation("left");
-                }
-                else if (Facing == Directions.UP)
-                {
-                    normalSprite.SetAnimation("up");
-                    damagedSprite.SetAnimation("up");
-                }
-                else if (Facing == Directions.RIGHT)
-                {
-                    normalSprite.SetAnimation("right");
-                    damagedSprite.SetAnimation("right");
-                }
-            }
-
-        }
-
-
-        public void MoveLeft()
-        {
-            accelerationDirection.X -= 1; // Add to X acceleration to move left
-
-            normalSprite.SetAnimation("left");
-            damagedSprite.SetAnimation("left");
-            Facing = Directions.LEFT;
-            baseAnim = AnimationCycle.Walk;
-            
-        }
-
-        public void MoveRight()
-        {
-            accelerationDirection.X += 1; // Add to X acceleration to move right
-
-            
-                sprite.SetAnimation("right");
-                Facing = Directions.RIGHT;
-                baseAnim = AnimationCycle.Walk;
-            
-        }
-
-        public void MoveUp()
+        public void Walk(Vector2 direction)
         {
             // Don't move while shielding
             if (shielded)
                 return;
-            accelerationDirection.Y -= 1; // Add to Y acceleration to move up
-            normalSprite.SetAnimation("up");
-            damagedSprite.SetAnimation("up");
-            Facing = Directions.UP;
-            baseAnim = AnimationCycle.Walk;
-            
+            // Update facing direction
+            Facing = direction;
+            // Accelerate towards direction
+            accelerationDirection += direction;
         }
 
-        public void MoveDown()
-        {// Don't move while shielding
-            if (shielded)
-                return;
-            accelerationDirection.Y += 1; // Add to Y acceleration to move down
-            normalSprite.SetAnimation("down");
-            damagedSprite.SetAnimation("down");
-            Facing = Directions.DOWN;
-            baseAnim = AnimationCycle.Walk;
-            
-        }
-
-        public void ReleaseLeft()
+        public void EndWalk(Vector2 direction)
         {
-            accelerationDirection.X += 1; // Subtract from X acceleration when left key is released
+            // Remove acceleration towards direction
+            accelerationDirection -= direction;
         }
-
-        public void ReleaseRight()
-        {
-            accelerationDirection.X -= 1; // Subtract from X acceleration when right key is released
-        }
-
-        public void ReleaseUp()
-        {
-            accelerationDirection.Y += 1; // Subtract from Y acceleration when up key is released
-        }
-
-        public void ReleaseDown()
-        {
-            accelerationDirection.Y -= 1; // Subtract from Y acceleration when down key is released
-        }
+    
 
         public override Vector2 GetPosition()
         {
@@ -402,72 +294,60 @@ namespace Sprint.Characters
         public override void Update(GameTime gameTime)
         {
             // Update the acceleration based on the current acceleration direction
-            physics.SetAcceleration(accelerationDirection * accelerationRate);
+            Vector2 normalizedDir = (accelerationDirection.LengthSquared() > 0) ? Vector2.Normalize(accelerationDirection) : Vector2.Zero;
+            physics.SetAcceleration(normalizedDir * accelerationRate);
 
             // Update the velocity using the Physics component
-            physics.UpdateVelocity(CharacterConstants.STILL_FRICTION, speedLimit, gameTime);
+            physics.UpdateVelocity(speed, gameTime);
 
-            // Determine the animation based on acceleration
-            if (physics.Acceleration != Vector2.Zero)
+
+            // Update projectile factory positioning
+            if (Mode == WALK)
             {
-                if (Math.Abs(physics.Acceleration.X) > Math.Abs(physics.Acceleration.Y))
-                {
-                    // Horizontal movement dominates
-                    if (physics.Acceleration.X > 0)
-                    {
-                        Facing = Directions.RIGHT;
-                        
-                    }
-                    else
-                    {
-                        Facing = Directions.LEFT;
-                      
-                    }
-                }
-                else
-                {
-                    // Vertical movement dominates
-                    if (physics.Acceleration.Y > 0)
-                    {
-                        Facing = Directions.DOWN;
-                        
-                    }
-                    else
-                    {
-                        Facing = Directions.UP;
-                       
-                    }
-                }
+                // If walking, use accel direction to allow diagonals
+                secondaryItems.SetDirection(accelerationDirection);
             }
+            else
+            {
+                // If standing, use facing direction
+                secondaryItems.SetDirection(Facing);
+            }
+            secondaryItems.SetStartPosition(physics.Position);
 
+            // Move between walk and stand modes based on if the player is attempting to accelerate
+            if (accelerationDirection != Vector2.Zero)
+            {
+                if (Mode == STAND)
+                    Mode = WALK;
+            }
+            else
+            {
+                if (Mode == WALK)
+                    Mode = STAND;
+            }
 
             // Check for end of sword swing
             attackTimer.Update(gameTime);
             if (attackTimer.JustEnded)
             {
                 room.GetScene().Remove(swordCollision);
-                returnToBaseAnim();
+                Mode = STAND;
             }
             // Check for end of cast animation
             castTimer.Update(gameTime);
             if (castTimer.JustEnded)
             {
-                returnToBaseAnim();
+                Mode = STAND;
             }
 
-            // Update projectile factory positioning
-            secondaryItems.SetDirection(Facing);
-            secondaryItems.SetStartPosition(physics.Position);
-
-            // Checks for damage state
+            // Checks for damage state ending
             damageTimer.Update(gameTime);
             if (damageTimer.JustEnded)
             {
-                sprite = normalSprite;
-                returnToBaseAnim();
-            
-
+                Damaged = false;
             }
+
+
 
             // Die when health is zero
             // Must be in update instead of TakeDamage so items can intervene in death
@@ -491,8 +371,6 @@ namespace Sprint.Characters
         // Moves the player by a set distance
         public override void Move(Vector2 distance)
         {
-           
-
             // teleport player in displacement specified
             physics.SetPosition(physics.Position + distance);
         }
@@ -582,8 +460,8 @@ namespace Sprint.Characters
             }
             // sound playing
             sfxFactory.PlaySoundEffect("Player Hurt");
-            // switching sprites
-            sprite = damagedSprite;
+            // become damaged
+            Damaged = true;
             // timer to turn sprite back
             damageTimer.Start();
             // update health

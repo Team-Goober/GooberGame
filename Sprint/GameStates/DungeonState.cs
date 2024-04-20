@@ -18,10 +18,6 @@ using Sprint.Loader;
 using Sprint.Sprite;
 using System.Collections.Generic;
 using Sprint.Music.Sfx;
-using Sprint.Door;
-using System;
-using Sprint.Functions;
-using Sprint.Functions.Music;
 using Sprint.Functions.States;
 
 namespace Sprint
@@ -53,7 +49,6 @@ namespace Sprint
         private HUDLoader hudLoader;
 
         private bool sleeping; // True when state isnt being updated
-        private MultipleKeyReleaseTrigger stopMovingTrigger;
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
         {
             this.game = game;
@@ -129,22 +124,16 @@ namespace Sprint
 
 
             // Register single key press triggers for movement
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new MoveUp(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.S), new MoveDown(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
-
-            // Register commands for diagonal movement using arrow keys
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveLeft(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveRight(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Up), new MoveUp(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveDown(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new Walk(player, Directions.UP));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new Walk(player, Directions.LEFT));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.S), new Walk(player, Directions.DOWN));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new Walk(player, Directions.RIGHT));
 
             // Register SingleKeyReleaseTrigger for each movement direction
-            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.A), new ReleaseLeft(player));
-            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.D), new ReleaseRight(player));
-            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.W), new ReleaseUp(player));
-            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.S), new ReleaseDown(player));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.W), new ReleaseWalk(player, Directions.UP));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.A), new ReleaseWalk(player, Directions.LEFT));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.S), new ReleaseWalk(player, Directions.DOWN));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.D), new ReleaseWalk(player, Directions.RIGHT));
 
             // Register command to stop movement when multiple movement keys are released
             Keys[] moveKeys = { Keys.A, Keys.D, Keys.W, Keys.S, Keys.Left, Keys.Right, Keys.Up, Keys.Down };
@@ -256,9 +245,6 @@ namespace Sprint
             // Complete additions and deletions resulting from collisions
             currRoom.EndCycle();
 
-            CheckPuzzle(); // TESTING
-
-  
 
         }
 
@@ -503,90 +489,6 @@ namespace Sprint
         public Point GetCompassPointer()
         {
             return compassPointer;
-        }
-
-        private bool solved1 = false;
-        private bool solved2 = false;
-        private bool solved3 = false;
-
-        // Manually check for puzzle door open triggers
-        public void CheckPuzzle()
-        {            
-            if (currentRoom == new Point(2, 4) && !solved2)
-            {
-                Room room = GetRoomAt(new Point(2, 4));
-                SceneObjectManager scene = room.GetScene();
-                int count = room.GetEnemyCount();
-                foreach (IGameObject g in scene.GetObjects())
-                {
-                    if (g is MoveWallTile && count == 0)
-                    {
-                        (Vector2, Vector2) pos = ((MoveWallTile)g).GetPosition();
-                        solved1 = pos.Item1 != pos.Item2;
-                    }
-                }
-            } else if (currentRoom == new Point(5, 3) && !solved2)
-            {
-                Room room = GetRoomAt(new Point(5, 3));
-                int count = room.GetEnemyCount();
-                if(count == 0)
-                {
-                    solved2 = true;
-                }
-            } else if (currentRoom == new Point(2, 5) && !solved3)
-            {
-                Room room = GetRoomAt(new Point(2, 5));
-                int count = room.GetEnemyCount();
-                if (count == 0)
-                {
-                    solved3 = true;
-                }
-            }
-
-            if(solved1)
-            {
-                Room room = GetRoomAt(new Point(2, 4));
-                List<IDoor> doors = room.GetDoors();
-                foreach (IDoor g in doors)
-                {
-                    if(g is PuzzleDoor)
-                    {
-                        g.SetOpen(true);
-                    }
-                }
-            }
-
-            if(solved2)
-            {
-                Room room = GetRoomAt(new Point(5, 3));
-                List<IDoor> doors = room.GetDoors();
-                foreach (IDoor g in doors)
-                {
-                    if (g is PuzzleDoor)
-                    {
-                        g.SetOpen(true);
-                    }
-                }
-            }
-
-            if (solved3)
-            {
-                Room room = GetRoomAt(new Point(2, 5));
-                List<IDoor> doors = room.GetDoors();
-                foreach (IDoor g in doors)
-                {
-                    if (g is PuzzleDoor)
-                    {
-                        g.SetOpen(true);
-                    }
-                }
-            }
-        }
-
-
-        public Player ReturnPlayer()
-        {
-            return player;
         }
 
     }

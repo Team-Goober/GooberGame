@@ -35,7 +35,7 @@ namespace Sprint.Music.Songs
             Song songToPlay = Goober.content.Load<Song>(song);
             MediaPlayer.Play(songToPlay);
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = currentVolume;
+            MediaPlayer.Volume = isMuted?0.0f:currentVolume;
         }
 
         /// <summary>

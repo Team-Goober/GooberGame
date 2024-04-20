@@ -6,14 +6,11 @@ using Sprint.HUD;
 using Sprint.Interfaces;
 using Sprint.Interfaces.Powerups;
 using Sprint.Items;
-using Sprint.Items.Effects;
 using Sprint.Levels;
-using Sprint.Music.Sfx;
 using Sprint.Music.Songs;
 using Sprint.Sprite;
 using System.Collections.Generic;
 using XMLData;
-using System;
 
 namespace Sprint.Loader
 {
@@ -45,7 +42,6 @@ namespace Sprint.Loader
             this.spriteLoader = spriteLoader;
             this.player = player;
 
-        
 
             tileFactory = new(spriteLoader);
             doorFactory = new(spriteLoader);
@@ -143,7 +139,6 @@ namespace Sprint.Loader
             songHandler.PlaySong(data.Song);
 
             // Player needs to start with empty key and rupee powerups in their inventory
-            Player player = dungeon.ReturnPlayer();
             IStackedPowerup key = itemFactory.MakePowerup(Inventory.KeyLabel) as IStackedPowerup;
             key.ReadyConsume(key.Quantity());
             key.Apply(player);

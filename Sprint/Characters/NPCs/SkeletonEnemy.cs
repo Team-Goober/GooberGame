@@ -47,7 +47,6 @@ namespace Sprint.Characters
         {
 
             timeAttack.Update(gameTime);
-            base.Update(gameTime);
 
             //uses timer to shoot arrows ever 3 seconds
             if (timeAttack.JustEnded)
@@ -65,10 +64,7 @@ namespace Sprint.Characters
             // Move randomly within a specified area
             moveVert.MoveAI(gameTime);
 
-            // Update the sprite and physics
-            sprite.Update(gameTime);
-            physics.Update(gameTime);
-
+            base.Update(gameTime);
 
         }
 
