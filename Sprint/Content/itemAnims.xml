@@ -640,6 +640,24 @@
     </Item>
 
     <Item>
+      <Key>no</Key>
+      <Value>
+        <Texture>Items/minecraft</Texture>
+        <Animations>
+          <Item>
+            <Key>no</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>368 208 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>no</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
       <Key>tinyLink</Key>
       <Value>
         <Texture>zelda_links</Texture>

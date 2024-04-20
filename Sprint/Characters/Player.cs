@@ -47,7 +47,8 @@ namespace Sprint.Characters
         private SimpleProjectileFactory secondaryItems;
         private SwordCollision swordCollision;
         private const int swordWidth = CharacterConstants.SWORD_WIDTH, swordLength = CharacterConstants.SWORD_LENGTH;
-        private bool shielded;
+        private bool shielded; // Shield is up, dont take damage from the front
+        private bool noclip; // Able to walk through walls
 
         // Direction that the player is facing
         public Vector2 Facing { get; private set; }
@@ -60,15 +61,18 @@ namespace Sprint.Characters
         public override CollisionTypes[] CollisionType {
             get
             {
-                // Collide as shield if shield is up
+                // Length of the collision types array is based on state of player
+                int len = 2 + (shielded?1:0) + (noclip?1:0);
+                CollisionTypes[] types = new CollisionTypes[len];
+                int i = 0;
+
                 if (shielded)
-                {
-                    return new CollisionTypes[] { CollisionTypes.SHIELD, CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
-                }
-                else
-                {
-                    return new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
-                }
+                    types[i++] = CollisionTypes.SHIELD; // Collide as shield if shield is up
+                if (noclip)
+                    types[i++] = CollisionTypes.FLYING; // Phase through walls if noclip
+                types[i++] = CollisionTypes.PLAYER; // Act as player by default
+                types[i++] = CollisionTypes.CHARACTER; // Ac as character if no player interaction
+                return types;
             }
         }
 
@@ -531,6 +535,11 @@ namespace Sprint.Characters
         public void SetShielded(bool active)
         {
             shielded = active;
+        }
+
+        public void SetNoclip(bool active)
+        {
+            noclip = active;
         }
     }
 }

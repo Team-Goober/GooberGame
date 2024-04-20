@@ -188,6 +188,17 @@
       </Value>
     </Item>
     <Item>
+      <Key>noclip</Key>
+      <Value>
+        <Label>noclip</Label>
+        <Description>NOCLIP|walk through|walls</Description>
+        <Sprite>no</Sprite>
+        <Effect>Sprint.Items.Effects.NoclipEffect</Effect>
+        <EffectParams />
+        <Type>Sprint.Items.PassivePowerup</Type>
+      </Value>
+    </Item>
+    <Item>
       <Key>sword</Key>
       <Value Type="XMLData:CooldownPowerupData">
         <Label>sword</Label>

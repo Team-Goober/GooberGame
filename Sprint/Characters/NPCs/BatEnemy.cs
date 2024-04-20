@@ -18,7 +18,7 @@ namespace Sprint.Characters
 
         private Timer timeAttack;
 
-        public override CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.FLYING_ENEMY, CollisionTypes.ENEMY, CollisionTypes.CHARACTER };
+        public override CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.FLYING, CollisionTypes.ENEMY, CollisionTypes.CHARACTER };
 
         public BatEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
             : base(sprite, damagedSprite, initialPosition, room)
