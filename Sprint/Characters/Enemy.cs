@@ -27,6 +27,10 @@ namespace Sprint.Characters
 
         private Item drop = null; // Item to drop upon death
 
+
+        public delegate void DiedDelegate();
+        public event DiedDelegate DiedEvent;
+
         public Enemy(ISprite sprite, ISprite damagedSprite, Vector2 position, Room room)
         {
             this.defaultSprite = sprite;
@@ -38,19 +42,24 @@ namespace Sprint.Characters
             damageTimer = new Timer(0.1);
         }
 
-        public Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
+        public override Rectangle BoundingBox => new((int)(physics.Position.X - 8 * 3),
             (int)(physics.Position.Y - 8 * 3),
             16 * 3,
             16 * 3);
 
-        public virtual CollisionTypes[] CollisionType => new CollisionTypes[] {CollisionTypes.ENEMY, CollisionTypes.CHARACTER};
+        public override CollisionTypes[] CollisionType => new CollisionTypes[] {CollisionTypes.ENEMY, CollisionTypes.CHARACTER};
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Draw(spriteBatch, physics.Position, gameTime);
         }
 
-        public void Move(Vector2 distance)
+        public override Vector2 GetPosition()
+        {
+            return physics.Position;
+        }
+
+        public override void Move(Vector2 distance)
         {
             physics.SetPosition(physics.Position + distance);
         }
@@ -108,6 +117,8 @@ namespace Sprint.Characters
                 drop.SetPosition(physics.Position);
                 room.GetScene().Add(drop);
             }
+            // Signal death
+            DiedEvent?.Invoke();
         }
     }
 }

@@ -33,17 +33,14 @@ namespace Sprint.Characters
         {
 
 
-            base.Update(gameTime);
             // Calculate movement based on elapsed time for the random pattern
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // Move randomly within a specified area
             MoveRandomly(gameTime);
 
-            // Update the sprite and physics
-            sprite.Update(gameTime);
-            physics.Update(gameTime);
 
+            base.Update(gameTime);
 
         }
 

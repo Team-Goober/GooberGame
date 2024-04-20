@@ -17,7 +17,7 @@ namespace Sprint.Characters
         private string lastAnimationName;
         private MoveHand moveHand;
 
-        public HandEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+        public HandEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader, Player player)
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
@@ -27,7 +27,7 @@ namespace Sprint.Characters
 
 
             // Initialize the move direction randomly
-            moveHand = new MoveHand(physics);
+            moveHand = new MoveHand(physics, player);
 
 
         }
@@ -53,17 +53,14 @@ namespace Sprint.Characters
         // Update HandEnemy logic
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             // Calculate movement based on elapsed time for the random pattern
             moveHand.MoveAI(gameTime);
 
             // Set animation based on the new direction
             SetAnimationBasedOnDirection();
 
-            // Update the sprite and physics
-            sprite.Update(gameTime);
-            physics.Update(gameTime);
+
+            base.Update(gameTime);
         }
 
         // Set animation based on the direction of movement

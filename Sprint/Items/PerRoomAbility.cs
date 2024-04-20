@@ -112,6 +112,10 @@ namespace Sprint.Items
         {
             return description;
         }
+        public IEffect GetEffect()
+        {
+            return onActivate;
+        }
 
         public void Update(GameTime gameTime)
         {

@@ -5,16 +5,16 @@ using Sprint.Sprite;
 using Sprint.Projectile;
 using Sprint.Levels;
 using Sprint.Collision;
-using System;
 using Sprint.Music.Sfx;
 using Sprint.Items;
-using Sprint.Functions.States;
 using System.Diagnostics;
+using System;
+using System.Collections.Generic;
 
 namespace Sprint.Characters
 {
 
-    internal class Player : Character, IMovingCollidable
+    internal class Player : Character
     {
         private DungeonState dungeon;
         private Inventory inventory;
@@ -22,51 +22,97 @@ namespace Sprint.Characters
         private SfxFactory sfxFactory;
 
         // Player sprites
-        private ISprite sprite;
+        private ISprite sprite; // Current sprite that's drawn
         private SpriteLoader spriteLoader;
-        private ISprite damagedSprite;
 
         // Events to signal hearts changed
         public delegate void HealthUpdateDelegate(double prev, double next);
         public event HealthUpdateDelegate OnPlayerHealthChange;
         public delegate void MaxHealthUpdateDelegate(int prev, int next, double health);
         public event MaxHealthUpdateDelegate OnPlayerMaxHealthChange;
+        // Event that signals room change
+        public delegate void RoomChangeDelegate(Room newRoom);
+        public event RoomChangeDelegate OnPlayerRoomChange;
 
         private Physics physics;
         private Room room;
 
         // Constants and initial values
-        private int sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
+        private float sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
         private int maxHealth = CharacterConstants.STARTING_HEALTH;
         private double health = CharacterConstants.STARTING_HEALTH;
-        private float speed = CharacterConstants.PLAYER_SPEED;
 
         // Weapons
         private SimpleProjectileFactory secondaryItems;
         private SwordCollision swordCollision;
         private const int swordWidth = CharacterConstants.SWORD_WIDTH, swordLength = CharacterConstants.SWORD_LENGTH;
-        private bool shielded;
+        private bool shielded; // Shield is up, dont take damage from the front
+        private bool noclip; // Able to walk through walls
 
-        // Direction that the player is facing
-        public Vector2 Facing { get; private set; }
 
-        public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
+        private Vector2 _facing = Directions.DOWN;
+        public Vector2 Facing // Direction that the player is facing
+        {
+            get { return _facing; }
+            private set
+            {
+                _facing = value;
+                SyncAnimation(); // Update animation
+            }
+        }
+        // Translate direction vector to animation spring
+        private readonly Dictionary<Vector2, string> facingToAnim = new() {
+            {Directions.UP, "Up" },
+            {Directions.RIGHT, "Right" },
+            {Directions.DOWN, "Down" },
+            {Directions.LEFT, "Left" }
+            };
+
+        private string _mode = STAND;
+        public string Mode // Input state that the player is in
+        {
+            get { return _mode; }
+            private set
+            {
+                _mode = value;
+                SyncAnimation(); // Update animation
+            }
+        }
+        // Constants for the animation strings for each mode
+        private const string CAST = "cast", WALK = "walk", STAND = "stand", SWORD = "sword";
+
+        private bool _damaged = false;
+        public bool Damaged // Whether the player is in damage state
+        {
+            get { return _damaged; }
+            set
+            {
+                _damaged = value;
+                SyncAnimation(); // Update animation
+            }
+        }
+        private const string DAMAGE_ANIMS = "Damage";
+
+        public override Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
                 (int) (physics.Position.Y - sideLength / 2.0),
-                sideLength,
-                sideLength);
+                (int)sideLength,
+                (int)sideLength);
 
-        public CollisionTypes[] CollisionType {
+        public override CollisionTypes[] CollisionType {
             get
             {
-                // Collide as shield if shield is up
+                // Length of the collision types array is based on state of player
+                int len = 2 + (shielded?1:0) + (noclip?1:0);
+                CollisionTypes[] types = new CollisionTypes[len];
+                int i = 0;
+
                 if (shielded)
-                {
-                    return new CollisionTypes[] { CollisionTypes.SHIELD, CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
-                }
-                else
-                {
-                    return new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
-                }
+                    types[i++] = CollisionTypes.SHIELD; // Collide as shield if shield is up
+                if (noclip)
+                    types[i++] = CollisionTypes.FLYING; // Phase through walls if noclip
+                types[i++] = CollisionTypes.PLAYER; // Act as player by default
+                types[i++] = CollisionTypes.CHARACTER; // Ac as character if no player interaction
+                return types;
             }
         }
 
@@ -75,14 +121,10 @@ namespace Sprint.Characters
         private Timer castTimer;
         private Timer damageTimer;
 
-        // Animation to return to as base after a played animation ends
-        private enum AnimationCycle
-        {
-            Idle,
-            Walk
-        }
-        private AnimationCycle baseAnim;
-
+        // Acceleration vector for player movement
+        private Vector2 accelerationDirection = Vector2.Zero;
+        private float accelerationRate = CharacterConstants.ACCELERATION_RATE;
+        private float speed = CharacterConstants.PLAYER_SPEED;
 
         //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
@@ -99,7 +141,6 @@ namespace Sprint.Characters
 
             //Loads sprite for link
             sprite = spriteLoader.BuildSprite("playerAnims" , "player");
-            damagedSprite = spriteLoader.BuildSprite("playerDamagedAnims" , "player");
 
             // Duration of one sword swing or item use
             attackTimer = new Timer(0.25);
@@ -109,12 +150,14 @@ namespace Sprint.Characters
 
             room = null;
 
-            // Start out idle
-            Facing = Directions.STILL;
-            baseAnim = AnimationCycle.Idle;
+            // Initial state
+            Facing = Directions.DOWN;
+            Mode = STAND;
+            Damaged = false;
 
             // Set up projectile factory
             secondaryItems = new SimpleProjectileFactory(spriteLoader, CharacterConstants.PROJECTILE_SPAWN_DISTANCE, false, null);         
+            
         }
 
         public SimpleProjectileFactory GetProjectileFactory()
@@ -132,6 +175,18 @@ namespace Sprint.Characters
             return room;
         }
 
+        public SpriteLoader GetSpriteLoader()
+        {
+            return spriteLoader;
+        }
+
+        // Updates animation to match internal state
+        public void SyncAnimation()
+        {
+            // Animation based on mode, direction, and damage
+            sprite.SetAnimation(Mode + facingToAnim[Facing] + (Damaged?DAMAGE_ANIMS:""));
+        }
+
         // Moves the player from current scene into a new one
         public void SetRoom(Room room)
         {
@@ -144,14 +199,20 @@ namespace Sprint.Characters
             secondaryItems.SetRoom(this.room);
             this.room.GetScene().Add(this);
             StopMoving();
+            OnPlayerRoomChange?.Invoke(room);
+        }
+
+        // Grow or shrink the sprite and collider for the player
+        public void SetScale(float scale)
+        {
+            sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * scale * CharacterConstants.COLLIDER_SCALE;
+            float spriteScale = scale * CharacterConstants.SPRITE_SCALE;
+            sprite.SetScale(spriteScale);
         }
 
         // Create melee attack according to facing direction and with given damage value
         public void Attack(float dmg)
         {
-            Rectangle swordRec  = new Rectangle();
-
-
             // Only attack if not already attacking
             if (!attackTimer.Ended)
             {
@@ -167,30 +228,15 @@ namespace Sprint.Characters
             castTimer.Start();
 
             //Creates animations and bounds for the sword for collision
-            if (Facing == Directions.DOWN)
-            {
-                sprite.SetAnimation("swordDown");
-                damagedSprite.SetAnimation("swordDown");
-                swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
-            }
-            else if (Facing == Directions.LEFT)
-            {
-                sprite.SetAnimation("swordLeft");
-                damagedSprite.SetAnimation("swordLeft");
-                swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
-            }
-            else if (Facing == Directions.UP)
-            {
-                sprite.SetAnimation("swordUp");
-                damagedSprite.SetAnimation("swordUp");
-                swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
-            }
-            else if (Facing == Directions.RIGHT)
-            {
-                sprite.SetAnimation("swordRight");
-                damagedSprite.SetAnimation("swordRight");
-                swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
-            }
+            Mode = SWORD;
+
+            // Get offsets for sword top left corner
+            double xOffset = (Facing.X == 0) ? - swordWidth / 2 : swordLength / 2 * (-1 + Facing.X);
+            double yOffset = (Facing.Y == 0) ? - swordWidth / 2 : swordLength / 2 * (-1 + Facing.Y);
+            int xDim = (Facing.X == 0) ? swordWidth : swordLength;
+            int yDim = (Facing.Y == 0) ? swordWidth : swordLength;
+            // Create bounding rectangle for sword
+            Rectangle swordRec = new Rectangle((int)(physics.Position.X + xOffset), (int)(physics.Position.Y + yOffset), xDim, yDim);
 
             swordCollision = new SwordCollision(swordRec, this, dmg);
             
@@ -208,182 +254,112 @@ namespace Sprint.Characters
                 return;
             }
 
-            // Player shouldn't move while attacking
-            StopMoving();
-
             // Start timer for attack
             castTimer.Start();
 
-            if (Facing == Directions.DOWN)
-            {
-                sprite.SetAnimation("castDown");
-                damagedSprite.SetAnimation("castDown");
-            }
-            else if (Facing == Directions.LEFT)
-            {
-                sprite.SetAnimation("castLeft");
-                damagedSprite.SetAnimation("castLeft");
-            }
-            else if (Facing == Directions.UP)
-            {
-                sprite.SetAnimation("castUp");
-                damagedSprite.SetAnimation("castUp");
-            }
-            else if (Facing == Directions.RIGHT)
-            {
-                sprite.SetAnimation("castRight");
-                damagedSprite.SetAnimation("castRight");
-            }
+            Mode = CAST;
+            
         }
 
         // Removes velocity and changes animation to match lack of movement
         public void StopMoving()
         {
-            physics.SetVelocity(new Vector2(0, 0));
-            baseAnim = AnimationCycle.Idle;
-            returnToBaseAnim();
+            accelerationDirection = Vector2.Zero;
+            Mode = STAND;
         }
 
-        // Return to base animation cycle based on states and facing dir
-        private void returnToBaseAnim()
-        {
-            if (baseAnim == AnimationCycle.Idle)
-            {
-                if (Facing == Directions.DOWN)
-                {
-                    sprite.SetAnimation("downStill");
-                    damagedSprite.SetAnimation("downStill");
-                }
-                else if (Facing == Directions.LEFT)
-                {
-                    sprite.SetAnimation("leftStill");
-                    damagedSprite.SetAnimation("leftStill");
-                }
-                else if (Facing == Directions.UP)
-                {
-                    sprite.SetAnimation("upStill");
-                    damagedSprite.SetAnimation("upStill");
-                }
-                else if (Facing == Directions.RIGHT)
-                {
-                    sprite.SetAnimation("rightStill");
-                    damagedSprite.SetAnimation("rightStill");
-                }
-            }
-            else if (baseAnim == AnimationCycle.Walk)
-            {
-                if (Facing == Directions.DOWN)
-                {
-                    sprite.SetAnimation("down");
-                    damagedSprite.SetAnimation("down");
-                }
-                else if (Facing == Directions.LEFT)
-                {
-                    sprite.SetAnimation("left");
-                    damagedSprite.SetAnimation("left");
-                }
-                else if (Facing == Directions.UP)
-                {
-                    sprite.SetAnimation("up");
-                    damagedSprite.SetAnimation("up");
-                }
-                else if (Facing == Directions.RIGHT)
-                {
-                    sprite.SetAnimation("right");
-                    damagedSprite.SetAnimation("right");
-                }
-            }
-
-        }
-
-        public void MoveLeft()
+        public void Walk(Vector2 direction)
         {
             // Don't move while shielding
             if (shielded)
                 return;
-            // Sets velocity towards left
-            physics.SetVelocity(new Vector2(-speed, 0));
-
-            sprite.SetAnimation("left");
-            Facing = Directions.LEFT;
-            baseAnim = AnimationCycle.Walk;
+            // Update facing direction
+            Facing = direction;
+            // Accelerate towards direction
+            accelerationDirection += direction;
         }
 
-        public void MoveRight()
+        public void EndWalk(Vector2 direction)
         {
-            // Don't move while shielding
-            if (shielded)
-                return;
-            // Sets velocity towards right
-            physics.SetVelocity(new Vector2(speed, 0));
-
-            sprite.SetAnimation("right");
-            Facing = Directions.RIGHT;
-            baseAnim = AnimationCycle.Walk;
+            // Remove acceleration towards direction
+            accelerationDirection -= direction;
         }
+    
 
-        public void MoveUp()
+        public override Vector2 GetPosition()
         {
-            // Don't move while shielding
-            if (shielded)
-                return;
-            // Sets velocity towards up
-            physics.SetVelocity(new Vector2(0, -speed));
-
-            sprite.SetAnimation("up");
-            Facing = Directions.UP;
-            baseAnim = AnimationCycle.Walk;
-        }
-
-        public void MoveDown()
-        {
-            // Don't move while shielding
-            if (shielded)
-                return;
-            // Sets velocity towards down
-            physics.SetVelocity(new Vector2(0, speed));
-            sprite.SetAnimation("down");
-            Facing = Directions.DOWN;
-            baseAnim = AnimationCycle.Walk;
-        }
-
-        public Physics GetPhysic()
-        {
-            return physics;
+            return physics.Position;
         }
 
         public override void Update(GameTime gameTime)
         {
+            // Update the acceleration based on the current acceleration direction
+            Vector2 normalizedDir = (accelerationDirection.LengthSquared() > 0) ? Vector2.Normalize(accelerationDirection) : Vector2.Zero;
+            physics.SetAcceleration(normalizedDir * accelerationRate);
+
+            // Update the velocity using the Physics component
+            physics.UpdateVelocity(speed, gameTime);
+
+
+            // Update projectile factory positioning
+            if (Mode == WALK)
+            {
+                // If walking, use accel direction to allow diagonals
+                secondaryItems.SetDirection(accelerationDirection);
+            }
+            else
+            {
+                // If standing, use facing direction
+                secondaryItems.SetDirection(Facing);
+            }
+            secondaryItems.SetStartPosition(physics.Position);
+
+            // Move between walk and stand modes based on if the player is attempting to accelerate
+            if (accelerationDirection != Vector2.Zero)
+            {
+                if (Mode == STAND)
+                    Mode = WALK;
+            }
+            else
+            {
+                if (Mode == WALK)
+                    Mode = STAND;
+            }
 
             // Check for end of sword swing
             attackTimer.Update(gameTime);
             if (attackTimer.JustEnded)
             {
                 room.GetScene().Remove(swordCollision);
-                returnToBaseAnim();
+                Mode = STAND;
             }
             // Check for end of cast animation
             castTimer.Update(gameTime);
             if (castTimer.JustEnded)
             {
-                returnToBaseAnim();
+                Mode = STAND;
             }
 
-            // Update projectile factory positioning
-            secondaryItems.SetDirection(Facing);
-            secondaryItems.SetStartPosition(physics.Position);
-
-            // Checks for damage state
+            // Checks for damage state ending
             damageTimer.Update(gameTime);
             if (damageTimer.JustEnded)
             {
-                sprite = spriteLoader.BuildSprite("playerAnims", "player");
-                returnToBaseAnim();
-
+                Damaged = false;
             }
+
+
+
+            // Die when health is zero
+            // Must be in update instead of TakeDamage so items can intervene in death
+            if(health <= 0.0)
+            {
+                Die();
+            }
+
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
+
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -393,7 +369,7 @@ namespace Sprint.Characters
         }
 
         // Moves the player by a set distance
-        public void Move(Vector2 distance)
+        public override void Move(Vector2 distance)
         {
             // teleport player in displacement specified
             physics.SetPosition(physics.Position + distance);
@@ -449,7 +425,7 @@ namespace Sprint.Characters
             speed += addition;
         }
 
-        public void Heal(float amt)
+        public void Heal(double amt)
         {
             // Don't reduce health during heal
             Debug.Assert(amt >= 0);
@@ -484,28 +460,33 @@ namespace Sprint.Characters
             }
             // sound playing
             sfxFactory.PlaySoundEffect("Player Hurt");
-            // switching sprites
-            sprite = damagedSprite;
+            // become damaged
+            Damaged = true;
             // timer to turn sprite back
             damageTimer.Start();
             // update health
             double prevHealth = health;
             health -= dmg;
 
+            // Trigger death when health is at or below 0
+            if (health < 0.0)
+            {
+                health = 0.0;
+            }
+
             // broadcast health change
             OnPlayerHealthChange?.Invoke(prevHealth, health);
-
-            // Trigger death when health is at or below 0
-            if (health <= 0.0)
-            {
-                Die();
-            }
 
         }
 
         public void SetShielded(bool active)
         {
             shielded = active;
+        }
+
+        public void SetNoclip(bool active)
+        {
+            noclip = active;
         }
     }
 }

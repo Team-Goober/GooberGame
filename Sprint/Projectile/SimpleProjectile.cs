@@ -36,9 +36,18 @@ namespace Sprint.Projectile
         }
 
 
-        public double DamageAmount()
+        public virtual void Hit(Character subject)
         {
-            return damage;
+            if (isEnemy)
+            {
+                // Enemy projectiles only damage player a half heart
+                subject.TakeDamage(0.5);
+            }
+            else
+            {
+                // Player projectiles do custom damage
+                subject.TakeDamage(damage);
+            }
         }
 
         public SimpleProjectile(ISprite sprite, Vector2 startPos, bool isEnemy, Room room)

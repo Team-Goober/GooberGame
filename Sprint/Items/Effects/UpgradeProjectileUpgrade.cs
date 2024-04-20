@@ -11,11 +11,10 @@ namespace Sprint.Items.Effects
         private string projectile;
         private bool prev; // Last level of upgrade
 
-        public UpgradeProjectileUpgrade(string proj)
+        public UpgradeProjectileUpgrade(string projectile)
         {
-            projectile = proj;
+            this.projectile = projectile;
         }
-
         public void Execute(Player player)
         {
             SimpleProjectileFactory projs = player.GetProjectileFactory();

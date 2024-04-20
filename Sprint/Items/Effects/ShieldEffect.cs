@@ -17,5 +17,6 @@ namespace Sprint.Items.Effects
             // Disable player shield
             player.SetShielded(false);
         }
+
     }
 }

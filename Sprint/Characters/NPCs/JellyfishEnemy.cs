@@ -49,8 +49,6 @@ namespace Sprint.Characters
             // Calculate movement based on elapsed time
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            base.Update(gameTime);
-
             // Adjust the speed and side length of the square loop
             float speed = 50;
             float sideLength = 100;
@@ -112,9 +110,8 @@ namespace Sprint.Characters
                 SetDirection(Directions.UP);
             }
 
-            // Update the sprite and physics
-            sprite.Update(gameTime);
-            physics.Update(gameTime);
+
+            base.Update(gameTime);
         }
 
         // Set the current animation

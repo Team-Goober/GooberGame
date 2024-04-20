@@ -30,5 +30,6 @@ namespace Sprint.Items.Effects
         {
             // Do nothing
         }
+
     }
 }

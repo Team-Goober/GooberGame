@@ -128,13 +128,19 @@ internal class Inventory
     // Try to consume a powerup from stack, and return true if succeeded
     public bool TryConsumeStack(string resource, int amount = 1)
     {
-        // Not enough resources owned
-        if (StackQuantity(resource) < amount)
+        // None needs to be consumed
+        if (amount == 0)
+        {
+            return true;
+        }
+        // Powerup isn't owned
+        if (!HasPowerup(resource))
+        {
             return false;
-        // Consume the amount
-        if(amount > 0)
-            ((IStackedPowerup)allPowerups[resource]).AddAmount(-amount);
-        return true;
+        }
+        // Try to consume
+        IStackedPowerup stack = ((IStackedPowerup)allPowerups[resource]);
+        return stack.ReadyConsume(amount);
     }
 
     // True if invnetory has a valid entry for the powerup

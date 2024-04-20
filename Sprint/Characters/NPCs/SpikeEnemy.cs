@@ -33,14 +33,10 @@ namespace Sprint.Characters
         // Update logic
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             moveSpike.MoveAI(gameTime);
 
-            // Update the sprite and physics
-            sprite.Update(gameTime);
-            physics.Update(gameTime);
 
+            base.Update(gameTime);
 
         }
 

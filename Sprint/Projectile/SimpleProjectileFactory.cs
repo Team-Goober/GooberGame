@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprint.Characters;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
 using Sprint.Levels;
@@ -42,7 +43,7 @@ namespace Sprint.Projectile
         }
 
         // Create projectile based on string identifier
-        public IProjectile CreateFromString(string name)
+        public IProjectile CreateFromString(string name, Character shooter = null)
         {
             IProjectile ret = null;
             // Choose alternate string if upgraded
@@ -63,6 +64,15 @@ namespace Sprint.Projectile
                     break;
                 case "fireBall":
                     ret = CreateFireBall();
+                    break;
+                case "enderPearl":
+                    ret = CreateEnderPearl(shooter);
+                    break;
+                case "hook":
+                    ret = CreateHook(shooter);
+                    break;
+                case "lavabucket":
+                    ret = CreateLava(shooter);
                     break;
             }
             return ret;
@@ -110,6 +120,14 @@ namespace Sprint.Projectile
             return proj;
         }
 
+        public LavaBucket CreateLava(Character shooter)
+        {
+            LavaBucket proj = new LavaBucket(
+                spriteLoader.BuildSprite(ANIMS_FILE, "lavabucket"),
+                getSpawnPosition(), direction, isEnemy, room, shooter);
+            return proj;
+        }
+
         public BlueBoomerang CreateBlueBoomerang()
         {
             BlueBoomerang proj = new BlueBoomerang(
@@ -124,6 +142,22 @@ namespace Sprint.Projectile
             FireBall proj = new FireBall(
                 spriteLoader.BuildSprite(ANIMS_FILE, "fireball"),
                 getSpawnPosition(), direction, isEnemy, room);
+            return proj;
+        }
+
+        public EnderPearl CreateEnderPearl(Character shooter)
+        {
+            EnderPearl proj = new EnderPearl(
+                spriteLoader.BuildSprite(ANIMS_FILE, "enderPearl"),
+                getSpawnPosition(), direction, isEnemy, room, shooter);
+            return proj;
+        }
+
+        public Hook CreateHook(Character shooter)
+        {
+            Hook proj = new Hook(
+                spriteLoader.BuildSprite(ANIMS_FILE, "bluearrow"),
+                getSpawnPosition(), direction, isEnemy, room, shooter);
             return proj;
         }
 

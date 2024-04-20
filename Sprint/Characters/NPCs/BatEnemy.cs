@@ -18,9 +18,9 @@ namespace Sprint.Characters
 
         private Timer timeAttack;
 
-        public override CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.FLYING_ENEMY, CollisionTypes.ENEMY, CollisionTypes.CHARACTER };
+        public override CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.FLYING, CollisionTypes.ENEMY, CollisionTypes.CHARACTER };
 
-        public BatEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+        public BatEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader, Player player)
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
@@ -32,7 +32,7 @@ namespace Sprint.Characters
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
 
-            moveRandom = new MoveRandom(physics);
+            moveRandom = new MoveRandom(physics, player);
 
 
  
@@ -43,7 +43,6 @@ namespace Sprint.Characters
         {
 
             timeAttack.Update(gameTime);
-            base.Update(gameTime);
             //uses timer to shoot arrows ever 3 seconds
             if (timeAttack.JustEnded)
             {
@@ -58,10 +57,8 @@ namespace Sprint.Characters
             // Move randomly within a specified area
             moveRandom.MoveAI(gameTime);
 
-            // Update the sprite and physics
-            sprite.Update(gameTime);
-            physics.Update(gameTime);
 
+            base.Update(gameTime);
 
         }
 
