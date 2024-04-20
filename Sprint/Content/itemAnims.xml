@@ -405,6 +405,7 @@
         <InitialAnimation>knife</InitialAnimation>
       </Value>
     </Item>
+	
 
 		<Item>
 			<Key>bracelet</Key>
@@ -638,6 +639,178 @@
         <InitialAnimation>hook</InitialAnimation>
       </Value>
     </Item>
+		<Item>
+			<Key>lava</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>lava</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>384 16 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>lava</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>lavabucket</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>lavabucket</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>400 32 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>lavabucket</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>steelknife</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>steelknife</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>496 192 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>steelknife</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>goldknife</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>goldknife</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>480 240 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>goldknife</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>Apple</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>hook</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>368 160 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>hook</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>GoldApple</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>hook</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>368 176 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>hook</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>Bread</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>hook</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>384 224 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>hook</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>Chicken</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>hook</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>400 240 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>hook</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>MinecraftCompass</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>hook</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>415 81 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>hook</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>steelpants</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>hook</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>401 210 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>hook</InitialAnimation>
+			</Value>
+		</Item>
+	
 
     <Item>
       <Key>no</Key>
@@ -699,6 +872,7 @@
         <InitialAnimation>item</InitialAnimation>
       </Value>
     </Item>
+	
 
     <Item>
       <Key>boomerangUpgrade</Key>

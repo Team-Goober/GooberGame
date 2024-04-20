@@ -1346,6 +1346,51 @@
               <TilePos>4 3</TilePos>
               <Price>0</Price>
             </Item>
+			<Item>
+				<Type>steelpants</Type>
+				<TilePos>4 2</TilePos>
+				<Price>0</Price>
+			</Item>
+			  <Item>
+				  <Type>Apple</Type>
+				  <TilePos>4 1</TilePos>
+				  <Price>0</Price>
+			  </Item>
+			  <Item>
+				  <Type>GoldApple</Type>
+				  <TilePos>5 1</TilePos>
+				  <Price>0</Price>
+			  </Item>
+			  <Item>
+				  <Type>Bread</Type>
+				  <TilePos>5 2</TilePos>
+				  <Price>0</Price>
+			  </Item>
+			  <Item>
+				  <Type>MinecraftCompass</Type>
+				  <TilePos>5 4</TilePos>
+				  <Price>0</Price>
+			  </Item>
+			  <Item>
+				  <Type>Chicken</Type>
+				  <TilePos>5 3</TilePos>
+				  <Price>0</Price>
+			  </Item>
+			  <Item>
+				  <Type>steelknife</Type>
+				  <TilePos>5 5</TilePos>
+				  <Price>0</Price>
+			  </Item>
+			  <Item>
+				  <Type>goldknife</Type>
+				  <TilePos>5 6</TilePos>
+				  <Price>0</Price>
+			  </Item>
+			  <Item>
+				  <Type>lavaShot</Type>
+				  <TilePos>6 2</TilePos>
+				  <Price>0</Price>
+			  </Item>
             <Item>
               <Type>hookShot</Type>
               <TilePos>4 4</TilePos>
