@@ -33,7 +33,6 @@ namespace Sprint
         // Dimensions of window
         public static readonly int gameWidth = 1024;
         public static readonly int gameHeight = 956;
-        private LevelGeneration levelGeneration = LevelGeneration.GetInstance();
 
         public Goober()
         {

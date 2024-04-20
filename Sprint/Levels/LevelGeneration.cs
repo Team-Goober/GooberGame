@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace Sprint.Levels;
 
@@ -8,7 +9,8 @@ public class LevelGeneration
     public const int Rows = 9;
     public const int Columns = 8;
     private int totalRooms = 41;
-    private int numOfRoomsToGenerate = 16;
+    private int numOfRoomsToGenerate = 10;
+    private int numOfStepsToTake = 15;
     private (int, int) mapCoordinates = (4, 4); //Also start room for algorithm
     public int[,] mapGrid = new int[Rows, Columns];
     private Random randomObject = new Random();
@@ -32,15 +34,6 @@ public class LevelGeneration
     }
 
     /// <summary>
-    /// Get an instance of the SfxFactory, create a new one on first run
-    /// </summary>
-    /// <returns>The instance of SfxFactory</returns>
-    public static LevelGeneration GetInstance()
-    {
-        return instance ??= new LevelGeneration();
-    }
-
-    /// <summary>
     /// Create the procedurally generated map, guaranteeing win condition and shop spawn
     /// </summary>
     public void CreateRoomGrid()
@@ -52,6 +45,8 @@ public class LevelGeneration
         }
         //Remove unwanted rooms
         levelIndexSet.Remove(0);
+        levelIndexSet.Remove(1);
+        levelIndexSet.Remove(4);
         levelIndexSet.Remove(5);
         levelIndexSet.Remove(18);
         levelIndexSet.Remove(19);
@@ -59,11 +54,12 @@ public class LevelGeneration
 
 
         //Loop until max rooms are made
-        while (roomsCreated < numOfRoomsToGenerate)
+        while (roomsCreated < numOfStepsToTake)
         {
             //If space is empty, add room
             if (mapGrid[mapCoordinates.Item2, mapCoordinates.Item1] == 0)
             {
+                //Generate random room
                 randomRoomID = randomObject.Next(1,totalRooms);
                 while (!levelIndexSet.Contains(randomRoomID))
                 {
@@ -86,27 +82,41 @@ public class LevelGeneration
             mapCoordinates = ((int, int))functionMap[randomDirection].DynamicInvoke();
         }
         //Ensure win condition
-        while (levelIndexSet.Contains(4))
+        var loc = (0, 0);
+        for(int index = 0; index < (Rows*Columns); index++)
         {
-            if (mapGrid[mapCoordinates.Item2, mapCoordinates.Item1] == 0)
+            var roomIndex = mapGrid[loc.Item2, loc.Item1];
+            if (roomIndex != 0 && loc != (4,4) )
             {
-                mapGrid[mapCoordinates.Item2, mapCoordinates.Item1] = 4;
-                levelIndexSet.Remove(4);
+                mapGrid[loc.Item2, loc.Item1] = 4;
+                break;
             }
-            randomDirection = randomObject.Next(1, 5);
-            mapCoordinates = ((int, int))functionMap[randomDirection].DynamicInvoke();
+            //increment coordinates
+            loc.Item1++;
+            if (loc.Item1 == Columns)
+            {
+                loc.Item1 = 0;
+                loc.Item2++;
+            }
         }
 
         //Ensure shop spawns
-        while (levelIndexSet.Contains(1))
+        var locOfShop = (0, 0);
+        for(int index = 0; index < (Rows*Columns); index++)
         {
-            if (mapGrid[mapCoordinates.Item2, mapCoordinates.Item1] == 0)
+            var roomIndex = mapGrid[locOfShop.Item2, locOfShop.Item1];
+            if (roomIndex != 0 && locOfShop != (4,4) && roomIndex != 4)
             {
-                mapGrid[mapCoordinates.Item2, mapCoordinates.Item1] = 1;
-                levelIndexSet.Remove(1);
+                mapGrid[locOfShop.Item2, locOfShop.Item1] = 1;
+                break;
             }
-            randomDirection = randomObject.Next(1, 5);
-            mapCoordinates = ((int, int))functionMap[randomDirection].DynamicInvoke();
+            //increment coordinates
+            locOfShop.Item1++;
+            if (locOfShop.Item1 == Columns)
+            {
+                locOfShop.Item1 = 0;
+                locOfShop.Item2++;
+            }
         }
 
         //Add Gaunted Rooms to hidden row

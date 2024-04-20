@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Sprint.Levels;
+using Sprint.Loader;
 using XMLData;
 
 namespace Sprint.Content.LevelOne;
@@ -8,15 +9,14 @@ namespace Sprint.Content.LevelOne;
 public class ConnectedRoomData
 {
     private RoomListData roomListData;
-    private LevelGeneration levelGeneration;
     public List<XMLData.RoomData> Room;
+    private int[,] generatedGrid;
 
-    public ConnectedRoomData()
+    public ConnectedRoomData(int[,] generatedGrid)
     {
         roomListData = Goober.content.Load<RoomListData>("LevelOne/RoomsList");
         Room = roomListData.Room;
-        levelGeneration = LevelGeneration.GetInstance();
-
+        this.generatedGrid = generatedGrid;
     }
 
     /// <summary>
@@ -26,7 +26,7 @@ public class ConnectedRoomData
     {
         // Load all rooms by index using RoomLoader
         var loc = new Point(0, 0);
-        foreach (var roomIndex in levelGeneration.mapGrid)
+        foreach (var roomIndex in generatedGrid)
         {
             if (roomIndex != 0)
             {
@@ -50,22 +50,22 @@ public class ConnectedRoomData
     /// <param name="loc">Location of the current room</param>
     void checkForNeighborRoom(int roomIndex, Point loc)
     {
-        if ( (loc.Y !=0)  && (levelGeneration.mapGrid[loc.Y-1,loc.X] != 0))
+        if ( (loc.Y !=0)  && (generatedGrid[loc.Y-1,loc.X] != 0))
         {
             connectRoomUp(roomIndex, (loc.X,loc.Y) );
         }
 
-        if ( (loc.Y != LevelGeneration.Rows-1)  && (levelGeneration.mapGrid[loc.Y+1,loc.X] != 0))
+        if ( (loc.Y != LevelGeneration.Rows-1)  && (generatedGrid[loc.Y+1,loc.X] != 0))
         {
             connectRoomDown(roomIndex, (loc.X,loc.Y + 1) );
         }
 
-        if ( (loc.X !=0)  && (levelGeneration.mapGrid[loc.Y,loc.X-1] != 0))
+        if ( (loc.X !=0)  && (generatedGrid[loc.Y,loc.X-1] != 0))
         {
             connectRoomLeft(roomIndex, (loc.X - 1, loc.Y));
         }
 
-        if ( (loc.X != LevelGeneration.Columns-1)  && (levelGeneration.mapGrid[loc.Y,loc.X+1] != 0))
+        if ( (loc.X != LevelGeneration.Columns-1)  && (generatedGrid[loc.Y,loc.X+1] != 0))
         {
             connectRoomRight(roomIndex, (loc.X+1,loc.Y));
         }

@@ -10,6 +10,7 @@ using Sprint.Music.Songs;
 using Sprint.Sprite;
 using System.Collections.Generic;
 using Sprint.Content.LevelOne;
+using Sprint.Interfaces.Powerups;
 using XMLData;
 
 namespace Sprint.Loader
@@ -35,10 +36,9 @@ namespace Sprint.Loader
 
         private int levelNumber;
 
-        private LevelGeneration levelGeneration;
+        public LevelGeneration levelGeneration;
 
 
-        public LevelLoader(ContentManager newContent, DungeonState dungeon, SpriteLoader spriteLoader)
         public LevelLoader(ContentManager newContent, DungeonState dungeon, SpriteLoader spriteLoader, Player player)
         {
             this.content = newContent;
@@ -52,7 +52,7 @@ namespace Sprint.Loader
             itemFactory = new(spriteLoader);
             enemyFactory = new EnemyFactory(spriteLoader, player);
             songHandler = SongHandler.GetInstance();
-            levelGeneration = LevelGeneration.GetInstance();
+
         }
 
         /* Loads Level data from given file
@@ -61,10 +61,14 @@ namespace Sprint.Loader
         */
         public void LoadLevelXML(string path)
         {
-            LevelData data = content.Load<LevelData>(path);
-            ConnectedRoomData roomListData = new ConnectedRoomData();
-            roomListData.ConnectRoomData();
+            levelGeneration = new LevelGeneration();
+            levelGeneration.CreateRoomGrid();
             var generatedGrid = levelGeneration.mapGrid;
+            LevelData data = content.Load<LevelData>(path);
+            ConnectedRoomData roomListData = new ConnectedRoomData(generatedGrid);
+            roomListData.ConnectRoomData();
+
+
 
             itemFactory.LoadPowerupData();
 
@@ -149,7 +153,23 @@ namespace Sprint.Loader
 
             dungeon.SetDoors(doorBounds);
 
-            dungeon.SetCompassPointer(data.CompassPoint);
+            //Get compass pointer
+            var compassLocation =new Point(0, 0);
+            foreach (var roomIndex in levelGeneration.mapGrid)
+            {
+                if (roomIndex == 4)
+                {
+                    break;
+                }
+                //increment coordinates
+                compassLocation.X++;
+                if (compassLocation.X == LevelGeneration.Columns)
+                {
+                    compassLocation.X = 0;
+                    compassLocation.Y++;
+                }
+            }
+            dungeon.SetCompassPointer(compassLocation);
 
             dungeon.SetStart(data.BottomSpawnPos, data.StartLevel);
 
@@ -293,8 +313,6 @@ namespace Sprint.Loader
             foreach (ItemSpawnData spawn in rd.Items)
             {
                 Vector2 position = levelData.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * levelData.TileSize;
-                Item it = itemFactory.MakeItem(spawn.Type, position);
-                Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
                 Item it = itemFactory.MakeItem(spawn.Type, position, spawn.Price);
                 if (it != null)
                 {

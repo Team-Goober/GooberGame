@@ -12,9 +12,9 @@
         public const int SELECT_BOXES = 2;
 
         public const int SPRITE_SCALE = 4;
-        public const float ACCELERATION_RATE = 3f; //accelerationRate
-        public const float STILL_FRICTION = 0.005f; //stillFriction
-        public const float MOVING_FRICTION = 0.005f; //movingFriction
+        public const float ACCELERATION_RATE = 2.5f; //accelerationRate
+        public const float STILL_FRICTION = 0.500f; //stillFriction
+        public const float MOVING_FRICTION = 0.008f; //movingFriction
 
         public const int COLLIDER_SCALE = 3;
         public const int DEFAULT_SIDE_LENGTH = 16;

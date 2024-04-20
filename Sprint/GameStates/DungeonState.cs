@@ -78,7 +78,6 @@ namespace Sprint
             // enter first room
             SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
 
-            levelGeneration = LevelGeneration.GetInstance();
 
         }
 
