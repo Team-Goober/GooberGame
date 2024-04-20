@@ -33,7 +33,7 @@ namespace Sprint
         private Goober game;
         private ContentManager contentManager;
         private SpriteLoader spriteLoader;
-        
+
         private IInputMap inputTable;
         private CollisionDetector collisionDetector;
 
@@ -448,7 +448,7 @@ namespace Sprint
 
         public void Continue()
         {
-            player.Heal(40.0);
+            player.Heal();
         }
 
         public Point RoomIndex()
