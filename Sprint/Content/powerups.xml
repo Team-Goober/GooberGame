@@ -425,7 +425,7 @@
 			  <Effect>Sprint.Items.Effects.SpawnLavaEffect</Effect>
 			  <EffectParams />
 			  <Type>Sprint.Items.CooldownAbility</Type>
-        <Duration>20</Duration>
+        <Duration>5</Duration>
 		  </Value>
 	  </Item>
     <Item>
