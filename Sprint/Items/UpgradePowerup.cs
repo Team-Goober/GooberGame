@@ -68,16 +68,17 @@ namespace Sprint.Items
                 // Must apply this to an existing powerup
                 // Shouldn't run the apply of base, just add a decorator
                 Inventory inv = player.GetInventory();
-                // Find the first box that can have this upgrade applied
+                // Find the first powerup in inventory that can have this upgrade applied
                 basePowerup = getApplicablePowerup(inv);
 
                 // Set sprite to show a badge frame instead of the item frame
                 sprite.SetAnimation("badge");
 
-                // Replace the box's ability with this upgrade as a decorator
-                inv.ReplaceWithDecorator(basePowerup.GetLabel(), this);
                 // Set base ability that effect applies to
                 onApply.SetBase(basePowerup);
+
+                // Replace the box's ability with this upgrade as a decorator
+                inv.ReplaceWithDecorator(basePowerup.GetLabel(), this);
             }
 
         }
@@ -99,10 +100,15 @@ namespace Sprint.Items
                 {
                     IPowerup potential = inventory.GetPowerup(label);
                     IUpgradePowerup upgradePotential = potential as IUpgradePowerup;
-                    // Only select this one if either it isn't an upgrade, or if this upgrade isn't already in its upgrade chain
-                    if(upgradePotential == null || upgradePotential.FindInChain(label) == null)
+                    if(upgradePotential == null)
                     {
+                        // if this item is not an upgrade, apply to it
                         return potential;
+                    }
+                    else if (upgradePotential.FindInChain(GetLabel()) == null)
+                    {
+                        // if this item is an upgrade that doesn't already have the new upgrade in its chain, add on top of it
+                        return upgradePotential;
                     }
                 }
             }
@@ -129,12 +135,12 @@ namespace Sprint.Items
 
         public IEffect GetEffect()
         {
-            return basePowerup?.GetEffect();
+            return onApply;
         }
 
-        public IEffect GetTrueEffect()
+        public IEffect GetBaseEffect()
         {
-            return onApply;
+            return basePowerup?.GetEffect();
         }
 
         public void SetUpgradeOptions(List<string> bases)

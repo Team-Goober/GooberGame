@@ -31,8 +31,8 @@ namespace Sprint.Items.Effects
                 player.OnPlayerHealthChange += onPlayerHealthChanged;
             }
             // Add new fairy to room
-            ISprite sprite = player.GetSpriteLoader().BuildSprite(spriteFile, spriteName);
-            Companion companion = new Companion(sprite, player, companions.Count % 2 == 0, companions.Count / 2 % 2 == 0);
+            ISprite sprite = this.player.GetSpriteLoader().BuildSprite(spriteFile, spriteName);
+            Companion companion = new Companion(sprite, this.player, companions.Count % 2 == 0, companions.Count / 2 % 2 == 0);
             companion.SetDisable(false);
             companions.Push(companion);
         }
@@ -52,7 +52,7 @@ namespace Sprint.Items.Effects
                     fairy.SetDisable(true);
 
                     // Give player health back
-                    player.Heal(0.5f);
+                    player.Heal(3f);
                 }
             }
         }

@@ -475,5 +475,25 @@
         </Bases>
       </Value>
     </Item>
+    <Item>
+      <Key>cloneUpgrade</Key>
+      <Value Type="XMLData:UpgradePowerupData">
+        <Label>cloneUpgrade</Label>
+        <Description>- extra companions</Description>
+        <Sprite>clones</Sprite>
+        <Effect>Sprint.Items.Effects.CompanionCloneUpgrade</Effect>
+        <EffectParams>
+          <Item>
+            <Name>clones</Name>
+            <Value Type="int">1</Value>
+          </Item>
+        </EffectParams>
+        <Type>Sprint.Items.UpgradePowerup</Type>
+        <Bases>
+          <Item>knife</Item>
+          <Item>fairy</Item>
+        </Bases>
+      </Value>
+    </Item>
   </Asset>
 </XnaContent>

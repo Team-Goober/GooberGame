@@ -33,8 +33,8 @@ namespace Sprint.Items.Effects
                 this.player = player;
             }
             // Add new word to room
-            ISprite sprite = player.GetSpriteLoader().BuildSprite(spriteFile, spriteName);
-            SwordCompanion companion = new SwordCompanion(sprite, player, companions.Count % 2 == 0, companions.Count / 2 % 2 == 0);
+            ISprite sprite = this.player.GetSpriteLoader().BuildSprite(spriteFile, spriteName);
+            SwordCompanion companion = new SwordCompanion(sprite, this.player, companions.Count % 2 == 0, companions.Count / 2 % 2 == 0);
             companion.SetDisable(false);
             companions.Push(companion);
         }

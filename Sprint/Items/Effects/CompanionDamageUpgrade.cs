@@ -1,7 +1,6 @@
 ﻿using Sprint.Characters;
 using Sprint.Characters.Companions;
 using Sprint.Interfaces.Powerups;
-using Sprint.Projectile;
 using System.Collections.Generic;
 
 namespace Sprint.Items.Effects
@@ -11,7 +10,10 @@ namespace Sprint.Items.Effects
 
         private float damage;
         private IPowerup basePowerup;
-        
+        private int prevStackSize; // Used to track the number of new swords added
+        private Player player;
+
+
         public CompanionDamageUpgrade(float damage)
         {
             this.damage = damage;
@@ -19,13 +21,27 @@ namespace Sprint.Items.Effects
 
         public void Execute(Player player)
         {
+            if (player != null)
+                this.player = player;
             // Activate base to spawn sword
-            basePowerup.Apply(player);
+            basePowerup.GetEffect().Execute(player);
 
-            // Set damage of newest sword
-            Stack<SwordCompanion> currentStack = ((SwordCompanionEffect)basePowerup.GetEffect()).GetSwords();
-            SwordCompanion latest = currentStack.Peek();
-            latest.SetDamage(damage);
+            // Set damage of newest swords
+            Stack<SwordCompanion> currentStack = GetSwords();
+            Stack<SwordCompanion> tempStack = new();
+            // If size of stack increases, must add to all the new ones on top
+            for(int i = 0; i < currentStack.Count - prevStackSize; i++)
+            {
+                SwordCompanion top = currentStack.Pop();
+                top.SetDamage(damage);
+                tempStack.Push(top);
+            }
+            // Add them back to the stack
+            SwordCompanion sc;
+            while (tempStack.TryPop(out sc))
+            {
+                currentStack.Push(sc);
+            }
         }
 
         public void Reverse(Player player)
@@ -33,12 +49,30 @@ namespace Sprint.Items.Effects
             // Do nothing
         }
 
+        // Returns the list of sword this applies to
+        private Stack<SwordCompanion> GetSwords()
+        {
+            IUpgradePowerup asUpgrade = basePowerup as IUpgradePowerup;
+            if(asUpgrade == null)
+            {
+                // Get swords from a base
+                return ((SwordCompanionEffect)basePowerup.GetEffect()).GetSwords();
+            }
+            else
+            {
+                // Get swords from an upgrade by going down the chain
+                return ((SwordCompanionEffect)asUpgrade.GetBaseEffect()).GetSwords();
+            }
+        }
+
         public void SetBase(IPowerup powerup)
         {
             basePowerup = powerup;
+
+
             // Set damage of each one in base
             Stack<SwordCompanion> tempStack = new();
-            Stack<SwordCompanion> currentStack = ((SwordCompanionEffect)basePowerup.GetEffect()).GetSwords();
+            Stack<SwordCompanion> currentStack = GetSwords();
 
             SwordCompanion sc;
             while(currentStack.TryPop(out sc))
@@ -52,6 +86,8 @@ namespace Sprint.Items.Effects
             {
                 currentStack.Push(sc);
             }
+
+            prevStackSize = currentStack.Count;
         }
 
     }
