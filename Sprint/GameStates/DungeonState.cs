@@ -48,6 +48,7 @@ namespace Sprint
         private MapModel map; // Tracks revealing of rooms for UI
         private Point compassPointer; // Room indices for triforce location
         private HUDLoader hudLoader;
+        private LevelGeneration levelGeneration;
 
         private bool sleeping; // True when state isnt being updated
 
@@ -77,6 +78,7 @@ namespace Sprint
 
             // enter first room
             SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
+            levelGeneration = LevelGeneration.GetInstance();
 
         }
 

@@ -52,22 +52,22 @@ public class ConnectedRoomData
     {
         if ( (loc.Y !=0)  && (levelGeneration.mapGrid[loc.Y-1,loc.X] != 0))
         {
-            connectRoomUp(roomIndex, (loc.Y-1,loc.X) );
+            connectRoomUp(roomIndex, (loc.X,loc.Y) );
         }
 
         if ( (loc.Y != LevelGeneration.Rows-1)  && (levelGeneration.mapGrid[loc.Y+1,loc.X] != 0))
         {
-            connectRoomDown(roomIndex, (loc.Y + 1, loc.X) );
+            connectRoomDown(roomIndex, (loc.X,loc.Y + 1) );
         }
 
         if ( (loc.X !=0)  && (levelGeneration.mapGrid[loc.Y,loc.X-1] != 0))
         {
-            connectRoomLeft(roomIndex, (loc.Y, loc.X - 1));
+            connectRoomLeft(roomIndex, (loc.X - 1, loc.Y));
         }
 
         if ( (loc.X != LevelGeneration.Columns-1)  && (levelGeneration.mapGrid[loc.Y,loc.X+1] != 0))
         {
-            connectRoomRight(roomIndex, (loc.Y,loc.X+1));
+            connectRoomRight(roomIndex, (loc.X+1,loc.Y));
         }
     }
 
@@ -75,9 +75,9 @@ public class ConnectedRoomData
     /// Connect room to a room above
     /// </summary>
     /// <param name="roomIndex">Room to add exit to</param>
-    void connectRoomUp(int roomIndex, (int,int) nextRoomPosition)
+    void connectRoomUp(int roomIndex, (int,int) currentRoomPosition)
     {
-        if (nextRoomPosition.Item2 != LevelGeneration.Rows - 1)
+        if (currentRoomPosition.Item2 != LevelGeneration.Rows - 1)
         {
             Room[roomIndex].TopExit = "Open";
         }

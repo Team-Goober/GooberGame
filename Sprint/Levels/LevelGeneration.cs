@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using XMLData;
 
 namespace Sprint.Levels;
 
@@ -41,6 +40,9 @@ public class LevelGeneration
         return instance ??= new LevelGeneration();
     }
 
+    /// <summary>
+    /// Create the procedurally generated map, guaranteeing win condition and shop spawn
+    /// </summary>
     public void CreateRoomGrid()
     {
         //Initialize levelIndexSet
@@ -95,16 +97,29 @@ public class LevelGeneration
             mapCoordinates = ((int, int))functionMap[randomDirection].DynamicInvoke();
         }
 
-
-        //Add Rooms to hidden row
-        mapGrid[Rows-1,Columns-1] = 5;
-        if (!levelIndexSet.Contains(1))
+        //Ensure shop spawns
+        while (levelIndexSet.Contains(1))
         {
-            mapGrid[Rows-1,0] = 20;
+            if (mapGrid[mapCoordinates.Item2, mapCoordinates.Item1] == 0)
+            {
+                mapGrid[mapCoordinates.Item2, mapCoordinates.Item1] = 1;
+                levelIndexSet.Remove(1);
+            }
+            randomDirection = randomObject.Next(1, 5);
+            mapCoordinates = ((int, int))functionMap[randomDirection].DynamicInvoke();
         }
+
+        //Add Gaunted Rooms to hidden row
+        mapGrid[Rows-1,Columns-1] = 5;
+        mapGrid[Rows-1,0] = 20;
+        mapGrid[Rows - 1, 3] = 19;
+
         displayMap();
     }
 
+    /// <summary>
+    /// Display the map in the console for debugging
+    /// </summary>
     private void displayMap()
     {
         int index = 0;
@@ -120,6 +135,10 @@ public class LevelGeneration
         }
     }
 
+    /// <summary>
+    /// Move the room creator up one position
+    /// </summary>
+    /// <returns></returns>
     private (int, int) MoveUp()
     {
         //Return if it is impossible to move up, OR if a room is already there
@@ -132,6 +151,10 @@ public class LevelGeneration
         return mapCoordinates;
     }
 
+    /// <summary>
+    /// Move the room creator down one position
+    /// </summary>
+    /// <returns></returns>
     private (int, int) MoveDown()
     {
         //Return if it is impossible to move down, OR if a room is already there
@@ -144,7 +167,10 @@ public class LevelGeneration
         return mapCoordinates;
     }
 
-
+    /// <summary>
+    /// Move the room creator left one position
+    /// </summary>
+    /// <returns></returns>
     private (int, int) MoveLeft()
     {
         //Return if it is impossible to move left, OR if a room is already there
@@ -157,6 +183,10 @@ public class LevelGeneration
         return mapCoordinates;
     }
 
+    /// <summary>
+    /// Move the room creator right one position
+    /// </summary>
+    /// <returns></returns>
     private (int, int) MoveRight()
     {
         //Return if it is impossible to move left, OR if a room is already there

@@ -38,7 +38,6 @@ namespace Sprint
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            levelGeneration.CreateRoomGrid();
         }
 
         public static ContentManager content;

@@ -799,7 +799,7 @@
 		<Item>
 			<!--Magic Room Index 19-->
 			<NeedWall>true</NeedWall>
-			<Hidden>false</Hidden>
+			<Hidden>true</Hidden>
 			<TopExit>Wall</TopExit>
 			<BottomExit>Wall</BottomExit>
 			<LeftExit>Wall</LeftExit>

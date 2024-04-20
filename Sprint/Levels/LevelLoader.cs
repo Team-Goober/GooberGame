@@ -57,46 +57,7 @@ namespace Sprint.Loader
         */
         public void LoadLevelXML(string path)
         {
-            // Dictionary<int, (int, int)> indexConverter = new Dictionary<int, (int, int)>()
-            // {
-            //     {0, (2,2)}, {1, (2,3)}, {2,(3,3)}, {3,(3,5)}, {4,(3,6)}, {5,(4,1)}, {6,(4,2)}, {7,(4,3)}, {8,(4,4)},
-            //     {9,(4,5)}, {10,(5,2)}, {11,(5,3)}, {12,(5,4)}, {13,(6,3)}, {14,(7,2)}, {15,(7,3)}, {16,(7,4)}
-            // };
-            //
-            // int rowNum = 0;
-            // int columnNum = 0;
-            // RoomData[] empty = new[] {(RoomData)null,(RoomData)null, (RoomData)null,(RoomData)null,(RoomData)null,(RoomData)null,(RoomData)null,(RoomData)null} as RoomData[];
-            // RoomData[][] mapGirdConverted = new RoomData[8][];
-            // for (int i = 0; i< 8;i++)
-            // {
-            //     mapGirdConverted[i] = empty;
-            // }
-            //
-            // foreach (var indexNeeded in levelGeneration.mapGrid)
-            // {
-            //
-            //     var roomNeeded = indexConverter[indexNeeded];
-            //
-            //     if (indexNeeded == 0)
-            //     {
-            //         mapGirdConverted[rowNum][columnNum] = null;
-            //     }
-            //     else
-            //     {
-            //         mapGirdConverted[rowNum][columnNum] = data.Rooms[roomNeeded.Item1][roomNeeded.Item2];
-            //     }
-            //
-            //     if (columnNum % 7 == 0 && columnNum != 0)
-            //     {
-            //         rowNum++;
-            //         columnNum = 0;
-            //     }
-            //     else
-            //     {
-            //         columnNum++;
-            //     }
-            // }
-
+            levelGeneration.CreateRoomGrid();
             LevelData data = content.Load<LevelData>(path);
             ConnectedRoomData roomListData = new ConnectedRoomData();
             roomListData.ConnectRoomData();
