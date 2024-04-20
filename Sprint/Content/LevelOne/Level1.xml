@@ -1110,7 +1110,7 @@
 			    <Item>
 					<Type>slime</Type>
 					<TilePos>3 4</TilePos>
-					<ItemDrop>rupee</ItemDrop>
+					<ItemDrop>heart</ItemDrop>
 				</Item>
 					<Item>
 					<Type>slime</Type>

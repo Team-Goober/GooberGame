@@ -23,6 +23,7 @@ using System;
 using Sprint.Functions;
 using Sprint.Functions.Music;
 using Sprint.Functions.States;
+using System.Diagnostics;
 
 namespace Sprint
 {
@@ -109,6 +110,7 @@ namespace Sprint
 
             player.OnPlayerHealthChange -= hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange -= hudLoader.UpdateMaxHeartAmount;
+
         }
 
         // Generates all commands available while the player is moving in a room
@@ -442,6 +444,11 @@ namespace Sprint
             GameOverState death = new GameOverState(game, hudLoader);
             death.GetHUDScene(hudLoader.GetTopDisplay());
             PassToState(death);
+        }
+
+        public void Continue()
+        {
+            player.Heal(40.0);
         }
 
         public Point RoomIndex()
