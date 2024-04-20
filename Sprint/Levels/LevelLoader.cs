@@ -143,7 +143,7 @@ namespace Sprint.Loader
             songHandler.PlaySong(data.Song);
 
             // Player needs to start with empty key and rupee powerups in their inventory
-            Player player = dungeon.GetPlayer();
+            Player player = dungeon.ReturnPlayer();
             IStackedPowerup key = itemFactory.MakePowerup(Inventory.KeyLabel) as IStackedPowerup;
             key.ReadyConsume(key.Quantity());
             key.Apply(player);
