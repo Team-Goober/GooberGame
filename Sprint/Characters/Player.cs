@@ -564,9 +564,7 @@ namespace Sprint.Characters
         //@override heals to full health
         public void  Heal()
         {
-            double prevHealth = health;
-            health = maxHealth;
-            OnPlayerHealthChange?.Invoke(prevHealth, health);
+            Heal(maxHealth - health);
         }
 
         public void IncreaseHearts()
@@ -576,13 +574,6 @@ namespace Sprint.Characters
             if (maxHealth < CharacterConstants.MAX_HEARTS)
                 maxHealth += 1;
             OnPlayerMaxHealthChange?.Invoke(prevMax, maxHealth, health);
-        }
-
-
-        // returns health
-        public double hp()
-        {
-            return health;
         }
 
         // Reduce health
