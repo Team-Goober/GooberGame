@@ -102,7 +102,14 @@ namespace Sprint.Items
         /// <returns>Newly created Item</returns>
         public Item MakeItem(string name, Vector2 position, int price)
         {
+            if (name.Equals("random"))
+            {
+                name = RandomPowerup();
+                price = RandomPrice();
+            } 
+
             IPowerup pup = MakePowerup(name);
+
             // If powerup doesn't exist, don't make an item
             if(pup == null)
             {
@@ -111,6 +118,22 @@ namespace Sprint.Items
             // Create final item using powerup
             Item it = new(position, pup, price);
             return it;
+        }
+
+        public string RandomPowerup()
+        {
+            Random rand = new Random();
+
+            List<string> itemName = catalog.Keys.ToList();
+
+            return itemName[rand.Next(itemName.Count)];
+        }
+
+        public int RandomPrice()
+        {
+            Random rand = new Random();
+
+            return rand.Next(1, 30);
         }
                 
     }
