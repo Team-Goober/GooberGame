@@ -66,6 +66,11 @@ namespace Sprint.Items
             return description;
         }
 
+        public IEffect GetEffect()
+        {
+            return onApply;
+        }
+
         public void Update(GameTime gameTime)
         {
             // Only update if haven't already updated on this cycle

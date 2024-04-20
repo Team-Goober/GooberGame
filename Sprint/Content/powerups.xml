@@ -39,6 +39,17 @@
         <Type>Sprint.Items.PassivePowerup</Type>
       </Value>
     </Item>
+	  <Item>
+		  <Key>MinecraftCompass</Key>
+		  <Value>
+			  <Label>compass</Label>
+			  <Description>COMPASS|reveal triforce|room</Description>
+			  <Sprite>MinecraftCompass</Sprite>
+			  <Effect>Sprint.Items.Effects.CompassEffect</Effect>
+			  <EffectParams />
+			  <Type>Sprint.Items.PassivePowerup</Type>
+		  </Value>
+	  </Item>
     <Item>
       <Key>map</Key>
       <Value>
@@ -77,6 +88,22 @@
           <Item>
             <Name>speedChange</Name>
             <Value Type="float">300</Value>
+          </Item>
+        </EffectParams>
+        <Type>Sprint.Items.PassivePowerup</Type>
+      </Value>
+    </Item>
+    <Item>
+      <Key>shrink</Key>
+      <Value>
+        <Label>shrink</Label>
+        <Description>SHRINK|become smaller</Description>
+        <Sprite>tinyLink</Sprite>
+        <Effect>Sprint.Items.Effects.ChangeSizeEffect</Effect>
+        <EffectParams>
+          <Item>
+            <Name>scale</Name>
+            <Value Type="float">0.5</Value>
           </Item>
         </EffectParams>
         <Type>Sprint.Items.PassivePowerup</Type>
@@ -124,6 +151,48 @@
         <Quantity>1</Quantity>
       </Value>
     </Item>
+	  <Item>
+		  <Key>steelknife</Key>
+		  <Value Type="XMLData:StackedPowerupData">
+			  <Label>steelknife</Label>
+			  <Description>KNIFE|floating sword|hits enemies</Description>
+			  <Sprite>steelknife</Sprite>
+			  <Effect>Sprint.Items.Effects.SwordCompanionEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>spriteName</Name>
+					  <Value Type="string">steelknife</Value>
+				  </Item>
+				  <Item>
+					  <Name>spriteFile</Name>
+					  <Value Type="string">itemAnims</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.ResourcePowerup</Type>
+			  <Quantity>1</Quantity>
+		  </Value>
+	  </Item>
+	  <Item>
+		  <Key>goldknife</Key>
+		  <Value Type="XMLData:StackedPowerupData">
+			  <Label>goldknife</Label>
+			  <Description>KNIFE|floating sword|hits enemies</Description>
+			  <Sprite>steelknife</Sprite>
+			  <Effect>Sprint.Items.Effects.SwordCompanionEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>spriteName</Name>
+					  <Value Type="string">goldknife</Value>
+				  </Item>
+				  <Item>
+					  <Name>spriteFile</Name>
+					  <Value Type="string">itemAnims</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.ResourcePowerup</Type>
+			  <Quantity>1</Quantity>
+		  </Value>
+	  </Item>
     <Item>
       <Key>rupee</Key>
       <Value Type="XMLData:StackedPowerupData">
@@ -273,6 +342,44 @@
         <Quantity>2</Quantity>
       </Value>
     </Item>
+	  <Item>
+		  <Key>steelpants</Key>
+		  <Value>
+			  <Label>steelpants</Label>
+			  <Description>RING|halfs run speed</Description>
+			  <Sprite>steelpants</Sprite>
+			  <Effect>Sprint.Items.Effects.ChangeSpeedEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>speedChange</Name>
+					  <Value Type="float">-50</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.PassivePowerup</Type>
+		  </Value>
+	  </Item>
+    <Item>
+      <Key>hookShot</Key>
+      <Value>
+        <Label>hookShot</Label>
+        <Description>HOOK SHOT|pull towards|target</Description>
+        <Sprite>tripwire</Sprite>
+        <Effect>Sprint.Items.Effects.SpawnOrRetractHookEffect</Effect>
+        <EffectParams />
+        <Type>Sprint.Items.ActiveAbility</Type>
+      </Value>
+    </Item>
+	  <Item>
+		  <Key>lavaShot</Key>
+		  <Value>
+			  <Label>lavaShot</Label>
+			  <Description>LAVA SHOT|Shoots lava and once hit turns into lava</Description>
+			  <Sprite>lavabucket</Sprite>
+			  <Effect>Sprint.Items.Effects.SpawnLavaEffect</Effect>
+			  <EffectParams />
+			  <Type>Sprint.Items.ActiveAbility</Type>
+		  </Value>
+	  </Item>
     <Item>
       <Key>meat</Key>
       <Value Type="XMLData:StackedPowerupData">
@@ -290,6 +397,74 @@
         <Quantity>2</Quantity>
       </Value>
     </Item>
+	  <Item>
+		  <Key>Apple</Key>
+		  <Value Type="XMLData:StackedPowerupData">
+			  <Label>apple</Label>
+			  <Description>MEAT|heals 1 heart</Description>
+			  <Sprite>Apple</Sprite>
+			  <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>amount</Name>
+					  <Value Type="float">2</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.ConsumableAbility</Type>
+			  <Quantity>2</Quantity>
+		  </Value>
+	  </Item>
+	  <Item>
+		  <Key>GoldApple</Key>
+		  <Value Type="XMLData:StackedPowerupData">
+			  <Label>apple</Label>
+			  <Description>MEAT|heals 1 heart</Description>
+			  <Sprite>GoldApple</Sprite>
+			  <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>amount</Name>
+					  <Value Type="float">2</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.ConsumableAbility</Type>
+			  <Quantity>2</Quantity>
+		  </Value>
+	  </Item>
+	  <Item>
+		  <Key>Bread</Key>
+		  <Value Type="XMLData:StackedPowerupData">
+			  <Label>bread</Label>
+			  <Description>BREAD|heals 1 heart</Description>
+			  <Sprite>Bread</Sprite>
+			  <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>amount</Name>
+					  <Value Type="float">1</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.ConsumableAbility</Type>
+			  <Quantity>1</Quantity>
+		  </Value>
+	  </Item>
+	  <Item>
+		  <Key>Chicken</Key>
+		  <Value Type="XMLData:StackedPowerupData">
+			  <Label>chicken</Label>
+			  <Description>CHICKEN|heals 3 heart</Description>
+			  <Sprite>Chicken</Sprite>
+			  <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>amount</Name>
+					  <Value Type="float">3</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.ConsumableAbility</Type>
+			  <Quantity>3</Quantity>
+		  </Value>
+	  </Item>
     <Item>
       <Key>redCandle</Key>
       <Value>
@@ -307,11 +482,11 @@
       </Value>
     </Item>
     <Item>
-      <Key>greenBadge</Key>
+      <Key>duoUpgrade</Key>
       <Value Type="XMLData:UpgradePowerupData">
-        <Label>greenBadge</Label>
+        <Label>duoUpgrade</Label>
         <Description>- dual shot</Description>
-        <Sprite>greenBadge</Sprite>
+        <Sprite>duo</Sprite>
         <Effect>Sprint.Items.Effects.DualShotUpgrade</Effect>
         <EffectParams />
         <Type>Sprint.Items.UpgradeAbility</Type>
@@ -321,15 +496,16 @@
           <Item>candle</Item>
           <Item>boomerang</Item>
           <Item>enderPearl</Item>
+          <Item>hookShot</Item>
         </Bases>
       </Value>
     </Item>
     <Item>
-      <Key>blueBadge</Key>
+      <Key>tripleUpgrade</Key>
       <Value Type="XMLData:UpgradePowerupData">
-        <Label>blueBadge</Label>
+        <Label>tripleUpgrade</Label>
         <Description>- triple shot</Description>
-        <Sprite>blueBadge</Sprite>
+        <Sprite>triple</Sprite>
         <Effect>Sprint.Items.Effects.TripleShotUpgrade</Effect>
         <EffectParams />
         <Type>Sprint.Items.UpgradeAbility</Type>
@@ -339,15 +515,16 @@
           <Item>candle</Item>
           <Item>boomerang</Item>
           <Item>enderPearl</Item>
+          <Item>hookShot</Item>
         </Bases>
       </Value>
     </Item>
     <Item>
-      <Key>yellowBadge</Key>
+      <Key>reloadUpgrade</Key>
       <Value Type="XMLData:UpgradePowerupData">
-        <Label>yellowBadge</Label>
+        <Label>reloadUpgrade</Label>
         <Description>- quick reload</Description>
-        <Sprite>yellowBadge</Sprite>
+        <Sprite>reload</Sprite>
         <Effect>Sprint.Items.Effects.QuickCooldownUpgrade</Effect>
         <EffectParams />
         <Type>Sprint.Items.UpgradeAbility</Type>
@@ -360,11 +537,11 @@
       </Value>
     </Item>
     <Item>
-      <Key>pinkBadge</Key>
+      <Key>infinityUpgrade</Key>
       <Value Type="XMLData:UpgradePowerupData">
-        <Label>pinkBadge</Label>
+        <Label>infinityUpgrade</Label>
         <Description>- infinite ammo</Description>
-        <Sprite>pinkBadge</Sprite>
+        <Sprite>infinity</Sprite>
         <Effect>Sprint.Items.Effects.InfiniteAmmoUpgrade</Effect>
         <EffectParams />
         <Type>Sprint.Items.UpgradeAbility</Type>
@@ -380,7 +557,7 @@
       <Value Type="XMLData:UpgradePowerupData">
         <Label>blueArrow</Label>
         <Description>- silver tip</Description>
-        <Sprite>blueArrow</Sprite>
+        <Sprite>arrowUpgrade</Sprite>
         <Effect>Sprint.Items.Effects.UpgradeProjectileUpgrade</Effect>
         <EffectParams>
           <Item>
@@ -399,7 +576,7 @@
       <Value Type="XMLData:UpgradePowerupData">
         <Label>blueBoomerang</Label>
         <Description>- silver tip</Description>
-        <Sprite>blueBoomerang</Sprite>
+        <Sprite>boomerangUpgrade</Sprite>
         <Effect>Sprint.Items.Effects.UpgradeProjectileUpgrade</Effect>
         <EffectParams>
           <Item>
@@ -410,6 +587,39 @@
         <Type>Sprint.Items.UpgradeAbility</Type>
         <Bases>
           <Item>boomerang</Item>
+        </Bases>
+      </Value>
+    </Item>
+    <Item>
+      <Key>boots</Key>
+      <Value Type="XMLData:UpgradePowerupData">
+        <Label>boots</Label>
+        <Description>- heavy boots</Description>
+        <Sprite>ironBoots</Sprite>
+        <Effect>Sprint.Items.Effects.HeavyBootsUpgrade</Effect>
+        <EffectParams/>
+        <Type>Sprint.Items.UpgradeAbility</Type>
+        <Bases>
+          <Item>hookShot</Item>
+        </Bases>
+      </Value>
+    </Item>
+    <Item>
+      <Key>criticalUpgrade</Key>
+      <Value Type="XMLData:UpgradePowerupData">
+        <Label>criticalUpgrade</Label>
+        <Description>- more damage</Description>
+        <Sprite>critical</Sprite>
+        <Effect>Sprint.Items.Effects.CompanionDamageUpgrade</Effect>
+        <EffectParams>
+          <Item>
+            <Name>damage</Name>
+            <Value Type="float">0.5</Value>
+          </Item>
+        </EffectParams>
+        <Type>Sprint.Items.UpgradePowerup</Type>
+        <Bases>
+          <Item>knife</Item>
         </Bases>
       </Value>
     </Item>

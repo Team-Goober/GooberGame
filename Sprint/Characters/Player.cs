@@ -5,10 +5,8 @@ using Sprint.Sprite;
 using Sprint.Projectile;
 using Sprint.Levels;
 using Sprint.Collision;
-using System;
 using Sprint.Music.Sfx;
 using Sprint.Items;
-using Sprint.Functions.States;
 using System.Diagnostics;
 
 namespace Sprint.Characters
@@ -22,9 +20,10 @@ namespace Sprint.Characters
         private SfxFactory sfxFactory;
 
         // Player sprites
-        private ISprite sprite;
+        private ISprite sprite; // Current sprite that's drawn
         private SpriteLoader spriteLoader;
-        private ISprite damagedSprite;
+        private ISprite normalSprite; // Version of sprite without damage
+        private ISprite damagedSprite; // Version of sprite taking damage
 
         // Events to signal hearts changed
         public delegate void HealthUpdateDelegate(double prev, double next);
@@ -39,7 +38,7 @@ namespace Sprint.Characters
         private Room room;
 
         // Constants and initial values
-        private int sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
+        private float sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
         private int maxHealth = CharacterConstants.STARTING_HEALTH;
         private double health = CharacterConstants.STARTING_HEALTH;
         private float speed = CharacterConstants.PLAYER_SPEED;
@@ -55,8 +54,8 @@ namespace Sprint.Characters
 
         public override Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
                 (int) (physics.Position.Y - sideLength / 2.0),
-                sideLength,
-                sideLength);
+                (int)sideLength,
+                (int)sideLength);
 
         public override CollisionTypes[] CollisionType {
             get
@@ -101,8 +100,9 @@ namespace Sprint.Characters
             inventory = new Inventory();
 
             //Loads sprite for link
-            sprite = spriteLoader.BuildSprite("playerAnims" , "player");
+            normalSprite = spriteLoader.BuildSprite("playerAnims" , "player");
             damagedSprite = spriteLoader.BuildSprite("playerDamagedAnims" , "player");
+            sprite = normalSprite; // Start out undamaged
 
             // Duration of one sword swing or item use
             attackTimer = new Timer(0.25);
@@ -155,6 +155,15 @@ namespace Sprint.Characters
             OnPlayerRoomChange?.Invoke(room);
         }
 
+        // Grow or shrink the sprite and collider for the player
+        public void SetScale(float scale)
+        {
+            sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * scale * CharacterConstants.COLLIDER_SCALE;
+            float spriteScale = scale * CharacterConstants.SPRITE_SCALE;
+            normalSprite.SetScale(spriteScale);
+            damagedSprite.SetScale(spriteScale);
+        }
+
         // Create melee attack according to facing direction and with given damage value
         public void Attack(float dmg)
         {
@@ -178,25 +187,25 @@ namespace Sprint.Characters
             //Creates animations and bounds for the sword for collision
             if (Facing == Directions.DOWN)
             {
-                sprite.SetAnimation("swordDown");
+                normalSprite.SetAnimation("swordDown");
                 damagedSprite.SetAnimation("swordDown");
                 swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
             }
             else if (Facing == Directions.LEFT)
             {
-                sprite.SetAnimation("swordLeft");
+                normalSprite.SetAnimation("swordLeft");
                 damagedSprite.SetAnimation("swordLeft");
                 swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
             else if (Facing == Directions.UP)
             {
-                sprite.SetAnimation("swordUp");
+                normalSprite.SetAnimation("swordUp");
                 damagedSprite.SetAnimation("swordUp");
                 swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
             }
             else if (Facing == Directions.RIGHT)
             {
-                sprite.SetAnimation("swordRight");
+                normalSprite.SetAnimation("swordRight");
                 damagedSprite.SetAnimation("swordRight");
                 swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
@@ -225,22 +234,22 @@ namespace Sprint.Characters
 
             if (Facing == Directions.DOWN)
             {
-                sprite.SetAnimation("castDown");
+                normalSprite.SetAnimation("castDown");
                 damagedSprite.SetAnimation("castDown");
             }
             else if (Facing == Directions.LEFT)
             {
-                sprite.SetAnimation("castLeft");
+                normalSprite.SetAnimation("castLeft");
                 damagedSprite.SetAnimation("castLeft");
             }
             else if (Facing == Directions.UP)
             {
-                sprite.SetAnimation("castUp");
+                normalSprite.SetAnimation("castUp");
                 damagedSprite.SetAnimation("castUp");
             }
             else if (Facing == Directions.RIGHT)
             {
-                sprite.SetAnimation("castRight");
+                normalSprite.SetAnimation("castRight");
                 damagedSprite.SetAnimation("castRight");
             }
         }
@@ -260,22 +269,22 @@ namespace Sprint.Characters
             {
                 if (Facing == Directions.DOWN)
                 {
-                    sprite.SetAnimation("downStill");
+                    normalSprite.SetAnimation("downStill");
                     damagedSprite.SetAnimation("downStill");
                 }
                 else if (Facing == Directions.LEFT)
                 {
-                    sprite.SetAnimation("leftStill");
+                    normalSprite.SetAnimation("leftStill");
                     damagedSprite.SetAnimation("leftStill");
                 }
                 else if (Facing == Directions.UP)
                 {
-                    sprite.SetAnimation("upStill");
+                    normalSprite.SetAnimation("upStill");
                     damagedSprite.SetAnimation("upStill");
                 }
                 else if (Facing == Directions.RIGHT)
                 {
-                    sprite.SetAnimation("rightStill");
+                    normalSprite.SetAnimation("rightStill");
                     damagedSprite.SetAnimation("rightStill");
                 }
             }
@@ -283,22 +292,22 @@ namespace Sprint.Characters
             {
                 if (Facing == Directions.DOWN)
                 {
-                    sprite.SetAnimation("down");
+                    normalSprite.SetAnimation("down");
                     damagedSprite.SetAnimation("down");
                 }
                 else if (Facing == Directions.LEFT)
                 {
-                    sprite.SetAnimation("left");
+                    normalSprite.SetAnimation("left");
                     damagedSprite.SetAnimation("left");
                 }
                 else if (Facing == Directions.UP)
                 {
-                    sprite.SetAnimation("up");
+                    normalSprite.SetAnimation("up");
                     damagedSprite.SetAnimation("up");
                 }
                 else if (Facing == Directions.RIGHT)
                 {
-                    sprite.SetAnimation("right");
+                    normalSprite.SetAnimation("right");
                     damagedSprite.SetAnimation("right");
                 }
             }
@@ -313,7 +322,8 @@ namespace Sprint.Characters
             // Sets velocity towards left
             physics.SetVelocity(new Vector2(-speed, 0));
 
-            sprite.SetAnimation("left");
+            normalSprite.SetAnimation("left");
+            damagedSprite.SetAnimation("left");
             Facing = Directions.LEFT;
             baseAnim = AnimationCycle.Walk;
         }
@@ -326,7 +336,8 @@ namespace Sprint.Characters
             // Sets velocity towards right
             physics.SetVelocity(new Vector2(speed, 0));
 
-            sprite.SetAnimation("right");
+            normalSprite.SetAnimation("right");
+            damagedSprite.SetAnimation("right");
             Facing = Directions.RIGHT;
             baseAnim = AnimationCycle.Walk;
         }
@@ -339,7 +350,8 @@ namespace Sprint.Characters
             // Sets velocity towards up
             physics.SetVelocity(new Vector2(0, -speed));
 
-            sprite.SetAnimation("up");
+            normalSprite.SetAnimation("up");
+            damagedSprite.SetAnimation("up");
             Facing = Directions.UP;
             baseAnim = AnimationCycle.Walk;
         }
@@ -351,7 +363,9 @@ namespace Sprint.Characters
                 return;
             // Sets velocity towards down
             physics.SetVelocity(new Vector2(0, speed));
-            sprite.SetAnimation("down");
+
+            normalSprite.SetAnimation("down");
+            damagedSprite.SetAnimation("down");
             Facing = Directions.DOWN;
             baseAnim = AnimationCycle.Walk;
         }
@@ -393,7 +407,7 @@ namespace Sprint.Characters
             damageTimer.Update(gameTime);
             if (damageTimer.JustEnded)
             {
-                sprite = spriteLoader.BuildSprite("playerAnims", "player");
+                sprite = normalSprite;
                 returnToBaseAnim();
 
             }

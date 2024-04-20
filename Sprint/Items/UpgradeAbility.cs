@@ -56,6 +56,10 @@ namespace Sprint.Items
             Debug.Assert(b >= 0);
 
             baseAbility = inv.GetSelection(b);
+
+            // Set sprite to show a badge frame instead of the item frame
+            sprite.SetAnimation("badge");
+
             // Replace the box's ability with this upgrade as a decorator
             inv.ReplaceWithDecorator(baseAbility.GetLabel(), this);
             // Set base ability that effect applies to
@@ -102,7 +106,7 @@ namespace Sprint.Items
 
         public void Undo(Player player)
         {
-            // Defer to base
+            // Pass to base
             baseAbility?.Undo(player);
         }
 
@@ -142,7 +146,17 @@ namespace Sprint.Items
         public string GetDescription()
         {
             // Append modification text to end of base's description
-            return baseAbility.GetDescription() + "|" + description;
+            return baseAbility?.GetDescription() + "|" + description;
+        }
+
+        public IEffect GetEffect()
+        {
+            return baseAbility?.GetEffect();
+        }
+
+        public IEffect GetTrueEffect()
+        {
+            return onActivate;
         }
 
         public void SetUpgradeOptions(List<string> bases)
@@ -268,7 +282,8 @@ namespace Sprint.Items
         {
             // Defer to base if it has cooldown
             ICooldownPowerup cooldownBase = baseAbility as ICooldownPowerup;
-            return (cooldownBase == null) ? 0 : cooldownBase.GetTimeLeft();
+            // Must be 1 so upgrades aren't marked as complete
+            return (cooldownBase == null) ? 1 : cooldownBase.GetTimeLeft();
         }
     }
 }

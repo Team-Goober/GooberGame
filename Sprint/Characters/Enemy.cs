@@ -27,6 +27,10 @@ namespace Sprint.Characters
 
         private Item drop = null; // Item to drop upon death
 
+
+        public delegate void DiedDelegate();
+        public event DiedDelegate DiedEvent;
+
         public Enemy(ISprite sprite, ISprite damagedSprite, Vector2 position, Room room)
         {
             this.defaultSprite = sprite;
@@ -113,6 +117,8 @@ namespace Sprint.Characters
                 drop.SetPosition(physics.Position);
                 room.GetScene().Add(drop);
             }
+            // Signal death
+            DiedEvent?.Invoke();
         }
     }
 }

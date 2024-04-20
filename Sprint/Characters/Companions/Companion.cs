@@ -94,6 +94,9 @@ namespace Sprint.Characters.Companions
             Vector2 preRotate = new Vector2((float)Math.Sin(4 * Math.PI * spot) * stride.Y, (float)Math.Cos(2 * Math.PI * spot) * stride.X);
 
             offset = Vector2.Transform(preRotate, Matrix.CreateRotationZ((float)(Math.PI * 2 * axisCycle)));
+
+            // Update sprite
+            sprite.Update(gameTime);
         }
     }
 }

@@ -68,6 +68,12 @@ namespace Sprint.Projectile
                 case "enderPearl":
                     ret = CreateEnderPearl(shooter);
                     break;
+                case "hook":
+                    ret = CreateHook(shooter);
+                    break;
+                case "lavabucket":
+                    ret = CreateLava(shooter);
+                    break;
             }
             return ret;
         }
@@ -114,6 +120,14 @@ namespace Sprint.Projectile
             return proj;
         }
 
+        public LavaBucket CreateLava(Character shooter)
+        {
+            LavaBucket proj = new LavaBucket(
+                spriteLoader.BuildSprite(ANIMS_FILE, "lavabucket"),
+                getSpawnPosition(), direction, isEnemy, room, shooter);
+            return proj;
+        }
+
         public BlueBoomerang CreateBlueBoomerang()
         {
             BlueBoomerang proj = new BlueBoomerang(
@@ -135,6 +149,14 @@ namespace Sprint.Projectile
         {
             EnderPearl proj = new EnderPearl(
                 spriteLoader.BuildSprite(ANIMS_FILE, "enderPearl"),
+                getSpawnPosition(), direction, isEnemy, room, shooter);
+            return proj;
+        }
+
+        public Hook CreateHook(Character shooter)
+        {
+            Hook proj = new Hook(
+                spriteLoader.BuildSprite(ANIMS_FILE, "bluearrow"),
                 getSpawnPosition(), direction, isEnemy, room, shooter);
             return proj;
         }

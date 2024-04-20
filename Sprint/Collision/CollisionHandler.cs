@@ -68,7 +68,7 @@ namespace Sprint.Collision
 
                 // Collision Player Damage
                 {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY), typeof(TakeDamage).GetConstructor( constructorParams ) },
-                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY_PROJECTILE), typeof(TakeDamage).GetConstructor( constructorParams ) },
+                {new TypePairKey(CollisionTypes.PLAYER, CollisionTypes.ENEMY_PROJECTILE), typeof(ProjectileDamage).GetConstructor( constructorParams ) },
 
                 // Collision Enemy Damage
                 {new TypePairKey(CollisionTypes.ENEMY, CollisionTypes.SWORD), typeof(SwordDamage).GetConstructor( constructorParams ) },
