@@ -250,7 +250,6 @@ namespace Sprint
             // Complete additions and deletions resulting from collisions
             currRoom.EndCycle();
 
-            CheckPuzzle(); // TESTING
 
   
 
