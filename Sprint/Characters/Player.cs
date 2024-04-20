@@ -213,9 +213,6 @@ namespace Sprint.Characters
         // Create melee attack according to facing direction and with given damage value
         public void Attack(float dmg)
         {
-            Rectangle swordRec  = new Rectangle();
-
-
             // Only attack if not already attacking
             if (!attackTimer.Ended)
             {
@@ -236,8 +233,10 @@ namespace Sprint.Characters
             // Get offsets for sword top left corner
             double xOffset = (Facing.X == 0) ? - swordWidth / 2 : swordLength / 2 * (-1 + Facing.X);
             double yOffset = (Facing.Y == 0) ? - swordWidth / 2 : swordLength / 2 * (-1 + Facing.Y);
+            int xDim = (Facing.X == 0) ? swordWidth : swordLength;
+            int yDim = (Facing.Y == 0) ? swordWidth : swordLength;
             // Create bounding rectangle for sword
-            swordRec = new Rectangle((int)xOffset, (int)yOffset, swordLength, swordWidth);
+            Rectangle swordRec = new Rectangle((int)(physics.Position.X + xOffset), (int)(physics.Position.Y + yOffset), xDim, yDim);
 
             swordCollision = new SwordCollision(swordRec, this, dmg);
             
