@@ -107,10 +107,10 @@
 				  <Item>
 					  <Key>downFacing</Key>
 					  <Value Type="XMLData.AutoAtlasData">
-						  <SheetArea>0 55 16 60</SheetArea>
+						  <SheetArea>0 60 16 46</SheetArea>
 						  <Rows>2</Rows>
 						  <Cols>1</Cols>
-						  <Padding>0</Padding>
+						  <Padding>14</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
 						  <Framerate>3</Framerate>
@@ -119,10 +119,10 @@
 				  <Item>
 					  <Key>leftFacing</Key>
 					  <Value Type="XMLData.AutoAtlasData">
-						  <SheetArea>30 55 16 60</SheetArea>
+						  <SheetArea>30 60 16 46</SheetArea>
 						  <Rows>2</Rows>
 						  <Cols>1</Cols>
-						  <Padding>0</Padding>
+						  <Padding>14</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
 						  <Framerate>3</Framerate>
@@ -131,10 +131,10 @@
 				  <Item>
 					  <Key>upFacing</Key>
 					  <Value Type="XMLData.AutoAtlasData">
-						  <SheetArea>59 55 16 60</SheetArea>
+						  <SheetArea>60 60 16 46</SheetArea>
 						  <Rows>2</Rows>
 						  <Cols>1</Cols>
-						  <Padding>0</Padding>
+						  <Padding>14</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
 						  <Framerate>3</Framerate>
@@ -143,10 +143,10 @@
 				  <Item>
 					  <Key>rightFacing</Key>
 					  <Value Type="XMLData.AutoAtlasData">
-						  <SheetArea>89 55 16 60</SheetArea>
+						  <SheetArea>90 60 16 46</SheetArea>
 						  <Rows>2</Rows>
 						  <Cols>1</Cols>
-						  <Padding>0</Padding>
+						  <Padding>14</Padding>
 						  <CenterPoint>7.5 8</CenterPoint>
 						  <Loop>true</Loop>
 						  <Framerate>3</Framerate>
