@@ -1,7 +1,7 @@
 ﻿using Sprint.Interfaces;
 using System.Diagnostics;
 
-namespace Sprint.Commands
+namespace Sprint.Functions
 {
     internal class DebugPrintCommand : ICommand
     {

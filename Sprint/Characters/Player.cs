@@ -5,67 +5,78 @@ using Sprint.Sprite;
 using Sprint.Projectile;
 using Sprint.Levels;
 using Sprint.Collision;
-using System.Diagnostics;
-using Sprint.Testing;
-using Sprint.Commands;
-using System;
 using Sprint.Music.Sfx;
 using Sprint.Items;
-using Sprint.HUD;
-using Sprint.Functions.DeathState;
-using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprint.Characters
 {
 
-    internal class Player : Character, IMovingCollidable
+    internal class Player : Character
     {
-
-        public Inventory inventory;
+        private DungeonState dungeon;
+        private Inventory inventory;
 
         private SfxFactory sfxFactory;
 
-        private ISprite sprite;
+        // Player sprites
+        private ISprite sprite; // Current sprite that's drawn
         private SpriteLoader spriteLoader;
-        private ISprite damagedSprite;
+        private ISprite normalSprite; // Version of sprite without damage
+        private ISprite damagedSprite; // Version of sprite taking damage
 
-        public event EventHandler OnPlayerDied;
-
-
+        // Events to signal hearts changed
         public delegate void HealthUpdateDelegate(double prev, double next);
         public event HealthUpdateDelegate OnPlayerHealthChange;
         public delegate void MaxHealthUpdateDelegate(int prev, int next, double health);
         public event MaxHealthUpdateDelegate OnPlayerMaxHealthChange;
+        // Event that signals room change
+        public delegate void RoomChangeDelegate(Room newRoom);
+        public event RoomChangeDelegate OnPlayerRoomChange;
 
         private Physics physics;
+        private Room room;
 
-        // Player variables
-        private int sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
+        // Constants and initial values
+        private float sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
         private int maxHealth = CharacterConstants.STARTING_HEALTH;
         private double health = CharacterConstants.STARTING_HEALTH;
-
-        private ProjectileSystem secondaryItems;
-        private SwordCollision swordCollision;
-        private const int swordWidth = CharacterConstants.SWORD_WIDTH, swordLength = CharacterConstants.SWORD_LENGTH;
-
-        public Vector2 Facing { get; private set; }
-
-        public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
-                (int) (physics.Position.Y - sideLength / 2.0),
-                sideLength,
-                sideLength);
-
-        public CollisionTypes[] CollisionType => new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
-
         private float speed = CharacterConstants.PLAYER_SPEED;
 
+        // Weapons
+        private SimpleProjectileFactory secondaryItems;
+        private SwordCollision swordCollision;
+        private const int swordWidth = CharacterConstants.SWORD_WIDTH, swordLength = CharacterConstants.SWORD_LENGTH;
+        private bool shielded;
+
+        // Direction that the player is facing
+        public Vector2 Facing { get; private set; }
+
+        public override Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
+                (int) (physics.Position.Y - sideLength / 2.0),
+                (int)sideLength,
+                (int)sideLength);
+
+        public override CollisionTypes[] CollisionType {
+            get
+            {
+                // Collide as shield if shield is up
+                if (shielded)
+                {
+                    return new CollisionTypes[] { CollisionTypes.SHIELD, CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
+                }
+                else
+                {
+                    return new CollisionTypes[] { CollisionTypes.PLAYER, CollisionTypes.CHARACTER };
+                }
+            }
+        }
+
+        // Timers for animations and cooldowns
         private Timer attackTimer;
         private Timer castTimer;
         private Timer damageTimer;
-        private Room room;
-        private OpenDeath gameOver;
 
-        // TODO: replace this with state machine
         // Animation to return to as base after a played animation ends
         private enum AnimationCycle
         {
@@ -78,6 +89,7 @@ namespace Sprint.Characters
         //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
         {
+            this.dungeon = dungeon;
             //Initialize SFX player
             sfxFactory = SfxFactory.GetInstance();
 
@@ -88,12 +100,13 @@ namespace Sprint.Characters
             inventory = new Inventory();
 
             //Loads sprite for link
-            sprite = spriteLoader.BuildSprite("playerAnims" , "player");
+            normalSprite = spriteLoader.BuildSprite("playerAnims" , "player");
             damagedSprite = spriteLoader.BuildSprite("playerDamagedAnims" , "player");
+            sprite = normalSprite; // Start out undamaged
 
             // Duration of one sword swing or item use
-            attackTimer = new Timer(0.5);
-            castTimer = new Timer(0.5);
+            attackTimer = new Timer(0.25);
+            castTimer = new Timer(0.25);
             // Duration of the damage state
             damageTimer = new Timer(0.5);
 
@@ -103,20 +116,28 @@ namespace Sprint.Characters
             Facing = Directions.STILL;
             baseAnim = AnimationCycle.Idle;
 
-            // Set up projectiles
-            secondaryItems = new ProjectileSystem(physics.Position, spriteLoader);
-
-            this.gameOver = new OpenDeath(dungeon);
+            // Set up projectile factory
+            secondaryItems = new SimpleProjectileFactory(spriteLoader, CharacterConstants.PROJECTILE_SPAWN_DISTANCE, false, null);         
         }
 
         public SimpleProjectileFactory GetProjectileFactory()
         {
-            return secondaryItems.ProjectileFactory;
+            return secondaryItems;
         }
 
         public Inventory GetInventory()
         {
             return inventory;
+        }
+
+        public Room GetCurrentRoom()
+        {
+            return room;
+        }
+
+        public SpriteLoader GetSpriteLoader()
+        {
+            return spriteLoader;
         }
 
         // Moves the player from current scene into a new one
@@ -131,10 +152,20 @@ namespace Sprint.Characters
             secondaryItems.SetRoom(this.room);
             this.room.GetScene().Add(this);
             StopMoving();
+            OnPlayerRoomChange?.Invoke(room);
         }
 
-        //Melee attack according to direction
-        public void Attack()
+        // Grow or shrink the sprite and collider for the player
+        public void SetScale(float scale)
+        {
+            sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * scale * CharacterConstants.COLLIDER_SCALE;
+            float spriteScale = scale * CharacterConstants.SPRITE_SCALE;
+            normalSprite.SetScale(spriteScale);
+            damagedSprite.SetScale(spriteScale);
+        }
+
+        // Create melee attack according to facing direction and with given damage value
+        public void Attack(float dmg)
         {
             Rectangle swordRec  = new Rectangle();
 
@@ -156,37 +187,36 @@ namespace Sprint.Characters
             //Creates animations and bounds for the sword for collision
             if (Facing == Directions.DOWN)
             {
-                sprite.SetAnimation("swordDown");
+                normalSprite.SetAnimation("swordDown");
                 damagedSprite.SetAnimation("swordDown");
                 swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
             }
             else if (Facing == Directions.LEFT)
             {
-                sprite.SetAnimation("swordLeft");
+                normalSprite.SetAnimation("swordLeft");
                 damagedSprite.SetAnimation("swordLeft");
                 swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
             else if (Facing == Directions.UP)
             {
-                sprite.SetAnimation("swordUp");
+                normalSprite.SetAnimation("swordUp");
                 damagedSprite.SetAnimation("swordUp");
                 swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
             }
             else if (Facing == Directions.RIGHT)
             {
-                sprite.SetAnimation("swordRight");
+                normalSprite.SetAnimation("swordRight");
                 damagedSprite.SetAnimation("swordRight");
                 swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
 
-            swordCollision = new SwordCollision(swordRec, this);
+            swordCollision = new SwordCollision(swordRec, this, dmg);
             
             room.GetScene().Add(swordCollision);
-            
-            
+                    
         }
 
-        //Cast according to direction
+        // Cast according to direction
         public void Cast()
         {
 
@@ -204,29 +234,24 @@ namespace Sprint.Characters
 
             if (Facing == Directions.DOWN)
             {
-                sprite.SetAnimation("castDown");
+                normalSprite.SetAnimation("castDown");
                 damagedSprite.SetAnimation("castDown");
             }
             else if (Facing == Directions.LEFT)
             {
-                sprite.SetAnimation("castLeft");
+                normalSprite.SetAnimation("castLeft");
                 damagedSprite.SetAnimation("castLeft");
             }
             else if (Facing == Directions.UP)
             {
-                sprite.SetAnimation("castUp");
+                normalSprite.SetAnimation("castUp");
                 damagedSprite.SetAnimation("castUp");
             }
             else if (Facing == Directions.RIGHT)
             {
-                sprite.SetAnimation("castRight");
+                normalSprite.SetAnimation("castRight");
                 damagedSprite.SetAnimation("castRight");
             }
-        }
-
-        public void WinPose()
-        {
-            sprite.SetAnimation("holdItem");
         }
 
         // Removes velocity and changes animation to match lack of movement
@@ -238,29 +263,28 @@ namespace Sprint.Characters
         }
 
         // Return to base animation cycle based on states and facing dir
-        // TODO: replace with a state machine
         private void returnToBaseAnim()
         {
             if (baseAnim == AnimationCycle.Idle)
             {
                 if (Facing == Directions.DOWN)
                 {
-                    sprite.SetAnimation("downStill");
+                    normalSprite.SetAnimation("downStill");
                     damagedSprite.SetAnimation("downStill");
                 }
                 else if (Facing == Directions.LEFT)
                 {
-                    sprite.SetAnimation("leftStill");
+                    normalSprite.SetAnimation("leftStill");
                     damagedSprite.SetAnimation("leftStill");
                 }
                 else if (Facing == Directions.UP)
                 {
-                    sprite.SetAnimation("upStill");
+                    normalSprite.SetAnimation("upStill");
                     damagedSprite.SetAnimation("upStill");
                 }
                 else if (Facing == Directions.RIGHT)
                 {
-                    sprite.SetAnimation("rightStill");
+                    normalSprite.SetAnimation("rightStill");
                     damagedSprite.SetAnimation("rightStill");
                 }
             }
@@ -268,22 +292,22 @@ namespace Sprint.Characters
             {
                 if (Facing == Directions.DOWN)
                 {
-                    sprite.SetAnimation("down");
+                    normalSprite.SetAnimation("down");
                     damagedSprite.SetAnimation("down");
                 }
                 else if (Facing == Directions.LEFT)
                 {
-                    sprite.SetAnimation("left");
+                    normalSprite.SetAnimation("left");
                     damagedSprite.SetAnimation("left");
                 }
                 else if (Facing == Directions.UP)
                 {
-                    sprite.SetAnimation("up");
+                    normalSprite.SetAnimation("up");
                     damagedSprite.SetAnimation("up");
                 }
                 else if (Facing == Directions.RIGHT)
                 {
-                    sprite.SetAnimation("right");
+                    normalSprite.SetAnimation("right");
                     damagedSprite.SetAnimation("right");
                 }
             }
@@ -292,78 +316,71 @@ namespace Sprint.Characters
 
         public void MoveLeft()
         {
+            // Don't move while shielding
+            if (shielded)
+                return;
             // Sets velocity towards left
             physics.SetVelocity(new Vector2(-speed, 0));
 
-            sprite.SetAnimation("left");
+            normalSprite.SetAnimation("left");
+            damagedSprite.SetAnimation("left");
             Facing = Directions.LEFT;
             baseAnim = AnimationCycle.Walk;
         }
 
         public void MoveRight()
         {
+            // Don't move while shielding
+            if (shielded)
+                return;
             // Sets velocity towards right
             physics.SetVelocity(new Vector2(speed, 0));
 
-            sprite.SetAnimation("right");
+            normalSprite.SetAnimation("right");
+            damagedSprite.SetAnimation("right");
             Facing = Directions.RIGHT;
             baseAnim = AnimationCycle.Walk;
         }
 
         public void MoveUp()
         {
+            // Don't move while shielding
+            if (shielded)
+                return;
             // Sets velocity towards up
             physics.SetVelocity(new Vector2(0, -speed));
 
-            sprite.SetAnimation("up");
+            normalSprite.SetAnimation("up");
+            damagedSprite.SetAnimation("up");
             Facing = Directions.UP;
             baseAnim = AnimationCycle.Walk;
         }
 
         public void MoveDown()
         {
+            // Don't move while shielding
+            if (shielded)
+                return;
             // Sets velocity towards down
             physics.SetVelocity(new Vector2(0, speed));
-            sprite.SetAnimation("down");
+
+            normalSprite.SetAnimation("down");
+            damagedSprite.SetAnimation("down");
             Facing = Directions.DOWN;
             baseAnim = AnimationCycle.Walk;
         }
 
-        public Physics GetPhysic()
+        public override Vector2 GetPosition()
         {
-            return physics;
+            return physics.Position;
         }
 
-        public override void TakeDamage(double dmg)
+        // Moves the player by a set distance
+        public override void Move(Vector2 distance)
         {
-            // Invincible until timer goes down
-            if (!damageTimer.Ended)
-            {
-                return;
-            }
-            // sound playing
-            sfxFactory.PlaySoundEffect("Player Hurt");
-            // switching sprites
-            sprite = damagedSprite;
-            damageTimer.Start();
-            double prevHealth = health;
-            health -= dmg;
-
-            OnPlayerHealthChange?.Invoke(prevHealth, health);
-
-            // Trigger death when health is at or below 0
-            if (health <= 0.0)
-            {
-                this.Die();
-            }
-            // If negative damage (healing), don't go over max health
-            else if (health > maxHealth)
-            {
-                health = maxHealth;
-            }
-
+            // teleport player in displacement specified
+            physics.SetPosition(physics.Position + distance);
         }
-
 
         public override void Update(GameTime gameTime)
         {
@@ -375,23 +392,33 @@ namespace Sprint.Characters
                 room.GetScene().Remove(swordCollision);
                 returnToBaseAnim();
             }
+            // Check for end of cast animation
             castTimer.Update(gameTime);
             if (castTimer.JustEnded)
             {
                 returnToBaseAnim();
             }
 
-            secondaryItems.UpdateDirection(Facing);
-            secondaryItems.UpdatePostion(physics.Position);
+            // Update projectile factory positioning
+            secondaryItems.SetDirection(Facing);
+            secondaryItems.SetStartPosition(physics.Position);
 
             // Checks for damage state
             damageTimer.Update(gameTime);
             if (damageTimer.JustEnded)
             {
-                sprite = spriteLoader.BuildSprite("playerAnims", "player");
+                sprite = normalSprite;
                 returnToBaseAnim();
 
             }
+
+            // Die when health is zero
+            // Must be in update instead of TakeDamage so items can intervene in death
+            if(health <= 0.0)
+            {
+                Die();
+            }
+
             physics.Update(gameTime);
             sprite.Update(gameTime);
         }
@@ -403,75 +430,108 @@ namespace Sprint.Characters
 
         }
 
-        // Moves the player by a set distance
-        public void Move(Vector2 distance)
-        {
-            // teleport player in displacement specified
-            physics.SetPosition(physics.Position + distance);
-        }
-        
-        // Moves player to set position
-        // Should be in Characters?
-        public void MoveTo(Vector2 pos)
-        {
-            physics.SetPosition(pos);
-        }
-
         /// <summary>
         /// Pickup Item off the ground
         /// </summary>
         /// <param name="item"> ItemType to pickup</param>
-        public void PickupItem(Item item)
+        /// <return>true if item picked up</return>
+        public bool PickupItem(Item item)
         {
-            ItemType itemType = item.GetItemType();
-
-            if(item.GetColliable())
+            // Ask item if it can be added to inventory
+            if(item.CanPickup(inventory))
             {
-                inventory.PickupItem(itemType);
+                // Run item's apply behavior to add to inventory
+                item.GetPowerup().Apply(this);
+                // Remove item game object
                 room.GetScene().Remove(item);
+                return true;
             }
-        }
-
-        /// <summary>
-        /// Subtract item from inventory
-        /// </summary>
-        /// <param name="item">ItemType to decrement</param>
-        public void UseItem(ItemType item)
-        {
-            inventory.ConsumeItem(item);
+            return false;
         }
 
         // Send to a game over
         public override void Die()
         {
-            OnPlayerDied?.Invoke(this, EventArgs.Empty);
-            gameOver.Execute();
+            dungeon.DeathScreen();
         }
 
-        public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
+        // Send to win screen
+        public void Win()
         {
-            switch (it)
-            {
-                case ItemType.HeartPiece:
-                    int prevMax = maxHealth;
-                    if(maxHealth < 16)
-                        maxHealth += 1;
-                    OnPlayerMaxHealthChange?.Invoke(prevMax, maxHealth, health);
-                    break;
-                case ItemType.Heart:
-                    double prevHealth = health;
-                    health += 1;
-                    if(health > maxHealth)
-                    {
-                        health = maxHealth;
-                    }
-                    OnPlayerHealthChange?.Invoke(prevHealth, health);
-                    break;
-                default:
-                    break;
-            }
+            StopMoving();
+            sprite.SetAnimation("holdItem");
+            dungeon.WinScreen();
         }
 
+        public MapModel GetMap()
+        {
+            return dungeon.GetMap();
+        }
+
+        // Adds to player base speed
+        public void AddSpeed(float addition)
+        {
+            speed += addition;
+        }
+
+        public void Heal(double amt)
+        {
+            // Don't reduce health during heal
+            Debug.Assert(amt >= 0);
+            double prevHealth = health;
+            health += amt;
+            // Don't overfill hearts
+            if (health > maxHealth)
+            {
+                health = maxHealth;
+            }
+            OnPlayerHealthChange?.Invoke(prevHealth, health);
+        }
+
+        public void IncreaseHearts()
+        {
+            int prevMax = maxHealth;
+            // Don't go over what the HUD can display
+            if (maxHealth < CharacterConstants.MAX_HEARTS)
+                maxHealth += 1;
+            OnPlayerMaxHealthChange?.Invoke(prevMax, maxHealth, health);
+        }
+
+        // Reduce health
+        public override void TakeDamage(double dmg)
+        {
+            // Don't allow negative damage
+            Debug.Assert(dmg >= 0);
+            // Invincible until timer goes down
+            if (!damageTimer.Ended)
+            {
+                return;
+            }
+            // sound playing
+            sfxFactory.PlaySoundEffect("Player Hurt");
+            // switching sprites
+            sprite = damagedSprite;
+            // timer to turn sprite back
+            damageTimer.Start();
+            // update health
+            double prevHealth = health;
+            health -= dmg;
+
+            // Trigger death when health is at or below 0
+            if (health < 0.0)
+            {
+                health = 0.0;
+            }
+
+            // broadcast health change
+            OnPlayerHealthChange?.Invoke(prevHealth, health);
+
+        }
+
+        public void SetShielded(bool active)
+        {
+            shielded = active;
+        }
     }
 }
 

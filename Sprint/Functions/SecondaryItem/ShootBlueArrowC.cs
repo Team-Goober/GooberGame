@@ -2,7 +2,7 @@
 using Sprint.Levels;
 using Sprint.Projectile;
 
-namespace Sprint.Commands.SecondaryItem
+namespace Sprint.Functions.SecondaryItem
 {
     internal class ShootBlueArrowC : ICommand
     {

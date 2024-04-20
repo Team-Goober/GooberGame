@@ -2,8 +2,11 @@
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
 using Sprint.Door;
+using Sprint.HUD;
 using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 using Sprint.Items;
+using Sprint.Items.Effects;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
 using Sprint.Music.Songs;
@@ -25,11 +28,9 @@ namespace Sprint.Loader
         private ItemFactory itemFactory;
         private EnemyFactory enemyFactory;
         private SongHandler songHandler;
-        private SfxFactory sfxFactory;
 
         // Array to generate click-through-door commands
         private Rectangle[] doorBounds;
-        private IDoor[,,] doorsPerSide;
         // Dictionaries to link doors that aren't on cardinal dirs
         private Dictionary<int, IDoor> stairs;
         private Dictionary<int, int> stairLinks;
@@ -60,6 +61,7 @@ namespace Sprint.Loader
         public void LoadLevelXML(string path)
         {
             LevelData data = content.Load<LevelData>(path);
+            itemFactory.LoadPowerupData();
 
             dungeon.SetArenaPosition(data.ArenaOffset);
 
@@ -79,7 +81,6 @@ namespace Sprint.Loader
             for (int i=0; i<doorBounds.Length; i++)
                 doorBounds[i].Offset(data.ArenaOffset);
 
-            doorsPerSide = new IDoor[4, data.LayoutRows, data.LayoutColumns];
             stairs = new();
             stairLinks = new();
 
@@ -118,30 +119,21 @@ namespace Sprint.Loader
                             // Only link doors if the other room is in layout bounds
                             if (or >= 0 && or < data.LayoutRows && oc >= 0 && oc < data.LayoutColumns)
                             {
-                                doorsPerSide[d, r, c].SetOtherFace(doorsPerSide[Directions.GetIndex(Directions.Opposite(dir)), or, oc]);
+                                IDoor door = dungeon.GetRoomAt(new Point(c, r)).GetDoors()[d];
+                                Room otherRoom = dungeon.GetRoomAt(new Point(oc, or));
+                                if(otherRoom != null && otherRoom.GetDoors().Count >= 4)
+                                {
+                                    IDoor otherDoor = otherRoom.GetDoors()[Directions.GetIndex(Directions.Opposite(dir))];
+                                    door.SetOtherFace(otherDoor);
+                                }
+                                
                             }
                         }
                     }
                 }
             }
 
-            // Make a command that checks all doors at its position for switching rooms when middle clicked
-            for (int i = 0; i < 4; i++)
-            {
-                IDoor[,] slice = new IDoor[data.LayoutColumns, data.LayoutRows];
-                for (int r = 0; r < data.LayoutRows; r++)
-                {
-                    for (int c = 0; c < data.LayoutColumns; c++)
-                    {
-                        if (data.Rooms[r][c] != null && data.Rooms[r][c].NeedWall)
-                        {
-                            slice[r, c] = doorsPerSide[i, r, c];
-                        }
-                    }
-                }
-            }
-
-            dungeon.SetDoors(doorsPerSide, doorBounds);
+            dungeon.SetDoors(doorBounds);
 
             dungeon.SetCompassPointer(data.CompassPoint);
 
@@ -149,6 +141,15 @@ namespace Sprint.Loader
 
             //Load Song
             songHandler.PlaySong(data.Song);
+
+            // Player needs to start with empty key and rupee powerups in their inventory
+            Player player = dungeon.GetPlayer();
+            IStackedPowerup key = itemFactory.MakePowerup(Inventory.KeyLabel) as IStackedPowerup;
+            key.ReadyConsume(key.Quantity());
+            key.Apply(player);
+            IStackedPowerup rupee = itemFactory.MakePowerup(Inventory.RupeeLabel) as IStackedPowerup;
+            rupee.ReadyConsume(rupee.Quantity());
+            rupee.Apply(player);
 
         }
 
@@ -195,8 +196,6 @@ namespace Sprint.Loader
                 for (int i = 0; i < doors.Length; i++)
                 {
                     roomDoors.Add(doors[i]);
-                    // make commands if clicked
-                    doorsPerSide[i, roomIndices.Y, roomIndices.X] = doors[i];
                 }
             }
 
@@ -269,7 +268,12 @@ namespace Sprint.Loader
                 // Give item drop
                 if(spawn.ItemDrop != null)
                 {
-                    en.GiveDrop(itemFactory.MakeItem(spawn.ItemDrop, position));
+                    Item it = itemFactory.MakeItem(spawn.ItemDrop, position, 0);
+                    if (it != null)
+                    {
+                        en.GiveDrop(it);
+                    }
+                   
                 }
                 roomNpcs.Add(en);
             }
@@ -278,13 +282,18 @@ namespace Sprint.Loader
             foreach (ItemSpawnData spawn in rd.Items)
             {
                 Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
-                roomItems.Add(itemFactory.MakeItem(spawn.Type, position));
+                Item it = itemFactory.MakeItem(spawn.Type, position, spawn.Price);
+                if (it != null)
+                {
+                    roomItems.Add(it);
+                }
             }
 
             //Load textboxes
             foreach (TextBoxData box in rd.TextBoxes)
             {
-                scene.Add(new ZeldaText(box.FontName, box.Text, box.Position, box.CharacterDimensions, box.Color, content));
+                ZeldaText text = new(box.FontName, box.Text, box.CharacterDimensions, 1.0f, box.Color, content);
+                scene.Add(new HUDText(text, box.Position));
             }
 
             foreach (IDoor d in roomDoors)

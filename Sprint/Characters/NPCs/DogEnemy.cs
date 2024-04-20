@@ -1,7 +1,7 @@
 
 using Sprint.Interfaces;
 using Microsoft.Xna.Framework;
-using Sprint.Commands.SecondaryItem;
+using Sprint.Functions.SecondaryItem;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
@@ -42,6 +42,7 @@ namespace Sprint.Characters
 
 
             projBoomarang = new ProjBoomarang(spriteLoader, room, moveDirection);
+
 
             moveDog = new MoveDog(physics, player);
 

@@ -1,12 +1,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Microsoft.Xna.Framework;
-using Sprint.Commands.SecondaryItem;
+using Sprint.Functions.SecondaryItem;
 using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
 using Sprint.Levels;
-using System.Diagnostics;
 
 
 

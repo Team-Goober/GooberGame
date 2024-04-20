@@ -1,7 +1,7 @@
 ﻿using Sprint.Interfaces;
 using Sprint.Projectile;
 
-namespace Sprint.Commands.SecondaryItem
+namespace Sprint.Functions.SecondaryItem
 {
     internal class ShootArrowCommand : ICommand
     {

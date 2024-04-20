@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sprint.Functions.DeathState;
+using Sprint.Functions.States;
 using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
@@ -44,11 +44,6 @@ namespace Sprint.GameStates
             input = new InputTable();
         }
 
-        public void GetRoomScene(SceneObjectManager scenes)
-        {
-            this.roomManager = scenes;
-        }
-
         public void GetHUDScene(SceneObjectManager scenes)
         {
             this.hudManager = scenes;
@@ -59,11 +54,6 @@ namespace Sprint.GameStates
             timer.Elapsed += SwitchScene;
             timer.AutoReset = false;
             timer.Start();
-        }
-
-        public List<SceneObjectManager> AllObjectManagers()
-        {
-            return new List<SceneObjectManager>();
         }
 
         public void MakeCommands()

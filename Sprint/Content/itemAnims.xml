@@ -208,15 +208,20 @@
 			<Key>fairy</Key>
 			<Value>
 				<Texture>zelda_items</Texture>
-				<Animations>
-					<Item>
-						<Key>fairy</Key>
-						<Value Type="XMLData.SingleAtlasData">
-							<Rectangle>120 40 16 16</Rectangle>
-							<CenterPoint>8 8</CenterPoint>
-						</Value>
-					</Item>
-				</Animations>
+        <Animations>
+          <Item>
+            <Key>fairy</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>120 40 56 16</SheetArea>
+              <Rows>1</Rows>
+              <Cols>2</Cols>
+              <Padding>24</Padding>
+              <CenterPoint>8 8</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>5</Framerate>
+            </Value>
+          </Item>
+        </Animations>
 				<Scale>4</Scale>
 				<InitialAnimation>fairy</InitialAnimation>
 			</Value>
@@ -364,6 +369,43 @@
 				<InitialAnimation>sword</InitialAnimation>
 			</Value>
 		</Item>
+
+    <Item>
+      <Key>masterSword</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>sword</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>360 120 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>sword</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>knife</Key>
+      <Value>
+        <Texture>zelda_items</Texture>
+        <Animations>
+          <Item>
+            <Key>knife</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>80 80 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>knife</InitialAnimation>
+      </Value>
+    </Item>
+	
 
 		<Item>
 			<Key>bracelet</Key>
@@ -562,6 +604,432 @@
         <InitialAnimation>meat</InitialAnimation>
       </Value>
     </Item>
-		
-	</Asset>
+
+    <Item>
+      <Key>enderPearl</Key>
+      <Value>
+        <Texture>Items/minecraft</Texture>
+        <Animations>
+          <Item>
+            <Key>pearl</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>466 2 13 13</Rectangle>
+              <CenterPoint>6.5 6.5</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>pearl</InitialAnimation>
+      </Value>
+    </Item>
+    <Item>
+      <Key>tripwire</Key>
+      <Value>
+        <Texture>Items/minecraft</Texture>
+        <Animations>
+          <Item>
+            <Key>hook</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>336 208 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>4</Scale>
+        <InitialAnimation>hook</InitialAnimation>
+      </Value>
+    </Item>
+		<Item>
+			<Key>lava</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>lava</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>384 16 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>lava</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>lavabucket</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>lavabucket</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>400 32 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>lavabucket</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>steelknife</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>steelknife</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>496 192 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>steelknife</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>goldknife</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>goldknife</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>480 240 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>goldknife</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>Apple</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>hook</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>368 160 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>hook</InitialAnimation>
+			</Value>
+		</Item>
+
+		<Item>
+			<Key>GoldApple</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>hook</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>368 176 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>hook</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>Bread</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>hook</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>384 224 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>hook</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>Chicken</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>hook</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>400 240 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>hook</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>MinecraftCompass</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>hook</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>415 81 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>hook</InitialAnimation>
+			</Value>
+		</Item>
+		<Item>
+			<Key>steelpants</Key>
+			<Value>
+				<Texture>Items/minecraft</Texture>
+				<Animations>
+					<Item>
+						<Key>hook</Key>
+						<Value Type="XMLData.SingleAtlasData">
+							<Rectangle>401 210 16 16</Rectangle>
+							<CenterPoint>8 8</CenterPoint>
+						</Value>
+					</Item>
+				</Animations>
+				<Scale>4</Scale>
+				<InitialAnimation>hook</InitialAnimation>
+			</Value>
+		</Item>
+	
+
+    <Item>
+      <Key>tinyLink</Key>
+      <Value>
+        <Texture>zelda_links</Texture>
+        <Animations>
+          <Item>
+            <Key>down</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>1</Scale>
+        <InitialAnimation>down</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>ironBoots</Key>
+      <Value>
+        <Texture>upgrade_badges</Texture>
+        <Animations>
+          <Item>
+            <Key>item</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>64 64 32 32</Rectangle>
+              <CenterPoint>16 16</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>badge</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 64 32 32</Rectangle>
+              <CenterPoint>24 8</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>1.5</Scale>
+        <InitialAnimation>item</InitialAnimation>
+      </Value>
+    </Item>
+	
+
+    <Item>
+      <Key>boomerangUpgrade</Key>
+      <Value>
+        <Texture>upgrade_badges</Texture>
+        <Animations>
+          <Item>
+            <Key>item</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>64 32 32 32</Rectangle>
+              <CenterPoint>16 16</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>badge</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>32 0 32 32</Rectangle>
+              <CenterPoint>8 24</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>1.5</Scale>
+        <InitialAnimation>item</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>arrowUpgrade</Key>
+      <Value>
+        <Texture>upgrade_badges</Texture>
+        <Animations>
+          <Item>
+            <Key>item</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>64 0 32 32</Rectangle>
+              <CenterPoint>16 16</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>badge</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>32 0 32 32</Rectangle>
+              <CenterPoint>8 24</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>1.5</Scale>
+        <InitialAnimation>item</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>duo</Key>
+      <Value>
+        <Texture>upgrade_badges</Texture>
+        <Animations>
+          <Item>
+            <Key>badge</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 0 32 32</Rectangle>
+              <CenterPoint>24 24</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>item</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>96 0 32 32</Rectangle>
+              <CenterPoint>16 16</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>1.5</Scale>
+        <InitialAnimation>item</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>triple</Key>
+      <Value>
+        <Texture>upgrade_badges</Texture>
+        <Animations>
+          <Item>
+            <Key>badge</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 32 32 32</Rectangle>
+              <CenterPoint>24 16</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>item</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>96 32 32 32</Rectangle>
+              <CenterPoint>16 16</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>1.5</Scale>
+        <InitialAnimation>item</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>reload</Key>
+      <Value>
+        <Texture>upgrade_badges</Texture>
+        <Animations>
+          <Item>
+            <Key>badge</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>32 32 32 32</Rectangle>
+              <CenterPoint>8 16</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>item</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>128 32 32 32</Rectangle>
+              <CenterPoint>16 16</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>1.5</Scale>
+        <InitialAnimation>item</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>infinity</Key>
+      <Value>
+        <Texture>upgrade_badges</Texture>
+        <Animations>
+          <Item>
+            <Key>badge</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>32 64 32 32</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>item</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>128 64 32 32</Rectangle>
+              <CenterPoint>16 16</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>1.5</Scale>
+        <InitialAnimation>item</InitialAnimation>
+      </Value>
+    </Item>
+
+    <Item>
+      <Key>critical</Key>
+      <Value>
+        <Texture>upgrade_badges</Texture>
+        <Animations>
+          <Item>
+            <Key>badge</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 96 32 32</Rectangle>
+              <CenterPoint>24 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>item</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>96 96 32 32</Rectangle>
+              <CenterPoint>16 16</CenterPoint>
+            </Value>
+          </Item>
+        </Animations>
+        <Scale>1.5</Scale>
+        <InitialAnimation>item</InitialAnimation>
+      </Value>
+    </Item>
+
+  </Asset>
 </XnaContent>

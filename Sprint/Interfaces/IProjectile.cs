@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprint.Characters;
 
 namespace Sprint.Interfaces
 {
@@ -6,7 +7,7 @@ namespace Sprint.Interfaces
     {
         void SetPosition(Vector2 pos);
 
-        double DamageAmount();
+        void Hit(Character subject);
 
         Vector2 GetPosition();
 
