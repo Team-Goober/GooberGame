@@ -14,6 +14,9 @@ namespace Sprint.Interfaces.Powerups
         // Get the label that describes this upgrade
         public string GetTrueLabel();
 
+        // Get the effect for this upgrade, not the base effect
+        public IEffect GetTrueEffect();
+
         // Checks the entire chain of upgrades to see if a certain base or upgrade is present
         public IPowerup FindInChain(string label);
 

@@ -16,16 +16,20 @@ namespace Sprint.Characters
         private SimpleProjectileFactory itemFactory;
         private ICommand projectileCommand;
         private MoveVert moveVert;
+        private Player player;
 
         private Timer timeAttack;
 
 
-        public SkeletonEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+        public SkeletonEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader, Player player)
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
             timeAttack = new Timer(2);
             timeAttack.Start();
+            this.player = player;
+
+
 
             health = CharacterConstants.LOW_HP;
 
@@ -33,7 +37,9 @@ namespace Sprint.Characters
 
             projectileCommand = new ShootArrowCommand(itemFactory);
 
-            moveVert = new MoveVert(physics);
+           
+
+            moveVert = new MoveVert(physics, player);
         }
 
         // Update logic

@@ -5,16 +5,15 @@ using Sprint.Sprite;
 using Sprint.Projectile;
 using Sprint.Levels;
 using Sprint.Collision;
-using System;
 using Sprint.Music.Sfx;
 using Sprint.Items;
-using Sprint.Functions.States;
 using System.Diagnostics;
+using System;
 
 namespace Sprint.Characters
 {
 
-    internal class Player : Character, IMovingCollidable
+    internal class Player : Character
     {
         private DungeonState dungeon;
         private Inventory inventory;
@@ -22,25 +21,29 @@ namespace Sprint.Characters
         private SfxFactory sfxFactory;
 
         // Player sprites
-        private ISprite sprite;
+        private ISprite sprite; // Current sprite that's drawn
         private SpriteLoader spriteLoader;
-        private ISprite damagedSprite;
+        private ISprite normalSprite; // Version of sprite without damage
+        private ISprite damagedSprite; // Version of sprite taking damage
 
         // Events to signal hearts changed
         public delegate void HealthUpdateDelegate(double prev, double next);
         public event HealthUpdateDelegate OnPlayerHealthChange;
         public delegate void MaxHealthUpdateDelegate(int prev, int next, double health);
         public event MaxHealthUpdateDelegate OnPlayerMaxHealthChange;
+        // Event that signals room change
+        public delegate void RoomChangeDelegate(Room newRoom);
+        public event RoomChangeDelegate OnPlayerRoomChange;
 
         private Physics physics;
         private Room room;
 
         // Constants and initial values
-        private int sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
+        private float sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
         private int maxHealth = CharacterConstants.STARTING_HEALTH;
         private double health = CharacterConstants.STARTING_HEALTH;
         private float speed = CharacterConstants.PLAYER_SPEED;
-        private Boolean stopped = false;
+        private bool stopped = false;
 
         // Weapons
         private SimpleProjectileFactory secondaryItems;
@@ -51,12 +54,12 @@ namespace Sprint.Characters
         // Direction that the player is facing
         public Vector2 Facing { get; private set; }
 
-        public Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
+        public override Rectangle BoundingBox => new((int)(physics.Position.X - sideLength / 2.0),
                 (int) (physics.Position.Y - sideLength / 2.0),
-                sideLength,
-                sideLength);
+                (int)sideLength,
+                (int)sideLength);
 
-        public CollisionTypes[] CollisionType {
+        public override CollisionTypes[] CollisionType {
             get
             {
                 // Collide as shield if shield is up
@@ -104,8 +107,9 @@ namespace Sprint.Characters
             inventory = new Inventory();
 
             //Loads sprite for link
-            sprite = spriteLoader.BuildSprite("playerAnims" , "player");
+            normalSprite = spriteLoader.BuildSprite("playerAnims" , "player");
             damagedSprite = spriteLoader.BuildSprite("playerDamagedAnims" , "player");
+            sprite = normalSprite; // Start out undamaged
 
             // Duration of one sword swing or item use
             attackTimer = new Timer(0.25);
@@ -139,6 +143,11 @@ namespace Sprint.Characters
             return room;
         }
 
+        public SpriteLoader GetSpriteLoader()
+        {
+            return spriteLoader;
+        }
+
         // Moves the player from current scene into a new one
         public void SetRoom(Room room)
         {
@@ -151,6 +160,16 @@ namespace Sprint.Characters
             secondaryItems.SetRoom(this.room);
             this.room.GetScene().Add(this);
             StopMoving();
+            OnPlayerRoomChange?.Invoke(room);
+        }
+
+        // Grow or shrink the sprite and collider for the player
+        public void SetScale(float scale)
+        {
+            sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * scale * CharacterConstants.COLLIDER_SCALE;
+            float spriteScale = scale * CharacterConstants.SPRITE_SCALE;
+            normalSprite.SetScale(spriteScale);
+            damagedSprite.SetScale(spriteScale);
         }
 
         // Create melee attack according to facing direction and with given damage value
@@ -176,25 +195,25 @@ namespace Sprint.Characters
             //Creates animations and bounds for the sword for collision
             if (Facing == Directions.DOWN)
             {
-                sprite.SetAnimation("swordDown");
+                normalSprite.SetAnimation("swordDown");
                 damagedSprite.SetAnimation("swordDown");
                 swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y, swordWidth, swordLength);
             }
             else if (Facing == Directions.LEFT)
             {
-                sprite.SetAnimation("swordLeft");
+                normalSprite.SetAnimation("swordLeft");
                 damagedSprite.SetAnimation("swordLeft");
                 swordRec = new Rectangle((int)physics.Position.X - swordLength, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
             else if (Facing == Directions.UP)
             {
-                sprite.SetAnimation("swordUp");
+                normalSprite.SetAnimation("swordUp");
                 damagedSprite.SetAnimation("swordUp");
                 swordRec = new Rectangle((int)physics.Position.X - swordWidth / 2, (int)physics.Position.Y - swordLength, swordWidth, swordLength);
             }
             else if (Facing == Directions.RIGHT)
             {
-                sprite.SetAnimation("swordRight");
+                normalSprite.SetAnimation("swordRight");
                 damagedSprite.SetAnimation("swordRight");
                 swordRec = new Rectangle((int)physics.Position.X, (int)physics.Position.Y - swordWidth / 2, swordLength, swordWidth);
             }
@@ -223,22 +242,22 @@ namespace Sprint.Characters
 
             if (Facing == Directions.DOWN)
             {
-                sprite.SetAnimation("castDown");
+                normalSprite.SetAnimation("castDown");
                 damagedSprite.SetAnimation("castDown");
             }
             else if (Facing == Directions.LEFT)
             {
-                sprite.SetAnimation("castLeft");
+                normalSprite.SetAnimation("castLeft");
                 damagedSprite.SetAnimation("castLeft");
             }
             else if (Facing == Directions.UP)
             {
-                sprite.SetAnimation("castUp");
+                normalSprite.SetAnimation("castUp");
                 damagedSprite.SetAnimation("castUp");
             }
             else if (Facing == Directions.RIGHT)
             {
-                sprite.SetAnimation("castRight");
+                normalSprite.SetAnimation("castRight");
                 damagedSprite.SetAnimation("castRight");
             }
         }
@@ -258,22 +277,22 @@ namespace Sprint.Characters
             {
                 if (Facing == Directions.DOWN)
                 {
-                    sprite.SetAnimation("downStill");
+                    normalSprite.SetAnimation("downStill");
                     damagedSprite.SetAnimation("downStill");
                 }
                 else if (Facing == Directions.LEFT)
                 {
-                    sprite.SetAnimation("leftStill");
+                    normalSprite.SetAnimation("leftStill");
                     damagedSprite.SetAnimation("leftStill");
                 }
                 else if (Facing == Directions.UP)
                 {
-                    sprite.SetAnimation("upStill");
+                    normalSprite.SetAnimation("upStill");
                     damagedSprite.SetAnimation("upStill");
                 }
                 else if (Facing == Directions.RIGHT)
                 {
-                    sprite.SetAnimation("rightStill");
+                    normalSprite.SetAnimation("rightStill");
                     damagedSprite.SetAnimation("rightStill");
                 }
             }
@@ -281,22 +300,22 @@ namespace Sprint.Characters
             {
                 if (Facing == Directions.DOWN)
                 {
-                    sprite.SetAnimation("down");
+                    normalSprite.SetAnimation("down");
                     damagedSprite.SetAnimation("down");
                 }
                 else if (Facing == Directions.LEFT)
                 {
-                    sprite.SetAnimation("left");
+                    normalSprite.SetAnimation("left");
                     damagedSprite.SetAnimation("left");
                 }
                 else if (Facing == Directions.UP)
                 {
-                    sprite.SetAnimation("up");
+                    normalSprite.SetAnimation("up");
                     damagedSprite.SetAnimation("up");
                 }
                 else if (Facing == Directions.RIGHT)
                 {
-                    sprite.SetAnimation("right");
+                    normalSprite.SetAnimation("right");
                     damagedSprite.SetAnimation("right");
                 }
             }
@@ -308,9 +327,10 @@ namespace Sprint.Characters
         {
             accelerationDirection.X -= 1; // Add to X acceleration to move left
 
-                sprite.SetAnimation("left");
-                Facing = Directions.LEFT;
-                baseAnim = AnimationCycle.Walk;
+            normalSprite.SetAnimation("left");
+            damagedSprite.SetAnimation("left");
+            Facing = Directions.LEFT;
+            baseAnim = AnimationCycle.Walk;
             
         }
 
@@ -327,19 +347,26 @@ namespace Sprint.Characters
 
         public void MoveUp()
         {
+            // Don't move while shielding
+            if (shielded)
+                return;
             accelerationDirection.Y -= 1; // Add to Y acceleration to move up
-            sprite.SetAnimation("up");
+            normalSprite.SetAnimation("up");
+            damagedSprite.SetAnimation("up");
             Facing = Directions.UP;
             baseAnim = AnimationCycle.Walk;
             
         }
 
         public void MoveDown()
-        {
+        {// Don't move while shielding
+            if (shielded)
+                return;
             accelerationDirection.Y += 1; // Add to Y acceleration to move down
-                sprite.SetAnimation("down");
-                Facing = Directions.DOWN;
-                baseAnim = AnimationCycle.Walk;
+            normalSprite.SetAnimation("down");
+            damagedSprite.SetAnimation("down");
+            Facing = Directions.DOWN;
+            baseAnim = AnimationCycle.Walk;
             
         }
 
@@ -363,9 +390,9 @@ namespace Sprint.Characters
             accelerationDirection.Y -= 1; // Subtract from Y acceleration when down key is released
         }
 
-        public Physics GetPhysic()
+        public override Vector2 GetPosition()
         {
-            return physics;
+            return physics.Position;
         }
 
         public override void Update(GameTime gameTime)
@@ -432,8 +459,17 @@ namespace Sprint.Characters
             damageTimer.Update(gameTime);
             if (damageTimer.JustEnded)
             {
-                sprite = spriteLoader.BuildSprite("playerAnims", "player");
+                sprite = normalSprite;
                 returnToBaseAnim();
+            
+
+            }
+
+            // Die when health is zero
+            // Must be in update instead of TakeDamage so items can intervene in death
+            if(health <= 0.0)
+            {
+                Die();
             }
 
             physics.Update(gameTime);
@@ -449,7 +485,7 @@ namespace Sprint.Characters
         }
 
         // Moves the player by a set distance
-        public void Move(Vector2 distance)
+        public override void Move(Vector2 distance)
         {
            
 
@@ -507,7 +543,7 @@ namespace Sprint.Characters
             speed += addition;
         }
 
-        public void Heal(float amt)
+        public void Heal(double amt)
         {
             // Don't reduce health during heal
             Debug.Assert(amt >= 0);
@@ -550,14 +586,14 @@ namespace Sprint.Characters
             double prevHealth = health;
             health -= dmg;
 
+            // Trigger death when health is at or below 0
+            if (health < 0.0)
+            {
+                health = 0.0;
+            }
+
             // broadcast health change
             OnPlayerHealthChange?.Invoke(prevHealth, health);
-
-            // Trigger death when health is at or below 0
-            if (health <= 0.0)
-            {
-                Die();
-            }
 
         }
 

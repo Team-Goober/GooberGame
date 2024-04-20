@@ -13,6 +13,7 @@ using Sprint.Music.Songs;
 using Sprint.Sprite;
 using System.Collections.Generic;
 using XMLData;
+using System;
 
 namespace Sprint.Loader
 {
@@ -33,19 +34,23 @@ namespace Sprint.Loader
         // Dictionaries to link doors that aren't on cardinal dirs
         private Dictionary<int, IDoor> stairs;
         private Dictionary<int, int> stairLinks;
+        private Player player;
 
         private int levelNumber;
 
-        public LevelLoader(ContentManager newContent, DungeonState dungeon, SpriteLoader spriteLoader)
+        public LevelLoader(ContentManager newContent, DungeonState dungeon, SpriteLoader spriteLoader, Player player)
         {
             this.content = newContent;
             this.dungeon = dungeon;
             this.spriteLoader = spriteLoader;
+            this.player = player;
+
+        
 
             tileFactory = new(spriteLoader);
             doorFactory = new(spriteLoader);
             itemFactory = new(spriteLoader);
-            enemyFactory = new(spriteLoader);
+            enemyFactory = new EnemyFactory(spriteLoader, player);
             songHandler = SongHandler.GetInstance();
         }
 
@@ -56,6 +61,7 @@ namespace Sprint.Loader
         public void LoadLevelXML(string path)
         {
             LevelData data = content.Load<LevelData>(path);
+            itemFactory.LoadPowerupData();
 
             dungeon.SetArenaPosition(data.ArenaOffset);
 
@@ -135,6 +141,15 @@ namespace Sprint.Loader
 
             //Load Song
             songHandler.PlaySong(data.Song);
+
+            // Player needs to start with empty key and rupee powerups in their inventory
+            Player player = dungeon.ReturnPlayer();
+            IStackedPowerup key = itemFactory.MakePowerup(Inventory.KeyLabel) as IStackedPowerup;
+            key.ReadyConsume(key.Quantity());
+            key.Apply(player);
+            IStackedPowerup rupee = itemFactory.MakePowerup(Inventory.RupeeLabel) as IStackedPowerup;
+            rupee.ReadyConsume(rupee.Quantity());
+            rupee.Apply(player);
 
         }
 
@@ -246,12 +261,14 @@ namespace Sprint.Loader
             //Load enemies
             foreach (EnemySpawnData spawn in rd.Enemies)
             {
+                
                 Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
                 Enemy en = enemyFactory.MakeEnemy(spawn.Type, position, room);
+                
                 // Give item drop
                 if(spawn.ItemDrop != null)
                 {
-                    Item it = itemFactory.MakeItem(spawn.ItemDrop, position);
+                    Item it = itemFactory.MakeItem(spawn.ItemDrop, position, 0);
                     if (it != null)
                     {
                         en.GiveDrop(it);
@@ -265,7 +282,7 @@ namespace Sprint.Loader
             foreach (ItemSpawnData spawn in rd.Items)
             {
                 Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
-                Item it = itemFactory.MakeItem(spawn.Type, position);
+                Item it = itemFactory.MakeItem(spawn.Type, position, spawn.Price);
                 if (it != null)
                 {
                     roomItems.Add(it);

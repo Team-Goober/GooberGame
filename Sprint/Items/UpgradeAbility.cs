@@ -32,10 +32,10 @@ namespace Sprint.Items
         private TimeSpan lastUpdate;
 
 
-        public UpgradeAbility(ISprite sprite, IUpgradeEffect onActivate, string label, string description)
+        public UpgradeAbility(ISprite sprite, IEffect onActivate, string label, string description)
         {
             this.sprite = sprite;
-            this.onActivate = onActivate;
+            this.onActivate = (IUpgradeEffect)onActivate;
             this.label = label;
             this.description = description;
         }
@@ -56,6 +56,10 @@ namespace Sprint.Items
             Debug.Assert(b >= 0);
 
             baseAbility = inv.GetSelection(b);
+
+            // Set sprite to show a badge frame instead of the item frame
+            sprite.SetAnimation("badge");
+
             // Replace the box's ability with this upgrade as a decorator
             inv.ReplaceWithDecorator(baseAbility.GetLabel(), this);
             // Set base ability that effect applies to
@@ -102,7 +106,7 @@ namespace Sprint.Items
 
         public void Undo(Player player)
         {
-            // Defer to base
+            // Pass to base
             baseAbility?.Undo(player);
         }
 
@@ -142,7 +146,17 @@ namespace Sprint.Items
         public string GetDescription()
         {
             // Append modification text to end of base's description
-            return baseAbility.GetDescription() + "|" + description;
+            return baseAbility?.GetDescription() + "|" + description;
+        }
+
+        public IEffect GetEffect()
+        {
+            return baseAbility?.GetEffect();
+        }
+
+        public IEffect GetTrueEffect()
+        {
+            return onActivate;
         }
 
         public void SetUpgradeOptions(List<string> bases)
@@ -222,6 +236,27 @@ namespace Sprint.Items
             return (stackBase == null) ? 1 : stackBase.Quantity();
         }
 
+        public bool ReadyConsume(int amount)
+        {
+            // Defer to base if it is stackable
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            return (stackBase == null) ? false : stackBase.ReadyConsume(amount);
+        }
+
+        public void SetUnlimited(bool unlimited)
+        {
+            // Defer to base if it is stackable
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            stackBase?.SetUnlimited(unlimited);
+        }
+
+        public bool GetUnlimited()
+        {
+            // Defer to base if it is stackable
+            IStackedPowerup stackBase = baseAbility as IStackedPowerup;
+            return (stackBase == null) ? false : stackBase.GetUnlimited();
+        }
+
         public void SetDuration(double duration)
         {
             // Defer to base if it has cooldown
@@ -247,7 +282,8 @@ namespace Sprint.Items
         {
             // Defer to base if it has cooldown
             ICooldownPowerup cooldownBase = baseAbility as ICooldownPowerup;
-            return (cooldownBase == null) ? 0 : cooldownBase.GetTimeLeft();
+            // Must be 1 so upgrades aren't marked as complete
+            return (cooldownBase == null) ? 1 : cooldownBase.GetTimeLeft();
         }
     }
 }

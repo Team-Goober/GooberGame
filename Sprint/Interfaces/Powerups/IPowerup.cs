@@ -24,6 +24,9 @@ namespace Sprint.Interfaces.Powerups
         // Descriptive text of powerup
         public string GetDescription();
 
+        // Returns the effect that causes powerup behavior
+        public IEffect GetEffect();
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime);
 
         public void Update(GameTime gameTime);

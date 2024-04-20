@@ -152,6 +152,15 @@
               <CenterPoint>8 8</CenterPoint>
             </Value>
           </Item>
+
+          <Item>
+            <Key>holdItem</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>31 150 14 16</Rectangle>
+              <CenterPoint>7 8</CenterPoint>
+            </Value>
+          </Item>
+          
         </Animations>
         <Scale>4</Scale>
         <InitialAnimation>still</InitialAnimation>

@@ -23,6 +23,7 @@ namespace Sprint.Items
         private ZeldaText number; // Number that displays stack size
         private Player player;
         private string description;
+        private bool unlimited = false;
 
         private TimeSpan lastUpdate;
 
@@ -36,6 +37,26 @@ namespace Sprint.Items
             this.description = description;
         }
 
+        public bool ReadyConsume(int amount)
+        {
+            if (Quantity() < amount && !unlimited)
+            {
+                // Can't use if not enough and not unlimited
+                return false;
+            }
+            else if (!unlimited)
+            {
+                // If not unlimited but able to use one, use one
+                AddAmount(-amount);
+                return true;
+            }
+            else
+            {
+                // Unlimited, so don't need to use one
+                return true;
+            }
+        }
+
         public void AddAmount(int amount)
         {
             // Add to the stack
@@ -47,6 +68,16 @@ namespace Sprint.Items
         public int Quantity()
         {
             return quantity;
+        }
+
+        public void SetUnlimited(bool unlimited)
+        {
+            this.unlimited = unlimited;
+        }
+
+        public bool GetUnlimited()
+        {
+            return unlimited;
         }
 
         public bool CanPickup(Inventory inventory)
@@ -74,14 +105,8 @@ namespace Sprint.Items
 
         public bool ReadyUp()
         {
-            // Only add if there are items in the stack to use
-            if (quantity > 0 && !IsActive())
-            {
-                // Consume one from stack
-                AddAmount(-1);
-                return true;
-            }
-            return false;
+            // If not active, tries to subtract one from quantity. If succeeds, can proceed
+            return !IsActive() && ReadyConsume(1);
         }
 
         public void Activate()
@@ -121,6 +146,11 @@ namespace Sprint.Items
         {
             // Add quantity to the item description
             return description + "|amt: " + quantity;
+        }
+
+        public IEffect GetEffect()
+        {
+            return onActivate;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, GameTime gameTime)

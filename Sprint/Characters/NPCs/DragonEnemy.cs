@@ -8,6 +8,7 @@ using Sprint.Music.Sfx;
 using Sprint.Functions.SecondaryItem;
 
 
+
 namespace Sprint.Characters
 {
     internal class DragonEnemy : Enemy
@@ -20,24 +21,25 @@ namespace Sprint.Characters
         private SfxFactory sfxFactory;
         private SceneObjectManager objectManager;
         private MoveVert moveVert;
+        private Player player;
+        private MoveRandom moveRandom;
+        private ProjFire projFire;
 
-        public DragonEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+        public DragonEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader, Player player)
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
             sfxFactory = SfxFactory.GetInstance();
             this.objectManager = room.GetScene();
+            this.player = player;
 
-            timeAttack = new Timer(2);
-            timeAttack.Start();
 
             health = CharacterConstants.HIGH_HP;
 
-            itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
-            projectileCommand = new ShootFireBallC(itemFactory);
+            projFire = new ProjFire(spriteLoader, room, moveDirection);
 
-            moveVert = new MoveVert(physics);
+            moveRandom = new MoveRandom(physics, player);
 
 
         }
@@ -63,19 +65,13 @@ namespace Sprint.Characters
         // Update DragonEnemy logic
         public override void Update(GameTime gameTime)
         {
-            timeAttack.Update(gameTime);
+            //timeAttack.Update(gameTime);
             base.Update(gameTime);
 
+            projFire.Update(gameTime, physics, moveDirection);
+            // Move randomly within a specified area
+            moveRandom.MoveAI(gameTime);
 
-            moveVert.MoveAI(gameTime);
-            
-            if (timeAttack.JustEnded)
-            {
-                itemFactory.SetStartPosition(physics.Position);
-                itemFactory.SetDirection(Directions.LEFT);
-                projectileCommand.Execute();
-                timeAttack.Start();
-            }
 
             // Set animation based on the new direction
             SetAnimationBasedOnDirection();
@@ -88,12 +84,12 @@ namespace Sprint.Characters
         // Set animation based on the direction of movement
         private void SetAnimationBasedOnDirection()
         {
-
+            moveDirection = moveRandom.moveDirection;
             string newAnim = "";
-            if (Math.Abs(moveVert.moveDirection.X) > Math.Abs(moveVert.moveDirection.Y))
+            if (Math.Abs(moveRandom.moveDirection.X) > Math.Abs(moveRandom.moveDirection.Y))
             {
 
-                if (moveDirection.X > 0)
+                if (moveRandom.moveDirection.X > 0)
                     newAnim = "rightFacing";
                 else
                     newAnim = "leftFacing";
@@ -102,7 +98,7 @@ namespace Sprint.Characters
             else
             {
 
-                if (moveVert.moveDirection.Y > 0)
+                if (moveRandom.moveDirection.Y > 0)
                     newAnim = "upFacing";
                 else
                     newAnim = "downFacing";

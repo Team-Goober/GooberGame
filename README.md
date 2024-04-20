@@ -1,4 +1,4 @@
-# Team Goobers Sprint 4
+# Team Goobers Sprint 5
 
 ## Team Members:
 - Pavan Rauch
@@ -9,12 +9,12 @@
 - Sam Espanioly
 
 ## Program Controls
-- WASD to move the character
+- WASD or Arrow Keys to move the character
 - R to reset the game
 - Q to quit the game
 - Z to make Link Attck with his sword
 - X to use slot B
-- I to open inventory
+- I to open inventory, Can Press Z or X to equip selected item.
 - Z to select from inventory
 - UP,DOWN,Left,Right and WASD control inventory position  
 - M1/M2 click to change rooms sequentially
@@ -42,7 +42,6 @@
 
 ## Assumption
 - All characters are pushable
-- 
 
 
 ## Extra Tools and Processes Used
