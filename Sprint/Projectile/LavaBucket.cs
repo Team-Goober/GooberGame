@@ -81,24 +81,6 @@ namespace Sprint.Projectile
             }
         }
 
-        public void Retract()
-        {
-            if (state == LavaState.MOVING)
-            {
-                // If haven't hit a target yet, don't pull back
-                sfxFactory.PlaySoundEffect("Arrow Shot");
-                Delete();
-            }else if(state == LavaState.STUCK)
-            {
-                // If stuck in target, pull the user towards it
-                state = LavaState.PULLING;
-                // Start playing sound
-                sfxFactory.PlaySoundEffect("Arrow Shot");
-                pullSoundTimer.Start();
-            }
-
-        }
-
         public override void Hit(Character subject)
         {
             // Do damage
@@ -159,16 +141,8 @@ namespace Sprint.Projectile
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            // Draw hook
-            base.Draw(spriteBatch, gameTime);
-
-            // Calculate dimentions of rope box
-            Vector2 distance = shooter.GetPosition() - position;
-            Vector2 dimensions = new Vector2(5, distance.Length());
-            float rotation = -(float)Math.Atan2(distance.X, distance.Y);
-
-
-
+            // Draw bucket without rotation
+            sprite.Draw(spriteBatch, position, gameTime);
         }
     }
 }

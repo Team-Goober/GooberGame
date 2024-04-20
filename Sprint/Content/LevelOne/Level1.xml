@@ -1488,6 +1488,16 @@
               <TilePos>8 5</TilePos>
               <Price>0</Price>
             </Item>
+            <Item>
+              <Type>cloneUpgrade</Type>
+              <TilePos>8 4</TilePos>
+              <Price>0</Price>
+            </Item>
+            <Item>
+              <Type>noclip</Type>
+              <TilePos>8 3</TilePos>
+              <Price>0</Price>
+            </Item>
           </Items>
           <Enemies/>
           <TextBoxes />

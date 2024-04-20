@@ -60,10 +60,11 @@ namespace Sprint.Items
             // Set sprite to show a badge frame instead of the item frame
             sprite.SetAnimation("badge");
 
-            // Replace the box's ability with this upgrade as a decorator
-            inv.ReplaceWithDecorator(baseAbility.GetLabel(), this);
             // Set base ability that effect applies to
             onActivate.SetBase(baseAbility);
+
+            // Replace the box's ability with this upgrade as a decorator
+            inv.ReplaceWithDecorator(baseAbility.GetLabel(), this);
         }
 
         public bool ReadyUp()
@@ -151,12 +152,12 @@ namespace Sprint.Items
 
         public IEffect GetEffect()
         {
-            return baseAbility?.GetEffect();
+            return onActivate;
         }
 
-        public IEffect GetTrueEffect()
+        public IEffect GetBaseEffect()
         {
-            return onActivate;
+            return baseAbility?.GetEffect();
         }
 
         public void SetUpgradeOptions(List<string> bases)
