@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:XMLData="XMLData">
 	<Asset Type="XMLData:RoomListData">
+      <Room>
 		<!--Here so index for rooms start at 1, 0 is no room -->
 		<Item Null="true" />
 		<Item>
@@ -11,7 +12,7 @@
 			<TopExit>Wall</TopExit>
 			<BottomExit>Wall</BottomExit>
 			<LeftExit>Wall</LeftExit>
-			<RightExit>Lock</RightExit>
+			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 1 0 0 0 0 0</Item>
@@ -61,8 +62,8 @@
 			<NeedWall>true</NeedWall>
 			<Hidden>false</Hidden>
 			<TopExit>Wall</TopExit>
-			<BottomExit>Lock</BottomExit>
-			<LeftExit>Lock</LeftExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
 			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -103,8 +104,8 @@
 			<!--Row 2 Col 3 Room Index 3-->
 			<NeedWall>true</NeedWall>
 			<Hidden>false</Hidden>
-			<TopExit>Lock</TopExit>
-			<BottomExit>Open</BottomExit>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
 			<LeftExit>Wall</LeftExit>
 			<RightExit>Wall</RightExit>
 			<TileGrid>
@@ -143,13 +144,13 @@
 			<NeedWall>true</NeedWall>
 			<Hidden>false</Hidden>
 			<TopExit>Wall</TopExit>
-			<BottomExit>Open</BottomExit>
+			<BottomExit>Wall</BottomExit>
 			<LeftExit>Wall</LeftExit>
-			<RightExit>Puzzle</RightExit>
+			<RightExit>Wall</RightExit>
 			<TileGrid>
-				<Item>0 0 0 0 0 0 0 1 1 1 1 1</Item>
-				<Item>0 0 0 0 0 0 0 0 0 1 1 1</Item>
-				<Item>0 0 0 0 0 0 0 0 0 0 1 1</Item>
+				<Item>3 0 1 0 0 0 0 1 1 1 1 1</Item>
+				<Item>0 X 0 0 0 0 0 0 0 1 1 1</Item>
+				<Item>1 0 0 0 0 0 0 0 0 0 1 1</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 1 1</Item>
 				<Item>0 0 0 0 0 0 0 0 0 1 1 1</Item>
@@ -164,26 +165,34 @@
 			<Enemies>
 				<Item>
 					<Type>dragonmov</Type>
-					<TilePos>10 2</TilePos>
+					<TilePos>4 3</TilePos>
 					<ItemDrop Null="true" />
 				</Item>
 			</Enemies>
 			<TextBoxes />
-			<Stairs />
+			<Stairs>
+				<Item>
+					<Position>128 128</Position>
+					<Size>64 64</Size>
+					<IDNum>2</IDNum>
+					<OtherSideID>3</OtherSideID>
+					<SpawnPosition>512 512</SpawnPosition>
+				</Item>
+			</Stairs>
 		</Item>
 		<Item>
 			<!--Row 2 Col 6 Room Index 5-->
 			<!--Triforce is not spawning-->
 			<NeedWall>true</NeedWall>
-			<Hidden>false</Hidden>
+			<Hidden>true</Hidden>
 			<TopExit>Wall</TopExit>
 			<BottomExit>Wall</BottomExit>
-			<LeftExit>Open</LeftExit>
+			<LeftExit>Wall</LeftExit>
 			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 1 1 1 1 1 1 1 1 1 1 0</Item>
-				<Item>0 1 0 0 4 0 0 5 0 0 1 0</Item>
+				<Item>0 1 0 0 4 0 0 5 0 3 1 0</Item>
 				<Item>0 1 0 4 0 0 0 0 5 0 1 0</Item>
 				<Item>0 1 0 0 0 0 0 0 0 0 1 0</Item>
 				<Item>0 1 1 1 1 0 0 1 1 1 1 0</Item>
@@ -197,7 +206,15 @@
 			</Items>
 			<Enemies/>
 			<TextBoxes />
-			<Stairs />
+			<Stairs>
+				<Item>
+					<Position>704 256</Position>
+					<Size>64 64</Size>
+					<IDNum>3</IDNum>
+					<OtherSideID>2</OtherSideID>
+					<SpawnPosition>226 96</SpawnPosition>
+				</Item>
+			</Stairs>
 		</Item>
 		<Item>
 			<!--Row 3 Col 1 Room Index 6-->
@@ -206,7 +223,7 @@
 			<TopExit>Wall</TopExit>
 			<BottomExit>Wall</BottomExit>
 			<LeftExit>Wall</LeftExit>
-			<RightExit>Open</RightExit>
+			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
 				<Item>6 6 6 6 6 6 6 6 6 6 6 6</Item>
@@ -254,9 +271,9 @@
 			<NeedWall>true</NeedWall>
 			<Hidden>false</Hidden>
 			<TopExit>Wall</TopExit>
-			<BottomExit>Lock</BottomExit>
-			<LeftExit>Puzzle</LeftExit>
-			<RightExit>Open</RightExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -291,10 +308,10 @@
 			<!--Row 3 Col 3 Room Index 8-->
 			<NeedWall>true</NeedWall>
 			<Hidden>false</Hidden>
-			<TopExit>Open</TopExit>
-			<BottomExit>Hidden</BottomExit>
-			<LeftExit>Open</LeftExit>
-			<RightExit>Lock</RightExit>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 1 1 0 0 0 0 0 0 1 1 0</Item>
@@ -346,9 +363,9 @@
 			<NeedWall>true</NeedWall>
 			<Hidden>false</Hidden>
 			<TopExit>Wall</TopExit>
-			<BottomExit>Hidden</BottomExit>
-			<LeftExit>Lock</LeftExit>
-			<RightExit>Open</RightExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -389,9 +406,9 @@
 			<!--Item Key needed-->
 			<NeedWall>true</NeedWall>
 			<Hidden>false</Hidden>
-			<TopExit>Lock</TopExit>
+			<TopExit>Wall</TopExit>
 			<BottomExit>Wall</BottomExit>
-			<LeftExit>Open</LeftExit>
+			<LeftExit>Wall</LeftExit>
 			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -427,10 +444,10 @@
 			<!--Row 4 Col 2 Room Index 11-->
 			<NeedWall>true</NeedWall>
 			<Hidden>false</Hidden>
-			<TopExit>Lock</TopExit>
+			<TopExit>Wall</TopExit>
 			<BottomExit>Wall</BottomExit>
 			<LeftExit>Wall</LeftExit>
-			<RightExit>Puzzle</RightExit>
+			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -481,10 +498,10 @@
 			<!--Item Key-->
 			<NeedWall>true</NeedWall>
 			<Hidden>false</Hidden>
-			<TopExit>Hidden</TopExit>
-			<BottomExit>Open</BottomExit>
-			<LeftExit>Open</LeftExit>
-			<RightExit>Open</RightExit>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -535,9 +552,9 @@
 			<!--Missing an Item-->
 			<NeedWall>true</NeedWall>
 			<Hidden>false</Hidden>
-			<TopExit>Hidden</TopExit>
+			<TopExit>Wall</TopExit>
 			<BottomExit>Wall</BottomExit>
-			<LeftExit>Open</LeftExit>
+			<LeftExit>Wall</LeftExit>
 			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -603,8 +620,8 @@
 			<!--Row 5 Col 3 Room Index 14-->
 			<NeedWall>true</NeedWall>
 			<Hidden>false</Hidden>
-			<TopExit>Open</TopExit>
-			<BottomExit>Lock</BottomExit>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
 			<LeftExit>Wall</LeftExit>
 			<RightExit>Wall</RightExit>
 			<TileGrid>
@@ -644,7 +661,7 @@
 			<TopExit>Wall</TopExit>
 			<BottomExit>Wall</BottomExit>
 			<LeftExit>Wall</LeftExit>
-			<RightExit>Open</RightExit>
+			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -680,10 +697,10 @@
 			<!--Blue Statues?? Missing Floor Tiles??-->
 			<NeedWall>true</NeedWall>
 			<Hidden>false</Hidden>
-			<TopExit>Lock</TopExit>
-			<BottomExit>Open</BottomExit>
-			<LeftExit>Open</LeftExit>
-			<RightExit>Open</RightExit>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 4 0 0 4 0 0 5 0 0 5 0</Item>
@@ -709,7 +726,7 @@
 			<Hidden>false</Hidden>
 			<TopExit>Wall</TopExit>
 			<BottomExit>Wall</BottomExit>
-			<LeftExit>Open</LeftExit>
+			<LeftExit>Wall</LeftExit>
 			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
@@ -754,11 +771,11 @@
 		<Item>
 			<!--Test Room Index 18-->
 			<NeedWall>true</NeedWall>
-			<Hidden>true</Hidden>
-			<TopExit>Hidden</TopExit>
-			<BottomExit>Hidden</BottomExit>
-			<LeftExit>Hidden</LeftExit>
-			<RightExit>Hidden</RightExit>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 				<Item>0 4 0 0 4 0 0 5 0 0 5 0</Item>
@@ -782,7 +799,7 @@
 		<Item>
 			<!--Magic Room Index 19-->
 			<NeedWall>true</NeedWall>
-			<Hidden>true</Hidden>
+			<Hidden>false</Hidden>
 			<TopExit>Wall</TopExit>
 			<BottomExit>Wall</BottomExit>
 			<LeftExit>Wall</LeftExit>
@@ -1038,5 +1055,943 @@
 				</Item>
 			</Stairs>
 		</Item>
+		<!-- Beginning of new Template Room -->
+		<Item>
+			<!-- Index 21 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 1 1 0 0 0 0 0 0 1 1 0</Item>
+				<Item>0 1 1 0 0 0 0 0 0 1 1 0</Item>
+				<Item>0 0 0 0 0 2 2 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 2 2 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 2 2 0 0 0 0 0</Item>
+				<Item>0 1 1 0 0 0 0 0 0 1 1 0</Item>
+				<Item>0 1 1 0 0 0 0 0 0 1 1 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies/>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+		<Item>
+			<!-- Index 22 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 4 0 4 0 0 4 0 4 0 0</Item>
+				<Item>0 0 4 0 4 0 0 4 0 4 0 0</Item>
+				<Item>0 0 4 0 4 0 0 4 0 4 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 4 0 4 0 0 4 0 4 0 0</Item>
+				<Item>0 0 4 0 4 0 0 4 0 4 0 0</Item>
+				<Item>0 0 4 0 4 0 0 4 0 4 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>0 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>0 3</TilePos>
+					<ItemDrop>heart</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>11 0</TilePos>
+					<ItemDrop Null="true" />
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>11 3</TilePos>
+					<ItemDrop Null="true" />
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>11 6</TilePos>
+					<ItemDrop>bomb</ItemDrop>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>0 6</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 23 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 1 1 1 0 0 1 1 1 0 0</Item>
+				<Item>0 0 0 1 0 0 0 0 1 0 0 0</Item>
+				<Item>0 0 0 1 0 0 0 0 1 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 1 0 0 0 0 1 0 0 0</Item>
+				<Item>0 0 0 1 0 0 0 0 1 0 0 0</Item>
+				<Item>0 0 1 1 1 0 0 1 1 1 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>0 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>4 0</TilePos>
+					<ItemDrop Null="true"/>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>1 0</TilePos>
+					<ItemDrop Null="true"/>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>7 0</TilePos>
+					<ItemDrop Null="true"/>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>11 5</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 24 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>1 1 0 0 0 0 0 0 0 0 1 1</Item>
+				<Item>1 1 0 0 0 0 0 0 0 0 1 1</Item>
+				<Item>0 0 0 0 0 1 1 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 1 1 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>1 1 0 0 0 0 0 0 0 0 1 1</Item>
+				<Item>1 1 0 0 0 0 0 0 0 0 1 1</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>dragonmov</Type>
+					<TilePos>3 0</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 25 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 2 2 2 2 0 0 0 0 0 0 0</Item>
+				<Item>0 2 2 2 2 0 0 0 0 0 0 0</Item>
+				<Item>0 2 2 2 2 0 0 2 2 2 2 0</Item>
+				<Item>0 0 0 0 0 0 0 2 2 2 2 0</Item>
+				<Item>0 0 0 0 0 0 0 2 2 2 2 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>5 0</TilePos>
+					<ItemDrop>bomb</ItemDrop>
+				</Item>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>4 5</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>4 5</TilePos>
+					<ItemDrop Null="true"/>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 26 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>1 1 1 1 1 0 0 1 1 1 1 1</Item>
+				<Item>1 0 0 0 0 0 0 0 0 0 0 1</Item>
+				<Item>0 0 1 1 1 1 1 1 1 0 0 0</Item>
+				<Item>0 0 1 0 0 0 0 0 1 0 0 0</Item>
+				<Item>0 0 1 0 1 1 1 0 1 0 0 0</Item>
+				<Item>1 0 1 0 1 0 0 0 1 0 0 1</Item>
+				<Item>1 0 0 0 1 0 0 1 1 0 0 1</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>5 0</TilePos>
+					<ItemDrop>bomb</ItemDrop>
+				</Item>
+				<Item>
+					<Type>hand</Type>
+					<TilePos>5 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>hand</Type>
+					<TilePos>5 3</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>0 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 27 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>1 0 0 0 0 0 0 0 0 0 1 1</Item>
+				<Item>1 1 0 0 0 0 0 0 0 1 1 0</Item>
+				<Item>0 1 1 0 0 0 0 0 1 1 0 0</Item>
+				<Item>0 0 1 1 0 0 0 1 1 0 0 0</Item>
+				<Item>0 0 0 1 1 0 1 1 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>slime</Type>
+					<TilePos>5 0</TilePos>
+					<ItemDrop Null="true"/>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<TilePos>6 0</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<TilePos>5 3</TilePos>
+					<ItemDrop Null="true"/>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<TilePos>1 0</TilePos>
+					<ItemDrop Null="true"/>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 28 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 1 0 0 0 0 0 0 0 0 1 0</Item>
+				<Item>0 1 0 0 0 0 0 0 0 0 1 0</Item>
+				<Item>0 1 1 1 1 1 1 1 1 1 1 0</Item>
+				<Item>0 1 0 0 0 0 0 0 0 0 1 0</Item>
+				<Item>0 1 0 0 0 0 0 0 0 0 1 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>dragonmov</Type>
+					<TilePos>5 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 29 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 0 2 2 0 0 2 2 0 0 0</Item>
+				<Item>0 0 0 2 2 0 0 2 2 0 0 0</Item>
+				<Item>0 0 0 2 2 0 0 2 2 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 2 2 0 0 2 2 0 0 0</Item>
+				<Item>0 0 0 2 2 0 0 2 2 0 0 0</Item>
+				<Item>0 0 0 2 2 0 0 2 2 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>bluebubble</Type>
+					<TilePos>5 0</TilePos>
+					<ItemDrop Null="true" />
+				</Item>
+				<Item>
+					<Type>bluebubble</Type>
+					<TilePos>6 0</TilePos>
+					<ItemDrop Null="true" />
+				</Item>
+				<Item>
+					<Type>bluebubble</Type>
+					<TilePos>0 0</TilePos>
+					<ItemDrop Null="true" />
+				</Item>
+				<Item>
+					<Type>bluebubble</Type>
+					<TilePos>8 5</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 30 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 2 0 0 0 0 0 2 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 2 0 0 0</Item>
+				<Item>2 2 0 2 0 0 2 0 0 0 0 0</Item>
+				<Item>0 0 0 2 0 0 2 0 0 0 0 0</Item>
+				<Item>0 0 0 2 0 0 2 0 0 0 0 0</Item>
+				<Item>0 0 0 2 0 0 2 0 2 2 2 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>dragonmov</Type>
+					<TilePos>5 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>dragonmov</Type>
+					<TilePos>9 2</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 31 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 1 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 1 1 0 1 0 0 1 0 1 0</Item>
+				<Item>0 0 0 1 0 0 0 1 0 0 1 0</Item>
+				<Item>0 1 0 0 0 1 0 1 0 0 1 0</Item>
+				<Item>0 1 0 1 0 0 0 0 0 0 1 0</Item>
+				<Item>0 1 0 1 0 1 0 1 0 0 0 0</Item>
+				<Item>0 1 0 1 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>8 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>4 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>6 4</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 32 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 1 0 0 0 0 0 1 1 0 0</Item>
+				<Item>0 0 1 1 0 1 0 0 1 0 1 0</Item>
+				<Item>0 0 0 1 0 0 0 1 0 0 1 0</Item>
+				<Item>0 1 0 0 0 1 0 1 0 0 1 0</Item>
+				<Item>0 1 0 1 0 1 0 1 0 0 1 0</Item>
+				<Item>0 1 0 1 0 1 0 1 0 0 0 0</Item>
+				<Item>0 1 0 1 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>8 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>4 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>6 2</TilePos>
+					<ItemDrop>heart</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>6 2</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>6 2</TilePos>
+					<ItemDrop>bomb</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>6 2</TilePos>
+					<ItemDrop Null="true" />
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 33 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 1 0 0 0 0 0 0 1 0 0</Item>
+				<Item>0 0 1 0 0 0 0 0 0 1 0 0</Item>
+				<Item>0 0 0 0 1 1 1 1 0 0 0 0</Item>
+				<Item>0 0 1 0 0 0 0 1 0 0 0 0</Item>
+				<Item>0 0 1 0 0 0 0 1 0 0 0 0</Item>
+				<Item>0 0 1 0 0 0 0 1 0 0 0 0</Item>
+				<Item>0 0 1 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>8 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>4 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>6 2</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>6 2</TilePos>
+					<ItemDrop Null="true" />
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>6 2</TilePos>
+					<ItemDrop Null="true" />
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>6 2</TilePos>
+					<ItemDrop Null="true" />
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 34 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 2 0 2 0 0 2 2 2 0 0</Item>
+				<Item>0 0 2 0 2 0 0 2 0 2 0 0</Item>
+				<Item>0 0 2 0 2 0 0 2 0 2 0 0</Item>
+				<Item>0 0 2 0 2 0 0 0 0 2 0 0</Item>
+				<Item>0 0 2 2 2 2 2 2 2 2 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>8 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>4 0</TilePos>
+					<ItemDrop>heart</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>6 2</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>6 2</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>6 2</TilePos>
+					<ItemDrop Null="true" />
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>6 2</TilePos>
+					<ItemDrop Null="true" />
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 35 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 1 1 1 1 1 1 1 1 0 0</Item>
+				<Item>0 0 0 1 1 1 1 1 1 0 0 0</Item>
+				<Item>0 0 0 0 1 1 1 1 0 0 0 0</Item>
+				<Item>0 0 0 0 0 1 1 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>0 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>11 0</TilePos>
+					<ItemDrop>heart</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bluebubble</Type>
+					<TilePos>0 6</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 36 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 2 2 0 0 0 0 0</Item>
+				<Item>0 0 0 0 2 2 2 2 0 0 0 0</Item>
+				<Item>0 0 0 2 2 2 2 2 2 0 0 0</Item>
+				<Item>0 0 2 2 2 2 2 2 2 2 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>0 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>11 0</TilePos>
+					<ItemDrop>heart</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bluebubble</Type>
+					<TilePos>0 6</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 37 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 2 2 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 2 2 2 2 2 0 0 2 2 2 0</Item>
+				<Item>0 2 2 0 0 0 0 0 0 2 2 0</Item>
+				<Item>0 2 2 0 0 0 0 0 0 2 2 0</Item>
+				<Item>0 2 2 0 0 0 0 0 0 2 2 0</Item>
+				<Item>0 2 2 0 0 0 0 0 0 2 2 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 2 2 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>0 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>11 0</TilePos>
+					<ItemDrop>heart</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bluebubble</Type>
+					<TilePos>3 4</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>3 4</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>4 4</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<TilePos>0 6</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 38 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 1 1 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 2 2 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 2 2 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 2 2 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 1 1 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>0 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>11 0</TilePos>
+					<ItemDrop>heart</ItemDrop>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>3 4</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>3 4</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>4 4</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>0 6</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 39 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 1 1 0 0 1 1 0 0 1 1 0</Item>
+				<Item>0 2 2 2 2 2 2 2 2 2 2 0</Item>
+				<Item>0 2 2 2 2 2 2 2 2 2 2 0</Item>
+				<Item>0 2 2 0 0 2 2 0 0 2 2 0</Item>
+				<Item>0 1 1 0 0 1 1 0 0 1 1 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>0 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>11 0</TilePos>
+					<ItemDrop>heart</ItemDrop>
+				</Item>
+				<Item>
+					<Type>skeleton</Type>
+					<TilePos>3 4</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>3 4</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>4 4</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>0 6</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 40 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 1 0 0 0 0 0 0 0 0 1 0</Item>
+				<Item>0 1 0 0 0 0 0 0 0 0 1 0</Item>
+				<Item>0 0 1 0 0 0 0 0 0 1 0 0</Item>
+				<Item>0 0 0 1 1 1 1 1 1 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>0 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>11 0</TilePos>
+					<ItemDrop>heart</ItemDrop>
+				</Item>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>3 3</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>3 4</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>4 4</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>bat</Type>
+					<TilePos>0 6</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+
+		<Item>
+			<!-- Index 41 -->
+			<NeedWall>true</NeedWall>
+			<Hidden>false</Hidden>
+			<TopExit>Wall</TopExit>
+			<BottomExit>Wall</BottomExit>
+			<LeftExit>Wall</LeftExit>
+			<RightExit>Wall</RightExit>
+			<TileGrid>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 1 1 0 0 0 0 0</Item>
+				<Item>0 0 0 0 1 0 0 1 0 0 0 0</Item>
+				<Item>0 0 0 1 0 0 0 0 1 0 0 0</Item>
+				<Item>0 0 1 0 0 0 0 0 0 1 0 0</Item>
+				<Item>0 1 0 0 0 0 0 0 0 0 1 0</Item>
+				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+			</TileGrid>
+			<Items/>
+			<Enemies>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>0 0</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>11 0</TilePos>
+					<ItemDrop>heart</ItemDrop>
+				</Item>
+				<Item>
+					<Type>dog</Type>
+					<TilePos>3 3</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<TilePos>3 4</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<TilePos>4 4</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<TilePos>0 6</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+			</Enemies>
+			<TextBoxes />
+			<Stairs />
+		</Item>
+	  </Room>
 	</Asset>
 </XnaContent>

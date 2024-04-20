@@ -4,9 +4,10 @@ using Microsoft.Xna.Framework;
 
 namespace XMLData
 {
+    //NOTE DO NOT USE THIS CLASS TO PULL DATA, USE SINGLETON FROM ConnectedRoomData.cs
     public class RoomListData
     {
-        public RoomData[] Rooms; // All rooms in this level. First index is the starting room.
+        public List<RoomData> Room; // All rooms in this level. First index is the starting room.
     }
 
     public class RoomData
