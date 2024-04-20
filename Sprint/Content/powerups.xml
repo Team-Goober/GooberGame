@@ -39,6 +39,17 @@
         <Type>Sprint.Items.PassivePowerup</Type>
       </Value>
     </Item>
+	  <Item>
+		  <Key>MinecraftCompass</Key>
+		  <Value>
+			  <Label>compass</Label>
+			  <Description>COMPASS|reveal triforce|room</Description>
+			  <Sprite>MinecraftCompass</Sprite>
+			  <Effect>Sprint.Items.Effects.CompassEffect</Effect>
+			  <EffectParams />
+			  <Type>Sprint.Items.PassivePowerup</Type>
+		  </Value>
+	  </Item>
     <Item>
       <Key>map</Key>
       <Value>
@@ -140,6 +151,48 @@
         <Quantity>1</Quantity>
       </Value>
     </Item>
+	  <Item>
+		  <Key>steelknife</Key>
+		  <Value Type="XMLData:StackedPowerupData">
+			  <Label>steelknife</Label>
+			  <Description>KNIFE|floating sword|hits enemies</Description>
+			  <Sprite>steelknife</Sprite>
+			  <Effect>Sprint.Items.Effects.SwordCompanionEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>spriteName</Name>
+					  <Value Type="string">steelknife</Value>
+				  </Item>
+				  <Item>
+					  <Name>spriteFile</Name>
+					  <Value Type="string">itemAnims</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.ResourcePowerup</Type>
+			  <Quantity>1</Quantity>
+		  </Value>
+	  </Item>
+	  <Item>
+		  <Key>goldknife</Key>
+		  <Value Type="XMLData:StackedPowerupData">
+			  <Label>goldknife</Label>
+			  <Description>KNIFE|floating sword|hits enemies</Description>
+			  <Sprite>steelknife</Sprite>
+			  <Effect>Sprint.Items.Effects.SwordCompanionEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>spriteName</Name>
+					  <Value Type="string">goldknife</Value>
+				  </Item>
+				  <Item>
+					  <Name>spriteFile</Name>
+					  <Value Type="string">itemAnims</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.ResourcePowerup</Type>
+			  <Quantity>1</Quantity>
+		  </Value>
+	  </Item>
     <Item>
       <Key>rupee</Key>
       <Value Type="XMLData:StackedPowerupData">
@@ -384,7 +437,23 @@
 			  <Quantity>1</Quantity>
 		  </Value>
 	  </Item>
-
+	  <Item>
+		  <Key>Chicken</Key>
+		  <Value Type="XMLData:StackedPowerupData">
+			  <Label>chicken</Label>
+			  <Description>CHICKEN|heals 3 heart</Description>
+			  <Sprite>Chicken</Sprite>
+			  <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>amount</Name>
+					  <Value Type="float">3</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.ConsumableAbility</Type>
+			  <Quantity>3</Quantity>
+		  </Value>
+	  </Item>
     <Item>
       <Key>redCandle</Key>
       <Value>
