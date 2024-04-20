@@ -15,12 +15,13 @@
 - Z to make Link Attck with his sword
 - X to use slot B
 - I to open inventory, Can Press Z or X to equip selected item.
-- Z to select from inventory
+- Z to select item from inventory
+- C to delete item from inventory
 - UP,DOWN,Left,Right and WASD control inventory position  
 - M1/M2 click to change rooms sequentially
 - M3 click on a door to go into that door directly
 
-## Code Smells to check for:
+## Code Smells checked for:
 - Shotgun Surgery
 - Duplicate Code
 - Dead Code
@@ -33,19 +34,27 @@
 - Large Method
 - Excessive or Unclear Comments
 - File Organization
+- Artificial Stupidity 
 
 ## Known Bugs
 - On some machines you have to write "dotnet restore" in the terminal to run the game
-- Dragon is having collision issues
+- Dragon collision box is weird
 - Some enemies fly off the map when pushed
-- Boomerang sound effect sometimes goes on an infinite loop when switching between rooms
+- Bottom rooms do not show up on the mini-map / compass
+- When continue state is activated health is not updated to the HUD for some reason
+- Movement is sometimes buggy 
 
 ## Assumption
 - All characters are pushable
-
+- Player can now move diagonally
+- Game only has one level
+- Passive powerups are permanent
+- Random room generator spawns a room per room-type - so about 16-18 rooms and upto 41 rooms
+- AI is hard
 
 ## Extra Tools and Processes Used
 - Adobe Photoshop for frame rotation
 - Tiled website for assisted tile building
 - MS Paint for spritess
+- Youtube for inspiration and algorithm research
 
