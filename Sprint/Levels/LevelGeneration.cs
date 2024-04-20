@@ -9,15 +9,13 @@ public class LevelGeneration
     public const int Rows = 9;
     public const int Columns = 8;
     private int totalRooms = 41;
-    private int numOfRoomsToGenerate = 10;
-    private int numOfStepsToTake = 15;
+    private int numOfStepsToTake = 20;
     private (int, int) mapCoordinates = (4, 4); //Also start room for algorithm
     public int[,] mapGrid = new int[Rows, Columns];
     private Random randomObject = new Random();
     private int randomDirection;
     private int randomRoomID;
     private Dictionary<int, Delegate> functionMap;
-    private int roomsCreated = 0;
     private static LevelGeneration instance;
     private HashSet<int> levelIndexSet;
 
@@ -54,7 +52,8 @@ public class LevelGeneration
 
 
         //Loop until max rooms are made
-        while (roomsCreated < numOfStepsToTake)
+        int stepsTaken = 0;
+        while (stepsTaken < numOfStepsToTake)
         {
             //If space is empty, add room
             if (mapGrid[mapCoordinates.Item2, mapCoordinates.Item1] == 0)
@@ -74,12 +73,12 @@ public class LevelGeneration
                 }
                 mapGrid[mapCoordinates.Item2, mapCoordinates.Item1] = randomRoomID;
                 levelIndexSet.Remove(randomRoomID);
-                roomsCreated++;
             }
 
             //Move to next room
             randomDirection = randomObject.Next(1, 5);
             mapCoordinates = ((int, int))functionMap[randomDirection].DynamicInvoke();
+            stepsTaken++;
         }
         //Ensure win condition
         var loc = (0, 0);

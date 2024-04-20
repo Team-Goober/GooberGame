@@ -9,6 +9,7 @@ using Sprint.Loader;
 using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using XMLData;
 
 
@@ -66,8 +67,8 @@ namespace Sprint.HUD
             }
 
             //Health
-            List<HUDAnimSprite> hearts = MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
-            foreach (HUDAnimSprite sprite in hearts)
+            LifeForce = MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
+            foreach (HUDAnimSprite sprite in LifeForce)
             {
                 topDisplay.Add(sprite);
             }
@@ -122,24 +123,24 @@ namespace Sprint.HUD
         public List<HUDAnimSprite> MakeLifeHeart(Vector2 position, int spriteSize)
         {
             // Make the hearts
-            LifeForce = hudFactory.MakeHearts(maxHearts, "Heart", position, spriteSize);
+            List<HUDAnimSprite> hearts = hudFactory.MakeHearts(CharacterConstants.MAX_HEARTS, "Heart", position, spriteSize);
 
             // How many can the player use?
             for(int i = 0; i < maxHearts; i++)
             {
-                LifeForce[i].SetSprite("FullHeart");
+                hearts[i].SetSprite("FullHeart");
             }
 
-            return LifeForce;
+            return hearts;
         }
 
         public HUDAnimSprite MakeDeathHeart()
         {
-            LifeForce = hudFactory.MakeHearts(maxHearts, "Heart", data.MenuHeartPos, data.NumSpriteSize);
+            HUDAnimSprite heart = hudFactory.MakeHearts(1, "Heart", data.MenuHeartPos, data.NumSpriteSize)[0];
 
-            LifeForce[0].SetSprite("FullHeart");
+            heart.SetSprite("FullHeart");
 
-            return LifeForce[0];
+            return heart;
         }
 
         public List<HUDAnimSprite> MakeLevelNumber(string level, Vector2 position, int spriteSize)
