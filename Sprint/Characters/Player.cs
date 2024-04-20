@@ -121,6 +121,7 @@ namespace Sprint.Characters
 
             // Set up projectile factory
             secondaryItems = new SimpleProjectileFactory(spriteLoader, CharacterConstants.PROJECTILE_SPAWN_DISTANCE, false, null);         
+            
         }
 
         public SimpleProjectileFactory GetProjectileFactory()
@@ -357,34 +358,74 @@ namespace Sprint.Characters
 
         public void MoveLeft()
         {
-            accelerationDirection.X = -1;
-            sprite.SetAnimation("left");
-            Facing = Directions.LEFT;
-            baseAnim = AnimationCycle.Walk;
+            accelerationDirection.X -= 1; // Add to X acceleration to move left
+
+            // Only update baseAnim if not already moving up/down
+            if (accelerationDirection.Y == 0)
+            {
+                sprite.SetAnimation("left");
+                Facing = Directions.LEFT;
+                baseAnim = AnimationCycle.Walk;
+            }
         }
 
         public void MoveRight()
         {
-            accelerationDirection.X = 1;
-            sprite.SetAnimation("right");
-            Facing = Directions.RIGHT;
-            baseAnim = AnimationCycle.Walk;
+            accelerationDirection.X += 1; // Add to X acceleration to move right
+
+            // Only update baseAnim if not already moving up/down
+            if (accelerationDirection.Y == 0)
+            {
+                sprite.SetAnimation("right");
+                Facing = Directions.RIGHT;
+                baseAnim = AnimationCycle.Walk;
+            }
         }
 
         public void MoveUp()
         {
-            accelerationDirection.Y = -1;
-            sprite.SetAnimation("up");
-            Facing = Directions.UP;
-            baseAnim = AnimationCycle.Walk;
+            accelerationDirection.Y -= 1; // Add to Y acceleration to move up
+
+            // Only update baseAnim if not already moving left/right
+            if (accelerationDirection.X == 0)
+            {
+                sprite.SetAnimation("up");
+                Facing = Directions.UP;
+                baseAnim = AnimationCycle.Walk;
+            }
         }
 
         public void MoveDown()
         {
-            accelerationDirection.Y = 1;
-            sprite.SetAnimation("down");
-            Facing = Directions.DOWN;
-            baseAnim = AnimationCycle.Walk;
+            accelerationDirection.Y += 1; // Add to Y acceleration to move down
+
+            // Only update baseAnim if not already moving left/right
+            if (accelerationDirection.X == 0)
+            {
+                sprite.SetAnimation("down");
+                Facing = Directions.DOWN;
+                baseAnim = AnimationCycle.Walk;
+            }
+        }
+
+        public void ReleaseLeft()
+        {
+            accelerationDirection.X += 1; // Subtract from X acceleration when left key is released
+        }
+
+        public void ReleaseRight()
+        {
+            accelerationDirection.X -= 1; // Subtract from X acceleration when right key is released
+        }
+
+        public void ReleaseUp()
+        {
+            accelerationDirection.Y += 1; // Subtract from Y acceleration when up key is released
+        }
+
+        public void ReleaseDown()
+        {
+            accelerationDirection.Y -= 1; // Subtract from Y acceleration when down key is released
         }
 
         public void StopMovingLeftRight()
@@ -393,12 +434,12 @@ namespace Sprint.Characters
             if ((accelerationDirection.X == -1 && accelerationDirection.Y == 0) ||
                 (accelerationDirection.X == 1 && accelerationDirection.Y == 0))
             {
-                accelerationDirection.X = 0;
+                accelerationDirection.X = 0; // Stop horizontal movement
             }
             // If player is still moving diagonally up or down-right, update the acceleration to only up or down
             else if (accelerationDirection.Y != 0)
             {
-                accelerationDirection.X = 0;
+                accelerationDirection.X = 0; // Stop horizontal movement
             }
         }
 
@@ -408,15 +449,14 @@ namespace Sprint.Characters
             if ((accelerationDirection.Y == -1 && accelerationDirection.X == 0) ||
                 (accelerationDirection.Y == 1 && accelerationDirection.X == 0))
             {
-                accelerationDirection.Y = 0;
+                accelerationDirection.Y = 0; // Stop vertical movement
             }
             // If player is still moving diagonally left or right-down, update the acceleration to only left or right
             else if (accelerationDirection.X != 0)
             {
-                accelerationDirection.Y = 0;
+                accelerationDirection.Y = 0; // Stop vertical movement
             }
         }
-
 
 
         public Physics GetPhysic()
@@ -438,6 +478,7 @@ namespace Sprint.Characters
                 sprite.SetAnimation("down");
                 damagedSprite.SetAnimation("down");
             }
+
 
 
             // Determine the animation based on acceleration
