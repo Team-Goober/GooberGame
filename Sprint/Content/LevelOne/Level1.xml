@@ -1076,11 +1076,11 @@
 			
 			<TileGrid>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
-				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
+				<Item>0 0 0 0 0 1 1 0 0 0 0 0</Item>
+				<Item>0 0 0 0 1 0 0 1 0 0 0 0</Item>
+				<Item>0 0 0 1 0 0 0 0 1 0 0 0</Item>
+				<Item>0 0 1 0 0 0 0 0 0 1 0 0</Item>
+				<Item>0 1 0 0 0 0 0 0 0 0 1 0</Item>
 				<Item>0 0 0 0 0 0 0 0 0 0 0 0</Item>
 			</TileGrid>
 
@@ -1093,28 +1093,38 @@
           </Items>
 			<Enemies>
 				<Item>
-					<Type>bluebubble</Type>
-					<TilePos>5 0</TilePos>
-				    <ItemDrop Null="true" />
-				</Item>
-			    <Item>
-					<Type>bluebubble</Type>
-					<TilePos>6 0</TilePos>
-				    <ItemDrop Null="true" />
-				</Item>
-					<Item>
-					<Type>bluebubble</Type>
+					<Type>dog</Type>
 					<TilePos>0 0</TilePos>
-				    <ItemDrop Null="true" />
+				    <ItemDrop>rupee</ItemDrop>
 				</Item>
 				<Item>
-					<Type>bluebubble</Type>
-					<TilePos>8 5</TilePos>
-				    <ItemDrop Null="true" />
+					<Type>dog</Type>
+					<TilePos>11 0</TilePos>
+					<ItemDrop>heart</ItemDrop>
+				</Item>
+			    <Item>
+					<Type>dog</Type>
+					<TilePos>3 3</TilePos>
+					<ItemDrop>key</ItemDrop>
+				</Item>
+			    <Item>
+					<Type>slime</Type>
+					<TilePos>3 4</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+					<Item>
+					<Type>slime</Type>
+					<TilePos>4 4</TilePos>
+					<ItemDrop>rupee</ItemDrop>
+				</Item>
+				<Item>
+					<Type>slime</Type>
+					<TilePos>0 6</TilePos>
+					<ItemDrop>rupee</ItemDrop>
 				</Item>
 			</Enemies>
           <TextBoxes />
-          <Stairs />
+			<Stairs/>
         </Item>
         <Item>
           <!--Row 6 Col 4 Room Index 16-->
