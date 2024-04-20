@@ -3,27 +3,26 @@ using System;
 
 namespace Sprint.Characters
 {
-    internal class MoveHand : EnemyAI
+    internal class MoveDog : EnemyAI
     {
         private float elapsedTime;
         public Vector2 moveDirection; // Movement direction for the random pattern
         public Vector2 directionFace;
         CalculateDistance calcDistance;
 
-
-
         Physics physics;
 
         Player player;
 
 
-        public MoveHand(Physics physics, Player player)
+        public MoveDog(Physics physics, Player player)
         {
 
             this.physics = physics;
             this.player = player;
+            
 
-
+            
 
             // Initialize the move direction randomly
             RandomizeMoveDirection();
@@ -31,11 +30,12 @@ namespace Sprint.Characters
 
 
 
+
         // Move AI for MoveVert
         public override void MoveAI(GameTime gameTime)
         {
-            float speed = 200; // Adjust the speed as needed
-            float moveTime = (float)0.2; // Time before changing direction (in seconds)
+            float speed = 100; // Adjust the speed as needed
+            float moveTime = (float)1; // Time before changing direction (in seconds)
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -45,6 +45,7 @@ namespace Sprint.Characters
                 RandomizeMoveDirection();
                 elapsedTime = 0;
             }
+
 
             // Move in the current direction
             Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -67,12 +68,12 @@ namespace Sprint.Characters
             int indDir = random.Next(4);
             directionFace = Directions.GetDirectionFromIndex(indDir);
 
-            if (calcDistance != null)
+            if(calcDistance != null)
             {
                 SetDirection(calcDistance.FindDirection());
             }
-
-
+            
+            
 
         }
 

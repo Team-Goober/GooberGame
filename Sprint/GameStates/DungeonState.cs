@@ -17,9 +17,7 @@ using Sprint.Sprite;
 using System.Collections.Generic;
 using Sprint.Music.Sfx;
 using Sprint.Door;
-using Sprint.Functions;
-using Sprint.Functions.States;
-using Sprint.Items;
+using System;
 
 namespace Sprint
 {
@@ -60,11 +58,12 @@ namespace Sprint
             collisionDetector = new CollisionDetector();
 
             player = new Player(spriteLoader, this);
+          
 
             currentRoom = new(-1, -1);
 
             // Load all rooms in the level from XML file
-            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader);
+            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, player);
             loader.LoadLevelXML("LevelOne/Level1");
 
             map = new MapModel(this);
@@ -288,7 +287,7 @@ namespace Sprint
             player = new Player(spriteLoader, this);
 
             // reload the level
-            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader);
+            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, player);
             loader.LoadLevelXML("LevelOne/Level1");
 
             map = new MapModel(this);
@@ -563,7 +562,8 @@ namespace Sprint
             }
         }
 
-        public Player GetPlayer()
+
+        public Player ReturnPlayer()
         {
             return player;
         }

@@ -1,23 +1,33 @@
 using Microsoft.Xna.Framework;
-using Sprint.Functions.SecondaryItem;
 using System;
 
 namespace Sprint.Characters
 {
-    public class MoveSlime : EnemyAI
+    internal class MoveSlime : EnemyAI
     {
         private float elapsedTime;
-        private Vector2 moveDirection; // Movement direction for the random pattern
+        public Vector2 moveDirection; // Movement direction for the random pattern
         public Vector2 directionFace;
+        CalculateDistance calcDistance;
+        private Timer waitTime;
+        bool waitTF = false;
 
-        
         Physics physics;
 
+        Player player;
 
-        public MoveSlime(Physics physics)
+
+        public MoveSlime(Physics physics, Player player)
         {
 
             this.physics = physics;
+            this.player = player;
+            waitTime = new Timer(1);
+            
+
+
+
+
 
             // Initialize the move direction randomly
             RandomizeMoveDirection();
@@ -30,20 +40,36 @@ namespace Sprint.Characters
         public override void MoveAI(GameTime gameTime)
         {
             float speed = 100; // Adjust the speed as needed
-            float moveTime = (float)0.5; // Time before changing direction (in seconds)
+            float moveTime = (float)1; // Time before changing direction (in seconds)
+            float waitTime = 0.5f;
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (elapsedTime > moveTime)
+            if (waitTF)
             {
-                // Change direction after the specified time
-                RandomizeMoveDirection();
-                elapsedTime = 0;
+                if(elapsedTime > waitTime)
+                {
+                    RandomizeMoveDirection();
+                    waitTF = false;
+                    elapsedTime = 0;
+                }
+            }
+            else
+            {
+                if(elapsedTime > moveTime) {
+
+                    waitTF = true;
+                    elapsedTime = 0;
+                }
+                else
+                {
+                    Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    physics.SetPosition(newPosition);
+                }
             }
 
-            // Move in the current direction
-            Vector2 newPosition = physics.Position + moveDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            physics.SetPosition(newPosition);
+
+
         }
 
 
@@ -51,12 +77,23 @@ namespace Sprint.Characters
         // Choose a random direction to move
         public void RandomizeMoveDirection()
         {
+
+            if (player != null)
+            {
+                calcDistance = new CalculateDistance(physics, player);
+            }
+
             // Generate a random movement direction
             Random random = new Random();
             int indDir = random.Next(4);
             directionFace = Directions.GetDirectionFromIndex(indDir);
-            SetDirection(directionFace);
-            
+
+            if (calcDistance != null)
+            {
+                SetDirection(calcDistance.FindDirection());
+            }
+
+
 
         }
 

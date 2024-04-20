@@ -13,6 +13,7 @@ using Sprint.Music.Songs;
 using Sprint.Sprite;
 using System.Collections.Generic;
 using XMLData;
+using System;
 
 namespace Sprint.Loader
 {
@@ -33,19 +34,23 @@ namespace Sprint.Loader
         // Dictionaries to link doors that aren't on cardinal dirs
         private Dictionary<int, IDoor> stairs;
         private Dictionary<int, int> stairLinks;
+        private Player player;
 
         private int levelNumber;
 
-        public LevelLoader(ContentManager newContent, DungeonState dungeon, SpriteLoader spriteLoader)
+        public LevelLoader(ContentManager newContent, DungeonState dungeon, SpriteLoader spriteLoader, Player player)
         {
             this.content = newContent;
             this.dungeon = dungeon;
             this.spriteLoader = spriteLoader;
+            this.player = player;
+
+        
 
             tileFactory = new(spriteLoader);
             doorFactory = new(spriteLoader);
             itemFactory = new(spriteLoader);
-            enemyFactory = new(spriteLoader);
+            enemyFactory = new EnemyFactory(spriteLoader, player);
             songHandler = SongHandler.GetInstance();
         }
 
@@ -256,8 +261,10 @@ namespace Sprint.Loader
             //Load enemies
             foreach (EnemySpawnData spawn in rd.Enemies)
             {
+                
                 Vector2 position = lvl.FloorGridPos + (spawn.TilePos + new Vector2(0.5f)) * lvl.TileSize;
                 Enemy en = enemyFactory.MakeEnemy(spawn.Type, position, room);
+                
                 // Give item drop
                 if(spawn.ItemDrop != null)
                 {
