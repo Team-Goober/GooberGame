@@ -58,7 +58,7 @@ namespace Sprint.HUD
             List<HUDAnimSprite> hearts = new List<HUDAnimSprite>();
 
             float x = position.X;
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < amount; i++)
             {
                 ISprite sprite = spriteLoader.BuildSprite(LOCATION, spriteLabel);
                 hearts.Add(new HUDAnimSprite(sprite, new Vector2(x, position.Y)));

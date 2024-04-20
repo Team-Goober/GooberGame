@@ -19,6 +19,7 @@ using Sprint.Sprite;
 using System.Collections.Generic;
 using Sprint.Music.Sfx;
 using Sprint.Functions.States;
+using System.Diagnostics;
 
 namespace Sprint
 {
@@ -28,7 +29,7 @@ namespace Sprint
         private Goober game;
         private ContentManager contentManager;
         private SpriteLoader spriteLoader;
-        
+
         private IInputMap inputTable;
         private CollisionDetector collisionDetector;
 
@@ -104,6 +105,7 @@ namespace Sprint
 
             player.OnPlayerHealthChange -= hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange -= hudLoader.UpdateMaxHeartAmount;
+
         }
 
         // Generates all commands available while the player is moving in a room
@@ -428,6 +430,11 @@ namespace Sprint
             GameOverState death = new GameOverState(game, hudLoader);
             death.GetHUDScene(hudLoader.GetTopDisplay());
             PassToState(death);
+        }
+
+        public void Continue()
+        {
+            player.Heal();
         }
 
         public Point RoomIndex()

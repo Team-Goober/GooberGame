@@ -438,6 +438,12 @@ namespace Sprint.Characters
             }
             OnPlayerHealthChange?.Invoke(prevHealth, health);
         }
+        
+        //@override heals to full health
+        public void  Heal()
+        {
+            Heal(maxHealth - health);
+        }
 
         public void IncreaseHearts()
         {
