@@ -289,6 +289,22 @@
         <Quantity>2</Quantity>
       </Value>
     </Item>
+	  <Item>
+		  <Key>steelpants</Key>
+		  <Value>
+			  <Label>steelpants</Label>
+			  <Description>RING|halfs run speed</Description>
+			  <Sprite>steelpants</Sprite>
+			  <Effect>Sprint.Items.Effects.ChangeSpeedEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>speedChange</Name>
+					  <Value Type="float">-50</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.PassivePowerup</Type>
+		  </Value>
+	  </Item>
     <Item>
       <Key>hookShot</Key>
       <Value>
@@ -317,6 +333,58 @@
         <Quantity>2</Quantity>
       </Value>
     </Item>
+	  <Item>
+		  <Key>Apple</Key>
+		  <Value Type="XMLData:StackedPowerupData">
+			  <Label>apple</Label>
+			  <Description>MEAT|heals 1 heart</Description>
+			  <Sprite>Apple</Sprite>
+			  <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>amount</Name>
+					  <Value Type="float">2</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.ConsumableAbility</Type>
+			  <Quantity>2</Quantity>
+		  </Value>
+	  </Item>
+	  <Item>
+		  <Key>GoldApple</Key>
+		  <Value Type="XMLData:StackedPowerupData">
+			  <Label>apple</Label>
+			  <Description>MEAT|heals 1 heart</Description>
+			  <Sprite>GoldApple</Sprite>
+			  <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>amount</Name>
+					  <Value Type="float">2</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.ConsumableAbility</Type>
+			  <Quantity>2</Quantity>
+		  </Value>
+	  </Item>
+	  <Item>
+		  <Key>Bread</Key>
+		  <Value Type="XMLData:StackedPowerupData">
+			  <Label>bread</Label>
+			  <Description>BREAD|heals 1 heart</Description>
+			  <Sprite>Bread</Sprite>
+			  <Effect>Sprint.Items.Effects.HealPlayerEffect</Effect>
+			  <EffectParams>
+				  <Item>
+					  <Name>amount</Name>
+					  <Value Type="float">1</Value>
+				  </Item>
+			  </EffectParams>
+			  <Type>Sprint.Items.ConsumableAbility</Type>
+			  <Quantity>1</Quantity>
+		  </Value>
+	  </Item>
+
     <Item>
       <Key>redCandle</Key>
       <Value>

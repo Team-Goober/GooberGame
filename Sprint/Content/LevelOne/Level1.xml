@@ -1346,6 +1346,26 @@
               <TilePos>4 3</TilePos>
               <Price>0</Price>
             </Item>
+			<Item>
+				<Type>steelpants</Type>
+				<TilePos>4 2</TilePos>
+				<Price>0</Price>
+			</Item>
+			  <Item>
+				  <Type>Apple</Type>
+				  <TilePos>4 1</TilePos>
+				  <Price>0</Price>
+			  </Item>
+			  <Item>
+				  <Type>GoldApple</Type>
+				  <TilePos>5 1</TilePos>
+				  <Price>0</Price>
+			  </Item>
+			  <Item>
+				  <Type>Bread</Type>
+				  <TilePos>5 2</TilePos>
+				  <Price>0</Price>
+			  </Item>
             <Item>
               <Type>hookShot</Type>
               <TilePos>4 4</TilePos>
