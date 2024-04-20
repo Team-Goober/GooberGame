@@ -283,6 +283,35 @@ namespace Sprint.Characters
         {
             // Remove acceleration towards direction
             accelerationDirection -= direction;
+            // Update facing based on remaining direction if still accelerating
+            if(accelerationDirection.LengthSquared() > 0)
+            {
+                if (Math.Abs(accelerationDirection.X) >= Math.Abs(accelerationDirection.Y))
+                {
+                    // Horizontal movement dominates
+                    if (accelerationDirection.X >= 0)
+                    {
+                        Facing = Directions.RIGHT;
+                    }
+                    else
+                    {
+                        Facing = Directions.LEFT;
+                    }
+                }
+                else
+                {
+                    // Vertical movement dominates
+                    if (accelerationDirection.Y >= 0)
+                    {
+                        Facing = Directions.DOWN;
+                    }
+                    else
+                    {
+                        Facing = Directions.UP;
+                    }
+                }
+            }
+            
         }
     
 
