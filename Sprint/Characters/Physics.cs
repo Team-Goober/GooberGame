@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -34,21 +35,21 @@ namespace Sprint.Characters
             Acceleration = newAcceleration;
         }
 
-        public void UpdateVelocity(float baseFriction, float speedLimit, GameTime gameTime)
+        public void UpdateVelocity(float speedLimit, GameTime gameTime)
         {
             // Calculate friction dynamically based on velocity
-            float friction = baseFriction;
+            float friction = CharacterConstants.STILL_FRICTION;
             if (Velocity.LengthSquared() > 0)
             {
-                // Apply higher friction if the object is moving
+                // Apply lower friction if the object is moving
                 friction = CharacterConstants.MOVING_FRICTION;
             }
 
             // Update velocity based on acceleration
-            Vector2 newVelocity = Velocity + Acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Vector2 newVelocity = Velocity + Acceleration * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
             // Apply friction to gradually slow down the object
-            newVelocity *= 1f - friction;
+            newVelocity *= (float)Math.Pow(1f - friction, (float)gameTime.ElapsedGameTime.TotalMilliseconds);
 
             // If the magnitude of the velocity exceeds the speed limit, normalize it and scale it to the limit
             if (newVelocity.LengthSquared() > speedLimit * speedLimit)

@@ -403,7 +403,7 @@ namespace Sprint.Characters
             physics.SetAcceleration(normalizedDir * accelerationRate);
 
             // Update the velocity using the Physics component
-            physics.UpdateVelocity(CharacterConstants.STILL_FRICTION, speed, gameTime);
+            physics.UpdateVelocity(speed, gameTime);
 
             // Determine the animation based on acceleration
             if (physics.Acceleration != Vector2.Zero)
