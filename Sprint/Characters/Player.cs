@@ -42,8 +42,6 @@ namespace Sprint.Characters
         private float sideLength = CharacterConstants.DEFAULT_SIDE_LENGTH * CharacterConstants.COLLIDER_SCALE;
         private int maxHealth = CharacterConstants.STARTING_HEALTH;
         private double health = CharacterConstants.STARTING_HEALTH;
-        private float speed = CharacterConstants.PLAYER_SPEED;
-        private bool stopped = false;
 
         // Weapons
         private SimpleProjectileFactory secondaryItems;
@@ -92,10 +90,9 @@ namespace Sprint.Characters
         private AnimationCycle baseAnim;
 
         // Acceleration vector for player movement
-        private Vector2 acceleration = Vector2.Zero;
         private Vector2 accelerationDirection = Vector2.Zero;
         private float accelerationRate = CharacterConstants.ACCELERATION_RATE;
-        private float speedLimit = CharacterConstants.PLAYER_SPEED;
+        private float speed = CharacterConstants.PLAYER_SPEED;
 
         //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
@@ -402,10 +399,11 @@ namespace Sprint.Characters
         public override void Update(GameTime gameTime)
         {
             // Update the acceleration based on the current acceleration direction
-            physics.SetAcceleration(accelerationDirection * accelerationRate);
+            Vector2 normalizedDir = (accelerationDirection.LengthSquared() > 0) ? Vector2.Normalize(accelerationDirection) : Vector2.Zero;
+            physics.SetAcceleration(normalizedDir * accelerationRate);
 
             // Update the velocity using the Physics component
-            physics.UpdateVelocity(CharacterConstants.STILL_FRICTION, speedLimit, gameTime);
+            physics.UpdateVelocity(CharacterConstants.STILL_FRICTION, speed, gameTime);
 
             // Determine the animation based on acceleration
             if (physics.Acceleration != Vector2.Zero)

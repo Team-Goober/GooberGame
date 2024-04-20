@@ -201,7 +201,7 @@
 		  <Value Type="XMLData:StackedPowerupData">
 			  <Label>goldknife</Label>
 			  <Description>GOLD KNIFE|floating sword|more range</Description>
-			  <Sprite>steelknife</Sprite>
+			  <Sprite>goldknife</Sprite>
 			  <Effect>Sprint.Items.Effects.SwordCompanionEffect</Effect>
 			  <EffectParams>
 				  <Item>

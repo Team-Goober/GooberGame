@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprint.Characters
 {
@@ -47,11 +48,7 @@ namespace Sprint.Characters
             Vector2 newVelocity = Velocity + Acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // Apply friction to gradually slow down the object
-            newVelocity *= (1f - friction);
-
-            // Clamp velocity components to ensure they don't exceed the speed limit
-            newVelocity.X = MathHelper.Clamp(newVelocity.X, -speedLimit, speedLimit);
-            newVelocity.Y = MathHelper.Clamp(newVelocity.Y, -speedLimit, speedLimit);
+            newVelocity *= 1f - friction;
 
             // If the magnitude of the velocity exceeds the speed limit, normalize it and scale it to the limit
             if (newVelocity.LengthSquared() > speedLimit * speedLimit)

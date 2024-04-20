@@ -65,8 +65,6 @@ namespace Sprint.Characters
         // Update DragonEnemy logic
         public override void Update(GameTime gameTime)
         {
-            //timeAttack.Update(gameTime);
-            base.Update(gameTime);
 
             projFire.Update(gameTime, physics, moveDirection);
             // Move randomly within a specified area
@@ -76,9 +74,7 @@ namespace Sprint.Characters
             // Set animation based on the new direction
             SetAnimationBasedOnDirection();
 
-            // Update the sprite and physics
-            sprite.Update(gameTime);
-            physics.Update(gameTime);
+            base.Update(gameTime);
         }
 
         // Set animation based on the direction of movement
