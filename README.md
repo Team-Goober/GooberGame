@@ -17,7 +17,7 @@
 - I to open inventory, Can Press Z or X to equip selected item.
 - Z to select item from inventory
 - C to delete item from inventory
-- UP,DOWN,Left,Right and WASD control inventory position  
+- Up, Down, Left, Right and WASD controls inventory position  
 - M1/M2 click to change rooms sequentially
 - M3 click on a door to go into that door directly
 
@@ -44,6 +44,7 @@
 - When continue state is activated health is not updated to the HUD for some reason
 - Movement is sometimes buggy - can charge speed if moving while stuck on a tile
 - After dying and hitting sometimes player will keep walking without any button trigger
+- Sometimes random room generator takes a long time to proceed
 
 ## Assumption
 - All characters are pushable
