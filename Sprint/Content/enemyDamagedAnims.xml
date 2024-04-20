@@ -102,7 +102,7 @@
 	<Item>
     <Key>dog</Key>
     <Value>
-      <Texture>zelda_enemies</Texture>
+      <Texture>Damaged/zelda_enemies</Texture>
       <Animations>
         <Item>
           <Key>downFacing</Key>
