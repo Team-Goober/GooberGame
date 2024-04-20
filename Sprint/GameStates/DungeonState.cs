@@ -18,10 +18,6 @@ using Sprint.Loader;
 using Sprint.Sprite;
 using System.Collections.Generic;
 using Sprint.Music.Sfx;
-using Sprint.Door;
-using System;
-using Sprint.Functions;
-using Sprint.Functions.Music;
 using Sprint.Functions.States;
 
 namespace Sprint
@@ -53,7 +49,6 @@ namespace Sprint
         private HUDLoader hudLoader;
 
         private bool sleeping; // True when state isnt being updated
-        private MultipleKeyReleaseTrigger stopMovingTrigger;
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
         {
             this.game = game;
@@ -250,8 +245,6 @@ namespace Sprint
             // Complete additions and deletions resulting from collisions
             currRoom.EndCycle();
 
-
-  
 
         }
 
@@ -496,12 +489,6 @@ namespace Sprint
         public Point GetCompassPointer()
         {
             return compassPointer;
-        }
-
-
-        public Player ReturnPlayer()
-        {
-            return player;
         }
 
     }
