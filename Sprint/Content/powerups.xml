@@ -369,6 +369,17 @@
         <Type>Sprint.Items.ActiveAbility</Type>
       </Value>
     </Item>
+	  <Item>
+		  <Key>lavaShot</Key>
+		  <Value>
+			  <Label>lavaShot</Label>
+			  <Description>LAVA SHOT|Shoots lava and once hit turns into lava</Description>
+			  <Sprite>lavabucket</Sprite>
+			  <Effect>Sprint.Items.Effects.SpawnLavaEffect</Effect>
+			  <EffectParams />
+			  <Type>Sprint.Items.ActiveAbility</Type>
+		  </Value>
+	  </Item>
     <Item>
       <Key>meat</Key>
       <Value Type="XMLData:StackedPowerupData">

@@ -71,6 +71,9 @@ namespace Sprint.Projectile
                 case "hook":
                     ret = CreateHook(shooter);
                     break;
+                case "lavabucket":
+                    ret = CreateLava(shooter);
+                    break;
             }
             return ret;
         }
@@ -114,6 +117,14 @@ namespace Sprint.Projectile
                 spriteLoader.BuildSprite(ANIMS_FILE, "boomerang"),
                 getSpawnPosition(), direction, isEnemy, room);
             proj.SetSmokeCommand(new PlaceSmoke(proj, CreateSmoke()));
+            return proj;
+        }
+
+        public LavaBucket CreateLava(Character shooter)
+        {
+            LavaBucket proj = new LavaBucket(
+                spriteLoader.BuildSprite(ANIMS_FILE, "lavabucket"),
+                getSpawnPosition(), direction, isEnemy, room, shooter);
             return proj;
         }
 

@@ -1386,6 +1386,11 @@
 				  <TilePos>5 6</TilePos>
 				  <Price>0</Price>
 			  </Item>
+			  <Item>
+				  <Type>lavaShot</Type>
+				  <TilePos>6 2</TilePos>
+				  <Price>0</Price>
+			  </Item>
             <Item>
               <Type>hookShot</Type>
               <TilePos>4 4</TilePos>
