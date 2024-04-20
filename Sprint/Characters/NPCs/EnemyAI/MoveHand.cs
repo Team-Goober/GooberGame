@@ -1,31 +1,29 @@
-using Microsoft.Xna.Framework.Graphics;
-using Sprint.Interfaces;
 using Microsoft.Xna.Framework;
-using Sprint.Commands.SecondaryItem;
 using System;
-using Sprint.Projectile;
-using Sprint.Sprite;
-using Sprint.Levels;
-using Sprint.Collision;
-using Sprint;
 
 namespace Sprint.Characters
 {
-    public class MoveHand : EnemyAI
+    internal class MoveHand : EnemyAI
     {
         private float elapsedTime;
         public Vector2 moveDirection; // Movement direction for the random pattern
         public Vector2 directionFace;
+        CalculateDistance calcDistance;
 
 
 
         Physics physics;
 
+        Player player;
 
-        public MoveHand(Physics physics)
+
+        public MoveHand(Physics physics, Player player)
         {
 
             this.physics = physics;
+            this.player = player;
+
+
 
             // Initialize the move direction randomly
             RandomizeMoveDirection();
@@ -33,12 +31,11 @@ namespace Sprint.Characters
 
 
 
-
         // Move AI for MoveVert
         public override void MoveAI(GameTime gameTime)
         {
-            float speed = 100; // Adjust the speed as needed
-            float moveTime = (float)1; // Time before changing direction (in seconds)
+            float speed = 200; // Adjust the speed as needed
+            float moveTime = (float)0.2; // Time before changing direction (in seconds)
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -59,12 +56,23 @@ namespace Sprint.Characters
         // Choose a random direction to move
         public void RandomizeMoveDirection()
         {
+
+            if (player != null)
+            {
+                calcDistance = new CalculateDistance(physics, player);
+            }
+
             // Generate a random movement direction
             Random random = new Random();
             int indDir = random.Next(4);
             directionFace = Directions.GetDirectionFromIndex(indDir);
-            SetDirection(directionFace);
-            
+
+            if (calcDistance != null)
+            {
+                SetDirection(calcDistance.FindDirection());
+            }
+
+
 
         }
 

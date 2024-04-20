@@ -1,14 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Sprint.Characters;
-using Sprint.Collision;
-using Sprint.Commands;
 using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
 using Sprint.Levels;
 using Sprint.Music.Sfx;
-using Sprint.Sprite;
-using System;
 
 namespace Sprint.Projectile
 {

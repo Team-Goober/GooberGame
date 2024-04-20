@@ -11,7 +11,7 @@ namespace Sprint.Projectile
     {
         private const int SPEED = 200;
         private const int TRAVEL = 600;
-        private const int RETURN_TRAVEL = 200;
+        private const int RETURN_TRAVEL = 400;
         private bool returned;
         private PlaceSmoke smoke;
         private SfxFactory sfxFactory;

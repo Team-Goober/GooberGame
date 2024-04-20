@@ -1,7 +1,6 @@
-using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Microsoft.Xna.Framework;
-using Sprint.Commands.SecondaryItem;
+using Sprint.Functions.SecondaryItem;
 using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
@@ -58,7 +57,6 @@ namespace Sprint.Characters
         public override void Update(GameTime gameTime)
         {
             timeAttack.Update(gameTime);
-            base.Update(gameTime);
 
             // Uses timer to shoot projectiles every 2 seconds
             if (timeAttack.JustEnded)
@@ -72,9 +70,8 @@ namespace Sprint.Characters
             // Calculate movement based on elapsed time for the random pattern
             MoveRandomly(gameTime);
 
-            // Update the sprite and physics
-            sprite.Update(gameTime);
-            physics.Update(gameTime);
+
+            base.Update(gameTime);
         }
 
         // Set animation based on the direction of movement

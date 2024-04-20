@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sprint.Functions.DeathState;
+using Sprint.Characters;
+using Sprint.Functions.States;
 using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
@@ -18,7 +19,7 @@ namespace Sprint.GameStates
         private Goober game;
         private IInputMap input;
 
-        private SceneObjectManager roomManager;
+        private SceneObjectManager saveHud;
         private SceneObjectManager hudManager;
         private SceneObjectManager menuManager;
 
@@ -42,16 +43,18 @@ namespace Sprint.GameStates
             originalPos = heartPointer.GetPosition();
 
             input = new InputTable();
-        }
-
-        public void GetRoomScene(SceneObjectManager scenes)
-        {
-            this.roomManager = scenes;
+            this.hudManager = new SceneObjectManager();
         }
 
         public void GetHUDScene(SceneObjectManager scenes)
         {
-            this.hudManager = scenes;
+            //this.hudManager = scenes;
+
+            foreach(IGameObject obj in scenes.GetObjects())
+            {
+                this.hudManager.Add(obj);
+            }
+
             IHUD over = hudLoader.MakeGameOver();
             hudManager.Add(over);
 
@@ -59,11 +62,6 @@ namespace Sprint.GameStates
             timer.Elapsed += SwitchScene;
             timer.AutoReset = false;
             timer.Start();
-        }
-
-        public List<SceneObjectManager> AllObjectManagers()
-        {
-            return new List<SceneObjectManager>();
         }
 
         public void MakeCommands()
@@ -82,7 +80,7 @@ namespace Sprint.GameStates
             {
                 heartPointer.SetPosition(position);
             }
-
+            
         }
 
         public void MoveHeartUp()
@@ -104,11 +102,6 @@ namespace Sprint.GameStates
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            // Define a custom BlendState for blending two colors together
-            //BlendState blend = new BlendState();
-            //blend.ColorBlendFunction = BlendFunction.Add;
-            //blend.ColorSourceBlend = Blend.DestinationColor;
-            //blend.ColorDestinationBlend = Blend.Zero;
 
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
@@ -125,6 +118,7 @@ namespace Sprint.GameStates
             hudManager.ClearObjects();
             hudManager = menuManager;
             MakeCommands();
+
         }
 
         public void Update(GameTime gameTime)
@@ -136,7 +130,15 @@ namespace Sprint.GameStates
 
         public void CloseDeathMenu()
         {
-            ((DungeonState)game.GetDungeonState()).ResetGame();
+            if(originalPos == heartPointer.GetPosition())
+            {
+                ((DungeonState)game.GetDungeonState()).Continue();
+
+            } else
+            {
+                ((DungeonState)game.GetDungeonState()).ResetGame();
+            }
+
             PassToState(game.GetDungeonState());
         }
     }

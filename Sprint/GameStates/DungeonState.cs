@@ -4,23 +4,22 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Characters;
 using Sprint.Collision;
-using Sprint.Commands;
-using Sprint.Commands.SecondaryItem;
-using Sprint.Functions;
+using Sprint.Functions.SecondaryItem;
 using Sprint.Functions.RoomTransition;
+using Sprint.Functions.Music;
 using Sprint.GameStates;
 using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
-using Sprint.Items;
 using Sprint.Levels;
+using Sprint.Functions;
+using Sprint.Items;
 using Sprint.Loader;
 using Sprint.Sprite;
-using Sprint.Functions.DeathState;
 using System.Collections.Generic;
-using Sprint.Functions.Music;
 using Sprint.Music.Sfx;
-using Sprint.Door;
+using Sprint.Functions.States;
+using System.Diagnostics;
 
 namespace Sprint
 {
@@ -30,7 +29,7 @@ namespace Sprint
         private Goober game;
         private ContentManager contentManager;
         private SpriteLoader spriteLoader;
-        
+
         private IInputMap inputTable;
         private CollisionDetector collisionDetector;
 
@@ -45,29 +44,27 @@ namespace Sprint
 
         private Player player; // Player game object to be moved as rooms switch
 
-        private IDoor[,,] doorReference;
-        private Rectangle[] doorBounds;
+        private Rectangle[] doorBounds; // Bounds of the doors in each room for click-through
         private MapModel map; // Tracks revealing of rooms for UI
         private Point compassPointer; // Room indices for triforce location
         private HUDLoader hudLoader;
 
         private bool sleeping; // True when state isnt being updated
-
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
         {
             this.game = game;
             this.contentManager = contentManager;
             this.spriteLoader = spriteLoader;
 
-
             collisionDetector = new CollisionDetector();
 
             player = new Player(spriteLoader, this);
+          
 
             currentRoom = new(-1, -1);
 
             // Load all rooms in the level from XML file
-            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader);
+            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, player);
             loader.LoadLevelXML("LevelOne/Level1");
 
             map = new MapModel(this);
@@ -80,86 +77,76 @@ namespace Sprint
 
             // enter first room
             SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
-
+            
         }
 
+        // Connect all of the signals
         private void loadDelegates ()
         {
             Inventory inventory = player.GetInventory();
-            inventory.InventoryEvent += hudLoader.OnInventoryEvent;
-            inventory.InventoryEvent += this.OnInventoryEvent;
+            inventory.ListingUpdateEvent += hudLoader.OnListingUpdateEvent;
+
             inventory.SelectorChooseEvent += hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent += hudLoader.OnSelectorMoveEvent;
 
-            inventory.WinEvent += this.WinScreen;
             player.OnPlayerHealthChange += hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange += hudLoader.UpdateMaxHeartAmount;
-            inventory.InventoryEvent += player.OnInventoryEvent;
+
         }
 
+        // Disconnect all of the signals
         private void unloadDelegates()
         {
             Inventory inventory = player.GetInventory();
-            inventory.InventoryEvent -= hudLoader.OnInventoryEvent;
-            inventory.InventoryEvent -= this.OnInventoryEvent;
+            inventory.ListingUpdateEvent -= hudLoader.OnListingUpdateEvent;
+
             inventory.SelectorChooseEvent -= hudLoader.OnSelectorChooseEvent;
             ((InventoryState)game.GetInventoryState()).SelectorMoveEvent -= hudLoader.OnSelectorMoveEvent;
 
-            inventory.WinEvent -= this.WinScreen;
             player.OnPlayerHealthChange -= hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange -= hudLoader.UpdateMaxHeartAmount;
-            inventory.InventoryEvent -= player.OnInventoryEvent;
-        }
 
-        public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
-        {
-            switch (it)
-            {
-                case ItemType.Map:
-                    map.RevealAll();
-                    break;
-                case ItemType.Compass:
-                    map.PlaceCompass();
-                    break;
-                default:
-                    break;
-            }
         }
 
         // Generates all commands available while the player is moving in a room
         public void MakeCommands()
         {
-            // TODO: These are here because they refer to InventoryState, which may not exist yet. Should be moved
-            ((InventoryState)game.GetInventoryState()).SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
-            ((InventoryState)game.GetInventoryState()).AttachPlayer(player);
+            // Make the changes that require InventoryState
             loadDelegates();
+            hudLoader.SetSlotsArray(player.GetInventory().GetAbilities());
+            hudLoader.OnListingUpdateEvent(player.GetInventory().GetListing());
+            InventoryState inventoryState = (InventoryState)game.GetInventoryState();
+            inventoryState.SetHUD(hudLoader, new Vector2(arenaPosition.X, Goober.gameHeight - arenaPosition.Y));
+            inventoryState.AttachPlayer(player);
+            inventoryState.MakeCommands();
 
             inputTable = new InputTable();
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new MoveUp(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.S), new MoveDown(player));
 
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveLeft(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveRight(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Up), new MoveUp(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveDown(player));
 
-            Keys[] moveKeys = { Keys.A, Keys.D, Keys.W, Keys.S, Keys.Left, Keys.Right, Keys.Up, Keys.Down };
-            inputTable.RegisterMapping(new MultipleKeyReleaseTrigger(moveKeys), new StopMoving(player));
+            // Register single key press triggers for movement
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new Walk(player, Directions.UP));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new Walk(player, Directions.LEFT));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.S), new Walk(player, Directions.DOWN));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new Walk(player, Directions.RIGHT));
 
-            //Melee Regular Sword Attack
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Melee(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.N), new Melee(player));
+            // Register SingleKeyReleaseTrigger for each movement direction
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.W), new ReleaseWalk(player, Directions.UP));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.A), new ReleaseWalk(player, Directions.LEFT));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.S), new ReleaseWalk(player, Directions.DOWN));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.D), new ReleaseWalk(player, Directions.RIGHT));
+
 
             //Player uses a cast move
-            // TODO: shouldnt bind separately from shoot commands
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Cast(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new Cast(player));
 
-            // Using item slot B
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseBWeaponCommand(player));
+            // Using item slots
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new UseWeaponCommand(player, 0));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.X), new UseWeaponCommand(player, 1));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.Z), new ReleaseWeaponCommand(player, 0));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.X), new ReleaseWeaponCommand(player, 1));
 
             // Reset command
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.R), new Reset(this));
@@ -174,28 +161,20 @@ namespace Sprint
             // Switching to the inventory state
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new OpenInventoryCommand(this));
 
+            // Press to give player 10 rupees
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new EarnCommand(player, 10));
+
             // Middle click through doors
-            for (int i = 0; i < doorReference.GetLength(0); i++)
+            for (int d = 0; d < 4; d++)
             {
-                IDoor[,] slice = new IDoor[doorReference.GetLength(1), doorReference.GetLength(2)];
-                for (int r = 0; r < doorReference.GetLength(1); r++)
-                {
-                    for (int c = 0; c < doorReference.GetLength(2); c++)
-                    {
-                        slice[r, c] = doorReference[i, r, c];
-                    }
-                }
-                inputTable.RegisterMapping(new ClickInBoundsTrigger(ClickInBoundsTrigger.MouseButton.Middle, doorBounds[i]),
-                    new SwitchRoomFromDoorsCommand(slice, this));
+                inputTable.RegisterMapping(new ClickInBoundsTrigger(ClickInBoundsTrigger.MouseButton.Middle, doorBounds[d]),
+                    new SwitchRoomFromDoorsCommand(this, Directions.GetDirectionFromIndex(d)));
             }
 
             // SFX and Song controls
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.L), new MusicUp());
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.J), new MusicDown());
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.K), new MusicMuteToggle());
-
-            // Press m to die
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.M), new OpenDeath(this));
 
         }
 
@@ -266,7 +245,7 @@ namespace Sprint
             // Complete additions and deletions resulting from collisions
             currRoom.EndCycle();
 
-            CheckPuzzle(); // TESTING
+
         }
 
         public void PassToState(IGameState newState)
@@ -315,7 +294,7 @@ namespace Sprint
             player = new Player(spriteLoader, this);
 
             // reload the level
-            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader);
+            LevelLoader loader = new LevelLoader(contentManager, this, spriteLoader, player);
             loader.LoadLevelXML("LevelOne/Level1");
 
             map = new MapModel(this);
@@ -328,6 +307,7 @@ namespace Sprint
 
             // remake commands and delegates
             MakeCommands();
+
 
             sleeping = false;
 
@@ -377,7 +357,7 @@ namespace Sprint
             // Move player to new room
             player.SetRoom(rooms[idx.Y][idx.X]);
             currentRoom = idx;
-            player.MoveTo(spawn);
+            player.Move(spawn - player.GetPosition());
 
             // Update map for change
             map.MovePlayer(idx);
@@ -435,22 +415,24 @@ namespace Sprint
             PassToState(scroll);
         }
 
-
+        // Switch to a new win state
         public void WinScreen()
         {
             WinState win = new WinState(game, hudLoader.GetTopDisplay(), rooms[currentRoom.Y][currentRoom.X].GetScene(), player, spriteLoader, arenaPosition);
             PassToState(win);
         }
-            
+
+        // Switch to a new death state
         public void DeathScreen()
         {
             GameOverState death = new GameOverState(game, hudLoader);
-
-            SceneObjectManager currRoom = rooms[currentRoom.Y][currentRoom.X].GetScene();
-
-            //death.GetRoomScene(currRoom);
             death.GetHUDScene(hudLoader.GetTopDisplay());
             PassToState(death);
+        }
+
+        public void Continue()
+        {
+            player.Heal();
         }
 
         public Point RoomIndex()
@@ -473,6 +455,7 @@ namespace Sprint
             return rooms.Length;
         }
 
+        // Clear out room list
         public void ClearRooms(int rows, int cols)
         {
             rooms = new Room[rows][];
@@ -487,14 +470,9 @@ namespace Sprint
             arenaPosition = pos;
         }
 
-        public void SetDoors(IDoor[,,] doors, Rectangle[] bounds)
+        public void SetDoors(Rectangle[] bounds)
         {
-            doorReference = doors;
             doorBounds = bounds;
-        }
-        public IDoor[,,] GetDoors()
-        {
-            return doorReference;
         }
 
         public MapModel GetMap()
@@ -516,83 +494,6 @@ namespace Sprint
         public Point GetCompassPointer()
         {
             return compassPointer;
-        }
-
-        private bool solved1 = false;
-        private bool solved2 = false;
-        private bool solved3 = false;
-
-        public void CheckPuzzle()
-        {            
-            if (currentRoom == new Point(2, 4) && !solved2)
-            {
-                Room room = GetRoomAt(new Point(2, 4));
-                SceneObjectManager scene = room.GetScene();
-                int count = room.GetEnemyCount();
-                foreach (IGameObject g in scene.GetObjects())
-                {
-                    if (g is MoveWallTile && count == 0)
-                    {
-                        (Vector2, Vector2) pos = ((MoveWallTile)g).GetPosition();
-                        solved1 = pos.Item1 != pos.Item2;
-                    }
-                }
-            } else if (currentRoom == new Point(5, 3) && !solved2)
-            {
-                Room room = GetRoomAt(new Point(5, 3));
-                int count = room.GetEnemyCount();
-                if(count == 0)
-                {
-                    solved2 = true;
-                }
-            } else if (currentRoom == new Point(2, 5) && !solved3)
-            {
-                Room room = GetRoomAt(new Point(2, 5));
-                int count = room.GetEnemyCount();
-                if (count == 0)
-                {
-                    solved3 = true;
-                }
-            }
-
-            if(solved1)
-            {
-                Room room = GetRoomAt(new Point(2, 4));
-                List<IDoor> doors = room.GetDoors();
-                foreach (IDoor g in doors)
-                {
-                    if(g is PuzzleDoor)
-                    {
-                        g.SetOpen(true);
-                    }
-                }
-            }
-
-            if(solved2)
-            {
-                Room room = GetRoomAt(new Point(5, 3));
-                List<IDoor> doors = room.GetDoors();
-                foreach (IDoor g in doors)
-                {
-                    if (g is PuzzleDoor)
-                    {
-                        g.SetOpen(true);
-                    }
-                }
-            }
-
-            if (solved3)
-            {
-                Room room = GetRoomAt(new Point(2, 5));
-                List<IDoor> doors = room.GetDoors();
-                foreach (IDoor g in doors)
-                {
-                    if (g is PuzzleDoor)
-                    {
-                        g.SetOpen(true);
-                    }
-                }
-            }
         }
 
     }

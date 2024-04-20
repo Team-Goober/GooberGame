@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Functions;
+using Sprint.Functions.States;
 using Sprint.Input;
 using Sprint.Interfaces;
 

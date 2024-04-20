@@ -7,7 +7,7 @@
         <Texture>zelda_links</Texture>
         <Animations>
           <Item>
-            <Key>down</Key>
+            <Key>walkDown</Key>
             <Value Type="XMLData.AutoAtlasData">
               <SheetArea>0 0 16 46</SheetArea>
               <Rows>2</Rows>
@@ -19,7 +19,7 @@
             </Value>
           </Item>
           <Item>
-            <Key>left</Key>
+            <Key>walkLeft</Key>
             <Value Type="XMLData.AutoAtlasData">
               <SheetArea>30 0 16 46</SheetArea>
               <Rows>2</Rows>
@@ -31,7 +31,7 @@
             </Value>
           </Item>
           <Item>
-            <Key>right</Key>
+            <Key>walkRight</Key>
             <Value Type="XMLData.AutoAtlasData">
               <SheetArea>90 0 16 46</SheetArea>
               <Rows>2</Rows>
@@ -43,7 +43,7 @@
             </Value>
           </Item>
           <Item>
-            <Key>up</Key>
+            <Key>walkUp</Key>
             <Value Type="XMLData.AutoAtlasData">
               <SheetArea>60 0 16 46</SheetArea>
               <Rows>2</Rows>
@@ -55,47 +55,34 @@
             </Value>
           </Item>
           <Item>
-            <Key>still</Key>
+            <Key>standDown</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>0 0 16 16</Rectangle>
               <CenterPoint>8 8</CenterPoint>
             </Value>
           </Item>
           <Item>
-            <Key>downStill</Key>
-            <Value Type="XMLData.SingleAtlasData">
-              <Rectangle>0 0 16 16</Rectangle>
-              <CenterPoint>8 8</CenterPoint>
-            </Value>
-          </Item>
-          <Item>
-            <Key>leftStill</Key>
+            <Key>standLeft</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>30 0 16 16</Rectangle>
               <CenterPoint>8 8</CenterPoint>
             </Value>
           </Item>
           <Item>
-            <Key>upStill</Key>
+            <Key>standUp</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>60 0 16 16</Rectangle>
               <CenterPoint>8 8</CenterPoint>
             </Value>
           </Item>
           <Item>
-            <Key>rightStill</Key>
+            <Key>standRight</Key>
             <Value Type="XMLData.SingleAtlasData">
               <Rectangle>90 0 16 16</Rectangle>
               <CenterPoint>8 8</CenterPoint>
             </Value>
           </Item>
-          <Item>
-            <Key>damage</Key>
-            <Value Type="XMLData.SingleAtlasData">
-              <Rectangle>0 150 16 16</Rectangle>
-              <CenterPoint>8 8</CenterPoint>
-            </Value>
-          </Item>
+
           <Item>
             <Key>swordRight</Key>
             <Value Type="XMLData.SingleAtlasData">
@@ -152,18 +139,159 @@
               <CenterPoint>8 8</CenterPoint>
             </Value>
           </Item>
-			
-			<Item>
-				<Key>holdItem</Key>
-				<Value Type="XMLData.SingleAtlasData">
-					<Rectangle>31 150 14 16</Rectangle>
-					<CenterPoint>7 8</CenterPoint>
-				</Value>
-			</Item>
+
+          <Item>
+            <Key>walkDownDamage</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>112 0 16 46</SheetArea>
+              <Rows>2</Rows>
+              <Cols>1</Cols>
+              <Padding>14</Padding>
+              <CenterPoint>8 8</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>5</Framerate>
+            </Value>
+          </Item>
+          <Item>
+            <Key>walkLeftDamage</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>142 0 16 46</SheetArea>
+              <Rows>2</Rows>
+              <Cols>1</Cols>
+              <Padding>14</Padding>
+              <CenterPoint>8 8</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>5</Framerate>
+            </Value>
+          </Item>
+          <Item>
+            <Key>walkRightDamage</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>202 0 16 46</SheetArea>
+              <Rows>2</Rows>
+              <Cols>1</Cols>
+              <Padding>14</Padding>
+              <CenterPoint>8 8</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>5</Framerate>
+            </Value>
+          </Item>
+          <Item>
+            <Key>walkUpDamage</Key>
+            <Value Type="XMLData.AutoAtlasData">
+              <SheetArea>172 0 16 46</SheetArea>
+              <Rows>2</Rows>
+              <Cols>1</Cols>
+              <Padding>14</Padding>
+              <CenterPoint>8 8</CenterPoint>
+              <Loop>true</Loop>
+              <Framerate>5</Framerate>
+            </Value>
+          </Item>
+          <Item>
+            <Key>standDownDamage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>112 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>standLeftDamage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>142 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>standUpDamage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>172 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>standRightDamage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>202 0 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>swordRightDamage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>196 90 27 15</Rectangle>
+              <CenterPoint>9 7</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>swordLeftDamage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>136 90 27 15</Rectangle>
+              <CenterPoint>18 7</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>swordUpDamage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>172 84 16 28</Rectangle>
+              <CenterPoint>8 21</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>swordDownDamage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>112 84 16 27</Rectangle>
+              <CenterPoint>8 7</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>castRightDamage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>202 60 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>castLeftDamage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>142 60 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>castUpDamage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>172 60 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          <Item>
+            <Key>castDownDamage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>112 60 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+
+          <Item>
+			      <Key>holdItem</Key>
+			      <Value Type="XMLData.SingleAtlasData">
+				      <Rectangle>31 150 14 16</Rectangle>
+				      <CenterPoint>7 8</CenterPoint>
+			      </Value>
+		      </Item>
+          <Item>
+            <Key>damage</Key>
+            <Value Type="XMLData.SingleAtlasData">
+              <Rectangle>0 150 16 16</Rectangle>
+              <CenterPoint>8 8</CenterPoint>
+            </Value>
+          </Item>
+          
 			
         </Animations>
         <Scale>4</Scale>
-        <InitialAnimation>still</InitialAnimation>
+        <InitialAnimation>standUp</InitialAnimation>
       </Value>
     </Item>
   </Asset>

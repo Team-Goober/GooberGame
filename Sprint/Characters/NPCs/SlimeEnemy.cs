@@ -15,7 +15,7 @@ namespace Sprint.Characters
         private Timer timeAttack;
 
 
-        public SlimeEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader)
+        public SlimeEnemy(ISprite sprite, ISprite damagedSprite, Vector2 initialPosition, Room room, SpriteLoader spriteLoader, Player player)
             : base(sprite, damagedSprite, initialPosition, room)
         {
 
@@ -24,24 +24,16 @@ namespace Sprint.Characters
 
             health = CharacterConstants.LOW_HP;
 
-            moveSlime = new MoveSlime(physics);
+            moveSlime = new MoveSlime(physics, player);
         }
 
         // Update logic
         public override void Update(GameTime gameTime)
         {
 
-
-            base.Update(gameTime);
-
-
-
             moveSlime.MoveAI(gameTime);
 
-            // Update the sprite and physics
-            sprite.Update(gameTime);
-            physics.Update(gameTime);
-
+            base.Update(gameTime);
 
         }
 

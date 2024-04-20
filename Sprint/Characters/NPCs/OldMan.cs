@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Sprint.Commands.SecondaryItem;
+using Sprint.Functions.SecondaryItem;
 using Sprint.Interfaces;
 using Sprint.Levels;
-using Sprint.Projectile;
 using Sprint.Sprite;
 using System;
 
@@ -34,17 +33,14 @@ namespace Sprint.Characters
         {
 
 
-            base.Update(gameTime);
             // Calculate movement based on elapsed time for the random pattern
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // Move randomly within a specified area
             MoveRandomly(gameTime);
 
-            // Update the sprite and physics
-            sprite.Update(gameTime);
-            physics.Update(gameTime);
 
+            base.Update(gameTime);
 
         }
 

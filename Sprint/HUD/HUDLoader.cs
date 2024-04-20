@@ -2,12 +2,14 @@
 using Microsoft.Xna.Framework.Content;
 using Sprint.Characters;
 using Sprint.Interfaces;
+using Sprint.Interfaces.Powerups;
 using Sprint.Items;
 using Sprint.Levels;
 using Sprint.Loader;
 using Sprint.Sprite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using XMLData;
 
 
@@ -20,20 +22,20 @@ namespace Sprint.HUD
         private SceneObjectManager topDisplay;
         private SceneObjectManager inventoryScreen;
 
-        private List<HUDAnimSprite> RupeeNumber;
-        private List<HUDAnimSprite> KeyNumber;
-        private List<HUDAnimSprite> BombNumber;
+        private List<HUDAnimSprite> LifeForce; // Player hearts display
 
-        private List<HUDAnimSprite> LifeForce;
+        private int maxHearts; // Total number of heart icons to render
 
-        private int maxHearts;
+        private HUDPowerupArray bWeapon; // Weapon bound to B slot
+        private HUDPowerupArray aWeapon; // Weapon bound to A slot
+        private HUDPowerupArray rupeeCount; // Rupee rendered with count on HUD
+        private HUDPowerupArray keyCount; // Key rendered with count on HUD
 
-        private HUDInterchangeableSprite bWeapon;
-        private HUDInterchangeableSprite aWeapon;
-        private HUDInterchangeableSprite bSelection;
+        private HUDPowerupArray slotDisplay; // Inventory ability slots
+        private HUDPowerupArray listingDisplay; // Array of all owned powerups
+        private HUDSelector selector; // Selector that moves across slots
 
-        private Dictionary<ItemType, HUDInterchangeableSprite> itemDisplays;
-        private HUDSelector selector;
+        private HUDText descriptionText; // Text that shows item descriptions
 
         HUDData data;
 
@@ -59,20 +61,14 @@ namespace Sprint.HUD
 
             //Numbers
             List<HUDAnimSprite> nums = MakeLevelNumber(levelNum.ToString(), data.LevelNumPos, data.NumSpriteSize);
-            RupeeNumber = MakeNumber("0B", data.GemNumPos, data.NumSpriteSize);
-            KeyNumber = MakeNumber("0B", data.KeyNumPos, data.NumSpriteSize);
-            BombNumber = MakeNumber("0B", data.BombNumPos, data.NumSpriteSize);
-            nums.AddRange(RupeeNumber);
-            nums.AddRange(KeyNumber);
-            nums.AddRange(BombNumber);
             foreach (HUDAnimSprite sprite in nums)
             {
                 topDisplay.Add(sprite);
             }
 
             //Health
-            List<HUDAnimSprite> hearts = MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
-            foreach (HUDAnimSprite sprite in hearts)
+            LifeForce = MakeLifeHeart(data.HeartNumPos, data.NumSpriteSize);
+            foreach (HUDAnimSprite sprite in LifeForce)
             {
                 topDisplay.Add(sprite);
             }
@@ -80,9 +76,13 @@ namespace Sprint.HUD
 
             // Weapons
             bWeapon = MakeItemSprite(null, data.BWeapon);
-            aWeapon = MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Sword), data.AWeapon);
+            aWeapon = MakeItemSprite(null, data.AWeapon);
+            rupeeCount = MakeItemSprite(null, data.GemNumPos + new Vector2(40, 0));
+            keyCount = MakeItemSprite(null, data.KeyNumPos + new Vector2(40, 0));
             topDisplay.Add(bWeapon);
             topDisplay.Add(aWeapon);
+            topDisplay.Add(rupeeCount);
+            topDisplay.Add(keyCount);
 
             // Minimap
             topDisplay.Add(MakeMinimap(map, data.MinimapPos, data.MinimapRoomSize, data.MinimapPadding, data.MinimapBackgroundSize));
@@ -91,54 +91,21 @@ namespace Sprint.HUD
             inventoryScreen.Add(MakeHUDSprite("Inventory", data.InventoryFramePos));
             inventoryScreen.Add(MakeHUDSprite("DungeonMap", data.MapFramePos));
 
-            // Visual displays for receiving items. Don't display until acquired
-
-            itemDisplays = new()
-            {
-                { ItemType.Map, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Map), data.MapItemPos) },
-                { ItemType.Compass, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Compass), data.CompassItemPos) },
-
-                { ItemType.Raft, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Raft), data.RaftItemPos) },
-                { ItemType.Book, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Book), data.BookItemPos) },
-                { ItemType.RedRing, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.RedRing), data.RingItemPos) },
-                { ItemType.Ladder, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Ladder), data.LadderItemPos) },
-                { ItemType.SpecialKey, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.SpecialKey), data.SpecialKeyItemPos) },
-                { ItemType.Bracelet, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Bracelet), data.BraceletItemPos) },
-                { ItemType.Bow, MakeItemSprite(ItemFactory.GetSpriteName(ItemType.Bow), data.BowItemPos) }
-            };
-
-            // At the slot item displays
-            for(int i=0; i<Inventory.Slots.GetLength(0); i++)
-            {
-                for (int j = 0; j < Inventory.Slots.GetLength(1); j++)
-                {
-                    ItemType slot = Inventory.Slots[i, j];
-                    List<ItemType> upgrades = new() { slot };
-                    if(Inventory.UpgradePaths.ContainsKey(slot))
-                        upgrades = Inventory.UpgradePaths[slot];
-
-                    // Calculate position of slot and place sprite there
-                    Vector2 slotPos = (data.InventorySlotSize + data.InventoryPadding) * new Vector2(j, i) + data.FirstInventoryCell + data.InventorySlotSize / 2;
-
-                    // Arrow slots are offset by a quarter
-                    if (slot == ItemType.Arrow)
-                        slotPos.X -= data.InventorySlotSize.X / 4;
-
-                    // Add one sprite for every item in upgrade path
-                    for (int k = 0; k < upgrades.Count; k++)
-                    {
-                        itemDisplays.Add(upgrades[k], MakeItemSprite(ItemFactory.GetSpriteName(upgrades[k]), slotPos));
-
-                    }
-                }
-            }
-
             // Selector for slots
             selector = MakeSelector("selector", data.FirstInventoryCell, data.InventoryPadding + data.InventorySlotSize);
             inventoryScreen.Add(selector);
 
-            bSelection = MakeItemSprite(null, data.BSelection);
-            inventoryScreen.Add(bSelection);
+            // At the slot item displays
+            slotDisplay = new HUDPowerupArray(data.FirstInventoryCell + data.InventorySlotSize / 2, data.InventorySlotSize + data.InventoryPadding);
+            inventoryScreen.Add(slotDisplay);
+
+            // List of all owned items
+            listingDisplay = new HUDPowerupArray(new Vector2(50, 350), data.InventorySlotSize + data.InventoryPadding);
+            inventoryScreen.Add(listingDisplay);
+
+            // Hovered item summary text
+            descriptionText = new HUDText(new ZeldaText("nintendo", new() { "--HOVER ITEM--" }, new Vector2(24, 24), 0.75f, Color.Gray, content), new Vector2(240, 200));
+            inventoryScreen.Add(descriptionText);
 
             inventoryScreen.Add(MakeFullMap(map, data.FullMapPos, data.FullMapRoomSize, data.FullMapPadding, data.FullMapBackgroundSize));
             inventoryScreen.EndCycle();
@@ -156,24 +123,24 @@ namespace Sprint.HUD
         public List<HUDAnimSprite> MakeLifeHeart(Vector2 position, int spriteSize)
         {
             // Make the hearts
-            LifeForce = hudFactory.MakeHearts(maxHearts, "Heart", position, spriteSize);
+            List<HUDAnimSprite> hearts = hudFactory.MakeHearts(CharacterConstants.MAX_HEARTS, "Heart", position, spriteSize);
 
             // How many can the player use?
             for(int i = 0; i < maxHearts; i++)
             {
-                LifeForce[i].SetSprite("FullHeart");
+                hearts[i].SetSprite("FullHeart");
             }
 
-            return LifeForce;
+            return hearts;
         }
 
         public HUDAnimSprite MakeDeathHeart()
         {
-            LifeForce = hudFactory.MakeHearts(maxHearts, "Heart", data.MenuHeartPos, data.NumSpriteSize);
+            HUDAnimSprite heart = hudFactory.MakeHearts(1, "Heart", data.MenuHeartPos, data.NumSpriteSize)[0];
 
-            LifeForce[0].SetSprite("FullHeart");
+            heart.SetSprite("FullHeart");
 
-            return LifeForce[0];
+            return heart;
         }
 
         public List<HUDAnimSprite> MakeLevelNumber(string level, Vector2 position, int spriteSize)
@@ -205,9 +172,9 @@ namespace Sprint.HUD
             return hudFactory.MakeHUDSprite(spriteLabel, position);
         }
 
-        public HUDInterchangeableSprite MakeItemSprite(string spriteLabel, Vector2 position)
+        public HUDPowerupArray MakeItemSprite(IPowerup powerup, Vector2 position)
         {
-            return hudFactory.MakeItemSprite(spriteLabel, position);
+            return hudFactory.MakeItemSprite(powerup, position);
         }
 
         public HUDSelector MakeSelector(string spriteLabel, Vector2 position, Vector2 padding)
@@ -227,82 +194,59 @@ namespace Sprint.HUD
             return sprite;
         }
 
-        public void OnInventoryEvent(ItemType it, int prev, int next, List<ItemType> ownedUpgrades)
-        {
-            // Update UI numbers for specific items
-            switch (it)
-            {
-                case ItemType.Rupee:
-                    UpdateItemAmount(RupeeNumber, next);
-                    break;
-                case ItemType.Key:
-                    UpdateItemAmount(KeyNumber, next);
-                    break;
-                case ItemType.Bomb:
-                    UpdateItemAmount(BombNumber, next);
-                    break;
-                default:
-                    break;
-            }
-            if (itemDisplays.ContainsKey(it))
-            {
-                // Add or remove displays for items that are gained or lost
-                int k = ownedUpgrades.IndexOf(it);
-                // Only update UI if this item is the highest owned upgrade
-                if(k == ownedUpgrades.Count - 1)
-                {
-                    // Ran out
-                    if (prev > 0 && next == 0)
-                    {
-                        inventoryScreen.Remove(itemDisplays[it]);
-                        // Add in the next highest upgrade if it exists
-                        if(k > 0 && itemDisplays.ContainsKey(ownedUpgrades[k - 1]))
-                        {
-                            inventoryScreen.Add(itemDisplays[ownedUpgrades[k - 1]]);
-                        }
-                    }
-                    // Acquired
-                    else if (prev == 0 && next > 0)
-                    {
-                        inventoryScreen.Add(itemDisplays[it]);
-                        // Remove the next highest upgrade if it exists
-                        if (k > 0 && itemDisplays.ContainsKey(ownedUpgrades[k - 1]))
-                        {
-                            inventoryScreen.Remove(itemDisplays[ownedUpgrades[k - 1]]);
-                        }
-                    }
-
-                    // process changes
-                    inventoryScreen.EndCycle();
-                }
-            }
-
-
-        }
-
         public void OnSelectorMoveEvent(int r, int c) {
             // Move selector sprite
             selector.SetLocation(r, c);
         }
 
-        public void OnSelectorChooseEvent(ItemType item)
+        public void OnSelectorChooseEvent(int b, IPowerup item)
         {
+            // Exchange sprites for A item
+            if(b == 0)
+            {
+                aWeapon.SetSinglePowerup(item);
+
+            }
             // Exchange sprites for B item
-            bWeapon.GiveSprite(itemDisplays[item].GetSprite());
-            bSelection.GiveSprite(itemDisplays[item].GetSprite());
+            else if (b == 1)
+            {
+                bWeapon.SetSinglePowerup(item);
+            }
         }
 
-        public void UpdateItemAmount(List<HUDAnimSprite> numSprites, int number)
+        public void OnListingUpdateEvent(Dictionary<string, IPowerup> newDict)
         {
-            String strNum = number.ToString() + "B";
-            char[] arr = strNum.ToCharArray();
+            // Add rupee display once player picks up some
+            if (newDict.ContainsKey(Inventory.RupeeLabel) && rupeeCount.GetPowerups()[0,0] == null)
+                rupeeCount.SetSinglePowerup(newDict[Inventory.RupeeLabel]);
 
-            int pos = 1;
-            while (pos > -1)
+            // Add key display once player picks up some
+            if (newDict.ContainsKey(Inventory.KeyLabel) && keyCount.GetPowerups()[0, 0] == null)
+                keyCount.SetSinglePowerup(newDict[Inventory.KeyLabel]);
+
+            IPowerup[,] pups = new IPowerup[7, 4];
+            int r = 0, c = 0;
+            foreach (KeyValuePair<string, IPowerup> kvp in newDict)
             {
-                numSprites[pos].SetSprite(arr[pos].ToString());
-                pos--;
+                // Move currently assigned cell down to next row once it reaches end of row
+                if (c >= pups.GetLength(1))
+                {
+                    c = 0;
+                    r++;
+                }
+                // Assign powerup to cell and increment to next cell
+                if (r < pups.GetLength(0))
+                {
+                    pups[r, c] = kvp.Value;
+                    c++;
+                }
+                else
+                {
+                    break;
+                }
             }
+            listingDisplay.SetPowerups(pups);
+
         }
 
         public void UpdateHeartAmount(double prevHeart, double newHeart)
@@ -341,6 +285,21 @@ namespace Sprint.HUD
                     LifeForce[i].SetSprite("B");
                 }
             }
+        }
+
+        public void SetSlotsArray(IAbility[,] slots)
+        {
+            slotDisplay.SetPowerups(slots);
+        }
+
+        public HUDPowerupArray GetListing()
+        {
+            return listingDisplay;
+        }
+
+        public HUDText GetDescriptionText()
+        {
+            return descriptionText;
         }
 
     }

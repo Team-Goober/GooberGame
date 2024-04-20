@@ -4,10 +4,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint.Input;
 using Sprint.Interfaces;
-using Sprint.Commands;
+using Sprint.Functions;
 using Sprint.Sprite;
 using Sprint.GameStates;
 using Sprint.Music.Sfx;
+using XMLData;
+using Sprint.Items;
 
 
 namespace Sprint

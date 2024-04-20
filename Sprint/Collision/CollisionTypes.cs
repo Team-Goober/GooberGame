@@ -10,6 +10,7 @@ namespace Sprint.Collision
     {
         CHARACTER,
         PLAYER,
+        SHIELD,
         ENEMY,
 
         PROJECTILE,
@@ -30,7 +31,7 @@ namespace Sprint.Collision
         SWORD,
 
         ITEM,
-        FLYING_ENEMY,
+        FLYING,
         PHASING_WALL,
         MOVEWALL
 
