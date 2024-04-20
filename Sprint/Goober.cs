@@ -7,6 +7,7 @@ using Sprint.Interfaces;
 using Sprint.Functions;
 using Sprint.Sprite;
 using Sprint.GameStates;
+using Sprint.Levels;
 using Sprint.Music.Sfx;
 using XMLData;
 using Sprint.Items;

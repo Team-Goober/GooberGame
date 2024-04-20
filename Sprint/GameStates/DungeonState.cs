@@ -48,6 +48,7 @@ namespace Sprint
         private MapModel map; // Tracks revealing of rooms for UI
         private Point compassPointer; // Room indices for triforce location
         private HUDLoader hudLoader;
+        private LevelGeneration levelGeneration;
 
         private bool sleeping; // True when state isnt being updated
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
@@ -59,7 +60,7 @@ namespace Sprint
             collisionDetector = new CollisionDetector();
 
             player = new Player(spriteLoader, this);
-          
+
 
             currentRoom = new(-1, -1);
 
@@ -77,7 +78,8 @@ namespace Sprint
 
             // enter first room
             SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
-            
+
+
         }
 
         // Connect all of the signals
