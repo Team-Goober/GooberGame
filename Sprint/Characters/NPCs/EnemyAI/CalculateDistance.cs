@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Microsoft.Xna.Framework;
-using Sprint.Commands.SecondaryItem;
+using Sprint.Functions.SecondaryItem;
 using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
@@ -14,7 +14,6 @@ namespace Sprint.Characters
     internal class CalculateDistance
     {
         private Player player;
-        private Physics playerPhysics;
         private Physics physics;
         private Vector2 enemyVector;
         private Vector2 playerVector;
@@ -25,8 +24,7 @@ namespace Sprint.Characters
            
             this.physics = enemyPhysics;
             this.player = player;
-            this.playerPhysics = player.GetPhysic();
-            this.playerVector = playerPhysics.Position;
+            this.playerVector = player.GetPosition();
             this.enemyVector = enemyPhysics.Position;
             this.random = new Random();
 

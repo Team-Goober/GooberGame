@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint.Interfaces;
 using Microsoft.Xna.Framework;
-using Sprint.Commands.SecondaryItem;
+using Sprint.Functions.SecondaryItem;
 using System;
 using Sprint.Projectile;
 using Sprint.Sprite;
@@ -33,7 +33,7 @@ namespace Sprint.Characters
             timeAttack.Start();
             itemFactory = new SimpleProjectileFactory(spriteLoader, 30, true, room);
 
-            projectileCommand = new ShootBoomarangC(itemFactory);
+            projectileCommand = new ShootBoomerangC(itemFactory);
         }
 
 
