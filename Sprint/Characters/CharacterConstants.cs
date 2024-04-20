@@ -18,6 +18,10 @@ namespace Sprint.Characters
         public const int SELECT_BOXES = 2;
 
         public const int SPRITE_SCALE = 4;
+        public const float ACCELERATION_RATE = 500f; //accelerationRate
+        public const float STILL_FRICTION = 0.03f; //stillFriction
+        public const float MOVING_FRICTION = 0.04f; //movingFriction
+
         public const int COLLIDER_SCALE = 3;
         public const int DEFAULT_SIDE_LENGTH = 16;
 
@@ -30,3 +34,4 @@ namespace Sprint.Characters
         public const int DISABLED_OPACITY = 150;
     }
 }
+

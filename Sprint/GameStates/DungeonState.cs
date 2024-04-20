@@ -12,6 +12,8 @@ using Sprint.HUD;
 using Sprint.Input;
 using Sprint.Interfaces;
 using Sprint.Levels;
+using Sprint.Functions;
+using Sprint.Items;
 using Sprint.Loader;
 using Sprint.Sprite;
 using System.Collections.Generic;
@@ -19,8 +21,8 @@ using Sprint.Music.Sfx;
 using Sprint.Door;
 using System;
 using Sprint.Functions;
+using Sprint.Functions.Music;
 using Sprint.Functions.States;
-using Sprint.Items;
 
 namespace Sprint
 {
@@ -51,7 +53,7 @@ namespace Sprint
         private HUDLoader hudLoader;
 
         private bool sleeping; // True when state isnt being updated
-
+        private MultipleKeyReleaseTrigger stopMovingTrigger;
         public DungeonState(Goober game, SpriteLoader spriteLoader, ContentManager contentManager)
         {
             this.game = game;
@@ -79,7 +81,7 @@ namespace Sprint
 
             // enter first room
             SwitchRoom(roomStartPosition, firstRoom, Directions.STILL);
-
+            
         }
 
         // Connect all of the signals
@@ -124,18 +126,31 @@ namespace Sprint
             inputTable = new InputTable();
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new MoveUp(player));
-            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.S), new MoveDown(player));
 
+
+            // Register single key press triggers for movement
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new MoveUp(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.S), new MoveDown(player));
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
+
+            // Register commands for diagonal movement using arrow keys
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveRight(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Up), new MoveUp(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveDown(player));
 
+            // Register SingleKeyReleaseTrigger for each movement direction
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.A), new ReleaseLeft(player));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.D), new ReleaseRight(player));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.W), new ReleaseUp(player));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.S), new ReleaseDown(player));
+
+            // Register command to stop movement when multiple movement keys are released
             Keys[] moveKeys = { Keys.A, Keys.D, Keys.W, Keys.S, Keys.Left, Keys.Right, Keys.Up, Keys.Down };
             inputTable.RegisterMapping(new MultipleKeyReleaseTrigger(moveKeys), new StopMoving(player));
+
+
 
             //Player uses a cast move
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Cast(player));
@@ -242,6 +257,9 @@ namespace Sprint
             currRoom.EndCycle();
 
             CheckPuzzle(); // TESTING
+
+  
+
         }
 
         public void PassToState(IGameState newState)

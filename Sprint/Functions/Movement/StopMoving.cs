@@ -1,5 +1,6 @@
 ﻿using Sprint.Characters;
 using Sprint.Interfaces;
+
 namespace Sprint.Functions
 {
     internal class StopMoving : ICommand
@@ -14,8 +15,7 @@ namespace Sprint.Functions
         public void Execute()
         {
             this.player.StopMoving();
-
-
         }
     }
+
 }

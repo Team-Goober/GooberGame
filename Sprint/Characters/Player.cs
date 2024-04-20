@@ -8,6 +8,7 @@ using Sprint.Collision;
 using Sprint.Music.Sfx;
 using Sprint.Items;
 using System.Diagnostics;
+using System;
 
 namespace Sprint.Characters
 {
@@ -42,6 +43,7 @@ namespace Sprint.Characters
         private int maxHealth = CharacterConstants.STARTING_HEALTH;
         private double health = CharacterConstants.STARTING_HEALTH;
         private float speed = CharacterConstants.PLAYER_SPEED;
+        private bool stopped = false;
 
         // Weapons
         private SimpleProjectileFactory secondaryItems;
@@ -85,6 +87,11 @@ namespace Sprint.Characters
         }
         private AnimationCycle baseAnim;
 
+        // Acceleration vector for player movement
+        private Vector2 acceleration = Vector2.Zero;
+        private Vector2 accelerationDirection = Vector2.Zero;
+        private float accelerationRate = CharacterConstants.ACCELERATION_RATE;
+        private float speedLimit = CharacterConstants.PLAYER_SPEED;
 
         //declares the move systems for the main character sprite
         public Player(SpriteLoader spriteLoader, DungeonState dungeon)
@@ -118,6 +125,7 @@ namespace Sprint.Characters
 
             // Set up projectile factory
             secondaryItems = new SimpleProjectileFactory(spriteLoader, CharacterConstants.PROJECTILE_SPAWN_DISTANCE, false, null);         
+            
         }
 
         public SimpleProjectileFactory GetProjectileFactory()
@@ -257,10 +265,10 @@ namespace Sprint.Characters
         // Removes velocity and changes animation to match lack of movement
         public void StopMoving()
         {
-            physics.SetVelocity(new Vector2(0, 0));
-            baseAnim = AnimationCycle.Idle;
+            accelerationDirection = Vector2.Zero;
             returnToBaseAnim();
         }
+
 
         // Return to base animation cycle based on states and facing dir
         private void returnToBaseAnim()
@@ -314,32 +322,27 @@ namespace Sprint.Characters
 
         }
 
+
         public void MoveLeft()
         {
-            // Don't move while shielding
-            if (shielded)
-                return;
-            // Sets velocity towards left
-            physics.SetVelocity(new Vector2(-speed, 0));
+            accelerationDirection.X -= 1; // Add to X acceleration to move left
 
             normalSprite.SetAnimation("left");
             damagedSprite.SetAnimation("left");
             Facing = Directions.LEFT;
             baseAnim = AnimationCycle.Walk;
+            
         }
 
         public void MoveRight()
         {
-            // Don't move while shielding
-            if (shielded)
-                return;
-            // Sets velocity towards right
-            physics.SetVelocity(new Vector2(speed, 0));
+            accelerationDirection.X += 1; // Add to X acceleration to move right
 
-            normalSprite.SetAnimation("right");
-            damagedSprite.SetAnimation("right");
-            Facing = Directions.RIGHT;
-            baseAnim = AnimationCycle.Walk;
+            
+                sprite.SetAnimation("right");
+                Facing = Directions.RIGHT;
+                baseAnim = AnimationCycle.Walk;
+            
         }
 
         public void MoveUp()
@@ -347,27 +350,44 @@ namespace Sprint.Characters
             // Don't move while shielding
             if (shielded)
                 return;
-            // Sets velocity towards up
-            physics.SetVelocity(new Vector2(0, -speed));
-
+            accelerationDirection.Y -= 1; // Add to Y acceleration to move up
             normalSprite.SetAnimation("up");
             damagedSprite.SetAnimation("up");
             Facing = Directions.UP;
             baseAnim = AnimationCycle.Walk;
+            
         }
 
         public void MoveDown()
-        {
-            // Don't move while shielding
+        {// Don't move while shielding
             if (shielded)
                 return;
-            // Sets velocity towards down
-            physics.SetVelocity(new Vector2(0, speed));
-
+            accelerationDirection.Y += 1; // Add to Y acceleration to move down
             normalSprite.SetAnimation("down");
             damagedSprite.SetAnimation("down");
             Facing = Directions.DOWN;
             baseAnim = AnimationCycle.Walk;
+            
+        }
+
+        public void ReleaseLeft()
+        {
+            accelerationDirection.X += 1; // Subtract from X acceleration when left key is released
+        }
+
+        public void ReleaseRight()
+        {
+            accelerationDirection.X -= 1; // Subtract from X acceleration when right key is released
+        }
+
+        public void ReleaseUp()
+        {
+            accelerationDirection.Y += 1; // Subtract from Y acceleration when up key is released
+        }
+
+        public void ReleaseDown()
+        {
+            accelerationDirection.Y -= 1; // Subtract from Y acceleration when down key is released
         }
 
         public override Vector2 GetPosition()
@@ -375,15 +395,47 @@ namespace Sprint.Characters
             return physics.Position;
         }
 
-        // Moves the player by a set distance
-        public override void Move(Vector2 distance)
-        {
-            // teleport player in displacement specified
-            physics.SetPosition(physics.Position + distance);
-        }
-
         public override void Update(GameTime gameTime)
         {
+            // Update the acceleration based on the current acceleration direction
+            physics.SetAcceleration(accelerationDirection * accelerationRate);
+
+            // Update the velocity using the Physics component
+            physics.UpdateVelocity(CharacterConstants.STILL_FRICTION, speedLimit, gameTime);
+
+            // Determine the animation based on acceleration
+            if (physics.Acceleration != Vector2.Zero)
+            {
+                if (Math.Abs(physics.Acceleration.X) > Math.Abs(physics.Acceleration.Y))
+                {
+                    // Horizontal movement dominates
+                    if (physics.Acceleration.X > 0)
+                    {
+                        Facing = Directions.RIGHT;
+                        
+                    }
+                    else
+                    {
+                        Facing = Directions.LEFT;
+                      
+                    }
+                }
+                else
+                {
+                    // Vertical movement dominates
+                    if (physics.Acceleration.Y > 0)
+                    {
+                        Facing = Directions.DOWN;
+                        
+                    }
+                    else
+                    {
+                        Facing = Directions.UP;
+                       
+                    }
+                }
+            }
+
 
             // Check for end of sword swing
             attackTimer.Update(gameTime);
@@ -409,6 +461,7 @@ namespace Sprint.Characters
             {
                 sprite = normalSprite;
                 returnToBaseAnim();
+            
 
             }
 
@@ -423,11 +476,27 @@ namespace Sprint.Characters
             sprite.Update(gameTime);
         }
 
+
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             //Draws sprite animation using AnimationSprite class
             sprite.Draw(spriteBatch, physics.Position, gameTime);
 
+        }
+
+        // Moves the player by a set distance
+        public override void Move(Vector2 distance)
+        {
+           
+
+            // teleport player in displacement specified
+            physics.SetPosition(physics.Position + distance);
+        }
+        
+        // Moves player to set position
+        public void MoveTo(Vector2 pos)
+        {
+            physics.SetPosition(pos);
         }
 
         /// <summary>
