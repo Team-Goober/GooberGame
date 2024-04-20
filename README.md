@@ -9,10 +9,10 @@
 - Sam Espanioly
 
 ## Program Controls
-- WASD or Arrow Keys to move the character
+- WASD to move main player
 - R to reset the game
 - Q to quit the game
-- Z to make Link Attck with his sword
+- Z to use slot A
 - X to use slot B
 - I to open inventory, Can Press Z or X to equip selected item.
 - Z to select item from inventory
@@ -42,7 +42,8 @@
 - Some enemies fly off the map when pushed
 - Bottom rooms do not show up on the mini-map / compass
 - When continue state is activated health is not updated to the HUD for some reason
-- Movement is sometimes buggy 
+- Movement is sometimes buggy - can charge speed if moving while stuck on a tile
+- After dying and hitting sometimes player will keep walking without any button trigger
 
 ## Assumption
 - All characters are pushable
