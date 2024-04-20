@@ -18,7 +18,7 @@ namespace Sprint.Commands
 
         public void Execute()
         {
-            player.MoveDiagonal(direction);
+           
         }
     }
 

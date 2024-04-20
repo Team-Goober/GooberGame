@@ -23,7 +23,6 @@ using Sprint.Door;
 using Sprint.Functions.Music;
 using Sprint.Functions.States;
 
-
 namespace Sprint
 {
     internal class DungeonState : IGameState
@@ -125,31 +124,29 @@ namespace Sprint
 
             //Uses the ICommand interface (MoveItems.cs) to execute command for the movement of the main character sprite
 
-            // Register diagonal movement commands
+            
+            // Register commands for diagonal movement
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.W), new MoveUp(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.A), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.S), new MoveDown(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.D), new MoveRight(player));
 
-            //Diagonal Movement
-            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.W, Keys.D }), new MoveDiagonalUpRight(player));
-            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.W, Keys.A }), new MoveDiagonalUpLeft(player));
-            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.S, Keys.D }), new MoveDiagonalDownRight(player));
-            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.S, Keys.A }), new MoveDiagonalDownLeft(player));
+            // Register commands for stopping movement along each axis
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.A), new StopMovingLeftRight(player));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.D), new StopMovingLeftRight(player));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.W), new StopMovingUpDown(player));
+            inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.S), new StopMovingUpDown(player));
 
-            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.Up, Keys.Right }), new MoveDiagonalUpRight(player));
-            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.Up, Keys.Left }), new MoveDiagonalUpLeft(player));
-            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.Down, Keys.Right }), new MoveDiagonalDownRight(player));
-            inputTable.RegisterMapping(new MultipleKeyPressTrigger(new Keys[] { Keys.Down, Keys.Left }), new MoveDiagonalDownLeft(player));
-
-
+            // Register commands for diagonal movement using arrow keys
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Left), new MoveLeft(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Right), new MoveRight(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Up), new MoveUp(player));
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Down), new MoveDown(player));
 
+            // Register command to stop movement when multiple movement keys are released
             Keys[] moveKeys = { Keys.A, Keys.D, Keys.W, Keys.S, Keys.Left, Keys.Right, Keys.Up, Keys.Down };
             inputTable.RegisterMapping(new MultipleKeyReleaseTrigger(moveKeys), new StopMoving(player));
+
 
             //Player uses a cast move
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Cast(player));

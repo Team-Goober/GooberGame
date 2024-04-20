@@ -49,13 +49,21 @@ namespace Sprint.Characters
             // Apply friction to gradually slow down the object
             newVelocity *= (1f - friction);
 
-            // Clamp velocity to ensure it does not exceed the speed limit
+            // Clamp velocity components to ensure they don't exceed the speed limit
             newVelocity.X = MathHelper.Clamp(newVelocity.X, -speedLimit, speedLimit);
             newVelocity.Y = MathHelper.Clamp(newVelocity.Y, -speedLimit, speedLimit);
+
+            // If the magnitude of the velocity exceeds the speed limit, normalize it and scale it to the limit
+            if (newVelocity.LengthSquared() > speedLimit * speedLimit)
+            {
+                newVelocity = Vector2.Normalize(newVelocity) * speedLimit;
+            }
 
             // Update velocity
             Velocity = newVelocity;
         }
+
+
 
 
         public void Update(GameTime gameTime)

@@ -40,6 +40,7 @@ namespace Sprint.Characters
         private int maxHealth = CharacterConstants.STARTING_HEALTH;
         private double health = CharacterConstants.STARTING_HEALTH;
         private float speed = CharacterConstants.PLAYER_SPEED;
+        private Boolean stopped = false;
 
         // Weapons
         private SimpleProjectileFactory secondaryItems;
@@ -85,6 +86,8 @@ namespace Sprint.Characters
 
         // Acceleration vector for player movement
         private Vector2 acceleration = Vector2.Zero;
+        private Vector2 accelerationDirection = Vector2.Zero;
+        private float accelerationRate = CharacterConstants.ACCELERATION_RATE;
         private float speedLimit = CharacterConstants.PLAYER_SPEED;
 
         //declares the move systems for the main character sprite
@@ -242,10 +245,10 @@ namespace Sprint.Characters
         // Removes velocity and changes animation to match lack of movement
         public void StopMoving()
         {
-            physics.SetAcceleration(Vector2.Zero);
-            physics.SetVelocity(Vector2.Zero);
+            accelerationDirection = Vector2.Zero;
             returnToBaseAnim();
         }
+
 
         // Return to base animation cycle based on states and facing dir
         private void returnToBaseAnim()
@@ -299,6 +302,7 @@ namespace Sprint.Characters
 
         }
 
+        /*
         public void MoveLeft()
         {
             // Don't move while shielding
@@ -345,12 +349,74 @@ namespace Sprint.Characters
 
         public void MoveDiagonal(Vector2 direction)
         {
-            // Don't move while shielding
-           
-            float diagonalSpeed = CharacterConstants.PLAYER_SPEED / (float)(Math.Sqrt(2) * 64); // Diagonal movement speed
+            float diagonalSpeed = CharacterConstants.PLAYER_SPEED / (float)(Math.Sqrt(2)); // Diagonal movement speed
             Vector2 newAcceleration = direction * CharacterConstants.ACCELERATION_RATE;
             physics.SetAcceleration(newAcceleration);
         }
+        */
+
+        public void MoveLeft()
+        {
+            accelerationDirection.X = -1;
+            sprite.SetAnimation("left");
+            Facing = Directions.LEFT;
+            baseAnim = AnimationCycle.Walk;
+        }
+
+        public void MoveRight()
+        {
+            accelerationDirection.X = 1;
+            sprite.SetAnimation("right");
+            Facing = Directions.RIGHT;
+            baseAnim = AnimationCycle.Walk;
+        }
+
+        public void MoveUp()
+        {
+            accelerationDirection.Y = -1;
+            sprite.SetAnimation("up");
+            Facing = Directions.UP;
+            baseAnim = AnimationCycle.Walk;
+        }
+
+        public void MoveDown()
+        {
+            accelerationDirection.Y = 1;
+            sprite.SetAnimation("down");
+            Facing = Directions.DOWN;
+            baseAnim = AnimationCycle.Walk;
+        }
+
+        public void StopMovingLeftRight()
+        {
+            // Check if player is still moving left or right, but not both
+            if ((accelerationDirection.X == -1 && accelerationDirection.Y == 0) ||
+                (accelerationDirection.X == 1 && accelerationDirection.Y == 0))
+            {
+                accelerationDirection.X = 0;
+            }
+            // If player is still moving diagonally up or down-right, update the acceleration to only up or down
+            else if (accelerationDirection.Y != 0)
+            {
+                accelerationDirection.X = 0;
+            }
+        }
+
+        public void StopMovingUpDown()
+        {
+            // Check if player is still moving up or down, but not both
+            if ((accelerationDirection.Y == -1 && accelerationDirection.X == 0) ||
+                (accelerationDirection.Y == 1 && accelerationDirection.X == 0))
+            {
+                accelerationDirection.Y = 0;
+            }
+            // If player is still moving diagonally left or right-down, update the acceleration to only left or right
+            else if (accelerationDirection.X != 0)
+            {
+                accelerationDirection.Y = 0;
+            }
+        }
+
 
 
         public Physics GetPhysic()
@@ -361,33 +427,42 @@ namespace Sprint.Characters
         public override void Update(GameTime gameTime)
         {
 
+            // Update the acceleration based on the current acceleration direction
+            physics.SetAcceleration(accelerationDirection * accelerationRate);
+
             // Update the velocity using the Physics component
             physics.UpdateVelocity(CharacterConstants.STILL_FRICTION, speedLimit, gameTime);
 
-            // Check if the player is not moving to return to the base animation
-            if (physics.Velocity == Vector2.Zero)
+            if (physics.Acceleration == Vector2.Zero)
             {
                 sprite.SetAnimation("down");
                 damagedSprite.SetAnimation("down");
             }
 
-            // Determine the direction of movement to set the correct walking animation
 
-            if (physics.Velocity.X > 0)
+            // Determine the animation based on acceleration
+            if (physics.Acceleration != Vector2.Zero)
             {
-                Facing = Directions.RIGHT;
-            }
-            else if (physics.Velocity.X < 0)
+                        if (physics.Acceleration.X > 0)
+                        {
+                            Facing = Directions.RIGHT;
+                        }
+                        else if (physics.Acceleration.X < 0)
+                        {
+                            Facing = Directions.LEFT;
+                        }
+                        else if (physics.Acceleration.Y > 0)
+                        {
+                            Facing = Directions.DOWN;
+                        }
+                        else if (physics.Acceleration.Y < 0)
+                        {
+                            Facing = Directions.UP;
+                        }
+            }           
+            else
             {
-                Facing = Directions.LEFT;
-            }
-            else if (physics.Velocity.Y > 0)
-            {
-                Facing = Directions.DOWN;
-            }
-            else if (physics.Velocity.Y < 0)
-            {
-                Facing = Directions.UP;
+                returnToBaseAnim();
             }
 
 
