@@ -19,6 +19,7 @@ using Sprint.Sprite;
 using System.Collections.Generic;
 using Sprint.Music.Sfx;
 using Sprint.Functions.States;
+using System.Diagnostics;
 
 namespace Sprint
 {
@@ -28,7 +29,7 @@ namespace Sprint
         private Goober game;
         private ContentManager contentManager;
         private SpriteLoader spriteLoader;
-        
+
         private IInputMap inputTable;
         private CollisionDetector collisionDetector;
 
@@ -106,6 +107,7 @@ namespace Sprint
 
             player.OnPlayerHealthChange -= hudLoader.UpdateHeartAmount;
             player.OnPlayerMaxHealthChange -= hudLoader.UpdateMaxHeartAmount;
+
         }
 
         // Generates all commands available while the player is moving in a room
@@ -137,11 +139,6 @@ namespace Sprint
             inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.S), new ReleaseWalk(player, Directions.DOWN));
             inputTable.RegisterMapping(new SingleKeyReleaseTrigger(Keys.D), new ReleaseWalk(player, Directions.RIGHT));
 
-            // Register command to stop movement when multiple movement keys are released
-            Keys[] moveKeys = { Keys.A, Keys.D, Keys.W, Keys.S, Keys.Left, Keys.Right, Keys.Up, Keys.Down };
-            inputTable.RegisterMapping(new MultipleKeyReleaseTrigger(moveKeys), new StopMoving(player));
-
-
 
             //Player uses a cast move
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.Z), new Cast(player));
@@ -165,6 +162,9 @@ namespace Sprint
 
             // Switching to the inventory state
             inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.I), new OpenInventoryCommand(this));
+
+            // Press to give player 10 rupees
+            inputTable.RegisterMapping(new SingleKeyPressTrigger(Keys.P), new EarnCommand(player, 10));
 
             // Middle click through doors
             for (int d = 0; d < 4; d++)
@@ -430,6 +430,11 @@ namespace Sprint
             GameOverState death = new GameOverState(game, hudLoader);
             death.GetHUDScene(hudLoader.GetTopDisplay());
             PassToState(death);
+        }
+
+        public void Continue()
+        {
+            player.Heal();
         }
 
         public Point RoomIndex()
